@@ -18,8 +18,9 @@ class PotongController extends Controller
      */
     public function index()
     {
-        $bahan = Bahan::all()->where('status', 'bahan keluar');
-        return view("backend.potong.index", ['bahan' => $bahan]);
+        $bahan = Bahan::doesntHave('potong')->where('status', 'bahan keluar')->get();
+        $masuk = Potong::all()->where('status', 'potong masuk');
+        return view("backend.potong.index", ['bahan' => $bahan, 'masuk' => $masuk]);
     }
 
     /**
@@ -153,7 +154,83 @@ class PotongController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if ($request->get('status') == 'potong masuk') {
+            $validator = Validator::make($request->all(), [
+
+                'no_surat' => 'required',
+                'tanggal_cutting' => 'required',
+                'tanggal_selesai' => 'required',
+                'hasil_cutting' => 'required',
+                'konversi' => 'required'
+            ]);
+        } else {
+            $validator = Validator::make($request->all(), [
+                'kode_bahan' =>  'required',
+                'no_surat' => 'required',
+                'nama_bahan' => 'required',
+                'jenis_bahan' => 'required',
+                'warna' => 'required',
+                'vendor' => 'required',
+                'tanggal' => 'required',
+                'panjang_bahan' => 'required',
+                'sku' => 'required'
+            ]);
+        }
+
+        if ($validator->fails()) {
+            $html = '';
+            $html .= '<div class="alert alert-danger" role="alert">
+                ' . $validator->errors()->first() . '
+              </div>';
+
+            return response()->json([
+                'status' => false,
+                'data' => $html
+            ]);
+        } else {
+            $jumlah = $request->get('jumlah');
+            $dataukuran = $request->get('dataukuran');
+            $iddetail = $request->get('iddetailukuran');
+            $hasil_cut = $request->get('hasil_cutting');
+            $arr = [];
+            $sum = 0;
+            foreach ($dataukuran as $key => $value) {
+                if ($jumlah[$key] >= 0 && !empty($iddetail[$key])) {
+                    $x['id'] = $iddetail[$key];
+                    $x['ukuran'] = $value;
+                    $x['jumlah'] = $jumlah[$key];
+                    array_push($arr, $x);
+                }
+            }
+            // return response()->json($iddetail);
+            $potong = Potong::findOrFail($request->get('id'));
+            $potong->no_surat = $request->get('no_surat');
+            $potong->tanggal_cutting = date('Y-m-d', strtotime($request->get('tanggal_cutting')));
+            $potong->tanggal_selesai = date('Y-m-d', strtotime($request->get('tanggal_selesai')));
+            $potong->hasil_cutting = $request->get('hasil_cutting');
+            $potong->konversi = $request->get('konversi');
+            if ($request->get('status') == 'potong masuk') {
+                $potong->status = "potong masuk";
+            } else {
+                $potong->status = "potong keluar";
+            }
+            $potong->save();
+
+            foreach ($arr as $key => $value) {
+                $detail = DetailPotong::findOrFail($value['id']);
+                $detail->size = $value['ukuran'];
+                $detail->jumlah = $value['jumlah'];
+                $detail->save();
+            }
+
+
+
+            $html = '<div class="alert alert-success" role="alert">Data potong berhasil diupdate</div>';
+            return response()->json([
+                'status' => true,
+                'data' => $html
+            ]);
+        }
     }
 
     /**
@@ -165,5 +242,17 @@ class PotongController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getDataPotong(Request $request)
+    {
+        if ($request->ajax()) {
+            $potong = Potong::with(['detail_potong', 'bahan'])->where('id', $request->get('id'))->first();
+
+            return response()->json([
+                'status' => true,
+                'data' => $potong
+            ]);
+        }
     }
 }

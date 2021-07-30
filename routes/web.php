@@ -28,11 +28,15 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['prefix' => 'production', 'namespace' => 'Backend', 'middleware' => 'AuthBackend'], function () {
     Route::resource('dashboard', 'DashboardController');
 
-    Route::group(['prefix'=>'bahan','as'=>'bahan.'],function () {
-        Route::get('/getdatabahan','BahanController@getDataBahan')->name('getdata');
+    Route::group(['prefix' => 'bahan', 'as' => 'bahan.'], function () {
+        Route::get('/getdatabahan', 'BahanController@getDataBahan')->name('getdata');
+
     });
     Route::resource('bahan', 'BahanController');
 
-    Route::resource('potong', 'PotongController');
+    Route::group(['prefix' => 'potong', 'as' => 'potong.'], function () {
+        Route::get('/getdatapotong', 'PotongController@getDataPotong')->name('getdata');
 
+    });
+    Route::resource('potong', 'PotongController');
 });

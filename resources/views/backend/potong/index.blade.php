@@ -6,10 +6,10 @@
 
 @section('content')
 <style>
-.modal-body {
-    max-height: calc(100vh - 210px);
-    overflow-y: auto;
-}
+    .modal-body {
+        max-height: calc(100vh - 210px);
+        overflow-y: auto;
+    }
 </style>
 <div id="non-printable">
     <section class="section">
@@ -62,54 +62,57 @@
                                             <tr>
                                                 <th scope="col">No</th>
                                                 <th scope="col">Kode Bahan</th>
+                                                <th scope="col">SKU</th>
                                                 <th scope="col">Jenis Kain</th>
-                                                <th scope="col">Nama Bahan</th>
                                                 <th scope="col">Warna Kain</th>
-                                                <th scope="col">Vendor</th>
+                                                <th scope="col">Tanggal Cutting</th>
+                                                <th scope="col">Tanggal Selesai</th>
                                                 <th scope="col">Surat Jalan</th>
-                                                <th scope="col">Qty</th>
                                                 <th scope="col">Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody id="">
 
-                                            {{-- @forelse ($masuk as $item)
+                                            @forelse ($masuk as $item)
                                             <tr>
                                                 <td>{{$loop->iteration}}</td>
-                                            <td>{{$item->kode_bahan}}</td>
-                                            <td>{{$item->jenis_bahan}}</td>
-                                            <td>{{$item->nama_bahan}}</td>
-                                            <td>{{$item->warna}}</td>
-                                            <td>{{$item->vendor}}</td>
-                                            <td>{{$item->no_surat}}</td>
-                                            <td>{{$item->panjang_bahan}}</td>
-                                            <td>
-                                                <div class="dropdown dropleft">
-                                                    <a class="" href="#" id="dropdownMenuButton" data-toggle="dropdown"
-                                                        aria-haspopup="true" aria-expanded="false">
-                                                        <i class="fa fa-ellipsis-h"></i>
-                                                    </a>
-                                                    <div class="dropdown-menu text-center"
-                                                        aria-labelledby="dropdownMenuButton">
+                                                <td>{{$item->bahan->kode_bahan}}</td>
+                                                <td>{{$item->bahan->sku}}</td>
+                                                <td>{{$item->bahan->jenis_bahan}}</td>
+                                                <td>{{$item->bahan->warna}}</td>
+                                                <td>{{$item->tanggal_cutting}}</td>
+                                                <td>{{$item->tanggal_selesai}}</td>
+                                                <td>{{$item->no_surat}}</td>
+                                                <td>
+                                                    <div class="dropdown dropleft">
+                                                        <a class="" href="#" id="dropdownMenuButton"
+                                                            data-toggle="dropdown" aria-haspopup="true"
+                                                            aria-expanded="false">
+                                                            <i class="fa fa-ellipsis-h"></i>
+                                                        </a>
+                                                        <div class="dropdown-menu text-center"
+                                                            aria-labelledby="dropdownMenuButton">
 
-                                                        <a class="dropdown-item btndetailmasuk" href="#"
-                                                            data-id="{{$item->id}}"><i class="fas fa-eye"></i>
-                                                            Detail</a>
-                                                        <a class="dropdown-item btnprintmasuk" href="#"
-                                                            data-id="{{$item->id}}"><i class="fas fa-print"></i>
-                                                            Print</a>
-                                                        <a class="dropdown-item btneditmasuk" href="#"
-                                                            data-id="{{$item->id}}"><i class="fas fa-edit"></i> Edit</a>
-                                                        <a class="dropdown-item" href="#"><i class="fa fa-trash"></i>
-                                                            Delete</a>
+                                                            <a class="dropdown-item btndetailmasuk" href="#"
+                                                                data-id="{{$item->id}}"><i class="fas fa-eye"></i>
+                                                                Detail</a>
+                                                            <a class="dropdown-item btnprintmasuk" href="#"
+                                                                data-id="{{$item->id}}"><i class="fas fa-print"></i>
+                                                                Print</a>
+                                                            <a class="dropdown-item btneditmasuk" href="#"
+                                                                data-id="{{$item->id}}"><i class="fas fa-edit"></i>
+                                                                Edit</a>
+                                                            <a class="dropdown-item" href="#"><i
+                                                                    class="fa fa-trash"></i>
+                                                                Delete</a>
 
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </td>
+                                                </td>
                                             </tr>
                                             @empty
 
-                                            @endforelse --}}
+                                            @endforelse
 
                                         </tbody>
                                     </table>
@@ -205,18 +208,26 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="kode_bahan">Kode Bahan</label>
-                                    <select class="form-control" id="kode_bahanselect" name="kode_bahan">
-                                        <option value="">Pilih Kode Bahan</option>
-                                        @forelse ($bahan as $item)
-                                        <option value="{{$item->id}}">{{$item->kode_bahan}} | {{$item->nama_bahan}}
-                                        </option>
-                                        @empty
+                                    <div id="kdbahanselectmasuk">
+                                        <select class="form-control" id="kode_bahanselect" name="kode_bahan">
+                                            <option value="">Pilih Kode Bahan</option>
+                                            @forelse ($bahan as $item)
+                                            <option value="{{$item->id}}">{{$item->kode_bahan}} | {{$item->nama_bahan}}
+                                            </option>
+                                            @empty
 
-                                        @endforelse
+                                            @endforelse
 
 
-                                    </select>
+                                        </select>
+                                    </div>
+
+                                    <div id="kdbahanmasuk">
+                                        <input type="text" class="form-control" readonly
+                                        id="kdbahanreadmasuk" name="kdbahanreadmasuk">
+                                    </div>
                                 </div>
+
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -229,8 +240,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="tanggal_cutting">Tanggal Cutting</label>
-                                    <input type="date" class="form-control" readonly required value="{{date('Y-m-d')}}" id="tanggal_cutting"
-                                        name="tanggal_cutting">
+                                    <input type="date" class="form-control" readonly required value="{{date('Y-m-d')}}"
+                                        id="tanggal_cutting" name="tanggal_cutting">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -245,7 +256,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="jenis_kain">Jenis Kain</label>
-                                    <input type="text" class="form-control" readonly required id="jenis_kain" name="jenis_kain">
+                                    <input type="text" class="form-control" readonly required id="jenis_kain"
+                                        name="jenis_kain">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -317,40 +329,46 @@
                                 <div class="form-group">
                                     <label for="ukuran">S</label>
                                     <input type="hidden" name="dataukuran[]" value="S">
-                                    <input type="number" class="form-control" required id="ukuran" name="jumlah[]">
+                                    <input type="hidden" name="iddetailukuran[]" id="iddetails">
+                                    <input type="number" class="form-control" required id="jumlahs" name="jumlah[]">
                                 </div>
                             </div>
                             <div class="col-md-2" id="ukuranm">
                                 <div class="form-group">
                                     <label for="ukuran">M</label>
                                     <input type="hidden" name="dataukuran[]" value="M">
-                                    <input type="number" class="form-control" required id="ukuran" name="jumlah[]">
+                                    <input type="hidden" name="iddetailukuran[]" id="iddetailm">
+                                    <input type="number" class="form-control" required id="jumlahm" name="jumlah[]">
                                 </div>
                             </div>
                             <div class="col-md-2" id="ukuranl">
                                 <div class="form-group">
                                     <label for="ukuran">L</label>
                                     <input type="hidden" name="dataukuran[]" value="L">
-                                    <input type="number" class="form-control" required id="ukuran" name="jumlah[]">
+                                    <input type="hidden" name="iddetailukuran[]" id="iddetaill">
+                                    <input type="number" class="form-control" required id="jumlahl" name="jumlah[]">
                                 </div>
                             </div>
                             <div class="col-md-2" id="ukuranxl">
                                 <div class="form-group">
                                     <label for="ukuran">XL</label>
                                     <input type="hidden" name="dataukuran[]" value="XL">
-                                    <input type="number" class="form-control" required id="ukuran" name="jumlah[]">
+                                    <input type="hidden" name="iddetailukuran[]" id="iddetailxl">
+                                    <input type="number" class="form-control" required id="jumlahxl" name="jumlah[]">
                                 </div>
                             </div>
                             <div class="col-md-2" id="ukuranxxl">
                                 <div class="form-group">
                                     <label for="ukuran">XXL</label>
                                     <input type="hidden" name="dataukuran[]" value="XXL">
-                                    <input type="number" class="form-control" required id="ukuran" name="jumlah[]">
+                                    <input type="hidden" name="iddetailukuran[]" id="iddetailxxl">
+                                    <input type="number" class="form-control" required id="jumlahxxl" name="jumlah[]">
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group" style="margin-top: 30px">
-                                    <button type="button" class="btn btn-outline-primary" id="btnsize">Tambah Size</button>
+                                    <button type="button" class="btn btn-outline-primary" id="btnsize">Tambah
+                                        Size</button>
                                 </div>
                             </div>
                         </div>
@@ -508,6 +526,7 @@
               $('#ukuranl').hide()
               $('#ukuranxl').hide()
               $('#ukuranxxl').hide()
+
               $('.btnkeluar').prop('id','btnsimpankeluar')
               $('#tabelbahanmasuk').DataTable()
               $('#tabelbahankeluar').DataTable()
@@ -603,52 +622,88 @@
              $(document).on('click','.btneditmasuk',function () {
                     var id = $(this).data('id');
                     $('.btnmasuk').prop('id','btnupdatemasuk')
-                    $('#bahanMasukLabel').text('Edit Data [Bahan Masuk]')
-                    $('#kode_bahan').prop('readonly', true)
-                    $('#bahanMasuk').modal('show')
-
+                    $('#potongMasukLabel').text('Edit Data [Potong Masuk]')
+                    $('#kdbahanselectmasuk').hide()
+                    $('#potongMasuk').modal('show')
+                    $('#kdbahanmasuk').show()
                     $.ajax({
-                        url:"{{route('bahan.getdata')}}",
+                        url:"{{route('potong.getdata')}}",
                         method:"GET",
                         data:{
                             'id':id
                         }
 
                     }).done(function (response) {
+                        console.log(response);
                             if(response.status){
                                 var data = response.data;
+                                var detail = data.detail_potong;
+                                var bahan = data.bahan;
+
                                 $('#idmasuk').val(data.id)
-                                $('#kode_bahan').val(data.kode_bahan)
+                                $('#kdbahanreadmasuk').val(bahan.kode_bahan)
                                 $('#no_surat').val(data.no_surat)
-                                $('#nama_bahan').val(data.nama_bahan)
-                                $('#jenis_bahan').val(data.jenis_bahan)
-                                $('#warna').val(data.warna)
-                                $('#vendor').val(data.vendor)
-                                $('#tanggal_masuk').val(data.tanggal_masuk)
-                                $('#panjang_bahan').val(data.panjang_bahan)
+                                $('#nama_produk').val(bahan.nama_bahan)
+                                $('#jenis_kain').val(bahan.jenis_bahan)
+                                $('#warna').val(bahan.warna)
+                                $('#sku').val(bahan.sku)
+                                $('#tanggal_cutting').val(data.tanggal_cutting)
+                                $('#tanggal_selesai').val(data.tanggal_selesai)
+                                $('#hasil_cutting').val(data.hasil_cutting)
+                                $('#konversi').val(data.konversi)
+                                $('#panjang_kain').val(bahan.panjang_bahan)
+
+                                detail.forEach(element => {
+                                        if(element.size == 'S' && element.jumlah > 0){
+                                            $('#jumlahs').val(element.jumlah)
+                                            $('#iddetails').val(element.id)
+                                        }else if(element.size == 'M' && element.jumlah > 0){
+                                            $('#jumlahm').val(element.jumlah)
+                                            $('#iddetailm').val(element.id)
+                                            $('#ukuranm').show()
+                                        }
+                                        else if(element.size == 'L' && element.jumlah > 0){
+                                            $('#jumlahl').val(element.jumlah)
+                                            $('#iddetaill').val(element.id)
+                                            $('#ukuranl').show()
+                                        }
+                                        else if(element.size == 'XL' && element.jumlah > 0){
+                                            $('#jumlahxl').val(element.jumlah)
+                                            $('#iddetailxl').val(element.id)
+                                            $('#ukuranxl').show()
+                                        }
+                                        else if(element.size == 'XXL' && element.jumlah > 0){
+                                            $('#jumlahxxl').val(element.jumlah)
+                                            $('#iddetailxxl').val(element.id)
+                                            $('#ukuranxxl').show()
+                                        }
+                                });
                             }
                     })
               })
 
             $(document).on('click','#btnupdatemasuk', function () {
                 var id = $('#idmasuk').val()
-                var form = $('#formBahanMasuk').serialize()
+                var form = $('#formpotongMasuk').serialize()
+
                 ajax()
                 $.ajax({
-                    url:"{{url('production/bahan/')}}/"+id,
+                    url:"{{url('production/potong/')}}/"+id,
                     method:"PUT",
                     data:form
                 }).done(function (response) {
+                    console.log(response);
+                    // return false;
                     if(response.status){
-                        $('#alert-bahan-masuk').html(response.data)
+                        $('#alert-potong-masuk').html(response.data)
                         setTimeout(function(){
-                            $('#alert-bahan-masuk').empty()
+                            $('#alert-potong-masuk').empty()
                             location.reload(true)
                         },1500)
 
 
                     }else{
-                        $('#alert-bahan-masuk').html(response.data)
+                        $('#alert-potong-masuk').html(response.data)
                         return false;
                     }
                 })

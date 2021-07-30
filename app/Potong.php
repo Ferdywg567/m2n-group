@@ -6,5 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Potong extends Model
 {
-    //
+    public function bahan()
+    {
+        return $this->belongsTo('App\Bahan');
+    }
+
+    public function detail_potong()
+    {
+        return $this->hasMany('App\DetailPotong');
+    }
 }
