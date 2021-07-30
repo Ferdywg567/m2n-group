@@ -380,7 +380,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="no_surat">Nomor Surat Jalan</label>
+                                    <label for="no_surat_keluar">Nomor Surat Jalan</label>
                                     <input type="text" class="form-control" required id="no_surat_keluar" name="no_surat">
                                 </div>
                             </div>
@@ -591,6 +591,14 @@
                 $('#ukuranl').hide()
                 $('#ukuranxl').hide()
                 $('#ukuranxxl').hide()
+                $('#jumlahs').prop('readonly', false)
+                $('#jumlahm').prop('readonly', false)
+                $('#jumlahl').prop('readonly', false)
+                $('#jumlahxl').prop('readonly', false)
+                $('#jumlahxxl').prop('readonly', false)
+                $('#tanggal_keluar').prop('readonly', false)
+                $('#no_surat_keluar').prop('readonly', false)
+                $('#hasil_cutting').prop('readonly', false)
               });
 
               $('#hasil_cutting').on('keyup', function(){
@@ -931,22 +939,18 @@
              $(document).on('click','.btndetailkeluar',function () {
                     var id = $(this).data('id');
                     $('.btnkeluar').hide()
-                    $('.kdbahanselect').hide()
-                    $('#kdbahanreadonly').show()
-                    $('#bahanKeluarLabel').text('Detail Data [Bahan Keluar]')
+                    $('#kdbahanselectkeluar').hide()
+                    $('#kdbahankeluar').show()
+                    $('#potongKeluarLabel').text('Detail Data [Potong Keluar]')
                     $('#kode_bahan').prop('readonly', true)
-                    $('#bahanKeluar').modal('show')
-                    $('#kode_bahanreadonly').prop('readonly', true)
-                    $('#no_surat_keluar').prop('readonly', true)
-                    $('#sku').prop('readonly', true)
-                    $('#nama_bahan_keluar').prop('readonly', true)
-                    $('#jenis_bahan_keluar').prop('readonly', true)
-                    $('#warna_keluar').prop('readonly', true)
-                    $('#vendor_keluar').prop('readonly', true)
+                    $('#potongKeluar').modal('show')
+
                     $('#tanggal_keluar').prop('readonly', true)
-                    $('#panjang_bahan_keluar').prop('readonly', true)
+                    $('#no_surat_keluar').prop('readonly', true)
+                    $('#hasil_cutting').prop('readonly', true)
+
                     $.ajax({
-                        url:"{{route('bahan.getdata')}}",
+                        url:"{{route('potong.getdata')}}",
                         method:"GET",
                         data:{
                             'id':id
@@ -955,15 +959,52 @@
                     }).done(function (response) {
                             if(response.status){
                                 var data = response.data;
-                                $('#kode_bahanreadonly').val(data.kode_bahan)
+                                var bahan = data.bahan;
+                                var detail = data.detail_potong
+
+                                $('#kdbahanreadkeluar').val(bahan.kode_bahan)
                                 $('#no_surat_keluar').val(data.no_surat)
-                                $('#sku').val(data.sku)
-                                $('#nama_bahan_keluar').val(data.nama_bahan)
-                                $('#jenis_bahan_keluar').val(data.jenis_bahan)
-                                $('#warna_keluar').val(data.warna)
-                                $('#vendor_keluar').val(data.vendor)
+                                $('#nama_produk_keluar').val(bahan.nama_bahan)
+                                $('#jenis_kain_keluar').val(bahan.jenis_bahan)
+                                $('#warna_keluar').val(bahan.warna)
+                                $('#sku_keluar').val(bahan.sku)
                                 $('#tanggal_keluar').val(data.tanggal_keluar)
-                                $('#panjang_bahan_keluar').val(data.panjang_bahan)
+                                $('#tanggal_selesai').val(data.tanggal_selesai)
+                                $('#hasil_cutting').val(data.hasil_cutting)
+                                $('#konversi').val(data.konversi)
+
+                                $('#panjang_kain_keluar').val(bahan.panjang_bahan)
+
+                                detail.forEach(element => {
+                                        if(element.size == 'S' && element.jumlah > 0){
+                                            $('#jumlahs').val(element.jumlah)
+                                            $('#iddetails').val(element.id)
+                                            $('#jumlahs').prop('readonly', true)
+                                        }else if(element.size == 'M' && element.jumlah > 0){
+                                            $('#jumlahm').val(element.jumlah)
+                                            $('#iddetailm').val(element.id)
+                                            $('#jumlahm').prop('readonly', true)
+                                            $('#ukuranm').show()
+                                        }
+                                        else if(element.size == 'L' && element.jumlah > 0){
+                                            $('#jumlahl').val(element.jumlah)
+                                            $('#iddetaill').val(element.id)
+                                            $('#jumlahl').prop('readonly', true)
+                                            $('#ukuranl').show()
+                                        }
+                                        else if(element.size == 'XL' && element.jumlah > 0){
+                                            $('#jumlahxl').val(element.jumlah)
+                                            $('#iddetailxl').val(element.id)
+                                            $('#jumlahxl').prop('readonly', true)
+                                            $('#ukuranxl').show()
+                                        }
+                                        else if(element.size == 'XXL' && element.jumlah > 0){
+                                            $('#jumlahxxl').val(element.jumlah)
+                                            $('#iddetailxxl').val(element.id)
+                                            $('#jumlahxxl').prop('readonly', true)
+                                            $('#ukuranxxl').show()
+                                        }
+                                });
                             }
                     })
               })
