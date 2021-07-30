@@ -30,9 +30,9 @@
                                     </button>
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item" href="#" data-toggle="modal"
-                                            data-target="#potongMasuk">Potong Masuk</a>
+                                            data-target="#jahitMasuk">Jahit Masuk</a>
                                         <a class="dropdown-item" href="#" data-toggle="modal"
-                                            data-target="#potongKeluar">Potong Keluar</a>
+                                            data-target="#jahitKeluar">Jahit Keluar</a>
 
                                     </div>
                                 </div>
@@ -45,19 +45,19 @@
                             <div class="ml-2">
                                 <nav>
                                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                        <a class="nav-item nav-link active" id="nav-bahanmasuk-tab" data-toggle="tab"
-                                            href="#nav-bahanmasuk" role="tab" aria-controls="nav-bahanmasuk"
-                                            aria-selected="true">Potong Masuk</a>
+                                        <a class="nav-item nav-link active" id="nav-masuk-tab" data-toggle="tab"
+                                            href="#nav-masuk" role="tab" aria-controls="nav-masuk"
+                                            aria-selected="true">Jahit Masuk</a>
                                         <a class="nav-item nav-link" id="nav-keluar-tab" data-toggle="tab"
                                             href="#nav-keluar" role="tab" aria-controls="nav-keluar"
-                                            aria-selected="false">Potong Keluar</a>
+                                            aria-selected="false">Jahit Keluar</a>
                                     </div>
                                 </nav>
                             </div>
                             <div class="tab-content ml-2 mr-2" id="nav-tabContent">
-                                <div class="tab-pane fade show active" id="nav-bahanmasuk" role="tabpanel"
-                                    aria-labelledby="nav-bahanmasuk-tab">
-                                    <table class="table table-hover" id="tabelbahanmasuk">
+                                <div class="tab-pane fade show active" id="nav-masuk" role="tabpanel"
+                                    aria-labelledby="nav-masuk-tab">
+                                    <table class="table table-hover" id="tabelmasuk">
                                         <thead>
                                             <tr>
                                                 <th scope="col">No</th>
@@ -210,17 +210,17 @@
 
     {{-- Modal Bahan Masuk --}}
 
-    <div class="modal fade" id="potongMasuk" tabindex="-1" role="dialog" aria-labelledby="potongMasukLabel"
+    <div class="modal fade" id="jahitMasuk" tabindex="-1" role="dialog" aria-labelledby="jahitMasukLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="potongMasukLabel">Input Data [Potong Masuk]</h5>
+                    <h5 class="modal-title" id="jahitMasukLabel">Input Data [Potong Masuk]</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form id="formpotongMasuk">
+                <form id="formjahitMasuk">
                     <div class="modal-body">
                         <div id="alert-potong-masuk">
 
@@ -335,17 +335,17 @@
 
     {{-- Modal Bahan Keluar --}}
 
-    <div class="modal fade" id="potongKeluar" tabindex="-1" role="dialog" aria-labelledby="potongKeluarLabel"
+    <div class="modal fade" id="jahitKeluar" tabindex="-1" role="dialog" aria-labelledby="jahitKeluarLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="potongKeluarLabel">Input Data [Potong Keluar]</h5>
+                    <h5 class="modal-title" id="jahitKeluarLabel">Input Data [Potong Keluar]</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form id="formpotongKeluar">
+                <form id="formjahitKeluar">
                     <div class="modal-body">
                         <div id="alert-potong-keluar">
 
@@ -563,7 +563,7 @@
               $('#kdbahanselectkeluar').show()
               $('#kdbahankeluar').hide()
               $('.btnkeluar').prop('id','btnsimpankeluar')
-              $('#tabelbahanmasuk').DataTable()
+              $('#tabelmasuk').DataTable()
               $('#tabelbahankeluar').DataTable()
               $('#kode_bahanselect').select2()
               $('#kode_bahanselectkeluar').select2()

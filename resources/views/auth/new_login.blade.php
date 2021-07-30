@@ -14,7 +14,7 @@
     </div>
 </div>
 @endif
-{{-- @include('backend.include.alert') --}}
+@include('backend.include.alert')
 <div class="card card-primary">
     <div class="card-header">
         <h4>Hello, silahkan masuk dengan akun Anda!</h4>

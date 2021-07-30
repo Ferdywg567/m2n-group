@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 
 class LoginController extends Controller
 {
@@ -21,6 +23,11 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
+
+    public function showLoginForm()
+    {
+        return view('auth.new_login');
+    }
     /**
      * Where to redirect users after login.
      *
@@ -33,8 +40,33 @@ class LoginController extends Controller
      *
      * @return void
      */
+
+    public function logout(Request $request)
+    {
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        if ($response = $this->loggedOut($request)) {
+            return $response;
+        }
+
+        return $request->wantsJson()
+            ? new JsonResponse([], 204)
+            : redirect()->route('backend.login')->with('alert-info', 'Anda telah keluar, Sampai ketemu lagi!');;
+    }
+
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    protected function authenticated(Request $request, $user)
+    {
+        if ($user->hasRole('production')) {
+            return redirect()->route('dashboard.index');
+        }
     }
 }

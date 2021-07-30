@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use App\User;
 
 class UserSeeder extends Seeder
 {
@@ -13,11 +14,12 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
+        $user = User::create([
             'name' => 'production',
             'email' => 'production@gmail.com',
-            'password' => Hash::make('123456'),
-            'role' => 'production'
+            'password' => Hash::make('123456')
         ]);
+
+        $user->assignRole('production');
     }
 }
