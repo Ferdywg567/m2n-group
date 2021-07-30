@@ -32,7 +32,7 @@
                                         <a class="dropdown-item" href="#" data-toggle="modal"
                                             data-target="#potongMasuk">Potong Masuk</a>
                                         <a class="dropdown-item" href="#" data-toggle="modal"
-                                            data-target="#bahanKeluar">Potong Keluar</a>
+                                            data-target="#potongKeluar">Potong Keluar</a>
 
                                     </div>
                                 </div>
@@ -87,9 +87,14 @@
                                                 <td>{{$item->no_surat}}</td>
                                                 <td>
                                                     @if ($item->status_potong == 'belum potong')
-                                                    <span class="badge badge-secondary text-dark">{{$item->status_potong}}</span>
+                                                    <span
+                                                        class="badge badge-secondary text-dark">{{$item->status_potong}}</span>
+                                                    @elseif ($item->status_potong == 'selesai')
+                                                    <span
+                                                        class="badge badge-success text-dark">{{$item->status_potong}}</span>
                                                     @else
-                                                    <span class="badge badge-warning text-dark">{{$item->status_potong}}</span>
+                                                    <span
+                                                        class="badge badge-warning text-dark">{{$item->status_potong}}</span>
                                                     @endif
                                                 </td>
                                                 <td>
@@ -134,50 +139,59 @@
                                             <tr>
                                                 <th scope="col">No</th>
                                                 <th scope="col">Kode Bahan</th>
-                                                <th scope="col">Jenis Kain</th>
                                                 <th scope="col">SKU</th>
-                                                <th scope="col">Nama Bahan</th>
+                                                <th scope="col">Jenis Kain</th>
                                                 <th scope="col">Warna Kain</th>
-                                                <th scope="col">Vendor</th>
+                                                <th scope="col">Tanggal Selesai</th>
+                                                <th scope="col">Tanggal Keluar</th>
                                                 <th scope="col">Surat Jalan</th>
+                                                <th scope="col">Status</th>
                                                 <th scope="col">Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody id="">
-                                            {{-- @forelse ($keluar as $item)
+                                            @forelse ($datakeluar as $item)
                                             <tr>
                                                 <td>{{$loop->iteration}}</td>
-                                            <td>{{$item->kode_bahan}}</td>
-                                            <td>{{$item->jenis_bahan}}</td>
-                                            <td>{{$item->sku}}</td>
-                                            <td>{{$item->nama_bahan}}</td>
-                                            <td>{{$item->warna}}</td>
-                                            <td>{{$item->vendor}}</td>
-                                            <td>{{$item->no_surat}}</td>
-                                            <td>
-                                                <div class="dropdown dropleft">
-                                                    <a class="" href="#" id="dropdownMenuButton" data-toggle="dropdown"
-                                                        aria-haspopup="true" aria-expanded="false">
-                                                        <i class="fa fa-ellipsis-h"></i>
-                                                    </a>
-                                                    <div class="dropdown-menu text-center"
-                                                        aria-labelledby="dropdownMenuButton">
+                                                <td>{{$item->bahan->kode_bahan}}</td>
+                                                <td>{{$item->bahan->sku}}</td>
+                                                <td>{{$item->bahan->jenis_bahan}}</td>
+                                                <td>{{$item->bahan->warna}}</td>
+                                                <td>{{$item->tanggal_selesai}}</td>
+                                                <td>{{$item->tanggal_keluar}}</td>
+                                                <td>{{$item->no_surat}}</td>
+                                                <td>
+                                                    <span
+                                                        class="badge badge-success text-dark">{{$item->status_potong}}</span>
+                                                </td>
 
-                                                        <a class="dropdown-item btndetailkeluar" href="#"
-                                                            data-id="{{$item->id}}"><i class="fas fa-eye"></i>
-                                                            Detail</a>
-                                                        <a class="dropdown-item btneditkeluar" href="#"
-                                                            data-id="{{$item->id}}"><i class="fas fa-edit"></i> Edit</a>
-                                                        <a class="dropdown-item" href="#"><i class="fa fa-trash"></i>
-                                                            Delete</a>
+                                                <td>
+                                                    <div class="dropdown dropleft">
+                                                        <a class="" href="#" id="dropdownMenuButton"
+                                                            data-toggle="dropdown" aria-haspopup="true"
+                                                            aria-expanded="false">
+                                                            <i class="fa fa-ellipsis-h"></i>
+                                                        </a>
+                                                        <div class="dropdown-menu text-center"
+                                                            aria-labelledby="dropdownMenuButton">
 
+                                                            <a class="dropdown-item btndetailkeluar" href="#"
+                                                                data-id="{{$item->id}}"><i class="fas fa-eye"></i>
+                                                                Detail</a>
+                                                            <a class="dropdown-item btneditkeluar" href="#"
+                                                                data-id="{{$item->id}}"><i class="fas fa-edit"></i>
+                                                                Edit</a>
+                                                            <a class="dropdown-item" href="#"><i
+                                                                    class="fa fa-trash"></i>
+                                                                Delete</a>
+
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </td>
+                                                </td>
                                             </tr>
                                             @empty
 
-                                            @endforelse --}}
+                                            @endforelse
 
 
 
@@ -232,8 +246,8 @@
                                     </div>
 
                                     <div id="kdbahanmasuk">
-                                        <input type="text" class="form-control" readonly
-                                        id="kdbahanreadmasuk" name="kdbahanreadmasuk">
+                                        <input type="text" class="form-control" readonly id="kdbahanreadmasuk"
+                                            name="kdbahanreadmasuk">
                                     </div>
                                 </div>
 
@@ -249,8 +263,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="tanggal_cutting">Tanggal Cutting</label>
-                                    <input type="date" class="form-control"  required
-                                        id="tanggal_cutting" name="tanggal_cutting">
+                                    <input type="date" class="form-control" required id="tanggal_cutting"
+                                        name="tanggal_cutting">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -305,6 +319,134 @@
                                     <input type="text" class="form-control" readonly required id="warna" name="warna">
                                 </div>
                             </div>
+
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                        <button type="button" class="btn btn-primary btnmasuk">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    {{-- Modal Bahan Keluar --}}
+
+    <div class="modal fade" id="potongKeluar" tabindex="-1" role="dialog" aria-labelledby="potongKeluarLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="potongKeluarLabel">Input Data [Potong Keluar]</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="formpotongKeluar">
+                    <div class="modal-body">
+                        <div id="alert-potong-keluar">
+
+                        </div>
+                        <input type="hidden" name="status" value="potong keluar">
+                        <input type="hidden" name="id" id="idkeluar">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="kode_bahan">Kode Bahan</label>
+                                    <div id="kdbahanselectkeluar">
+                                        <select class="form-control" id="kode_bahanselectkeluar" name="kode_bahan">
+                                            <option value="">Pilih Kode Bahan</option>
+                                            @forelse ($keluar as $item)
+                                            <option value="{{$item->id}}">{{$item->bahan->kode_bahan}} |
+                                                {{$item->bahan->nama_bahan}}
+                                            </option>
+                                            @empty
+
+                                            @endforelse
+
+
+                                        </select>
+                                    </div>
+
+                                    <div id="kdbahankeluar">
+                                        <input type="text" class="form-control" readonly id="kdbahanreadkeluar"
+                                            name="kdbahanreadkeluar">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="no_surat">Nomor Surat Jalan</label>
+                                    <input type="text" class="form-control" required id="no_surat_keluar" name="no_surat">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="tanggal_selesai_keluar">Tanggal Selesai</label>
+                                    <input type="date" class="form-control" readonly required
+                                        id="tanggal_selesai_keluar" name="tanggal_selesai">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="tanggal_keluar">Tanggal Keluar</label>
+                                    <input type="date" class="form-control" required id="tanggal_keluar"
+                                        name="tanggal_keluar">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="jenis_kain">Jenis Kain</label>
+                                    <input type="text" class="form-control" readonly required id="jenis_kain_keluar"
+                                        name="jenis_kain">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="sku">Kode SKU</label>
+                                    <input type="text" class="form-control" readonly required id="sku_keluar"
+                                        name="sku">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="panjang_kain">Panjang kain</label>
+                                    <div class="input-group mb-2">
+                                        <input type="number" class="form-control" readonly required
+                                            id="panjang_kain_keluar" name="panjang_kain">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">yard</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="nama_produk">Nama Produk</label>
+                                    <input type="text" class="form-control" readonly required id="nama_produk_keluar"
+                                        name="nama_produk">
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="warna">Warna</label>
+                                    <input type="text" class="form-control" readonly required id="warna_keluar"
+                                        name="warna">
+                                </div>
+                            </div>
                             <div class="col-md-6">
                                 <div class="row">
                                     <div class="col-md-6">
@@ -339,7 +481,8 @@
                                     <label for="ukuran">S</label>
                                     <input type="hidden" name="dataukuran[]" value="S">
                                     <input type="hidden" name="iddetailukuran[]" id="iddetails">
-                                    <input type="number" class="form-control" required id="jumlahs" name="jumlah[]">
+                                    <input type="number" min="0" class="form-control" required id="jumlahs"
+                                        name="jumlah[]">
                                 </div>
                             </div>
                             <div class="col-md-2" id="ukuranm">
@@ -347,7 +490,8 @@
                                     <label for="ukuran">M</label>
                                     <input type="hidden" name="dataukuran[]" value="M">
                                     <input type="hidden" name="iddetailukuran[]" id="iddetailm">
-                                    <input type="number" class="form-control" required id="jumlahm" name="jumlah[]">
+                                    <input type="number" min="0" class="form-control" required id="jumlahm"
+                                        name="jumlah[]">
                                 </div>
                             </div>
                             <div class="col-md-2" id="ukuranl">
@@ -355,7 +499,8 @@
                                     <label for="ukuran">L</label>
                                     <input type="hidden" name="dataukuran[]" value="L">
                                     <input type="hidden" name="iddetailukuran[]" id="iddetaill">
-                                    <input type="number" class="form-control" required id="jumlahl" name="jumlah[]">
+                                    <input type="number" min="0" class="form-control" required id="jumlahl"
+                                        name="jumlah[]">
                                 </div>
                             </div>
                             <div class="col-md-2" id="ukuranxl">
@@ -363,7 +508,8 @@
                                     <label for="ukuran">XL</label>
                                     <input type="hidden" name="dataukuran[]" value="XL">
                                     <input type="hidden" name="iddetailukuran[]" id="iddetailxl">
-                                    <input type="number" class="form-control" required id="jumlahxl" name="jumlah[]">
+                                    <input type="number" min="0" class="form-control" required id="jumlahxl"
+                                        name="jumlah[]">
                                 </div>
                             </div>
                             <div class="col-md-2" id="ukuranxxl">
@@ -371,137 +517,14 @@
                                     <label for="ukuran">XXL</label>
                                     <input type="hidden" name="dataukuran[]" value="XXL">
                                     <input type="hidden" name="iddetailukuran[]" id="iddetailxxl">
-                                    <input type="number" class="form-control" required id="jumlahxxl" name="jumlah[]">
+                                    <input type="number" min="0" class="form-control" required id="jumlahxxl"
+                                        name="jumlah[]">
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group" style="margin-top: 30px">
                                     <button type="button" class="btn btn-outline-primary" id="btnsize">Tambah
                                         Size</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                        <button type="button" class="btn btn-primary btnmasuk">Simpan</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-
-    {{-- Modal Bahan Keluar --}}
-
-    <div class="modal fade" id="bahanKeluar" tabindex="-1" role="dialog" aria-labelledby="bahanKeluarLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="bahanKeluarLabel">Input Data [Bahan Keluar]</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form id="formbahanKeluar">
-                    <div class="modal-body">
-                        <div id="alert-bahan-keluar">
-
-                        </div>
-                        <input type="hidden" name="status" value="bahan keluar">
-                        <input type="hidden" name="id" id="idkeluar">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="kode_bahan">Kode Bahan</label>
-                                            <div class="kdbahanselect">
-                                                {{-- <select class="form-control" id="kode_bahanselect" name="kode_bahan">
-                                                    <option value="">Pilih Kode Bahan</option>
-                                                    @forelse ($masuk as $item)
-                                                    <option value="{{$item->id}}">{{$item->kode_bahan}}</option>
-                                                @empty
-
-                                                @endforelse
-
-
-                                                </select> --}}
-                                            </div>
-                                            <div id="kdbahanreadonly">
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control" readonly
-                                                        id="kode_bahanreadonly" name="kode_bahanreadonly">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="sku">SKU</label>
-                                            <input type="text" class="form-control" rea required id="sku" name="sku">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="no_surat">Nomor Surat Jalan</label>
-                                    <input type="text" class="form-control" required readonly id="no_surat_keluar"
-                                        name="no_surat">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="nama_bahan">Nama Bahan</label>
-                                    <input type="text" class="form-control" required readonly id="nama_bahan_keluar"
-                                        name="nama_bahan">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="jenis_bahan">Jenis Bahan</label>
-                                    <input type="text" class="form-control" required readonly id="jenis_bahan_keluar"
-                                        name="jenis_bahan">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="warna">Warna</label>
-                                    <input type="text" class="form-control" required readonly id="warna_keluar"
-                                        name="warna">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="panjang_bahan">Panjang Bahan</label>
-                                    <div class="input-group mb-2">
-                                        <input type="number" class="form-control" required readonly
-                                            id="panjang_bahan_keluar" name="panjang_bahan">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">yard</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="vendor">Vendor</label>
-                                    <input type="text" class="form-control" required readonly id="vendor_keluar"
-                                        name="vendor">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="tanggal_keluar">Tanggal Keluar</label>
-                                    <input type="date" class="form-control" required id="tanggal_keluar" name="tanggal">
                                 </div>
                             </div>
                         </div>
@@ -537,42 +560,37 @@
               $('#ukuranxxl').hide()
               $('#kdbahanselectmasuk').show()
               $('#kdbahanmasuk').hide()
+              $('#kdbahanselectkeluar').show()
+              $('#kdbahankeluar').hide()
               $('.btnkeluar').prop('id','btnsimpankeluar')
               $('#tabelbahanmasuk').DataTable()
               $('#tabelbahankeluar').DataTable()
               $('#kode_bahanselect').select2()
+              $('#kode_bahanselectkeluar').select2()
               $('.btnmasuk').prop('id','btnsimpanmasuk')
               $('#potongMasuk').on('hidden.bs.modal', function() {
                 $(this).find('form').trigger('reset');
                 $('#potongMasukLabel').text('Input Data [Potong Masuk]')
                 $('#alert-potong-masuk').empty()
                 $('.btnmasuk').prop('id','btnsimpanmasuk')
-                $('#ukuranm').hide()
-                $('#ukuranl').hide()
-                $('#ukuranxl').hide()
-                $('#ukuranxxl').hide()
                 $('.btnmasuk').show()
                 $('#kdbahanselectmasuk').show()
               $('#kdbahanmasuk').hide()
               });
 
-              $('#bahanKeluar').on('hidden.bs.modal', function() {
+              $('#potongKeluar').on('hidden.bs.modal', function() {
                 $(this).find('form').trigger('reset');
-                $('#bahanKeluarLabel').text('Input Data [Bahan Keluar]')
-                $('#alert-bahan-keluar').empty()
+                $('#potongKeluarLabel').text('Input Data [Potong Keluar]')
+                $('#alert-potong-keluar').empty()
                 $('.btnkeluar').prop('id','btnsimpankeluar')
-                $('.kdbahanselect').show()
-                $('#kdbahanreadonly').hide()
+                $('#kdbahanselectkeluar').show()
+                $('#kdbahankeluar').hide()
                 $('.btnkeluar').show()
-                $('#kode_bahanreadonly').prop('readonly', true)
-                $('#no_surat_keluar').prop('readonly', false)
-                $('#sku').prop('readonly', false)
-                $('#nama_bahan_keluar').prop('readonly', false)
-                $('#jenis_bahan_keluar').prop('readonly', false)
-                $('#warna_keluar').prop('readonly', false)
-                $('#vendor_keluar').prop('readonly', false)
-                $('#tanggal_keluar').prop('readonly', false)
-                $('#panjang_bahan_keluar').prop('readonly', false)
+
+                $('#ukuranm').hide()
+                $('#ukuranl').hide()
+                $('#ukuranxl').hide()
+                $('#ukuranxxl').hide()
               });
 
               $('#hasil_cutting').on('keyup', function(){
@@ -649,7 +667,6 @@
                         console.log(response);
                             if(response.status){
                                 var data = response.data;
-                                var detail = data.detail_potong;
                                 var bahan = data.bahan;
 
                                 $('#idmasuk').val(data.id)
@@ -661,35 +678,8 @@
                                 $('#sku').val(bahan.sku)
                                 $('#tanggal_cutting').val(data.tanggal_cutting)
                                 $('#tanggal_selesai').val(data.tanggal_selesai)
-                                $('#hasil_cutting').val(data.hasil_cutting)
-                                $('#konversi').val(data.konversi)
                                 $('#panjang_kain').val(bahan.panjang_bahan)
 
-                                detail.forEach(element => {
-                                        if(element.size == 'S' && element.jumlah > 0){
-                                            $('#jumlahs').val(element.jumlah)
-                                            $('#iddetails').val(element.id)
-                                        }else if(element.size == 'M' && element.jumlah > 0){
-                                            $('#jumlahm').val(element.jumlah)
-                                            $('#iddetailm').val(element.id)
-                                            $('#ukuranm').show()
-                                        }
-                                        else if(element.size == 'L' && element.jumlah > 0){
-                                            $('#jumlahl').val(element.jumlah)
-                                            $('#iddetaill').val(element.id)
-                                            $('#ukuranl').show()
-                                        }
-                                        else if(element.size == 'XL' && element.jumlah > 0){
-                                            $('#jumlahxl').val(element.jumlah)
-                                            $('#iddetailxl').val(element.id)
-                                            $('#ukuranxl').show()
-                                        }
-                                        else if(element.size == 'XXL' && element.jumlah > 0){
-                                            $('#jumlahxxl').val(element.jumlah)
-                                            $('#iddetailxxl').val(element.id)
-                                            $('#ukuranxxl').show()
-                                        }
-                                });
                             }
                     })
               })
@@ -726,20 +716,18 @@
                     var id = $(this).data('id');
 
                     $('.btnmasuk').hide()
-                    $('#bahanMasukLabel').text('Detail Data [Bahan Masuk]')
-                    $('#kode_bahan').prop('readonly', true)
-                    $('#bahanMasuk').modal('show')
-                    $('#kode_bahan').prop('readonly', true)
+                    $('#potongMasukLabel').text('Detail Data [Bahan Masuk]')
+                    $('#kdbahanselectmasuk').hide()
+                    $('#potongMasuk').modal('show')
+                    $('#kdbahanmasuk').show()
+                    $('#kdbahanreadmasuk').prop('readonly', true)
                     $('#no_surat').prop('readonly', true)
-                    $('#nama_bahan').prop('readonly', true)
-                    $('#jenis_bahan').prop('readonly', true)
-                    $('#warna').prop('readonly', true)
-                    $('#vendor').prop('readonly', true)
-                    $('#tanggal_masuk').prop('readonly', true)
-                    $('#panjang_bahan').prop('readonly', true)
+                    $('#tanggal_cutting').prop('readonly', true)
+                    $('#tanggal_selesai').prop('readonly', true)
+
 
                     $.ajax({
-                        url:"{{route('bahan.getdata')}}",
+                        url:"{{route('potong.getdata')}}",
                         method:"GET",
                         data:{
                             'id':id
@@ -748,15 +736,17 @@
                     }).done(function (response) {
                             if(response.status){
                                 var data = response.data;
-                                $('#idmasuk').val(data.id)
-                                $('#kode_bahan').val(data.kode_bahan)
+                                var bahan = data.bahan;
+                                $('#kdbahanreadmasuk').val(bahan.kode_bahan)
                                 $('#no_surat').val(data.no_surat)
-                                $('#nama_bahan').val(data.nama_bahan)
-                                $('#jenis_bahan').val(data.jenis_bahan)
-                                $('#warna').val(data.warna)
-                                $('#vendor').val(data.vendor)
-                                $('#tanggal_masuk').val(data.tanggal_masuk)
-                                $('#panjang_bahan').val(data.panjang_bahan)
+                                $('#nama_produk').val(bahan.nama_bahan)
+                                $('#jenis_kain').val(bahan.jenis_bahan)
+                                $('#warna').val(bahan.warna)
+                                $('#sku').val(bahan.sku)
+                                $('#tanggal_cutting').val(data.tanggal_cutting)
+                                $('#tanggal_selesai').val(data.tanggal_selesai)
+                                $('#panjang_kain').val(bahan.panjang_bahan)
+
                             }
                     })
               })
@@ -795,25 +785,55 @@
                     }
             })
 
+
+            $('#kode_bahanselectkeluar').on('change', function () {
+                    var id = $(this).find(':selected').val()
+
+                    if(id != ''){
+                        $.ajax({
+                            url:"{{route('potong.getdata')}}",
+                            method:"GET",
+                            data:{
+                                'id':id
+                            }
+                        }).done(function (response) {
+
+                            if(response.status){
+                                console.log(response);
+                                var data = response.data;
+                                var bahan = data.bahan
+                                $('#sku_keluar').val(bahan.sku)
+                                $('#nama_produk_keluar').val(bahan.nama_bahan)
+                                $('#jenis_kain_keluar').val(bahan.jenis_bahan)
+                                $('#warna_keluar').val(bahan.warna)
+                                $('#tanggal_selesai_keluar').val(data.tanggal_selesai)
+
+                                $('#panjang_kain_keluar').val(bahan.panjang_bahan)
+                            }
+
+                        })
+                    }
+            })
+
             $(document).on('click','#btnsimpankeluar', function () {
 
-                var form = $('#formbahanKeluar').serialize()
+                var form = $('#formpotongKeluar').serialize()
                 ajax()
                 $.ajax({
-                    url:"{{route('bahan.store')}}",
+                    url:"{{route('potong.store')}}",
                     method:"POST",
                     data:form
                 }).done(function (response) {
                     if(response.status){
-                        $('#alert-bahan-keluar').html(response.data)
+                        $('#alert-potong-keluar').html(response.data)
                         setTimeout(function(){
-                            $('#alert-bahan-keluar').empty()
+                            $('#alert-potong-keluar').empty()
                             location.reload(true)
                         },1500)
 
 
                     }else{
-                        $('#alert-bahan-keluar').html(response.data)
+                        $('#alert-potong-keluar').html(response.data)
                         return false;
                     }
                 })
@@ -822,14 +842,14 @@
             $(document).on('click','.btneditkeluar',function () {
                     var id = $(this).data('id');
                     $('.btnkeluar').prop('id','btnupdatekeluar')
-                    $('.kdbahanselect').hide()
-                    $('#kdbahanreadonly').show()
-                    $('#bahanKeluarLabel').text('Edit Data [Bahan Keluar]')
+                    $('#kdbahanselectkeluar').hide()
+                    $('#kdbahankeluar').show()
+                    $('#potongKeluarLabel').text('Edit Data [Potong Keluar]')
                     $('#kode_bahan').prop('readonly', true)
-                    $('#bahanKeluar').modal('show')
+                    $('#potongKeluar').modal('show')
 
                     $.ajax({
-                        url:"{{route('bahan.getdata')}}",
+                        url:"{{route('potong.getdata')}}",
                         method:"GET",
                         data:{
                             'id':id
@@ -837,18 +857,49 @@
 
                     }).done(function (response) {
                             if(response.status){
+                                console.log(response);
                                 var data = response.data;
+                                var bahan = data.bahan;
+                                var detail = data.detail_potong
                                 $('#idkeluar').val(data.id)
-                                $('#kode_bahanreadonly').val(data.kode_bahan)
-
+                                $('#kdbahanreadkeluar').val(bahan.kode_bahan)
                                 $('#no_surat_keluar').val(data.no_surat)
-                                $('#sku').val(data.sku)
-                                $('#nama_bahan_keluar').val(data.nama_bahan)
-                                $('#jenis_bahan_keluar').val(data.jenis_bahan)
-                                $('#warna_keluar').val(data.warna)
-                                $('#vendor_keluar').val(data.vendor)
+                                $('#nama_produk_keluar').val(bahan.nama_bahan)
+                                $('#jenis_kain_keluar').val(bahan.jenis_bahan)
+                                $('#warna_keluar').val(bahan.warna)
+                                $('#sku_keluar').val(bahan.sku)
                                 $('#tanggal_keluar').val(data.tanggal_keluar)
-                                $('#panjang_bahan_keluar').val(data.panjang_bahan)
+                                $('#tanggal_selesai').val(data.tanggal_selesai)
+                                $('#hasil_cutting').val(data.hasil_cutting)
+                                $('#konversi').val(data.konversi)
+
+                                $('#panjang_kain_keluar').val(bahan.panjang_bahan)
+
+                                detail.forEach(element => {
+                                        if(element.size == 'S' && element.jumlah > 0){
+                                            $('#jumlahs').val(element.jumlah)
+                                            $('#iddetails').val(element.id)
+                                        }else if(element.size == 'M' && element.jumlah > 0){
+                                            $('#jumlahm').val(element.jumlah)
+                                            $('#iddetailm').val(element.id)
+                                            $('#ukuranm').show()
+                                        }
+                                        else if(element.size == 'L' && element.jumlah > 0){
+                                            $('#jumlahl').val(element.jumlah)
+                                            $('#iddetaill').val(element.id)
+                                            $('#ukuranl').show()
+                                        }
+                                        else if(element.size == 'XL' && element.jumlah > 0){
+                                            $('#jumlahxl').val(element.jumlah)
+                                            $('#iddetailxl').val(element.id)
+                                            $('#ukuranxl').show()
+                                        }
+                                        else if(element.size == 'XXL' && element.jumlah > 0){
+                                            $('#jumlahxxl').val(element.jumlah)
+                                            $('#iddetailxxl').val(element.id)
+                                            $('#ukuranxxl').show()
+                                        }
+                                });
                             }
                     })
               })
