@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use App\Potong;
+use App\Jahit;
 
 class JahitController extends Controller
 {
@@ -14,7 +17,7 @@ class JahitController extends Controller
      */
     public function index()
     {
-        //
+        return view("backend.jahit.index");
     }
 
     /**

@@ -25,8 +25,8 @@
         </a>
     </li>
 
-    <li @yield('trinfo')>
-        <a class="nav-link" href="#">
+    <li @yield('jahit')>
+        <a class="nav-link" href="{{route('jahit.index')}}">
             <i class="fas fa-user-cog"></i> <span>Jahit</span>
         </a>
     </li>
@@ -38,7 +38,7 @@
     </li>
     <li @yield('trpinjaman')>
         <a class="nav-link" href="#">
-            <i class="fas fa-tools"></i> <span>Perbaikan</span>
+            <i class="fa fa-tools"></i> <span>Perbaikan</span>
         </a>
     </li>
     <li @yield('trpinjaman')>

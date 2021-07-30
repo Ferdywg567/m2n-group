@@ -1,8 +1,8 @@
 @extends('backend.master')
 
-@section('title', 'Potong')
+@section('title', 'Jahit')
 
-@section('potong', 'class=active')
+@section('jahit', 'class=active')
 
 @section('content')
 <style>
@@ -14,7 +14,7 @@
 <div id="non-printable">
     <section class="section">
         <div class="section-header ">
-            <h1>Potong</h1>
+            <h1>Jahit</h1>
         </div>
         <div class="section-body">
             <div class="row">
@@ -73,7 +73,7 @@
                                             </tr>
                                         </thead>
                                         <tbody id="">
-
+{{--
                                             @forelse ($masuk as $item)
                                             <tr>
                                                 <td>{{$loop->iteration}}</td>
@@ -126,7 +126,7 @@
                                             </tr>
                                             @empty
 
-                                            @endforelse
+                                            @endforelse --}}
 
                                         </tbody>
                                     </table>
@@ -150,7 +150,7 @@
                                             </tr>
                                         </thead>
                                         <tbody id="">
-                                            @forelse ($datakeluar as $item)
+                                            {{-- @forelse ($datakeluar as $item)
                                             <tr>
                                                 <td>{{$loop->iteration}}</td>
                                                 <td>{{$item->bahan->kode_bahan}}</td>
@@ -191,7 +191,7 @@
                                             </tr>
                                             @empty
 
-                                            @endforelse
+                                            @endforelse --}}
 
 
 
@@ -234,12 +234,12 @@
                                     <div id="kdbahanselectmasuk">
                                         <select class="form-control" id="kode_bahanselect" name="kode_bahan">
                                             <option value="">Pilih Kode Bahan</option>
-                                            @forelse ($bahan as $item)
+                                            {{-- @forelse ($bahan as $item)
                                             <option value="{{$item->id}}">{{$item->kode_bahan}} | {{$item->nama_bahan}}
                                             </option>
                                             @empty
 
-                                            @endforelse
+                                            @endforelse --}}
 
 
                                         </select>
@@ -359,13 +359,13 @@
                                     <div id="kdbahanselectkeluar">
                                         <select class="form-control" id="kode_bahanselectkeluar" name="kode_bahan">
                                             <option value="">Pilih Kode Bahan</option>
-                                            @forelse ($keluar as $item)
+                                            {{-- @forelse ($keluar as $item)
                                             <option value="{{$item->id}}">{{$item->bahan->kode_bahan}} |
                                                 {{$item->bahan->nama_bahan}}
                                             </option>
                                             @empty
 
-                                            @endforelse
+                                            @endforelse --}}
 
 
                                         </select>
@@ -877,7 +877,7 @@
                                 $('#warna_keluar').val(bahan.warna)
                                 $('#sku_keluar').val(bahan.sku)
                                 $('#tanggal_keluar').val(data.tanggal_keluar)
-                                $('#tanggal_selesai_keluar').val(data.tanggal_selesai)
+                                $('#tanggal_selesai').val(data.tanggal_selesai)
                                 $('#hasil_cutting').val(data.hasil_cutting)
                                 $('#konversi').val(data.konversi)
 
@@ -914,23 +914,23 @@
 
               $(document).on('click','#btnupdatekeluar', function () {
                 var id = $('#idkeluar').val()
-                var form = $('#formpotongKeluar').serialize()
+                var form = $('#formbahanKeluar').serialize()
                 ajax()
                 $.ajax({
-                    url:"{{url('production/potong/')}}/"+id,
+                    url:"{{url('production/bahan/')}}/"+id,
                     method:"PUT",
                     data:form
                 }).done(function (response) {
                     if(response.status){
-                        $('#alert-potong-keluar').html(response.data)
+                        $('#alert-bahan-keluar').html(response.data)
                         setTimeout(function(){
-                            $('#alert-potong-keluar').empty()
+                            $('#alert-bahan-keluar').empty()
                             location.reload(true)
                         },1500)
 
 
                     }else{
-                        $('#alert-potong-keluar').html(response.data)
+                        $('#alert-bahan-keluar').html(response.data)
                         return false;
                     }
                 })

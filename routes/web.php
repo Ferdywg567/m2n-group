@@ -39,4 +39,7 @@ Route::group(['prefix' => 'production', 'namespace' => 'Backend', 'middleware' =
 
     });
     Route::resource('potong', 'PotongController');
+
+
+    Route::resource('jahit', 'JahitController');
 });
