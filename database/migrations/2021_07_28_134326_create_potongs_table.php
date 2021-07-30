@@ -20,9 +20,11 @@ class CreatePotongsTable extends Migration
             $table->string('no_surat');
             $table->date('tanggal_cutting')->nullable();
             $table->date('tanggal_selesai')->nullable();
-            $table->float('hasil_cutting');
-            $table->string('konversi');
+            $table->date('tanggal_keluar')->nullable();
+            $table->float('hasil_cutting')->nullable();
+            $table->string('konversi')->nullable();
             $table->string('status');
+            $table->string('status_potong');
             $table->timestamps();
         });
     }

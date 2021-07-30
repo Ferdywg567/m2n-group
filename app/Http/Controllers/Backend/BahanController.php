@@ -42,7 +42,7 @@ class BahanController extends Controller
 
         if ($request->get('status') == 'bahan masuk') {
             $validator = Validator::make($request->all(), [
-                'kode_bahan' =>  'required',
+                'kode_bahan' =>  'required|unique:bahans,kode_bahan',
                 'no_surat' => 'required',
                 'nama_bahan' => 'required',
                 'jenis_bahan' => 'required',
@@ -76,7 +76,7 @@ class BahanController extends Controller
                 'data' => $html
             ]);
         } else {
-
+            
             if ($request->get('status') == 'bahan masuk') {
                 $bahan = new Bahan();
                 $bahan->kode_bahan = $request->get('kode_bahan');

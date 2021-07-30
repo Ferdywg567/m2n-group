@@ -68,6 +68,7 @@
                                                 <th scope="col">Tanggal Cutting</th>
                                                 <th scope="col">Tanggal Selesai</th>
                                                 <th scope="col">Surat Jalan</th>
+                                                <th scope="col">Status</th>
                                                 <th scope="col">Aksi</th>
                                             </tr>
                                         </thead>
@@ -82,7 +83,15 @@
                                                 <td>{{$item->bahan->warna}}</td>
                                                 <td>{{$item->tanggal_cutting}}</td>
                                                 <td>{{$item->tanggal_selesai}}</td>
+
                                                 <td>{{$item->no_surat}}</td>
+                                                <td>
+                                                    @if ($item->status_potong == 'belum potong')
+                                                    <span class="badge badge-secondary text-dark">{{$item->status_potong}}</span>
+                                                    @else
+                                                    <span class="badge badge-warning text-dark">{{$item->status_potong}}</span>
+                                                    @endif
+                                                </td>
                                                 <td>
                                                     <div class="dropdown dropleft">
                                                         <a class="" href="#" id="dropdownMenuButton"
@@ -240,7 +249,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="tanggal_cutting">Tanggal Cutting</label>
-                                    <input type="date" class="form-control" readonly required value="{{date('Y-m-d')}}"
+                                    <input type="date" class="form-control"  required
                                         id="tanggal_cutting" name="tanggal_cutting">
                                 </div>
                             </div>
@@ -526,7 +535,8 @@
               $('#ukuranl').hide()
               $('#ukuranxl').hide()
               $('#ukuranxxl').hide()
-
+              $('#kdbahanselectmasuk').show()
+              $('#kdbahanmasuk').hide()
               $('.btnkeluar').prop('id','btnsimpankeluar')
               $('#tabelbahanmasuk').DataTable()
               $('#tabelbahankeluar').DataTable()
@@ -542,6 +552,8 @@
                 $('#ukuranxl').hide()
                 $('#ukuranxxl').hide()
                 $('.btnmasuk').show()
+                $('#kdbahanselectmasuk').show()
+              $('#kdbahanmasuk').hide()
               });
 
               $('#bahanKeluar').on('hidden.bs.modal', function() {
@@ -692,8 +704,7 @@
                     method:"PUT",
                     data:form
                 }).done(function (response) {
-                    console.log(response);
-                    // return false;
+
                     if(response.status){
                         $('#alert-potong-masuk').html(response.data)
                         setTimeout(function(){
