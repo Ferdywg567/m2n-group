@@ -15,6 +15,10 @@ class CreateDetailCucisTable extends Migration
     {
         Schema::create('detail_cucis', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('cuci_id')->unsigned()->index()->nullable();
+            $table->foreign('cuci_id')->references('id')->on('cucis')->onDelete('cascade');
+            $table->string('size');
+            $table->integer('jumlah');
             $table->timestamps();
         });
     }

@@ -86,15 +86,15 @@
 
                                                 <td>{{$item->no_surat}}</td>
                                                 <td>
-                                                    @if ($item->status_potong == 'belum potong')
+                                                    @if ($item->status_jahit == 'belum jahit')
                                                     <span
-                                                        class="badge badge-secondary text-dark">{{$item->status_potong}}</span>
-                                                    @elseif ($item->status_potong == 'selesai')
+                                                        class="badge badge-secondary text-dark">{{$item->status_jahit}}</span>
+                                                    @elseif ($item->status_jahit == 'selesai')
                                                     <span
-                                                        class="badge badge-success text-dark">{{$item->status_potong}}</span>
+                                                        class="badge badge-success text-dark">{{$item->status_jahit}}</span>
                                                     @else
                                                     <span
-                                                        class="badge badge-warning text-dark">{{$item->status_potong}}</span>
+                                                        class="badge badge-warning text-dark">{{$item->status_jahit}}</span>
                                                     @endif
                                                 </td>
                                                 <td>
@@ -162,7 +162,7 @@
                                                 <td>{{$item->no_surat}}</td>
                                                 <td>
                                                     <span
-                                                        class="badge badge-success text-dark">{{$item->status_potong}}</span>
+                                                        class="badge badge-success text-dark">{{$item->status_jahit}}</span>
                                                 </td>
 
                                                 <td>
@@ -215,17 +215,17 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="jahitMasukLabel">Input Data [Potong Masuk]</h5>
+                    <h5 class="modal-title" id="jahitMasukLabel">Input Data [Jahitan Masuk]</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <form id="formjahitMasuk">
                     <div class="modal-body">
-                        <div id="alert-potong-masuk">
+                        <div id="alert-jahit-masuk">
 
                         </div>
-                        <input type="hidden" name="status" value="potong masuk">
+                        <input type="hidden" name="status" value="jahit masuk">
                         <input type="hidden" name="id" id="idmasuk">
                         <div class="row">
                             <div class="col-md-6">
@@ -254,36 +254,50 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
+                                    <label for="sku">SKU</label>
+                                    <input type="text" class="form-control" required id="sku" name="sku">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="tanggal_selesai">Tanggal Selesai Jahit</label>
+                                    <input type="date" class="form-control" required id="tanggal_selesai"
+                                        name="tanggal_selesai">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
                                     <label for="no_surat">Nomor Surat Jalan</label>
                                     <input type="text" class="form-control" required id="no_surat" name="no_surat">
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="tanggal_cutting">Tanggal Cutting</label>
-                                    <input type="date" class="form-control" required id="tanggal_cutting"
-                                        name="tanggal_cutting">
+                                    <label for="vendor_jahit">Vendor Jahit</label>
+                                    <select class="form-control" id="vendor_jahit" name="vendor_jahit">
+                                        <option value="internal">Internal</option>
+                                        <option value="eksternal">Eksternal</option>
+
+                                      </select>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="tanggal_selesai">Tanggal Selesai</label>
-                                    <input type="date" class="form-control" required id="tanggal_selesai"
-                                        name="tanggal_selesai">
+                                    <label for="berhasil_jahit">Berhasil Jahit</label>
+                                    <div class="input-group mb-2">
+                                        <input type="number" class="form-control" required id="berhasil_jahit"
+                                            name="berhasil_jahit">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">pcs</div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="jenis_kain">Jenis Kain</label>
-                                    <input type="text" class="form-control" readonly required id="jenis_kain"
-                                        name="jenis_kain">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="sku">Kode SKU</label>
                                     <input type="text" class="form-control" readonly required id="sku" name="sku">
@@ -340,17 +354,17 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="jahitKeluarLabel">Input Data [Potong Keluar]</h5>
+                    <h5 class="modal-title" id="jahitKeluarLabel">Input Data [jahit Keluar]</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <form id="formjahitKeluar">
                     <div class="modal-body">
-                        <div id="alert-potong-keluar">
+                        <div id="alert-jahit-keluar">
 
                         </div>
-                        <input type="hidden" name="status" value="potong keluar">
+                        <input type="hidden" name="status" value="jahit keluar">
                         <input type="hidden" name="id" id="idkeluar">
                         <div class="row">
                             <div class="col-md-6">
@@ -568,20 +582,20 @@
               $('#kode_bahanselect').select2()
               $('#kode_bahanselectkeluar').select2()
               $('.btnmasuk').prop('id','btnsimpanmasuk')
-              $('#potongMasuk').on('hidden.bs.modal', function() {
+              $('#jahitMasuk').on('hidden.bs.modal', function() {
                 $(this).find('form').trigger('reset');
-                $('#potongMasukLabel').text('Input Data [Potong Masuk]')
-                $('#alert-potong-masuk').empty()
+                $('#jahitMasukLabel').text('Input Data [jahit Masuk]')
+                $('#alert-jahit-masuk').empty()
                 $('.btnmasuk').prop('id','btnsimpanmasuk')
                 $('.btnmasuk').show()
                 $('#kdbahanselectmasuk').show()
               $('#kdbahanmasuk').hide()
               });
 
-              $('#potongKeluar').on('hidden.bs.modal', function() {
+              $('#jahitKeluar').on('hidden.bs.modal', function() {
                 $(this).find('form').trigger('reset');
-                $('#potongKeluarLabel').text('Input Data [Potong Keluar]')
-                $('#alert-potong-keluar').empty()
+                $('#jahitKeluarLabel').text('Input Data [jahit Keluar]')
+                $('#alert-jahit-keluar').empty()
                 $('.btnkeluar').prop('id','btnsimpankeluar')
                 $('#kdbahanselectkeluar').show()
                 $('#kdbahankeluar').hide()
@@ -634,24 +648,24 @@
 
             $(document).on('click','#btnsimpanmasuk', function () {
 
-                var form = $('#formpotongMasuk').serialize()
+                var form = $('#formjahitMasuk').serialize()
                 ajax()
                 $.ajax({
-                    url:"{{route('potong.store')}}",
+                    url:"{{route('jahit.store')}}",
                     method:"POST",
                     data:form
                 }).done(function (response) {
                     console.log(response);
                     if(response.status){
-                        $('#alert-potong-masuk').html(response.data)
+                        $('#alert-jahit-masuk').html(response.data)
                         setTimeout(function(){
-                            $('#alert-potong-masuk').empty()
+                            $('#alert-jahit-masuk').empty()
                             location.reload(true)
                         },1500)
 
 
                     }else{
-                        $('#alert-potong-masuk').html(response.data)
+                        $('#alert-jahit-masuk').html(response.data)
                         return false;
                     }
                 })
@@ -660,12 +674,12 @@
              $(document).on('click','.btneditmasuk',function () {
                     var id = $(this).data('id');
                     $('.btnmasuk').prop('id','btnupdatemasuk')
-                    $('#potongMasukLabel').text('Edit Data [Potong Masuk]')
+                    $('#jahitMasukLabel').text('Edit Data [jahit Masuk]')
                     $('#kdbahanselectmasuk').hide()
-                    $('#potongMasuk').modal('show')
+                    $('#jahitMasuk').modal('show')
                     $('#kdbahanmasuk').show()
                     $.ajax({
-                        url:"{{route('potong.getdata')}}",
+                        url:"{{route('jahit.getdata')}}",
                         method:"GET",
                         data:{
                             'id':id
@@ -694,25 +708,25 @@
 
             $(document).on('click','#btnupdatemasuk', function () {
                 var id = $('#idmasuk').val()
-                var form = $('#formpotongMasuk').serialize()
+                var form = $('#formjahitMasuk').serialize()
 
                 ajax()
                 $.ajax({
-                    url:"{{url('production/potong/')}}/"+id,
+                    url:"{{url('production/jahit/')}}/"+id,
                     method:"PUT",
                     data:form
                 }).done(function (response) {
 
                     if(response.status){
-                        $('#alert-potong-masuk').html(response.data)
+                        $('#alert-jahit-masuk').html(response.data)
                         setTimeout(function(){
-                            $('#alert-potong-masuk').empty()
+                            $('#alert-jahit-masuk').empty()
                             location.reload(true)
                         },1500)
 
 
                     }else{
-                        $('#alert-potong-masuk').html(response.data)
+                        $('#alert-jahit-masuk').html(response.data)
                         return false;
                     }
                 })
@@ -724,9 +738,9 @@
                     var id = $(this).data('id');
 
                     $('.btnmasuk').hide()
-                    $('#potongMasukLabel').text('Detail Data [Bahan Masuk]')
+                    $('#jahitMasukLabel').text('Detail Data [Bahan Masuk]')
                     $('#kdbahanselectmasuk').hide()
-                    $('#potongMasuk').modal('show')
+                    $('#jahitMasuk').modal('show')
                     $('#kdbahanmasuk').show()
                     $('#kdbahanreadmasuk').prop('readonly', true)
                     $('#no_surat').prop('readonly', true)
@@ -735,7 +749,7 @@
 
 
                     $.ajax({
-                        url:"{{route('potong.getdata')}}",
+                        url:"{{route('jahit.getdata')}}",
                         method:"GET",
                         data:{
                             'id':id
@@ -799,7 +813,7 @@
 
                     if(id != ''){
                         $.ajax({
-                            url:"{{route('potong.getdata')}}",
+                            url:"{{route('jahit.getdata')}}",
                             method:"GET",
                             data:{
                                 'id':id
@@ -825,23 +839,23 @@
 
             $(document).on('click','#btnsimpankeluar', function () {
 
-                var form = $('#formpotongKeluar').serialize()
+                var form = $('#formjahitKeluar').serialize()
                 ajax()
                 $.ajax({
-                    url:"{{route('potong.store')}}",
+                    url:"{{route('jahit.store')}}",
                     method:"POST",
                     data:form
                 }).done(function (response) {
                     if(response.status){
-                        $('#alert-potong-keluar').html(response.data)
+                        $('#alert-jahit-keluar').html(response.data)
                         setTimeout(function(){
-                            $('#alert-potong-keluar').empty()
+                            $('#alert-jahit-keluar').empty()
                             location.reload(true)
                         },1500)
 
 
                     }else{
-                        $('#alert-potong-keluar').html(response.data)
+                        $('#alert-jahit-keluar').html(response.data)
                         return false;
                     }
                 })
@@ -852,12 +866,12 @@
                     $('.btnkeluar').prop('id','btnupdatekeluar')
                     $('#kdbahanselectkeluar').hide()
                     $('#kdbahankeluar').show()
-                    $('#potongKeluarLabel').text('Edit Data [Potong Keluar]')
+                    $('#jahitKeluarLabel').text('Edit Data [jahit Keluar]')
                     $('#kode_bahan').prop('readonly', true)
-                    $('#potongKeluar').modal('show')
+                    $('#jahitKeluar').modal('show')
 
                     $.ajax({
-                        url:"{{route('potong.getdata')}}",
+                        url:"{{route('jahit.getdata')}}",
                         method:"GET",
                         data:{
                             'id':id
@@ -868,7 +882,7 @@
                                 console.log(response);
                                 var data = response.data;
                                 var bahan = data.bahan;
-                                var detail = data.detail_potong
+                                var detail = data.detail_jahit
                                 $('#idkeluar').val(data.id)
                                 $('#kdbahanreadkeluar').val(bahan.kode_bahan)
                                 $('#no_surat_keluar').val(data.no_surat)
@@ -941,16 +955,16 @@
                     $('.btnkeluar').hide()
                     $('#kdbahanselectkeluar').hide()
                     $('#kdbahankeluar').show()
-                    $('#potongKeluarLabel').text('Detail Data [Potong Keluar]')
+                    $('#jahitKeluarLabel').text('Detail Data [jahit Keluar]')
                     $('#kode_bahan').prop('readonly', true)
-                    $('#potongKeluar').modal('show')
+                    $('#jahitKeluar').modal('show')
 
                     $('#tanggal_keluar').prop('readonly', true)
                     $('#no_surat_keluar').prop('readonly', true)
                     $('#hasil_cutting').prop('readonly', true)
 
                     $.ajax({
-                        url:"{{route('potong.getdata')}}",
+                        url:"{{route('jahit.getdata')}}",
                         method:"GET",
                         data:{
                             'id':id
@@ -960,7 +974,7 @@
                             if(response.status){
                                 var data = response.data;
                                 var bahan = data.bahan;
-                                var detail = data.detail_potong
+                                var detail = data.detail_jahit
 
                                 $('#kdbahanreadkeluar').val(bahan.kode_bahan)
                                 $('#no_surat_keluar').val(data.no_surat)

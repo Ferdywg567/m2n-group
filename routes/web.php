@@ -37,5 +37,8 @@ Route::group(['prefix' => 'production', 'namespace' => 'Backend','middleware' =>
     Route::resource('potong', 'PotongController');
 
 
+    Route::group(['prefix' => 'jahit', 'as' => 'jahit.'], function () {
+        Route::get('/getdatajahit', 'JahitController@getDataJahit')->name('getdata');
+    });
     Route::resource('jahit', 'JahitController');
 });

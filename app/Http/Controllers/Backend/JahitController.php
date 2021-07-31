@@ -85,4 +85,16 @@ class JahitController extends Controller
     {
         //
     }
+
+    public function getDataJahit(Request $request)
+    {
+        if ($request->ajax()) {
+            $jahit = Jahit::with(['detail_jahit'])->where('id', $request->get('id'))->first();
+
+            return response()->json([
+                'status' => true,
+                'data' => $jahit
+            ]);
+        }
+    }
 }

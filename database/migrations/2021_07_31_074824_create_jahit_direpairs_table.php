@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDetailJahitsTable extends Migration
+class CreateJahitDirepairsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateDetailJahitsTable extends Migration
      */
     public function up()
     {
-        Schema::create('detail_jahits', function (Blueprint $table) {
+        Schema::create('jahit_direpairs', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('jahit_id')->unsigned()->index()->nullable();
             $table->foreign('jahit_id')->references('id')->on('jahits')->onDelete('cascade');
-            $table->string('size');
+            $table->string('ukuran');
             $table->integer('jumlah');
             $table->timestamps();
         });
@@ -30,6 +30,6 @@ class CreateDetailJahitsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('detail_jahits');
+        Schema::dropIfExists('jahit_direpairs');
     }
 }
