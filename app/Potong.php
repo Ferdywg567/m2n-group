@@ -15,4 +15,9 @@ class Potong extends Model
     {
         return $this->hasMany('App\DetailPotong');
     }
+
+    public function jahit()
+    {
+        return $this->hasOne('App\Jahit');
+    }
 }

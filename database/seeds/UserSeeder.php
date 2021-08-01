@@ -21,5 +21,13 @@ class UserSeeder extends Seeder
         ]);
 
         $user->assignRole('production');
+
+        $user = User::create([
+            'name' => 'warehouse',
+            'email' => 'warehouse@gmail.com',
+            'password' => Hash::make('123456')
+        ]);
+
+        $user->assignRole('warehouse');
     }
 }

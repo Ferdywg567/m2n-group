@@ -18,6 +18,7 @@ class CreateJahitsTable extends Migration
             $table->bigInteger('potong_id')->unsigned()->index()->nullable();
             $table->foreign('potong_id')->references('id')->on('potongs')->onDelete('cascade');
             $table->string('no_surat');
+            $table->date('tanggal_jahit');
             $table->date('tanggal_selesai');
             $table->string('vendor');
             $table->string('nama_vendor')->nullable();
@@ -29,6 +30,8 @@ class CreateJahitsTable extends Migration
             $table->integer('barang_dibuang')->nullable();
             $table->longText('keterangan_direpair')->nullable();
             $table->longText('keterangan_dibuang')->nullable();
+            $table->string('status');
+            $table->string('status_jahit');
             $table->timestamps();
         });
     }

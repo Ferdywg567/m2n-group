@@ -14,7 +14,7 @@ class PerbaikanController extends Controller
      */
     public function index()
     {
-        //
+       return view("backend.perbaikan.index");
     }
 
     /**

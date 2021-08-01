@@ -14,7 +14,7 @@ class RekapitulasiController extends Controller
      */
     public function index()
     {
-        //
+        return view("backend.rekapitulasi.index");
     }
 
     /**

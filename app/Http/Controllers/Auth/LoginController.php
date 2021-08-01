@@ -67,6 +67,8 @@ class LoginController extends Controller
     {
         if ($user->hasRole('production')) {
             return redirect()->route('dashboard.index');
+        }elseif($user->hasRole('warehouse')){
+            return redirect()->route('warehouse.dashboard.index');
         }
     }
 }

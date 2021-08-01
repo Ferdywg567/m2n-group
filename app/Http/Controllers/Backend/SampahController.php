@@ -14,7 +14,7 @@ class SampahController extends Controller
      */
     public function index()
     {
-        //
+        return view("backend.sampah.index");
     }
 
     /**

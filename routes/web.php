@@ -17,13 +17,17 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::group(['prefix' => 'garment', 'as' => 'backend.','namespace' => 'Auth'], function () {
-    Route::get('login','LoginController@showLoginForm')->name('getlogin');
-    Route::post('login','LoginController@login')->name('login');
-    Route::post('logout','LoginController@logout')->name('logout');
+Route::group(['prefix' => 'garment', 'as' => 'backend.', 'namespace' => 'Auth'], function () {
+    Route::get('login', 'LoginController@showLoginForm')->name('getlogin');
+    Route::post('login', 'LoginController@login')->name('login');
+    Route::post('logout', 'LoginController@logout')->name('logout');
 });
 
-Route::group(['prefix' => 'production', 'namespace' => 'Backend','middleware' => ['role:production','auth']], function () {
+Route::group(['prefix' => 'warehouse', 'namespace' => 'Backend', 'middleware' => ['role:warehouse', 'auth'], 'as' => 'warehouse.'], function () {
+    Route::resource('dashboard', 'DashboardController');
+});
+
+Route::group(['prefix' => 'production', 'namespace' => 'Backend', 'middleware' => ['role:production', 'auth']], function () {
     Route::resource('dashboard', 'DashboardController');
 
     Route::group(['prefix' => 'bahan', 'as' => 'bahan.'], function () {
@@ -41,4 +45,9 @@ Route::group(['prefix' => 'production', 'namespace' => 'Backend','middleware' =>
         Route::get('/getdatajahit', 'JahitController@getDataJahit')->name('getdata');
     });
     Route::resource('jahit', 'JahitController');
+    Route::resource('cuci', 'CuciController');
+    Route::resource('retur', 'ReturController');
+    Route::resource('rekapitulasi', 'RekapitulasiController');
+    Route::resource('sampah', 'SampahController');
+    Route::resource('perbaikan', 'PerbaikanController');
 });
