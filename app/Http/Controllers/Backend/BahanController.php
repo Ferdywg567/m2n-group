@@ -26,9 +26,15 @@ class BahanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $status = $request->get('status');
+        if ($status == 'masuk') {
+            return view("backend.bahan.masuk.create");
+        } else {
+            $masuk = Bahan::all()->where('status', 'bahan masuk');
+            return view("backend.bahan.keluar.create", ['masuk' => $masuk]);
+        }
     }
 
     /**
@@ -66,17 +72,10 @@ class BahanController extends Controller
         }
 
         if ($validator->fails()) {
-            $html = '';
-            $html .= '<div class="alert alert-danger" role="alert">
-                ' . $validator->errors()->first() . '
-              </div>';
 
-            return response()->json([
-                'status' => false,
-                'data' => $html
-            ]);
+            return redirect()->back()->withErrors($validator->errors());
         } else {
-            
+
             if ($request->get('status') == 'bahan masuk') {
                 $bahan = new Bahan();
                 $bahan->kode_bahan = $request->get('kode_bahan');
@@ -101,11 +100,7 @@ class BahanController extends Controller
 
             $bahan->save();
 
-            $html = '<div class="alert alert-success" role="alert">bahan berhasil disimpan</div>';
-            return response()->json([
-                'status' => true,
-                'data' => $html
-            ]);
+            return redirect()->route('bahan.index')->with('success', $request->get('status') . ' berhasil disimpan');
         }
     }
 
@@ -128,10 +123,11 @@ class BahanController extends Controller
      */
     public function edit(Request $request, $id)
     {
-        if ($request->ajax()) {
-            $bahan = Bahan::findOrFail($id);
-
-            return response()->json($bahan);
+        $bahan = Bahan::findOrFail($id);
+        if ($bahan->status == 'bahan masuk') {
+            return view("backend.bahan.masuk.edit", ['bahan' => $bahan]);
+        } else {
+            return view("backend.bahan.keluar.edit", ['bahan' => $bahan]);
         }
     }
 
@@ -170,15 +166,8 @@ class BahanController extends Controller
         }
 
         if ($validator->fails()) {
-            $html = '';
-            $html .= '<div class="alert alert-danger" role="alert">
-                ' . $validator->errors()->first() . '
-              </div>';
 
-            return response()->json([
-                'status' => false,
-                'data' => $html
-            ]);
+            return redirect()->back()->withErrors($validator->errors());
         } else {
 
             $bahan = Bahan::findOrFail($id);
@@ -199,12 +188,7 @@ class BahanController extends Controller
             $bahan->panjang_bahan = $request->get('panjang_bahan');
 
             $bahan->save();
-
-            $html = '<div class="alert alert-success" role="alert">bahan berhasil diupdate</div>';
-            return response()->json([
-                'status' => true,
-                'data' => $html
-            ]);
+            return redirect()->route('bahan.index')->with('success', $request->get('status') . ' berhasil diupdate');
         }
     }
 

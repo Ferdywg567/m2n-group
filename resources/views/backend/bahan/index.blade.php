@@ -24,15 +24,22 @@
                                         Input Data <i class="fas fa-plus"></i>
                                     </button>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#" data-toggle="modal"
-                                            data-target="#bahanMasuk">Bahan Masuk</a>
-                                        <a class="dropdown-item" href="#" data-toggle="modal"
-                                            data-target="#bahanKeluar">Bahan Keluar</a>
+                                        <form action="{{route('bahan.create')}}" method="get">
+                                            <input type="hidden" name="status" value="masuk">
+                                            <button class="dropdown-item">Bahan Masuk</button>
+                                        </form>
+
+                                        <form action="{{route('bahan.create')}}" method="get">
+                                            <input type="hidden" name="status" value="keluar">
+                                            <button class="dropdown-item">Bahan Keluar</button>
+                                        </form>
+
 
                                     </div>
                                 </div>
 
-                                <button class="btn btn-outline-primary">Print Semua <i class="fas fa-print"></i> </button>
+                                <button class="btn btn-outline-primary">Print Semua <i class="fas fa-print"></i>
+                                </button>
                             </div>
                         </div>
                         <div class="card-body p-0">
@@ -79,20 +86,26 @@
                                                 <td>{{$item->panjang_bahan}}</td>
                                                 <td>
                                                     <div class="dropdown dropleft">
-                                                        <a class="" href="#" id="dropdownMenuButton" data-toggle="dropdown"
-                                                            aria-haspopup="true" aria-expanded="false">
+                                                        <a class="" href="#" id="dropdownMenuButton"
+                                                            data-toggle="dropdown" aria-haspopup="true"
+                                                            aria-expanded="false">
                                                             <i class="fa fa-ellipsis-h"></i>
                                                         </a>
                                                         <div class="dropdown-menu text-center"
                                                             aria-labelledby="dropdownMenuButton">
 
-                                                            <a class="dropdown-item btndetailmasuk" href="#"  data-id="{{$item->id}}"><i class="fas fa-eye"></i>
+                                                            <a class="dropdown-item btndetailmasuk" href="#"
+                                                                data-id="{{$item->id}}"><i class="fas fa-eye"></i>
                                                                 Detail</a>
-                                                            <a class="dropdown-item btnprintmasuk" href="#"  data-id="{{$item->id}}"><i class="fas fa-print"></i>
+                                                            <a class="dropdown-item btnprintmasuk" href="#"
+                                                                data-id="{{$item->id}}"><i class="fas fa-print"></i>
                                                                 Print</a>
-                                                            <a class="dropdown-item btneditmasuk" href="#"
-                                                                data-id="{{$item->id}}"><i class="fas fa-edit"></i> Edit</a>
-                                                            <a class="dropdown-item" href="#"><i class="fa fa-trash"></i>
+                                                            <a class="dropdown-item"
+                                                                href="{{route('bahan.edit',[$item->id])}}"><i
+                                                                    class="fas fa-edit"></i>
+                                                                Edit</a>
+                                                            <a class="dropdown-item" href="#"><i
+                                                                    class="fa fa-trash"></i>
                                                                 Delete</a>
 
                                                         </div>
@@ -136,18 +149,23 @@
                                                 <td>{{$item->no_surat}}</td>
                                                 <td>
                                                     <div class="dropdown dropleft">
-                                                        <a class="" href="#" id="dropdownMenuButton" data-toggle="dropdown"
-                                                            aria-haspopup="true" aria-expanded="false">
+                                                        <a class="" href="#" id="dropdownMenuButton"
+                                                            data-toggle="dropdown" aria-haspopup="true"
+                                                            aria-expanded="false">
                                                             <i class="fa fa-ellipsis-h"></i>
                                                         </a>
                                                         <div class="dropdown-menu text-center"
                                                             aria-labelledby="dropdownMenuButton">
 
-                                                            <a class="dropdown-item btndetailkeluar" href="#" data-id="{{$item->id}}"><i class="fas fa-eye"></i>
+                                                            <a class="dropdown-item btndetailkeluar" href="#"
+                                                                data-id="{{$item->id}}"><i class="fas fa-eye"></i>
                                                                 Detail</a>
-                                                            <a class="dropdown-item btneditkeluar" href="#"
-                                                                data-id="{{$item->id}}"><i class="fas fa-edit"></i> Edit</a>
-                                                            <a class="dropdown-item" href="#"><i class="fa fa-trash"></i>
+                                                            <a class="dropdown-item"
+                                                                href="{{route('bahan.edit',[$item->id])}}"><i
+                                                                    class="fas fa-edit"></i>
+                                                                Edit</a>
+                                                            <a class="dropdown-item" href="#"><i
+                                                                    class="fa fa-trash"></i>
                                                                 Delete</a>
 
                                                         </div>
@@ -216,7 +234,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="jenis_bahan">Jenis Bahan</label>
-                                    <input type="text" class="form-control" required id="jenis_bahan" name="jenis_bahan">
+                                    <input type="text" class="form-control" required id="jenis_bahan"
+                                        name="jenis_bahan">
                                 </div>
                             </div>
                         </div>
@@ -304,7 +323,8 @@
                                             </div>
                                             <div id="kdbahanreadonly">
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control" readonly id="kode_bahanreadonly" name="kode_bahanreadonly">
+                                                    <input type="text" class="form-control" readonly
+                                                        id="kode_bahanreadonly" name="kode_bahanreadonly">
                                                 </div>
                                             </div>
                                         </div>
@@ -320,7 +340,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="no_surat">Nomor Surat Jalan</label>
-                                    <input type="text" class="form-control" required readonly id="no_surat_keluar" name="no_surat">
+                                    <input type="text" class="form-control" required readonly id="no_surat_keluar"
+                                        name="no_surat">
                                 </div>
                             </div>
                         </div>
@@ -344,15 +365,16 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="warna">Warna</label>
-                                    <input type="text" class="form-control" required readonly id="warna_keluar" name="warna">
+                                    <input type="text" class="form-control" required readonly id="warna_keluar"
+                                        name="warna">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="panjang_bahan">Panjang Bahan</label>
                                     <div class="input-group mb-2">
-                                        <input type="number" class="form-control" required readonly id="panjang_bahan_keluar"
-                                            name="panjang_bahan">
+                                        <input type="number" class="form-control" required readonly
+                                            id="panjang_bahan_keluar" name="panjang_bahan">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text">yard</div>
                                         </div>
@@ -364,7 +386,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="vendor">Vendor</label>
-                                    <input type="text" class="form-control" required readonly id="vendor_keluar" name="vendor">
+                                    <input type="text" class="form-control" required readonly id="vendor_keluar"
+                                        name="vendor">
                                 </div>
                             </div>
                             <div class="col-md-6">
