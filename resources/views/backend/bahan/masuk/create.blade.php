@@ -95,7 +95,9 @@
 
                                 <div class="row">
                                     <div class="col-md-12 text-center">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                        <a type="button" class="btn btn-secondary"
+                                            href="{{route('bahan.index')}}">Batal</a>
+
                                         <button type="submit" class="btn btn-primary btnmasuk">Simpan</button>
 
                                     </div>

@@ -29,10 +29,15 @@
                                         Input Data <i class="fas fa-plus"></i>
                                     </button>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#" data-toggle="modal"
-                                            data-target="#potongMasuk">Potong Masuk</a>
-                                        <a class="dropdown-item" href="#" data-toggle="modal"
-                                            data-target="#potongKeluar">Potong Keluar</a>
+                                        <form action="{{route('potong.create')}}" method="get">
+                                            <input type="hidden" name="status" value="masuk">
+                                            <button class="dropdown-item">Potong Masuk</button>
+                                        </form>
+
+                                        <form action="{{route('potong.create')}}" method="get">
+                                            <input type="hidden" name="status" value="keluar">
+                                            <button class="dropdown-item">Potong Keluar</button>
+                                        </form>
 
                                     </div>
                                 </div>
@@ -107,19 +112,20 @@
                                                         <div class="dropdown-menu text-center"
                                                             aria-labelledby="dropdownMenuButton">
 
-                                                            <a class="dropdown-item btndetailmasuk" href="#"
-                                                                data-id="{{$item->id}}"><i class="fas fa-eye"></i>
+                                                            <a class="dropdown-item"
+                                                                href="{{route('potong.show',[$item->id])}}"><i
+                                                                    class="fas fa-eye"></i>
                                                                 Detail</a>
                                                             <a class="dropdown-item btnprintmasuk" href="#"
                                                                 data-id="{{$item->id}}"><i class="fas fa-print"></i>
                                                                 Print</a>
-                                                            <a class="dropdown-item btneditmasuk" href="#"
-                                                                data-id="{{$item->id}}"><i class="fas fa-edit"></i>
+                                                            <a class="dropdown-item"
+                                                                href="{{route('potong.edit',[$item->id])}}"><i
+                                                                    class="fas fa-edit"></i>
                                                                 Edit</a>
                                                             <a class="dropdown-item" href="#"><i
                                                                     class="fa fa-trash"></i>
                                                                 Delete</a>
-
                                                         </div>
                                                     </div>
                                                 </td>
@@ -175,11 +181,13 @@
                                                         <div class="dropdown-menu text-center"
                                                             aria-labelledby="dropdownMenuButton">
 
-                                                            <a class="dropdown-item btndetailkeluar" href="#"
-                                                                data-id="{{$item->id}}"><i class="fas fa-eye"></i>
+                                                            <a class="dropdown-item"
+                                                                href="{{route('potong.show',[$item->id])}}"><i
+                                                                    class="fas fa-eye"></i>
                                                                 Detail</a>
-                                                            <a class="dropdown-item btneditkeluar" href="#"
-                                                                data-id="{{$item->id}}"><i class="fas fa-edit"></i>
+                                                            <a class="dropdown-item"
+                                                                href="{{route('potong.edit',[$item->id])}}"><i
+                                                                    class="fas fa-edit"></i>
                                                                 Edit</a>
                                                             <a class="dropdown-item" href="#"><i
                                                                     class="fa fa-trash"></i>
@@ -240,8 +248,6 @@
                                             @empty
 
                                             @endforelse
-
-
                                         </select>
                                     </div>
 
@@ -381,7 +387,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="no_surat_keluar">Nomor Surat Jalan</label>
-                                    <input type="text" class="form-control" required id="no_surat_keluar" name="no_surat">
+                                    <input type="text" class="form-control" required id="no_surat_keluar"
+                                        name="no_surat">
                                 </div>
                             </div>
                         </div>
@@ -437,7 +444,6 @@
                                         name="nama_produk">
                                 </div>
                             </div>
-
                         </div>
                         <div class="row">
                             <div class="col-md-6">

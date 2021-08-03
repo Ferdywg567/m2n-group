@@ -32,9 +32,15 @@ class PotongController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        if ($request->get('status') == 'masuk') {
+            $bahan = Bahan::doesntHave('potong')->where('status', 'bahan keluar')->get();
+            return view("backend.potong.masuk.create", ['bahan' => $bahan]);
+        } else {
+            $keluar = Potong::all()->where('status', 'potong masuk')->where('status_potong', 'selesai');
+            return view("backend.potong.keluar.create", ['keluar' => $keluar]);
+        }
     }
 
     /**
@@ -65,15 +71,8 @@ class PotongController extends Controller
         }
 
         if ($validator->fails()) {
-            $html = '';
-            $html .= '<div class="alert alert-danger" role="alert">
-                ' . $validator->errors()->first() . '
-              </div>';
 
-            return response()->json([
-                'status' => false,
-                'data' => $html
-            ]);
+            return redirect()->back()->withErrors($validator->errors());
         } else {
 
             if ($request->get('status') == 'potong keluar') {
@@ -124,11 +123,8 @@ class PotongController extends Controller
                 }
             }
 
-            $html = '<div class="alert alert-success" role="alert">Data potong berhasil disimpan</div>';
-            return response()->json([
-                'status' => true,
-                'data' => $html
-            ]);
+
+            return redirect()->route('potong.index')->with('success', $request->get('status') . ' berhasil disimpan');
         }
     }
 
@@ -140,7 +136,12 @@ class PotongController extends Controller
      */
     public function show($id)
     {
-        //
+        $potong = Potong::with(['detail_potong', 'bahan'])->where('id', $id)->first();
+        if ($potong->status == 'potong masuk') {
+            return view("backend.potong.masuk.show", ['potong' => $potong]);
+        }else{
+            return view("backend.potong.keluar.show", ['potong' => $potong]);
+        }
     }
 
     /**
@@ -151,7 +152,12 @@ class PotongController extends Controller
      */
     public function edit($id)
     {
-        //
+        $potong = Potong::with(['detail_potong', 'bahan'])->where('id', $id)->first();
+        if ($potong->status == 'potong masuk') {
+            return view("backend.potong.masuk.edit", ['potong' => $potong]);
+        } else {
+            return view("backend.potong.keluar.edit", ['potong' => $potong]);
+        }
     }
 
     /**
@@ -180,15 +186,8 @@ class PotongController extends Controller
         }
 
         if ($validator->fails()) {
-            $html = '';
-            $html .= '<div class="alert alert-danger" role="alert">
-                ' . $validator->errors()->first() . '
-              </div>';
 
-            return response()->json([
-                'status' => false,
-                'data' => $html
-            ]);
+            return redirect()->back()->withErrors($validator->errors());
         } else {
 
             if ($request->get('status') == 'potong keluar') {
@@ -207,7 +206,7 @@ class PotongController extends Controller
             }
 
 
-            $potong = Potong::findOrFail($request->get('id'));
+            $potong = Potong::findOrFail($id);
             $potong->no_surat = $request->get('no_surat');
             if ($request->get('status') == 'potong masuk') {
                 $potong->tanggal_cutting = date('Y-m-d', strtotime($request->get('tanggal_cutting')));
@@ -236,11 +235,7 @@ class PotongController extends Controller
                 }
             }
 
-            $html = '<div class="alert alert-success" role="alert">Data potong berhasil diupdate</div>';
-            return response()->json([
-                'status' => true,
-                'data' => $html
-            ]);
+            return redirect()->route('potong.index')->with('success', $request->get('status') . ' berhasil diupdate');
         }
     }
 

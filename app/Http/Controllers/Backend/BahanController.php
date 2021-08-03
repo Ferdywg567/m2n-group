@@ -112,7 +112,12 @@ class BahanController extends Controller
      */
     public function show($id)
     {
-        //
+        $bahan = Bahan::findOrFail($id);
+        if ($bahan->status == 'bahan masuk') {
+            return view("backend.bahan.masuk.show", ['bahan' => $bahan]);
+        } else {
+            return view("backend.bahan.keluar.show", ['bahan' => $bahan]);
+        }
     }
 
     /**

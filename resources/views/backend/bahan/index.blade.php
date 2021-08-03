@@ -94,8 +94,9 @@
                                                         <div class="dropdown-menu text-center"
                                                             aria-labelledby="dropdownMenuButton">
 
-                                                            <a class="dropdown-item btndetailmasuk" href="#"
-                                                                data-id="{{$item->id}}"><i class="fas fa-eye"></i>
+                                                            <a class="dropdown-item"
+                                                                href="{{route('bahan.show',[$item->id])}}"><i
+                                                                    class="fas fa-eye"></i>
                                                                 Detail</a>
                                                             <a class="dropdown-item btnprintmasuk" href="#"
                                                                 data-id="{{$item->id}}"><i class="fas fa-print"></i>
@@ -157,8 +158,9 @@
                                                         <div class="dropdown-menu text-center"
                                                             aria-labelledby="dropdownMenuButton">
 
-                                                            <a class="dropdown-item btndetailkeluar" href="#"
-                                                                data-id="{{$item->id}}"><i class="fas fa-eye"></i>
+                                                            <a class="dropdown-item"
+                                                                href="{{route('bahan.show',[$item->id])}}"><i
+                                                                    class="fas fa-eye"></i>
                                                                 Detail</a>
                                                             <a class="dropdown-item"
                                                                 href="{{route('bahan.edit',[$item->id])}}"><i
