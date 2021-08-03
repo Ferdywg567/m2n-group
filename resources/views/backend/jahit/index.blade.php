@@ -29,10 +29,15 @@
                                         Input Data <i class="fas fa-plus"></i>
                                     </button>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#" data-toggle="modal"
-                                            data-target="#jahitMasuk">Jahit Masuk</a>
-                                        <a class="dropdown-item" href="#" data-toggle="modal"
-                                            data-target="#jahitKeluar">Jahit Keluar</a>
+                                        <form action="{{route('jahit.create')}}" method="get">
+                                            <input type="hidden" name="status" value="masuk">
+                                            <button class="dropdown-item">Jahit Masuk</button>
+                                        </form>
+
+                                        <form action="{{route('jahit.create')}}" method="get">
+                                            <input type="hidden" name="status" value="keluar">
+                                            <button class="dropdown-item">Jahit Keluar</button>
+                                        </form>
 
                                     </div>
                                 </div>
@@ -107,14 +112,16 @@
                                                         <div class="dropdown-menu text-center"
                                                             aria-labelledby="dropdownMenuButton">
 
-                                                            <a class="dropdown-item btndetailmasuk" href="#"
-                                                                data-id="{{$item->id}}"><i class="fas fa-eye"></i>
+                                                            <a class="dropdown-item"
+                                                                href="{{route('jahit.show',[$item->id])}}"><i
+                                                                    class="fas fa-eye"></i>
                                                                 Detail</a>
                                                             <a class="dropdown-item btnprintmasuk" href="#"
                                                                 data-id="{{$item->id}}"><i class="fas fa-print"></i>
                                                                 Print</a>
-                                                            <a class="dropdown-item btneditmasuk" href="#"
-                                                                data-id="{{$item->id}}"><i class="fas fa-edit"></i>
+                                                            <a class="dropdown-item"
+                                                                href="{{route('jahit.edit',[$item->id])}}"><i
+                                                                    class="fas fa-edit"></i>
                                                                 Edit</a>
                                                             <a class="dropdown-item" href="#"><i
                                                                     class="fa fa-trash"></i>
@@ -140,56 +147,60 @@
                                                 <th scope="col">No</th>
                                                 <th scope="col">Kode Bahan</th>
                                                 <th scope="col">SKU</th>
-                                                <th scope="col">Jenis Kain</th>
-                                                <th scope="col">Warna Kain</th>
-                                                <th scope="col">Tanggal Selesai</th>
-                                                <th scope="col">Tanggal Keluar</th>
-                                                <th scope="col">Surat Jalan</th>
+                                                <th scope="col">Tgl Jahit</th>
+                                                <th scope="col">Vendor Jahit</th>
+                                                <th scope="col">Jahit Sukses</th>
+                                                <th scope="col">Jahit Gagal</th>
+
                                                 <th scope="col">Status</th>
                                                 <th scope="col">Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody id="">
-                                            {{-- @forelse ($datakeluar as $item)
+                                            @forelse ($jahitkeluar as $item)
                                             <tr>
                                                 <td>{{$loop->iteration}}</td>
-                                            <td>{{$item->bahan->kode_bahan}}</td>
-                                            <td>{{$item->bahan->sku}}</td>
-                                            <td>{{$item->bahan->jenis_bahan}}</td>
-                                            <td>{{$item->bahan->warna}}</td>
-                                            <td>{{$item->tanggal_selesai}}</td>
-                                            <td>{{$item->tanggal_keluar}}</td>
-                                            <td>{{$item->no_surat}}</td>
-                                            <td>
-                                                <span
-                                                    class="badge badge-success text-dark">{{$item->status_jahit}}</span>
-                                            </td>
+                                                <td>{{$item->potong->bahan->kode_bahan}}</td>
+                                                <td>{{$item->potong->bahan->sku}}</td>
+                                                <td>{{$item->tanggal_jahit}}</td>
+                                                <td>{{$item->vendor}}</td>
+                                                <td>{{$item->berhasil}}</td>
+                                                <td>{{$item->gagal_jahit}}</td>
 
-                                            <td>
-                                                <div class="dropdown dropleft">
-                                                    <a class="" href="#" id="dropdownMenuButton" data-toggle="dropdown"
-                                                        aria-haspopup="true" aria-expanded="false">
-                                                        <i class="fa fa-ellipsis-h"></i>
-                                                    </a>
-                                                    <div class="dropdown-menu text-center"
-                                                        aria-labelledby="dropdownMenuButton">
+                                                <td>
+                                                    <span
+                                                        class="badge badge-success text-dark">{{$item->status_jahit}}</span>
+                                                </td>
 
-                                                        <a class="dropdown-item btndetailkeluar" href="#"
-                                                            data-id="{{$item->id}}"><i class="fas fa-eye"></i>
-                                                            Detail</a>
-                                                        <a class="dropdown-item btneditkeluar" href="#"
-                                                            data-id="{{$item->id}}"><i class="fas fa-edit"></i>
-                                                            Edit</a>
-                                                        <a class="dropdown-item" href="#"><i class="fa fa-trash"></i>
-                                                            Delete</a>
+                                                <td>
+                                                    <div class="dropdown dropleft">
+                                                        <a class="" href="#" id="dropdownMenuButton"
+                                                            data-toggle="dropdown" aria-haspopup="true"
+                                                            aria-expanded="false">
+                                                            <i class="fa fa-ellipsis-h"></i>
+                                                        </a>
+                                                        <div class="dropdown-menu text-center"
+                                                            aria-labelledby="dropdownMenuButton">
 
+                                                            <a class="dropdown-item"
+                                                                href="{{route('jahit.show',[$item->id])}}"><i
+                                                                    class="fas fa-eye"></i>
+                                                                Detail</a>
+                                                            <a class="dropdown-item"
+                                                                href="{{route('jahit.edit',[$item->id])}}"><i
+                                                                    class="fas fa-edit"></i>
+                                                                Edit</a>
+                                                            <a class="dropdown-item" href="#"><i
+                                                                    class="fa fa-trash"></i>
+                                                                Delete</a>
+
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </td>
+                                                </td>
                                             </tr>
                                             @empty
 
-                                            @endforelse --}}
+                                            @endforelse
 
 
 

@@ -152,7 +152,7 @@
                                             <label for="ukuran">S</label>
                                             <input type="hidden" name="dataukuran[]" value="S">
                                             <input type="hidden" name="iddetailukuran[]" id="iddetails">
-                                            <input type="number" min="0" class="form-control" required id="jumlahs"
+                                            <input type="number" min="0" class="form-control"  id="jumlahs"
                                                 name="jumlah[]">
                                         </div>
                                     </div>
@@ -161,7 +161,7 @@
                                             <label for="ukuran">M</label>
                                             <input type="hidden" name="dataukuran[]" value="M">
                                             <input type="hidden" name="iddetailukuran[]" id="iddetailm">
-                                            <input type="number" min="0" class="form-control" required id="jumlahm"
+                                            <input type="number" min="0" class="form-control"  id="jumlahm"
                                                 name="jumlah[]">
                                         </div>
                                     </div>
@@ -170,7 +170,7 @@
                                             <label for="ukuran">L</label>
                                             <input type="hidden" name="dataukuran[]" value="L">
                                             <input type="hidden" name="iddetailukuran[]" id="iddetaill">
-                                            <input type="number" min="0" class="form-control" required id="jumlahl"
+                                            <input type="number" min="0" class="form-control"  id="jumlahl"
                                                 name="jumlah[]">
                                         </div>
                                     </div>
@@ -179,7 +179,7 @@
                                             <label for="ukuran">XL</label>
                                             <input type="hidden" name="dataukuran[]" value="XL">
                                             <input type="hidden" name="iddetailukuran[]" id="iddetailxl">
-                                            <input type="number" min="0" class="form-control" required id="jumlahxl"
+                                            <input type="number" min="0" class="form-control"  id="jumlahxl"
                                                 name="jumlah[]">
                                         </div>
                                     </div>
@@ -188,7 +188,7 @@
                                             <label for="ukuran">XXL</label>
                                             <input type="hidden" name="dataukuran[]" value="XXL">
                                             <input type="hidden" name="iddetailukuran[]" id="iddetailxxl">
-                                            <input type="number" min="0" class="form-control" required id="jumlahxxl"
+                                            <input type="number" min="0" class="form-control"  id="jumlahxxl"
                                                 name="jumlah[]">
                                         </div>
                                     </div>
