@@ -63,15 +63,13 @@
                                                 name="tanggal_selesai">
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="no_surat_keluar">Nomor Surat Jalan</label>
                                             <input type="text" class="form-control" required id="no_surat_keluar"
                                                 value="{{$jahit->no_surat}}" name="no_surat">
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="vendor_jahit">Vendor Jahit</label>
@@ -83,15 +81,27 @@
                                             </select>
                                         </div>
                                     </div>
-                                    @if ($jahit->vendor == 'eksternal')
-                                    <div class="col-md-3" id="idnamavendor">
+                                </div>
+                                @if ($jahit->vendor == 'eksternal')
+                                <div class="row" id="iddatavendor">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="status_pembayaran">Status Pembayaran</label>
+                                            <select class="form-control" id="status_pembayaran" name="status_pembayaran">
+                                                <option value="lunas" @if($jahit->status_pembayaran == 'lunas') selected @endif>Lunas</option>
+                                                <option value="belum" @if($jahit->status_pembayaran == 'belum') selected @endif>Belum</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3" >
                                         <div class="form-group">
                                             <label for="nama_vendor">Nama Vendor</label>
                                             <input type="text" class="form-control" value="{{$jahit->nama_vendor}}"
                                                 value="" id="nama_vendor" name="nama_vendor">
                                         </div>
                                     </div>
-                                    <div class="col-md-6" id="idhargavendor" >
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="harga_vendor_keluar">Harga Vendor</label>
                                             <div class="row">
@@ -107,9 +117,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                    @endif
-                                </div>
 
+                                </div>
+                                @endif
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
@@ -461,9 +471,7 @@
 
 
 </div>
-<div id="printable">
-    <h1>Hello print</h1>
-</div>
+
 @endsection
 @push('scripts')
 <script>
@@ -475,18 +483,7 @@
                     }
                 });
               }
-            //   $('#kdbahanreadonly').hide()
-            //   $('#ukuranm').hide()
-            //   $('#ukuranl').hide()
-            //   $('#ukuranxl').hide()
-            //   $('#ukuranxxl').hide()
 
-            //   $('#ukurandibuangm').hide()
-            //   $('#ukurandibuangl').hide()
-            //   $('#ukurandibuangxl').hide()
-            //   $('#ukurandibuangxxl').hide()
-            //   $('#idnamavendor').hide()
-              $('#datavendor').hide()
               $('#kdbahanselectmasuk').show()
               $('#kdbahanmasuk').hide()
               $('#kdbahanselectkeluar').show()
@@ -536,11 +533,11 @@
                   var data = $(this).find(':selected').val()
 
                   if(data == 'eksternal'){
-                    $('#idnamavendor').show()
-                    $('#idhargavendor').show()
+                    $('#iddatavendor').show()
+
                   }else{
-                    $('#idnamavendor').hide()
-                    $('#idhargavendor').hide()
+                    $('#iddatavendor').hide()
+
                   }
                })
 

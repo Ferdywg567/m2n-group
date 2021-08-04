@@ -115,6 +115,7 @@ class JahitController extends Controller
                     if ($request->get('vendor_jahit') == 'eksternal') {
                         $jahit->nama_vendor = $request->get('nama_vendor');
                         $jahit->harga_vendor = $request->get('harga_vendor');
+                        $jahit->status_pembayaran = $request->get('status_pembayaran');
                     }
                 }
 
@@ -126,6 +127,7 @@ class JahitController extends Controller
                     if ($request->get('vendor_jahit') == 'eksternal') {
                         $jahit->nama_vendor = $request->get('nama_vendor');
                         $jahit->harga_vendor = $request->get('harga_vendor');
+                        $jahit->status_pembayaran = $request->get('status_pembayaran');
                     }
                     $jumlah = $request->get('jumlah');
                     $dataukuran = $request->get('dataukuran');
@@ -273,7 +275,7 @@ class JahitController extends Controller
             $validator = Validator::make($request->all(), $validasi);
         } else {
             $validator = Validator::make($request->all(), [
-               
+
                 'no_surat' => 'required',
                 'vendor_jahit' => 'required',
                 'berhasil_jahit' => 'required|integer',
@@ -304,9 +306,11 @@ class JahitController extends Controller
                     if ($request->get('vendor_jahit') == 'eksternal') {
                         $jahit->nama_vendor = $request->get('nama_vendor');
                         $jahit->harga_vendor = $request->get('harga_vendor');
+                        $jahit->status_pembayaran = $request->get('status_pembayaran');
                     } else {
                         $jahit->nama_vendor = null;
                         $jahit->harga_vendor = null;
+                        $jahit->status_pembayaran = null;
                     }
                 }
 
@@ -318,6 +322,7 @@ class JahitController extends Controller
                     if ($request->get('vendor_jahit') == 'eksternal') {
                         $jahit->nama_vendor = $request->get('nama_vendor');
                         $jahit->harga_vendor = $request->get('harga_vendor');
+                        $jahit->status_pembayaran = $request->get('status_pembayaran');
                     }
                     $jumlah = $request->get('jumlah');
                     $dataukuran = $request->get('dataukuran');

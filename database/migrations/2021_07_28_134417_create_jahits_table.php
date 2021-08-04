@@ -30,6 +30,7 @@ class CreateJahitsTable extends Migration
             $table->integer('barang_dibuang')->nullable();
             $table->longText('keterangan_direpair')->nullable();
             $table->longText('keterangan_dibuang')->nullable();
+            $table->string('status_pembayaran')->nullable();
             $table->string('status');
             $table->string('status_jahit');
             $table->timestamps();

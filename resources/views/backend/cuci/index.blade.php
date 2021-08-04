@@ -1,16 +1,11 @@
 @extends('backend.master')
 
-@section('title', 'cuci')
+@section('title', 'Cuci')
 
 @section('cuci', 'class=active')
 
 @section('content')
-<style>
-    .modal-body {
-        max-height: calc(100vh - 210px);
-        overflow-y: auto;
-    }
-</style>
+
 <div id="non-printable">
     <section class="section">
         <div class="section-header ">
@@ -29,10 +24,15 @@
                                         Input Data <i class="fas fa-plus"></i>
                                     </button>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#" data-toggle="modal"
-                                            data-target="#cuciMasuk">Cucian Masuk</a>
-                                        <a class="dropdown-item" href="#" data-toggle="modal"
-                                            data-target="#cuciKeluar">Cucian Keluar</a>
+                                        <form action="{{route('cuci.create')}}" method="get">
+                                            <input type="hidden" name="status" value="masuk">
+                                            <button class="dropdown-item">Cuci Masuk</button>
+                                        </form>
+
+                                        <form action="{{route('cuci.create')}}" method="get">
+                                            <input type="hidden" name="status" value="keluar">
+                                            <button class="dropdown-item">Cuci Keluar</button>
+                                        </form>
 
                                     </div>
                                 </div>
@@ -47,10 +47,10 @@
                                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                                         <a class="nav-item nav-link active" id="nav-bahanmasuk-tab" data-toggle="tab"
                                             href="#nav-bahanmasuk" role="tab" aria-controls="nav-bahanmasuk"
-                                            aria-selected="true">cuci Masuk</a>
+                                            aria-selected="true">Cuci Masuk</a>
                                         <a class="nav-item nav-link" id="nav-keluar-tab" data-toggle="tab"
                                             href="#nav-keluar" role="tab" aria-controls="nav-keluar"
-                                            aria-selected="false">cuci Keluar</a>
+                                            aria-selected="false">Cuci Keluar</a>
                                     </div>
                                 </nav>
                             </div>
@@ -63,27 +63,23 @@
                                                 <th scope="col">No</th>
                                                 <th scope="col">Kode Bahan</th>
                                                 <th scope="col">SKU</th>
-                                                <th scope="col">Jenis Kain</th>
-                                                <th scope="col">Warna Kain</th>
-                                                <th scope="col">Tanggal Cutting</th>
-                                                <th scope="col">Tanggal Selesai</th>
+                                                <th scope="col">Tgl Cuci</th>
+                                                <th scope="col">Vendor Cuci</th>
+                                                <th scope="col">Cuci Sukses</th>
                                                 <th scope="col">Surat Jalan</th>
                                                 <th scope="col">Status</th>
                                                 <th scope="col">Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody id="">
-
-                                            {{-- @forelse ($masuk as $item)
+                                            @forelse ($masuk as $item)
                                             <tr>
                                                 <td>{{$loop->iteration}}</td>
-                                                <td>{{$item->bahan->kode_bahan}}</td>
-                                                <td>{{$item->bahan->sku}}</td>
-                                                <td>{{$item->bahan->jenis_bahan}}</td>
-                                                <td>{{$item->bahan->warna}}</td>
-                                                <td>{{$item->tanggal_cutting}}</td>
-                                                <td>{{$item->tanggal_selesai}}</td>
-
+                                                <td>{{$item->jahit->potong->bahan->kode_bahan}}</td>
+                                                <td>{{$item->jahit->potong->bahan->sku}}</td>
+                                                <td>{{$item->tanggal_cuci}}</td>
+                                                <td>{{$item->vendor}}</td>
+                                                <td>{{$item->berhasil_cuci}}</td>
                                                 <td>{{$item->no_surat}}</td>
                                                 <td>
                                                     @if ($item->status_cuci == 'belum cuci')
@@ -107,78 +103,13 @@
                                                         <div class="dropdown-menu text-center"
                                                             aria-labelledby="dropdownMenuButton">
 
-                                                            <a class="dropdown-item btndetailmasuk" href="#"
+                                                            <a class="dropdown-item"  href="{{route('cuci.show',[$item->id])}}"
                                                                 data-id="{{$item->id}}"><i class="fas fa-eye"></i>
                                                                 Detail</a>
                                                             <a class="dropdown-item btnprintmasuk" href="#"
                                                                 data-id="{{$item->id}}"><i class="fas fa-print"></i>
                                                                 Print</a>
-                                                            <a class="dropdown-item btneditmasuk" href="#"
-                                                                data-id="{{$item->id}}"><i class="fas fa-edit"></i>
-                                                                Edit</a>
-                                                            <a class="dropdown-item" href="#"><i
-                                                                    class="fa fa-trash"></i>
-                                                                Delete</a>
-
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            @empty
-
-                                            @endforelse --}}
-
-                                        </tbody>
-                                    </table>
-
-                                </div>
-                                <div class="tab-pane fade" id="nav-keluar" role="tabpanel"
-                                    aria-labelledby="nav-keluar-tab">
-                                    <table class="table table-hover" id="tabelbahankeluar">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">No</th>
-                                                <th scope="col">Kode Bahan</th>
-                                                <th scope="col">SKU</th>
-                                                <th scope="col">Jenis Kain</th>
-                                                <th scope="col">Warna Kain</th>
-                                                <th scope="col">Tanggal Selesai</th>
-                                                <th scope="col">Tanggal Keluar</th>
-                                                <th scope="col">Surat Jalan</th>
-                                                <th scope="col">Status</th>
-                                                <th scope="col">Aksi</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="">
-                                            {{-- @forelse ($datakeluar as $item)
-                                            <tr>
-                                                <td>{{$loop->iteration}}</td>
-                                                <td>{{$item->bahan->kode_bahan}}</td>
-                                                <td>{{$item->bahan->sku}}</td>
-                                                <td>{{$item->bahan->jenis_bahan}}</td>
-                                                <td>{{$item->bahan->warna}}</td>
-                                                <td>{{$item->tanggal_selesai}}</td>
-                                                <td>{{$item->tanggal_keluar}}</td>
-                                                <td>{{$item->no_surat}}</td>
-                                                <td>
-                                                    <span
-                                                        class="badge badge-success text-dark">{{$item->status_cuci}}</span>
-                                                </td>
-
-                                                <td>
-                                                    <div class="dropdown dropleft">
-                                                        <a class="" href="#" id="dropdownMenuButton"
-                                                            data-toggle="dropdown" aria-haspopup="true"
-                                                            aria-expanded="false">
-                                                            <i class="fa fa-ellipsis-h"></i>
-                                                        </a>
-                                                        <div class="dropdown-menu text-center"
-                                                            aria-labelledby="dropdownMenuButton">
-
-                                                            <a class="dropdown-item btndetailkeluar" href="#"
-                                                                data-id="{{$item->id}}"><i class="fas fa-eye"></i>
-                                                                Detail</a>
-                                                            <a class="dropdown-item btneditkeluar" href="#"
+                                                            <a class="dropdown-item" href="{{route('cuci.edit',[$item->id])}}"
                                                                 data-id="{{$item->id}}"><i class="fas fa-edit"></i>
                                                                 Edit</a>
                                                             <a class="dropdown-item" href="#"><i
@@ -192,9 +123,79 @@
                                             @empty
 
                                             @endforelse
- --}}
 
+                                        </tbody>
+                                    </table>
 
+                                </div>
+                                <div class="tab-pane fade" id="nav-keluar" role="tabpanel"
+                                    aria-labelledby="nav-keluar-tab">
+                                    <table class="table table-hover" id="tabelbahankeluar">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">No</th>
+                                                <th scope="col">Kode Bahan</th>
+                                                <th scope="col">SKU</th>
+                                                <th scope="col">Tgl Cuci</th>
+                                                <th scope="col">Vendor Cuci</th>
+                                                <th scope="col">Cuci Sukses</th>
+                                                <th scope="col">Surat Jalan</th>
+                                                <th scope="col">Status</th>
+                                                <th scope="col">Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="">
+                                            @forelse ($keluar as $item)
+                                            <tr>
+                                                <td>{{$loop->iteration}}</td>
+                                                <td>{{$item->jahit->potong->bahan->kode_bahan}}</td>
+                                                <td>{{$item->jahit->potong->bahan->sku}}</td>
+                                                <td>{{$item->tanggal_cuci}}</td>
+                                                <td>{{$item->vendor}}</td>
+                                                <td>{{$item->berhasil_cuci}}</td>
+                                                <td>{{$item->no_surat}}</td>
+                                                <td>
+                                                    @if ($item->status_cuci == 'belum cuci')
+                                                    <span
+                                                        class="badge badge-secondary text-dark">{{$item->status_cuci}}</span>
+                                                    @elseif ($item->status_cuci == 'selesai')
+                                                    <span
+                                                        class="badge badge-success text-dark">{{$item->status_cuci}}</span>
+                                                    @else
+                                                    <span
+                                                        class="badge badge-warning text-dark">{{$item->status_cuci}}</span>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    <div class="dropdown dropleft">
+                                                        <a class="" href="#" id="dropdownMenuButton"
+                                                            data-toggle="dropdown" aria-haspopup="true"
+                                                            aria-expanded="false">
+                                                            <i class="fa fa-ellipsis-h"></i>
+                                                        </a>
+                                                        <div class="dropdown-menu text-center"
+                                                            aria-labelledby="dropdownMenuButton">
+
+                                                            <a class="dropdown-item"  href="{{route('cuci.show',[$item->id])}}"
+                                                                data-id="{{$item->id}}"><i class="fas fa-eye"></i>
+                                                                Detail</a>
+                                                            <a class="dropdown-item btnprintmasuk" href="#"
+                                                                data-id="{{$item->id}}"><i class="fas fa-print"></i>
+                                                                Print</a>
+                                                            <a class="dropdown-item" href="{{route('cuci.edit',[$item->id])}}"
+                                                                data-id="{{$item->id}}"><i class="fas fa-edit"></i>
+                                                                Edit</a>
+                                                            <a class="dropdown-item" href="#"><i
+                                                                    class="fa fa-trash"></i>
+                                                                Delete</a>
+
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            @empty
+
+                                            @endforelse
                                         </tbody>
                                     </table>
 
@@ -361,7 +362,7 @@
                                             {{-- <option value="">Pilih Kode Bahan</option>
                                             @forelse ($keluar as $item)
                                             <option value="{{$item->id}}">{{$item->bahan->kode_bahan}} |
-                                                {{$item->bahan->nama_bahan}}
+                                            {{$item->bahan->nama_bahan}}
                                             </option>
                                             @empty
 
@@ -381,7 +382,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="no_surat_keluar">Nomor Surat Jalan</label>
-                                    <input type="text" class="form-control" required id="no_surat_keluar" name="no_surat">
+                                    <input type="text" class="form-control" required id="no_surat_keluar"
+                                        name="no_surat">
                                 </div>
                             </div>
                         </div>

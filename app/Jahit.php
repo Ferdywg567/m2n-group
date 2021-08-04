@@ -23,4 +23,9 @@ class Jahit extends Model
     {
         return $this->hasMany('App\JahitDirepair');
     }
+
+    public function cuci()
+    {
+        return $this->hasOne('App\Cuci');
+    }
 }

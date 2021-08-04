@@ -45,6 +45,10 @@ Route::group(['prefix' => 'production', 'namespace' => 'Backend', 'middleware' =
         Route::get('/getdatajahit', 'JahitController@getDataJahit')->name('getdata');
     });
     Route::resource('jahit', 'JahitController');
+
+    Route::group(['prefix' => 'cuci', 'as' => 'cuci.'], function () {
+        Route::get('/getdatacuci', 'CuciController@getDataCuci')->name('getdata');
+    });
     Route::resource('cuci', 'CuciController');
     Route::resource('retur', 'ReturController');
     Route::resource('rekapitulasi', 'RekapitulasiController');

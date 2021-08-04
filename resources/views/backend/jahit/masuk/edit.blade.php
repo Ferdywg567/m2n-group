@@ -84,7 +84,17 @@
                                 </div>
                                 @if ($jahit->vendor == 'eksternal')
                                 <div class="row" id="datavendor">
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="status_pembayaran">Status Pembayaran</label>
+                                            <select class="form-control" id="status_pembayaran" name="status_pembayaran">
+                                                <option value="lunas" @if($jahit->status_pembayaran == 'lunas') selected @endif>Lunas</option>
+                                                <option value="belum" @if($jahit->status_pembayaran == 'belum') selected @endif>Belum</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="nama_vendor">Nama Vendor</label>
                                             <input type="text" class="form-control" value="{{$jahit->nama_vendor}}" required id="nama_vendor"
@@ -93,7 +103,7 @@
                                     </div>
 
 
-                                    <div class="col-md-8">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="harga_vendor">Harga Vendor</label>
                                             <div class="row">
