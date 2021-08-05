@@ -10,5 +10,9 @@ class Bahan extends Model
     {
         return $this->hasOne('App\Potong');
     }
-    
+
+    public function perbaikan()
+    {
+        return $this->hasMany('App\Perbaikan');
+    }
 }

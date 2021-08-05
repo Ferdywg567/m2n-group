@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class DetailCuci extends Model
+class CuciDibuang extends Model
 {
     public function cuci()
     {

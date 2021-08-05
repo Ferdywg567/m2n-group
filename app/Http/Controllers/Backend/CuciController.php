@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use App\Jahit;
 use App\Cuci;
 use App\DetailCuci;
+use App\CuciDirepair;
+use App\CuciDibuang;
 
 class CuciController extends Controller
 {
@@ -172,6 +174,49 @@ class CuciController extends Controller
                         $detail = DetailCuci::findOrFail($value['id']);
                         $detail->cuci_id = $cuci->id;
                         $detail->size = $value['ukuran'];
+                        $detail->jumlah = $value['jumlah'];
+                        $detail->save();
+                    }
+
+                    //direpair
+                    unset($arr);
+                    $jumlah = $request->get('jumlahdirepair');
+                    $dataukuran = $request->get('dataukurandirepair');
+                    $arr = [];
+                    foreach ($dataukuran as $key => $value) {
+                        if (!empty($jumlah[$key])) {
+                            $x['ukuran'] = $value;
+                            $x['jumlah'] = $jumlah[$key];
+                            array_push($arr, $x);
+                        }
+                    }
+
+                    foreach ($arr as $key => $value) {
+                        $detail = new CuciDirepair();
+                        $detail->cuci_id = $cuci->id;
+                        $detail->ukuran = $value['ukuran'];
+                        $detail->jumlah = $value['jumlah'];
+                        $detail->save();
+                    }
+
+
+                    //dibuang
+                    unset($arr);
+                    $jumlah = $request->get('jumlahdibuang');
+                    $dataukuran = $request->get('dataukurandibuang');
+                    $arr = [];
+                    foreach ($dataukuran as $key => $value) {
+                        if (!empty($jumlah[$key])) {
+                            $x['ukuran'] = $value;
+                            $x['jumlah'] = $jumlah[$key];
+                            array_push($arr, $x);
+                        }
+                    }
+
+                    foreach ($arr as $key => $value) {
+                        $detail = new CuciDibuang();
+                        $detail->cuci_id = $cuci->id;
+                        $detail->ukuran = $value['ukuran'];
                         $detail->jumlah = $value['jumlah'];
                         $detail->save();
                     }
@@ -355,6 +400,53 @@ class CuciController extends Controller
                         $detail = DetailCuci::findOrFail($value['id']);
                         $detail->cuci_id = $cuci->id;
                         $detail->size = $value['ukuran'];
+                        $detail->jumlah = $value['jumlah'];
+                        $detail->save();
+                    }
+
+                    //direpair
+                    unset($arr);
+                    $jumlah = $request->get('jumlahdirepair');
+                    $dataukuran = $request->get('dataukurandirepair');
+                    $iddetailukurandirepair = $request->get('iddetailukurandirepair');
+                    $arr = [];
+                    foreach ($dataukuran as $key => $value) {
+                        if (!empty($jumlah[$key])) {
+                            $x['id'] = $iddetailukurandirepair[$key];
+                            $x['ukuran'] = $value;
+                            $x['jumlah'] = $jumlah[$key];
+                            array_push($arr, $x);
+                        }
+                    }
+
+                    foreach ($arr as $key => $value) {
+                        $detail =  CuciDirepair::findOrFail($value['id']);
+                        $detail->cuci_id = $cuci->id;
+                        $detail->ukuran = $value['ukuran'];
+                        $detail->jumlah = $value['jumlah'];
+                        $detail->save();
+                    }
+
+
+                    //dibuang
+                    unset($arr);
+                    $jumlah = $request->get('jumlahdibuang');
+                    $dataukuran = $request->get('dataukurandibuang');
+                    $iddetailukurandibuang = $request->get('iddetailukurandibuang');
+                    $arr = [];
+                    foreach ($dataukuran as $key => $value) {
+                        if (!empty($jumlah[$key])) {
+                            $x['id'] = $iddetailukurandibuang[$key];
+                            $x['ukuran'] = $value;
+                            $x['jumlah'] = $jumlah[$key];
+                            array_push($arr, $x);
+                        }
+                    }
+
+                    foreach ($arr as $key => $value) {
+                        $detail =  CuciDibuang::findOrFail($value['id']);
+                        $detail->cuci_id = $cuci->id;
+                        $detail->ukuran = $value['ukuran'];
                         $detail->jumlah = $value['jumlah'];
                         $detail->save();
                     }

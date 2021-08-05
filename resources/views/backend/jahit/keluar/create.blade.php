@@ -13,7 +13,7 @@
 
     textarea {
         width: 300px;
-        height: 150px !important;
+        height: 170px !important;
     }
 </style>
 <div id="non-printable">
@@ -22,7 +22,7 @@
             <a class="btn btn-primary" href="{{route('jahit.index')}}">
                 <i class="fas fa-arrow-left"></i>
             </a>
-            <h1 class="ml-2">Konfirmasi Data | Keluar</h1>
+            <h1 class="ml-2">Input Data | Keluar</h1>
         </div>
         <div class="section-body">
             <div class="row">
@@ -97,21 +97,22 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="status_pembayaran">Status Pembayaran</label>
-                                            <select class="form-control" id="status_pembayaran" name="status_pembayaran">
+                                            <select class="form-control" id="status_pembayaran"
+                                                name="status_pembayaran">
                                                 <option value="lunas">Lunas</option>
                                                 <option value="belum">Belum</option>
 
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-3" >
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="nama_vendor">Nama Vendor</label>
                                             <input type="text" class="form-control" required id="nama_vendor"
                                                 name="nama_vendor">
                                         </div>
                                     </div>
-                                    <div class="col-md-6" >
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="harga_vendor_keluar">Harga Vendor</label>
                                             <div class="row">
@@ -192,24 +193,23 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="berhasil_jahit">Berhasil Jahit</label>
-                                                    <input type="number" class="form-control" required
-                                                        id="berhasil_jahit" name="berhasil_jahit">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="konversi">Konversi Lusin</label>
-                                                    <input type="text" readonly class="form-control" required
-                                                        id="konversi" name="konversi">
-                                                </div>
-                                            </div>
+                                        <div class="form-group">
+                                            <label for="berhasil_jahit">Berhasil Jahit</label>
+                                            <input type="number" class="form-control" required id="berhasil_jahit"
+                                                name="berhasil_jahit">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="konversi">Konversi Lusin</label>
+                                            <input type="text" readonly class="form-control" required id="konversi"
+                                                name="konversi">
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="gagal_jahit">Gagal Jahit</label>
                                             <div class="input-group mb-2">
@@ -226,46 +226,30 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="barang_direpair">Barang Akan Direpair</label>
-                                            <div class="input-group mb-2">
-                                                <input type="number" class="form-control" required id="barang_direpair"
-                                                    name="barang_direpair">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">pcs</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="barang_dibuang">Barang Akan Dibuang</label>
-                                            <div class="input-group mb-2">
-                                                <input type="number" class="form-control" readonly required
-                                                    id="barang_dibuang" name="barang_dibuang">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">pcs</div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-6">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label for="ukuran">Ukuran</label>
-
+                                                    <label for="barang_direpair">Barang Akan Direpair</label>
+                                                    <div class="input-group mb-2">
+                                                        <input type="number" class="form-control" required
+                                                            id="barang_direpair" name="barang_direpair">
+                                                        <div class="input-group-prepend">
+                                                            <div class="input-group-text">pcs</div>
+                                                        </div>
+                                                    </div>
                                                 </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <label for="" class="text-dark">Ukuran barang yang di repair</label>
                                             </div>
                                         </div>
                                         <div class="row">
 
                                             <div class="col-md-2">
+
                                                 <div class="form-group">
                                                     <label for="ukuran">S</label>
                                                     <input type="hidden" name="dataukurandirepair[]" value="S">
@@ -319,12 +303,46 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="keterangan_direpair">Keterangan Barang Direpair</label>
+                                            <textarea class="form-control" id="keterangan_direpair"
+                                                name="keterangan_direpair" rows="3"></textarea>
+                                        </div>
+                                        {{-- <div class="form-group">
+                                            <label for="barang_dibuang">Barang Akan Dibuang</label>
+                                            <div class="input-group mb-2">
+                                                <input type="number" class="form-control" readonly required
+                                                    id="barang_dibuang" name="barang_dibuang">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">pcs</div>
+                                                </div>
+                                            </div>
+
+                                        </div> --}}
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label for="ukuran">Ukuran</label>
+                                                    <label for="barang_dibuang">Barang Akan Dibuang</label>
+                                                    <div class="input-group mb-2">
+                                                        <input type="number" class="form-control" readonly required
+                                                            id="barang_dibuang" name="barang_dibuang">
+                                                        <div class="input-group-prepend">
+                                                            <div class="input-group-text">pcs</div>
+                                                        </div>
+                                                    </div>
 
                                                 </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <label for="" class="text-dark">Ukuran barang yang di buang</label>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -382,15 +400,6 @@
 
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="keterangan_direpair">Keterangan Barang Direpair</label>
-                                            <textarea class="form-control" id="keterangan_direpair"
-                                                name="keterangan_direpair" rows="3"></textarea>
-                                        </div>
-                                    </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="keterangan_dibuang">Keterangan Barang Dibuang</label>
@@ -399,6 +408,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="row">
                                     <div class="col-md-12 text-center">
                                         <a type="button" class="btn btn-secondary"

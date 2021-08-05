@@ -13,7 +13,7 @@
 
     textarea {
         width: 300px;
-        height: 150px !important;
+        height: 170px !important;
     }
 </style>
 <div id="non-printable">
@@ -258,40 +258,168 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="barang_akan_direpair">Barang Akan Direpair</label>
-                                            <div class="input-group mb-2">
-                                                <input type="number" class="form-control" required
-                                                    id="barang_akan_direpair" name="barang_akan_direpair">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">pcs</div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="barang_akan_direpair">Barang Akan Direpair</label>
+                                                    <div class="input-group mb-2">
+                                                        <input type="number" class="form-control" required
+                                                            id="barang_akan_direpair" name="barang_akan_direpair">
+                                                        <div class="input-group-prepend">
+                                                            <div class="input-group-text">pcs</div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="barang_akan_dibuang">Barang Akan Dibuang</label>
-                                            <div class="input-group mb-2">
-                                                <input type="number" class="form-control" readonly required
-                                                    id="barang_akan_dibuang" name="barang_akan_dibuang">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">pcs</div>
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <label for="" class="text-dark">Ukuran barang yang di repair</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+
+                                            <div class="col-md-2">
+
+                                                <div class="form-group">
+                                                    <label for="ukuran">S</label>
+                                                    <input type="hidden" name="dataukurandirepair[]" value="S">
+                                                    <input type="hidden" name="iddetailukurandirepair[]"
+                                                        id="iddetaildirepairs">
+                                                    <input type="number" min="0" class="form-control" required
+                                                        id="jumlahdirepairs" name="jumlahdirepair[]">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2" id="ukurandirepairm">
+                                                <div class="form-group">
+                                                    <label for="ukuran">M</label>
+                                                    <input type="hidden" name="dataukurandirepair[]" value="M">
+                                                    <input type="hidden" name="iddetailukurandirepair[]"
+                                                        id="iddetaildirepairm">
+                                                    <input type="number" min="0" class="form-control" required
+                                                        id="jumlahdirepairm" name="jumlahdirepair[]">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2" id="ukurandirepairl">
+                                                <div class="form-group">
+                                                    <label for="ukuran">L</label>
+                                                    <input type="hidden" name="dataukurandirepair[]" value="L">
+                                                    <input type="hidden" name="iddetailukurandirepair[]"
+                                                        id="iddetaildirepairl">
+                                                    <input type="number" min="0" class="form-control" required
+                                                        id="jumlahdirepairl" name="jumlahdirepair[]">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2" id="ukurandirepairxl">
+                                                <div class="form-group">
+                                                    <label for="ukuran">XL</label>
+                                                    <input type="hidden" name="dataukurandirepair[]" value="XL">
+                                                    <input type="hidden" name="iddetailukurandirepair[]"
+                                                        id="iddetaildirepairxl">
+                                                    <input type="number" min="0" class="form-control" required
+                                                        id="jumlahdirepairxl" name="jumlahdirepair[]">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2" id="ukurandirepairxxl">
+                                                <div class="form-group">
+                                                    <label for="ukuran">XXL</label>
+                                                    <input type="hidden" name="dataukurandirepair[]" value="XXL">
+                                                    <input type="hidden" name="iddetailukurandirepair[]"
+                                                        id="iddetaildirepairxxl">
+                                                    <input type="text" min="0" class="form-control" required
+                                                        id="jumlahdirepairxxl" name="jumlahdirepair[]">
                                                 </div>
                                             </div>
 
                                         </div>
                                     </div>
-
-                                </div>
-
-
-                                <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="keterangan_direpair">Keterangan Barang Direpair</label>
                                             <textarea class="form-control" id="keterangan_direpair"
                                                 name="keterangan_direpair" rows="3"></textarea>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="barang_akan_dibuang">Barang Akan Dibuang</label>
+                                                    <div class="input-group mb-2">
+                                                        <input type="number" class="form-control" readonly required
+                                                            id="barang_akan_dibuang" name="barang_akan_dibuang">
+                                                        <div class="input-group-prepend">
+                                                            <div class="input-group-text">pcs</div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <label for="" class="text-dark">Ukuran barang yang di buang</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <label for="ukuran">S</label>
+                                                    <input type="hidden" name="dataukurandibuang[]" value="S">
+                                                    <input type="hidden" name="iddetailukurandibuang[]"
+                                                        id="iddetaildibuangs">
+                                                    <input type="number" min="0" class="form-control" required
+                                                        id="jumlahdibuangs" name="jumlahdibuang[]">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2" id="ukurandibuangm">
+                                                <div class="form-group">
+                                                    <label for="ukuran">M</label>
+                                                    <input type="hidden" name="dataukurandibuang[]" value="M">
+                                                    <input type="hidden" name="iddetailukurandibuang[]"
+                                                        id="iddetaildibuangm">
+                                                    <input type="number" min="0" class="form-control" required
+                                                        id="jumlahdibuangm" name="jumlahdibuang[]">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2" id="ukurandibuangl">
+                                                <div class="form-group">
+                                                    <label for="ukuran">L</label>
+                                                    <input type="hidden" name="dataukurandibuang[]" value="L">
+                                                    <input type="hidden" name="iddetailukurandibuang[]"
+                                                        id="iddetaildibuangl">
+                                                    <input type="number" min="0" class="form-control" required
+                                                        id="jumlahdibuangl" name="jumlahdibuang[]">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2" id="ukurandibuangxl">
+                                                <div class="form-group">
+                                                    <label for="ukuran">XL</label>
+                                                    <input type="hidden" name="dataukurandibuang[]" value="XL">
+                                                    <input type="hidden" name="iddetailukurandibuang[]"
+                                                        id="iddetaildibuangxl">
+                                                    <input type="number" min="0" class="form-control" required
+                                                        id="jumlahdibuangxl" name="jumlahdibuang[]">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2" id="ukurandibuangxxl">
+                                                <div class="form-group">
+                                                    <label for="ukuran">XXL</label>
+                                                    <input type="hidden" name="dataukurandibuang[]" value="XXL">
+                                                    <input type="hidden" name="iddetailukurandibuang[]"
+                                                        id="iddetaildibuangxxl">
+                                                    <input type="text" min="0" class="form-control" required
+                                                        id="jumlahdibuangxxl" name="jumlahdibuang[]">
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -302,6 +430,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="row">
                                     <div class="col-md-12 text-center">
                                         <a type="button" class="btn btn-secondary"
@@ -513,18 +642,26 @@
                                         $('#iddetailm').val(element.id)
                                         $('#jumlahm').val(element.jumlah)
                                         $('#ukuranm').show()
+                                        $('#ukurandirepairm').show()
+                                         $('#ukurandibuangm').show()
                                     }else if(element.size == 'L'){
                                         $('#iddetaill').val(element.id)
                                         $('#jumlahl').val(element.jumlah)
                                         $('#ukuranl').show()
+                                        $('#ukurandirepairl').show()
+                                        $('#ukurandibuangl').show()
                                     }else if(element.size == 'XL'){
                                         $('#iddetailxl').val(element.id)
                                         $('#jumlahxl').val(element.jumlah)
                                         $('#ukuranxl').show()
+                                        $('#ukurandirepairxl').show()
+                                        $('#ukurandibuangxl').show()
                                     }else if(element.size == 'XXL'){
                                         $('#iddetailxxl').val(element.id)
                                         $('#jumlahxxl').val(element.jumlah)
                                         $('#ukuranxxl').show()
+                                        $('#ukurandirepairxxl').show()
+                                        $('#ukurandibuangxxl').show()
                                     }
                                 }
                             }

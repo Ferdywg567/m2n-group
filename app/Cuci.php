@@ -15,4 +15,14 @@ class Cuci extends Model
     {
         return $this->hasMany('App\DetailCuci');
     }
+
+    public function cuci_direpair()
+    {
+        return $this->hasMany('App\CuciDirepair');
+    }
+
+    public function cuci_dibuang()
+    {
+        return $this->hasMany('App\CuciDibuang');
+    }
 }

@@ -212,43 +212,24 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="barang_direpair">Barang Akan Direpair</label>
-                                            <div class="input-group mb-2">
-                                                <input type="number" class="form-control"
-                                                    value="{{$jahit->barang_direpair}}" readonly required id="barang_direpair"
-                                                    name="barang_direpair">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">pcs</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="barang_dibuang">Barang Akan Dibuang</label>
-                                            <div class="input-group mb-2">
-                                                <input type="number" class="form-control"
-                                                    value="{{$jahit->barang_dibuang}}" readonly required
-                                                    id="barang_dibuang" name="barang_dibuang">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">pcs</div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-6">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label for="ukuran">Ukuran</label>
-
+                                                    <label for="barang_direpair">Barang Akan Direpair</label>
+                                                    <div class="input-group mb-2">
+                                                        <input type="number" class="form-control"
+                                                            value="{{$jahit->barang_direpair}}" required
+                                                            id="barang_direpair" readonly name="barang_direpair">
+                                                        <div class="input-group-prepend">
+                                                            <div class="input-group-text">pcs</div>
+                                                        </div>
+                                                    </div>
                                                 </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <label for="" class="text-dark">Ukuran barang yang di repair</label>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -262,8 +243,8 @@
                                                     <input type="hidden" name="dataukurandirepair[]" value="S">
                                                     <input type="hidden" name="iddetailukurandirepair[]"
                                                         id="iddetaildirepairs" value="{{$item->id}}">
-                                                    <input type="number" min="0" value="{{$item->jumlah}}"
-                                                        class="form-control"  readonly required id="jumlahdirepairs"
+                                                    <input type="number" min="0" readonly value="{{$item->jumlah}}"
+                                                        class="form-control" required id="jumlahdirepairs"
                                                         name="jumlahdirepair[]">
                                                 </div>
                                             </div>
@@ -274,8 +255,8 @@
                                                     <input type="hidden" name="dataukurandirepair[]" value="M">
                                                     <input type="hidden" name="iddetailukurandirepair[]"
                                                         id="iddetaildirepairm" value="{{$item->id}}">
-                                                    <input type="number" min="0" value="{{$item->jumlah}}"
-                                                        class="form-control" readonly required id="jumlahdirepairm"
+                                                    <input type="number" min="0" readonly value="{{$item->jumlah}}"
+                                                        class="form-control" required id="jumlahdirepairm"
                                                         name="jumlahdirepair[]">
                                                 </div>
                                             </div>
@@ -286,8 +267,8 @@
                                                     <input type="hidden" name="dataukurandirepair[]" value="L">
                                                     <input type="hidden" name="iddetailukurandirepair[]"
                                                         id="iddetaildirepairl" value="{{$item->id}}">
-                                                    <input type="number" min="0" value="{{$item->jumlah}}"
-                                                        class="form-control" readonly required id="jumlahdirepairl"
+                                                    <input type="number" min="0" readonly value="{{$item->jumlah}}"
+                                                        class="form-control" required id="jumlahdirepairl"
                                                         name="jumlahdirepair[]">
                                                 </div>
                                             </div>
@@ -298,8 +279,8 @@
                                                     <input type="hidden" name="dataukurandirepair[]" value="XL">
                                                     <input type="hidden" name="iddetailukurandirepair[]"
                                                         id="iddetaildirepairxl" value="{{$item->id}}">
-                                                    <input type="number" min="0" value="{{$item->jumlah}}"
-                                                        class="form-control" readonly required id="jumlahdirepairxl"
+                                                    <input type="number" min="0" readonly value="{{$item->jumlah}}"
+                                                        class="form-control" required id="jumlahdirepairxl"
                                                         name="jumlahdirepair[]">
                                                 </div>
                                             </div>
@@ -310,8 +291,8 @@
                                                     <input type="hidden" name="dataukurandirepair[]" value="XXL">
                                                     <input type="hidden" name="iddetailukurandirepair[]"
                                                         id="iddetaildirepairxxl" value="{{$item->id}}">
-                                                    <input type="number" min="0" value="{{$item->jumlah}}"
-                                                        class="form-control" readonly required id="jumlahdirepairxxl"
+                                                    <input type="number" min="0" readonly value="{{$item->jumlah}}"
+                                                        class="form-control" required id="jumlahdirepairxxl"
                                                         name="jumlahdirepair[]">
                                                 </div>
                                             </div>
@@ -325,16 +306,44 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
+
+                                        <div class="form-group">
+                                            <label for="keterangan_direpair">Keterangan Barang Direpair</label>
+                                            <textarea class="form-control" readonly id="keterangan_direpair"
+                                                name="keterangan_direpair"
+                                                rows="3">{{$jahit->keterangan_direpair}}</textarea>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label for="ukuran">Ukuran</label>
+                                                    <label for="barang_dibuang">Barang Akan Dibuang</label>
+                                                    <div class="input-group mb-2">
+                                                        <input type="number" class="form-control"
+                                                            value="{{$jahit->barang_dibuang}}" readonly required
+                                                            id="barang_dibuang" name="barang_dibuang">
+                                                        <div class="input-group-prepend">
+                                                            <div class="input-group-text">pcs</div>
+                                                        </div>
+                                                    </div>
 
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
+                                            <div class="col-md-12">
+                                                <label for="" class="text-dark">Ukuran barang yang di buang</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+
                                             @forelse ($jahit->jahit_dibuang as $item)
+
                                             @if ($item->ukuran == 'S')
                                             <div class="col-md-2">
                                                 <div class="form-group">
@@ -347,7 +356,7 @@
                                                         name="jumlahdibuang[]">
                                                 </div>
                                             </div>
-                                            @elseif($item->ukuran == 'M')
+                                            @elseif ($item->ukuran == 'M')
                                             <div class="col-md-2" id="ukurandibuangm">
                                                 <div class="form-group">
                                                     <label for="ukuran">M</label>
@@ -359,7 +368,7 @@
                                                         name="jumlahdibuang[]">
                                                 </div>
                                             </div>
-                                            @elseif($item->ukuran == 'L')
+                                            @elseif ($item->ukuran == 'L')
                                             <div class="col-md-2" id="ukurandibuangl">
                                                 <div class="form-group">
                                                     <label for="ukuran">L</label>
@@ -371,7 +380,7 @@
                                                         name="jumlahdibuang[]">
                                                 </div>
                                             </div>
-                                            @elseif($item->ukuran == 'XL')
+                                            @elseif ($item->ukuran == 'XL')
                                             <div class="col-md-2" id="ukurandibuangxl">
                                                 <div class="form-group">
                                                     <label for="ukuran">XL</label>
@@ -383,8 +392,7 @@
                                                         name="jumlahdibuang[]">
                                                 </div>
                                             </div>
-                                            @elseif($item->ukuran == 'XXL')
-
+                                            @elseif ($item->ukuran == 'XL')
                                             <div class="col-md-2" id="ukurandibuangxxl">
                                                 <div class="form-group">
                                                     <label for="ukuran">XXL</label>
@@ -396,22 +404,13 @@
                                                         name="jumlahdibuang[]">
                                                 </div>
                                             </div>
+
                                             @endif
+
                                             @empty
 
                                             @endforelse
 
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="keterangan_direpair">Keterangan Barang Direpair</label>
-                                            <textarea class="form-control" readonly id="keterangan_direpair"
-                                                name="keterangan_direpair"
-                                                rows="3">{{$jahit->keterangan_direpair}}</textarea>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
