@@ -4,6 +4,12 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\CuciDibuang;
+use App\JahitDibuang;
+use App\Jahit;
+use App\Bahan;
+use App\Cuci;
+use App\Potong;
 
 class DashboardController extends Controller
 {
@@ -12,9 +18,41 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view("backend.dashboard.index");
+        $month = array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+
+
+
+        if ($request->ajax()) {
+            $bulan = $request->get('bulan');
+            $tahun = $request->get('tahun');
+            $bulan = date('m',strtotime($bulan));
+            $jumlah_kain = Bahan::whereMonth('tanggal_masuk', $bulan)->whereYear('tanggal_masuk', $tahun)->sum('panjang_bahan');
+            $jenis_bahan = Bahan::whereMonth('tanggal_masuk', $bulan)->whereYear('tanggal_masuk', $tahun)->count();
+            $berhasil_cuci = Cuci::whereMonth('tanggal_masuk', $bulan)->whereYear('tanggal_masuk', $tahun)->sum('berhasil_cuci');
+            $hasil_cutting = Potong::whereMonth('tanggal_cutting', $bulan)->whereYear('tanggal_cutting', $tahun)->sum('hasil_cutting');
+            $berhasil_jahit = Jahit::whereMonth('tanggal_jahit', $bulan)->whereYear('tanggal_jahit', $tahun)->sum('berhasil');
+            $cucidibuang = CuciDibuang::whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->sum('jumlah');
+            $jahitdibuang = JahitDibuang::whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->sum('jumlah');
+            $baju_rusak = $cucidibuang + $jahitdibuang;
+            return response()->json([
+                'status' => true,
+                'jumlah_kain' => $jumlah_kain,
+                'jenis_bahan' => $jenis_bahan,
+                'berhasil_cuci' => $berhasil_cuci,
+                'hasil_cutting' => $hasil_cutting,
+                'berhasil_jahit' => $berhasil_jahit,
+                'baju_rusak' => $baju_rusak,
+            ]);
+        }
+
+        $tahun = [];
+
+        for ($i = 2018; $i <= date('Y'); $i++) {
+            array_push($tahun, $i);
+        }
+        return view("backend.dashboard.index", ['month' => $month, 'tahun' => $tahun]);
     }
 
     /**
