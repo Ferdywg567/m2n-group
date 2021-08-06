@@ -25,4 +25,9 @@ class Cuci extends Model
     {
         return $this->hasMany('App\CuciDibuang');
     }
+
+    public function rekapitulasi()
+    {
+        return $this->hasMany('App\Rekapitulasi');
+    }
 }

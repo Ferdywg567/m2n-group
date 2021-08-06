@@ -50,6 +50,7 @@ class PerbaikanController extends Controller
                         $detail = new DetailPerbaikan();
                         $detail->perbaikan_id = $repair->id;
                         $detail->cuci_direpair_id = $row->id;
+                        $detail->jumlah = $row->jumlah;
                     }
 
                     $detail->save();
@@ -61,6 +62,7 @@ class PerbaikanController extends Controller
                         $total = DetailPerbaikan::where('perbaikan_id', $repair->id)->sum('jumlah');
                         $repair->tanggal_masuk = $repair->tanggal_masuk;
                         $repair->total = $total;
+
                     } else {
                         $repair = new Perbaikan();
                         $repair->bahan_id = $idbahan;
@@ -78,6 +80,7 @@ class PerbaikanController extends Controller
                         $detail = new DetailPerbaikan();
                         $detail->perbaikan_id = $repair->id;
                         $detail->jahit_direpair_id = $row->id;
+                        $detail->jumlah = $row->jumlah;
                     }
 
                     $detail->save();
@@ -85,14 +88,14 @@ class PerbaikanController extends Controller
             }
             DB::commit();
 
-            $repair = Perbaikan::all();
-            return view("backend.perbaikan.index", ['repair' => $repair]);
         } catch (\Exception $th) {
             //throw $th;
             DB::rollBack();
             dd($th);
         }
 
+        $repair = Perbaikan::all();
+        return view("backend.perbaikan.index", ['repair' => $repair]);
 
 
     }

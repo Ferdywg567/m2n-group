@@ -24,182 +24,57 @@
                             {{-- <h4>Latest Posts</h4> --}}
                             <div class="card-header-action">
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-primary " data-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false">
+                                    <a href="{{route('rekapitulasi.create')}}" class="btn btn-primary ">
                                         Input Data <i class="fas fa-plus"></i>
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#" data-toggle="modal"
-                                            data-target="#rekapitulasiMasuk">rekapitulasian Masuk</a>
-                                        <a class="dropdown-item" href="#" data-toggle="modal"
-                                            data-target="#rekapitulasiKeluar">rekapitulasian Keluar</a>
+                                    </a>
 
-                                    </div>
                                 </div>
 
                                 <button class="btn btn-outline-primary">Print Semua <i class="fas fa-print"></i>
                                 </button>
                             </div>
                         </div>
-                        <div class="card-body p-0">
-                            <div class="ml-2">
-                                <nav>
-                                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                        <a class="nav-item nav-link active" id="nav-bahanmasuk-tab" data-toggle="tab"
-                                            href="#nav-bahanmasuk" role="tab" aria-controls="nav-bahanmasuk"
-                                            aria-selected="true">rekapitulasi Masuk</a>
-                                        <a class="nav-item nav-link" id="nav-keluar-tab" data-toggle="tab"
-                                            href="#nav-keluar" role="tab" aria-controls="nav-keluar"
-                                            aria-selected="false">rekapitulasi Keluar</a>
-                                    </div>
-                                </nav>
-                            </div>
-                            <div class="tab-content ml-2 mr-2" id="nav-tabContent">
-                                <div class="tab-pane fade show active" id="nav-bahanmasuk" role="tabpanel"
-                                    aria-labelledby="nav-bahanmasuk-tab">
-                                    <table class="table table-hover" id="tabelbahanmasuk">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">No</th>
-                                                <th scope="col">Kode Bahan</th>
-                                                <th scope="col">SKU</th>
-                                                <th scope="col">Jenis Kain</th>
-                                                <th scope="col">Warna Kain</th>
-                                                <th scope="col">Tanggal Cutting</th>
-                                                <th scope="col">Tanggal Selesai</th>
-                                                <th scope="col">Surat Jalan</th>
-                                                <th scope="col">Status</th>
-                                                <th scope="col">Aksi</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="">
+                        <div class="card-body">
 
-                                            {{-- @forelse ($masuk as $item)
-                                            <tr>
-                                                <td>{{$loop->iteration}}</td>
-                                                <td>{{$item->bahan->kode_bahan}}</td>
-                                                <td>{{$item->bahan->sku}}</td>
-                                                <td>{{$item->bahan->jenis_bahan}}</td>
-                                                <td>{{$item->bahan->warna}}</td>
-                                                <td>{{$item->tanggal_cutting}}</td>
-                                                <td>{{$item->tanggal_selesai}}</td>
+                            <table class="table table-hover" id="tabelbahanmasuk">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">No</th>
+                                        <th scope="col">Kode Bahan</th>
+                                        <th scope="col">SKU</th>
+                                        <th scope="col">Jenis Bahan</th>
+                                        <th scope="col">Tgl Masuk</th>
+                                        <th scope="col">Tgl Kirim</th>
+                                        <th scope="col">Nama Barang</th>
+                                        <th scope="col">Warna</th>
+                                        <th scope="col">Siap QC</th>
+                                        <th scope="col">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="">
 
-                                                <td>{{$item->no_surat}}</td>
-                                                <td>
-                                                    @if ($item->status_rekapitulasi == 'belum rekapitulasi')
-                                                    <span
-                                                        class="badge badge-secondary text-dark">{{$item->status_rekapitulasi}}</span>
-                                                    @elseif ($item->status_rekapitulasi == 'selesai')
-                                                    <span
-                                                        class="badge badge-success text-dark">{{$item->status_rekapitulasi}}</span>
-                                                    @else
-                                                    <span
-                                                        class="badge badge-warning text-dark">{{$item->status_rekapitulasi}}</span>
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    <div class="dropdown dropleft">
-                                                        <a class="" href="#" id="dropdownMenuButton"
-                                                            data-toggle="dropdown" aria-haspopup="true"
-                                                            aria-expanded="false">
-                                                            <i class="fa fa-ellipsis-h"></i>
-                                                        </a>
-                                                        <div class="dropdown-menu text-center"
-                                                            aria-labelledby="dropdownMenuButton">
+                                    @forelse ($rekap as $item)
+                                    <tr>
+                                        <td>{{$loop->iteration}}</td>
+                                        <td>{{$item->cuci->jahit->potong->bahan->kode_bahan}}</td>
+                                        <td>{{$item->cuci->jahit->potong->bahan->sku}}</td>
+                                        <td>{{$item->cuci->jahit->potong->bahan->jenis_bahan}}</td>
+                                        <td>{{$item->cuci->jahit->potong->bahan->tanggal_masuk}}</td>
+                                        <td>{{$item->tanggal_kirim}}</td>
+                                        <td>{{$item->cuci->jahit->potong->bahan->nama_bahan}}</td>
+                                        <td>{{$item->cuci->jahit->potong->bahan->warna}}</td>
+                                        <td>{{$item->total_barang}}</td>
 
-                                                            <a class="dropdown-item btndetailmasuk" href="#"
-                                                                data-id="{{$item->id}}"><i class="fas fa-eye"></i>
-                                                                Detail</a>
-                                                            <a class="dropdown-item btnprintmasuk" href="#"
-                                                                data-id="{{$item->id}}"><i class="fas fa-print"></i>
-                                                                Print</a>
-                                                            <a class="dropdown-item btneditmasuk" href="#"
-                                                                data-id="{{$item->id}}"><i class="fas fa-edit"></i>
-                                                                Edit</a>
-                                                            <a class="dropdown-item" href="#"><i
-                                                                    class="fa fa-trash"></i>
-                                                                Delete</a>
+                                        <td>
+                                            <a href="{{route('rekapitulasi.show',[$item->id])}}" class="btn btn-outline-primary">Detail</a>
+                                        </td>
+                                    </tr>
+                                    @empty
 
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            @empty
+                                    @endforelse
 
-                                            @endforelse --}}
-
-                                        </tbody>
-                                    </table>
-
-                                </div>
-                                <div class="tab-pane fade" id="nav-keluar" role="tabpanel"
-                                    aria-labelledby="nav-keluar-tab">
-                                    <table class="table table-hover" id="tabelbahankeluar">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">No</th>
-                                                <th scope="col">Kode Bahan</th>
-                                                <th scope="col">SKU</th>
-                                                <th scope="col">Jenis Kain</th>
-                                                <th scope="col">Warna Kain</th>
-                                                <th scope="col">Tanggal Selesai</th>
-                                                <th scope="col">Tanggal Keluar</th>
-                                                <th scope="col">Surat Jalan</th>
-                                                <th scope="col">Status</th>
-                                                <th scope="col">Aksi</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="">
-                                            {{-- @forelse ($datakeluar as $item)
-                                            <tr>
-                                                <td>{{$loop->iteration}}</td>
-                                                <td>{{$item->bahan->kode_bahan}}</td>
-                                                <td>{{$item->bahan->sku}}</td>
-                                                <td>{{$item->bahan->jenis_bahan}}</td>
-                                                <td>{{$item->bahan->warna}}</td>
-                                                <td>{{$item->tanggal_selesai}}</td>
-                                                <td>{{$item->tanggal_keluar}}</td>
-                                                <td>{{$item->no_surat}}</td>
-                                                <td>
-                                                    <span
-                                                        class="badge badge-success text-dark">{{$item->status_rekapitulasi}}</span>
-                                                </td>
-
-                                                <td>
-                                                    <div class="dropdown dropleft">
-                                                        <a class="" href="#" id="dropdownMenuButton"
-                                                            data-toggle="dropdown" aria-haspopup="true"
-                                                            aria-expanded="false">
-                                                            <i class="fa fa-ellipsis-h"></i>
-                                                        </a>
-                                                        <div class="dropdown-menu text-center"
-                                                            aria-labelledby="dropdownMenuButton">
-
-                                                            <a class="dropdown-item btndetailkeluar" href="#"
-                                                                data-id="{{$item->id}}"><i class="fas fa-eye"></i>
-                                                                Detail</a>
-                                                            <a class="dropdown-item btneditkeluar" href="#"
-                                                                data-id="{{$item->id}}"><i class="fas fa-edit"></i>
-                                                                Edit</a>
-                                                            <a class="dropdown-item" href="#"><i
-                                                                    class="fa fa-trash"></i>
-                                                                Delete</a>
-
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            @empty
-
-                                            @endforelse
- --}}
-
-
-                                        </tbody>
-                                    </table>
-
-                                </div>
-                            </div>
+                                </tbody>
+                            </table>
 
                         </div>
                     </div>
@@ -208,340 +83,9 @@
         </div>
     </section>
 
-    {{-- Modal Bahan Masuk --}}
-
-    <div class="modal fade" id="rekapitulasiMasuk" tabindex="-1" role="dialog" aria-labelledby="rekapitulasiMasukLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="rekapitulasiMasukLabel">Input Data [rekapitulasi Masuk]</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form id="formrekapitulasiMasuk">
-                    <div class="modal-body">
-                        <div id="alert-rekapitulasi-masuk">
-
-                        </div>
-                        <input type="hidden" name="status" value="rekapitulasi masuk">
-                        <input type="hidden" name="id" id="idmasuk">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="kode_bahan">Kode Bahan</label>
-                                    <div id="kdbahanselectmasuk">
-                                        <select class="form-control" id="kode_bahanselect" name="kode_bahan">
-                                            <option value="">Pilih Kode Bahan</option>
-                                            {{-- @forelse ($bahan as $item)
-                                            <option value="{{$item->id}}">{{$item->kode_bahan}} | {{$item->nama_bahan}}
-                                            </option>
-                                            @empty
-
-                                            @endforelse --}}
-
-
-                                        </select>
-                                    </div>
-
-                                    <div id="kdbahanmasuk">
-                                        <input type="text" class="form-control" readonly id="kdbahanreadmasuk"
-                                            name="kdbahanreadmasuk">
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="no_surat">Nomor Surat Jalan</label>
-                                    <input type="text" class="form-control" required id="no_surat" name="no_surat">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="tanggal_cutting">Tanggal Cutting</label>
-                                    <input type="date" class="form-control" required id="tanggal_cutting"
-                                        name="tanggal_cutting">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="tanggal_selesai">Tanggal Selesai</label>
-                                    <input type="date" class="form-control" required id="tanggal_selesai"
-                                        name="tanggal_selesai">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="jenis_kain">Jenis Kain</label>
-                                    <input type="text" class="form-control" readonly required id="jenis_kain"
-                                        name="jenis_kain">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="sku">Kode SKU</label>
-                                    <input type="text" class="form-control" readonly required id="sku" name="sku">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="panjang_kain">Panjang kain</label>
-                                    <div class="input-group mb-2">
-                                        <input type="number" class="form-control" readonly required id="panjang_kain"
-                                            name="panjang_kain">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">yard</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="nama_produk">Nama Produk</label>
-                                    <input type="text" class="form-control" readonly required id="nama_produk"
-                                        name="nama_produk">
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="warna">Warna</label>
-                                    <input type="text" class="form-control" readonly required id="warna" name="warna">
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                        <button type="button" class="btn btn-primary btnmasuk">Simpan</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-
-    {{-- Modal Bahan Keluar --}}
-
-    <div class="modal fade" id="rekapitulasiKeluar" tabindex="-1" role="dialog" aria-labelledby="rekapitulasiKeluarLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="rekapitulasiKeluarLabel">Input Data [rekapitulasi Keluar]</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form id="formrekapitulasiKeluar">
-                    <div class="modal-body">
-                        <div id="alert-rekapitulasi-keluar">
-
-                        </div>
-                        <input type="hidden" name="status" value="rekapitulasi keluar">
-                        <input type="hidden" name="id" id="idkeluar">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="kode_bahan">Kode Bahan</label>
-                                    <div id="kdbahanselectkeluar">
-                                        <select class="form-control" id="kode_bahanselectkeluar" name="kode_bahan">
-                                            {{-- <option value="">Pilih Kode Bahan</option>
-                                            @forelse ($keluar as $item)
-                                            <option value="{{$item->id}}">{{$item->bahan->kode_bahan}} |
-                                                {{$item->bahan->nama_bahan}}
-                                            </option>
-                                            @empty
-
-                                            @endforelse --}}
-
-
-                                        </select>
-                                    </div>
-
-                                    <div id="kdbahankeluar">
-                                        <input type="text" class="form-control" readonly id="kdbahanreadkeluar"
-                                            name="kdbahanreadkeluar">
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="no_surat_keluar">Nomor Surat Jalan</label>
-                                    <input type="text" class="form-control" required id="no_surat_keluar" name="no_surat">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="tanggal_selesai_keluar">Tanggal Selesai</label>
-                                    <input type="date" class="form-control" readonly required
-                                        id="tanggal_selesai_keluar" name="tanggal_selesai">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="tanggal_keluar">Tanggal Keluar</label>
-                                    <input type="date" class="form-control" required id="tanggal_keluar"
-                                        name="tanggal_keluar">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="jenis_kain">Jenis Kain</label>
-                                    <input type="text" class="form-control" readonly required id="jenis_kain_keluar"
-                                        name="jenis_kain">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="sku">Kode SKU</label>
-                                    <input type="text" class="form-control" readonly required id="sku_keluar"
-                                        name="sku">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="panjang_kain">Panjang kain</label>
-                                    <div class="input-group mb-2">
-                                        <input type="number" class="form-control" readonly required
-                                            id="panjang_kain_keluar" name="panjang_kain">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">yard</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="nama_produk">Nama Produk</label>
-                                    <input type="text" class="form-control" readonly required id="nama_produk_keluar"
-                                        name="nama_produk">
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="warna">Warna</label>
-                                    <input type="text" class="form-control" readonly required id="warna_keluar"
-                                        name="warna">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="hasil_cutting">Hasil Cutting</label>
-                                            <input type="number" class="form-control" required id="hasil_cutting"
-                                                name="hasil_cutting">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="konversi">Konversi Lusin</label>
-                                            <input type="text" readonly class="form-control" required id="konversi"
-                                                name="konversi">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="ukuran">Ukuran</label>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label for="ukuran">S</label>
-                                    <input type="hidden" name="dataukuran[]" value="S">
-                                    <input type="hidden" name="iddetailukuran[]" id="iddetails">
-                                    <input type="number" min="0" class="form-control" required id="jumlahs"
-                                        name="jumlah[]">
-                                </div>
-                            </div>
-                            <div class="col-md-2" id="ukuranm">
-                                <div class="form-group">
-                                    <label for="ukuran">M</label>
-                                    <input type="hidden" name="dataukuran[]" value="M">
-                                    <input type="hidden" name="iddetailukuran[]" id="iddetailm">
-                                    <input type="number" min="0" class="form-control" required id="jumlahm"
-                                        name="jumlah[]">
-                                </div>
-                            </div>
-                            <div class="col-md-2" id="ukuranl">
-                                <div class="form-group">
-                                    <label for="ukuran">L</label>
-                                    <input type="hidden" name="dataukuran[]" value="L">
-                                    <input type="hidden" name="iddetailukuran[]" id="iddetaill">
-                                    <input type="number" min="0" class="form-control" required id="jumlahl"
-                                        name="jumlah[]">
-                                </div>
-                            </div>
-                            <div class="col-md-2" id="ukuranxl">
-                                <div class="form-group">
-                                    <label for="ukuran">XL</label>
-                                    <input type="hidden" name="dataukuran[]" value="XL">
-                                    <input type="hidden" name="iddetailukuran[]" id="iddetailxl">
-                                    <input type="number" min="0" class="form-control" required id="jumlahxl"
-                                        name="jumlah[]">
-                                </div>
-                            </div>
-                            <div class="col-md-2" id="ukuranxxl">
-                                <div class="form-group">
-                                    <label for="ukuran">XXL</label>
-                                    <input type="hidden" name="dataukuran[]" value="XXL">
-                                    <input type="hidden" name="iddetailukuran[]" id="iddetailxxl">
-                                    <input type="number" min="0" class="form-control" required id="jumlahxxl"
-                                        name="jumlah[]">
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group" style="margin-top: 30px">
-                                    <button type="button" class="btn btn-outline-primary" id="btnsize">Tambah
-                                        Size</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                        <button type="button" class="btn btn-primary btnkeluar">Simpan</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
 
 </div>
-<div id="printable">
-    <h1>Hello print</h1>
-</div>
+
 @endsection
 @push('scripts')
 <script>

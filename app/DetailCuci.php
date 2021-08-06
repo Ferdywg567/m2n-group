@@ -10,4 +10,9 @@ class DetailCuci extends Model
     {
         return $this->belongsTo('App\Cuci');
     }
+
+    public function rekapitulasi()
+    {
+        return $this->hasOne('App\Rekapitulasi');
+    }
 }
