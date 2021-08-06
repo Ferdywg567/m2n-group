@@ -47,6 +47,7 @@ class PerbaikanController extends Controller
                     if ($detail) {
                         $detail->jumlah = $row->jumlah;
                     } else {
+                        $detail = new DetailPerbaikan();
                         $detail->perbaikan_id = $repair->id;
                         $detail->cuci_direpair_id = $row->id;
                     }
@@ -74,6 +75,7 @@ class PerbaikanController extends Controller
                     if ($detail) {
                         $detail->jumlah = $row->jumlah;
                     } else {
+                        $detail = new DetailPerbaikan();
                         $detail->perbaikan_id = $repair->id;
                         $detail->jahit_direpair_id = $row->id;
                     }
@@ -92,7 +94,7 @@ class PerbaikanController extends Controller
         }
 
 
-        return view("backend.perbaikan.index");
+
     }
 
     /**
@@ -152,7 +154,7 @@ class PerbaikanController extends Controller
                 ];
             }
         }
-        
+
         return view("backend.perbaikan.show", ['repair' => $repair, 'cuci' => $cuci, 'jahit' => $jahit]);
     }
 

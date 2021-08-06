@@ -15,4 +15,9 @@ class Bahan extends Model
     {
         return $this->hasMany('App\Perbaikan');
     }
+
+    public function sampah()
+    {
+        return $this->hasMany('App\Sampah');
+    }
 }

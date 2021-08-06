@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\DetailSampah;
+use App\Cuci;
+use App\Sampah;
 
 class SampahController extends Controller
 {
@@ -14,7 +18,76 @@ class SampahController extends Controller
      */
     public function index()
     {
-        return view("backend.sampah.index");
+        $cuci = Cuci::all();
+
+        DB::beginTransaction();
+
+        try {
+            foreach ($cuci as $key => $value) {
+                $idbahan = $value->jahit->potong->bahan->id;
+                foreach ($value->cuci_dibuang as $key => $row) {
+                    $sampah = Sampah::where('bahan_id', $idbahan)->where('ukuran', $row->ukuran)->first();
+                    if ($sampah) {
+                        $total = DetailSampah::where('sampah_id', $sampah->id)->sum('jumlah');
+
+                        $sampah->total = $total;
+                    } else {
+                        $sampah = new Sampah();
+                        $sampah->bahan_id = $idbahan;
+                        $sampah->ukuran = $row->ukuran;
+                        $sampah->total = $row->jumlah;
+                    }
+                    $sampah->save();
+
+                    $detail = DetailSampah::where('sampah_id', $sampah->id)->where('cuci_dibuang_id', $row->id)->first();
+                    if ($detail) {
+                        $detail->jumlah = $row->jumlah;
+                    } else {
+                        $detail = new DetailSampah();
+                        $detail->sampah_id = $sampah->id;
+                        $detail->cuci_dibuang_id = $row->id;
+                        $detail->jumlah = $row->jumlah;
+                    }
+
+                    $detail->save();
+                }
+
+                foreach ($value->jahit->jahit_dibuang as $key => $row) {
+                    $sampah = Sampah::where('bahan_id', $idbahan)->where('ukuran', $row->ukuran)->first();
+                    if ($sampah) {
+                        $total = DetailSampah::where('sampah_id', $sampah->id)->sum('jumlah');
+
+                        $sampah->total = $total;
+                    } else {
+                        $sampah = new Sampah();
+                        $sampah->bahan_id = $idbahan;
+                        $sampah->ukuran = $row->ukuran;
+                        $sampah->total = $row->jumlah;
+                    }
+                    $sampah->save();
+
+                    $detail = DetailSampah::where('sampah_id', $sampah->id)->where('jahit_dibuang_id', $row->id)->first();
+                    if ($detail) {
+                        $detail->jumlah = $row->jumlah;
+                    } else {
+                        $detail = new DetailSampah();
+                        $detail->sampah_id = $sampah->id;
+                        $detail->jahit_dibuang_id = $row->id;
+                        $detail->jumlah = $row->jumlah;
+                    }
+
+                    $detail->save();
+                }
+            }
+            DB::commit();
+
+            $sampah = Sampah::all();
+            return view("backend.sampah.index", ['sampah' => $sampah]);
+        } catch (\Exception $th) {
+            //throw $th;
+            DB::rollBack();
+            dd($th);
+        }
     }
 
     /**
@@ -46,7 +119,36 @@ class SampahController extends Controller
      */
     public function show($id)
     {
-        //
+        $sampah = Sampah::findOrFail($id);
+
+        $jahit = [
+            'jahit_dibuang_id' => '',
+            'jumlah' => '',
+            'keterangan' => ''
+        ];
+        $cuci = [
+            'cuci_dibuang_id' => '',
+            'jumlah' => '',
+            'keterangan' => ''
+        ];
+        foreach ($sampah->detail_sampah as $key => $value) {
+            if (!empty($value->jahit_dibuang_id)) {
+                $jahit = [
+                    'jahit_dibuang_id' => $value->id,
+                    'jumlah' => $value->jumlah
+
+                ];
+            }
+            if (!empty($value->cuci_dibuang_id)) {
+                $cuci = [
+                    'cuci_dibuang_id' => $value->id,
+                    'jumlah' => $value->jumlah,
+
+                ];
+            }
+        }
+
+        return view("backend.sampah.show", ['sampah' => $sampah, 'cuci' => $cuci, 'jahit' => $jahit]);
     }
 
     /**
