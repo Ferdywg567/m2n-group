@@ -38,8 +38,8 @@
                                     </div>
                                 </div>
 
-                                <button class="btn btn-outline-primary">Print Semua <i class="fas fa-print"></i>
-                                </button>
+                                <a href="{{route('print.index')}}" class="btn btn-outline-primary">Print Semua <i class="fas fa-print"></i>
+                                </a>
                             </div>
                         </div>
                         <div class="card-body">

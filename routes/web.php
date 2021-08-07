@@ -59,4 +59,5 @@ Route::group(['prefix' => 'production', 'namespace' => 'Backend', 'middleware' =
     Route::resource('rekapitulasi', 'RekapitulasiController');
     Route::resource('sampah', 'SampahController');
     Route::resource('perbaikan', 'PerbaikanController');
+    Route::resource('print', 'PrintController');
 });
