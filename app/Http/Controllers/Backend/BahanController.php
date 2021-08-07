@@ -203,9 +203,20 @@ class BahanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        if ($request->ajax()) {
+            $bahan = Bahan::findOrFail($id);
+            $status = false;
+            if ($bahan->potong()->exists()) {
+                $status = true;
+            }else{
+                $bahan->delete();
+            }
+            return response()->json([
+                'status' => $status
+            ]);
+        }
     }
 
     public function getDataBahan(Request $request)

@@ -42,8 +42,8 @@
                                 </button>
                             </div>
                         </div>
-                        <div class="card-body p-0">
-                            <div class="ml-2">
+                        <div class="card-body">
+                            <div>
                                 <nav>
                                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                                         <a class="nav-item nav-link active" id="nav-bahanmasuk-tab" data-toggle="tab"
@@ -55,7 +55,7 @@
                                     </div>
                                 </nav>
                             </div>
-                            <div class="tab-content ml-2 mr-2" id="nav-tabContent">
+                            <div class="tab-content" id="nav-tabContent">
                                 <div class="tab-pane fade show active" id="nav-bahanmasuk" role="tabpanel"
                                     aria-labelledby="nav-bahanmasuk-tab">
                                     <table class="table table-hover" id="tabelbahanmasuk">
@@ -105,7 +105,7 @@
                                                                 href="{{route('bahan.edit',[$item->id])}}"><i
                                                                     class="fas fa-edit"></i>
                                                                 Edit</a>
-                                                            <a class="dropdown-item" href="#"><i
+                                                            <a class="dropdown-item hapus" data-id="{{$item->id}}" href="#"><i
                                                                     class="fa fa-trash"></i>
                                                                 Delete</a>
 
@@ -166,7 +166,7 @@
                                                                 href="{{route('bahan.edit',[$item->id])}}"><i
                                                                     class="fas fa-edit"></i>
                                                                 Edit</a>
-                                                            <a class="dropdown-item" href="#"><i
+                                                            <a class="dropdown-item hapus" data-id="{{$item->id}}" href="#"><i
                                                                     class="fa fa-trash"></i>
                                                                 Delete</a>
 
@@ -739,6 +739,47 @@
                             }
                     })
               })
+
+
+              $(document).on('click','.hapus', function () {
+                  var id = $(this).data('id')
+
+
+
+                    swal({
+                    title: "Are you sure?",
+                    text: "Once deleted, you will not be able to recover this imaginary file!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                    })
+                    .then((willDelete) => {
+                    if (willDelete) {
+                        ajax()
+                        $.ajax({
+                            url:"{{url('production/bahan/')}}/"+id,
+                            method:"DELETE",
+                            success:function(data){
+
+                                if(data.status){
+                                    swal("Sorry, cant delete this file!");
+
+                                }else{
+                                    swal("Success! Your imaginary file has been deleted!", {
+                                    icon: "success",
+                                    });
+
+                                    setTimeout(function () {  location.reload(true) },1500)
+                                }
+                            }
+                       })
+
+                    } else {
+
+                    }
+                    });
+
+               })
      })
 </script>
 @endpush

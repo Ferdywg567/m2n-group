@@ -36,6 +36,16 @@ class DashboardController extends Controller
             $cucidibuang = CuciDibuang::whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->sum('jumlah');
             $jahitdibuang = JahitDibuang::whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->sum('jumlah');
             $baju_rusak = $cucidibuang + $jahitdibuang;
+
+            $potong = Potong::with(['bahan'])->whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->limit(5)->get();
+            $jahit = Jahit::with(['potong'=> function($q){
+                $q->with('bahan');
+            }])->whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->limit(5)->get();
+            $cuci = Cuci::with(['jahit'=> function($q){
+                $q->with(['potong' => function($q){
+                    $q->with('bahan');
+                }]);
+            }])->whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->limit(5)->get();
             return response()->json([
                 'status' => true,
                 'jumlah_kain' => $jumlah_kain,
@@ -44,6 +54,9 @@ class DashboardController extends Controller
                 'hasil_cutting' => $hasil_cutting,
                 'berhasil_jahit' => $berhasil_jahit,
                 'baju_rusak' => $baju_rusak,
+                'potong' => $potong,
+                'jahit' => $jahit,
+                'cuci' => $cuci,
             ]);
         }
 

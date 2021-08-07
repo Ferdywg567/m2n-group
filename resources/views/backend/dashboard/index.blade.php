@@ -306,6 +306,14 @@
             </div>
 
         </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <canvas id="pieChart" width="400" height="300"></canvas>
+                </div>
+            </div>
+
+        </div>
     </div>
 </section>
 @endsection
@@ -313,35 +321,92 @@
 <script src="{{asset('assets/modules/chart.min.js')}}"></script>
 <script>
     $(document).ready(function () {
-
-        $('#table-cutting').DataTable({
+        var pieChart;
+       var table_cutting = $('#table-cutting').DataTable({
             "searching": false,
             "info": false,
             "bPaginate": false,
             "bLengthChange": false,
             "bFilter": true,
             "bInfo": false,
-            "bAutoWidth": false
+            "bAutoWidth": false,
+             data:[],
+                columns: [
+                { "data": "bahan.kode_bahan"  },
+                { "data": "bahan.sku" },
+                { "data": "status_potong" }
+            ],
+            "rowCallback":function(row, data, index){
+
+                var datahtml = "";
+                if(data.status_potong == 'belum potong'){
+                    datahtml = '<span class="badge badge-secondary text-dark">'+data.status_potong+'</span>';
+                }else if(data.status_potong == 'selesai'){
+                    datahtml = '<span class="badge badge-success text-dark">'+data.status_potong+'</span>';
+                }else {
+                    datahtml = '<span class="badge badge-warning text-dark">'+data.status_potong+'</span>';
+                }
+
+                $('td:eq(2)',row).html(datahtml)
+            }
         })
 
-        $('#table-jahit').DataTable({
+     var table_jahit =   $('#table-jahit').DataTable({
             "searching": false,
             "info": false,
             "bPaginate": false,
             "bLengthChange": false,
             "bFilter": true,
             "bInfo": false,
-            "bAutoWidth": false
+            "bAutoWidth": false,
+            data:[],
+                columns: [
+                { "data": "potong.bahan.kode_bahan"  },
+                { "data": "potong.bahan.sku" },
+                { "data": "status_jahit" }
+            ],
+            "rowCallback":function(row, data, index){
+
+                var datahtml = "";
+                if(data.status_jahit == 'belum jahit'){
+                    datahtml = '<span class="badge badge-secondary text-dark">'+data.status_jahit+'</span>';
+                }else if(data.status_jahit == 'selesai'){
+                    datahtml = '<span class="badge badge-success text-dark">'+data.status_jahit+'</span>';
+                }else {
+                    datahtml = '<span class="badge badge-warning text-dark">'+data.status_jahit+'</span>';
+                }
+
+                $('td:eq(2)',row).html(datahtml)
+            }
         })
 
-        $('#table-cuci').DataTable({
+     var table_cuci =   $('#table-cuci').DataTable({
             "searching": false,
             "info": false,
             "bPaginate": false,
             "bLengthChange": false,
             "bFilter": true,
             "bInfo": false,
-            "bAutoWidth": false
+            "bAutoWidth": false,
+            data:[],
+                columns: [
+                { "data": "jahit.potong.bahan.kode_bahan"  },
+                { "data": "jahit.potong.bahan.sku" },
+                { "data": "status_cuci" }
+            ],
+            "rowCallback":function(row, data, index){
+
+                var datahtml = "";
+                if(data.status_cuci == 'belum cuci'){
+                    datahtml = '<span class="badge badge-secondary text-dark">'+data.status_cuci+'</span>';
+                }else if(data.status_cuci == 'selesai'){
+                    datahtml = '<span class="badge badge-success text-dark">'+data.status_cuci+'</span>';
+                }else {
+                    datahtml = '<span class="badge badge-warning text-dark">'+data.status_cuci+'</span>';
+                }
+
+                $('td:eq(2)',row).html(datahtml)
+            }
         })
         var ctx = document.getElementById('barChart').getContext('2d');
         var barChart = new Chart(ctx, {
@@ -379,10 +444,36 @@
             }
         });
 
+
+        function pieChartData()
+        {
+            var ctx = document.getElementById("pieChart").getContext('2d');
+             pieChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ["Green", "Blue", "Gray", "Purple", "Yellow", "Red", "Black"],
+                datasets: [{
+                backgroundColor: [
+                    "#2ecc71",
+                    "#3498db",
+                    "#95a5a6",
+                    "#9b59b6",
+                    "#f1c40f",
+                    "#e74c3c",
+                    "#34495e"
+                ],
+                data: [12, 19, 3, 17, 28, 24, 7]
+                }]
+            }
+            });
+        }
+
         $('#bulan, #tahun').on('change', function () {
             var bulan = $('#bulan').find(':selected').val()
             var tahun = $('#tahun').find(':selected').val()
-
+            table_cutting.clear().draw;
+            table_jahit.clear().draw;
+            table_cuci.clear().draw;
             $.ajax({
                 url:"{{route('dashboard.index')}}",
                 method:"GET",
@@ -392,9 +483,18 @@
                 },success:function(data){
                     console.log(data);
                     if(data.status){
+                       
+                        if (typeof(pieChart) != "undefined") {
+                             pieChart.destroy();
+                        }
+                        pieChartData()
+                        table_cutting.rows.add(data.potong).draw();
+                        table_jahit.rows.add(data.jahit).draw();
+                        table_cuci.rows.add(data.cuci).draw();
                         $('#jumlah_kain').text(data.jumlah_kain)
                         $('#jenis_bahan').text(data.jenis_bahan)
                         $('#berhasil_cuci').text(data.berhasil_cuci)
+                        $('#siap_qc').text(data.berhasil_cuci)
                         $('#hasil_potong').text(data.hasil_cutting)
                         $('#berhasil_jahit').text(data.berhasil_jahit)
                         $('#baju_rusak').text(data.baju_rusak)
