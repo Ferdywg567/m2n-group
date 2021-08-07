@@ -123,7 +123,7 @@
                                                                 href="{{route('jahit.edit',[$item->id])}}"><i
                                                                     class="fas fa-edit"></i>
                                                                 Edit</a>
-                                                            <a class="dropdown-item" href="#"><i
+                                                            <a class="dropdown-item hapus" data-id="{{$item->id}}" href="#"><i
                                                                     class="fa fa-trash"></i>
                                                                 Delete</a>
 
@@ -190,7 +190,7 @@
                                                                 href="{{route('jahit.edit',[$item->id])}}"><i
                                                                     class="fas fa-edit"></i>
                                                                 Edit</a>
-                                                            <a class="dropdown-item" href="#"><i
+                                                            <a class="dropdown-item hapus" data-id="{{$item->id}}" href="#"><i
                                                                     class="fa fa-trash"></i>
                                                                 Delete</a>
 
@@ -1172,6 +1172,42 @@
                             }
                     })
               })
+
+
+              $(document).on('click','.hapus', function () {
+                  var id = $(this).data('id')
+                    swal({
+                    title: "Are you sure?",
+                    text: "Once deleted, you will not be able to recover this imaginary file!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                    })
+                    .then((willDelete) => {
+                    if (willDelete) {
+                        ajax()
+                        $.ajax({
+                            url:"{{url('production/jahit/')}}/"+id,
+                            method:"DELETE",
+                            success:function(data){
+
+                                if(data.status){
+                                    swal("Sorry, cant delete this file!");
+
+                                }else{
+                                    swal("Success! Your imaginary file has been deleted!", {
+                                    icon: "success",
+                                    });
+
+                                    setTimeout(function () {  location.reload(true) },1500)
+                                }
+                            }
+                       })
+
+                    } 
+                    });
+
+               })
      })
 </script>
 @endpush

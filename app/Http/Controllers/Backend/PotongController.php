@@ -245,11 +245,21 @@ class PotongController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        if ($request->ajax()) {
+            $potong = Potong::findOrFail($id);
+            $status = false;
+            if ($potong->jahit()->exists()) {
+                $status = true;
+            }else{
+                $potong->delete();
+            }
+            return response()->json([
+                'status' => $status
+            ]);
+        }
     }
-
     public function getDataPotong(Request $request)
     {
         if ($request->ajax()) {

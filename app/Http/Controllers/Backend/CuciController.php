@@ -472,11 +472,21 @@ class CuciController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        if ($request->ajax()) {
+            $cuci = Cuci::findOrFail($id);
+            $status = false;
+            if ($cuci->rekapitulasi()->exists()) {
+                $status = true;
+            }else{
+                $cuci->delete();
+            }
+            return response()->json([
+                'status' => $status
+            ]);
+        }
     }
-
     public function getDataCuci(Request $request)
     {
         if ($request->ajax()) {

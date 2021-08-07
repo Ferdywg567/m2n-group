@@ -415,11 +415,21 @@ class JahitController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        if ($request->ajax()) {
+            $jahit = Jahit::findOrFail($id);
+            $status = false;
+            if ($jahit->cuci()->exists()) {
+                $status = true;
+            }else{
+                $jahit->delete();
+            }
+            return response()->json([
+                'status' => $status
+            ]);
+        }
     }
-
     public function getDataJahit(Request $request)
     {
         if ($request->ajax()) {
