@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Jahit;
 use App\Potong;
+use App\Cuci;
 use Illuminate\Http\Request;
 
 class PrintController extends Controller
@@ -22,24 +24,73 @@ class PrintController extends Controller
 
             // $potong = Potong::with('bahan')->whereBetween('created_at', [$dari, $sampai])->get();
             $potong = Potong::with('bahan')->get();
-            $arpotong = [];
+            $jahit = Jahit::with(['potong'=> function($q){
+                $q->with('bahan');
+            }])->get();
+            $cuci = Cuci::with(['jahit'=> function($q){
+                $q->with(['potong'=> function($q){
+                    $q->with('bahan');
+                }]);
+            }])->get();
+            $data = [];
             $tes = [];
             $titlepotong = [
                 'Kode SKU',
                 'Tanggal Cutting',
                 'Tanggal Selesai',
-                'Hasil Cutting'
+                'Hasil Cutting',
+                'Jenis Kain',
+                'Warna Kain',
+                'Nama Produk'
+            ];
+
+
+            $titlejahit = [
+                'Kode SKU',
+                'Tanggal Selesai Jahit',
+                'Vendor Jahit',
+                'Berhasil Jahit',
+                'Gagal Jahit',
+                'Barang Direpair',
+                'Keterangan Direpair',
+                'Barang Dibuang',
+                'Keterangan Dibuang'
             ];
 
             foreach ($potong as $key => $value) {
                 $x['menu'] = 'CUTTING';
                 $x['title'] = $titlepotong;
-                $x['data'] = [$value->bahan->sku, $value->tanggal_cutting, $value->tanggal_selesai, $value->hasil_cutting];
-                array_push($arpotong, $x);
+                $x['data'] = [
+                    $value->bahan->sku,
+                    $value->tanggal_cutting,
+                    $value->tanggal_selesai,
+                    $value->hasil_cutting,
+                    $value->bahan->jenis_bahan,
+                    $value->bahan->warna,
+                    $value->bahan->nama_bahan,
+
+                ];
+                array_push($data, $x);
             }
 
+            foreach ($jahit as $key => $value) {
+                $x['menu'] = 'TAILORING';
+                $x['title'] = $titlejahit;
+                $x['data'] = [
+                    $value->potong->bahan->sku,
+                    $value->tanggal_selesai,
+                    $value->vendor,
+                    $value->berhasil,
+                    $value->gagal_jahit,
+                    $value->barang_direpair,
+                    $value->keterangan_direpair,
+                    $value->barang_dibuang,
+                    $value->keterangan_dibuang,
+                ];
+                array_push($data, $x);
+            }
 
-            return response()->json(['potong' => $arpotong]);
+            return response()->json(['print' => $data]);
         }
         return view("backend.print.index");
     }

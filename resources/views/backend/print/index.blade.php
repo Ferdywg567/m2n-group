@@ -72,8 +72,8 @@
     </section>
 
     <section class="section">
-        <div class="section-body" style="overflow-y: scroll; height:400px;">
-            <div class="row" id="testdata">
+        <div class="section-body" style="overflow-y: scroll; height:400px;" id="dataprint">
+            {{-- <div class="row" id="testdata"> --}}
                 {{-- <div class="col-md-6">
                     <div class="card tinggi_card">
 
@@ -133,7 +133,7 @@
                         </div>
                     </div>
                 </div> --}}
-            </div>
+            {{-- </div> --}}
         </div>
     </section>
 
@@ -146,15 +146,18 @@
             $('#menu').select2()
 
             $('.btnfilter').on('click', function(){
-                var tes = $('#testdata')
+                var tes = $('#dataprint')
                 $.ajax({
                     url:"{{route('print.index')}}",
                     method:"GET",
                     success:function(data){
                         console.log(data);
-                        var datapotong = data.potong;
+                        var dataprint = data.print;
                         var htmldata = ''
-                        datapotong.forEach(element => {
+                        dataprint.forEach((element,i) => {
+                            if(i == 0){
+                                htmldata+= '<div class="row">'
+                            }
                                     var data = element.data;
                                     var title = element.title;
                                      htmldata += '<div class="col-md-6"><div class="card tinggi_card"><div class="card-body"><h5 class="card-title right mr-2">GARMENT</h5><hr><div class="row ml-2"><div class="col-md-3"><span  class="btn btn-primary">'+element.menu+'</span></div></div><table class="table" ><tbody>'
@@ -166,8 +169,12 @@
                                         });
 
                                     htmldata += '</tbody></table></div></div></div>'
+                                    if(i!=0 && i%3 == 0){
+                                    // add end of row ,and start new row on every 3 elements
+                                    htmldata += '</div><div class="row">'
+                                    }
                         });
-
+                        htmldata += '</div>'
                         tes.html(htmldata)
                     }
                 })
