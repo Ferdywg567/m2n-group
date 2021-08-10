@@ -63,40 +63,43 @@
                                                 <th scope="col">No</th>
                                                 <th scope="col">Kode Bahan</th>
                                                 <th scope="col">SKU</th>
-                                                <th scope="col">Tanggal Finishing</th>
-                                                <th scope="col">Tanggal Selesai</th>
-                                                <th scope="col">Vendor Finishing</th>
-                                                <th scope="col">Finishing Sukses</th>
-                                                <th scope="col">Surat Jalan</th>
-                                                <th scope="col">Status</th>
+                                                <th scope="col">Jenis Kain</th>
+                                                <th scope="col">Nama Produk</th>
+                                                <th scope="col">Ukuran</th>
+                                                <th scope="col">Tgl Masuk</th>
+                                                <th scope="col">Tgl Finishing</th>
+                                                <th scope="col">Berhasil Finishing</th>
                                                 <th scope="col">Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody id="">
 
-                                            {{-- @forelse ($jahitmasuk as $item)
+                                            @forelse ($finish as $item)
                                             <tr>
                                                 <td>{{$loop->iteration}}</td>
-                                                <td>{{$item->potong->bahan->kode_bahan}}</td>
-                                                <td>{{$item->potong->bahan->sku}}</td>
-                                                <td>{{$item->tanggal_jahit}}</td>
-                                                <td>{{$item->tanggal_selesai}}</td>
-                                                <td>{{$item->vendor}}</td>
-                                                <td>-</td>
-
-                                                <td>{{$item->no_surat}}</td>
-                                                <td>
-                                                    @if ($item->status_jahit == 'belum jahit')
-                                                    <span
-                                                        class="badge badge-secondary text-dark">{{$item->status_jahit}}</span>
-                                                    @elseif ($item->status_jahit == 'selesai')
-                                                    <span
-                                                        class="badge badge-success text-dark">{{$item->status_jahit}}</span>
-                                                    @else
-                                                    <span
-                                                        class="badge badge-warning text-dark">{{$item->status_jahit}}</span>
-                                                    @endif
+                                                <td>{{$item->rekapitulasi->cuci->jahit->potong->bahan->kode_bahan}}</td>
+                                                <td>{{$item->rekapitulasi->cuci->jahit->potong->bahan->sku}}</td>
+                                                <td>{{$item->rekapitulasi->cuci->jahit->potong->bahan->jenis_bahan}}
                                                 </td>
+                                                <td>{{$item->rekapitulasi->cuci->jahit->potong->bahan->nama_bahan}}</td>
+                                                <td>
+                                                    @php
+                                                        $ukuran = '';
+
+                                                    @endphp
+
+                                                    @forelse ($item->detail_finish as $key => $row)
+                                                             @php
+                                                            $ukuran .= $row->ukuran . ', ';
+                                                            @endphp
+                                                    @empty
+
+                                                    @endforelse
+                                                    {{rtrim($ukuran,", ")}}
+                                                </td>
+                                                <td>{{$item->tanggal_masuk}}</td>
+                                                <td>{{$item->tanggal_qc}}</td>
+                                                <td>{{$item->barang_lolos_qc}}</td>
                                                 <td>
                                                     <div class="dropdown dropleft">
                                                         <a class="" href="#" id="dropdownMenuButton"
@@ -118,8 +121,8 @@
                                                                 href="{{route('jahit.edit',[$item->id])}}"><i
                                                                     class="fas fa-edit"></i>
                                                                 Edit</a>
-                                                            <a class="dropdown-item hapus" data-id="{{$item->id}}" href="#"><i
-                                                                    class="fa fa-trash"></i>
+                                                            <a class="dropdown-item hapus" data-id="{{$item->id}}"
+                                                                href="#"><i class="fa fa-trash"></i>
                                                                 Delete</a>
 
                                                         </div>
@@ -128,7 +131,7 @@
                                             </tr>
                                             @empty
 
-                                            @endforelse --}}
+                                            @endforelse
 
                                         </tbody>
                                     </table>
@@ -155,43 +158,42 @@
                                             {{-- @forelse ($jahitkeluar as $item)
                                             <tr>
                                                 <td>{{$loop->iteration}}</td>
-                                                <td>{{$item->potong->bahan->kode_bahan}}</td>
-                                                <td>{{$item->potong->bahan->sku}}</td>
-                                                <td>{{$item->tanggal_jahit}}</td>
-                                                <td>{{$item->vendor}}</td>
-                                                <td>{{$item->berhasil}}</td>
-                                                <td>{{$item->gagal_jahit}}</td>
+                                            <td>{{$item->potong->bahan->kode_bahan}}</td>
+                                            <td>{{$item->potong->bahan->sku}}</td>
+                                            <td>{{$item->tanggal_jahit}}</td>
+                                            <td>{{$item->vendor}}</td>
+                                            <td>{{$item->berhasil}}</td>
+                                            <td>{{$item->gagal_jahit}}</td>
 
-                                                <td>
-                                                    <span
-                                                        class="badge badge-success text-dark">{{$item->status_jahit}}</span>
-                                                </td>
+                                            <td>
+                                                <span
+                                                    class="badge badge-success text-dark">{{$item->status_jahit}}</span>
+                                            </td>
 
-                                                <td>
-                                                    <div class="dropdown dropleft">
-                                                        <a class="" href="#" id="dropdownMenuButton"
-                                                            data-toggle="dropdown" aria-haspopup="true"
-                                                            aria-expanded="false">
-                                                            <i class="fa fa-ellipsis-h"></i>
-                                                        </a>
-                                                        <div class="dropdown-menu text-center"
-                                                            aria-labelledby="dropdownMenuButton">
+                                            <td>
+                                                <div class="dropdown dropleft">
+                                                    <a class="" href="#" id="dropdownMenuButton" data-toggle="dropdown"
+                                                        aria-haspopup="true" aria-expanded="false">
+                                                        <i class="fa fa-ellipsis-h"></i>
+                                                    </a>
+                                                    <div class="dropdown-menu text-center"
+                                                        aria-labelledby="dropdownMenuButton">
 
-                                                            <a class="dropdown-item"
-                                                                href="{{route('jahit.show',[$item->id])}}"><i
-                                                                    class="fas fa-eye"></i>
-                                                                Detail</a>
-                                                            <a class="dropdown-item"
-                                                                href="{{route('jahit.edit',[$item->id])}}"><i
-                                                                    class="fas fa-edit"></i>
-                                                                Edit</a>
-                                                            <a class="dropdown-item hapus" data-id="{{$item->id}}" href="#"><i
-                                                                    class="fa fa-trash"></i>
-                                                                Delete</a>
+                                                        <a class="dropdown-item"
+                                                            href="{{route('jahit.show',[$item->id])}}"><i
+                                                                class="fas fa-eye"></i>
+                                                            Detail</a>
+                                                        <a class="dropdown-item"
+                                                            href="{{route('jahit.edit',[$item->id])}}"><i
+                                                                class="fas fa-edit"></i>
+                                                            Edit</a>
+                                                        <a class="dropdown-item hapus" data-id="{{$item->id}}"
+                                                            href="#"><i class="fa fa-trash"></i>
+                                                            Delete</a>
 
-                                                        </div>
                                                     </div>
-                                                </td>
+                                                </div>
+                                            </td>
                                             </tr>
                                             @empty
 

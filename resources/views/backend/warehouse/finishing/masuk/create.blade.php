@@ -502,13 +502,25 @@
                   }
                })
 
+               $('#barang_lolos_qc').on('keyup', function(){
+                   var nilai = $(this).val()
+                   var siap = $('#barang_siap_qc').val()
+                   nilai = parseInt(nilai)
+                   siap = parseInt(siap)
+                   if(nilai > 0 && siap > 0 && siap >= nilai){
+                        var res =siap-nilai;
+                        console.log(res);
+                        $('#gagal_qc').val(res)
+                   }
+               })
+
                $('#barang_diretur').on('keyup', function(){
                    var nilai = $(this).val()
-                   var gagal = $('#gagal_jahit').val()
+                   var dibuang = $('#gagal_qc').val()
                    nilai = parseInt(nilai)
-                   gagal = parseInt(gagal)
-                   if(nilai > 0 && gagal > 0 && gagal >= nilai){
-                        var res =gagal-nilai;
+                   dibuang = parseInt(dibuang)
+                   if(nilai > 0 && dibuang > 0 && dibuang >= nilai){
+                        var res =dibuang-nilai;
                         console.log(res);
                         $('#barang_dibuang').val(res)
                    }
@@ -559,7 +571,7 @@
 
                     if(id != ''){
                         $.ajax({
-                            url:"{{route('jahit.getdata')}}",
+                            url:"{{route('warehouse.finishing.getdatarekap')}}",
                             method:"GET",
                             data:{
                                 'id':id
@@ -569,14 +581,14 @@
                             if(response.status){
                                 console.log(response);
                                 var data = response.data;
-                                var bahan = data.potong.bahan
+                                var bahan = data.cuci.jahit.potong.bahan
                                 $('#sku').val(bahan.sku)
-                                $('#nama_produk_keluar').val(bahan.nama_bahan)
-                                $('#jenis_kain_keluar').val(bahan.jenis_bahan)
-                                $('#warna_keluar').val(bahan.warna)
-                                $('#tanggal_selesai_keluar').val(data.tanggal_selesai)
+                                $('#nama_produk').val(bahan.nama_bahan)
+                                $('#jenis_kain').val(bahan.jenis_bahan)
+                                $('#warna').val(bahan.warna)
+                                $('#tanggal_masuk').val(bahan.tanggal_masuk)
+                                $('#barang_siap_qc').val(data.total_barang)
 
-                                $('#panjang_kain_keluar').val(bahan.panjang_bahan)
                             }
 
                         })

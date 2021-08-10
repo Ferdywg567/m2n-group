@@ -24,8 +24,9 @@ class FinishingController extends Controller
     public function index()
     {
 
-        $rekap = Rekapitulasi::all();
-        return view("backend.warehouse.finishing.index", ['rekap' => $rekap]);
+        $finish = Finishing::all()->where('status','finishing masuk');
+        
+        return view("backend.warehouse.finishing.index", ['finish' => $finish]);
     }
 
     /**
@@ -98,6 +99,12 @@ class FinishingController extends Controller
                     $finish->barang_lolos_qc = $request->get('barang_lolos_qc');
 
                     $finish->status = "finishing masuk";
+                    $finish->barang_gagal_qc = $request->get('gagal_qc');
+                    $finish->barang_diretur = $request->get('barang_diretur');
+                    $finish->barang_dibuang = $request->get('barang_dibuang');
+                    $finish->keterangan_diretur = $request->get('keterangan_diretur');
+                    $finish->keterangan_dibuang = $request->get('keterangan_dibuang');
+                    $finish->save();
 
                     $jumlah = $request->get('jumlah');
                     $dataukuran = $request->get('dataukuran');
@@ -161,13 +168,9 @@ class FinishingController extends Controller
                         $detail->save();
                     }
 
-                    $finish->barang_gagal_qc = $request->get('gagal_qc');
-                    $finish->barang_diretur = $request->get('barang_diretur');
-                    $finish->barang_dibuang = $request->get('barang_dibuang');
-                    $finish->keterangan_diretur = $request->get('keterangan_diretur');
-                    $finish->keterangan_dibuang = $request->get('keterangan_dibuang');
+
                 }
-                $finish->save();
+
                 DB::commit();
                 return redirect()->route('warehouse.finishing.index')->with('success', $request->get('status') . ' berhasil disimpan');
             } catch (\Exception $th) {
@@ -221,5 +224,46 @@ class FinishingController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getDataFinish(Request $request)
+    {
+
+        if ($request->ajax()) {
+            $finish = Finishing::with(['rekapitulasi' => function ($q) {
+                $q->with(['cuci' => function ($q) {
+                    $q->with(['jahit' => function ($q) {
+                        $q->with(['potong' => function ($q) {
+                            $q->with('bahan');
+                        }]);
+                    }]);
+                }]);
+            }])->where('id', $request->get('id'))->first();
+
+            return response()->json([
+                'status' => true,
+                'data' => $finish
+            ]);
+        }
+    }
+
+
+    public function getDataRekap(Request $request)
+    {
+
+        if ($request->ajax()) {
+            $finish = Rekapitulasi::with(['cuci' => function ($q) {
+                    $q->with(['jahit' => function ($q) {
+                        $q->with(['potong' => function ($q) {
+                            $q->with('bahan');
+                        }]);
+                    }]);
+            }])->where('id', $request->get('id'))->first();
+
+            return response()->json([
+                'status' => true,
+                'data' => $finish
+            ]);
+        }
     }
 }

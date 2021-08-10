@@ -28,6 +28,6 @@ class Cuci extends Model
 
     public function rekapitulasi()
     {
-        return $this->hasMany('App\Rekapitulasi');
+        return $this->hasOne('App\Rekapitulasi');
     }
 }
