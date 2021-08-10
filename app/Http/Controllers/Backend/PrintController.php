@@ -57,6 +57,17 @@ class PrintController extends Controller
                 'Keterangan Dibuang'
             ];
 
+            $titlecuci = [
+                'Kode SKU',
+                'Tanggal Selesai Cuci',
+                'Berhasil Cuci',
+                'Gagal Cuci',
+                'Barang Direpair',
+                'Keterangan Direpair',
+                'Barang Dibuang',
+                'Keterangan Dibuang'
+            ];
+
             foreach ($potong as $key => $value) {
                 $x['menu'] = 'CUTTING';
                 $x['title'] = $titlepotong;
@@ -82,6 +93,23 @@ class PrintController extends Controller
                     $value->vendor,
                     $value->berhasil,
                     $value->gagal_jahit,
+                    $value->barang_direpair,
+                    $value->keterangan_direpair,
+                    $value->barang_dibuang,
+                    $value->keterangan_dibuang,
+                ];
+                array_push($data, $x);
+            }
+
+
+            foreach ($cuci as $key => $value) {
+                $x['menu'] = 'WASHING';
+                $x['title'] = $titlecuci;
+                $x['data'] = [
+                    $value->jahit->potong->bahan->sku,
+                    $value->tanggal_selesai,
+                    $value->berhasil_cuci,
+                    $value->gagal_cuci,
                     $value->barang_direpair,
                     $value->keterangan_direpair,
                     $value->barang_dibuang,

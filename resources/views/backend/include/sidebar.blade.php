@@ -61,5 +61,30 @@
             </a>
         </li>
         @endif
+
+
+        @if (auth()->user()->hasRole('warehouse'))
+
+        <li @yield('finishing')>
+            <a class="nav-link" href="{{route('warehouse.finishing.index')}}">
+                <i class="fas fa-check-double"></i> <span>Finishing</span>
+            </a>
+        </li>
+        <li @yield('warehouse')>
+            <a class="nav-link" href="#">
+                <i class="fas fa-home"></i> <span>Warehouse</span>
+            </a>
+        </li>
+        <li @yield('retur')>
+            <a class="nav-link" href="#">
+                <i class="fas fa-undo"></i> <span>Retur</span>
+            </a>
+        </li>
+        <li @yield('rekapitulasi')>
+            <a class="nav-link" href="#">
+                <i class="fas fa-file"></i> <span>Rekapitulasi</span>
+            </a>
+        </li>
+        @endif
     </ul>
 </aside>

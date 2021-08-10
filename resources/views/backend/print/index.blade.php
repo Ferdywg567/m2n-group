@@ -1,8 +1,8 @@
 @extends('backend.master')
 
-@section('title', 'Bahan')
+@section('title', 'Print')
 
-@section('bahan', 'class=active')
+
 
 @section('content')
 <style>
@@ -49,11 +49,12 @@
                                         <div class="form-group">
                                             <label for="menu">Menu</label>
                                             <select class="form-control" multiple id="menu">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
+                                                <option value="CUTTING">CUTTING</option>
+                                                <option value="TAILORING">TAILORING</option>
+                                                <option value="REPAIR">REPAIR</option>
+                                                <option value="WASHING">WASHING</option>
+                                                <option value="TRASH">TRASH</option>
+                                                <option value="RECAPITULATION">RECAPITULATION</option>
                                             </select>
                                         </div>
                                     </div>

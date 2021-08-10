@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
 
 @section('dashboard', 'class=active')
-
+@if (auth()->user()->hasRole('production'))
 @section('content')
 <section class="section">
 
@@ -570,3 +570,4 @@
      })
 </script>
 @endpush
+@endif
