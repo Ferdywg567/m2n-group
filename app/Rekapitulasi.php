@@ -15,4 +15,9 @@ class Rekapitulasi extends Model
     {
         return $this->belongsTo('App\DetailCuci');
     }
+
+    public function finishing()
+    {
+        return $this->hasOne('App\Finishing');
+    }
 }

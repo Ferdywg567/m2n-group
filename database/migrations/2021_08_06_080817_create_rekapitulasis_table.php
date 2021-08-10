@@ -17,9 +17,6 @@ class CreateRekapitulasisTable extends Migration
             $table->id();
             $table->bigInteger('cuci_id')->unsigned()->index()->nullable();
             $table->foreign('cuci_id')->references('id')->on('cucis')->onDelete('cascade');
-            $table->bigInteger('detail_cuci_id')->unsigned()->index()->nullable();
-            $table->foreign('detail_cuci_id')->references('id')->on('detail_cucis')->onDelete('cascade');
-            $table->string('ukuran');
             $table->date('tanggal_masuk')->nullable();
             $table->date('tanggal_kirim')->nullable();
             $table->integer('total_barang')->default(0);

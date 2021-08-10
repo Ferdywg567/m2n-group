@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Rekapitulasi;
+use App\DetailRekapitulasi;
 use App\Cuci;
 use Illuminate\Support\Facades\DB;
 
@@ -30,9 +31,7 @@ class RekapitulasiController extends Controller
      */
     public function create()
     {
-        $cuci = Cuci::where('status', 'cucian keluar')->where('status_cuci', 'selesai')->with(['detail_cuci' => function ($q) {
-            $q->doesntHave('rekapitulasi');
-        }])->get();
+        $cuci = Cuci::where('status', 'cucian keluar')->where('status_cuci', 'selesai')->doesntHave('rekapitulasi')->get();
         return view("backend.rekapitulasi.create", ['cuci' => $cuci]);
     }
 
@@ -56,11 +55,28 @@ class RekapitulasiController extends Controller
             try {
                 $rekap = new Rekapitulasi();
                 $rekap->cuci_id = $request->get('kode_bahan');
-                $rekap->detail_cuci_id = $request->get('detail_id');
                 $rekap->tanggal_kirim = $request->get('tanggal_kirim');
-                $rekap->ukuran = $request->get('ukuran_baju');
                 $rekap->total_barang = $request->get('total_barang');
                 $rekap->save();
+
+                $jumlah = $request->get('jumlah');
+                $dataukuran = $request->get('dataukuran');
+                $arr = [];
+                foreach ($dataukuran as $key => $value) {
+                    if (!empty($jumlah[$key])) {
+                        $x['ukuran'] = $value;
+                        $x['jumlah'] = $jumlah[$key];
+                        array_push($arr, $x);
+                    }
+                }
+
+                foreach ($arr as $key => $value) {
+                    $detail = new DetailRekapitulasi();
+                    $detail->rekapitulasi_id = $rekap->id;
+                    $detail->ukuran = $value['ukuran'];
+                    $detail->jumlah = $value['jumlah'];
+                    $detail->save();
+                }
 
                 DB::commit();
             } catch (\Exception $th) {
@@ -122,10 +138,8 @@ class RekapitulasiController extends Controller
     public function getDataCuci(Request $request)
     {
         if ($request->ajax()) {
-            $size = $request->get('size');
-            $cuci = Cuci::with(['detail_cuci' => function ($q) use ($size) {
-                $q->where('size', $size);
-            }, 'jahit' => function ($q) {
+
+            $cuci = Cuci::with(['detail_cuci', 'jahit' => function ($q) {
                 $q->with(['potong' => function ($q) {
                     $q->with('bahan');
                 }]);

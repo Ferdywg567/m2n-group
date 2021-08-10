@@ -14,7 +14,7 @@ class WarehouseController extends Controller
      */
     public function index()
     {
-        //
+        return view("backend.warehouse.warehouse.index");
     }
 
     /**
@@ -24,7 +24,7 @@ class WarehouseController extends Controller
      */
     public function create()
     {
-        //
+        return view("backend.warehouse.warehouse.create");
     }
 
     /**

@@ -27,6 +27,7 @@ Route::group(['prefix' => 'warehouse', 'namespace' => 'Backend', 'middleware' =>
     Route::resource('dashboard', 'DashboardController');
     Route::group(['namespace' => 'Warehouse'], function () {
         Route::resource('finishing', 'FinishingController');
+        Route::resource('warehouse', 'WarehouseController');
     });
 });
 

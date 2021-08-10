@@ -71,7 +71,7 @@
             </a>
         </li>
         <li @yield('warehouse')>
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{{route('warehouse.warehouse.index')}}">
                 <i class="fas fa-home"></i> <span>Warehouse</span>
             </a>
         </li>

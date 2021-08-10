@@ -29,7 +29,7 @@
                                 @include('backend.include.alert')
                                 @csrf
                                 <input type="hidden" name="status" value="finishing masuk">
-                                <input type="hidden" name="id" id="idkeluar">
+
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -38,7 +38,11 @@
                                                 <select class="form-control" id="kode_bahanselectkeluar"
                                                     name="kode_bahan">
                                                     <option value="">Pilih Kode Bahan</option>
+                                                    @forelse ($rekap as $item)
+                                                        <option value="{{$item->id}}">{{$item->cuci->jahit->potong->bahan->kode_bahan}} | {{$item->cuci->jahit->potong->bahan->nama_bahan}}</option>
+                                                    @empty
 
+                                                    @endforelse
 
 
                                                 </select>
