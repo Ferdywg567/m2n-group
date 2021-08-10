@@ -24,8 +24,8 @@ class FinishingController extends Controller
     public function index()
     {
 
-        $finish = Finishing::all()->where('status','finishing masuk');
-        
+        $finish = Finishing::all()->where('status', 'finishing masuk');
+
         return view("backend.warehouse.finishing.index", ['finish' => $finish]);
     }
 
@@ -167,8 +167,6 @@ class FinishingController extends Controller
                         $detail->jumlah = $value['jumlah'];
                         $detail->save();
                     }
-
-
                 }
 
                 DB::commit();
@@ -189,7 +187,12 @@ class FinishingController extends Controller
      */
     public function show($id)
     {
-        //
+        $finish = Finishing::findOrFail($id);
+        if ($finish->status == 'finishing masuk') {
+            return view("backend.warehouse.finishing.masuk.show", ['finish' => $finish]);
+        } else {
+            
+        }
     }
 
     /**
@@ -253,11 +256,11 @@ class FinishingController extends Controller
 
         if ($request->ajax()) {
             $finish = Rekapitulasi::with(['cuci' => function ($q) {
-                    $q->with(['jahit' => function ($q) {
-                        $q->with(['potong' => function ($q) {
-                            $q->with('bahan');
-                        }]);
+                $q->with(['jahit' => function ($q) {
+                    $q->with(['potong' => function ($q) {
+                        $q->with('bahan');
                     }]);
+                }]);
             }])->where('id', $request->get('id'))->first();
 
             return response()->json([

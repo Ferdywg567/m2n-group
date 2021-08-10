@@ -99,7 +99,7 @@
                                                 </td>
                                                 <td>{{$item->tanggal_masuk}}</td>
                                                 <td>{{$item->tanggal_qc}}</td>
-                                                <td>{{$item->barang_lolos_qc}}</td>
+                                                <td>{{$item->barang_lolos_qc}}/{{$item->rekapitulasi->total_barang}}</td>
                                                 <td>
                                                     <div class="dropdown dropleft">
                                                         <a class="" href="#" id="dropdownMenuButton"
@@ -111,14 +111,14 @@
                                                             aria-labelledby="dropdownMenuButton">
 
                                                             <a class="dropdown-item"
-                                                                href="{{route('jahit.show',[$item->id])}}"><i
+                                                                href="{{route('warehouse.finishing.show',[$item->id])}}"><i
                                                                     class="fas fa-eye"></i>
                                                                 Detail</a>
                                                             <a class="dropdown-item btnprintmasuk" href="#"
                                                                 data-id="{{$item->id}}"><i class="fas fa-print"></i>
                                                                 Print</a>
                                                             <a class="dropdown-item"
-                                                                href="{{route('jahit.edit',[$item->id])}}"><i
+                                                                href="{{route('warehouse.finishing.edit',[$item->id])}}"><i
                                                                     class="fas fa-edit"></i>
                                                                 Edit</a>
                                                             <a class="dropdown-item hapus" data-id="{{$item->id}}"
@@ -180,11 +180,11 @@
                                                         aria-labelledby="dropdownMenuButton">
 
                                                         <a class="dropdown-item"
-                                                            href="{{route('jahit.show',[$item->id])}}"><i
+                                                            href="{{route('warehouse.finishing.show',[$item->id])}}"><i
                                                                 class="fas fa-eye"></i>
                                                             Detail</a>
                                                         <a class="dropdown-item"
-                                                            href="{{route('jahit.edit',[$item->id])}}"><i
+                                                            href="{{route('warehouse.finishing.edit',[$item->id])}}"><i
                                                                 class="fas fa-edit"></i>
                                                             Edit</a>
                                                         <a class="dropdown-item hapus" data-id="{{$item->id}}"
