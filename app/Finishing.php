@@ -16,4 +16,14 @@ class Finishing extends Model
    {
        return $this->hasMany('App\DetailFinishing');
    }
+
+   public  function finish_retur()
+   {
+       return $this->hasMany('App\FinishingRetur');
+   }
+
+   public  function finish_dibuang()
+   {
+       return $this->hasMany('App\FinishingDibuang');
+   }
 }

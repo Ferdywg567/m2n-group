@@ -421,15 +421,15 @@
 
 
 
-        function barChartData() {
+        function barChartData(data, label) {
             var ctx = document.getElementById('barChart').getContext('2d');
          barChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                labels: label,
                 datasets: [{
                     label: 'Jumlah Kain',
-                    data: [12, 19, 3, 5, 2, 3],
+                    data: data,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
@@ -492,7 +492,7 @@
             data: {
                 labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
                 datasets: [{
-                    label: 'Jumlah Kain',
+                    label: 'Pesanan',
                     data: [12, 19, 3, 5, 2, 3],
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
@@ -538,7 +538,7 @@
                     'bulan':bulan,
                     'tahun':tahun
                 },success:function(data){
-                    // console.log(data);
+                    console.log(data);
                     if(data.status){
 
                         if (typeof(pieChart) != "undefined") {
@@ -550,8 +550,16 @@
                         if (typeof(lineChart) != "undefined") {
                              lineChart.destroy();
                         }
+
+                        var group_kain = data.group_kain
+                        var bulanbar = []
+                        var databar = []
+                        group_kain.forEach(element => {
+                                bulanbar.push(element.months)
+                                databar.push(element.jumlah)
+                        });
                         pieChartData()
-                        barChartData()
+                        barChartData(databar, bulanbar)
                         lineChartData()
                         table_cutting.rows.add(data.potong).draw();
                         table_jahit.rows.add(data.jahit).draw();

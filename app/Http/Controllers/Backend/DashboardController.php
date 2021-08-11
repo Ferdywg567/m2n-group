@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\CuciDibuang;
 use App\JahitDibuang;
@@ -27,7 +28,7 @@ class DashboardController extends Controller
         if ($request->ajax()) {
             $bulan = $request->get('bulan');
             $tahun = $request->get('tahun');
-            $bulan = date('m',strtotime($bulan));
+            $bulan = date('m', strtotime($bulan));
             $jumlah_kain = Bahan::whereMonth('tanggal_masuk', $bulan)->whereYear('tanggal_masuk', $tahun)->sum('panjang_bahan');
             $jenis_bahan = Bahan::whereMonth('tanggal_masuk', $bulan)->whereYear('tanggal_masuk', $tahun)->count();
             $berhasil_cuci = Cuci::whereMonth('tanggal_masuk', $bulan)->whereYear('tanggal_masuk', $tahun)->sum('berhasil_cuci');
@@ -38,14 +39,21 @@ class DashboardController extends Controller
             $baju_rusak = $cucidibuang + $jahitdibuang;
 
             $potong = Potong::with(['bahan'])->whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->limit(5)->get();
-            $jahit = Jahit::with(['potong'=> function($q){
+            $jahit = Jahit::with(['potong' => function ($q) {
                 $q->with('bahan');
             }])->whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->limit(5)->get();
-            $cuci = Cuci::with(['jahit'=> function($q){
-                $q->with(['potong' => function($q){
+            $cuci = Cuci::with(['jahit' => function ($q) {
+                $q->with(['potong' => function ($q) {
                     $q->with('bahan');
                 }]);
             }])->whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->limit(5)->get();
+
+            $group_kain = Bahan::select(
+                DB::raw('sum(panjang_bahan) as jumlah'),
+                DB::raw("DATE_FORMAT(created_at,'%M %Y') as months")
+            )->whereYear('tanggal_masuk', $tahun)
+                ->groupBy('months')
+                ->get();
             return response()->json([
                 'status' => true,
                 'jumlah_kain' => $jumlah_kain,
@@ -57,6 +65,7 @@ class DashboardController extends Controller
                 'potong' => $potong,
                 'jahit' => $jahit,
                 'cuci' => $cuci,
+                'group_kain' => $group_kain,
             ]);
         }
 

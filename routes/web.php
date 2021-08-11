@@ -27,7 +27,8 @@ Route::group(['prefix' => 'warehouse', 'namespace' => 'Backend', 'middleware' =>
     Route::resource('dashboard', 'DashboardController');
     Route::group(['namespace' => 'Warehouse'], function () {
         Route::group(['prefix' => 'finishing', 'as' => 'finishing.'], function () {
-            Route::get('/getdatafinishing', 'FinishingController@getDataRekap')->name('getdatarekap');
+            Route::get('/getdatarekap', 'FinishingController@getDataRekap')->name('getdatarekap');
+            Route::get('/getdatafinishing', 'FinishingController@getDataFinish')->name('getdatafinish');
         });
         Route::resource('finishing', 'FinishingController');
         Route::resource('warehouse', 'WarehouseController');

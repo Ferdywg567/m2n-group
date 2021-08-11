@@ -41,7 +41,8 @@ class FinishingController extends Controller
             $rekap = Rekapitulasi::all();
             return view("backend.warehouse.finishing.masuk.create", ['rekap' => $rekap]);
         } else {
-            return view("backend.warehouse.finishing.keluar.create");
+            $finish = Finishing::all()->where('status', 'finishing masuk');
+            return view("backend.warehouse.finishing.keluar.create", ['finish' => $finish]);
         }
     }
 
@@ -70,9 +71,6 @@ class FinishingController extends Controller
             $validator = Validator::make($request->all(), [
                 'kode_bahan' =>  'required',
                 'no_surat' => 'required',
-                'vendor_jahit' => 'required',
-                'berhasil_jahit' => 'required|integer',
-                'konversi' => 'required'
             ]);
         }
 
@@ -86,18 +84,12 @@ class FinishingController extends Controller
                 if ($request->get('status') == 'finishing masuk') {
                     $finish = new Finishing();
                     $finish->rekapitulasi_id = $request->get('kode_bahan');
-                } else {
-                    $finish = Finishing::findOrFail($request->get('kode_bahan'));
-                }
-                $finish->no_surat = $request->get('no_surat');
-
-                if ($request->get('status') == 'finishing masuk') {
                     $finish->tanggal_masuk = date('Y-m-d', strtotime($request->get('tanggal_masuk')));
                     $finish->tanggal_qc = date('Y-m-d', strtotime($request->get('tanggal_qc')));
                     $finish->status = "finishing masuk";
 
                     $finish->barang_lolos_qc = $request->get('barang_lolos_qc');
-
+                    $finish->no_surat = $request->get('no_surat');
                     $finish->status = "finishing masuk";
                     $finish->barang_gagal_qc = $request->get('gagal_qc');
                     $finish->barang_diretur = $request->get('barang_diretur');
@@ -167,7 +159,14 @@ class FinishingController extends Controller
                         $detail->jumlah = $value['jumlah'];
                         $detail->save();
                     }
+                } else {
+                    $finish = Finishing::findOrFail($request->get('kode_bahan'));
+                    $finish->no_surat = $request->get('no_surat');
+                    $finish->status = "kirim warehouse";
+                    $finish->save();
                 }
+
+
 
                 DB::commit();
                 return redirect()->route('warehouse.finishing.index')->with('success', $request->get('status') . ' berhasil disimpan');
@@ -191,7 +190,6 @@ class FinishingController extends Controller
         if ($finish->status == 'finishing masuk') {
             return view("backend.warehouse.finishing.masuk.show", ['finish' => $finish]);
         } else {
-            
         }
     }
 
@@ -241,7 +239,7 @@ class FinishingController extends Controller
                         }]);
                     }]);
                 }]);
-            }])->where('id', $request->get('id'))->first();
+            }, 'detail_finish', 'finish_dibuang', 'finish_retur'])->where('id', $request->get('id'))->first();
 
             return response()->json([
                 'status' => true,

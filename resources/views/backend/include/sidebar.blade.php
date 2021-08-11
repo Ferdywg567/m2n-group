@@ -7,13 +7,14 @@
     </div>
     <ul class="sidebar-menu">
         <li class="menu-header"></li>
+        @if (auth()->user()->hasRole('production'))
         <li @yield('dashboard')>
             <a class="nav-link" href="{{ route('dashboard.index') }}">
                 <i class="fas fa-columns"></i> <span>Dashboard</span>
             </a>
         </li>
 
-        @if (auth()->user()->hasRole('production'))
+
 
 
         <li @yield('bahan')>
@@ -64,6 +65,12 @@
 
 
         @if (auth()->user()->hasRole('warehouse'))
+        <li @yield('dashboard')>
+            <a class="nav-link" href="{{ route('warehouse.dashboard.index') }}">
+                <i class="fas fa-columns"></i> <span>Dashboard</span>
+            </a>
+        </li>
+
 
         <li @yield('finishing')>
             <a class="nav-link" href="{{route('warehouse.finishing.index')}}">
