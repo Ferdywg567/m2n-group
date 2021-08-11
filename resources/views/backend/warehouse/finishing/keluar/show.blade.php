@@ -17,7 +17,7 @@
             <a class="btn btn-primary" href="{{route('warehouse.finishing.index')}}">
                 <i class="fas fa-arrow-left"></i>
             </a>
-            <h1 class="ml-2">Detail Data | Finishing</h1>
+            <h1 class="ml-2">Detail Data | Kirim Warehouse</h1>
         </div>
         <div class="section-body">
             <div class="row">

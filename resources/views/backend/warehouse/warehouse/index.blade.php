@@ -37,40 +37,31 @@
                                         <th scope="col">No</th>
                                         <th scope="col">Kode Bahan</th>
                                         <th scope="col">SKU</th>
-                                        <th scope="col">Tanggal Warehouse</th>
-                                        <th scope="col">Tanggal Selesai</th>
-                                        <th scope="col">Vendor Warehouse</th>
-                                        <th scope="col">Warehouse Sukses</th>
-                                        <th scope="col">Surat Jalan</th>
-                                        <th scope="col">Status</th>
+                                        <th scope="col">Jenis Kain</th>
+                                        <th scope="col">Nama Produk</th>
+                                        <th scope="col">Siap Jual</th>
+                                        <th scope="col">Harga Jual</th>
+
                                         <th scope="col">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody id="">
 
-                                    {{-- @forelse ($jahitmasuk as $item)
+                                    @forelse ($warehouse as $item)
+                                    @php
+                                        $total = $warehouse->sum(function ($q){
+                                            return $q->detail_warehouse->sum('jumlah');
+                                        });
+                                    @endphp
                                     <tr>
                                         <td>{{$loop->iteration}}</td>
-                                        <td>{{$item->potong->bahan->kode_bahan}}</td>
-                                        <td>{{$item->potong->bahan->sku}}</td>
-                                        <td>{{$item->tanggal_jahit}}</td>
-                                        <td>{{$item->tanggal_selesai}}</td>
-                                        <td>{{$item->vendor}}</td>
-                                        <td>-</td>
+                                        <td>{{$item->finishing->rekapitulasi->cuci->jahit->potong->bahan->kode_bahan}}</td>
+                                        <td>{{$item->finishing->rekapitulasi->cuci->jahit->potong->bahan->sku}}</td>
+                                        <td>{{$item->finishing->rekapitulasi->cuci->jahit->potong->bahan->jenis_bahan}}</td>
+                                        <td>{{$item->finishing->rekapitulasi->cuci->jahit->potong->bahan->nama_bahan}}</td>
+                                        <td>{{$total}}</td>
+                                        <td>{{$item->harga_produk}}/pcs</td>
 
-                                        <td>{{$item->no_surat}}</td>
-                                        <td>
-                                            @if ($item->status_jahit == 'belum jahit')
-                                            <span
-                                                class="badge badge-secondary text-dark">{{$item->status_jahit}}</span>
-                                            @elseif ($item->status_jahit == 'selesai')
-                                            <span
-                                                class="badge badge-success text-dark">{{$item->status_jahit}}</span>
-                                            @else
-                                            <span
-                                                class="badge badge-warning text-dark">{{$item->status_jahit}}</span>
-                                            @endif
-                                        </td>
                                         <td>
                                             <div class="dropdown dropleft">
                                                 <a class="" href="#" id="dropdownMenuButton"
@@ -102,7 +93,7 @@
                                     </tr>
                                     @empty
 
-                                    @endforelse --}}
+                                    @endforelse
 
                                 </tbody>
                             </table>

@@ -25,8 +25,9 @@ class FinishingController extends Controller
     {
 
         $finish = Finishing::all()->where('status', 'finishing masuk');
+        $kirim = Finishing::all()->where('status', 'kirim warehouse');
 
-        return view("backend.warehouse.finishing.index", ['finish' => $finish]);
+        return view("backend.warehouse.finishing.index", ['finish' => $finish, 'kirim' => $kirim]);
     }
 
     /**
@@ -38,7 +39,7 @@ class FinishingController extends Controller
     {
         $status = $request->get('status');
         if ($status == 'masuk') {
-            $rekap = Rekapitulasi::all();
+            $rekap = Rekapitulasi::doesntHave('finishing')->get();
             return view("backend.warehouse.finishing.masuk.create", ['rekap' => $rekap]);
         } else {
             $finish = Finishing::all()->where('status', 'finishing masuk');
@@ -190,6 +191,7 @@ class FinishingController extends Controller
         if ($finish->status == 'finishing masuk') {
             return view("backend.warehouse.finishing.masuk.show", ['finish' => $finish]);
         } else {
+            return view("backend.warehouse.finishing.keluar.show", ['finish' => $finish]);
         }
     }
 

@@ -26,4 +26,9 @@ class Finishing extends Model
    {
        return $this->hasMany('App\FinishingDibuang');
    }
+
+   public function warehouse()
+   {
+       return $this->hasOne('App\Warehouse');
+   }
 }
