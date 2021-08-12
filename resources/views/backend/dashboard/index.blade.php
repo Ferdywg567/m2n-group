@@ -79,7 +79,7 @@
                 <div class="col-md-12">
                     <div class="card card-statistic-1">
                         <div class="card-icon bg-primary">
-                            <i class="far fa-user"></i>
+                           <img src="{{asset('assets/icon/shirt-line.png')}}" alt="" srcset="">
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">
@@ -99,7 +99,7 @@
                 <div class="col-md-12">
                     <div class="card card-statistic-1">
                         <div class="card-icon bg-primary">
-                            <i class="far fa-user"></i>
+                            <img src="{{asset('assets/icon/hand-coin-fill.png')}}" alt="" srcset="">
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">
@@ -120,7 +120,7 @@
                 <div class="col-md-12">
                     <div class="card card-statistic-1">
                         <div class="card-icon bg-primary">
-                            <i class="far fa-user"></i>
+                            <i class="fas fa-cut"></i>
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">
@@ -156,7 +156,7 @@
                 <div class="col-md-12">
                     <div class="card card-statistic-1">
                         <div class="card-icon bg-primary">
-                            <i class="far fa-user"></i>
+                            <i class="fas fa-user-cog"></i>
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">
@@ -173,7 +173,7 @@
                 <div class="col-md-12">
                     <div class="card card-statistic-1">
                         <div class="card-icon bg-primary">
-                            <i class="far fa-user"></i>
+                          <img src="{{asset('assets/icon/t-shirt-air-fill.png')}}" alt="" srcset="">
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">
@@ -210,15 +210,6 @@
                             </thead>
                             <tbody>
 
-                                <tr>
-                                    <td><a href="#">INV-87239</a></td>
-                                    <td class="font-weight-600">Kusnadi</td>
-                                    <td>
-                                        <div class="badge badge-warning">Unpaid</div>
-                                    </td>
-
-                                </tr>
-
                             </tbody>
                         </table>
                     </div>
@@ -246,14 +237,6 @@
                             </thead>
                             <tbody>
 
-                                <tr>
-                                    <td><a href="#">INV-87239</a></td>
-                                    <td class="font-weight-600">Kusnadi</td>
-                                    <td>
-                                        <div class="badge badge-warning">Unpaid</div>
-                                    </td>
-
-                                </tr>
 
                             </tbody>
                         </table>
@@ -282,14 +265,7 @@
                             </thead>
                             <tbody>
 
-                                <tr>
-                                    <td><a href="#">INV-87239</a></td>
-                                    <td class="font-weight-600">Kusnadi</td>
-                                    <td>
-                                        <div class="badge badge-warning">Unpaid</div>
-                                    </td>
 
-                                </tr>
 
                             </tbody>
                         </table>
