@@ -40,6 +40,7 @@ Route::group(['prefix' => 'production', 'namespace' => 'Backend', 'middleware' =
 
     Route::group(['prefix' => 'bahan', 'as' => 'bahan.'], function () {
         Route::get('/getdatabahan', 'BahanController@getDataBahan')->name('getdata');
+        Route::get('/getdataprint', 'BahanController@getDataPrint')->name('getdataprint');
     });
     Route::resource('bahan', 'BahanController');
 

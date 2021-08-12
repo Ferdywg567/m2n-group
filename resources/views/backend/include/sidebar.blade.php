@@ -1,6 +1,8 @@
 <aside id="sidebar-wrapper">
     <div class="sidebar-brand">
-        <a href="#">GARMENT</a>
+        <img src="{{asset('assets/img/logo.png')}}" alt="" srcset="" width="30">
+        <a href="#">
+            GARMENT</a>
     </div>
     <div class="sidebar-brand sidebar-brand-sm">
         <a href="#">Ts</a>

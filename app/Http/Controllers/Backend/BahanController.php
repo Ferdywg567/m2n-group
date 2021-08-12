@@ -210,7 +210,7 @@ class BahanController extends Controller
             $status = false;
             if ($bahan->potong()->exists()) {
                 $status = true;
-            }else{
+            } else {
                 $bahan->delete();
             }
             return response()->json([
@@ -227,6 +227,41 @@ class BahanController extends Controller
             return response()->json([
                 'status' => true,
                 'data' => $bahan
+            ]);
+        }
+    }
+
+    public function getDataPrint(Request $request)
+    {
+        if ($request->ajax()) {
+            $bahan = Bahan::findOrFail($request->get('id'));
+            $titlebahan = [
+                'Kode SKU',
+                'Nama Bahan',
+                'Jenis Bahan',
+                'Warna Bahan',
+                'Panjang Bahan',
+                'Vendor',
+                'Tanggal Masuk',
+                'Nomor Surat Jalan',
+            ];
+            $data = [];
+            $x['title'] = $titlebahan;
+            $x['data'] = [
+                $bahan->sku,
+                $bahan->nama_bahan,
+                $bahan->jenis_bahan,
+                $bahan->warna,
+                $bahan->panjang_bahan,
+
+                $bahan->vendor,
+                $bahan->tanggal_masuk,
+                $bahan->no_surat
+            ];
+            array_push($data, $x);
+            return response()->json([
+                'status' => true,
+                'data' => $x
             ]);
         }
     }
