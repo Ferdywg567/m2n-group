@@ -170,7 +170,7 @@
     </style>
 </head>
 
-@forelse ($data as $key => $item)
+@forelse ($print as $key => $item)
 
 <body>
 
@@ -179,18 +179,28 @@
         <span style="vertical-align:middle; font-size:25px; font-weight:bold">GARMENT</span>
     </div>
     <hr>
-    <button class="btn"><i class="fa fa-home"></i> Home</button>
+    <button class="btn"><i class="fa fa-home"></i>{{$item['menu']}}</button>
     <main>
         <table>
-
             <tbody>
-
+                @forelse ($item['data'] as $k => $row)
+                <tr>
+                    <td style="text-align: left">{{$item['title'][$k]}}</td>
+                    <td style="text-align: right">
+                        @if (is_array($row))
+                            Washing : {{$row['washing']}}
+                            <br>
+                            Tailoring : {{$row['tailoring']}}
+                        @else
+                             {{$row}}
+                        @endif
+                    </td>
+                </tr>
+                @empty
+                @endforelse
             </tbody>
-
         </table>
-
     </main>
-
     <h3 style="text-align: right; position: fixed;left: 0;bottom: 0;" class="pagenum"></h3>
 </body>
 

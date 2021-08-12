@@ -64,7 +64,7 @@ Route::group(['prefix' => 'production', 'namespace' => 'Backend', 'middleware' =
     });
 
     Route::group(['prefix' => 'print', 'as' => 'print.'], function () {
-        Route::get('/download', 'PrintController@test')->name('getdata');
+        Route::get('/download', 'PrintController@test')->name('export');
     });
     Route::resource('cuci', 'CuciController');
     Route::resource('retur', 'ReturController');

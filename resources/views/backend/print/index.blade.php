@@ -15,7 +15,8 @@
     }
 </style>
 <div id="non-printable">
-    <form id="formBahanMasuk" method="get">
+    <form id="formBahanMasuk" method="get" target="_blank" action="{{route('print.export')}}">
+        @csrf
         <section class="section">
 
             <div class="section-body">
@@ -56,7 +57,7 @@
                                     </div>
 
                                     <div class="col-md-2">
-                                        <button type="submit" class="btn btn-primary btnfilter"
+                                        <button type="button" class="btn btn-primary btnfilter"
                                             style="margin-top: 30px">Apply Filter</button>
                                     </div>
                                 </div>
@@ -71,7 +72,7 @@
         <section class="section">
             <div class="row">
                 <div class="col-md-12 text-right">
-                    <button type="button" class="btn btn-danger">Download PDF</button>
+                    <input type="submit" value="Download PDF" name="button_pdf" class="btn btn-danger" >
                     <button type="button" class="btn btn-primary">Print</button>
                 </div>
             </div>
