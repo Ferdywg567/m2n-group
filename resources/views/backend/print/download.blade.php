@@ -201,7 +201,7 @@
             </tbody>
         </table>
     </main>
-    <h3 style="text-align: right; position: fixed;left: 0;bottom: 0;" class="pagenum"></h3>
+    {{-- <h3 style="text-align: right; position: fixed;left: 0;bottom: 0;" class="pagenum"></h3> --}}
 </body>
 
 @empty
