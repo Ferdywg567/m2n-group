@@ -11,6 +11,7 @@ use App\JahitDirepair;
 use App\JahitDibuang;
 use App\Potong;
 use App\Jahit;
+use PDF;
 
 class JahitController extends Controller
 {
@@ -442,5 +443,72 @@ class JahitController extends Controller
                 'data' => $jahit
             ]);
         }
+    }
+
+    public function getDataPrint(Request $request)
+    {
+        if ($request->ajax()) {
+            $jahit = Jahit::findOrFail($request->get('id'));
+            $titlejahit = [
+                'Kode SKU',
+                'Tanggal Selesai Jahit',
+                'Vendor Jahit',
+                'Berhasil Jahit',
+                'Gagal Jahit',
+                'Barang Direpair',
+                'Keterangan Direpair',
+                'Barang Dibuang',
+                'Keterangan Dibuang'
+            ];
+
+            $x['title'] = $titlejahit;
+            $x['data'] = [
+                $jahit->potong->bahan->sku,
+                $jahit->tanggal_selesai,
+                $jahit->vendor,
+                $jahit->berhasil,
+                $jahit->gagal_jahit,
+                $jahit->barang_direpair,
+                $jahit->keterangan_direpair,
+                $jahit->barang_dibuang,
+                $jahit->keterangan_dibuang,
+            ];
+
+            return response()->json([
+                'status' => true,
+                'data' => $x
+            ]);
+        }
+    }
+
+    public function cetakPdf(Request $request){
+        $jahit = Jahit::findOrFail($request->get('id'));
+        $titlejahit = [
+            'Kode SKU',
+            'Tanggal Selesai Jahit',
+            'Vendor Jahit',
+            'Berhasil Jahit',
+            'Gagal Jahit',
+            'Barang Direpair',
+            'Keterangan Direpair',
+            'Barang Dibuang',
+            'Keterangan Dibuang'
+        ];
+
+        $x['title'] = $titlejahit;
+        $x['data'] = [
+            $jahit->potong->bahan->sku,
+            $jahit->tanggal_selesai,
+            $jahit->vendor,
+            $jahit->berhasil,
+            $jahit->gagal_jahit,
+            $jahit->barang_direpair,
+            $jahit->keterangan_direpair,
+            $jahit->barang_dibuang,
+            $jahit->keterangan_dibuang,
+        ];
+
+        $pdf = PDF::loadView('backend.jahit.pdf', ['data' => $x]);
+        return $pdf->stream('jahit.pdf');
     }
 }

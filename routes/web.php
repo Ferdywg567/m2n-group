@@ -54,6 +54,8 @@ Route::group(['prefix' => 'production', 'namespace' => 'Backend', 'middleware' =
 
 
     Route::group(['prefix' => 'jahit', 'as' => 'jahit.'], function () {
+        Route::post('/cetak','JahitController@cetakPdf')->name('cetak');
+        Route::get('/getdataprint', 'JahitController@getDataPrint')->name('getdataprint');
         Route::get('/getdatajahit', 'JahitController@getDataJahit')->name('getdata');
     });
     Route::resource('jahit', 'JahitController');
