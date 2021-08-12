@@ -199,20 +199,23 @@
                         <span id="test" class=" float-right text-dark"> <img src="{{asset('assets/img/logo.png')}}"
                                 alt="" class="mr-1" srcset="" width="30">GARMENT</span></h5>
                 </div>
-                <div class="modal-body" style="margin-top: -30px; height:35rem">
-                    <hr>
-                    <input type="hidden" name="id" id="idbahan">
-                    <span class="badge badge-primary  rounded"><i class="ri-t-shirt-fill"></i> Material</span>
-                    <table class="table">
-                        <tbody id="dataprint">
+                <form action="{{route('bahan.cetak')}}" target="_blank" method="post">
+                    @csrf
+                    <div class="modal-body" style="margin-top: -30px; height:35rem">
+                        <hr>
+                        <input type="hidden" name="id" id="idbahan">
+                        <span class="badge badge-primary  rounded"><i class="ri-t-shirt-fill"></i> Material</span>
+                        <table class="table">
+                            <tbody id="dataprint">
 
-                        </tbody>
-                    </table>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Print</button>
-                </div>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-print"></i> Print</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -261,6 +264,43 @@
                             }
                       }
                   })
+               })
+
+               $(document).on('click','.hapus', function () {
+                  var id = $(this).data('id')
+                    swal({
+                    title: "Are you sure?",
+                    text: "Once deleted, you will not be able to recover this imaginary file!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                    })
+                    .then((willDelete) => {
+                    if (willDelete) {
+                        ajax()
+                        $.ajax({
+                            url:"{{url('production/bahan/')}}/"+id,
+                            method:"DELETE",
+                            success:function(data){
+
+                                if(data.status){
+                                    swal("Sorry, cant delete this file!");
+
+                                }else{
+                                    swal("Success! Your imaginary file has been deleted!", {
+                                    icon: "success",
+                                    });
+
+                                    setTimeout(function () {  location.reload(true) },1500)
+                                }
+                            }
+                       })
+
+                    } else {
+
+                    }
+                    });
+
                })
      })
 </script>

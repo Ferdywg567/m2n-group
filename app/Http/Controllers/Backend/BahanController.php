@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Bahan;
+use PDF;
 
 class BahanController extends Controller
 {
@@ -264,5 +265,35 @@ class BahanController extends Controller
                 'data' => $x
             ]);
         }
+    }
+
+    public function cetakPdf(Request $request){
+        $bahan = Bahan::findOrFail($request->get('id'));
+        $titlebahan = [
+            'Kode SKU',
+            'Nama Bahan',
+            'Jenis Bahan',
+            'Warna Bahan',
+            'Panjang Bahan',
+            'Vendor',
+            'Tanggal Masuk',
+            'Nomor Surat Jalan',
+        ];
+        $data = [];
+        $x['title'] = $titlebahan;
+        $x['data'] = [
+            $bahan->sku,
+            $bahan->nama_bahan,
+            $bahan->jenis_bahan,
+            $bahan->warna,
+            $bahan->panjang_bahan,
+
+            $bahan->vendor,
+            $bahan->tanggal_masuk,
+            $bahan->no_surat
+        ];
+
+        $pdf = PDF::loadView('backend.bahan.pdf', ['data' => $x]);
+        return $pdf->stream('bahan.pdf');
     }
 }

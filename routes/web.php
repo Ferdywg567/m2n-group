@@ -39,13 +39,16 @@ Route::group(['prefix' => 'production', 'namespace' => 'Backend', 'middleware' =
     Route::resource('dashboard', 'DashboardController');
 
     Route::group(['prefix' => 'bahan', 'as' => 'bahan.'], function () {
+        Route::post('/cetak','BahanController@cetakPdf')->name('cetak');
         Route::get('/getdatabahan', 'BahanController@getDataBahan')->name('getdata');
         Route::get('/getdataprint', 'BahanController@getDataPrint')->name('getdataprint');
     });
     Route::resource('bahan', 'BahanController');
 
     Route::group(['prefix' => 'potong', 'as' => 'potong.'], function () {
+        Route::post('/cetak','PotongController@cetakPdf')->name('cetak');
         Route::get('/getdatapotong', 'PotongController@getDataPotong')->name('getdata');
+        Route::get('/getdataprint', 'PotongController@getDataPrint')->name('getdataprint');
     });
     Route::resource('potong', 'PotongController');
 

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\DetailPotong;
 use App\Potong;
 use App\Bahan;
+use PDF;
 
 class PotongController extends Controller
 {
@@ -270,5 +271,61 @@ class PotongController extends Controller
                 'data' => $potong
             ]);
         }
+    }
+
+    public function getDataPrint(Request $request)
+    {
+        if ($request->ajax()) {
+            $potong = Potong::findOrFail($request->get('id'));
+            $titlepotong = [
+                'Kode SKU',
+                'Tanggal Cutting',
+                'Tanggal Selesai',
+                'Hasil Cutting',
+                'Jenis Kain',
+                'Warna Kain',
+                'Nama Produk'
+            ];
+            $x['title'] = $titlepotong;
+            $x['data'] = [
+                $potong->bahan->sku,
+                $potong->tanggal_cutting,
+                $potong->tanggal_selesai,
+                $potong->hasil_cutting,
+                $potong->bahan->jenis_bahan,
+                $potong->bahan->warna,
+                $potong->bahan->nama_bahan,
+            ];
+            return response()->json([
+                'status' => true,
+                'data' => $x
+            ]);
+        }
+    }
+
+    public function cetakPdf(Request $request){
+        $potong = Potong::findOrFail($request->get('id'));
+        $titlepotong = [
+            'Kode SKU',
+            'Tanggal Cutting',
+            'Tanggal Selesai',
+            'Hasil Cutting',
+            'Jenis Kain',
+            'Warna Kain',
+            'Nama Produk'
+        ];
+        $x['title'] = $titlepotong;
+        $x['data'] = [
+            $potong->bahan->sku,
+            $potong->tanggal_cutting,
+            $potong->tanggal_selesai,
+            $potong->hasil_cutting,
+            $potong->bahan->jenis_bahan,
+            $potong->bahan->warna,
+            $potong->bahan->nama_bahan,
+        ];
+
+        $pdf = PDF::loadView('backend.potong.pdf', ['data' => $x]);
+        return $pdf->stream('potong.pdf');
     }
 }
