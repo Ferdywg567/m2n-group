@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Jahit;
 use App\Potong;
 use App\Cuci;
+use PDF;
 use Illuminate\Http\Request;
 
 class PrintController extends Controller
@@ -24,11 +25,11 @@ class PrintController extends Controller
 
             // $potong = Potong::with('bahan')->whereBetween('created_at', [$dari, $sampai])->get();
             $potong = Potong::with('bahan')->get();
-            $jahit = Jahit::with(['potong'=> function($q){
+            $jahit = Jahit::with(['potong' => function ($q) {
                 $q->with('bahan');
             }])->get();
-            $cuci = Cuci::with(['jahit'=> function($q){
-                $q->with(['potong'=> function($q){
+            $cuci = Cuci::with(['jahit' => function ($q) {
+                $q->with(['potong' => function ($q) {
                     $q->with('bahan');
                 }]);
             }])->get();
@@ -187,5 +188,13 @@ class PrintController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function test(Request $request)
+    {
+        $data = [1, 2, 3, 4];
+        $pdf = PDF::loadView('backend.print.download', ['data' => $data]);
+        return $pdf->stream('test.pdf');
     }
 }

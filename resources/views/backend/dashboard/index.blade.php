@@ -1,6 +1,7 @@
 @extends('backend.master')
 
 @section('title', 'Dashboard')
+@section('title-nav', 'Dashboard')
 
 @section('dashboard', 'class=active')
 @if (auth()->user()->hasRole('production'))
@@ -61,7 +62,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-px-0 ml-3">
-                                    <h1 id="jumlah_kain"> 59</h1>
+                                    <h1 id="jumlah_kain"> 0</h1>
                                 </div>
                                 <div class="col-md-6  mt-2">
                                     <h3>yard</h3>
@@ -87,7 +88,7 @@
                             <div class="card-body">
 
                                 <h2 id="jenis_bahan">
-                                    10
+                                    0
                                 </h2>
                             </div>
                         </div>
@@ -106,7 +107,7 @@
                             </div>
                             <div class="card-body">
                                 <h2 id="berhasil_cuci">
-                                    10
+                                    0
                                 </h2>
                             </div>
                         </div>
@@ -126,7 +127,7 @@
                                 <h4>Hasil Potong</h4>
                             </div>
                             <div class="card-body">
-                                <h2 id="hasil_potong">10</h2>
+                                <h2 id="hasil_potong">0</h2>
                             </div>
                         </div>
                     </div>
@@ -143,7 +144,7 @@
                                 <h4>Siap Quality Control</h4>
                             </div>
                             <div class="card-body">
-                                <h2 id="siap_qc"> 10</h2>
+                                <h2 id="siap_qc"> 0</h2>
                             </div>
                         </div>
                     </div>
@@ -162,7 +163,7 @@
                                 <h4>Berhasil Jahit</h4>
                             </div>
                             <div class="card-body">
-                                <h2 id="berhasil_jahit"> 10</h2>
+                                <h2 id="berhasil_jahit"> 0</h2>
                             </div>
                         </div>
                     </div>
@@ -179,7 +180,7 @@
                                 <h4>Baju Rusak / Buang</h4>
                             </div>
                             <div class="card-body">
-                                <h2 id="baju_rusak">10</h2>
+                                <h2 id="baju_rusak">0</h2>
                             </div>
                         </div>
                     </div>

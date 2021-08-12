@@ -1,28 +1,20 @@
 @extends('backend.master')
 
 @section('title', 'Sampah')
-
+@section('title-nav', 'Sampah')
 @section('sampah', 'class=active')
 
 @section('content')
 
 <div id="non-printable">
-    <section class="section">
-        <div class="section-header ">
-            <h1>Sampah</h1>
-        </div>
-        <div class="section-body">
+    <section class="section mt-5">
+        <a href="{{route('print.index')}}" class="btn btn-outline-primary rounded ml-1">Print Semua <i class="fas fa-print"></i>
+        </a>
+        <div class="section-body mt-2">
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header">
-                            {{-- <h4>Latest Posts</h4> --}}
-                            <div class="card-header-action">
 
-                                <button class="btn btn-outline-primary">Print Semua <i class="fas fa-print"></i>
-                                </button>
-                            </div>
-                        </div>
                         <div class="card-body">
                             <table class="table table-hover" id="tabelbahanmasuk">
                                 <thead>

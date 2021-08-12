@@ -1,7 +1,7 @@
 @extends('backend.master')
 
 @section('title', 'retur')
-
+@section('title-nav', 'Retur')
 @section('retur', 'class=active')
 
 @section('content')

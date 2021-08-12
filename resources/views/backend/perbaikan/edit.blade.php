@@ -1,7 +1,7 @@
 @extends('backend.master')
 
 @section('title', 'Perbaikan')
-
+@section('title-nav', 'Perbaikan')
 @section('perbaikan', 'class=active')
 
 @section('content')

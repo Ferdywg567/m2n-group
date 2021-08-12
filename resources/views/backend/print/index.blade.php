@@ -1,35 +1,31 @@
 @extends('backend.master')
 
 @section('title', 'Print')
-
+@section('title-nav', 'Print')
 
 
 @section('content')
 <style>
-    .tinggi_card{
+    .tinggi_card {
         height: 29.7cm
     }
 
-    .right{
+    .right {
         text-align: right;
     }
 </style>
 <div id="non-printable">
-    <section class="section">
-        <div class="section-header ">
-            <a class="btn btn-primary" href="{{route('bahan.index')}}">
-                <i class="fas fa-arrow-left"></i>
-            </a>
-            <h1 class="ml-2">PRINT | Data</h1>
-        </div>
-        <div class="section-body">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
+    <form id="formBahanMasuk" method="get">
+        <section class="section">
 
-                        <div class="card-body">
-                            @include('backend.include.alert')
-                            <form id="formBahanMasuk">
+            <div class="section-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+
+                            <div class="card-body">
+                                @include('backend.include.alert')
+
                                 @csrf
 
                                 <div class="row">
@@ -60,22 +56,31 @@
                                     </div>
 
                                     <div class="col-md-2">
-                                        <button type="submit" class="btn btn-primary btnfilter" style="margin-top: 30px">Apply Filter</button>
+                                        <button type="submit" class="btn btn-primary btnfilter"
+                                            style="margin-top: 30px">Apply Filter</button>
                                     </div>
                                 </div>
 
-                            </form>
+
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <section class="section">
+        </section>
+        <section class="section">
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <button type="button" class="btn btn-danger">Download PDF</button>
+                    <button type="button" class="btn btn-primary">Print</button>
+                </div>
+            </div>
+        </section>
+    </form>
+    <section class="section mt-4">
         <div class="section-body" style="overflow-y: scroll; height:400px;" id="dataprint">
             {{-- <div class="row" id="testdata"> --}}
-                {{-- <div class="col-md-6">
+            {{-- <div class="col-md-6">
                     <div class="card tinggi_card">
 
                         <div class="card-body">
@@ -97,7 +102,7 @@
                         </div>
                     </div>
                 </div> --}}
-                {{-- <div class="col-md-6">
+            {{-- <div class="col-md-6">
                     <div class="card tinggi_card">
 
                         <div class="card-body">

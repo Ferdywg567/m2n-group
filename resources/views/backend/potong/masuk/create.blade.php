@@ -1,7 +1,7 @@
 @extends('backend.master')
 
 @section('title', 'Potong')
-
+@section('title-nav', 'Potong')
 @section('potong', 'class=active')
 
 @section('content')

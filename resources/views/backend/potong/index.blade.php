@@ -1,7 +1,7 @@
 @extends('backend.master')
 
 @section('title', 'Potong')
-
+@section('title-nav', 'Potong')
 @section('potong', 'class=active')
 
 @section('content')
@@ -13,40 +13,32 @@
 </style>
 <div id="non-printable">
     <section class="section">
-        <div class="section-header ">
-            <h1>Potong</h1>
+        <div class="btn-group mt-5">
+            <button type="button" class="btn btn-primary rounded" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                Input Data <i class="fas fa-plus"></i>
+            </button>
+            <div class="dropdown-menu">
+                <form action="{{route('potong.create')}}" method="get">
+                    <input type="hidden" name="status" value="masuk">
+                    <button class="dropdown-item">Potong Masuk</button>
+                </form>
+
+                <form action="{{route('potong.create')}}" method="get">
+                    <input type="hidden" name="status" value="keluar">
+                    <button class="dropdown-item">Potong Keluar</button>
+                </form>
+
+            </div>
+            <button class="btn btn-outline-primary rounded ml-2">Print Semua <i class="fas fa-print"></i>
+            </button>
         </div>
-        <div class="section-body">
+        <div class="section-body mt-2">
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header">
-                            {{-- <h4>Latest Posts</h4> --}}
-                            <div class="card-header-action">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-primary " data-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false">
-                                        Input Data <i class="fas fa-plus"></i>
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <form action="{{route('potong.create')}}" method="get">
-                                            <input type="hidden" name="status" value="masuk">
-                                            <button class="dropdown-item">Potong Masuk</button>
-                                        </form>
 
-                                        <form action="{{route('potong.create')}}" method="get">
-                                            <input type="hidden" name="status" value="keluar">
-                                            <button class="dropdown-item">Potong Keluar</button>
-                                        </form>
-
-                                    </div>
-                                </div>
-
-                                <button class="btn btn-outline-primary">Print Semua <i class="fas fa-print"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card-body p-0">
+                        <div class="card-body">
                             <div class="ml-2">
                                 <nav>
                                     <div class="nav nav-tabs" id="nav-tab" role="tablist">

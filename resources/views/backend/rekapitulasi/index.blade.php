@@ -1,7 +1,7 @@
 @extends('backend.master')
 
-@section('title', 'rekapitulasi')
-
+@section('title', 'Rekapitulasi')
+@section('title-nav', 'Rekapitulasi')
 @section('rekapitulasi', 'class=active')
 
 @section('content')
@@ -12,28 +12,19 @@
     }
 </style>
 <div id="non-printable">
-    <section class="section">
-        <div class="section-header ">
-            <h1>rekapitulasi</h1>
+    <section class="section mt-5">
+        <div class="btn-group">
+            <a href="{{route('rekapitulasi.create')}}" class="btn btn-primary ">
+                Input Data <i class="fas fa-plus"></i>
+            </a>
+            <a href="{{route('print.index')}}" class="btn btn-outline-primary rounded ml-1">Print Semua <i class="fas fa-print"></i>
+            </a>
         </div>
-        <div class="section-body">
+        <div class="section-body mt-2">
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header">
-                            {{-- <h4>Latest Posts</h4> --}}
-                            <div class="card-header-action">
-                                <div class="btn-group">
-                                    <a href="{{route('rekapitulasi.create')}}" class="btn btn-primary ">
-                                        Input Data <i class="fas fa-plus"></i>
-                                    </a>
 
-                                </div>
-
-                                <button class="btn btn-outline-primary">Print Semua <i class="fas fa-print"></i>
-                                </button>
-                            </div>
-                        </div>
                         <div class="card-body">
 
                             <table class="table table-hover" id="tabelbahanmasuk">

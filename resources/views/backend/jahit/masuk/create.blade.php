@@ -1,7 +1,7 @@
 @extends('backend.master')
 
 @section('title', 'Jahit')
-
+@section('title-nav', 'Jahit')
 @section('jahit', 'class=active')
 
 @section('content')
@@ -129,7 +129,7 @@
 
                                         </div>
                                     </div>
-                                   
+
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12 text-center">

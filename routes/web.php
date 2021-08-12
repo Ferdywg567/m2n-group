@@ -62,6 +62,10 @@ Route::group(['prefix' => 'production', 'namespace' => 'Backend', 'middleware' =
     Route::group(['prefix' => 'rekapitulasi', 'as' => 'rekapitulasi.'], function () {
         Route::get('/getdatarekapitulasi', 'RekapitulasiController@getDataCuci')->name('getdata');
     });
+
+    Route::group(['prefix' => 'print', 'as' => 'print.'], function () {
+        Route::get('/download', 'PrintController@test')->name('getdata');
+    });
     Route::resource('cuci', 'CuciController');
     Route::resource('retur', 'ReturController');
     Route::resource('rekapitulasi', 'RekapitulasiController');
