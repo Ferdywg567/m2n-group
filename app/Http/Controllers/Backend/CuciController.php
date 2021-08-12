@@ -11,6 +11,7 @@ use App\Cuci;
 use App\DetailCuci;
 use App\CuciDirepair;
 use App\CuciDibuang;
+use PDF;
 
 class CuciController extends Controller
 {
@@ -501,5 +502,71 @@ class CuciController extends Controller
                 'data' => $cuci
             ]);
         }
+    }
+
+    public function getDataPrint(Request $request)
+    {
+        if ($request->ajax()) {
+            $cuci = Cuci::findOrFail($request->get('id'));
+            $titlecuci = [
+                'Kode SKU',
+                'Tanggal Selesai Cuci',
+                'Berhasil Cuci',
+                'Gagal Cuci',
+                'Barang Direpair',
+                'Keterangan Direpair',
+                'Barang Dibuang',
+                'Keterangan Dibuang'
+            ];
+
+            $x['kode_bahan']=  $cuci->jahit->potong->bahan->kode_bahan;
+            $x['title'] = $titlecuci;
+            $x['data'] = [
+                $cuci->jahit->potong->bahan->sku,
+                $cuci->tanggal_selesai,
+                $cuci->berhasil_cuci,
+                $cuci->gagal_cuci,
+                $cuci->barang_direpair,
+                $cuci->keterangan_direpair,
+                $cuci->barang_dibuang,
+                $cuci->keterangan_dibuang,
+            ];
+
+            return response()->json([
+                'status' => true,
+                'data' => $x
+            ]);
+        }
+    }
+
+    public function cetakPdf(Request $request){
+        $cuci = Cuci::findOrFail($request->get('id'));
+            $titlecuci = [
+                'Kode SKU',
+                'Tanggal Selesai Cuci',
+                'Berhasil Cuci',
+                'Gagal Cuci',
+                'Barang Direpair',
+                'Keterangan Direpair',
+                'Barang Dibuang',
+                'Keterangan Dibuang'
+            ];
+
+            $x['kode_bahan']=  $cuci->jahit->potong->bahan->kode_bahan;
+            $x['title'] = $titlecuci;
+            $x['data'] = [
+                $cuci->jahit->potong->bahan->sku,
+                $cuci->tanggal_selesai,
+                $cuci->berhasil_cuci,
+                $cuci->gagal_cuci,
+                $cuci->barang_direpair,
+                $cuci->keterangan_direpair,
+                $cuci->barang_dibuang,
+                $cuci->keterangan_dibuang,
+            ];
+
+
+        $pdf = PDF::loadView('backend.cuci.pdf', ['data' => $x]);
+        return $pdf->stream('cuci.pdf');
     }
 }

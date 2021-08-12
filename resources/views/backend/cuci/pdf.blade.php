@@ -187,15 +187,16 @@
         </tr>
     </table>
     <hr style="margin-top: -20px">
-    <button class="btn"><i class="fa fa-home"> <img src="{{public_path('assets/icon/user-settings-fill.png')}}" style="margin-top: 2px" alt=""></i> Tailoring</button>
+    <button class="btn"><i class="fa fa-home"> <img src="{{public_path('assets/icon/hand-coin-fill.png')}}"
+                style="margin-top: 2px" alt=""></i> Washing</button>
     <main>
         <table>
             <tbody>
                 @forelse ($data['title'] as $key => $item)
-                    <tr>
-                        <td>{{$item}}</td>
-                        <td style="text-align: right">{{$data['data'][$key]}}</td>
-                    </tr>
+                <tr>
+                    <td>{{$item}}</td>
+                    <td style="text-align: right">{{$data['data'][$key]}}</td>
+                </tr>
                 @empty
 
                 @endforelse

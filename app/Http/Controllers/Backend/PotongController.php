@@ -286,6 +286,7 @@ class PotongController extends Controller
                 'Warna Kain',
                 'Nama Produk'
             ];
+            $x['kode_bahan']=  $potong->bahan->kode_bahan;
             $x['title'] = $titlepotong;
             $x['data'] = [
                 $potong->bahan->sku,
@@ -314,6 +315,7 @@ class PotongController extends Controller
             'Warna Kain',
             'Nama Produk'
         ];
+        $x['kode_bahan']=  $potong->bahan->kode_bahan;
         $x['title'] = $titlepotong;
         $x['data'] = [
             $potong->bahan->sku,

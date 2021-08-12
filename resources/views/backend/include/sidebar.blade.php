@@ -39,7 +39,7 @@
 
         <li @yield('cuci')>
             <a class="nav-link" href="{{route('cuci.index')}}">
-                <i class="fas fa-water"></i> <span>Cuci</span>
+                <i class="ri-hand-coin-fill"></i> <span>Cuci</span>
             </a>
         </li>
         <li @yield('perbaikan')>

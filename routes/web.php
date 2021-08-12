@@ -61,6 +61,8 @@ Route::group(['prefix' => 'production', 'namespace' => 'Backend', 'middleware' =
     Route::resource('jahit', 'JahitController');
 
     Route::group(['prefix' => 'cuci', 'as' => 'cuci.'], function () {
+        Route::post('/cetak','CuciController@cetakPdf')->name('cetak');
+        Route::get('/getdataprint', 'CuciController@getDataPrint')->name('getdataprint');
         Route::get('/getdatacuci', 'CuciController@getDataCuci')->name('getdata');
     });
 

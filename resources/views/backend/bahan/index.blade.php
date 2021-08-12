@@ -196,6 +196,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title col-md-12" id="exampleModalLabel">
+
                         <span id="test" class=" float-right text-dark"> <img src="{{asset('assets/img/logo.png')}}"
                                 alt="" class="mr-1" srcset="" width="30">GARMENT</span></h5>
                 </div>
@@ -259,6 +260,7 @@
                                         datahtml += '<td class="text-right">'+nilai+'</td>'
                                     datahtml += '</tr>'
                                 }
+
                                 tbody.html(datahtml)
                                 $('#printModal').modal('show')
                             }

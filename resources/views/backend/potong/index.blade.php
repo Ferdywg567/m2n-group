@@ -25,8 +25,9 @@
                 </form>
 
             </div>
-            <button class="btn btn-outline-primary rounded ml-2">Print Semua <i class="fas fa-print"></i>
-            </button>
+            <a href="{{route('print.index')}}" class="btn btn-outline-primary rounded ml-1">Print Semua <i
+                class="fas fa-print"></i>
+        </a>
         </div>
         <div class="section-body mt-2">
             <div class="row">
@@ -213,6 +214,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title col-md-12" id="exampleModalLabel">
+                        <span class="float left text-primary" id="title_kode"></span>
                         <span id="test" class=" float-right text-dark"> <img src="{{asset('assets/img/logo.png')}}"
                                 alt="" class="mr-1" srcset="" width="30">GARMENT</span></h5>
                 </div>
@@ -277,6 +279,8 @@
                                         datahtml += '<td class="text-right">'+nilai+'</td>'
                                     datahtml += '</tr>'
                                 }
+                                var kode = data.kode_bahan;
+                                $('#title_kode').text(kode)
                                 tbody.html(datahtml)
                                 $('#printModal').modal('show')
                             }

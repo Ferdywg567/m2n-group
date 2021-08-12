@@ -460,7 +460,7 @@ class JahitController extends Controller
                 'Barang Dibuang',
                 'Keterangan Dibuang'
             ];
-
+            $x['kode_bahan']=  $jahit->potong->bahan->kode_bahan;
             $x['title'] = $titlejahit;
             $x['data'] = [
                 $jahit->potong->bahan->sku,
@@ -494,7 +494,7 @@ class JahitController extends Controller
             'Barang Dibuang',
             'Keterangan Dibuang'
         ];
-
+        $x['kode_bahan']=  $jahit->potong->bahan->kode_bahan;
         $x['title'] = $titlejahit;
         $x['data'] = [
             $jahit->potong->bahan->sku,
