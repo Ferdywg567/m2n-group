@@ -23,8 +23,6 @@ class DashboardController extends Controller
     {
         $month = array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
 
-
-
         if ($request->ajax()) {
             $bulan = $request->get('bulan');
             $tahun = $request->get('tahun');
@@ -50,10 +48,69 @@ class DashboardController extends Controller
 
             $group_kain = Bahan::select(
                 DB::raw('sum(panjang_bahan) as jumlah'),
-                DB::raw("DATE_FORMAT(created_at,'%M %Y') as months")
+                DB::raw("DATE_FORMAT(tanggal_masuk,'%M %Y') as months")
             )->whereYear('tanggal_masuk', $tahun)
                 ->groupBy('months')
                 ->get();
+
+            //grafik pie chart
+            $berhasil = $berhasil_cuci + $berhasil_jahit + $hasil_cutting;
+            $cucidirepair = Cuci::whereMonth('tanggal_masuk', $bulan)->whereYear('tanggal_masuk', $tahun)->sum('barang_direpair');
+            $jahitdirepair =  Jahit::whereMonth('tanggal_jahit', $bulan)->whereYear('tanggal_jahit', $tahun)->sum('barang_direpair');
+            $gagal = $baju_rusak;
+            $repair = $cucidirepair + $jahitdirepair;
+            $retur = 0;
+            $label = ['Berhasil', 'Repair', 'Retur', 'Gagal'];
+            $datapie = [$berhasil, $repair, $retur, $gagal];
+            $pie = [
+                'label' => $label,
+                'data' => $datapie
+            ];
+
+            //grafik pesanan tiap tahun
+            $jumlahbahan = Bahan::select(
+                DB::raw('count(*) as jumlah'),
+                DB::raw("DATE_FORMAT(created_at,'%M %Y') as months")
+            )->whereYear('created_at', $tahun)
+                ->groupBy('months')
+                ->get();
+            $jumlahbahan = collect($jumlahbahan);
+            $jumlahpotong = Potong::select(
+                DB::raw('count(*) as jumlah'),
+                DB::raw("DATE_FORMAT(created_at,'%M %Y') as months")
+            )->whereYear('created_at', $tahun)
+                ->groupBy('months')
+                ->get();
+            $jumlahpotong = collect($jumlahpotong);
+            $jumlahjahit = Jahit::select(
+                DB::raw('count(*) as jumlah'),
+                DB::raw("DATE_FORMAT(created_at,'%M %Y') as months")
+            )->whereYear('created_at', $tahun)
+                ->groupBy('months')
+                ->get();
+            $jumlahjahit = collect($jumlahjahit);
+            $jumlahcuci = Cuci::select(
+                DB::raw('count(*) as jumlah'),
+                DB::raw("DATE_FORMAT(created_at,'%M %Y') as months")
+            )->whereYear('created_at', $tahun)
+                ->groupBy('months')
+                ->get();
+            $jumlahcuci = collect($jumlahcuci);
+            $result = $jumlahbahan->merge($jumlahpotong);
+            $result = $jumlahjahit->merge($result);
+            $result = $jumlahcuci->merge($result);
+            $res = [];
+
+            foreach ($result as $key => $value) {
+                if (array_key_exists($value->months, $res)) {
+                    $res[$value->months]['jumlah'] += $value->jumlah;
+                    $res[$value->months]['months'] = $value->months;
+                } else {
+                    $res[$value->months] = $value;
+                }
+            }
+
+            $res = array_values($res);
             return response()->json([
                 'status' => true,
                 'jumlah_kain' => $jumlah_kain,
@@ -66,6 +123,8 @@ class DashboardController extends Controller
                 'jahit' => $jahit,
                 'cuci' => $cuci,
                 'group_kain' => $group_kain,
+                'pie' => $pie,
+                'line' => $res
             ]);
         }
 

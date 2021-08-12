@@ -278,6 +278,7 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-body">
+                    <h4 class="text-center">Jumlah Kain</h4>
                     <canvas id="barChart" width="400" height="300"></canvas>
                 </div>
             </div>
@@ -286,6 +287,7 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-body">
+                    <h4 class="text-center">Proses Production</h4>
                     <canvas id="pieChart" width="400" height="300"></canvas>
                 </div>
             </div>
@@ -294,6 +296,7 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-body">
+                    <h4 class="text-center">Pesanan Tiap Tahun</h4>
                     <canvas id="lineChart" width="400" height="300"></canvas>
                 </div>
             </div>
@@ -438,39 +441,41 @@
 
          }
 
-        function pieChartData()
+        function pieChartData(label, data)
         {
             var ctx = document.getElementById("pieChart").getContext('2d');
              pieChart = new Chart(ctx, {
             type: 'pie',
             data: {
-                labels: ["Green", "Blue", "Gray", "Purple", "Yellow", "Red", "Black"],
+                labels: label,
                 datasets: [{
                 backgroundColor: [
                     "#2ecc71",
-                    "#3498db",
-                    "#95a5a6",
-                    "#9b59b6",
-                    "#f1c40f",
-                    "#e74c3c",
-                    "#34495e"
+                    "#ffc800",
+                    "#00a2ff",
+                    "#ff0000",
                 ],
-                data: [12, 19, 3, 17, 28, 24, 7]
+                data: data
                 }]
-            }
+            },
+            options: {
+                legend: {
+                position: 'bottom',
+              }
+             }
             });
         }
 
 
-        function lineChartData() {
+        function lineChartData(label, data) {
             var ctx = document.getElementById('lineChart').getContext('2d');
          lineChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                labels: label,
                 datasets: [{
                     label: 'Pesanan',
-                    data: [12, 19, 3, 5, 2, 3],
+                    data: data,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
@@ -531,13 +536,22 @@
                         var group_kain = data.group_kain
                         var bulanbar = []
                         var databar = []
+                        var pie = data.pie;
                         group_kain.forEach(element => {
                                 bulanbar.push(element.months)
                                 databar.push(element.jumlah)
                         });
-                        pieChartData()
+
+                        var line_data = data.line;
+                        var bulanline = []
+                        var dataline = []
+                        line_data.forEach(element => {
+                                bulanline.push(element.months)
+                                dataline.push(element.jumlah)
+                        });
+                        pieChartData(pie.label,pie.data)
                         barChartData(databar, bulanbar)
-                        lineChartData()
+                        lineChartData(bulanline, dataline)
                         table_cutting.rows.add(data.potong).draw();
                         table_jahit.rows.add(data.jahit).draw();
                         table_cuci.rows.add(data.cuci).draw();
