@@ -58,7 +58,7 @@ class PotongController extends Controller
                 'kode_bahan' =>  'required',
                 'no_surat' => 'required|unique:potongs,no_surat',
                 'tanggal_cutting' => 'required|date_format:"Y-m-d"|after_or_equal:' . date('Y-m-d'),
-                'tanggal_selesai' => 'required|date_format:"Y-m-d"|after:tanggal_cutting',
+                'tanggal_selesai' => 'required|date_format:"Y-m-d"|after_or_equal:tanggal_cutting',
             ]);
         } else {
             $validator = Validator::make($request->all(), [
@@ -174,7 +174,7 @@ class PotongController extends Controller
             $validator = Validator::make($request->all(), [
                 'no_surat' => 'required',
                 'tanggal_cutting' => 'required|date_format:"Y-m-d"|after_or_equal:' . date('Y-m-d'),
-                'tanggal_selesai' => 'required|date_format:"Y-m-d"|after:tanggal_cutting',
+                'tanggal_selesai' => 'required|date_format:"Y-m-d"|after_or_equal:tanggal_cutting',
             ]);
         } else {
             $validator = Validator::make($request->all(), [
