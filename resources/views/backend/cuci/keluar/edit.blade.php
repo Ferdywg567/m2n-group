@@ -205,7 +205,13 @@
                                     @empty
 
                                     @endforelse
-                                    <div class="col-md-2">
+                                    <div class="col-md-1" id="datahapus">
+                                        <div class="form-group" style="margin-top: 30px">
+                                            <button type="button" class="btn btn btn-outline-danger" id="btnhapus">Hapus
+                                                Size</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1">
                                         <div class="form-group" style="margin-top: 30px">
                                             <button type="button" class="btn btn-outline-primary" id="btnsize">Tambah
                                                 Size</button>
@@ -559,13 +565,15 @@
                   $('#konversi').val(res)
               })
 
-            $(document).on('click','#btnsize', function(){
+
+              $(document).on('click','#btnsize', function(){
                 var ukuranm = $('#ukuranm').is(':visible')
                 var ukuranl = $('#ukuranl').is(':visible')
                 var ukuranxl = $('#ukuranxl').is(':visible')
                 var ukuranxxl = $('#ukuranxxl').is(':visible')
 
                 if(!ukuranm){
+                    $('#datahapus').show()
                     $('#ukuranm').show()
                     $('#ukurandirepairm').show()
                     $('#ukurandibuangm').show()
@@ -587,7 +595,35 @@
                     return false;
                 }
             })
+            $(document).on('click','#btnhapus', function(){
+                var ukuranm = $('#ukuranm').is(':visible')
+                var ukuranl = $('#ukuranl').is(':visible')
+                var ukuranxl = $('#ukuranxl').is(':visible')
+                var ukuranxxl = $('#ukuranxxl').is(':visible')
 
+                if(ukuranxxl){
+                    $('#ukuranxxl').hide()
+                    $('#ukurandirepairxxl').hide()
+                    $('#ukurandibuangxxl').hide()
+                    return false;
+                }else if(ukuranxl){
+                    $('#ukuranxl').hide()
+                    $('#ukurandirepairxl').hide()
+                    $('#ukurandibuangxl').hide()
+                    return false;
+                }else if(ukuranl){
+                    $('#ukuranl').hide()
+                    $('#ukurandirepairl').hide()
+                    $('#ukurandibuangl').hide()
+                    return false;
+                }else if(ukuranm){
+                    $('#ukuranm').hide()
+                    $('#ukurandirepairm').hide()
+                    $('#ukurandibuangm').hide()
+                    $('#datahapus').hide()
+                    return false;
+                }
+            })
 
             function emptyUkuran()
             {

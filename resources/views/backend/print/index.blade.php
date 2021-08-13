@@ -13,10 +13,17 @@
     .right {
         text-align: right;
     }
+
+    span.error {
+        outline: none;
+        border: 1px solid #800000;
+        box-shadow: 0 0 5px 1px #800000;
+    }
 </style>
 <div id="non-printable">
-    <form id="formBahanMasuk" method="get" target="_blank" action="{{route('print.export')}}">
+    <form id="formPrint" method="get" target="_blank" action="{{route('print.export')}}">
         @csrf
+        <input type="hidden" name="tipe" id="tipe">
         <section class="section">
 
             <div class="section-body">
@@ -25,6 +32,9 @@
                         <div class="card">
 
                             <div class="card-body">
+                                <div id="data-error">
+
+                                </div>
                                 @include('backend.include.alert')
 
                                 @csrf
@@ -45,7 +55,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="menu">Menu</label>
-                                            <select class="form-control" multiple id="menu">
+                                            <select class="form-control" multiple id="menu" name="menu[]">
                                                 <option value="CUTTING">CUTTING</option>
                                                 <option value="TAILORING">TAILORING</option>
                                                 <option value="REPAIR">REPAIR</option>
@@ -72,10 +82,12 @@
         <section class="section">
             <div class="row">
                 <div class="col-md-12 text-right">
-                    <input type="submit" value="Download PDF" name="button_pdf" class="btn btn-danger" >
-                    <button type="button" class="btn btn-primary">Print</button>
+
+                    <button type="button" class="btn btn-danger btndownload"><i class="ri-download-2-fill glyph"></i> Download</button>
+
+                    <button type="button" class="btn btn-primary btnprint"><i class="ri-printer-fill"></i> Print</button>
+
                 </div>
-            </div>
         </section>
     </form>
     <section class="section mt-4">
@@ -148,43 +160,71 @@
 
 @endsection
 @push('scripts')
+
 <script>
     $(document).ready(function () {
             $('#menu').select2()
 
+
+            $('.btndownload').on('click',function(){
+                $('#tipe').val('download');
+                $('#formPrint').submit()
+            })
+
+
+            $('.btnprint').on('click',function(){
+                $('#tipe').val('print');
+                $('#formPrint').submit()
+            })
+
             $('.btnfilter').on('click', function(){
                 var tes = $('#dataprint')
-                $.ajax({
+                var form = $('#formPrint').serialize()
+
+                    $.ajax({
                     url:"{{route('print.index')}}",
                     method:"GET",
+                    data:form,
                     success:function(data){
-                        console.log(data);
-                        var dataprint = data.print;
-                        var htmldata = ''
-                        dataprint.forEach((element,i) => {
-                            if(i == 0){
-                                htmldata+= '<div class="row">'
-                            }
-                                    var data = element.data;
-                                    var title = element.title;
-                                     htmldata += '<div class="col-md-6"><div class="card tinggi_card"><div class="card-body"><h5 class="card-title right mr-2">GARMENT</h5><hr><div class="row ml-2"><div class="col-md-3"><span  class="btn btn-primary">'+element.menu+'</span></div></div><table class="table" ><tbody>'
-                                        data.forEach((value, index) => {
-                                                htmldata += '<tr>'
-                                                    htmldata += '<td>' +title[index]+ '</td>'
-                                                    htmldata += '<td class="right font-weight-bold">' +value+ '</td>'
-                                                htmldata += '</tr>'
-                                        });
+                        if(data.status){
+                            var dataprint = data.print;
+                            var htmldata = ''
+                            dataprint.forEach((element,i) => {
+                                if(i == 0){
+                                    htmldata+= '<div class="row">'
+                                }
 
-                                    htmldata += '</tbody></table></div></div></div>'
-                                    if(i!=0 && i%3 == 0){
-                                    // add end of row ,and start new row on every 3 elements
-                                    htmldata += '</div><div class="row">'
-                                    }
-                        });
-                        htmldata += '</div>'
-                        tes.html(htmldata)
+                                if(i!=0 && i%2 == 0){
+                                        // add end of row ,and start new row on every 3 elements
+                                        htmldata += '</div><div class="row">'
+                                }
+                                        var data = element.data;
+                                        var title = element.title;
+                                        if(title != undefined){
+                                            htmldata += '<div class="col-md-6"><div class="card tinggi_card"><div class="card-body"><h5 class="card-title right mr-2">GARMENT</h5><hr><div class="row ml-2"><div class="col-md-3"><span  class="btn btn-primary">'+element.icon+' '+element.menu+'</span></div></div><table class="table" ><tbody>'
+                                            data.forEach((value, index) => {
+                                                    htmldata += '<tr>'
+                                                        htmldata += '<td>' +title[index]+ '</td>'
+                                                        htmldata += '<td class="right font-weight-bold">' +value+ '</td>'
+                                                    htmldata += '</tr>'
+                                            });
+
+                                            htmldata += '</tbody></table></div></div></div>'
+                                        }
+
+
+                            });
+                            htmldata += '</div>'
+                            tes.html(htmldata)
+                            $('#data-error').empty()
+                        }else{
+                            $('#data-error').html(data.data)
+                        }
+
                     }
                 })
+
+
             })
      })
 </script>

@@ -16,6 +16,11 @@ class Rekapitulasi extends Model
         return $this->belongsTo('App\DetailCuci');
     }
 
+    public function detail_rekap()
+    {
+        return $this->hasMany('App\DetailRekapitulasi');
+    }
+
     public function finishing()
     {
         return $this->hasOne('App\Finishing');

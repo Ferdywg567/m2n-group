@@ -26,21 +26,7 @@
     <link rel="stylesheet" href="{{ asset('assets/modules/bootstrap/css/bootstrap-datepicker.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/modules/datatables/dataTables.dateTime.min.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
-    <style>
-        #printable {
-            display: none;
-        }
-
-        @media print {
-            #non-printable {
-                display: none;
-            }
-
-            #printable {
-                display: block;
-            }
-        }
-    </style>
+    
 </head>
 
 <body>
