@@ -7,8 +7,8 @@
 @section('content')
 
 <div id="non-printable">
-    <section class="section">
-        <div class="btn-group mt-5">
+    <section class="section  mt-5">
+        <div class="btn-group">
             <button type="button" class="btn btn-primary rounded" data-toggle="dropdown" aria-haspopup="true"
                 aria-expanded="false">
                 Input Data <i class="fas fa-plus"></i>

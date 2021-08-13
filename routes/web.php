@@ -13,10 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
-
-
-
 Route::group(['prefix' => 'garment', 'as' => 'backend.', 'namespace' => 'Auth'], function () {
     Route::get('login', 'LoginController@showLoginForm')->name('getlogin');
     Route::post('login', 'LoginController@login')->name('login');
