@@ -26,9 +26,15 @@ Route::group(['prefix' => 'warehouse', 'namespace' => 'Backend', 'middleware' =>
             Route::get('/getdatarekap', 'FinishingController@getDataRekap')->name('getdatarekap');
             Route::get('/getdatafinishing', 'FinishingController@getDataFinish')->name('getdatafinish');
         });
+
+        Route::group(['prefix' => 'rekapitulasi', 'as' => 'rekapitulasi.'], function () {
+            Route::get('/getdatarekapitulasi', 'RekapitulasiController@getDataRekapitulasi')->name('getdata');
+        });
+
         Route::resource('finishing', 'FinishingController');
         Route::resource('warehouse', 'WarehouseController');
         Route::resource('retur', 'ReturController');
+        Route::resource('rekapitulasi', 'RekapitulasiController');
     });
 });
 
@@ -36,14 +42,14 @@ Route::group(['prefix' => 'production', 'namespace' => 'Backend', 'middleware' =
     Route::resource('dashboard', 'DashboardController');
 
     Route::group(['prefix' => 'bahan', 'as' => 'bahan.'], function () {
-        Route::post('/cetak','BahanController@cetakPdf')->name('cetak');
+        Route::post('/cetak', 'BahanController@cetakPdf')->name('cetak');
         Route::get('/getdatabahan', 'BahanController@getDataBahan')->name('getdata');
         Route::get('/getdataprint', 'BahanController@getDataPrint')->name('getdataprint');
     });
     Route::resource('bahan', 'BahanController');
 
     Route::group(['prefix' => 'potong', 'as' => 'potong.'], function () {
-        Route::post('/cetak','PotongController@cetakPdf')->name('cetak');
+        Route::post('/cetak', 'PotongController@cetakPdf')->name('cetak');
         Route::get('/getdatapotong', 'PotongController@getDataPotong')->name('getdata');
         Route::get('/getdataprint', 'PotongController@getDataPrint')->name('getdataprint');
     });
@@ -51,14 +57,14 @@ Route::group(['prefix' => 'production', 'namespace' => 'Backend', 'middleware' =
 
 
     Route::group(['prefix' => 'jahit', 'as' => 'jahit.'], function () {
-        Route::post('/cetak','JahitController@cetakPdf')->name('cetak');
+        Route::post('/cetak', 'JahitController@cetakPdf')->name('cetak');
         Route::get('/getdataprint', 'JahitController@getDataPrint')->name('getdataprint');
         Route::get('/getdatajahit', 'JahitController@getDataJahit')->name('getdata');
     });
     Route::resource('jahit', 'JahitController');
 
     Route::group(['prefix' => 'cuci', 'as' => 'cuci.'], function () {
-        Route::post('/cetak','CuciController@cetakPdf')->name('cetak');
+        Route::post('/cetak', 'CuciController@cetakPdf')->name('cetak');
         Route::get('/getdataprint', 'CuciController@getDataPrint')->name('getdataprint');
         Route::get('/getdatacuci', 'CuciController@getDataCuci')->name('getdata');
     });

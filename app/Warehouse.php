@@ -15,4 +15,9 @@ class Warehouse extends Model
     {
         return $this->hasMany('App\DetailWarehouse');
     }
+
+    public function rekapitulasi_warehouse()
+    {
+        return $this->hasOne('App\RekapitulasiWarehouse');
+    }
 }

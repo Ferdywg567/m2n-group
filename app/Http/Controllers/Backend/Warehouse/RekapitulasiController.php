@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers\Backend\Warehouse;
 
+use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
+use App\DetailRekapitulasiWarehouse;
+use App\RekapitulasiWarehouse;
 use Illuminate\Http\Request;
+use App\Warehouse;
+use Illuminate\Support\Facades\DB;
 
 class RekapitulasiController extends Controller
 {
@@ -14,7 +19,8 @@ class RekapitulasiController extends Controller
      */
     public function index()
     {
-        //
+        $rekap = RekapitulasiWarehouse::all();
+        return view('backend.warehouse.rekapitulasi.index', ['rekap' => $rekap]);
     }
 
     /**
@@ -24,7 +30,8 @@ class RekapitulasiController extends Controller
      */
     public function create()
     {
-        //
+        $warehouse = Warehouse::doesntHave('rekapitulasi_warehouse')->get();
+        return view("backend.warehouse.rekapitulasi.create", ['warehouse' => $warehouse]);
     }
 
     /**
@@ -35,7 +42,52 @@ class RekapitulasiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'kode_bahan' => 'required',
+            'tanggal_kirim' => 'required|date_format:"Y-m-d"'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator->errors());
+        } else {
+            DB::beginTransaction();
+
+            try {
+                $rekap = new RekapitulasiWarehouse();
+                $rekap->warehouse_id = $request->get('kode_bahan');
+                $rekap->tanggal_kirim = date('Y-m-d', strtotime($request->get('tanggal_kirim')));
+                $rekap->tanggal_masuk = date('Y-m-d', strtotime($request->get('tanggal_masuk')));
+                $rekap->total_barang = $request->get('total_barang');
+                $rekap->save();
+
+
+                $jumlah = $request->get('jumlah');
+                $dataukuran = $request->get('dataukuran');
+                $arr = [];
+                foreach ($dataukuran as $key => $value) {
+                    if (!empty($jumlah[$key])) {
+                        $x['ukuran'] = $value;
+                        $x['jumlah'] = $jumlah[$key];
+                        array_push($arr, $x);
+                    }
+                }
+
+                foreach ($arr as $key => $value) {
+                    $detail = new DetailRekapitulasiWarehouse();
+                    $detail->rekapitulasi_warehouse_id = $rekap->id;
+                    $detail->ukuran = $value['ukuran'];
+                    $detail->jumlah = $value['jumlah'];
+                    $detail->save();
+                }
+
+                DB::commit();
+                return redirect()->route('warehouse.rekapitulasi.index')->with('success', 'Rekapitulasi berhasil disimpan');
+            } catch (\Throwable $th) {
+                //throw $th;
+                DB::rollBack();
+                dd($th);
+            }
+        }
     }
 
     /**
@@ -46,7 +98,8 @@ class RekapitulasiController extends Controller
      */
     public function show($id)
     {
-        //
+        $rekap = RekapitulasiWarehouse::findOrFail($id);
+        return view("backend.warehouse.rekapitulasi.show", ['rekap' => $rekap]);
     }
 
     /**
@@ -81,5 +134,27 @@ class RekapitulasiController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getDataRekapitulasi(Request $request)
+    {
+        if ($request->ajax()) {
+            $warehouse = Warehouse::with(['finishing' => function ($q) {
+                $q->with(['rekapitulasi' => function ($q) {
+                    $q->with(['cuci' => function ($q) {
+                        $q->with(['jahit' => function ($q) {
+                            $q->with(['potong' => function ($q) {
+                                $q->with('bahan');
+                            }]);
+                        }]);
+                    }]);
+                }]);
+            }, 'detail_warehouse'])->where('id', $request->get('id'))->first();
+
+            return response()->json([
+                'status' => true,
+                'data' => $warehouse
+            ]);
+        }
     }
 }

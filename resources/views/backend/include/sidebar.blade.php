@@ -82,7 +82,7 @@
             </a>
         </li>
         <li @yield('rekapitulasi')>
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{{route('warehouse.rekapitulasi.index')}}">
                 <i class="ri-booklet-fill"></i> <span>Rekapitulasi</span>
             </a>
         </li>
