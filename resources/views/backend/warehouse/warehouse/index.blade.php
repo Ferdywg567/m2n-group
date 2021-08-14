@@ -1,36 +1,24 @@
 @extends('backend.master')
 
 @section('title', 'Warehouse')
+@section('title-nav', 'Warehouse')
 
 @section('warehouse', 'class=active')
 
 @section('content')
-
-<div id="non-printable">
-    <section class="section">
-        <div class="section-header ">
-            <h1>Warehouse</h1>
+    <section class="section mt-5">
+        <div class="btn-group">
+            <a href="{{route('warehouse.warehouse.create')}}" class="btn btn-primary ">
+                Input Data <i class="fas fa-plus"></i>
+            </a>
+            <a href="{{route('print.index')}}" class="btn btn-outline-primary rounded ml-1">Print Semua <i class="fas fa-print"></i>
+            </a>
         </div>
-        <div class="section-body">
+        <div class="section-body mt-2">
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header">
-                            {{-- <h4>Latest Posts</h4> --}}
-                            <div class="card-header-action">
-                                <div class="btn-group">
-                                    <a href="{{route('warehouse.warehouse.create')}}" class="btn btn-primary ">
-                                        Input Data <i class="fas fa-plus"></i>
-                                    </a>
-
-                                </div>
-
-                                <button class="btn btn-outline-primary">Print Semua <i class="fas fa-print"></i>
-                                </button>
-                            </div>
-                        </div>
                         <div class="card-body">
-
                             <table class="table table-hover" id="tabelmasuk">
                                 <thead>
                                     <tr>
@@ -71,22 +59,20 @@
                                                 </a>
                                                 <div class="dropdown-menu text-center"
                                                     aria-labelledby="dropdownMenuButton">
-
                                                     <a class="dropdown-item"
-                                                        href="{{route('jahit.show',[$item->id])}}"><i
+                                                        href="{{route('warehouse.warehouse.show',[$item->id])}}"><i
                                                             class="fas fa-eye"></i>
                                                         Detail</a>
                                                     <a class="dropdown-item btnprintmasuk" href="#"
                                                         data-id="{{$item->id}}"><i class="fas fa-print"></i>
                                                         Print</a>
                                                     <a class="dropdown-item"
-                                                        href="{{route('jahit.edit',[$item->id])}}"><i
+                                                        href="{{route('warehouse.warehouse.edit',[$item->id])}}"><i
                                                             class="fas fa-edit"></i>
                                                         Edit</a>
                                                     <a class="dropdown-item hapus" data-id="{{$item->id}}" href="#"><i
                                                             class="fa fa-trash"></i>
                                                         Delete</a>
-
                                                 </div>
                                             </div>
                                         </td>
@@ -106,11 +92,6 @@
     </section>
 
 
-
-</div>
-<div id="printable">
-    <h1>Hello print</h1>
-</div>
 @endsection
 @push('scripts')
 <script>
@@ -122,12 +103,8 @@
                     }
                 });
               }
-
               $('#tabelmasuk').DataTable()
               $('#tabelbahankeluar').DataTable()
-
-
-
      })
 </script>
 @endpush

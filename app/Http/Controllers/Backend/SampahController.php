@@ -29,7 +29,6 @@ class SampahController extends Controller
                     $sampah = Sampah::where('bahan_id', $idbahan)->where('ukuran', $row->ukuran)->first();
                     if ($sampah) {
                         $total = DetailSampah::where('sampah_id', $sampah->id)->sum('jumlah');
-
                         $sampah->total = $total;
                     } else {
                         $sampah = new Sampah();

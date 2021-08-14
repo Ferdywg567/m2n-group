@@ -28,6 +28,7 @@ Route::group(['prefix' => 'warehouse', 'namespace' => 'Backend', 'middleware' =>
         });
         Route::resource('finishing', 'FinishingController');
         Route::resource('warehouse', 'WarehouseController');
+        Route::resource('retur', 'ReturController');
     });
 });
 

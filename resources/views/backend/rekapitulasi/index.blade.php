@@ -17,7 +17,8 @@
             <a href="{{route('rekapitulasi.create')}}" class="btn btn-primary ">
                 Input Data <i class="fas fa-plus"></i>
             </a>
-            <a href="{{route('print.index')}}" class="btn btn-outline-primary rounded ml-1">Print Semua <i class="fas fa-print"></i>
+            <a href="{{route('print.index')}}" class="btn btn-outline-primary rounded ml-1">Print Semua <i
+                    class="fas fa-print"></i>
             </a>
         </div>
         <div class="section-body mt-2">
@@ -43,7 +44,6 @@
                                     </tr>
                                 </thead>
                                 <tbody id="">
-
                                     @forelse ($rekap as $item)
                                     <tr>
                                         <td>{{$loop->iteration}}</td>
@@ -57,13 +57,12 @@
                                         <td>{{$item->total_barang}}</td>
 
                                         <td>
-                                            <a href="{{route('rekapitulasi.show',[$item->id])}}" class="btn btn-outline-primary">Detail</a>
+                                            <a href="{{route('rekapitulasi.show',[$item->id])}}"
+                                                class="btn btn-outline-primary">Detail</a>
                                         </td>
                                     </tr>
                                     @empty
-
                                     @endforelse
-
                                 </tbody>
                             </table>
 

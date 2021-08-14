@@ -84,7 +84,8 @@ class WarehouseController extends Controller
      */
     public function show($id)
     {
-        //
+        $warehouse = Warehouse::findOrFail($id);
+        return view("backend.warehouse.warehouse.show", ['warehouse' => $warehouse]);
     }
 
     /**
@@ -95,7 +96,8 @@ class WarehouseController extends Controller
      */
     public function edit($id)
     {
-        //
+        $warehouse = Warehouse::findOrFail($id);
+        return view("backend.warehouse.warehouse.edit", ['warehouse' => $warehouse]);
     }
 
     /**
@@ -107,7 +109,25 @@ class WarehouseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'harga_produk' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator->errors());
+        } else {
+            DB::beginTransaction();
+            try {
+                $warehouse =  Warehouse::findOrFail($id);
+                $warehouse->harga_produk = $request->get('harga_produk');
+                $warehouse->save();
+                DB::commit();
+                return redirect()->route('warehouse.warehouse.index')->with('success', 'Data warehouse berhasil diupdate');
+            } catch (\Exception $th) {
+                //throw $th;
+                DB::rollBack();
+            }
+        }
     }
 
     /**

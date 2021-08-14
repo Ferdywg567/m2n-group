@@ -23,13 +23,10 @@
                     <input type="hidden" name="status" value="keluar">
                     <button class="dropdown-item">Jahitan Keluar</button>
                 </form>
-
             </div>
-
-
             <a href="{{route('print.index')}}" class="btn btn-outline-primary rounded ml-1">Print Semua <i
-                class="fas fa-print"></i>
-        </a>
+                    class="fas fa-print"></i>
+            </a>
         </div>
 
 

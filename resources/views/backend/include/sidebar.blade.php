@@ -15,28 +15,21 @@
                 <i class="ri-dashboard-fill"></i> <span>Dashboard</span>
             </a>
         </li>
-
-
-
-
         <li @yield('bahan')>
             <a class="nav-link" href="{{route('bahan.index')}}">
                 <i class="ri-t-shirt-fill"></i> <span>Bahan</span>
             </a>
         </li>
-
         <li @yield('potong')>
             <a class="nav-link" href="{{route('potong.index')}}">
                 <i class="ri-scissors-line"></i><span>Potong</span>
             </a>
         </li>
-
         <li @yield('jahit')>
             <a class="nav-link" href="{{route('jahit.index')}}">
                 <i class="ri-user-settings-fill"></i> <span>Jahit</span>
             </a>
         </li>
-
         <li @yield('cuci')>
             <a class="nav-link" href="{{route('cuci.index')}}">
                 <i class="ri-hand-coin-fill"></i> <span>Cuci</span>
@@ -69,29 +62,28 @@
         @if (auth()->user()->hasRole('warehouse'))
         <li @yield('dashboard')>
             <a class="nav-link" href="{{ route('warehouse.dashboard.index') }}">
-                <i class="fas fa-columns"></i> <span>Dashboard</span>
+                <i class="ri-dashboard-fill"></i> <span>Dashboard</span>
             </a>
         </li>
 
-
         <li @yield('finishing')>
             <a class="nav-link" href="{{route('warehouse.finishing.index')}}">
-                <i class="fas fa-check-double"></i> <span>Finishing</span>
+                <i class="ri-check-double-line"></i><span>Finishing</span>
             </a>
         </li>
         <li @yield('warehouse')>
             <a class="nav-link" href="{{route('warehouse.warehouse.index')}}">
-                <i class="fas fa-home"></i> <span>Warehouse</span>
+                <i class="ri-home-gear-fill"></i> <span>Warehouse</span>
             </a>
         </li>
         <li @yield('retur')>
-            <a class="nav-link" href="#">
-                <i class="fas fa-undo"></i> <span>Retur</span>
+            <a class="nav-link" href="{{route('warehouse.retur.index')}}">
+                <i class="ri-logout-box-fill"></i> <span>Retur</span>
             </a>
         </li>
         <li @yield('rekapitulasi')>
             <a class="nav-link" href="#">
-                <i class="fas fa-file"></i> <span>Rekapitulasi</span>
+                <i class="ri-booklet-fill"></i> <span>Rekapitulasi</span>
             </a>
         </li>
         @endif
