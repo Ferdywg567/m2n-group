@@ -95,6 +95,11 @@ Route::group(['prefix' => 'production', 'namespace' => 'Backend', 'middleware' =
     Route::group(['prefix' => 'print', 'as' => 'print.'], function () {
         Route::get('/cetak', 'PrintController@cetak')->name('export');
     });
+
+    Route::group(['prefix' => 'retur', 'as' => 'retur.'], function () {
+        Route::post('/cetak', 'ReturController@cetakPdf')->name('cetak');
+        Route::get('/getdataprint', 'ReturController@getDataPrint')->name('getdataprint');
+    });
     Route::resource('cuci', 'CuciController');
     Route::resource('retur', 'ReturController');
     Route::resource('rekapitulasi', 'RekapitulasiController');

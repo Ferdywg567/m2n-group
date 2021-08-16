@@ -931,7 +931,8 @@ class PrintController extends Controller
                         $x['menu'] = 'CUTTING';
                         $x['icon'] = '<i class="fas fa-cut"></i>';
                         $x['title'] = $titlepotong;
-                        $x['kode_bahan'] =  $value->bahan->sku;
+                        $x['kode_bahan'] =  $value->bahan->kode_bahan;
+                        $x['icon'] = 'scissors-line.png';
                         $x['data'] = [
                             $value->bahan->sku,
                             $value->tanggal_cutting,
@@ -949,7 +950,8 @@ class PrintController extends Controller
                         $x['menu'] = 'TAILORING';
                         $x['icon'] = '<i class="fas fa-user-cog"></i>';
                         $x['title'] = $titlejahit;
-                        $x['kode_bahan'] =  $value->potong->bahan->sku;
+                        $x['kode_bahan'] =  $value->potong->bahan->kode_bahan;
+                        $x['icon'] = 'user-settings-fill.png';
                         $x['data'] = [
                             $value->potong->bahan->sku,
                             $value->tanggal_selesai,
@@ -968,7 +970,8 @@ class PrintController extends Controller
                         $x['menu'] = 'WASHING';
                         $x['icon'] = '<i class="ri-hand-coin-fill"></i>';
                         $x['title'] = $titlecuci;
-                        $x['kode_bahan'] =  $value->jahit->potong->bahan->sku;
+                        $x['icon'] = 'hand-coin-fill.png';
+                        $x['kode_bahan'] =  $value->jahit->potong->bahan->kode_bahan;
                         $x['data'] = [
                             $value->jahit->potong->bahan->sku,
                             $value->tanggal_selesai,
@@ -986,7 +989,8 @@ class PrintController extends Controller
                         $x['menu'] = 'REPAIR';
                         $x['icon'] = '<i class="fa fa-tools"></i>';
                         $x['title'] = $titlerepair;
-                        $x['kode_bahan'] =   $value->bahan->sku;
+                        $x['icon'] = 'refresh-fill.png';
+                        $x['kode_bahan'] =   $value->bahan->kode_bahan;
                         $jumlahjahit = 0;
                         $jumlahcuci = 0;
                         $keteranganjahit = '';
@@ -1024,7 +1028,8 @@ class PrintController extends Controller
                         $x['menu'] = 'TRASH';
                         $x['icon'] = '<i class="fas fa-trash"></i>';
                         $x['title'] = $titletrash;
-                        $x['kode_bahan'] =   $value->bahan->sku;
+                        $x['icon'] = 'delete-bin-2-fill.png';
+                        $x['kode_bahan'] =   $value->bahan->kode_bahan;
                         $jumlahjahit = 0;
                         $jumlahcuci = 0;
                         $keteranganjahit = '';
@@ -1060,8 +1065,9 @@ class PrintController extends Controller
                         $x['menu'] = 'RECAPITULATION';
                         $x['icon'] = '<i class="ri-booklet-fill"></i>';
                         $x['title'] = $titlerekap;
+                        $x['icon'] = 'booklet-fill.png';
                         $ukuran = '';
-                        $x['kode_bahan'] =      $value->cuci->jahit->potong->bahan->sku;
+                        $x['kode_bahan'] =      $value->cuci->jahit->potong->bahan->kode_bahan;
                         foreach ($value->detail_rekap as $key => $row) {
                             $ukuran .= $row->ukuran . ',';
                         }

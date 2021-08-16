@@ -225,9 +225,23 @@ class FinishingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        if ($request->ajax()) {
+            $finish = Finishing::findOrFail($id);
+            $status = false;
+            if ($finish->warehouse()->exists()) {
+                $status = true;
+            } else {
+                $diretur = FinishingRetur::where('finishing_id',$id)->delete();
+                $dibuang = FinishingDibuang::where('finishing_id',$id)->delete();
+                $detail = DetailFinishing::where('finishing_id',$id)->delete();
+                $finish->delete();
+            }
+            return response()->json([
+                'status' => $status
+            ]);
+        }
     }
 
     public function getDataFinish(Request $request)

@@ -292,6 +292,43 @@
                       }
                   })
                })
+
+               $(document).on('click','.hapus', function () {
+                  var id = $(this).data('id')
+                    swal({
+                    title: "Are you sure?",
+                    text: "Once deleted, you will not be able to recover this imaginary file!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                    })
+                    .then((willDelete) => {
+                    if (willDelete) {
+                        ajax()
+                        $.ajax({
+                            url:"{{url('warehouse/finishing/')}}/"+id,
+                            method:"DELETE",
+                            success:function(data){
+
+                                if(data.status){
+                                    swal("Sorry, cant delete this file!");
+
+                                }else{
+                                    swal("Success! Your imaginary file has been deleted!", {
+                                    icon: "success",
+                                    });
+
+                                    setTimeout(function () {  location.reload(true) },1500)
+                                }
+                            }
+                       })
+
+                    } else {
+
+                    }
+                    });
+
+               })
      })
 </script>
 @endpush

@@ -137,9 +137,21 @@ class WarehouseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        if ($request->ajax()) {
+            $warehouse = Warehouse::findOrFail($id);
+            $status = false;
+            if ($warehouse->rekapitulasi_warehouse()->exists()) {
+                $status = true;
+            } else {
+                $detail = DetailWarehouse::where('warehouse_id',$id)->delete();
+                $warehouse->delete();
+            }
+            return response()->json([
+                'status' => $status
+            ]);
+        }
     }
 
 
