@@ -4,6 +4,8 @@
 @section('title-nav', 'Dashboard')
 
 @section('dashboard', 'class=active')
+
+{{-- production --}}
 @if (auth()->user()->hasRole('production'))
 @section('content')
 <section class="section">
@@ -79,7 +81,7 @@
                 <div class="col-md-12">
                     <div class="card card-statistic-1">
                         <div class="card-icon bg-primary">
-                           <img src="{{asset('assets/icon/shirt-line.png')}}" alt="" srcset="">
+                            <img src="{{asset('assets/icon/shirt-line.png')}}" alt="" srcset="">
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">
@@ -173,7 +175,7 @@
                 <div class="col-md-12">
                     <div class="card card-statistic-1">
                         <div class="card-icon bg-primary">
-                          <img src="{{asset('assets/icon/t-shirt-air-fill.png')}}" alt="" srcset="">
+                            <img src="{{asset('assets/icon/t-shirt-air-fill.png')}}" alt="" srcset="">
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">
@@ -562,6 +564,464 @@
                         $('#hasil_potong').text(data.hasil_cutting)
                         $('#berhasil_jahit').text(data.berhasil_jahit)
                         $('#baju_rusak').text(data.baju_rusak)
+                    }
+                }
+            })
+         })
+     })
+</script>
+@endpush
+@endif
+
+
+{{-- warehouse --}}
+@if (auth()->user()->hasRole('warehouse'))
+@section('content')
+<section class="section">
+
+    <div class="row">
+        <div class="col-md-12 text-right">
+            <div class="row">
+                <div class="col-md-9">
+
+                </div>
+                <div class="col-md-3">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <select class="form-control" id="bulan">
+                                    @forelse ($month as $item)
+                                    <option value="{{$item}}">{{$item}}</option>
+                                    @empty
+                                    @endforelse
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <select class="form-control" id="tahun">
+                                    @forelse ($tahun as $item)
+                                    <option value="{{$item}}">{{$item}}</option>
+                                    @empty
+                                    @endforelse
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-md-3">
+            <div class="card card-statistic-1">
+                <div class="card-icon bg-primary">
+                    <img src="{{asset('assets/icon/t-shirt-fill.png')}}" alt="" srcset="">
+                </div>
+                <div class="card-wrap">
+                    <div class="card-header">
+                        <h4>Jumlah Produk Siap Jual</h4>
+                    </div>
+                    <div class="card-body">
+
+                        <h2 id="rekap">
+                            0
+                        </h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card card-statistic-1">
+                <div class="card-icon bg-primary">
+                    <img src="{{asset('assets/icon/logout-box-fill.png')}}" alt="" srcset="">
+                </div>
+                <div class="card-wrap">
+                    <div class="card-header">
+                        <h4>Jumlah Baju Diretur</h4>
+                    </div>
+                    <div class="card-body">
+
+                        <h2 id="retur">
+                            0
+                        </h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card card-statistic-1">
+                <div class="card-icon bg-primary">
+                    <img src="{{asset('assets/icon/t-shirt-air-fill.png')}}" alt="" srcset="">
+                </div>
+                <div class="card-wrap">
+                    <div class="card-header">
+                        <h4>Jumlah Produk Dibuang</h4>
+                    </div>
+                    <div class="card-body">
+
+                        <h2 id="buang">
+                            0
+                        </h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card card-statistic-1">
+                <div class="card-icon bg-primary">
+                    <img src="{{asset('assets/icon/money-dollar-circle-line.png')}}" alt="" srcset="">
+                </div>
+                <div class="card-wrap">
+                    <div class="card-header">
+                        <h4 style="font-size: 11px;">Rata-rata Harga Produk /pcs</h4>
+                    </div>
+                    <div class="card-body">
+
+                        <h2 id="avg">
+                            0
+                        </h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Preview Finishing</h4>
+                    <div class="card-header-action">
+                        <a href="{{route('warehouse.finishing.index')}}" class="btn btn-danger">View More <i
+                                class="fas fa-chevron-right"></i></a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive table-invoice">
+                        <table class="table table-striped" id="table-finish">
+                            <thead>
+                                <tr>
+                                    <th>Kode Bahan</th>
+                                    <th>SKU</th>
+                                    <th>Berhasil</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Preview Warehouse</h4>
+                    <div class="card-header-action">
+                        <a href="{{route('warehouse.warehouse.index')}}" class="btn btn-danger">View More <i
+                                class="fas fa-chevron-right"></i></a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive table-invoice">
+                        <table class="table table-striped" id="table-warehouse">
+                            <thead>
+                                <tr>
+                                    <th>Kode Bahan</th>
+                                    <th>SKU</th>
+                                    <th>Harga</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Preview Retur</h4>
+                    <div class="card-header-action">
+                        <a href="{{route('warehouse.retur.index')}}" class="btn btn-danger">View More <i
+                                class="fas fa-chevron-right"></i></a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive table-invoice">
+                        <table class="table table-striped" id="table-retur">
+                            <thead>
+                                <tr>
+                                    <th>Kode Bahan</th>
+                                    <th>SKU</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="text-center">Produk Terjual</h4>
+                    <canvas id="barChart" width="400" height="300"></canvas>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="text-center">Status Produk</h4>
+                    <canvas id="pieChart" width="400" height="300"></canvas>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="text-center">Produk Terjual Tiap Tahun</h4>
+                    <canvas id="lineChart" width="400" height="300"></canvas>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+@endsection
+@push('scripts')
+<script src="{{asset('assets/modules/chart.min.js')}}"></script>
+<script>
+    $(document).ready(function () {
+        var pieChart;
+        var barChart;
+        var lineChart;
+       var table_finish = $('#table-finish').DataTable({
+            "searching": false,
+            "info": false,
+            "bPaginate": false,
+            "bLengthChange": false,
+            "bFilter": true,
+            "bInfo": false,
+            "bAutoWidth": false,
+             data:[],
+                columns: [
+                { "data": "rekapitulasi.cuci.jahit.potong.bahan.kode_bahan"  },
+                { "data": "rekapitulasi.cuci.jahit.potong.bahan.sku" },
+                { "data": "barang_lolos_qc" }
+            ]
+
+        })
+
+     var table_warehouse =   $('#table-warehouse').DataTable({
+            "searching": false,
+            "info": false,
+            "bPaginate": false,
+            "bLengthChange": false,
+            "bFilter": true,
+            "bInfo": false,
+            "bAutoWidth": false,
+            data:[],
+                columns: [
+                { "data": "finishing.rekapitulasi.cuci.jahit.potong.bahan.kode_bahan"  },
+                { "data": "finishing.rekapitulasi.cuci.jahit.potong.bahan.sku" },
+                { "data": "harga_produk" }
+            ],
+
+        })
+
+       var table_retur =   $('#table-retur').DataTable({
+            "searching": false,
+            "info": false,
+            "bPaginate": false,
+            "bLengthChange": false,
+            "bFilter": true,
+            "bInfo": false,
+            "bAutoWidth": false,
+            data:[],
+                columns: [
+                { "data": "finishing.rekapitulasi.cuci.jahit.potong.bahan.kode_bahan"  },
+                { "data": "finishing.rekapitulasi.cuci.jahit.potong.bahan.sku" },
+                { "data": "total_barang" }
+            ]
+        })
+
+
+
+        function barChartData(data, label) {
+            var ctx = document.getElementById('barChart').getContext('2d');
+         barChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: label,
+                datasets: [{
+                    label: 'Jumlah Produk',
+                    data: data,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+
+         }
+
+        function pieChartData(label, data)
+        {
+            var ctx = document.getElementById("pieChart").getContext('2d');
+             pieChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: label,
+                datasets: [{
+                backgroundColor: [
+                    "#2ecc71",
+                    "#ffc800",
+                    "#00a2ff",
+                    "#ff0000",
+                ],
+                data: data
+                }]
+            },
+            options: {
+                legend: {
+                position: 'bottom',
+              }
+             }
+            });
+        }
+
+
+        function lineChartData(label, data) {
+            var ctx = document.getElementById('lineChart').getContext('2d');
+         lineChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: label,
+                datasets: [{
+                    label: 'Produk',
+                    data: data,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+
+         }
+
+        $('#bulan, #tahun').on('change', function () {
+            var bulan = $('#bulan').find(':selected').val()
+            var tahun = $('#tahun').find(':selected').val()
+            table_finish.clear().draw;
+            table_warehouse.clear().draw;
+            table_retur.clear().draw;
+            $.ajax({
+                url:"{{route('warehouse.dashboard.index')}}",
+                method:"GET",
+                data:{
+                    'bulan':bulan,
+                    'tahun':tahun
+                },success:function(data){
+                    console.log(data);
+                    if(data.status){
+
+                        if (typeof(pieChart) != "undefined") {
+                             pieChart.destroy();
+                        }
+                        if (typeof(barChart) != "undefined") {
+                             barChart.destroy();
+                        }
+                        if (typeof(lineChart) != "undefined") {
+                             lineChart.destroy();
+                        }
+
+                        var group_kain = data.bar
+                        var bulanbar = []
+                        var databar = []
+                        var pie = data.pie;
+                        group_kain.forEach(element => {
+                                bulanbar.push(element.months)
+                                databar.push(element.jumlah)
+                        });
+
+                        var line_data = data.line;
+                        var bulanline = []
+                        var dataline = []
+                        line_data.forEach(element => {
+                                bulanline.push(element.months)
+                                dataline.push(element.jumlah)
+                        });
+                        pieChartData(pie.label,pie.data)
+                        barChartData(databar, bulanbar)
+                        lineChartData(bulanline, dataline)
+                        table_finish.rows.add(data.finish).draw();
+                        table_warehouse.rows.add(data.warehouse).draw();
+                        table_retur.rows.add(data.dataretur).draw();
+                        $('#rekap').text(data.rekap)
+                        $('#retur').text(data.retur)
+                        $('#buang').text(data.buang)
+                        $('#avg').text(data.avg)
+
                     }
                 }
             })
