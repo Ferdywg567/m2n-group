@@ -86,7 +86,7 @@
         }
 
         table tr:nth-child(2n-1) td {
-            background: #F5F5F5;
+            /* background: #F5F5F5; */
         }
 
         table th,
@@ -154,18 +154,18 @@
         }
 
         .pagenum:before {
-        content: counter(page);
+            content: counter(page);
         }
 
         .btn {
-        background-color: #007AFF;
-        border: none;
-        color: white;
-        padding: 12px 16px;
-        font-size: 16px;
-        cursor: pointer;
-        margin-top: 20px;
-        border-radius: 40%;
+            background-color: #007AFF;
+            border: none;
+            color: white;
+            padding: 12px 16px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+            border-radius: 40%;
         }
     </style>
 </head>
@@ -173,11 +173,20 @@
 @forelse ($print as $key => $item)
 
 <body>
+    <table>
+        <tr>
+            <td style="text-align: left; vertical-align:middle; color:#007AFF">
+                <h2>{{$item['kode_bahan']}}</h2>
+            </td>
+            <td>
+                <div id="photo" class="customization_text" style="text-align: right">
+                    <img style="vertical-align:middle" src="{{public_path('assets/icon/t-shirt-fill.png')}}" alt="">
+                    <span style="vertical-align:middle; font-size:25px; font-weight:bold">GARMENT</span>
 
-    <div id="photo" class="customization_text" style="text-align: right">
-        <img style="vertical-align:middle" src="{{public_path('assets/icon/t-shirt-fill.png')}}" alt="">
-        <span style="vertical-align:middle; font-size:25px; font-weight:bold">GARMENT</span>
-    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
     <hr>
     <button class="btn"><i class="fa fa-home"> <img src="{{public_path('assets/icon/'.$item['icon'])}}" style="margin-top: 2px" alt=""></i>{{$item['menu']}}</button>
     <main>
