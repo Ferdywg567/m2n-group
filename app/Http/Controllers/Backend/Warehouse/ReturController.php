@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\DetailRetur;
 use App\Finishing;
 use App\Retur;
-
+use PDF;
 
 class ReturController extends Controller
 {
@@ -127,5 +127,97 @@ class ReturController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getDataPrint(Request $request)
+    {
+        if ($request->ajax()) {
+            $retur = Retur::findOrFail($request->get('id'));
+            $titleretur = [
+                'Kode SKU',
+                'Tanggal Selesai Cuci',
+                'Jenis Kain',
+                'Nama Produk',
+                'Warna',
+                'Tanggal Barang Diretur',
+                'Total Barang Diretur',
+                'Ukuran Baju Yang Diretur',
+                'Keterangan Diretur'
+            ];
+
+
+            $x['title'] = $titleretur;
+            $x['kode_bahan']=  $retur->finishing->rekapitulasi->cuci->jahit->potong->bahan->kode_bahan;
+            $ukuran = '';
+
+            foreach ($retur->detail_retur as $key => $row) {
+                $ukuran .= $row->ukuran . '=' . $row->jumlah . ', ';
+            }
+            $tanggalretur = date('Y-m-d', strtotime($retur->created_at));
+            $jumlahproduk = $retur->detail_retur->sum('jumlah');
+
+            $x['data'] = [
+                $retur->finishing->rekapitulasi->cuci->jahit->potong->bahan->sku,
+                $retur->finishing->rekapitulasi->cuci->tanggal_selesai,
+                $retur->finishing->rekapitulasi->cuci->jahit->potong->bahan->jenis_bahan,
+                $retur->finishing->rekapitulasi->cuci->jahit->potong->bahan->nama_bahan,
+                $retur->finishing->rekapitulasi->cuci->jahit->potong->bahan->warna,
+                $tanggalretur,
+                $jumlahproduk,
+                $ukuran,
+                $retur->finishing->keterangan_diretur
+            ];
+
+            return response()->json([
+                'status' => true,
+                'data' => $x
+            ]);
+        }
+    }
+
+    public function cetakPdf(Request $request){
+        $retur = Retur::findOrFail($request->get('id'));
+        $titleretur = [
+            'Kode SKU',
+            'Tanggal Selesai Cuci',
+            'Jenis Kain',
+            'Nama Produk',
+            'Warna',
+            'Tanggal Barang Diretur',
+            'Total Barang Diretur',
+            'Ukuran Baju Yang Diretur',
+            'Keterangan Diretur'
+        ];
+
+
+        $x['title'] = $titleretur;
+        $x['kode_bahan']=  $retur->finishing->rekapitulasi->cuci->jahit->potong->bahan->kode_bahan;
+        $ukuran = '';
+
+        foreach ($retur->detail_retur as $key => $row) {
+            $ukuran .= $row->ukuran . '=' . $row->jumlah . ', ';
+        }
+        $tanggalretur = date('Y-m-d', strtotime($retur->created_at));
+        $jumlahproduk = $retur->detail_retur->sum('jumlah');
+
+        $x['data'] = [
+            $retur->finishing->rekapitulasi->cuci->jahit->potong->bahan->sku,
+            $retur->finishing->rekapitulasi->cuci->tanggal_selesai,
+            $retur->finishing->rekapitulasi->cuci->jahit->potong->bahan->jenis_bahan,
+            $retur->finishing->rekapitulasi->cuci->jahit->potong->bahan->nama_bahan,
+            $retur->finishing->rekapitulasi->cuci->jahit->potong->bahan->warna,
+            $tanggalretur,
+            $jumlahproduk,
+            $ukuran,
+            $retur->finishing->keterangan_diretur
+        ];
+
+        $pdf = PDF::loadView('backend.warehouse.retur.pdf', ['data' => $x]);
+        return $pdf->stream('retur.pdf');
+    }
+
+    public function rupiah($expression)
+    {
+        return "Rp " . number_format($expression, 2, ',', '.');
     }
 }

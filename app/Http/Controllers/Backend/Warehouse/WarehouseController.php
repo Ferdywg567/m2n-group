@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Finishing;
 use App\Warehouse;
+use PDF;
 
 class WarehouseController extends Controller
 {
@@ -139,5 +140,88 @@ class WarehouseController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function getDataPrint(Request $request)
+    {
+        if ($request->ajax()) {
+            $warehouse = Warehouse::findOrFail($request->get('id'));
+            $titlewarehouse = [
+                'Kode SKU',
+                'Jenis Kain',
+                'Nama Produk',
+                'Warna',
+                'Produk Siap Jual',
+                'Ukuran',
+                'Harga Produk'
+            ];
+
+            $x['title'] = $titlewarehouse;
+            $x['kode_bahan']=  $warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->kode_bahan;
+            $ukuran = '';
+
+            foreach ($warehouse->detail_warehouse as $key => $row) {
+                $ukuran .= $row->ukuran . '=' . $row->jumlah . ', ';
+            }
+
+            $jumlahproduk = $warehouse->detail_warehouse->sum('jumlah');
+                            $harga = $this->rupiah($warehouse->harga_produk);
+            $x['data'] = [
+                $warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->sku,
+                $warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->jenis_bahan,
+                $warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->nama_bahan,
+                $warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->warna,
+                $jumlahproduk,
+                $ukuran,
+                $harga
+            ];
+
+            return response()->json([
+                'status' => true,
+                'data' => $x
+            ]);
+        }
+    }
+
+    public function cetakPdf(Request $request){
+        $warehouse = Warehouse::findOrFail($request->get('id'));
+        $titlewarehouse = [
+            'Kode SKU',
+            'Jenis Kain',
+            'Nama Produk',
+            'Warna',
+            'Produk Siap Jual',
+            'Ukuran',
+            'Harga Produk'
+        ];
+
+        $x['title'] = $titlewarehouse;
+        $x['kode_bahan']=  $warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->kode_bahan;
+        $ukuran = '';
+
+        foreach ($warehouse->detail_warehouse as $key => $row) {
+            $ukuran .= $row->ukuran . '=' . $row->jumlah . ', ';
+        }
+
+        $jumlahproduk = $warehouse->detail_warehouse->sum('jumlah');
+                        $harga = $this->rupiah($warehouse->harga_produk);
+        $x['data'] = [
+            $warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->sku,
+            $warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->jenis_bahan,
+            $warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->nama_bahan,
+            $warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->warna,
+            $jumlahproduk,
+            $ukuran,
+            $harga
+        ];
+
+        $pdf = PDF::loadView('backend.warehouse.warehouse.pdf', ['data' => $x]);
+        return $pdf->stream('warehouse.pdf');
+    }
+
+    public function rupiah($expression)
+    {
+        return "Rp " . number_format($expression, 2, ',', '.');
     }
 }

@@ -11,6 +11,7 @@ use App\Finishing;
 use App\FinishingDibuang;
 use App\FinishingRetur;
 use App\Rekapitulasi;
+use PDF;
 
 use function GuzzleHttp\Promise\all;
 
@@ -268,5 +269,123 @@ class FinishingController extends Controller
                 'data' => $finish
             ]);
         }
+    }
+
+    public function getDataPrint(Request $request)
+    {
+        if ($request->ajax()) {
+            $finish = Finishing::findOrFail($request->get('id'));
+            $titlefinish = [
+                'Kode SKU',
+                'Jenis Kain',
+                'Nama Produk',
+                'Warna Kain',
+                'Ukuran',
+                'Tanggal QC',
+                'Jumlah Barang Masuk',
+                'Jumlah Barang Lolos QC',
+                'Jumlah Barang Retur / Dibuang',
+                'Keterangan Retur',
+                'Keterangan Buang',
+                'Nomor Surat Jalan'
+            ];
+
+            $x['title'] = $titlefinish;
+            $x['kode_bahan']=  $finish->rekapitulasi->cuci->jahit->potong->bahan->kode_bahan;
+            $ukuran = '';
+
+            foreach ($finish->detail_finish as $key => $row) {
+                $ukuran .= $row->ukuran . '=' . $row->jumlah . ', ';
+            }
+
+            $retur = $finish->barang_diretur . ' pcs';
+            $retur .= '(';
+            foreach ($finish->finish_retur as $key => $row) {
+                $retur .= $row->ukuran . '=' . $row->jumlah . ', ';;
+            }
+            $retur .= ') / ';
+
+            $retur .= $finish->barang_dibuang . ' pcs';
+            $retur .= '(';
+            foreach ($finish->finish_dibuang as $key => $row) {
+                $retur .= $row->ukuran . '=' . $row->jumlah . ', ';;
+            }
+            $retur .= ')';
+            $x['data'] = [
+                $finish->rekapitulasi->cuci->jahit->potong->bahan->sku,
+                $finish->rekapitulasi->cuci->jahit->potong->bahan->jenis_bahan,
+                $finish->rekapitulasi->cuci->jahit->potong->bahan->nama_bahan,
+                $finish->rekapitulasi->cuci->jahit->potong->bahan->warna,
+                $ukuran,
+                $finish->tanggal_qc,
+                $finish->rekapitulasi->total_barang,
+                $finish->barang_lolos_qc,
+                $retur,
+                $finish->keterangan_diretur,
+                $finish->keterangan_dibuang,
+                $finish->no_surat,
+            ];
+
+            return response()->json([
+                'status' => true,
+                'data' => $x
+            ]);
+        }
+    }
+
+    public function cetakPdf(Request $request){
+        $finish = Finishing::findOrFail($request->get('id'));
+        $titlefinish = [
+            'Kode SKU',
+            'Jenis Kain',
+            'Nama Produk',
+            'Warna Kain',
+            'Ukuran',
+            'Tanggal QC',
+            'Jumlah Barang Masuk',
+            'Jumlah Barang Lolos QC',
+            'Jumlah Barang Retur / Dibuang',
+            'Keterangan Retur',
+            'Keterangan Buang',
+            'Nomor Surat Jalan'
+        ];
+
+        $x['title'] = $titlefinish;
+        $ukuran = '';
+
+        foreach ($finish->detail_finish as $key => $row) {
+            $ukuran .= $row->ukuran . '=' . $row->jumlah . ', ';
+        }
+
+        $retur = $finish->barang_diretur . ' pcs';
+        $retur .= '(';
+        foreach ($finish->finish_retur as $key => $row) {
+            $retur .= $row->ukuran . '=' . $row->jumlah . ', ';;
+        }
+        $retur .= ') / ';
+
+        $retur .= $finish->barang_dibuang . ' pcs';
+        $retur .= '(';
+        foreach ($finish->finish_dibuang as $key => $row) {
+            $retur .= $row->ukuran . '=' . $row->jumlah . ', ';;
+        }
+        $retur .= ')';
+        $x['data'] = [
+            $finish->rekapitulasi->cuci->jahit->potong->bahan->sku,
+            $finish->rekapitulasi->cuci->jahit->potong->bahan->jenis_bahan,
+            $finish->rekapitulasi->cuci->jahit->potong->bahan->nama_bahan,
+            $finish->rekapitulasi->cuci->jahit->potong->bahan->warna,
+            $ukuran,
+            $finish->tanggal_qc,
+            $finish->rekapitulasi->total_barang,
+            $finish->barang_lolos_qc,
+            $retur,
+            $finish->keterangan_diretur,
+            $finish->keterangan_dibuang,
+            $finish->no_surat,
+        ];
+
+        $pdf = PDF::loadView('backend.warehouse.finishing.pdf', ['data' => $x]);
+        return $pdf->stream('finishing.pdf');
     }
 }

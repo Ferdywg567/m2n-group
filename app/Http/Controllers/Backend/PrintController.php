@@ -4,14 +4,19 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use App\Finishing;
 use App\Rekapitulasi;
 use App\Perbaikan;
 use App\Jahit;
 use App\Potong;
 use App\Cuci;
+use App\RekapitulasiWarehouse;
+use App\Retur;
 use App\Sampah;
+use App\Warehouse;
 use PDF;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PrintController extends Controller
 {
@@ -44,246 +49,435 @@ class PrintController extends Controller
             $dari = date('Y-m-d', strtotime($request->get('dari')));
             $sampai = date('Y-m-d', strtotime($request->get('sampai')));
             $menu = $request->get('menu');
-            // $potong = Potong::with('bahan')->whereBetween('created_at', [$dari, $sampai])->get();
-            $potong = Potong::with('bahan')->whereBetween('created_at', [$dari, $sampai])->get();
-            $jahit = Jahit::with(['potong' => function ($q) {
-                $q->with('bahan');
-            }])->whereBetween('created_at', [$dari, $sampai])->get();
-            $cuci = Cuci::with(['jahit' => function ($q) {
-                $q->with(['potong' => function ($q) {
+            $user = Auth::user();
+
+            if ($user->hasRole('production')) {
+                $potong = Potong::with('bahan')->whereBetween('created_at', [$dari, $sampai])->get();
+                $jahit = Jahit::with(['potong' => function ($q) {
                     $q->with('bahan');
-                }]);
-            }])->whereBetween('created_at', [$dari, $sampai])->get();
-            $perbaikan = Perbaikan::whereBetween('created_at', [$dari, $sampai])->get();
-            $sampah = Sampah::whereBetween('created_at', [$dari, $sampai])->get();
-            $rekap = Rekapitulasi::whereBetween('created_at', [$dari, $sampai])->get();
-            $data = [];
-            $titlepotong = [
-                'Kode SKU',
-                'Tanggal Cutting',
-                'Tanggal Selesai',
-                'Hasil Cutting',
-                'Jenis Kain',
-                'Warna Kain',
-                'Nama Produk'
-            ];
+                }])->whereBetween('created_at', [$dari, $sampai])->get();
+                $cuci = Cuci::with(['jahit' => function ($q) {
+                    $q->with(['potong' => function ($q) {
+                        $q->with('bahan');
+                    }]);
+                }])->whereBetween('created_at', [$dari, $sampai])->get();
+                $perbaikan = Perbaikan::whereBetween('created_at', [$dari, $sampai])->get();
+                $sampah = Sampah::whereBetween('created_at', [$dari, $sampai])->get();
+                $rekap = Rekapitulasi::whereBetween('created_at', [$dari, $sampai])->get();
+                $data = [];
+                $titlepotong = [
+                    'Kode SKU',
+                    'Tanggal Cutting',
+                    'Tanggal Selesai',
+                    'Hasil Cutting',
+                    'Jenis Kain',
+                    'Warna Kain',
+                    'Nama Produk'
+                ];
 
 
-            $titlejahit = [
-                'Kode SKU',
-                'Tanggal Selesai Jahit',
-                'Vendor Jahit',
-                'Berhasil Jahit',
-                'Gagal Jahit',
-                'Barang Direpair',
-                'Keterangan Direpair',
-                'Barang Dibuang',
-                'Keterangan Dibuang'
-            ];
+                $titlejahit = [
+                    'Kode SKU',
+                    'Tanggal Selesai Jahit',
+                    'Vendor Jahit',
+                    'Berhasil Jahit',
+                    'Gagal Jahit',
+                    'Barang Direpair',
+                    'Keterangan Direpair',
+                    'Barang Dibuang',
+                    'Keterangan Dibuang'
+                ];
 
-            $titlecuci = [
-                'Kode SKU',
-                'Tanggal Selesai Cuci',
-                'Berhasil Cuci',
-                'Gagal Cuci',
-                'Barang Direpair',
-                'Keterangan Direpair',
-                'Barang Dibuang',
-                'Keterangan Dibuang'
-            ];
+                $titlecuci = [
+                    'Kode SKU',
+                    'Tanggal Selesai Cuci',
+                    'Berhasil Cuci',
+                    'Gagal Cuci',
+                    'Barang Direpair',
+                    'Keterangan Direpair',
+                    'Barang Dibuang',
+                    'Keterangan Dibuang'
+                ];
 
-            $titlerepair = [
-                'Kode SKU',
-                'Jenis Bahan',
-                'Nama Produk',
-                'Ukuran Baju',
-                'Warna Produk',
-                'Asal Barang',
-                'Keterangan',
-                'Total Barang Direpair',
-                'Tanggal Selesai Repair',
-                'Tanggal Kirim Barang'
-            ];
-
-
-            $titletrash = [
-                'Kode SKU',
-                'Jenis Bahan',
-                'Nama Produk',
-                'Ukuran Baju',
-                'Warna Produk',
-                'Asal Barang',
-                'Keterangan',
-                'Total Barang Dibuang',
-            ];
+                $titlerepair = [
+                    'Kode SKU',
+                    'Jenis Bahan',
+                    'Nama Produk',
+                    'Ukuran Baju',
+                    'Warna Produk',
+                    'Asal Barang',
+                    'Keterangan',
+                    'Total Barang Direpair',
+                    'Tanggal Selesai Repair',
+                    'Tanggal Kirim Barang'
+                ];
 
 
-            $titlerekap = [
-                'Kode SKU',
-                'Tanggal Selesai Cuci',
-                'Jenis Bahan',
-                'Nama Produk',
-                'Ukuran Baju',
-                'Warna Produk',
-                'Tanggal Barang Masuk',
-                'Tanggal Barang Dikirim',
-                'Total Barang Siap Quality Control',
-            ];
+                $titletrash = [
+                    'Kode SKU',
+                    'Jenis Bahan',
+                    'Nama Produk',
+                    'Ukuran Baju',
+                    'Warna Produk',
+                    'Asal Barang',
+                    'Keterangan',
+                    'Total Barang Dibuang',
+                ];
 
-            foreach ($menu as $key => $list) {
-                if ($list == 'CUTTING') {
-                    foreach ($potong as $key => $value) {
-                        $x['menu'] = 'CUTTING';
-                        $x['icon'] = '<i class="fas fa-cut"></i>';
-                        $x['title'] = $titlepotong;
-                        $x['data'] = [
-                            $value->bahan->sku,
-                            $value->tanggal_cutting,
-                            $value->tanggal_selesai,
-                            $value->hasil_cutting,
-                            $value->bahan->jenis_bahan,
-                            $value->bahan->warna,
-                            $value->bahan->nama_bahan,
 
-                        ];
-                        array_push($data, $x);
-                    }
-                } elseif ($list == 'TAILORING') {
-                    foreach ($jahit as $key => $value) {
-                        $x['menu'] = 'TAILORING';
-                        $x['icon'] = '<i class="fas fa-user-cog"></i>';
-                        $x['title'] = $titlejahit;
-                        $x['data'] = [
-                            $value->potong->bahan->sku,
-                            $value->tanggal_selesai,
-                            $value->vendor,
-                            $value->berhasil,
-                            $value->gagal_jahit,
-                            $value->barang_direpair,
-                            $value->keterangan_direpair,
-                            $value->barang_dibuang,
-                            $value->keterangan_dibuang,
-                        ];
-                        array_push($data, $x);
-                    }
-                } elseif ($list == 'WASHING') {
-                    foreach ($cuci as $key => $value) {
-                        $x['menu'] = 'WASHING';
-                        $x['icon'] = '<i class="ri-hand-coin-fill"></i>';
-                        $x['title'] = $titlecuci;
-                        $x['data'] = [
-                            $value->jahit->potong->bahan->sku,
-                            $value->tanggal_selesai,
-                            $value->berhasil_cuci,
-                            $value->gagal_cuci,
-                            $value->barang_direpair,
-                            $value->keterangan_direpair,
-                            $value->barang_dibuang,
-                            $value->keterangan_dibuang,
-                        ];
-                        array_push($data, $x);
-                    }
-                } elseif ($list == 'REPAIR') {
-                    foreach ($perbaikan as $key => $value) {
-                        $x['menu'] = 'REPAIR';
-                        $x['icon'] = '<i class="fa fa-tools"></i>';
-                        $x['title'] = $titlerepair;
+                $titlerekap = [
+                    'Kode SKU',
+                    'Tanggal Selesai Cuci',
+                    'Jenis Bahan',
+                    'Nama Produk',
+                    'Ukuran Baju',
+                    'Warna Produk',
+                    'Tanggal Barang Masuk',
+                    'Tanggal Barang Dikirim',
+                    'Total Barang Siap Quality Control',
+                ];
 
-                        $jumlahjahit = 0;
-                        $jumlahcuci = 0;
-                        $keteranganjahit = '';
-                        $keterangancuci = '';
-                        foreach ($value->detail_perbaikan as $key => $row) {
-                            if (!empty($row->jahit_direpair_id)) {
-                                $jumlahjahit = $row->jumlah;
-                                $keteranganjahit = $row->keterangan;
-                            }
+                foreach ($menu as $key => $list) {
+                    if ($list == 'CUTTING') {
+                        foreach ($potong as $key => $value) {
+                            $x['menu'] = 'CUTTING';
+                            $x['icon'] = '<i class="fas fa-cut"></i>';
+                            $x['title'] = $titlepotong;
+                            $x['data'] = [
+                                $value->bahan->sku,
+                                $value->tanggal_cutting,
+                                $value->tanggal_selesai,
+                                $value->hasil_cutting,
+                                $value->bahan->jenis_bahan,
+                                $value->bahan->warna,
+                                $value->bahan->nama_bahan,
 
-                            if (!empty($row->cuci_direpair_id)) {
-                                $jumlahcuci = $row->jumlah;
-                                $keterangancuci = $row->keterangan;
-                            }
+                            ];
+                            array_push($data, $x);
                         }
+                    } elseif ($list == 'TAILORING') {
+                        foreach ($jahit as $key => $value) {
+                            $x['menu'] = 'TAILORING';
+                            $x['icon'] = '<i class="fas fa-user-cog"></i>';
+                            $x['title'] = $titlejahit;
+                            $x['data'] = [
+                                $value->potong->bahan->sku,
+                                $value->tanggal_selesai,
+                                $value->vendor,
+                                $value->berhasil,
+                                $value->gagal_jahit,
+                                $value->barang_direpair,
+                                $value->keterangan_direpair,
+                                $value->barang_dibuang,
+                                $value->keterangan_dibuang,
+                            ];
+                            array_push($data, $x);
+                        }
+                    } elseif ($list == 'WASHING') {
+                        foreach ($cuci as $key => $value) {
+                            $x['menu'] = 'WASHING';
+                            $x['icon'] = '<i class="ri-hand-coin-fill"></i>';
+                            $x['title'] = $titlecuci;
+                            $x['data'] = [
+                                $value->jahit->potong->bahan->sku,
+                                $value->tanggal_selesai,
+                                $value->berhasil_cuci,
+                                $value->gagal_cuci,
+                                $value->barang_direpair,
+                                $value->keterangan_direpair,
+                                $value->barang_dibuang,
+                                $value->keterangan_dibuang,
+                            ];
+                            array_push($data, $x);
+                        }
+                    } elseif ($list == 'REPAIR') {
+                        foreach ($perbaikan as $key => $value) {
+                            $x['menu'] = 'REPAIR';
+                            $x['icon'] = '<i class="fa fa-tools"></i>';
+                            $x['title'] = $titlerepair;
 
-                        $keterangan = 'Washing : ' . $keterangancuci . '<br>' . 'Tailoring : ' . $keteranganjahit;
-                        $asalbarang = 'Washing : ' . $jumlahcuci . '<br>' . 'Tailoring : ' . $jumlahjahit;
-                        $x['data'] = [
-                            $value->bahan->sku,
-                            $value->bahan->jenis_bahan,
-                            $value->bahan->nama_bahan,
-                            $value->ukuran,
-                            $value->bahan->warna,
-                            $asalbarang,
-                            $keterangan,
-                            $value->total,
-                            $value->tanggal_selesai,
-                            $value->tanggal_kirim,
-                        ];
-                        array_push($data, $x);
-                    }
-                } elseif ($list == 'TRASH') {
-                    foreach ($sampah as $key => $value) {
-                        $x['menu'] = 'TRASH';
-                        $x['icon'] = '<i class="fas fa-trash"></i>';
-                        $x['title'] = $titletrash;
+                            $jumlahjahit = 0;
+                            $jumlahcuci = 0;
+                            $keteranganjahit = '';
+                            $keterangancuci = '';
+                            foreach ($value->detail_perbaikan as $key => $row) {
+                                if (!empty($row->jahit_direpair_id)) {
+                                    $jumlahjahit = $row->jumlah;
+                                    $keteranganjahit = $row->keterangan;
+                                }
 
-                        $jumlahjahit = 0;
-                        $jumlahcuci = 0;
-                        $keteranganjahit = '';
-                        $keterangancuci = '';
-                        foreach ($value->detail_sampah as $key => $row) {
-                            if (!empty($row->jahit_dibuang_id)) {
-                                $jumlahjahit = $row->jumlah;
-                                $keteranganjahit = $row->keterangan;
+                                if (!empty($row->cuci_direpair_id)) {
+                                    $jumlahcuci = $row->jumlah;
+                                    $keterangancuci = $row->keterangan;
+                                }
                             }
 
-                            if (!empty($row->cuci_dibuang_id)) {
-                                $jumlahcuci = $row->jumlah;
-                                $keterangancuci = $row->keterangan;
+                            $keterangan = 'Washing : ' . $keterangancuci . '<br>' . 'Tailoring : ' . $keteranganjahit;
+                            $asalbarang = 'Washing : ' . $jumlahcuci . '<br>' . 'Tailoring : ' . $jumlahjahit;
+                            $x['data'] = [
+                                $value->bahan->sku,
+                                $value->bahan->jenis_bahan,
+                                $value->bahan->nama_bahan,
+                                $value->ukuran,
+                                $value->bahan->warna,
+                                $asalbarang,
+                                $keterangan,
+                                $value->total,
+                                $value->tanggal_selesai,
+                                $value->tanggal_kirim,
+                            ];
+                            array_push($data, $x);
+                        }
+                    } elseif ($list == 'TRASH') {
+                        foreach ($sampah as $key => $value) {
+                            $x['menu'] = 'TRASH';
+                            $x['icon'] = '<i class="fas fa-trash"></i>';
+                            $x['title'] = $titletrash;
+
+                            $jumlahjahit = 0;
+                            $jumlahcuci = 0;
+                            $keteranganjahit = '';
+                            $keterangancuci = '';
+                            foreach ($value->detail_sampah as $key => $row) {
+                                if (!empty($row->jahit_dibuang_id)) {
+                                    $jumlahjahit = $row->jumlah;
+                                    $keteranganjahit = $row->keterangan;
+                                }
+
+                                if (!empty($row->cuci_dibuang_id)) {
+                                    $jumlahcuci = $row->jumlah;
+                                    $keterangancuci = $row->keterangan;
+                                }
                             }
-                        }
 
-                        $keterangan = 'Washing : ' . $keterangancuci . '<br>' . 'Tailoring : ' . $keteranganjahit;
-                        $asalbarang = 'Washing : ' . $jumlahcuci . '<br>' . 'Tailoring : ' . $jumlahjahit;
-                        $x['data'] = [
-                            $value->bahan->sku,
-                            $value->bahan->jenis_bahan,
-                            $value->bahan->nama_bahan,
-                            $value->ukuran,
-                            $value->bahan->warna,
-                            $asalbarang,
-                            $keterangan,
-                            $value->total,
-                        ];
-                        array_push($data, $x);
-                    }
-                } elseif ($list == 'RECAPITULATION') {
-                    foreach ($rekap as $key => $value) {
-                        $x['menu'] = 'RECAPITULATION';
-                        $x['icon'] = '<i class="fas fa-file"></i>';
-                        $x['title'] = $titlerekap;
-                        $ukuran = '';
-
-                        foreach ($value->detail_rekap as $key => $row) {
-                            $ukuran .= $row->ukuran . ',';
+                            $keterangan = 'Washing : ' . $keterangancuci . '<br>' . 'Tailoring : ' . $keteranganjahit;
+                            $asalbarang = 'Washing : ' . $jumlahcuci . '<br>' . 'Tailoring : ' . $jumlahjahit;
+                            $x['data'] = [
+                                $value->bahan->sku,
+                                $value->bahan->jenis_bahan,
+                                $value->bahan->nama_bahan,
+                                $value->ukuran,
+                                $value->bahan->warna,
+                                $asalbarang,
+                                $keterangan,
+                                $value->total,
+                            ];
+                            array_push($data, $x);
                         }
-                        $x['data'] = [
-                            $value->cuci->jahit->potong->bahan->sku,
-                            $value->cuci->tanggal_selesai,
-                            $value->cuci->jahit->potong->bahan->jenis_bahan,
-                            $value->cuci->jahit->potong->bahan->nama_bahan,
-                            $ukuran,
-                            $value->cuci->jahit->potong->bahan->warna,
-                            $value->cuci->jahit->potong->bahan->tanggal_masuk,
-                            $value->tanggal_kirim,
-                            $value->total_barang,
-                        ];
-                        array_push($data, $x);
+                    } elseif ($list == 'RECAPITULATION') {
+                        foreach ($rekap as $key => $value) {
+                            $x['menu'] = 'RECAPITULATION';
+                            $x['icon'] = '<i class="ri-booklet-fill"></i>';
+                            $x['title'] = $titlerekap;
+                            $ukuran = '';
+
+                            foreach ($value->detail_rekap as $key => $row) {
+                                $ukuran .= $row->ukuran . ',';
+                            }
+                            $x['data'] = [
+                                $value->cuci->jahit->potong->bahan->sku,
+                                $value->cuci->tanggal_selesai,
+                                $value->cuci->jahit->potong->bahan->jenis_bahan,
+                                $value->cuci->jahit->potong->bahan->nama_bahan,
+                                $ukuran,
+                                $value->cuci->jahit->potong->bahan->warna,
+                                $value->cuci->jahit->potong->bahan->tanggal_masuk,
+                                $value->tanggal_kirim,
+                                $value->total_barang,
+                            ];
+                            array_push($data, $x);
+                        }
                     }
                 }
-            }
 
-            return response()->json(['print' => $data, 'status' => true]);
+                return response()->json(['print' => $data, 'status' => true]);
+            } elseif ($user->hasRole('warehouse')) {
+
+                $finish = Finishing::whereBetween('created_at', [$dari, $sampai])->get();
+                $warehouse = Warehouse::whereBetween('created_at', [$dari, $sampai])->get();
+                $dataretur = Retur::whereBetween('created_at', [$dari, $sampai])->get();
+                $rekap = RekapitulasiWarehouse::whereBetween('created_at', [$dari, $sampai])->get();
+                $data = [];
+                $titlefinish = [
+                    'Kode SKU',
+                    'Jenis Kain',
+                    'Nama Produk',
+                    'Warna Kain',
+                    'Ukuran',
+                    'Tanggal QC',
+                    'Jumlah Barang Masuk',
+                    'Jumlah Barang Lolos QC',
+                    'Jumlah Barang Retur / Dibuang',
+                    'Keterangan Retur',
+                    'Keterangan Buang',
+                    'Nomor Surat Jalan'
+                ];
+
+
+                $titlewarehouse = [
+                    'Kode SKU',
+                    'Jenis Kain',
+                    'Nama Produk',
+                    'Warna',
+                    'Produk Siap Jual',
+                    'Ukuran',
+                    'Harga Produk'
+                ];
+
+
+                $titleretur = [
+                    'Kode SKU',
+                    'Tanggal Selesai Cuci',
+                    'Jenis Kain',
+                    'Nama Produk',
+                    'Warna',
+                    'Tanggal Barang Diretur',
+                    'Total Barang Diretur',
+                    'Ukuran Baju Yang Diretur',
+                    'Keterangan Diretur'
+                ];
+
+
+
+                $titlerekap = [
+                    'Kode SKU',
+                    'Tanggal Barang Masuk',
+                    'Tanggal Barang Dikirim',
+                    'Nama Produk',
+                    'Warna Produk',
+                    'Jenis Bahan',
+                    'Total Barang Siap Quality Control',
+                    'Ukuran Baju',
+                    'Harga Produk'
+                ];
+
+                foreach ($menu as $key => $datamenu) {
+                    if ($datamenu == 'FINISHING') {
+                        foreach ($finish as $key => $value) {
+                            $x['menu'] = 'FINISHING';
+                            $x['icon'] = '<i class="ri-check-double-line"></i>';
+                            $x['title'] = $titlefinish;
+                            $ukuran = '';
+
+                            foreach ($value->detail_finish as $key => $row) {
+                                $ukuran .= $row->ukuran . '=' . $row->jumlah . ', ';
+                            }
+
+                            $retur = $value->barang_diretur . ' pcs';
+                            $retur .= '(';
+                            foreach ($value->finish_retur as $key => $row) {
+                                $retur .= $row->ukuran . '=' . $row->jumlah . ', ';;
+                            }
+                            $retur .= ') / ';
+
+                            $retur .= $value->barang_dibuang . ' pcs';
+                            $retur .= '(';
+                            foreach ($value->finish_dibuang as $key => $row) {
+                                $retur .= $row->ukuran . '=' . $row->jumlah . ', ';;
+                            }
+                            $retur .= ')';
+
+                            $x['data'] = [
+                                $value->rekapitulasi->cuci->jahit->potong->bahan->sku,
+                                $value->rekapitulasi->cuci->jahit->potong->bahan->jenis_bahan,
+                                $value->rekapitulasi->cuci->jahit->potong->bahan->nama_bahan,
+                                $value->rekapitulasi->cuci->jahit->potong->bahan->warna,
+                                $ukuran,
+                                $value->tanggal_qc,
+                                $value->rekapitulasi->total_barang,
+                                $value->barang_lolos_qc,
+                                $retur,
+                                $value->keterangan_diretur,
+                                $value->keterangan_dibuang,
+                                $value->no_surat,
+                            ];
+                            array_push($data, $x);
+                        }
+                    } elseif ($datamenu == 'WAREHOUSE') {
+
+                        foreach ($warehouse as $key => $value) {
+                            $x['menu'] = 'WAREHOUSE';
+                            $x['icon'] = '<i class="ri-home-gear-fill"></i>';
+                            $x['title'] = $titlewarehouse;
+                            $ukuran = '';
+
+                            foreach ($value->detail_warehouse as $key => $row) {
+                                $ukuran .= $row->ukuran . '=' . $row->jumlah . ', ';
+                            }
+
+                            $jumlahproduk = $value->detail_warehouse->sum('jumlah');
+                            $harga = $this->rupiah($value->harga_produk);
+                            $x['data'] = [
+                                $value->finishing->rekapitulasi->cuci->jahit->potong->bahan->sku,
+                                $value->finishing->rekapitulasi->cuci->jahit->potong->bahan->jenis_bahan,
+                                $value->finishing->rekapitulasi->cuci->jahit->potong->bahan->nama_bahan,
+                                $value->finishing->rekapitulasi->cuci->jahit->potong->bahan->warna,
+                                $jumlahproduk,
+                                $ukuran,
+                                $harga
+                            ];
+                            array_push($data, $x);
+                        }
+                    } elseif ($datamenu == 'RETUR') {
+                        foreach ($dataretur as $key => $value) {
+                            $x['menu'] = 'RETUR';
+                            $x['icon'] = '<i class="ri-logout-box-fill"></i>';
+                            $x['title'] = $titleretur;
+                            $ukuran = '';
+
+                            foreach ($value->detail_retur as $key => $row) {
+                                $ukuran .= $row->ukuran . '=' . $row->jumlah . ', ';
+                            }
+
+                            $jumlahproduk = $value->total_barang;
+                            $tanggalretur = date('Y-m-d', strtotime($value->created_at));
+                            $x['data'] = [
+                                $value->finishing->rekapitulasi->cuci->jahit->potong->bahan->sku,
+                                $value->finishing->rekapitulasi->cuci->tanggal_selesai,
+                                $value->finishing->rekapitulasi->cuci->jahit->potong->bahan->jenis_bahan,
+                                $value->finishing->rekapitulasi->cuci->jahit->potong->bahan->nama_bahan,
+                                $value->finishing->rekapitulasi->cuci->jahit->potong->bahan->warna,
+                                $tanggalretur,
+                                $jumlahproduk,
+                                $ukuran,
+                                $value->finishing->keterangan_diretur
+                            ];
+                            array_push($data, $x);
+                        }
+                    } elseif ($datamenu == 'RECAPITULATION') {
+
+                        foreach ($rekap as $key => $value) {
+                            $x['menu'] = 'RECAPITULATION';
+                            $x['icon'] = '<i class="ri-booklet-fill"></i>';
+                            $x['title'] = $titlerekap;
+                            $ukuran = '';
+
+                            foreach ($value->detail_rekap_warehouse as $key => $row) {
+                                $ukuran .= $row->ukuran . '=' . $row->jumlah . ', ';
+                            }
+
+                            $jumlahproduk = $value->total_barang;
+                            $harga = $this->rupiah($value->warehouse->harga_produk);
+                            $x['data'] = [
+                                $value->warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->sku,
+                                $value->tanggal_masuk,
+                                $value->tanggal_kirim,
+                                $value->warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->nama_bahan,
+                                $value->warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->warna,
+                                $value->warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->jenis_bahan,
+                                $jumlahproduk,
+                                $ukuran,
+                                $harga
+                            ];
+                            array_push($data, $x);
+                        }
+                    }
+                }
+
+                return response()->json(['print' => $data, 'status' => true]);
+            }
+            // $potong = Potong::with('bahan')->whereBetween('created_at', [$dari, $sampai])->get();
+
         }
         return view("backend.print.index");
     }
@@ -542,7 +736,7 @@ class PrintController extends Controller
             } elseif ($list == 'RECAPITULATION') {
                 foreach ($rekap as $key => $value) {
                     $x['menu'] = 'RECAPITULATION';
-                    $x['icon'] = '<i class="fas fa-file"></i>';
+                    $x['icon'] = '<i class="ri-booklet-fill"></i>';
                     $x['title'] = $titlerekap;
                     $ukuran = '';
 
@@ -569,12 +763,11 @@ class PrintController extends Controller
 
         $tipe = $request->get('tipe');
 
-        if($tipe == 'download'){
+        if ($tipe == 'download') {
             return $pdf->download('production.pdf');
-        }else{
+        } else {
             return $pdf->stream('production.pdf');
         }
-
     }
 
     /**
@@ -645,241 +838,427 @@ class PrintController extends Controller
         $dari = date('Y-m-d', strtotime($request->get('dari')));
         $sampai = date('Y-m-d', strtotime($request->get('sampai')));
         $menu = $request->get('menu');
-        // $potong = Potong::with('bahan')->whereBetween('created_at', [$dari, $sampai])->get();
-        $potong = Potong::with('bahan')->whereBetween('created_at', [$dari, $sampai])->get();
-        $jahit = Jahit::with(['potong' => function ($q) {
-            $q->with('bahan');
-        }])->whereBetween('created_at', [$dari, $sampai])->get();
-        $cuci = Cuci::with(['jahit' => function ($q) {
-            $q->with(['potong' => function ($q) {
-                $q->with('bahan');
-            }]);
-        }])->whereBetween('created_at', [$dari, $sampai])->get();
-        $perbaikan = Perbaikan::whereBetween('created_at', [$dari, $sampai])->get();
-        $sampah = Sampah::whereBetween('created_at', [$dari, $sampai])->get();
-        $rekap = Rekapitulasi::whereBetween('created_at', [$dari, $sampai])->get();
+        $user = Auth::user();
         $data = [];
-        $titlepotong = [
-            'Kode SKU',
-            'Tanggal Cutting',
-            'Tanggal Selesai',
-            'Hasil Cutting',
-            'Jenis Kain',
-            'Warna Kain',
-            'Nama Produk'
-        ];
+        if ($user->hasRole('production')) {
+            $potong = Potong::with('bahan')->whereBetween('created_at', [$dari, $sampai])->get();
+            $jahit = Jahit::with(['potong' => function ($q) {
+                $q->with('bahan');
+            }])->whereBetween('created_at', [$dari, $sampai])->get();
+            $cuci = Cuci::with(['jahit' => function ($q) {
+                $q->with(['potong' => function ($q) {
+                    $q->with('bahan');
+                }]);
+            }])->whereBetween('created_at', [$dari, $sampai])->get();
+            $perbaikan = Perbaikan::whereBetween('created_at', [$dari, $sampai])->get();
+            $sampah = Sampah::whereBetween('created_at', [$dari, $sampai])->get();
+            $rekap = Rekapitulasi::whereBetween('created_at', [$dari, $sampai])->get();
+            $titlepotong = [
+                'Kode SKU',
+                'Tanggal Cutting',
+                'Tanggal Selesai',
+                'Hasil Cutting',
+                'Jenis Kain',
+                'Warna Kain',
+                'Nama Produk'
+            ];
 
 
-        $titlejahit = [
-            'Kode SKU',
-            'Tanggal Selesai Jahit',
-            'Vendor Jahit',
-            'Berhasil Jahit',
-            'Gagal Jahit',
-            'Barang Direpair',
-            'Keterangan Direpair',
-            'Barang Dibuang',
-            'Keterangan Dibuang'
-        ];
+            $titlejahit = [
+                'Kode SKU',
+                'Tanggal Selesai Jahit',
+                'Vendor Jahit',
+                'Berhasil Jahit',
+                'Gagal Jahit',
+                'Barang Direpair',
+                'Keterangan Direpair',
+                'Barang Dibuang',
+                'Keterangan Dibuang'
+            ];
 
-        $titlecuci = [
-            'Kode SKU',
-            'Tanggal Selesai Cuci',
-            'Berhasil Cuci',
-            'Gagal Cuci',
-            'Barang Direpair',
-            'Keterangan Direpair',
-            'Barang Dibuang',
-            'Keterangan Dibuang'
-        ];
+            $titlecuci = [
+                'Kode SKU',
+                'Tanggal Selesai Cuci',
+                'Berhasil Cuci',
+                'Gagal Cuci',
+                'Barang Direpair',
+                'Keterangan Direpair',
+                'Barang Dibuang',
+                'Keterangan Dibuang'
+            ];
 
-        $titlerepair = [
-            'Kode SKU',
-            'Jenis Bahan',
-            'Nama Produk',
-            'Ukuran Baju',
-            'Warna Produk',
-            'Asal Barang',
-            'Keterangan',
-            'Total Barang Direpair',
-            'Tanggal Selesai Repair',
-            'Tanggal Kirim Barang'
-        ];
-
-
-        $titletrash = [
-            'Kode SKU',
-            'Jenis Bahan',
-            'Nama Produk',
-            'Ukuran Baju',
-            'Warna Produk',
-            'Asal Barang',
-            'Keterangan',
-            'Total Barang Dibuang',
-        ];
+            $titlerepair = [
+                'Kode SKU',
+                'Jenis Bahan',
+                'Nama Produk',
+                'Ukuran Baju',
+                'Warna Produk',
+                'Asal Barang',
+                'Keterangan',
+                'Total Barang Direpair',
+                'Tanggal Selesai Repair',
+                'Tanggal Kirim Barang'
+            ];
 
 
-        $titlerekap = [
-            'Kode SKU',
-            'Tanggal Selesai Cuci',
-            'Jenis Bahan',
-            'Nama Produk',
-            'Ukuran Baju',
-            'Warna Produk',
-            'Tanggal Barang Masuk',
-            'Tanggal Barang Dikirim',
-            'Total Barang Siap Quality Control',
-        ];
+            $titletrash = [
+                'Kode SKU',
+                'Jenis Bahan',
+                'Nama Produk',
+                'Ukuran Baju',
+                'Warna Produk',
+                'Asal Barang',
+                'Keterangan',
+                'Total Barang Dibuang',
+            ];
 
-        foreach ($menu as $key => $list) {
-            if ($list == 'CUTTING') {
-                foreach ($potong as $key => $value) {
-                    $x['menu'] = 'CUTTING';
-                    $x['icon'] = '<i class="fas fa-cut"></i>';
-                    $x['title'] = $titlepotong;
-                    $x['data'] = [
-                        $value->bahan->sku,
-                        $value->tanggal_cutting,
-                        $value->tanggal_selesai,
-                        $value->hasil_cutting,
-                        $value->bahan->jenis_bahan,
-                        $value->bahan->warna,
-                        $value->bahan->nama_bahan,
 
-                    ];
-                    array_push($data, $x);
-                }
-            } elseif ($list == 'TAILORING') {
-                foreach ($jahit as $key => $value) {
-                    $x['menu'] = 'TAILORING';
-                    $x['icon'] = '<i class="fas fa-user-cog"></i>';
-                    $x['title'] = $titlejahit;
-                    $x['data'] = [
-                        $value->potong->bahan->sku,
-                        $value->tanggal_selesai,
-                        $value->vendor,
-                        $value->berhasil,
-                        $value->gagal_jahit,
-                        $value->barang_direpair,
-                        $value->keterangan_direpair,
-                        $value->barang_dibuang,
-                        $value->keterangan_dibuang,
-                    ];
-                    array_push($data, $x);
-                }
-            } elseif ($list == 'WASHING') {
-                foreach ($cuci as $key => $value) {
-                    $x['menu'] = 'WASHING';
-                    $x['icon'] = '<i class="ri-hand-coin-fill"></i>';
-                    $x['title'] = $titlecuci;
-                    $x['data'] = [
-                        $value->jahit->potong->bahan->sku,
-                        $value->tanggal_selesai,
-                        $value->berhasil_cuci,
-                        $value->gagal_cuci,
-                        $value->barang_direpair,
-                        $value->keterangan_direpair,
-                        $value->barang_dibuang,
-                        $value->keterangan_dibuang,
-                    ];
-                    array_push($data, $x);
-                }
-            } elseif ($list == 'REPAIR') {
-                foreach ($perbaikan as $key => $value) {
-                    $x['menu'] = 'REPAIR';
-                    $x['icon'] = '<i class="fa fa-tools"></i>';
-                    $x['title'] = $titlerepair;
+            $titlerekap = [
+                'Kode SKU',
+                'Tanggal Selesai Cuci',
+                'Jenis Bahan',
+                'Nama Produk',
+                'Ukuran Baju',
+                'Warna Produk',
+                'Tanggal Barang Masuk',
+                'Tanggal Barang Dikirim',
+                'Total Barang Siap Quality Control',
+            ];
 
-                    $jumlahjahit = 0;
-                    $jumlahcuci = 0;
-                    $keteranganjahit = '';
-                    $keterangancuci = '';
-                    foreach ($value->detail_perbaikan as $key => $row) {
-                        if (!empty($row->jahit_direpair_id)) {
-                            $jumlahjahit = $row->jumlah;
-                            $keteranganjahit = $row->keterangan;
-                        }
+            foreach ($menu as $key => $list) {
+                if ($list == 'CUTTING') {
+                    foreach ($potong as $key => $value) {
+                        $x['menu'] = 'CUTTING';
+                        $x['icon'] = '<i class="fas fa-cut"></i>';
+                        $x['title'] = $titlepotong;
+                        $x['data'] = [
+                            $value->bahan->sku,
+                            $value->tanggal_cutting,
+                            $value->tanggal_selesai,
+                            $value->hasil_cutting,
+                            $value->bahan->jenis_bahan,
+                            $value->bahan->warna,
+                            $value->bahan->nama_bahan,
 
-                        if (!empty($row->cuci_direpair_id)) {
-                            $jumlahcuci = $row->jumlah;
-                            $keterangancuci = $row->keterangan;
-                        }
+                        ];
+                        array_push($data, $x);
                     }
+                } elseif ($list == 'TAILORING') {
+                    foreach ($jahit as $key => $value) {
+                        $x['menu'] = 'TAILORING';
+                        $x['icon'] = '<i class="fas fa-user-cog"></i>';
+                        $x['title'] = $titlejahit;
+                        $x['data'] = [
+                            $value->potong->bahan->sku,
+                            $value->tanggal_selesai,
+                            $value->vendor,
+                            $value->berhasil,
+                            $value->gagal_jahit,
+                            $value->barang_direpair,
+                            $value->keterangan_direpair,
+                            $value->barang_dibuang,
+                            $value->keterangan_dibuang,
+                        ];
+                        array_push($data, $x);
+                    }
+                } elseif ($list == 'WASHING') {
+                    foreach ($cuci as $key => $value) {
+                        $x['menu'] = 'WASHING';
+                        $x['icon'] = '<i class="ri-hand-coin-fill"></i>';
+                        $x['title'] = $titlecuci;
+                        $x['data'] = [
+                            $value->jahit->potong->bahan->sku,
+                            $value->tanggal_selesai,
+                            $value->berhasil_cuci,
+                            $value->gagal_cuci,
+                            $value->barang_direpair,
+                            $value->keterangan_direpair,
+                            $value->barang_dibuang,
+                            $value->keterangan_dibuang,
+                        ];
+                        array_push($data, $x);
+                    }
+                } elseif ($list == 'REPAIR') {
+                    foreach ($perbaikan as $key => $value) {
+                        $x['menu'] = 'REPAIR';
+                        $x['icon'] = '<i class="fa fa-tools"></i>';
+                        $x['title'] = $titlerepair;
 
-                    $keterangan = 'Washing : ' . $keterangancuci . '<br>' . 'Tailoring : ' . $keteranganjahit;
-                    $asalbarang = 'Washing : ' . $jumlahcuci . '<br>' . 'Tailoring : ' . $jumlahjahit;
-                    $x['data'] = [
-                        $value->bahan->sku,
-                        $value->bahan->jenis_bahan,
-                        $value->bahan->nama_bahan,
-                        $value->ukuran,
-                        $value->bahan->warna,
-                        $asalbarang,
-                        $keterangan,
-                        $value->total,
-                        $value->tanggal_selesai,
-                        $value->tanggal_kirim,
-                    ];
-                    array_push($data, $x);
-                }
-            } elseif ($list == 'TRASH') {
-                foreach ($sampah as $key => $value) {
-                    $x['menu'] = 'TRASH';
-                    $x['icon'] = '<i class="fas fa-trash"></i>';
-                    $x['title'] = $titletrash;
+                        $jumlahjahit = 0;
+                        $jumlahcuci = 0;
+                        $keteranganjahit = '';
+                        $keterangancuci = '';
+                        foreach ($value->detail_perbaikan as $key => $row) {
+                            if (!empty($row->jahit_direpair_id)) {
+                                $jumlahjahit = $row->jumlah;
+                                $keteranganjahit = $row->keterangan;
+                            }
 
-                    $jumlahjahit = 0;
-                    $jumlahcuci = 0;
-                    $keteranganjahit = '';
-                    $keterangancuci = '';
-                    foreach ($value->detail_sampah as $key => $row) {
-                        if (!empty($row->jahit_dibuang_id)) {
-                            $jumlahjahit = $row->jumlah;
-                            $keteranganjahit = $row->keterangan;
+                            if (!empty($row->cuci_direpair_id)) {
+                                $jumlahcuci = $row->jumlah;
+                                $keterangancuci = $row->keterangan;
+                            }
                         }
 
-                        if (!empty($row->cuci_dibuang_id)) {
-                            $jumlahcuci = $row->jumlah;
-                            $keterangancuci = $row->keterangan;
+                        $keterangan = 'Washing : ' . $keterangancuci . '<br>' . 'Tailoring : ' . $keteranganjahit;
+                        $asalbarang = 'Washing : ' . $jumlahcuci . '<br>' . 'Tailoring : ' . $jumlahjahit;
+                        $x['data'] = [
+                            $value->bahan->sku,
+                            $value->bahan->jenis_bahan,
+                            $value->bahan->nama_bahan,
+                            $value->ukuran,
+                            $value->bahan->warna,
+                            $asalbarang,
+                            $keterangan,
+                            $value->total,
+                            $value->tanggal_selesai,
+                            $value->tanggal_kirim,
+                        ];
+                        array_push($data, $x);
+                    }
+                } elseif ($list == 'TRASH') {
+                    foreach ($sampah as $key => $value) {
+                        $x['menu'] = 'TRASH';
+                        $x['icon'] = '<i class="fas fa-trash"></i>';
+                        $x['title'] = $titletrash;
+
+                        $jumlahjahit = 0;
+                        $jumlahcuci = 0;
+                        $keteranganjahit = '';
+                        $keterangancuci = '';
+                        foreach ($value->detail_sampah as $key => $row) {
+                            if (!empty($row->jahit_dibuang_id)) {
+                                $jumlahjahit = $row->jumlah;
+                                $keteranganjahit = $row->keterangan;
+                            }
+
+                            if (!empty($row->cuci_dibuang_id)) {
+                                $jumlahcuci = $row->jumlah;
+                                $keterangancuci = $row->keterangan;
+                            }
                         }
-                    }
 
-                    $keterangan = 'Washing : ' . $keterangancuci . '<br>' . 'Tailoring : ' . $keteranganjahit;
-                    $asalbarang = 'Washing : ' . $jumlahcuci . '<br>' . 'Tailoring : ' . $jumlahjahit;
-                    $x['data'] = [
-                        $value->bahan->sku,
-                        $value->bahan->jenis_bahan,
-                        $value->bahan->nama_bahan,
-                        $value->ukuran,
-                        $value->bahan->warna,
-                        $asalbarang,
-                        $keterangan,
-                        $value->total,
-                    ];
-                    array_push($data, $x);
+                        $keterangan = 'Washing : ' . $keterangancuci . '<br>' . 'Tailoring : ' . $keteranganjahit;
+                        $asalbarang = 'Washing : ' . $jumlahcuci . '<br>' . 'Tailoring : ' . $jumlahjahit;
+                        $x['data'] = [
+                            $value->bahan->sku,
+                            $value->bahan->jenis_bahan,
+                            $value->bahan->nama_bahan,
+                            $value->ukuran,
+                            $value->bahan->warna,
+                            $asalbarang,
+                            $keterangan,
+                            $value->total,
+                        ];
+                        array_push($data, $x);
+                    }
+                } elseif ($list == 'RECAPITULATION') {
+                    foreach ($rekap as $key => $value) {
+                        $x['menu'] = 'RECAPITULATION';
+                        $x['icon'] = '<i class="ri-booklet-fill"></i>';
+                        $x['title'] = $titlerekap;
+                        $ukuran = '';
+
+                        foreach ($value->detail_rekap as $key => $row) {
+                            $ukuran .= $row->ukuran . ',';
+                        }
+                        $x['data'] = [
+                            $value->cuci->jahit->potong->bahan->sku,
+                            $value->cuci->tanggal_selesai,
+                            $value->cuci->jahit->potong->bahan->jenis_bahan,
+                            $value->cuci->jahit->potong->bahan->nama_bahan,
+                            $ukuran,
+                            $value->cuci->jahit->potong->bahan->warna,
+                            $value->cuci->jahit->potong->bahan->tanggal_masuk,
+                            $value->tanggal_kirim,
+                            $value->total_barang,
+                        ];
+                        array_push($data, $x);
+                    }
                 }
-            } elseif ($list == 'RECAPITULATION') {
-                foreach ($rekap as $key => $value) {
-                    $x['menu'] = 'RECAPITULATION';
-                    $x['icon'] = '<i class="fas fa-file"></i>';
-                    $x['title'] = $titlerekap;
-                    $ukuran = '';
+            }
 
-                    foreach ($value->detail_rekap as $key => $row) {
-                        $ukuran .= $row->ukuran . ',';
+            return response()->json(['print' => $data, 'status' => true]);
+        } elseif ($user->hasRole('warehouse')) {
+
+            $finish = Finishing::whereBetween('created_at', [$dari, $sampai])->get();
+            $warehouse = Warehouse::whereBetween('created_at', [$dari, $sampai])->get();
+            $dataretur = Retur::whereBetween('created_at', [$dari, $sampai])->get();
+            $rekap = RekapitulasiWarehouse::whereBetween('created_at', [$dari, $sampai])->get();
+
+            $titlefinish = [
+                'Kode SKU',
+                'Jenis Kain',
+                'Nama Produk',
+                'Warna Kain',
+                'Ukuran',
+                'Tanggal QC',
+                'Jumlah Barang Masuk',
+                'Jumlah Barang Lolos QC',
+                'Jumlah Barang Retur / Dibuang',
+                'Keterangan Retur',
+                'Keterangan Buang',
+                'Nomor Surat Jalan'
+            ];
+
+
+            $titlewarehouse = [
+                'Kode SKU',
+                'Jenis Kain',
+                'Nama Produk',
+                'Warna',
+                'Produk Siap Jual',
+                'Ukuran',
+                'Harga Produk'
+            ];
+
+
+            $titleretur = [
+                'Kode SKU',
+                'Tanggal Selesai Cuci',
+                'Jenis Kain',
+                'Nama Produk',
+                'Warna',
+                'Tanggal Barang Diretur',
+                'Total Barang Diretur',
+                'Ukuran Baju Yang Diretur',
+                'Keterangan Diretur'
+            ];
+
+
+
+            $titlerekap = [
+                'Kode SKU',
+                'Tanggal Barang Masuk',
+                'Tanggal Barang Dikirim',
+                'Nama Produk',
+                'Warna Produk',
+                'Jenis Bahan',
+                'Total Barang Siap Quality Control',
+                'Ukuran Baju',
+                'Harga Produk'
+            ];
+
+            foreach ($menu as $key => $datamenu) {
+                if ($datamenu == 'FINISHING') {
+                    foreach ($finish as $key => $value) {
+                        $x['menu'] = 'FINISHING';
+                        $x['icon'] = '<i class="ri-check-double-line"></i>';
+                        $x['title'] = $titlefinish;
+                        $ukuran = '';
+
+                        foreach ($value->detail_finish as $key => $row) {
+                            $ukuran .= $row->ukuran . '=' . $row->jumlah . ', ';
+                        }
+
+                        $retur = $value->barang_diretur . ' pcs';
+                        $retur .= '(';
+                        foreach ($value->finish_retur as $key => $row) {
+                            $retur .= $row->ukuran . '=' . $row->jumlah . ', ';;
+                        }
+                        $retur .= ') / ';
+
+                        $retur .= $value->barang_dibuang . ' pcs';
+                        $retur .= '(';
+                        foreach ($value->finish_dibuang as $key => $row) {
+                            $retur .= $row->ukuran . '=' . $row->jumlah . ', ';;
+                        }
+                        $retur .= ')';
+
+                        $x['data'] = [
+                            $value->rekapitulasi->cuci->jahit->potong->bahan->sku,
+                            $value->rekapitulasi->cuci->jahit->potong->bahan->jenis_bahan,
+                            $value->rekapitulasi->cuci->jahit->potong->bahan->nama_bahan,
+                            $value->rekapitulasi->cuci->jahit->potong->bahan->warna,
+                            $ukuran,
+                            $value->tanggal_qc,
+                            $value->rekapitulasi->total_barang,
+                            $value->barang_lolos_qc,
+                            $retur,
+                            $value->keterangan_diretur,
+                            $value->keterangan_dibuang,
+                            $value->no_surat,
+                        ];
+                        array_push($data, $x);
                     }
-                    $x['data'] = [
-                        $value->cuci->jahit->potong->bahan->sku,
-                        $value->cuci->tanggal_selesai,
-                        $value->cuci->jahit->potong->bahan->jenis_bahan,
-                        $value->cuci->jahit->potong->bahan->nama_bahan,
-                        $ukuran,
-                        $value->cuci->jahit->potong->bahan->warna,
-                        $value->cuci->jahit->potong->bahan->tanggal_masuk,
-                        $value->tanggal_kirim,
-                        $value->total_barang,
-                    ];
-                    array_push($data, $x);
+                } elseif ($datamenu == 'WAREHOUSE') {
+
+                    foreach ($warehouse as $key => $value) {
+                        $x['menu'] = 'WAREHOUSE';
+                        $x['icon'] = '<i class="ri-home-gear-fill"></i>';
+                        $x['title'] = $titlewarehouse;
+                        $ukuran = '';
+
+                        foreach ($value->detail_warehouse as $key => $row) {
+                            $ukuran .= $row->ukuran . '=' . $row->jumlah . ', ';
+                        }
+
+                        $jumlahproduk = $value->detail_warehouse->sum('jumlah');
+                        $harga = $this->rupiah($value->harga_produk);
+                        $x['data'] = [
+                            $value->finishing->rekapitulasi->cuci->jahit->potong->bahan->sku,
+                            $value->finishing->rekapitulasi->cuci->jahit->potong->bahan->jenis_bahan,
+                            $value->finishing->rekapitulasi->cuci->jahit->potong->bahan->nama_bahan,
+                            $value->finishing->rekapitulasi->cuci->jahit->potong->bahan->warna,
+                            $jumlahproduk,
+                            $ukuran,
+                            $harga
+                        ];
+                        array_push($data, $x);
+                    }
+                } elseif ($datamenu == 'RETUR') {
+                    foreach ($dataretur as $key => $value) {
+                        $x['menu'] = 'RETUR';
+                        $x['icon'] = '<i class="ri-logout-box-fill"></i>';
+                        $x['title'] = $titleretur;
+                        $ukuran = '';
+
+                        foreach ($value->detail_retur as $key => $row) {
+                            $ukuran .= $row->ukuran . '=' . $row->jumlah . ', ';
+                        }
+
+                        $jumlahproduk = $value->total_barang;
+                        $tanggalretur = date('Y-m-d', strtotime($value->created_at));
+                        $x['data'] = [
+                            $value->finishing->rekapitulasi->cuci->jahit->potong->bahan->sku,
+                            $value->finishing->rekapitulasi->cuci->tanggal_selesai,
+                            $value->finishing->rekapitulasi->cuci->jahit->potong->bahan->jenis_bahan,
+                            $value->finishing->rekapitulasi->cuci->jahit->potong->bahan->nama_bahan,
+                            $value->finishing->rekapitulasi->cuci->jahit->potong->bahan->warna,
+                            $tanggalretur,
+                            $jumlahproduk,
+                            $ukuran,
+                            $value->finishing->keterangan_diretur
+                        ];
+                        array_push($data, $x);
+                    }
+                } elseif ($datamenu == 'RECAPITULATION') {
+
+                    foreach ($rekap as $key => $value) {
+                        $x['menu'] = 'RECAPITULATION';
+                        $x['icon'] = '<i class="ri-booklet-fill"></i>';
+                        $x['title'] = $titlerekap;
+                        $ukuran = '';
+
+                        foreach ($value->detail_rekap_warehouse as $key => $row) {
+                            $ukuran .= $row->ukuran . '=' . $row->jumlah . ', ';
+                        }
+
+                        $jumlahproduk = $value->total_barang;
+                        $harga = $this->rupiah($value->warehouse->harga_produk);
+                        $x['data'] = [
+                            $value->warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->sku,
+                            $value->tanggal_masuk,
+                            $value->tanggal_kirim,
+                            $value->warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->nama_bahan,
+                            $value->warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->warna,
+                            $value->warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->jenis_bahan,
+                            $jumlahproduk,
+                            $ukuran,
+                            $harga
+                        ];
+                        array_push($data, $x);
+                    }
                 }
             }
         }
@@ -888,10 +1267,15 @@ class PrintController extends Controller
 
         $tipe = $request->get('tipe');
 
-        if($tipe == 'download'){
+        if ($tipe == 'download') {
             return $pdf->download('production.pdf');
-        }else{
+        } else {
             return $pdf->stream('production.pdf');
         }
+    }
+
+    public function rupiah($expression)
+    {
+        return "Rp " . number_format($expression, 2, ',', '.');
     }
 }

@@ -22,7 +22,7 @@
             </form>
 
         </div>
-        <a href="{{route('print.index')}}" class="btn btn-outline-primary rounded ml-1">Print Semua <i
+        <a href="{{route('warehouse.print.index')}}" class="btn btn-outline-primary rounded ml-1">Print Semua <i
                 class="fas fa-print"></i>
         </a>
     </div>
@@ -104,7 +104,7 @@
                                                             href="{{route('warehouse.finishing.show',[$item->id])}}"><i
                                                                 class="fas fa-eye"></i>
                                                             Detail</a>
-                                                        <a class="dropdown-item btnprintmasuk" href="#"
+                                                        <a class="dropdown-item btnprint" href="#"
                                                             data-id="{{$item->id}}"><i class="fas fa-print"></i>
                                                             Print</a>
                                                         <a class="dropdown-item"
@@ -183,7 +183,7 @@
                                                             href="{{route('warehouse.finishing.show',[$item->id])}}"><i
                                                                 class="fas fa-eye"></i>
                                                             Detail</a>
-                                                        <a class="dropdown-item btnprintmasuk" href="#"
+                                                        <a class="dropdown-item btnprint" href="#"
                                                             data-id="{{$item->id}}"><i class="fas fa-print"></i>
                                                             Print</a>
                                                         <a class="dropdown-item"
@@ -216,7 +216,36 @@
         </div>
     </div>
 </section>
+<div class="modal fade" id="printModal" tabindex="-1" role="dialog" aria-labelledby="printModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title col-md-12" id="exampleModalLabel">
 
+                    <span id="test" class=" float-right text-dark"> <img src="{{asset('assets/img/logo.png')}}" alt=""
+                            class="mr-1" srcset="" width="30">GARMENT</span></h5>
+            </div>
+            <form action="{{route('warehouse.finishing.cetak')}}" target="_blank" method="post">
+                @csrf
+                <div class="modal-body" style="margin-top: -30px; height:50rem">
+                    <hr>
+                    <input type="hidden" name="id" id="idbahan">
+                    <span class="badge badge-primary  rounded"><i class="ri-t-shirt-fill"></i> Material</span>
+                    <table class="table">
+                        <tbody id="dataprint">
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-print"></i> Print</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 @endsection
 @push('scripts')
 <script>
@@ -232,7 +261,36 @@
               $('#tabelmasuk').DataTable()
               $('#tabelbahankeluar').DataTable()
 
+              $(document).on('click','.btnprint' ,function () {
+                  var id = $(this).data('id')
+                  $.ajax({
+                      url:"{{route('warehouse.finishing.getdataprint')}}",
+                      method:"GET",
+                      data:{'id':id},
+                      success:function(response){
+                            if(response.status){
+                                $('#idbahan').val(id)
+                                var data =response.data
+                                var title = data.title
+                                var datares = data.data
+                                var tbody = $('#dataprint');
 
+                                var datahtml = "";
+                                for (let index = 0; index < title.length; index++) {
+                                    const element = title[index];
+                                    var nilai = datares[index];
+                                    datahtml += '<tr>'
+                                        datahtml += '<td>'+element+'</td>'
+                                        datahtml += '<td class="text-right">'+nilai+'</td>'
+                                    datahtml += '</tr>'
+                                }
+
+                                tbody.html(datahtml)
+                                $('#printModal').modal('show')
+                            }
+                      }
+                  })
+               })
      })
 </script>
 @endpush

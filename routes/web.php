@@ -21,13 +21,31 @@ Route::group(['prefix' => 'garment', 'as' => 'backend.', 'namespace' => 'Auth'],
 
 Route::group(['prefix' => 'warehouse', 'namespace' => 'Backend', 'middleware' => ['role:warehouse', 'auth'], 'as' => 'warehouse.'], function () {
     Route::resource('dashboard', 'DashboardController');
+
+    Route::group(['prefix' => 'print', 'as' => 'print.'], function () {
+        Route::get('/cetak', 'PrintController@cetak')->name('export');
+    });
+    Route::resource('print', 'PrintController');
     Route::group(['namespace' => 'Warehouse'], function () {
         Route::group(['prefix' => 'finishing', 'as' => 'finishing.'], function () {
+            Route::post('/cetak', 'FinishingController@cetakPdf')->name('cetak');
+            Route::get('/getdataprint', 'FinishingController@getDataPrint')->name('getdataprint');
             Route::get('/getdatarekap', 'FinishingController@getDataRekap')->name('getdatarekap');
             Route::get('/getdatafinishing', 'FinishingController@getDataFinish')->name('getdatafinish');
         });
 
+        Route::group(['prefix' => 'warehouse', 'as' => 'warehouse.'], function () {
+            Route::post('/cetak', 'WarehouseController@cetakPdf')->name('cetak');
+            Route::get('/getdataprint', 'WarehouseController@getDataPrint')->name('getdataprint');
+        });
+
+        Route::group(['prefix' => 'retur', 'as' => 'retur.'], function () {
+            Route::post('/cetak', 'ReturController@cetakPdf')->name('cetak');
+            Route::get('/getdataprint', 'ReturController@getDataPrint')->name('getdataprint');
+        });
         Route::group(['prefix' => 'rekapitulasi', 'as' => 'rekapitulasi.'], function () {
+            Route::post('/cetak', 'RekapitulasiController@cetakPdf')->name('cetak');
+            Route::get('/getdataprint', 'RekapitulasiController@getDataPrint')->name('getdataprint');
             Route::get('/getdatarekapitulasi', 'RekapitulasiController@getDataRekapitulasi')->name('getdata');
         });
 

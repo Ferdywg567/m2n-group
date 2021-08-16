@@ -9,7 +9,7 @@ use App\RekapitulasiWarehouse;
 use Illuminate\Http\Request;
 use App\Warehouse;
 use Illuminate\Support\Facades\DB;
-
+use PDF;
 class RekapitulasiController extends Controller
 {
     /**
@@ -156,5 +156,99 @@ class RekapitulasiController extends Controller
                 'data' => $warehouse
             ]);
         }
+    }
+
+    public function getDataPrint(Request $request)
+    {
+        if ($request->ajax()) {
+            $rekap = RekapitulasiWarehouse::findOrFail($request->get('id'));
+            $titlerekap = [
+                'Kode SKU',
+                'Tanggal Barang Masuk',
+                'Tanggal Barang Dikirim',
+                'Nama Produk',
+                'Warna Produk',
+                'Jenis Bahan',
+                'Total Barang Siap Quality Control',
+                'Ukuran Baju',
+                'Harga Produk'
+            ];
+
+
+            $x['title'] = $titlerekap;
+            $x['kode_bahan']=  $rekap->warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->kode_bahan;
+            $ukuran = '';
+
+            foreach ($rekap->detail_rekap_warehouse as $key => $row) {
+                $ukuran .= $row->ukuran . '=' . $row->jumlah . ', ';
+            }
+
+            $jumlahproduk = $rekap->total_barang;
+            $harga = $this->rupiah($rekap->warehouse->harga_produk);
+
+            $x['data'] = [
+                $rekap->warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->sku,
+                $rekap->tanggal_masuk,
+                $rekap->tanggal_kirim,
+                $rekap->warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->nama_bahan,
+                $rekap->warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->warna,
+                $rekap->warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->jenis_bahan,
+                $jumlahproduk,
+                $ukuran,
+                $harga
+            ];
+
+            return response()->json([
+                'status' => true,
+                'data' => $x
+            ]);
+        }
+    }
+
+    public function cetakPdf(Request $request){
+        $rekap = RekapitulasiWarehouse::findOrFail($request->get('id'));
+        $titlerekap = [
+            'Kode SKU',
+            'Tanggal Barang Masuk',
+            'Tanggal Barang Dikirim',
+            'Nama Produk',
+            'Warna Produk',
+            'Jenis Bahan',
+            'Total Barang Siap Quality Control',
+            'Ukuran Baju',
+            'Harga Produk'
+        ];
+
+
+        $x['title'] = $titlerekap;
+        $x['kode_bahan']=  $rekap->warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->kode_bahan;
+        $ukuran = '';
+
+        foreach ($rekap->detail_rekap_warehouse as $key => $row) {
+            $ukuran .= $row->ukuran . '=' . $row->jumlah . ', ';
+        }
+
+        $jumlahproduk = $rekap->total_barang;
+        $harga = $this->rupiah($rekap->warehouse->harga_produk);
+
+        $x['data'] = [
+            $rekap->warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->sku,
+            $rekap->tanggal_masuk,
+            $rekap->tanggal_kirim,
+            $rekap->warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->nama_bahan,
+            $rekap->warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->warna,
+            $rekap->warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->jenis_bahan,
+            $jumlahproduk,
+            $ukuran,
+            $harga
+        ];
+
+        $pdf = PDF::loadView('backend.warehouse.rekapitulasi.pdf', ['data' => $x]);
+        return $pdf->stream('rekapitulasi.pdf');
+    }
+
+    public function rupiah($expression)
+    {
+        return "Rp " . number_format($expression, 2, ',', '.');
     }
 }
