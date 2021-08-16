@@ -93,7 +93,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title col-md-12" id="exampleModalLabel">
-
+                        <span class="float left text-primary" id="title_kode"></span>
                         <span id="test" class=" float-right text-dark"> <img src="{{asset('assets/img/logo.png')}}"
                                 alt="" class="mr-1" srcset="" width="30">GARMENT</span></h5>
                 </div>
@@ -102,7 +102,7 @@
                     <div class="modal-body" style="margin-top: -30px; height:40rem">
                         <hr>
                         <input type="hidden" name="id" id="idbahan">
-                        <span class="badge badge-primary  rounded"><i class="ri-t-shirt-fill"></i> Material</span>
+                        <span class="badge badge-primary  rounded"><i class="ri-booklet-fill"></i> Rekapitulasi</span>
                         <table class="table">
                             <tbody id="dataprint">
 
@@ -149,7 +149,8 @@
                                         datahtml += '<td class="text-right">'+nilai+'</td>'
                                     datahtml += '</tr>'
                                 }
-
+                                var kode = data.kode_bahan;
+                                $('#title_kode').text(kode)
                                 tbody.html(datahtml)
                                 $('#printModal').modal('show')
                             }

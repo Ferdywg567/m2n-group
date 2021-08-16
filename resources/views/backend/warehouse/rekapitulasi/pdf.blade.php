@@ -177,7 +177,7 @@
         <span style="vertical-align:middle; font-size:25px; font-weight:bold">GARMENT</span>
     </div>
     <hr>
-    <button class="btn"><i class="fa fa-home"> <img src="{{public_path('assets/icon/t-shirt-fill.png')}}" style="margin-top: 2px" alt=""></i>Rekapitulasi</button>
+    <button class="btn"><i class="fa fa-home"> <img src="{{public_path('assets/icon/booklet-fill.png')}}" style="margin-top: 2px" alt=""></i>Rekapitulasi</button>
     <main>
         <table>
             <tbody>

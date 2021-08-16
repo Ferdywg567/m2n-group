@@ -179,7 +179,7 @@
         <span style="vertical-align:middle; font-size:25px; font-weight:bold">GARMENT</span>
     </div>
     <hr>
-    <button class="btn"><i class="fa fa-home"></i>{{$item['menu']}}</button>
+    <button class="btn"><i class="fa fa-home"> <img src="{{public_path('assets/icon/'.$item['icon'])}}" style="margin-top: 2px" alt=""></i>{{$item['menu']}}</button>
     <main>
         <table>
             <tbody>

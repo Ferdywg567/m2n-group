@@ -1145,6 +1145,7 @@ class PrintController extends Controller
                         $x['menu'] = 'FINISHING';
                         $x['icon'] = '<i class="ri-check-double-line"></i>';
                         $x['title'] = $titlefinish;
+                        $x['icon'] = 'check-double-fill.png';
                         $ukuran = '';
 
                         foreach ($value->detail_finish as $key => $row) {
@@ -1187,6 +1188,7 @@ class PrintController extends Controller
                         $x['menu'] = 'WAREHOUSE';
                         $x['icon'] = '<i class="ri-home-gear-fill"></i>';
                         $x['title'] = $titlewarehouse;
+                        $x['icon'] = 'home-gear-fill.png';
                         $ukuran = '';
 
                         foreach ($value->detail_warehouse as $key => $row) {
@@ -1211,6 +1213,7 @@ class PrintController extends Controller
                         $x['menu'] = 'RETUR';
                         $x['icon'] = '<i class="ri-logout-box-fill"></i>';
                         $x['title'] = $titleretur;
+                        $x['retur'] = 'logout-box-fill.png';
                         $ukuran = '';
 
                         foreach ($value->detail_retur as $key => $row) {
@@ -1238,6 +1241,7 @@ class PrintController extends Controller
                         $x['menu'] = 'RECAPITULATION';
                         $x['icon'] = '<i class="ri-booklet-fill"></i>';
                         $x['title'] = $titlerekap;
+                        $x['icon'] = 'booklet-fill.png';
                         $ukuran = '';
 
                         foreach ($value->detail_rekap_warehouse as $key => $row) {
