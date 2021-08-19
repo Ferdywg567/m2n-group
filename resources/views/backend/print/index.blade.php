@@ -28,7 +28,7 @@
     @endif">
         @csrf
         <input type="hidden" name="tipe" id="tipe">
-        <section class="section">
+        <section class="section mt-2">
 
             <div class="section-body">
                 <div class="row">

@@ -8,7 +8,17 @@
 {{-- production --}}
 @if (auth()->user()->hasRole('production'))
 @section('content')
-<section class="section">
+<style>
+    .gray{
+        color: #AEAEB2;
+        font-size: 14px;
+    }
+
+     .selectgrey{
+        background-color: #E5E5EA;
+    }
+</style>
+<section class="section mt-3">
 
     <div class="row">
         <div class="col-md-12 text-right">
@@ -20,7 +30,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <select class="form-control" id="bulan">
+                                <select class="form-control selectgrey" id="bulan">
                                     @forelse ($month as $item)
                                     <option value="{{$item}}">{{$item}}</option>
                                     @empty
@@ -30,7 +40,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <select class="form-control" id="tahun">
+                                <select class="form-control selectgrey" id="tahun">
                                     @forelse ($tahun as $item)
                                     <option value="{{$item}}">{{$item}}</option>
                                     @empty
@@ -50,8 +60,9 @@
 
                 <div class="row">
                     <div class="col-md-12 ml-3">
-                        <div class="card-icon shadow-primary bg-primary">
-                            <i class="fas fa-tshirt"></i>
+                        <div class="card-icon " style="background-color: rgba(26, 205, 255, 0.30);
+                        border-radius: 8px;">
+                            <img src="{{asset('assets/icon/t-shirt-fill-biru.png')}}" alt="" srcset="">
                         </div>
                     </div>
                 </div>
@@ -80,15 +91,15 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card card-statistic-1">
-                        <div class="card-icon bg-primary">
-                            <img src="{{asset('assets/icon/shirt-line.png')}}" alt="" srcset="">
+                        <div class="card-icon" style="background-color: rgba(176, 84, 222, 0.30);
+                        border-radius: 8px;">
+                            <img src="{{asset('assets/icon/shirt-fill-purple.png')}}" alt="" srcset="">
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">
                                 <h4>Jenis Bahan</h4>
                             </div>
                             <div class="card-body">
-
                                 <h2 id="jenis_bahan">
                                     0
                                 </h2>
@@ -100,14 +111,16 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card card-statistic-1">
-                        <div class="card-icon bg-primary">
-                            <img src="{{asset('assets/icon/hand-coin-fill.png')}}" alt="" srcset="">
+                        <div class="card-icon" style="background-color: rgba(92, 200, 250, 0.3);
+                        border-radius: 8px;">
+                            <img src="{{asset('assets/icon/hand-coin-fill-biru.png')}}" alt="" srcset="">
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">
                                 <h4>Berhasil Cuci</h4>
                             </div>
                             <div class="card-body">
+
                                 <h2 id="berhasil_cuci">
                                     0
                                 </h2>
@@ -121,14 +134,17 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card card-statistic-1">
-                        <div class="card-icon bg-primary">
-                            <i class="fas fa-cut"></i>
+                        <div class="card-icon" style="background-color: rgba(255, 204, 0, 0.30);
+                        border-radius: 8px;">
+                            <img src="{{asset('assets/icon/scissors-cut-fill-kuning.png')}}" alt="" srcset="">
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">
                                 <h4>Hasil Potong</h4>
                             </div>
                             <div class="card-body">
+
+
                                 <h2 id="hasil_potong">0</h2>
                             </div>
                         </div>
@@ -138,14 +154,16 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card card-statistic-1">
-                        <div class="card-icon bg-primary">
-                            <img src="{{asset('assets/icon/search-eye-fill.png')}}" alt="" srcset="">
+                        <div class="card-icon" style="background-color: rgba(51, 199, 88, 0.3);
+                        border-radius: 8px;">
+                            <img src="{{asset('assets/icon/search-eye-fill-hijau.png')}}" alt="" srcset="">
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">
                                 <h4>Siap Quality Control</h4>
                             </div>
                             <div class="card-body">
+
                                 <h2 id="siap_qc"> 0</h2>
                             </div>
                         </div>
@@ -157,14 +175,17 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card card-statistic-1">
-                        <div class="card-icon bg-primary">
-                            <i class="fas fa-user-cog"></i>
+                        <div class="card-icon" style="background-color: rgba(255, 149, 0, 0.3);
+                        border-radius: 8px;">
+                            <img src="{{asset('assets/icon/user-settings-fill-orange.png')}}" alt="" srcset="">
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">
                                 <h4>Berhasil Jahit</h4>
                             </div>
                             <div class="card-body">
+
+
                                 <h2 id="berhasil_jahit"> 0</h2>
                             </div>
                         </div>
@@ -174,14 +195,16 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card card-statistic-1">
-                        <div class="card-icon bg-primary">
-                            <img src="{{asset('assets/icon/t-shirt-air-fill.png')}}" alt="" srcset="">
+                        <div class="card-icon" style="background-color: rgba(255, 56, 46, 0.3);
+                        border-radius: 8px;">
+                            <img src="{{asset('assets/icon/t-shirt-air-fill-merah.png')}}" alt="" srcset="">
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">
                                 <h4>Baju Rusak / Buang</h4>
                             </div>
                             <div class="card-body">
+
                                 <h2 id="baju_rusak">0</h2>
                             </div>
                         </div>
@@ -194,10 +217,9 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header">
-                    <h4>Preview Cutting</h4>
+                    <h4 class="text-dark">Preview Cutting</h4>
                     <div class="card-header-action">
-                        <a href="{{route('potong.index')}}" class="btn btn-danger">View More <i
-                                class="fas fa-chevron-right"></i></a>
+                        <a href="{{route('potong.index')}}">Lihat Semua <i class="fas fa-chevron-right"></i></a>
                     </div>
                 </div>
                 <div class="card-body">
@@ -206,7 +228,7 @@
                             <thead>
                                 <tr>
                                     <th>Kode Bahan</th>
-                                    <th>SKU</th>
+                                    <th>Nomor SKU</th>
                                     <th>Status</th>
                                 </tr>
                             </thead>
@@ -221,10 +243,9 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header">
-                    <h4>Preview Tailoring</h4>
+                    <h4 class="text-dark">Preview Tailoring</h4>
                     <div class="card-header-action">
-                        <a href="{{route('jahit.index')}}" class="btn btn-danger">View More <i
-                                class="fas fa-chevron-right"></i></a>
+                        <a href="{{route('jahit.index')}}">Lihat Semua <i class="fas fa-chevron-right"></i></a>
                     </div>
                 </div>
                 <div class="card-body">
@@ -233,7 +254,7 @@
                             <thead>
                                 <tr>
                                     <th>Kode Bahan</th>
-                                    <th>SKU</th>
+                                    <th>Nomor SKU</th>
                                     <th>Status</th>
                                 </tr>
                             </thead>
@@ -249,10 +270,9 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header">
-                    <h4>Preview Washing</h4>
+                    <h4 class="text-dark">Preview Washing</h4>
                     <div class="card-header-action">
-                        <a href="{{route('cuci.index')}}" class="btn btn-danger">View More <i
-                                class="fas fa-chevron-right"></i></a>
+                        <a href="{{route('cuci.index')}}">Lihat Semua <i class="fas fa-chevron-right"></i></a>
                     </div>
                 </div>
                 <div class="card-body">
@@ -261,7 +281,7 @@
                             <thead>
                                 <tr>
                                     <th>Kode Bahan</th>
-                                    <th>SKU</th>
+                                    <th>Nomor SKU</th>
                                     <th>Status</th>
                                 </tr>
                             </thead>
@@ -577,7 +597,18 @@
 {{-- warehouse --}}
 @if (auth()->user()->hasRole('warehouse'))
 @section('content')
-<section class="section">
+<style>
+
+.gray{
+        color: #AEAEB2;
+        font-size: 14px;
+    }
+
+     .selectgrey{
+        background-color: #E5E5EA;
+    }
+</style>
+<section class="section mt-3">
 
     <div class="row">
         <div class="col-md-12 text-right">
@@ -589,7 +620,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <select class="form-control" id="bulan">
+                                <select class="form-control selectgrey" id="bulan">
                                     @forelse ($month as $item)
                                     <option value="{{$item}}">{{$item}}</option>
                                     @empty
@@ -599,7 +630,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <select class="form-control" id="tahun">
+                                <select class="form-control selectgrey" id="tahun">
                                     @forelse ($tahun as $item)
                                     <option value="{{$item}}">{{$item}}</option>
                                     @empty
@@ -617,8 +648,9 @@
 
         <div class="col-md-3">
             <div class="card card-statistic-1">
-                <div class="card-icon bg-primary">
-                    <img src="{{asset('assets/icon/t-shirt-fill.png')}}" alt="" srcset="">
+                <div class="card-icon " style="background-color: rgba(26, 205, 255, 0.30);
+                border-radius: 8px;">
+                    <img src="{{asset('assets/icon/t-shirt-fill-biru.png')}}" alt="" srcset="">
                 </div>
                 <div class="card-wrap">
                     <div class="card-header">
@@ -635,8 +667,9 @@
         </div>
         <div class="col-md-3">
             <div class="card card-statistic-1">
-                <div class="card-icon bg-primary">
-                    <img src="{{asset('assets/icon/logout-box-fill.png')}}" alt="" srcset="">
+                <div class="card-icon " style="background-color: rgba(255, 149, 0, 0.3);
+                border-radius: 8px;">
+                    <img src="{{asset('assets/icon/logout-box-fill-orange.png')}}" alt="" srcset="">
                 </div>
                 <div class="card-wrap">
                     <div class="card-header">
@@ -653,8 +686,9 @@
         </div>
         <div class="col-md-3">
             <div class="card card-statistic-1">
-                <div class="card-icon bg-primary">
-                    <img src="{{asset('assets/icon/t-shirt-air-fill.png')}}" alt="" srcset="">
+                <div class="card-icon" style="background-color: rgba(255, 56, 46, 0.3);
+                border-radius: 8px;">
+                    <img src="{{asset('assets/icon/t-shirt-air-fill-merah.png')}}" alt="" srcset="">
                 </div>
                 <div class="card-wrap">
                     <div class="card-header">
@@ -671,8 +705,9 @@
         </div>
         <div class="col-md-3">
             <div class="card card-statistic-1">
-                <div class="card-icon bg-primary">
-                    <img src="{{asset('assets/icon/money-dollar-circle-line.png')}}" alt="" srcset="">
+                <div class="card-icon" style="background-color: rgba(51, 199, 88, 0.3);
+                border-radius: 8px;">
+                    <img src="{{asset('assets/icon/money-dollar-circle-fill-hijau.png')}}" alt="" srcset="">
                 </div>
                 <div class="card-wrap">
                     <div class="card-header">
@@ -693,9 +728,9 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header">
-                    <h4>Preview Finishing</h4>
+                    <h4 class="text-dark">Preview Finishing</h4>
                     <div class="card-header-action">
-                        <a href="{{route('warehouse.finishing.index')}}" class="btn btn-danger">View More <i
+                        <a href="{{route('warehouse.finishing.index')}}">Lihat Semua <i
                                 class="fas fa-chevron-right"></i></a>
                     </div>
                 </div>
@@ -720,9 +755,9 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header">
-                    <h4>Preview Warehouse</h4>
+                    <h4 class="text-dark">Preview Warehouse</h4>
                     <div class="card-header-action">
-                        <a href="{{route('warehouse.warehouse.index')}}" class="btn btn-danger">View More <i
+                        <a href="{{route('warehouse.warehouse.index')}}">Lihat Semua <i
                                 class="fas fa-chevron-right"></i></a>
                     </div>
                 </div>
@@ -748,9 +783,9 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header">
-                    <h4>Preview Retur</h4>
+                    <h4 class="text-dark">Preview Retur</h4>
                     <div class="card-header-action">
-                        <a href="{{route('warehouse.retur.index')}}" class="btn btn-danger">View More <i
+                        <a href="{{route('warehouse.retur.index')}}">Lihat Semua <i
                                 class="fas fa-chevron-right"></i></a>
                     </div>
                 </div>

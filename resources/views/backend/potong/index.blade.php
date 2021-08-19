@@ -7,7 +7,7 @@
 @section('content')
 
 <div id="non-printable">
-    <section class="section  mt-5">
+    <section class="section mt-2">
         <div class="btn-group">
             <button type="button" class="btn btn-primary rounded" data-toggle="dropdown" aria-haspopup="true"
                 aria-expanded="false">
@@ -25,9 +25,8 @@
                 </form>
 
             </div>
-            <a href="{{route('print.index')}}" class="btn btn-outline-primary rounded ml-1">Print Semua <i
-                class="fas fa-print"></i>
-        </a>
+            <a href="{{route('print.index')}}" class="btn btn-outline-primary rounded ml-1">Print Semua <i class="ri-printer-fill"></i>
+            </a>
         </div>
         <div class="section-body mt-2">
             <div class="row">
@@ -254,6 +253,24 @@
 
               $('#tabelbahanmasuk').DataTable()
               $('#tabelbahankeluar').DataTable()
+              $('#nav-bahanmasuk-tab').css('background-color','black')
+                  $('#nav-bahanmasuk-tab').css('color','white')
+                  $('#nav-keluar-tab').css('background-color','')
+                  $('#nav-keluar-tab').css('color','black')
+
+              $('#nav-bahanmasuk-tab').click(function () {
+                  $(this).css('background-color','black')
+                  $(this).css('color','white')
+                  $('#nav-keluar-tab').css('background-color','')
+                  $('#nav-keluar-tab').css('color','black')
+               })
+
+               $('#nav-keluar-tab').click(function () {
+                  $('#nav-bahanmasuk-tab').css('background-color','')
+                  $('#nav-bahanmasuk-tab').css('color','black')
+                  $(this).css('color','white')
+                  $(this).css('background-color','black')
+               })
 
 
               $(document).on('click','.btnprint' ,function () {

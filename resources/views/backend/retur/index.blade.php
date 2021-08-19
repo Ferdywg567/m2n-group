@@ -5,9 +5,8 @@
 @section('retur', 'class=active')
 
 @section('content')
-<section class="section mt-5">
-    <a href="{{route('print.index')}}" class="btn btn-outline-primary rounded ml-1">Print Semua <i
-            class="fas fa-print"></i>
+<section class="section mt-2">
+    <a href="{{route('print.index')}}" class="btn btn-outline-primary rounded ml-1">Print Semua <i class="ri-printer-fill"></i>
     </a>
     <div class="section-body mt-2">
         <div class="row">

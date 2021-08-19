@@ -4,7 +4,7 @@
 @section('title-nav', 'Finishing')
 @section('finishing', 'class=active')
 @section('content')
-<section class="section  mt-5">
+<section class="section  mt-2">
     <div class="btn-group">
         <button type="button" class="btn btn-primary rounded" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">
@@ -22,8 +22,7 @@
             </form>
 
         </div>
-        <a href="{{route('warehouse.print.index')}}" class="btn btn-outline-primary rounded ml-1">Print Semua <i
-                class="fas fa-print"></i>
+        <a href="{{route('warehouse.print.index')}}" class="btn btn-outline-primary rounded ml-1">Print Semua  <i class="ri-printer-fill"></i>
         </a>
     </div>
     <div class="section-body mt-2">
@@ -35,10 +34,10 @@
                         <div class="ml-2">
                             <nav>
                                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                    <a class="nav-item nav-link active" id="nav-masuk-tab" data-toggle="tab"
+                                    <a class="nav-item nav-link active "  id="nav-masuk-tab" data-toggle="tab"
                                         href="#nav-masuk" role="tab" aria-controls="nav-masuk"
                                         aria-selected="true">Finishing</a>
-                                    <a class="nav-item nav-link" id="nav-keluar-tab" data-toggle="tab"
+                                    <a class="nav-item nav-link " id="nav-keluar-tab" data-toggle="tab"
                                         href="#nav-keluar" role="tab" aria-controls="nav-keluar"
                                         aria-selected="false">Kirim Warehouse</a>
                                 </div>
@@ -257,6 +256,26 @@
                     }
                 });
               }
+
+                 $('#nav-masuk-tab').css('background-color','black')
+                  $('#nav-masuk-tab').css('color','white')
+                  $('#nav-keluar-tab').css('background-color','')
+                  $('#nav-keluar-tab').css('color','black')
+
+              $('#nav-masuk-tab').click(function () {
+                  $(this).css('background-color','black')
+                  $(this).css('color','white')
+                  $('#nav-keluar-tab').css('background-color','')
+                  $('#nav-keluar-tab').css('color','black')
+               })
+
+               $('#nav-keluar-tab').click(function () {
+                  $('#nav-masuk-tab').css('background-color','')
+                  $('#nav-masuk-tab').css('color','black')
+                  $(this).css('color','white')
+                  $(this).css('background-color','black')
+               })
+
 
               $('#tabelmasuk').DataTable()
               $('#tabelbahankeluar').DataTable()

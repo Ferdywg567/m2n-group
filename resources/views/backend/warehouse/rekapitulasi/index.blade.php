@@ -7,13 +7,12 @@
 @section('content')
 
 <div id="non-printable">
-    <section class="section mt-5">
+    <section class="section mt-2">
         <div class="btn-group">
             <a href="{{route('warehouse.rekapitulasi.create')}}" class="btn btn-primary rounded">
                 Input Data <i class="fas fa-plus"></i>
             </a>
-            <a href="{{route('warehouse.print.index')}}" class="btn btn-outline-primary rounded ml-1">Print Semua <i
-                    class="fas fa-print"></i>
+            <a href="{{route('warehouse.print.index')}}" class="btn btn-outline-primary rounded ml-1">Print Semua  <i class="ri-printer-fill"></i>
             </a>
         </div>
         <div class="section-body mt-2">

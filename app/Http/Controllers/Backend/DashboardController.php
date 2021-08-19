@@ -65,7 +65,7 @@ class DashboardController extends Controller
                 $jahitdirepair =  Jahit::whereMonth('tanggal_jahit', $bulan)->whereYear('tanggal_jahit', $tahun)->sum('barang_direpair');
                 $gagal = $baju_rusak;
                 $repair = $cucidirepair + $jahitdirepair;
-                $retur = 0;
+                $retur = Finishing::whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->sum('barang_diretur');
                 $label = ['Berhasil', 'Repair', 'Retur', 'Gagal'];
                 $datapie = [$berhasil, $repair, $retur, $gagal];
                 $pie = [

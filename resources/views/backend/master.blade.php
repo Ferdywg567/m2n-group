@@ -26,14 +26,14 @@
     <link rel="stylesheet" href="{{ asset('assets/modules/bootstrap/css/bootstrap-datepicker.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/modules/datatables/dataTables.dateTime.min.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
-    
+
 </head>
 
 <body>
     <div id="app">
         <div class="main-wrapper">
-            <div class="navbar-bg"></div>
-            <nav class="navbar navbar-expand-lg main-navbar" id="non-printable">
+            {{-- <div class="navbar-bg" style="background-color: white"></div> --}}
+            <nav class="navbar navbar-expand-lg main-navbar" style="background-color: white" id="non-printable">
                 @include('backend.include.topnav')
             </nav>
             <div class="main-sidebar sidebar-style-2" id="non-printable">
