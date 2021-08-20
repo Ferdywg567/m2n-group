@@ -26,13 +26,14 @@ class ReturController extends Controller
                 $retur = Retur::where('finishing_id', $value->id)->first();
                 if ($retur) {
                     $total = DetailRetur::where('retur_id', $retur->id)->sum('jumlah');
-
+                    $retur->tanggal_masuk = $value->rekapitulasi->cuci->jahit->potong->bahan->tanggal_masuk;
                     $retur->total_barang = $total;
                 } else {
                     $retur = new Retur();
                     $retur->finishing_id = $value->id;
                     $retur->total_barang = $value->barang_diretur;
                     $retur->keterangan_diretur = $value->keterangan_diretur;
+                    $retur->tanggal_masuk = $value->rekapitulasi->cuci->jahit->potong->bahan->tanggal_masuk;
                 }
 
                 $retur->save();

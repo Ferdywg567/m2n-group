@@ -18,6 +18,7 @@ class CreateRetursTable extends Migration
             $table->bigInteger('finishing_id')->unsigned()->index()->nullable();
             $table->foreign('finishing_id')->references('id')->on('finishings')->onDelete('cascade');
             $table->integer('total_barang');
+            $table->date('tanggal_masuk')->nullable();
             $table->longText('keterangan_diretur')->nullable();
             $table->timestamps();
         });

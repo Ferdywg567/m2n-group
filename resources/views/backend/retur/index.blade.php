@@ -41,31 +41,34 @@
                                 @empty
 
                                 @endforelse
-                                <td>{{$loop->iteration}}</td>
-                                <td>{{$item->finishing->rekapitulasi->cuci->jahit->potong->bahan->kode_bahan}}</td>
-                                <td>{{$item->finishing->rekapitulasi->cuci->jahit->potong->bahan->sku}}</td>
-                                <td>{{$item->finishing->rekapitulasi->cuci->jahit->potong->bahan->tanggal_masuk}}</td>
-                                <td>{{$item->finishing->rekapitulasi->cuci->jahit->potong->bahan->nama_bahan}}</td>
-                                <td>{{$item->finishing->rekapitulasi->cuci->jahit->potong->bahan->warna}}</td>
-                                <td>{{$ukuran}}</td>
-                                <td>{{$item->total_barang}} pcs</td>
-                                <td>
-                                    <div class="dropdown dropleft">
-                                        <a class="" href="#" id="dropdownMenuButton" data-toggle="dropdown"
-                                            aria-haspopup="true" aria-expanded="false">
-                                            <i class="fa fa-ellipsis-h"></i>
-                                        </a>
-                                        <div class="dropdown-menu text-center" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item"
-                                                href="{{route('retur.show',[$item->id])}}"><i
-                                                    class="fas fa-eye"></i>
-                                                Detail</a>
-                                            <a class="dropdown-item btnprint" href="#"
-                                                data-id="{{$item->id}}"><i class="fas fa-print"></i>
-                                                Print</a>
+                                <tr>
+                                    <td>{{$loop->iteration}}</td>
+                                    <td>{{$item->finishing->rekapitulasi->cuci->jahit->potong->bahan->kode_bahan}}</td>
+                                    <td>{{$item->finishing->rekapitulasi->cuci->jahit->potong->bahan->sku}}</td>
+                                    <td>{{$item->finishing->rekapitulasi->cuci->jahit->potong->bahan->tanggal_masuk}}</td>
+                                    <td>{{$item->finishing->rekapitulasi->cuci->jahit->potong->bahan->nama_bahan}}</td>
+                                    <td>{{$item->finishing->rekapitulasi->cuci->jahit->potong->bahan->warna}}</td>
+                                    <td>{{$ukuran}}</td>
+                                    <td>{{$item->total_barang}} pcs</td>
+                                    <td>
+                                        <div class="dropdown dropleft">
+                                            <a class="" href="#" id="dropdownMenuButton" data-toggle="dropdown"
+                                                aria-haspopup="true" aria-expanded="false">
+                                                <i class="fa fa-ellipsis-h"></i>
+                                            </a>
+                                            <div class="dropdown-menu text-center" aria-labelledby="dropdownMenuButton">
+                                                <a class="dropdown-item"
+                                                    href="{{route('retur.show',[$item->id])}}"><i
+                                                        class="fas fa-eye"></i>
+                                                    Detail</a>
+                                                <a class="dropdown-item btnprint" href="#"
+                                                    data-id="{{$item->id}}"><i class="fas fa-print"></i>
+                                                    Print</a>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
+                                    </td>
+                                </tr>
+
                                 @empty
 
                                 @endforelse

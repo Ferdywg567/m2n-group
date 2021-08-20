@@ -20,19 +20,19 @@ class PotongSeeder extends Seeder
         $bahan = Bahan::doesntHave('potong')->where('status', 'bahan keluar')->get();
         $status = ['potong masuk','potong keluar'];
         $status_potong = ['proses potong','belum potong'];
-        $ukuran = ['S','M','XL','XXL'];
+        $ukuran = ['S','L','M','XL','XXL'];
         foreach ($bahan as $key => $value) {
             $potong = new Potong();
             $potong->bahan_id = $value->id;
-            $potong->no_surat = '#SMN00'.$faker->unique()->numberBetween(1, 20);
+            $potong->no_surat = '#SMN00'.$faker->unique()->numberBetween(1, 300);
             $potong->status = Arr::random($status);
-            $potong->tanggal_cutting = $faker->dateTimeBetween('-7 days', '-4 days');
-            $potong->tanggal_selesai = $faker->dateTimeBetween('-3 days', '+2 days');
+            $potong->tanggal_cutting = $faker->dateTimeBetween('-2 month', '-4 days');
+            $potong->tanggal_selesai = $faker->dateTimeBetween('-40 days', '+2 days');
             if($potong->status == 'potong masuk'){
                 $potong->status_potong = Arr::random($status_potong);
             }else{
                 $potong->hasil_cutting = $value->panjang_bahan-1;
-                $potong->tanggal_keluar = $faker->dateTimeBetween('-3 days', '+3 days');
+                $potong->tanggal_keluar = $faker->dateTimeBetween('-20 days', '+3 days');
                 $potong->konversi = $this->konversi($potong->hasil_cutting);
                 $potong->status_potong = 'selesai';
             }

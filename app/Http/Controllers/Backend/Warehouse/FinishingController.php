@@ -88,8 +88,6 @@ class FinishingController extends Controller
                     $finish->rekapitulasi_id = $request->get('kode_bahan');
                     $finish->tanggal_masuk = date('Y-m-d', strtotime($request->get('tanggal_masuk')));
                     $finish->tanggal_qc = date('Y-m-d', strtotime($request->get('tanggal_qc')));
-                    $finish->status = "finishing masuk";
-
                     $finish->barang_lolos_qc = $request->get('barang_lolos_qc');
                     $finish->no_surat = $request->get('no_surat');
                     $finish->status = "finishing masuk";

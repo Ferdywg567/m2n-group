@@ -87,15 +87,15 @@ class PerbaikanController extends Controller
                 }
             }
             DB::commit();
-
+            $repair = Perbaikan::all();
+            return view("backend.perbaikan.index", ['repair' => $repair]);
         } catch (\Exception $th) {
             //throw $th;
             DB::rollBack();
             dd($th);
         }
 
-        $repair = Perbaikan::all();
-        return view("backend.perbaikan.index", ['repair' => $repair]);
+
 
 
     }
