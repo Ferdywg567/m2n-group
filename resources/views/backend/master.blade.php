@@ -26,7 +26,28 @@
     <link rel="stylesheet" href="{{ asset('assets/modules/bootstrap/css/bootstrap-datepicker.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/modules/datatables/dataTables.dateTime.min.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        .btn-primary {
+            background-color: #007AFF;
+        }
 
+        .btn-outline-primary {
+            border-color: #007AFF;
+            color: #007AFF;
+        }
+
+
+        .active-sidebar {
+            background-color: rgba(0, 123, 255, 0.3);
+            border-radius: 8px;
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+
+        .active-sidebar a {
+            color: #007AFF !important;
+        }
+    </style>
 </head>
 
 <body>

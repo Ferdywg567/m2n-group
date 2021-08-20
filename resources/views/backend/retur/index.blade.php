@@ -2,7 +2,7 @@
 
 @section('title', 'Retur')
 @section('title-nav', 'Retur')
-@section('retur', 'class=active')
+@section('retur', 'class=active-sidebar')
 
 @section('content')
 <section class="section mt-2">

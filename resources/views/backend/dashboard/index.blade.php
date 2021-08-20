@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
 @section('title-nav', 'Dashboard')
 
-@section('dashboard', 'class=active')
+@section('dashboard', 'class=active-sidebar')
 
 {{-- production --}}
 @if (auth()->user()->hasRole('production'))

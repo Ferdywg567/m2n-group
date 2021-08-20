@@ -3,7 +3,7 @@
 @section('title', 'Warehouse')
 @section('title-nav', 'Warehouse')
 
-@section('warehouse', 'class=active')
+@section('warehouse', 'class=active-sidebar')
 
 @section('content')
 <section class="section mt-2">

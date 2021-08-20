@@ -15,8 +15,8 @@
                 <i class="ri-dashboard-fill"></i> <span>Dashboard</span>
             </a>
         </li>
-        <li @yield('bahan')>
-            <a class="nav-link" href="{{route('bahan.index')}}">
+        <li @yield('bahan') >
+            <a class="nav-link"  href="{{route('bahan.index')}}">
                 <i class="ri-t-shirt-fill"></i> <span>Bahan</span>
             </a>
         </li>

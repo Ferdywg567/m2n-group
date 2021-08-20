@@ -3,7 +3,7 @@
 @section('title', 'Bahan')
 @section('title-nav', 'Bahan')
 
-@section('bahan', 'class=active')
+@section('bahan', 'class=active-sidebar')
 
 @section('content')
 
@@ -31,7 +31,7 @@
         <div class="section-body mt-2">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="card">
+                    <div class="card ">
                         <div class="card-body">
                             <div>
                                 <nav>

@@ -2,7 +2,7 @@
 
 @section('title', 'Finishing')
 @section('title-nav', 'Finishing')
-@section('finishing', 'class=active')
+@section('finishing', 'class=active-sidebar')
 @section('content')
 <section class="section  mt-2">
     <div class="btn-group">

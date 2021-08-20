@@ -2,7 +2,7 @@
 
 @section('title', 'Potong')
 @section('title-nav', 'Pemotongan')
-@section('potong', 'class=active')
+@section('potong', 'class=active-sidebar')
 
 @section('content')
 
