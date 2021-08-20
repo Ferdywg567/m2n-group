@@ -34,7 +34,7 @@ class BahanSeeder extends Seeder
             $bahan->warna = Arr::random($warna);
             $bahan->jenis_bahan = Arr::random($jenis);
             $bahan->vendor = Arr::random($vendor);
-            $bahan->panjang_bahan = $faker->numberBetween(1,30);
+            $bahan->panjang_bahan = $faker->numberBetween(10,50);
             $bahan->save();
 
         }
