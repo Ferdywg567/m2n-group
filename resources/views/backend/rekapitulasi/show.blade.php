@@ -2,7 +2,7 @@
 
 @section('title', 'Rekapitulasi')
 @section('title-nav', 'Rekapitulasi')
-@section('rekapitulasi', 'class=active')
+@section('rekapitulasi', 'class=active-sidebar')
 
 @section('content')
 

@@ -2,7 +2,7 @@
 
 @section('title', 'Finishing')
 
-@section('finishing', 'class=active')
+@section('finishing', 'class=active-sidebar')
 
 @section('content')
 <style>

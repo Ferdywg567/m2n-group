@@ -2,7 +2,7 @@
 
 @section('title', 'Cuci')
 @section('title-nav', 'Cuci')
-@section('cuci', 'class=active')
+@section('cuci', 'class=active-sidebar-sidebar')
 
 @section('content')
 <style>

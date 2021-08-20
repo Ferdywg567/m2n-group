@@ -2,7 +2,7 @@
 
 @section('title', 'Jahit')
 
-@section('jahit', 'class=active')
+@section('jahit', 'class=active-sidebar')
 
 @section('content')
 

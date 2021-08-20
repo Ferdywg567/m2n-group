@@ -2,7 +2,7 @@
 
 @section('title', 'Perbaikan')
 @section('title-nav', 'Perbaikan')
-@section('perbaikan', 'class=active')
+@section('perbaikan', 'class=active-sidebar')
 
 @section('content')
 <style>
