@@ -242,9 +242,7 @@
 
 
 </div>
-<div id="printable">
-    <h1>Hello print</h1>
-</div>
+
 @endsection
 @push('scripts')
 <script>
