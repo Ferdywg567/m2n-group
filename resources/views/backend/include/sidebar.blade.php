@@ -7,7 +7,7 @@
     <div class="sidebar-brand sidebar-brand-sm">
         <a href="#">Ts</a>
     </div>
-    <ul class="sidebar-menu">
+    <ul class="sidebar-menu p-4">
         <li class="menu-header"></li>
         @if (auth()->user()->hasRole('production'))
         <li @yield('dashboard')>

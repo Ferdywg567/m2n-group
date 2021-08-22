@@ -10,25 +10,13 @@ Login
             <div class="container">
                 <div class="row">
                     <div class="col-md-9 col-lg-8 mx-auto">
-                        <div class="mb-3" style="margin-left: -1%">
-                            <div class="row">
-                                <div class="col-md-2">
-                                    <img src="{{asset('assets/img/logo.png')}}" alt="" srcset="" width="60">
-                                </div>
-                                <div class="col-md-4">
-                                    <h2 class="mt-2" style="font-weight: bold">GARMENT</h2>
-                                </div>
-                            </div>
-
-
-                        </div>
-                        <h3 class="login-heading mb-4 fw-bold" style="font-weight: bold">Masuk</h3>
+                        <h3 class="login-heading mb-4">Masuk</h3>
                         @include('backend.include.alert')
                         <!-- Sign In Form -->
                         <form method="POST" action="{{route("backend.login")}}">
                             @csrf
                             <div class="form-floating mb-3">
-                                <label for="email">Email</label>
+                                <label for="email">Email atau Nomor HP</label>
                                 <input type="email" class="form-control" required id="email" name="email"
                                     placeholder="name@example.com">
 
@@ -41,11 +29,28 @@ Login
                             </div>
 
                             <div class="d-grid">
-                                <button class="btn  btn-login btn-block  fw-bold mb-2 text-white p-3" style="background-color: #FF3B30"
+                                <button class="btn  btn-primary btn-login btn-block  fw-bold mb-2"
                                     type="submit">Masuk</button>
+                                <div class="text-center">
+                                    <a class="small" href="#">Forgot password?</a>
+                                </div>
+                            </div>
+                            <div class="d-grid mt-2">
+                                <div class="text-center">
+                                    <h6 class="small line" href="#"><span>atau masuk dengan cara lain</span></h6>
+                                </div>
+                            </div>
+                            <div class="d-grid">
+                                <button class="btn  border btn-google btn-block btn-login  btn-outline fw-bold"
+                                    type="button"><img src="{{asset('assets/img/google.png')}}" width="25">
+                                    Masuk menggunakan google</button>
 
                             </div>
-
+                            <div class="d-grid mt-2">
+                                <div class="text-center">
+                                    <h6 class="small">Belum punya akun ? <a href="#">Daftar</a></h6>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>

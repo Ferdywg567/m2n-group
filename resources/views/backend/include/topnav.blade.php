@@ -5,13 +5,25 @@
     </ul>
     <div class="row mt-3">
         <div class="col-md-12">
-            <h3 class="text-dark">@yield('title-nav') <span class="badge badge-success rounded">
-                    @if (auth()->user()->hasRole('production'))
-                    PRODUCTION
-                    @elseif (auth()->user()->hasRole('warehouse'))
-                    WAREHOUSE
-                    @endif
-                </span></h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <h3 class="text-dark">@yield('title-nav') </h3>
+                </div>
+                <div class="col-md-4">
+                    <span class="badge badge-success rounded" style="height: 80%">
+                        <h6>
+                            @if (auth()->user()->hasRole('production'))
+                            PRODUCTION
+                            @elseif (auth()->user()->hasRole('warehouse'))
+                            WAREHOUSE
+                            @endif
+                        </h6>
+
+                    </span>
+                </div>
+            </div>
+
+
         </div>
     </div>
 </form>
