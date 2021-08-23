@@ -20,7 +20,9 @@
 
                         <div class="card-body">
                             @include('backend.include.alert')
-                            <form>
+                            <form action="{{route('potong.cetak')}}" target="_blank" method="post">
+                                @csrf
+                                <input type="hidden" name="id" id="idpotong" value="{{$potong->id}}">
 
                                 <div class="row">
                                     <div class="col-md-6">
@@ -38,8 +40,9 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="no_surat_keluar">Nomor Surat Jalan</label>
-                                            <input type="text" class="form-control" readonly value="{{$potong->no_surat}}"
-                                                required id="no_surat_keluar" name="no_surat">
+                                            <input type="text" class="form-control" readonly
+                                                value="{{$potong->no_surat}}" required id="no_surat_keluar"
+                                                name="no_surat">
                                         </div>
                                     </div>
                                 </div>
@@ -47,15 +50,17 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="tanggal_selesai_keluar">Tanggal Selesai</label>
-                                            <input type="date" class="form-control" readonly value="{{$potong->tanggal_selesai}}"
-                                                readonly required id="tanggal_selesai_keluar" name="tanggal_selesai">
+                                            <input type="date" class="form-control" readonly
+                                                value="{{$potong->tanggal_selesai}}" readonly required
+                                                id="tanggal_selesai_keluar" name="tanggal_selesai">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="tanggal_keluar">Tanggal Keluar</label>
-                                            <input type="date" class="form-control" readonly value="{{$potong->tanggal_keluar}}"
-                                                required id="tanggal_keluar" name="tanggal_keluar">
+                                            <input type="date" class="form-control" readonly
+                                                value="{{$potong->tanggal_keluar}}" required id="tanggal_keluar"
+                                                name="tanggal_keluar">
                                         </div>
                                     </div>
                                 </div>
@@ -147,8 +152,8 @@
                                             <input type="hidden" name="dataukuran[]" value="S">
                                             <input type="hidden" name="iddetailukuran[]" value="{{$item->id}}"
                                                 id="iddetails">
-                                            <input type="number" min="0" readonly value="{{$item->jumlah}}" class="form-control"
-                                                required id="jumlahs" name="jumlah[]">
+                                            <input type="number" min="0" readonly value="{{$item->jumlah}}"
+                                                class="form-control" required id="jumlahs" name="jumlah[]">
                                         </div>
                                     </div>
                                     @elseif($item->size == 'M')
@@ -158,8 +163,8 @@
                                             <input type="hidden" name="dataukuran[]" value="M">
                                             <input type="hidden" name="iddetailukuran[]" value="{{$item->id}}"
                                                 id="iddetailm">
-                                            <input type="number" min="0" readonly value="{{$item->jumlah}}" class="form-control"
-                                                required id="jumlahm" name="jumlah[]">
+                                            <input type="number" min="0" readonly value="{{$item->jumlah}}"
+                                                class="form-control" required id="jumlahm" name="jumlah[]">
                                         </div>
                                     </div>
                                     @elseif($item->size == 'L')
@@ -169,8 +174,8 @@
                                             <input type="hidden" name="dataukuran[]" value="L">
                                             <input type="hidden" name="iddetailukuran[]" value="{{$item->id}}"
                                                 id="iddetaill">
-                                            <input type="number" min="0" readonly value="{{$item->jumlah}}" class="form-control"
-                                                required id="jumlahl" name="jumlah[]">
+                                            <input type="number" min="0" readonly value="{{$item->jumlah}}"
+                                                class="form-control" required id="jumlahl" name="jumlah[]">
                                         </div>
                                     </div>
                                     @elseif($item->size == 'XL')
@@ -180,8 +185,8 @@
                                             <input type="hidden" name="dataukuran[]" value="XL">
                                             <input type="hidden" name="iddetailukuran[]" value="{{$item->id}}"
                                                 id="iddetailxl">
-                                            <input type="number" min="0" readonly value="{{$item->jumlah}}" class="form-control"
-                                                required id="jumlahxl" name="jumlah[]">
+                                            <input type="number" min="0" readonly value="{{$item->jumlah}}"
+                                                class="form-control" required id="jumlahxl" name="jumlah[]">
                                         </div>
                                     </div>
                                     @elseif($item->size == 'XXL')
@@ -191,8 +196,8 @@
                                             <input type="hidden" name="dataukuran[]" value="XXL">
                                             <input type="hidden" name="iddetailukuran[]" value="{{$item->id}}"
                                                 id="iddetailxxl">
-                                            <input type="number" min="0" readonly value="{{$item->jumlah}}" class="form-control"
-                                                required id="jumlahxxl" name="jumlah[]">
+                                            <input type="number" min="0" readonly value="{{$item->jumlah}}"
+                                                class="form-control" required id="jumlahxxl" name="jumlah[]">
                                         </div>
                                     </div>
                                     @endif
@@ -204,7 +209,9 @@
                                 <div class="row">
                                     <div class="col-md-12 text-center">
                                         <a type="button" class="btn btn-secondary"
-                                        href="{{route('potong.index')}}">Close</a>
+                                            href="{{route('potong.index')}}">Close</a>
+                                        <button type="submit" class="btn btn-primary"><i class="ri-printer-fill"></i>
+                                            Print</button>
                                     </div>
                                 </div>
                             </form>

@@ -6,8 +6,8 @@
 @section('cssnav', 'cssnav')
 @section('content')
 <style>
-    .cssnav{
-       margin-left:-25px;
+    .cssnav {
+        margin-left: -25px;
     }
 </style>
 <div id="non-printable">
@@ -22,7 +22,10 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <form>
+                        <form action="{{route('jahit.cetak')}}" target="_blank" method="post">
+                            @csrf
+
+                            <input type="hidden" name="id" id="idjahit" value="{{$jahit->id}}">
                             <div class="card-body">
                                 @include('backend.include.alert')
 
@@ -88,8 +91,9 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="status_pembayaran">Status Pembayaran</label>
-                                            <input type="text" class="form-control" value="{{$jahit->status_pembayaran}}"
-                                                readonly required id="status_pembayaran" name="status_pembayaran">
+                                            <input type="text" class="form-control"
+                                                value="{{$jahit->status_pembayaran}}" readonly required
+                                                id="status_pembayaran" name="status_pembayaran">
                                         </div>
                                     </div>
 
@@ -127,7 +131,8 @@
                                     <div class="col-md-12 text-center">
                                         <a type="button" class="btn btn-secondary"
                                             href="{{route('jahit.index')}}">Close</a>
-
+                                        <button type="submit" class="btn btn-primary"><i class="ri-printer-fill"></i>
+                                            Print</button>
                                     </div>
                                 </div>
                             </div>

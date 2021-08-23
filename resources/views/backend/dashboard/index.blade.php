@@ -20,26 +20,31 @@
 
 
     .size10{
-        font-size: 10px !important;
+        font-size: 9px !important;
     }
 
     .size12{
-        font-size: 12px !important;
+        font-size: 11px !important;
         color:  #AEAEB2;
     }
 
     th{
-        font-size: 10px;
+        font-size: 8px;
         text-align: center;
     }
 
     td{
         text-align: center;
+        font-size: 10px;
     }
 
 
     .label-data{
-        font-size: 21px !important;
+        font-size: 14px !important;
+    }
+
+    .badge{
+        font-size: 10px;
     }
 
 </style>

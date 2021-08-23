@@ -28,8 +28,9 @@
 
                         <div class="card-body">
                             @include('backend.include.alert')
-                            <form>
-
+                            <form action="{{route('bahan.cetak')}}" target="_blank" method="post">
+                                <input type="hidden" name="id" id="idbahan" value="{{$bahan->id}}">
+                                @csrf
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="row">
@@ -119,6 +120,7 @@
                                     <div class="col-md-12 text-center">
                                         <a type="button" class="btn btn-secondary"
                                         href="{{route('bahan.index')}}">Close</a>
+                                        <button type="submit" class="btn btn-primary"><i class="ri-printer-fill"></i> Print</button>
                                     </div>
                                 </div>
 

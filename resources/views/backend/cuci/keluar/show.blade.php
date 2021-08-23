@@ -30,7 +30,9 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <form >
+                        <form action="{{route('cuci.cetak')}}" target="_blank" method="post">
+                            @csrf
+                            <input type="hidden" name="id" id="idcuci" value="{{$cuci->id}}">
                             <div class="card-body">
 
                                 <div class="row">
@@ -293,6 +295,7 @@
                                     <div class="col-md-12 text-center">
                                         <a type="button" class="btn btn-secondary"
                                             href="{{route('cuci.index')}}">Close</a>
+                                            <button type="submit" class="btn btn-primary"><i class="ri-printer-fill"></i> Print</button>
                                     </div>
                                 </div>
                             </div>

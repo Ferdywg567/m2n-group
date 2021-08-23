@@ -52,12 +52,17 @@
         }
 
         th {
-
+            font-size: 8px;
             text-align: center;
         }
 
         td {
             text-align: center;
+            font-size: 10px;
+        }
+
+        td span{
+            font-size: 10px !important;
         }
     </style>
 </head>

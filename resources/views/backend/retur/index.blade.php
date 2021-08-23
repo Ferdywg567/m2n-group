@@ -4,17 +4,21 @@
 @section('title-nav', 'Retur')
 @section('retur', 'class=active-sidebar')
 
+@section('cssnav', 'cssnav')
 @section('content')
-
 <style>
-      .dropdown-menu {
+    .cssnav {
+        margin-left: -25px;
+    }
+
+    .dropdown-menu {
         left: 50% !important;
         transform: translateX(-50%) !important;
         top: 100% !important;
         width: 10% !important;
     }
 
-    .left{
+    .left {
         text-align: left;
     }
 </style>
@@ -156,8 +160,11 @@
                                 for (let index = 0; index < title.length; index++) {
                                     const element = title[index];
                                     var nilai = datares[index];
+                                    if(nilai == null){
+                                        nilai = '-'
+                                    }
                                     datahtml += '<tr>'
-                                        datahtml += '<td>'+element+'</td>'
+                                        datahtml += '<td class="left">'+element+'</td>'
                                         datahtml += '<td class="text-right">'+nilai+'</td>'
                                     datahtml += '</tr>'
                                 }

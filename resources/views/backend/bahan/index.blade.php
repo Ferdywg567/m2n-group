@@ -234,7 +234,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary"><i class="fas fa-print"></i> Print</button>
+                        <button type="submit" class="btn btn-primary"><i class="ri-printer-fill"></i> Print</button>
                     </div>
                 </form>
             </div>

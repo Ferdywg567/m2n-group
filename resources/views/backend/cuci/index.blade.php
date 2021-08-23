@@ -312,8 +312,11 @@
                                 for (let index = 0; index < title.length; index++) {
                                     const element = title[index];
                                     var nilai = datares[index];
+                                    if(nilai == null){
+                                        nilai = '-'
+                                    }
                                     datahtml += '<tr>'
-                                        datahtml += '<td>'+element+'</td>'
+                                        datahtml += '<td class="left">'+element+'</td>'
                                         datahtml += '<td class="text-right">'+nilai+'</td>'
                                     datahtml += '</tr>'
                                 }
