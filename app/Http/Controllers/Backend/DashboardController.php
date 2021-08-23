@@ -30,22 +30,25 @@ class DashboardController extends Controller
         $month = array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
         if ($request->ajax()) {
             $user = Auth::user();
-            if($request->get('status') == 'change') {
+            if ($request->get('status') == 'change') {
                 $bulan = $request->get('bulan');
                 $tahun = $request->get('tahun');
                 session(['bulan' => $bulan]);
                 session(['tahun' => $tahun]);
-            }elseif (session()->has('bulan') && session()->has('tahun')) {
+            } elseif (session()->has('bulan') && session()->has('tahun')) {
                 $bulan = session('bulan');
                 $tahun = session('tahun');
-            }else{
+            } else {
                 $bulan = 'January';
                 $tahun = '2018';
             }
 
             $bulan = date('m', strtotime($bulan));
             if ($user->hasRole('production')) {
+                $tanggal = $tahun.'-'.$bulan;
+                $bulanlalu = date('m', strtotime($tanggal." -1 month"));
                 $jumlah_kain = Bahan::whereMonth('tanggal_masuk', $bulan)->whereYear('tanggal_masuk', $tahun)->sum('panjang_bahan');
+                $jumlah_kain_lalu = Bahan::whereMonth('tanggal_masuk', $bulanlalu)->whereYear('tanggal_masuk', $tahun)->sum('panjang_bahan');
                 $jenis_bahan = Bahan::whereMonth('tanggal_masuk', $bulan)->whereYear('tanggal_masuk', $tahun)->count();
                 $berhasil_cuci = Cuci::whereMonth('tanggal_masuk', $bulan)->whereYear('tanggal_masuk', $tahun)->sum('berhasil_cuci');
                 $hasil_cutting = Potong::whereMonth('tanggal_cutting', $bulan)->whereYear('tanggal_cutting', $tahun)->sum('hasil_cutting');
@@ -54,7 +57,7 @@ class DashboardController extends Controller
                 $jahitdibuang = Jahit::whereMonth('tanggal_selesai', $bulan)->whereYear('tanggal_selesai', $tahun)->sum('barang_dibuang');
                 $gagal_jahit = Jahit::whereMonth('tanggal_selesai', $bulan)->whereYear('tanggal_selesai', $tahun)->sum('gagal_jahit');
                 $baju_rusak = $cucidibuang + $jahitdibuang;
-
+                $reslalu = $jumlah_kain - $jumlah_kain_lalu;
                 $potong = Potong::with(['bahan'])->whereMonth('tanggal_keluar', $bulan)->whereYear('tanggal_keluar', $tahun)->limit(5)->get();
                 $jahit = Jahit::with(['potong' => function ($q) {
                     $q->with('bahan');
@@ -137,15 +140,15 @@ class DashboardController extends Controller
                     return $a - $b;
                 });
 
-                if($request->get('status') == 'change') {
+                if ($request->get('status') == 'change') {
                     $bulan = $request->get('bulan');
                     $tahun = $request->get('tahun');
                     session(['bulan' => $bulan]);
                     session(['tahun' => $tahun]);
-                }elseif (session()->has('bulan') && session()->has('tahun')) {
+                } elseif (session()->has('bulan') && session()->has('tahun')) {
                     $bulan = session('bulan');
                     $tahun = session('tahun');
-                }else{
+                } else {
                     $bulan = 'January';
                     $tahun = '2018';
                 }
@@ -153,6 +156,7 @@ class DashboardController extends Controller
                 return response()->json([
                     'status' => true,
                     'jumlah_kain' => $jumlah_kain,
+                    'jumlah_kain_lalu' => $reslalu,
                     'jenis_bahan' => $jenis_bahan,
                     'berhasil_cuci' => $berhasil_cuci,
                     'hasil_cutting' => $hasil_cutting,
@@ -221,9 +225,22 @@ class DashboardController extends Controller
                 )->whereYear('tanggal_masuk', $tahun)->orderBy('months', 'DESC')
                     ->groupBy('months')
                     ->get();
+                $berhasil_cuci = Cuci::whereMonth('tanggal_masuk', $bulan)->whereYear('tanggal_masuk', $tahun)->sum('berhasil_cuci');
+                $hasil_cutting = Potong::whereMonth('tanggal_cutting', $bulan)->whereYear('tanggal_cutting', $tahun)->sum('hasil_cutting');
+                $berhasil_jahit = Jahit::whereMonth('tanggal_jahit', $bulan)->whereYear('tanggal_jahit', $tahun)->sum('berhasil');
+                $cucidibuang = Cuci::whereMonth('tanggal_selesai', $bulan)->whereYear('tanggal_selesai', $tahun)->sum('barang_dibuang');
+                $jahitdibuang = Jahit::whereMonth('tanggal_selesai', $bulan)->whereYear('tanggal_selesai', $tahun)->sum('barang_dibuang');
+                $gagal_jahit = Jahit::whereMonth('tanggal_selesai', $bulan)->whereYear('tanggal_selesai', $tahun)->sum('gagal_jahit');
+                $baju_rusak = $cucidibuang + $jahitdibuang;
 
-                $label = ['Berhasil',  'Retur', 'Gagal'];
-                $datapie = [$rekap, $retur, $buang];
+                $cucidirepair = Cuci::whereMonth('tanggal_masuk', $bulan)->whereYear('tanggal_masuk', $tahun)->sum('barang_direpair');
+                $jahitdirepair =  Jahit::whereMonth('tanggal_jahit', $bulan)->whereYear('tanggal_jahit', $tahun)->sum('barang_direpair');
+                $berhasil = $berhasil_cuci + $berhasil_jahit + $hasil_cutting;
+                $gagal = $baju_rusak;
+                $repair = $cucidirepair + $jahitdirepair;
+                $retur = Finishing::whereMonth('tanggal_masuk', $bulan)->whereYear('tanggal_masuk', $tahun)->sum('barang_diretur');
+                $label = ['Berhasil', 'Repair', 'Retur', 'Gagal'];
+                $datapie = [$berhasil, $repair, $retur, $gagal];
                 $pie = [
                     'label' => $label,
                     'data' => $datapie
@@ -236,7 +253,18 @@ class DashboardController extends Controller
                     ->groupBy('months')
                     ->get();
 
-
+                if ($request->get('status') == 'change') {
+                    $bulan = $request->get('bulan');
+                    $tahun = $request->get('tahun');
+                    session(['bulan' => $bulan]);
+                    session(['tahun' => $tahun]);
+                } elseif (session()->has('bulan') && session()->has('tahun')) {
+                    $bulan = session('bulan');
+                    $tahun = session('tahun');
+                } else {
+                    $bulan = 'January';
+                    $tahun = '2018';
+                }
                 return response()->json([
                     'status' => true,
                     'rekap' => $rekap,
@@ -249,6 +277,8 @@ class DashboardController extends Controller
                     'line' => $line,
                     'pie' => $pie,
                     'bar' => $bar,
+                    'bulan' => $bulan,
+                    'tahun' => $tahun,
                 ]);
             }
         }

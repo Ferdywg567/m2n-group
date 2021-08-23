@@ -9,44 +9,43 @@
 @if (auth()->user()->hasRole('production'))
 @section('content')
 <style>
-    .gray{
+    .gray {
         color: #AEAEB2;
         font-size: 14px;
     }
 
-     .selectgrey{
+    .selectgrey {
         background-color: #E5E5EA;
     }
 
 
-    .size10{
+    .size10 {
         font-size: 9px !important;
     }
 
-    .size12{
+    .size12 {
         font-size: 11px !important;
-        color:  #AEAEB2;
+        color: #AEAEB2;
     }
 
-    th{
+    th {
         font-size: 8px;
         text-align: center;
     }
 
-    td{
+    td {
         text-align: center;
         font-size: 10px;
     }
 
 
-    .label-data{
+    .label-data {
         font-size: 14px !important;
     }
 
-    .badge{
+    .badge {
         font-size: 10px;
     }
-
 </style>
 <section class="section mt-3">
 
@@ -105,10 +104,16 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-px-0 ml-3">
-                                    <h3 id="jumlah_kain" > 0</h3>
+                                    <h3 id="jumlah_kain"> 0</h3>
                                 </div>
                                 <div class="col-md-6 ">
                                     <h3 style="color: #AEAEB2;">yard</h3>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h6 class="size10" style="color:#34C759"  id="labelarrow"><i class="ri-arrow-right-up-line"></i> Lebih banyak 12 yard dari bulan lalu</h6>
                                 </div>
                             </div>
                         </div>
@@ -122,10 +127,10 @@
                 <div class="col-md-12">
                     <div class="card card-statistic-1" style="height:100px;">
 
-                            <div class="card-icon mt-2" style="background-color: rgba(176, 84, 222, 0.30);
+                        <div class="card-icon mt-2" style="background-color: rgba(176, 84, 222, 0.30);
                             border-radius: 8px;">
-                                <img src="{{asset('assets/icon/shirt-fill-purple.png')}}" alt="" srcset="">
-                            </div>
+                            <img src="{{asset('assets/icon/shirt-fill-purple.png')}}" alt="" srcset="">
+                        </div>
 
 
                         <div class="card-wrap">
@@ -134,7 +139,7 @@
                             </div>
                             <div class="card-body">
                                 <h4 id="jenis_bahan" class="label-data">
-                                    0  <span class="size12">Jenis Bahan</span>
+                                    0 <span class="size12">Jenis Bahan</span>
                                 </h4>
                             </div>
                         </div>
@@ -251,7 +256,7 @@
             <div class="card">
                 <div class="card-header">
                     <h4 class="text-dark">Preview Cutting</h4>
-                    <div class="card-header-action" >
+                    <div class="card-header-action">
                         <a href="{{route('potong.index')}}">Lihat Semua <i class="fas fa-chevron-right"></i></a>
                     </div>
                 </div>
@@ -611,6 +616,7 @@
                         table_cuci.rows.add(data.cuci).draw();
 
                         $('#jumlah_kain').text(data.jumlah_kain)
+                        $('#labelarrow').html('<i class="ri-arrow-right-up-line"></i> Lebih banyak '+data.jumlah_kain_lalu+' yard dari bulan lalu')
                         $('#jenis_bahan').html(data.jenis_bahan+'  <span class="size12">Jenis Bahan</span>')
                         $('#berhasil_cuci').html(data.berhasil_cuci+'  <span class="size12">dari '+data.berhasil_jahit+' pcs</span>')
                         $('#siap_qc').html(data.berhasil_cuci+'  <span class="size12">pcs</span>')
@@ -671,6 +677,7 @@
                         table_jahit.rows.add(data.jahit).draw();
                         table_cuci.rows.add(data.cuci).draw();
                         $('#jumlah_kain').text(data.jumlah_kain)
+                        $('#labelarrow').html('<i class="ri-arrow-right-up-line"></i> Lebih banyak '+data.jumlah_kain_lalu+' yard dari bulan lalu')
                         $('#jenis_bahan').html(data.jenis_bahan+'  <span class="size12">Jenis Bahan</span>')
                         $('#berhasil_cuci').html(data.berhasil_cuci+'  <span class="size12">dari '+data.berhasil_jahit+' pcs</span>')
 
@@ -692,14 +699,41 @@
 @if (auth()->user()->hasRole('warehouse'))
 @section('content')
 <style>
-
-.gray{
+    .gray {
         color: #AEAEB2;
         font-size: 14px;
     }
 
-     .selectgrey{
+    .selectgrey {
         background-color: #E5E5EA;
+    }
+
+    .size10 {
+        font-size: 9px !important;
+    }
+
+    .size12 {
+        font-size: 11px !important;
+        color: #AEAEB2;
+    }
+
+    th {
+        font-size: 8px;
+        text-align: center;
+    }
+
+    td {
+        text-align: center;
+        font-size: 10px;
+    }
+
+
+    .label-data {
+        font-size: 14px !important;
+    }
+
+    .badge {
+        font-size: 10px;
     }
 </style>
 <section class="section mt-3">
@@ -748,11 +782,11 @@
                 </div>
                 <div class="card-wrap">
                     <div class="card-header">
-                        <h4>Jumlah Produk Siap Jual</h4>
+                        <h4 class="size10">Jumlah Produk Siap Jual</h4>
                     </div>
                     <div class="card-body">
 
-                        <h2 id="rekap">
+                        <h2 id="rekap" class="label-data">
                             0
                         </h2>
                     </div>
@@ -767,11 +801,11 @@
                 </div>
                 <div class="card-wrap">
                     <div class="card-header">
-                        <h4>Jumlah Baju Diretur</h4>
+                        <h4 class="size10">Jumlah Baju Diretur</h4>
                     </div>
                     <div class="card-body">
 
-                        <h2 id="retur">
+                        <h2 id="retur" class="label-data">
                             0
                         </h2>
                     </div>
@@ -786,11 +820,11 @@
                 </div>
                 <div class="card-wrap">
                     <div class="card-header">
-                        <h4>Jumlah Produk Dibuang</h4>
+                        <h4 class="size10">Jumlah Produk Dibuang</h4>
                     </div>
                     <div class="card-body">
 
-                        <h2 id="buang">
+                        <h2 id="buang" class="label-data">
                             0
                         </h2>
                     </div>
@@ -805,11 +839,11 @@
                 </div>
                 <div class="card-wrap">
                     <div class="card-header">
-                        <h4 style="font-size: 11px;">Rata-rata Harga Produk /pcs</h4>
+                        <h4 class="size10">Rata-rata Harga Produk /pcs</h4>
                     </div>
                     <div class="card-body">
 
-                        <h2 id="avg">
+                        <h2 id="avg" class="label-data">
                             0
                         </h2>
                     </div>
@@ -828,7 +862,7 @@
                                 class="fas fa-chevron-right"></i></a>
                     </div>
                 </div>
-                <div class="card-body">
+                <div class="card-body" style="margin-top: -30px">
                     <div class="table-responsive table-invoice">
                         <table class="table table-striped" id="table-finish">
                             <thead>
@@ -855,7 +889,7 @@
                                 class="fas fa-chevron-right"></i></a>
                     </div>
                 </div>
-                <div class="card-body">
+                <div class="card-body" style="margin-top: -30px">
                     <div class="table-responsive table-invoice">
                         <table class="table table-striped" id="table-warehouse">
                             <thead>
@@ -883,7 +917,7 @@
                                 class="fas fa-chevron-right"></i></a>
                     </div>
                 </div>
-                <div class="card-body">
+                <div class="card-body" style="margin-top: -30px">
                     <div class="table-responsive table-invoice">
                         <table class="table table-striped" id="table-retur">
                             <thead>
@@ -1098,6 +1132,56 @@
 
          }
 
+
+         $.ajax({
+                url:"{{route('warehouse.dashboard.index')}}",
+                method:"GET",
+                success:function(data){
+
+                    if(data.status){
+
+                        if (typeof(pieChart) != "undefined") {
+                             pieChart.destroy();
+                        }
+                        if (typeof(barChart) != "undefined") {
+                             barChart.destroy();
+                        }
+                        if (typeof(lineChart) != "undefined") {
+                             lineChart.destroy();
+                        }
+
+                        var group_kain = data.bar
+                        var bulanbar = []
+                        var databar = []
+                        var pie = data.pie;
+                        group_kain.forEach(element => {
+                                bulanbar.push(element.months)
+                                databar.push(element.jumlah)
+                        });
+
+                        var line_data = data.line;
+                        var bulanline = []
+                        var dataline = []
+                        line_data.forEach(element => {
+                                bulanline.push(element.months)
+                                dataline.push(element.jumlah)
+                        });
+                        pieChartData(pie.label,pie.data)
+                        barChartData(databar, bulanbar)
+                        lineChartData(bulanline, dataline)
+                        table_finish.rows.add(data.finish).draw();
+                        table_warehouse.rows.add(data.warehouse).draw();
+                        table_retur.rows.add(data.dataretur).draw();
+                        $('#rekap').html(data.rekap+'  <span class="size12">pcs</span>')
+                        $('#retur').html(data.retur+'  <span class="size12">pcs</span>')
+                        $('#buang').html(data.buang+'  <span class="size12">pcs</span>')
+                        $('#avg').text(data.avg)
+                        $('#bulan').val(data.bulan).attr('selected','selected')
+                        $('#tahun').val(data.tahun).attr('selected','selected')
+                    }
+                }
+            })
+
         $('#bulan, #tahun').on('change', function () {
             var bulan = $('#bulan').find(':selected').val()
             var tahun = $('#tahun').find(':selected').val()
@@ -1109,7 +1193,8 @@
                 method:"GET",
                 data:{
                     'bulan':bulan,
-                    'tahun':tahun
+                    'tahun':tahun,
+                    'status':'change'
                 },success:function(data){
                     console.log(data);
                     if(data.status){
