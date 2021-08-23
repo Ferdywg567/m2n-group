@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Notification;
 use App\Jahit;
 use App\Cuci;
 use App\DetailCuci;
@@ -225,6 +226,14 @@ class CuciController extends Controller
                     $cuci->keterangan_direpair = $request->get('keterangan_direpair');
                     $cuci->keterangan_dibuang = $request->get('keterangan_dibuang');
                     $cuci->save();
+
+                    $notif = new Notification();
+                    $notif->description = "cuci keluar telah masuk ke rekapitulasi, silahkan di cek";
+                    $notif->url = route('rekapitulasi.index');
+                    $notif->aktif = 0;
+                    $notif->save();
+
+                    session(['notification' => 1]);
                 }
 
                 DB::commit();

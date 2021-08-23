@@ -161,6 +161,8 @@
                 });
               }
 
+              $('#kode_bahanselect').select2()
+
               $('#kode_bahanselect').on('change', function () {
                     var id = $(this).find(':selected').val()
 

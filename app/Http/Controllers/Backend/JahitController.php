@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\DetailJahit;
+use App\Notification;
 use App\JahitDirepair;
 use App\JahitDibuang;
 use App\Potong;
@@ -197,6 +198,14 @@ class JahitController extends Controller
                     $jahit->barang_dibuang = $request->get('barang_dibuang');
                     $jahit->keterangan_direpair = $request->get('keterangan_direpair');
                     $jahit->keterangan_dibuang = $request->get('keterangan_dibuang');
+
+                    $notif = new Notification();
+                    $notif->description = "jahit keluar telah masuk ke cuci, silahkan di cek";
+                    $notif->url = route('cuci.index');
+                    $notif->aktif = 0;
+                    $notif->save();
+
+                    session(['notification' => 1]);
                 }
                 $jahit->save();
                 DB::commit();

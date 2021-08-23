@@ -612,26 +612,38 @@
                     $('#ukuranxxl').hide()
                     $('#ukurandirepairxxl').hide()
                     $('#ukurandibuangxxl').hide()
+                    $('#jumlahxxl').val('')
+                    $('#jumlahdirepairxxl').val('')
+                    $('#jumlahdibuangxxl').val('')
+
                     return false;
                 }else if(ukuranxl){
                     $('#ukuranxl').hide()
                     $('#ukurandirepairxl').hide()
                     $('#ukurandibuangxl').hide()
+                    $('#jumlahxl').val('')
+                    $('#jumlahdirepairxl').val('')
+                    $('#jumlahdibuangxl').val('')
                     return false;
                 }else if(ukuranl){
                     $('#ukuranl').hide()
                     $('#ukurandirepairl').hide()
                     $('#ukurandibuangl').hide()
+                    $('#jumlahl').val('')
+                    $('#jumlahdirepairl').val('')
+                    $('#jumlahdibuangl').val('')
                     return false;
                 }else if(ukuranm){
                     $('#ukuranm').hide()
                     $('#ukurandirepairm').hide()
                     $('#ukurandibuangm').hide()
                     $('#datahapus').hide()
+                    $('#jumlahm').val('')
+                    $('#jumlahdirepairm').val('')
+                    $('#jumlahdibuangm').val('')
                     return false;
                 }
             })
-
 
             $('#kode_bahanselectkeluar').on('change', function () {
                     var id = $(this).find(':selected').val()

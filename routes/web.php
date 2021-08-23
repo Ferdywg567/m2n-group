@@ -56,7 +56,13 @@ Route::group(['prefix' => 'warehouse', 'namespace' => 'Backend', 'middleware' =>
     });
 });
 
+Route::group(['namespace' => 'Backend', 'middleware' => ['role:production|warehouse', 'auth']], function () {
+    Route::get('notification-read','DashboardController@read')->name('notification');
+});
+
+
 Route::group(['prefix' => 'production', 'namespace' => 'Backend', 'middleware' => ['role:production', 'auth']], function () {
+
     Route::resource('dashboard', 'DashboardController');
 
     Route::group(['prefix' => 'bahan', 'as' => 'bahan.'], function () {
@@ -86,6 +92,7 @@ Route::group(['prefix' => 'production', 'namespace' => 'Backend', 'middleware' =
         Route::get('/getdataprint', 'CuciController@getDataPrint')->name('getdataprint');
         Route::get('/getdatacuci', 'CuciController@getDataCuci')->name('getdata');
     });
+
 
 
     Route::group(['prefix' => 'rekapitulasi', 'as' => 'rekapitulasi.'], function () {

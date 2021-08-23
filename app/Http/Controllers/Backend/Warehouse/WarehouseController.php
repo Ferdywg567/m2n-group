@@ -20,7 +20,7 @@ class WarehouseController extends Controller
      */
     public function index()
     {
-        $warehouse = Warehouse::all();
+        $warehouse = Warehouse::orderBy('created_at','DESC')->get();;
         return view("backend.warehouse.warehouse.index", ['warehouse' => $warehouse]);
     }
 

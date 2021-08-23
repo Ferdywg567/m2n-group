@@ -25,8 +25,8 @@ class FinishingController extends Controller
     public function index()
     {
 
-        $finish = Finishing::all()->where('status', 'finishing masuk');
-        $kirim = Finishing::all()->where('status', 'kirim warehouse');
+        $finish = Finishing::where('status', 'finishing masuk')->orderBy('created_at','DESC')->get();
+        $kirim = Finishing::where('status', 'kirim warehouse')->orderBy('created_at','DESC')->get();
 
         return view("backend.warehouse.finishing.index", ['finish' => $finish, 'kirim' => $kirim]);
     }

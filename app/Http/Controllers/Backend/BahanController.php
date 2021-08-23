@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Notification;
 use App\Bahan;
 use PDF;
 
@@ -17,8 +18,8 @@ class BahanController extends Controller
      */
     public function index()
     {
-        $masuk = Bahan::where('status', 'bahan masuk')->orderBy('created_at','DESC')->get();
-        $keluar = Bahan::where('status', 'bahan keluar')->orderBy('created_at','DESC')->get();
+        $masuk = Bahan::where('status', 'bahan masuk')->orderBy('created_at', 'DESC')->get();
+        $keluar = Bahan::where('status', 'bahan keluar')->orderBy('created_at', 'DESC')->get();
         return view("backend.bahan.index", ['masuk' => $masuk, 'keluar' => $keluar]);
     }
 
@@ -82,6 +83,14 @@ class BahanController extends Controller
                 $bahan->kode_bahan = $request->get('kode_bahan');
             } else {
                 $bahan = Bahan::findOrFail($request->get('kode_bahan'));
+
+                $notif = new Notification();
+                $notif->description = "bahan keluar telah masuk ke potong, silahkan di cek";
+                $notif->url = route('potong.index');
+                $notif->aktif = 0;
+                $notif->save();
+
+                session(['notification' => 1]);
             }
             $bahan->no_surat = $request->get('no_surat');
             $bahan->nama_bahan = $request->get('nama_bahan');
@@ -267,7 +276,8 @@ class BahanController extends Controller
         }
     }
 
-    public function cetakPdf(Request $request){
+    public function cetakPdf(Request $request)
+    {
         $bahan = Bahan::findOrFail($request->get('id'));
         $titlebahan = [
             'Kode SKU',

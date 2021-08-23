@@ -9,6 +9,11 @@
     .cssnav{
        margin-left:-25px;
     }
+
+    textarea {
+        width: 300px;
+        height: 170px !important;
+    }
 </style>
 <div id="non-printable">
     <section class="section">
@@ -180,13 +185,13 @@
                                     </div>
                                     <div class="col-md-1" id="datahapus">
                                         <div class="form-group" style="margin-top: 30px">
-                                            <button type="button" class="btn btn btn-outline-danger" id="btnhapus">Hapus
+                                            <button type="button" class="btn btn-sm btn-outline-danger" id="btnhapus">Hapus
                                                 Size</button>
                                         </div>
                                     </div>
                                     <div class="col-md-1">
                                         <div class="form-group" style="margin-top: 30px">
-                                            <button type="button" class="btn btn-outline-primary" id="btnsize">Tambah
+                                            <button type="button" class="btn btn-outline-primary btn-sm" id="btnsize">Tambah
                                                 Size</button>
                                         </div>
                                     </div>
@@ -255,7 +260,7 @@
                                                     <input type="hidden" name="dataukurandirepair[]" value="S">
                                                     <input type="hidden" name="iddetailukurandirepair[]"
                                                         id="iddetaildirepairs">
-                                                    <input type="number" min="0" class="form-control" required
+                                                    <input type="text" min="0" class="form-control" required
                                                         id="jumlahdirepairs" name="jumlahdirepair[]">
                                                 </div>
                                             </div>
@@ -265,7 +270,7 @@
                                                     <input type="hidden" name="dataukurandirepair[]" value="M">
                                                     <input type="hidden" name="iddetailukurandirepair[]"
                                                         id="iddetaildirepairm">
-                                                    <input type="number" min="0" class="form-control" required
+                                                    <input type="text" min="0" class="form-control" required
                                                         id="jumlahdirepairm" name="jumlahdirepair[]">
                                                 </div>
                                             </div>
@@ -275,7 +280,7 @@
                                                     <input type="hidden" name="dataukurandirepair[]" value="L">
                                                     <input type="hidden" name="iddetailukurandirepair[]"
                                                         id="iddetaildirepairl">
-                                                    <input type="number" min="0" class="form-control" required
+                                                    <input type="text" min="0" class="form-control" required
                                                         id="jumlahdirepairl" name="jumlahdirepair[]">
                                                 </div>
                                             </div>
@@ -285,7 +290,7 @@
                                                     <input type="hidden" name="dataukurandirepair[]" value="XL">
                                                     <input type="hidden" name="iddetailukurandirepair[]"
                                                         id="iddetaildirepairxl">
-                                                    <input type="number" min="0" class="form-control" required
+                                                    <input type="text" min="0" class="form-control" required
                                                         id="jumlahdirepairxl" name="jumlahdirepair[]">
                                                 </div>
                                             </div>
@@ -308,17 +313,7 @@
                                             <textarea class="form-control" id="keterangan_direpair"
                                                 name="keterangan_direpair" rows="3"></textarea>
                                         </div>
-                                        {{-- <div class="form-group">
-                                            <label for="barang_dibuang">Barang Akan Dibuang</label>
-                                            <div class="input-group mb-2">
-                                                <input type="number" class="form-control" readonly required
-                                                    id="barang_dibuang" name="barang_dibuang">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">pcs</div>
-                                                </div>
-                                            </div>
 
-                                        </div> --}}
                                     </div>
 
                                 </div>
@@ -330,7 +325,7 @@
                                                 <div class="form-group">
                                                     <label for="barang_dibuang">Barang Akan Dibuang</label>
                                                     <div class="input-group mb-2">
-                                                        <input type="number" class="form-control" readonly required
+                                                        <input type="text" class="form-control" readonly required
                                                             id="barang_dibuang" name="barang_dibuang">
                                                         <div class="input-group-prepend">
                                                             <div class="input-group-text">pcs</div>
@@ -353,7 +348,7 @@
                                                     <input type="hidden" name="dataukurandibuang[]" value="S">
                                                     <input type="hidden" name="iddetailukurandibuang[]"
                                                         id="iddetaildibuangs">
-                                                    <input type="number" min="0" class="form-control" required
+                                                    <input type="text" min="0" class="form-control" required
                                                         id="jumlahdibuangs" name="jumlahdibuang[]">
                                                 </div>
                                             </div>
@@ -363,7 +358,7 @@
                                                     <input type="hidden" name="dataukurandibuang[]" value="M">
                                                     <input type="hidden" name="iddetailukurandibuang[]"
                                                         id="iddetaildibuangm">
-                                                    <input type="number" min="0" class="form-control" required
+                                                    <input type="text" min="0" class="form-control" required
                                                         id="jumlahdibuangm" name="jumlahdibuang[]">
                                                 </div>
                                             </div>
@@ -373,7 +368,7 @@
                                                     <input type="hidden" name="dataukurandibuang[]" value="L">
                                                     <input type="hidden" name="iddetailukurandibuang[]"
                                                         id="iddetaildibuangl">
-                                                    <input type="number" min="0" class="form-control" required
+                                                    <input type="text" min="0" class="form-control" required
                                                         id="jumlahdibuangl" name="jumlahdibuang[]">
                                                 </div>
                                             </div>
@@ -383,7 +378,7 @@
                                                     <input type="hidden" name="dataukurandibuang[]" value="XL">
                                                     <input type="hidden" name="iddetailukurandibuang[]"
                                                         id="iddetaildibuangxl">
-                                                    <input type="number" min="0" class="form-control" required
+                                                    <input type="text" min="0" class="form-control" required
                                                         id="jumlahdibuangxl" name="jumlahdibuang[]">
                                                 </div>
                                             </div>
@@ -578,22 +573,35 @@
                     $('#ukuranxxl').hide()
                     $('#ukurandirepairxxl').hide()
                     $('#ukurandibuangxxl').hide()
+                    $('#jumlahxxl').val('')
+                    $('#jumlahdirepairxxl').val('')
+                    $('#jumlahdibuangxxl').val('')
+
                     return false;
                 }else if(ukuranxl){
                     $('#ukuranxl').hide()
                     $('#ukurandirepairxl').hide()
                     $('#ukurandibuangxl').hide()
+                    $('#jumlahxl').val('')
+                    $('#jumlahdirepairxl').val('')
+                    $('#jumlahdibuangxl').val('')
                     return false;
                 }else if(ukuranl){
                     $('#ukuranl').hide()
                     $('#ukurandirepairl').hide()
                     $('#ukurandibuangl').hide()
+                    $('#jumlahl').val('')
+                    $('#jumlahdirepairl').val('')
+                    $('#jumlahdibuangl').val('')
                     return false;
                 }else if(ukuranm){
                     $('#ukuranm').hide()
                     $('#ukurandirepairm').hide()
                     $('#ukurandibuangm').hide()
                     $('#datahapus').hide()
+                    $('#jumlahm').val('')
+                    $('#jumlahdirepairm').val('')
+                    $('#jumlahdibuangm').val('')
                     return false;
                 }
             })

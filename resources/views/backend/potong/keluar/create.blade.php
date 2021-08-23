@@ -194,14 +194,12 @@
                                     </div>
                                     <div class="col-md-1" id="datahapus">
                                         <div class="form-group" style="margin-top: 30px">
-                                            <button type="button" class="btn btn btn-outline-danger" id="btnhapus">Hapus
-                                                Size</button>
+                                            <button type="button" class="btn btn btn-outline-danger btn-sm" id="btnhapus">Hapus Size</button>
                                         </div>
                                     </div>
                                     <div class="col-md-1">
                                         <div class="form-group" style="margin-top: 30px">
-                                            <button type="button" class="btn btn-outline-primary" id="btnsize">Tambah
-                                                Size</button>
+                                            <button type="button" class="btn btn-outline-primary btn-sm" id="btnsize">Tambah Size</button>
                                         </div>
                                     </div>
                                 </div>
@@ -296,15 +294,19 @@
 
                 if(ukuranxxl){
                     $('#ukuranxxl').hide()
+                    $('#jumlahxxl').val('')
                     return false;
                 }else if(ukuranxl){
                     $('#ukuranxl').hide()
+                    $('#jumlahxl').val('')
                     return false;
                 }else if(ukuranl){
                     $('#ukuranl').hide()
+                    $('#jumlahl').val('')
                     return false;
                 }else if(ukuranm){
                     $('#ukuranm').hide()
+                    $('#jumlahm').val('')
                     $('#datahapus').hide()
                     return false;
                 }

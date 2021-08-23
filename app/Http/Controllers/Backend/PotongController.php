@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\DetailPotong;
+use App\Notification;
 use App\Potong;
 use App\Bahan;
 use PDF;
@@ -122,6 +123,14 @@ class PotongController extends Controller
                     $detail->jumlah = $value['jumlah'];
                     $detail->save();
                 }
+
+                $notif = new Notification();
+                $notif->description = "potong keluar telah masuk ke jahit, silahkan di cek";
+                $notif->url = route('jahit.index');
+                $notif->aktif = 0;
+                $notif->save();
+
+                session(['notification' => 1]);
             }
 
 

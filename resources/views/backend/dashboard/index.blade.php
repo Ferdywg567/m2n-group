@@ -1175,7 +1175,7 @@
                         $('#rekap').html(data.rekap+'  <span class="size12">pcs</span>')
                         $('#retur').html(data.retur+'  <span class="size12">pcs</span>')
                         $('#buang').html(data.buang+'  <span class="size12">pcs</span>')
-                        $('#avg').text(data.avg)
+                        $('#avg').html('<span class="size12">Rp.</span> '+data.avg)
                         $('#bulan').val(data.bulan).attr('selected','selected')
                         $('#tahun').val(data.tahun).attr('selected','selected')
                     }
@@ -1231,10 +1231,10 @@
                         table_finish.rows.add(data.finish).draw();
                         table_warehouse.rows.add(data.warehouse).draw();
                         table_retur.rows.add(data.dataretur).draw();
-                        $('#rekap').text(data.rekap)
-                        $('#retur').text(data.retur)
-                        $('#buang').text(data.buang)
-                        $('#avg').text(data.avg)
+                        $('#rekap').html(data.rekap+'  <span class="size12">pcs</span>')
+                        $('#retur').html(data.retur+'  <span class="size12">pcs</span>')
+                        $('#buang').html(data.buang+'  <span class="size12">pcs</span>')
+                        $('#avg').html('<span class="size12">Rp.</span> '+data.avg)
 
                     }
                 }

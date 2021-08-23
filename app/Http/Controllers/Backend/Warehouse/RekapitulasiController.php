@@ -19,7 +19,7 @@ class RekapitulasiController extends Controller
      */
     public function index()
     {
-        $rekap = RekapitulasiWarehouse::all();
+        $rekap = RekapitulasiWarehouse::orderBy('created_at','DESC')->get();;
         return view('backend.warehouse.rekapitulasi.index', ['rekap' => $rekap]);
     }
 

@@ -106,6 +106,22 @@
     @include('backend.include.toastr')
 
     @stack('scripts')
+
+    <script>
+        $(document).ready(function () {
+            $('#btnnotif').on('click',function () {
+                $.ajax({
+                    url:"{{route('notification')}}",
+                    method:"GET",
+                    success:function(data){
+                        if(data.status){
+                            $('#btnnotif').removeClass('beep');
+                        }
+                    }
+                })
+            })
+        })
+    </script>
 </body>
 
 </html>

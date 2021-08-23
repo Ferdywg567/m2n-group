@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use DateTime;
 use Illuminate\Http\Request;
+use App\Notification;
 use App\RekapitulasiWarehouse;
 use App\Warehouse;
 use App\Finishing;
@@ -45,8 +46,8 @@ class DashboardController extends Controller
 
             $bulan = date('m', strtotime($bulan));
             if ($user->hasRole('production')) {
-                $tanggal = $tahun.'-'.$bulan;
-                $bulanlalu = date('m', strtotime($tanggal." -1 month"));
+                $tanggal = $tahun . '-' . $bulan;
+                $bulanlalu = date('m', strtotime($tanggal . " -1 month"));
                 $jumlah_kain = Bahan::whereMonth('tanggal_masuk', $bulan)->whereYear('tanggal_masuk', $tahun)->sum('panjang_bahan');
                 $jumlah_kain_lalu = Bahan::whereMonth('tanggal_masuk', $bulanlalu)->whereYear('tanggal_masuk', $tahun)->sum('panjang_bahan');
                 $jenis_bahan = Bahan::whereMonth('tanggal_masuk', $bulan)->whereYear('tanggal_masuk', $tahun)->count();
@@ -355,5 +356,15 @@ class DashboardController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function read(Request $request)
+    {
+        if ($request->ajax()) {
+            $notif = Notification::query()->update(['aktif' => '1']);
+            session()->forget('notification');
+            return response()->json(['status' => true]);
+        }
     }
 }

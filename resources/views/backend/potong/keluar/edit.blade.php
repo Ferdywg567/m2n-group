@@ -282,15 +282,19 @@
 
                 if(ukuranxxl){
                     $('#ukuranxxl').hide()
+                    $('#jumlahxxl').val('')
                     return false;
                 }else if(ukuranxl){
                     $('#ukuranxl').hide()
+                    $('#jumlahxl').val('')
                     return false;
                 }else if(ukuranl){
                     $('#ukuranl').hide()
+                    $('#jumlahl').val('')
                     return false;
                 }else if(ukuranm){
                     $('#ukuranm').hide()
+                    $('#jumlahm').val('')
                     $('#datahapus').hide()
                     return false;
                 }
