@@ -38,7 +38,15 @@
             </div>
             <div class="dropdown-list-content dropdown-list-icons" tabindex="3"
                 style="overflow: hidden; outline: none; touch-action: none;">
-                @forelse (\App\Notification::all() as $item)
+                @php
+                    if(auth()->user()->hasRole('production')){
+                        $notif = \App\Notification::where('url','LIKE','%production%')->get();
+                    }else{
+                        $notif = \App\Notification::where('url','LIKE','%warehouse%')->get();
+                    }
+
+                @endphp
+                @forelse ($notif as $item)
                 <a href="{{$item->url}}" class="dropdown-item">
                     <div class="dropdown-item-icon bg-success text-white">
                         <i class="fas fa-check"></i>
@@ -55,18 +63,7 @@
 
             </div>
 
-            <div id="ascrail2002" class="nicescroll-rails nicescroll-rails-vr"
-                style="width: 9px; z-index: 1000; cursor: default; position: absolute; top: 58px; left: 341px; height: 350px; touch-action: none; opacity: 0.3; display: block;">
-                <div class="nicescroll-cursors"
-                    style="position: relative; top: 0px; float: right; width: 7px; height: 306px; background-color: rgb(66, 66, 66); border: 1px solid rgb(255, 255, 255); background-clip: padding-box; border-radius: 5px; touch-action: none;">
-                </div>
-            </div>
-            <div id="ascrail2002-hr" class="nicescroll-rails nicescroll-rails-hr"
-                style="height: 9px; z-index: 1000; top: 399px; left: 0px; position: absolute; cursor: default; display: none; width: 341px; opacity: 0.3;">
-                <div class="nicescroll-cursors"
-                    style="position: absolute; top: 0px; height: 7px; width: 350px; background-color: rgb(66, 66, 66); border: 1px solid rgb(255, 255, 255); background-clip: padding-box; border-radius: 5px; left: 0px;">
-                </div>
-            </div>
+
         </div>
     </li>
     <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">

@@ -5,7 +5,18 @@
 @section('rekapitulasi', 'class=active-sidebar')
 
 @section('content')
+<style>
+       .dropdown-menu {
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        top: 100% !important;
 
+    }
+
+    .left {
+        text-align: left;
+    }
+</style>
 <div id="non-printable">
     <section class="section mt-4">
         <div class="btn-group">
@@ -65,10 +76,10 @@
                                                 <div class="dropdown-menu text-center" aria-labelledby="dropdownMenuButton">
                                                     <a class="dropdown-item"
                                                         href="{{route('warehouse.rekapitulasi.show',[$item->id])}}"><i
-                                                            class="fas fa-eye"></i>
+                                                            class="ri-eye-fill"></i>
                                                         Detail</a>
                                                     <a class="dropdown-item btnprint" href="#"
-                                                        data-id="{{$item->id}}"><i class="fas fa-print"></i>
+                                                        data-id="{{$item->id}}"><i class="ri-printer-fill"></i>
                                                         Print</a>
                                                 </div>
                                             </div>
@@ -110,7 +121,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary"><i class="fas fa-print"></i> Print</button>
+                        <button type="submit" class="btn btn-primary"><i class="ri-printer-fill"></i> Print</button>
                     </div>
                 </form>
             </div>
@@ -142,9 +153,13 @@
                                 var datahtml = "";
                                 for (let index = 0; index < title.length; index++) {
                                     const element = title[index];
+
                                     var nilai = datares[index];
+                                    if(nilai == null){
+                                        nilai = '-'
+                                    }
                                     datahtml += '<tr>'
-                                        datahtml += '<td>'+element+'</td>'
+                                        datahtml += '<td class="left">'+element+'</td>'
                                         datahtml += '<td class="text-right">'+nilai+'</td>'
                                     datahtml += '</tr>'
                                 }

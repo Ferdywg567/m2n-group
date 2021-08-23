@@ -255,7 +255,7 @@
                                                     <input type="hidden" name="dataukurandiretur[]" value="S">
                                                     <input type="hidden" name="iddetailukurandiretur[]"
                                                         id="iddetaildireturs">
-                                                    <input type="number" min="0" class="form-control" required
+                                                    <input type="text" min="0" class="form-control" required
                                                         id="jumlahdireturs" name="jumlahdiretur[]">
                                                 </div>
                                             </div>
@@ -265,7 +265,7 @@
                                                     <input type="hidden" name="dataukurandiretur[]" value="M">
                                                     <input type="hidden" name="iddetailukurandiretur[]"
                                                         id="iddetaildireturm">
-                                                    <input type="number" min="0" class="form-control" required
+                                                    <input type="text" min="0" class="form-control" required
                                                         id="jumlahdireturm" name="jumlahdiretur[]">
                                                 </div>
                                             </div>
@@ -275,7 +275,7 @@
                                                     <input type="hidden" name="dataukurandiretur[]" value="L">
                                                     <input type="hidden" name="iddetailukurandiretur[]"
                                                         id="iddetaildireturl">
-                                                    <input type="number" min="0" class="form-control" required
+                                                    <input type="text" min="0" class="form-control" required
                                                         id="jumlahdireturl" name="jumlahdiretur[]">
                                                 </div>
                                             </div>
@@ -285,7 +285,7 @@
                                                     <input type="hidden" name="dataukurandiretur[]" value="XL">
                                                     <input type="hidden" name="iddetailukurandiretur[]"
                                                         id="iddetaildireturxl">
-                                                    <input type="number" min="0" class="form-control" required
+                                                    <input type="text" min="0" class="form-control" required
                                                         id="jumlahdireturxl" name="jumlahdiretur[]">
                                                 </div>
                                             </div>
@@ -343,7 +343,7 @@
                                                     <input type="hidden" name="dataukurandibuang[]" value="S">
                                                     <input type="hidden" name="iddetailukurandibuang[]"
                                                         id="iddetaildibuangs">
-                                                    <input type="number" min="0" class="form-control" required
+                                                    <input type="text" min="0" class="form-control" required
                                                         id="jumlahdibuangs" name="jumlahdibuang[]">
                                                 </div>
                                             </div>
@@ -353,7 +353,7 @@
                                                     <input type="hidden" name="dataukurandibuang[]" value="M">
                                                     <input type="hidden" name="iddetailukurandibuang[]"
                                                         id="iddetaildibuangm">
-                                                    <input type="number" min="0" class="form-control" required
+                                                    <input type="text" min="0" class="form-control" required
                                                         id="jumlahdibuangm" name="jumlahdibuang[]">
                                                 </div>
                                             </div>
@@ -363,7 +363,7 @@
                                                     <input type="hidden" name="dataukurandibuang[]" value="L">
                                                     <input type="hidden" name="iddetailukurandibuang[]"
                                                         id="iddetaildibuangl">
-                                                    <input type="number" min="0" class="form-control" required
+                                                    <input type="text" min="0" class="form-control" required
                                                         id="jumlahdibuangl" name="jumlahdibuang[]">
                                                 </div>
                                             </div>
@@ -373,7 +373,7 @@
                                                     <input type="hidden" name="dataukurandibuang[]" value="XL">
                                                     <input type="hidden" name="iddetailukurandibuang[]"
                                                         id="iddetaildibuangxl">
-                                                    <input type="number" min="0" class="form-control" required
+                                                    <input type="text" min="0" class="form-control" required
                                                         id="jumlahdibuangxl" name="jumlahdibuang[]">
                                                 </div>
                                             </div>

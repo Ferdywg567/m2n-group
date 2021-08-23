@@ -125,7 +125,7 @@ class PotongController extends Controller
                 }
 
                 $notif = new Notification();
-                $notif->description = "potong keluar telah masuk ke jahit, silahkan di cek";
+                $notif->description = "potong keluar telah dikirim ke jahit, silahkan di cek";
                 $notif->url = route('jahit.index');
                 $notif->aktif = 0;
                 $notif->save();

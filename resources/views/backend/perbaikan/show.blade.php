@@ -23,8 +23,10 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <form>
+                        <form method="POST" target="_blank" action="{{route('perbaikan.cetak')}}">
+                            @csrf
 
+                            <input type="hidden" name="id" value="{{$repair->id}}">
                             <div class="card-body">
 
                                 <div class="row">
@@ -174,7 +176,8 @@
                                     <div class="col-md-12 text-center">
                                         <a type="button" class="btn btn-secondary"
                                             href="{{route('perbaikan.index')}}">Close</a>
-
+                                        <button type="submit" class="btn btn-primary"><i class="ri-printer-fill"></i>
+                                            Print</button>
                                     </div>
                                 </div>
                             </div>

@@ -61,8 +61,12 @@
             font-size: 10px;
         }
 
-        td span{
+        td span {
             font-size: 10px !important;
+        }
+
+        body {
+            font-family: 'Heebo', serif;
         }
     </style>
 </head>

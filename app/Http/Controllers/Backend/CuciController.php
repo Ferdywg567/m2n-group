@@ -228,7 +228,7 @@ class CuciController extends Controller
                     $cuci->save();
 
                     $notif = new Notification();
-                    $notif->description = "cuci keluar telah masuk ke rekapitulasi, silahkan di cek";
+                    $notif->description = "cuci keluar telah dikirim ke rekapitulasi, silahkan di cek";
                     $notif->url = route('rekapitulasi.index');
                     $notif->aktif = 0;
                     $notif->save();

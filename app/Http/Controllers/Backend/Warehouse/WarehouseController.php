@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Notification;
 use App\Finishing;
 use App\Warehouse;
 use PDF;
@@ -67,7 +68,13 @@ class WarehouseController extends Controller
                     $detail->save();
                 }
 
+                $notif = new Notification();
+                $notif->description = "warehouse telah dikirim ke rekapitulasi, silahkan di cek";
+                $notif->url = route('warehouse.rekapitulasi.index');
+                $notif->aktif = 0;
+                $notif->save();
 
+                session(['notification' => 1]);
                 DB::commit();
                 return redirect()->route('warehouse.warehouse.index')->with('success', 'Data warehouse berhasil disimpan');
             } catch (\Exception $th) {

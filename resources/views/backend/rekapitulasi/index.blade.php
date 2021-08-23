@@ -15,7 +15,6 @@
         left: 50% !important;
         transform: translateX(-50%) !important;
         top: 100% !important;
-        width: 10% !important;
     }
 
     .left{

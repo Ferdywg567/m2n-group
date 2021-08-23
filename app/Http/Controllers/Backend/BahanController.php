@@ -51,7 +51,7 @@ class BahanController extends Controller
         if ($request->get('status') == 'bahan masuk') {
             $validator = Validator::make($request->all(), [
                 'kode_bahan' =>  'required|unique:bahans,kode_bahan',
-                'no_surat' => 'required',
+                'no_surat' => 'required|unique:bahans,no_surat',
                 'nama_bahan' => 'required',
                 'jenis_bahan' => 'required',
                 'warna' => 'required',
@@ -69,7 +69,7 @@ class BahanController extends Controller
                 'vendor' => 'required',
                 'tanggal' => 'required',
                 'panjang_bahan' => 'required',
-                'sku' => 'required'
+                'sku' => 'required|unique:bahans,sku'
             ]);
         }
 
@@ -85,7 +85,7 @@ class BahanController extends Controller
                 $bahan = Bahan::findOrFail($request->get('kode_bahan'));
 
                 $notif = new Notification();
-                $notif->description = "bahan keluar telah masuk ke potong, silahkan di cek";
+                $notif->description = "bahan keluar telah dikirim ke potong, silahkan di cek";
                 $notif->url = route('potong.index');
                 $notif->aktif = 0;
                 $notif->save();

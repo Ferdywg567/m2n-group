@@ -10,6 +10,7 @@ use App\Bahan;
 use App\Perbaikan;
 use App\DetailPerbaikan;
 use Illuminate\Support\Facades\DB;
+use PDF;
 
 class PerbaikanController extends Controller
 {
@@ -62,7 +63,6 @@ class PerbaikanController extends Controller
                         $total = DetailPerbaikan::where('perbaikan_id', $repair->id)->sum('jumlah');
                         $repair->tanggal_masuk = $repair->tanggal_masuk;
                         $repair->total = $total;
-
                     } else {
                         $repair = new Perbaikan();
                         $repair->bahan_id = $idbahan;
@@ -94,10 +94,6 @@ class PerbaikanController extends Controller
             DB::rollBack();
             dd($th);
         }
-
-
-
-
     }
 
     /**
@@ -267,5 +263,63 @@ class PerbaikanController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function cetakPdf(Request $request)
+    {
+        $repair = Perbaikan::findOrFail($request->get('id'));
+
+        $titlerepair = [
+            'Kode SKU',
+            'Jenis Bahan',
+            'Nama Produk',
+            'Ukuran Baju',
+            'Warna Produk',
+            'Asal Barang',
+            'Keterangan',
+            'Total Barang Direpair',
+            'Tanggal Selesai Repair',
+            'Tanggal Kirim Barang'
+        ];
+
+        $x['title'] = $titlerepair;
+        $x['icon'] = 'refresh-fill.png';
+        $x['kode_bahan'] =  $repair->bahan->kode_bahan;
+        $ukuran = '';
+
+        $jumlahjahit = 0;
+        $jumlahcuci = 0;
+        $keteranganjahit = '';
+        $keterangancuci = '';
+        foreach ($repair->detail_perbaikan as $key => $row) {
+            if (!empty($row->jahit_direpair_id)) {
+                $jumlahjahit = $row->jumlah;
+                $keteranganjahit = $row->keterangan;
+            }
+
+            if (!empty($row->cuci_direpair_id)) {
+                $jumlahcuci = $row->jumlah;
+                $keterangancuci = $row->keterangan;
+            }
+        }
+
+        $keterangan = 'Washing : ' . $keterangancuci . "\r\n" . 'Tailoring : ' . $keteranganjahit;
+        $asalbarang = 'Washing : ' . $jumlahcuci . "\r\n" . 'Tailoring : ' . $jumlahjahit;
+
+        $x['data'] = [
+            $repair->bahan->sku,
+            $repair->bahan->jenis_bahan,
+            $repair->bahan->nama_bahan,
+            $repair->ukuran,
+            $repair->bahan->warna,
+            $asalbarang,
+            $keterangan,
+            $repair->total,
+            $repair->tanggal_selesai,
+            $repair->tanggal_kirim,
+        ];
+
+        $pdf = PDF::loadView('backend.perbaikan.pdf', ['data' => $x]);
+        return $pdf->stream('perbaikan.pdf');
     }
 }

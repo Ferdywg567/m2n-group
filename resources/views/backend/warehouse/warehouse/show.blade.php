@@ -19,7 +19,10 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
+                        <form action="{{route('warehouse.warehouse.cetak')}}" target="_blank" method="post">
+                            @csrf
 
+                                <input type="hidden" name="id" id="idbahan" value="{{$warehouse->id}}">
                             <div class="card-body">
                                 @include('backend.include.alert')
                                 <div class="row">
@@ -176,11 +179,11 @@
                                     <div class="col-md-12 text-center">
                                         <a type="button" class="btn btn-secondary"
                                             href="{{route('warehouse.warehouse.index')}}">Close</a>
-
+                                            <button type="submit" class="btn btn-primary"><i class="ri-printer-fill"></i> Print</button>
                                     </div>
                                 </div>
                             </div>
-
+                        </form>
                     </div>
                 </div>
             </div>

@@ -23,8 +23,9 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <form>
-
+                        <form action="{{route('warehouse.finishing.cetak')}}" target="_blank" method="post">
+                            @csrf
+                            <input type="hidden" name="id" id="idbahan" value="{{$finish->id}}">
                             <div class="card-body">
 
                                 <div class="row">
@@ -257,8 +258,9 @@
                                                     <input type="hidden" name="dataukurandiretur[]" value="S">
                                                     <input type="hidden" name="iddetailukurandiretur[]"
                                                         id="iddetaildireturs">
-                                                    <input type="number" min="0" value="{{$item->jumlah}}" readonly class="form-control" required
-                                                        id="jumlahdireturs" name="jumlahdiretur[]">
+                                                    <input type="number" min="0" value="{{$item->jumlah}}" readonly
+                                                        class="form-control" required id="jumlahdireturs"
+                                                        name="jumlahdiretur[]">
                                                 </div>
                                             </div>
                                             @elseif($item->ukuran == 'M')
@@ -268,8 +270,9 @@
                                                     <input type="hidden" name="dataukurandiretur[]" value="M">
                                                     <input type="hidden" name="iddetailukurandiretur[]"
                                                         id="iddetaildireturm">
-                                                    <input type="number" min="0" value="{{$item->jumlah}}" readonly class="form-control" required
-                                                        id="jumlahdireturm" name="jumlahdiretur[]">
+                                                    <input type="number" min="0" value="{{$item->jumlah}}" readonly
+                                                        class="form-control" required id="jumlahdireturm"
+                                                        name="jumlahdiretur[]">
                                                 </div>
                                             </div>
                                             @elseif($item->ukuran == 'L')
@@ -280,8 +283,9 @@
                                                     <input type="hidden" name="dataukurandiretur[]" value="L">
                                                     <input type="hidden" name="iddetailukurandiretur[]"
                                                         id="iddetaildireturl">
-                                                    <input type="number" min="0" value="{{$item->jumlah}}" readonly class="form-control" required
-                                                        id="jumlahdireturl" name="jumlahdiretur[]">
+                                                    <input type="number" min="0" value="{{$item->jumlah}}" readonly
+                                                        class="form-control" required id="jumlahdireturl"
+                                                        name="jumlahdiretur[]">
                                                 </div>
                                             </div>
                                             @elseif($item->ukuran == 'XL')
@@ -292,8 +296,9 @@
                                                     <input type="hidden" name="dataukurandiretur[]" value="XL">
                                                     <input type="hidden" name="iddetailukurandiretur[]"
                                                         id="iddetaildireturxl">
-                                                    <input type="number" min="0" value="{{$item->jumlah}}" readonly class="form-control" required
-                                                        id="jumlahdireturxl" name="jumlahdiretur[]">
+                                                    <input type="number" min="0" value="{{$item->jumlah}}" readonly
+                                                        class="form-control" required id="jumlahdireturxl"
+                                                        name="jumlahdiretur[]">
                                                 </div>
                                             </div>
                                             @elseif($item->ukuran == 'XXL')
@@ -303,8 +308,9 @@
                                                     <input type="hidden" name="dataukurandiretur[]" value="XXL">
                                                     <input type="hidden" name="iddetailukurandiretur[]"
                                                         id="iddetaildireturxxl">
-                                                    <input type="text" min="0" value="{{$item->jumlah}}" readonly class="form-control" required
-                                                        id="jumlahdireturxxl" name="jumlahdiretur[]">
+                                                    <input type="text" min="0" value="{{$item->jumlah}}" readonly
+                                                        class="form-control" required id="jumlahdireturxxl"
+                                                        name="jumlahdiretur[]">
                                                 </div>
                                             </div>
 
@@ -363,8 +369,9 @@
                                                     <input type="hidden" name="dataukurandibuang[]" value="S">
                                                     <input type="hidden" name="iddetailukurandibuang[]"
                                                         id="iddetaildibuangs">
-                                                    <input type="number" min="0" value="{{$item->jumlah}}" readonly class="form-control" required
-                                                        id="jumlahdibuangs" name="jumlahdibuang[]">
+                                                    <input type="number" min="0" value="{{$item->jumlah}}" readonly
+                                                        class="form-control" required id="jumlahdibuangs"
+                                                        name="jumlahdibuang[]">
                                                 </div>
                                             </div>
                                             @elseif($item->ukuran == 'M')
@@ -374,8 +381,9 @@
                                                     <input type="hidden" name="dataukurandibuang[]" value="M">
                                                     <input type="hidden" name="iddetailukurandibuang[]"
                                                         id="iddetaildibuangm">
-                                                    <input type="number" min="0" value="{{$item->jumlah}}" readonly class="form-control" required
-                                                        id="jumlahdibuangm" name="jumlahdibuang[]">
+                                                    <input type="number" min="0" value="{{$item->jumlah}}" readonly
+                                                        class="form-control" required id="jumlahdibuangm"
+                                                        name="jumlahdibuang[]">
                                                 </div>
                                             </div>
                                             @elseif($item->ukuran == 'L')
@@ -385,8 +393,9 @@
                                                     <input type="hidden" name="dataukurandibuang[]" value="L">
                                                     <input type="hidden" name="iddetailukurandibuang[]"
                                                         id="iddetaildibuangl">
-                                                    <input type="number" min="0" value="{{$item->jumlah}}" readonly class="form-control" required
-                                                        id="jumlahdibuangl" name="jumlahdibuang[]">
+                                                    <input type="number" min="0" value="{{$item->jumlah}}" readonly
+                                                        class="form-control" required id="jumlahdibuangl"
+                                                        name="jumlahdibuang[]">
                                                 </div>
                                             </div>
                                             @elseif($item->ukuran == 'XL')
@@ -397,8 +406,9 @@
                                                     <input type="hidden" name="dataukurandibuang[]" value="XL">
                                                     <input type="hidden" name="iddetailukurandibuang[]"
                                                         id="iddetaildibuangxl">
-                                                    <input type="number" min="0" value="{{$item->jumlah}}" readonly class="form-control" required
-                                                        id="jumlahdibuangxl" name="jumlahdibuang[]">
+                                                    <input type="number" min="0" value="{{$item->jumlah}}" readonly
+                                                        class="form-control" required id="jumlahdibuangxl"
+                                                        name="jumlahdibuang[]">
                                                 </div>
                                             </div>
                                             @elseif($item->ukuran == 'XXL')
@@ -408,8 +418,9 @@
                                                     <input type="hidden" name="dataukurandibuang[]" value="XXL">
                                                     <input type="hidden" name="iddetailukurandibuang[]"
                                                         id="iddetaildibuangxxl">
-                                                    <input type="text" min="0" value="{{$item->jumlah}}" readonly class="form-control" required
-                                                        id="jumlahdibuangxxl" name="jumlahdibuang[]">
+                                                    <input type="text" min="0" value="{{$item->jumlah}}" readonly
+                                                        class="form-control" required id="jumlahdibuangxxl"
+                                                        name="jumlahdibuang[]">
                                                 </div>
                                             </div>
 
@@ -435,6 +446,8 @@
                                     <div class="col-md-12 text-center">
                                         <a type="button" class="btn btn-secondary"
                                             href="{{route('warehouse.finishing.index')}}">Close</a>
+                                        <button type="submit" class="btn btn-primary"><i class="ri-printer-fill"></i>
+                                            Print</button>
                                     </div>
                                 </div>
                             </div>

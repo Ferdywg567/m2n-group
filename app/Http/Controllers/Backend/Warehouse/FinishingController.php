@@ -11,6 +11,7 @@ use App\Finishing;
 use App\FinishingDibuang;
 use App\FinishingRetur;
 use App\Rekapitulasi;
+use App\Notification;
 use PDF;
 
 use function GuzzleHttp\Promise\all;
@@ -25,8 +26,8 @@ class FinishingController extends Controller
     public function index()
     {
 
-        $finish = Finishing::where('status', 'finishing masuk')->orderBy('created_at','DESC')->get();
-        $kirim = Finishing::where('status', 'kirim warehouse')->orderBy('created_at','DESC')->get();
+        $finish = Finishing::where('status', 'finishing masuk')->orderBy('created_at', 'DESC')->get();
+        $kirim = Finishing::where('status', 'kirim warehouse')->orderBy('created_at', 'DESC')->get();
 
         return view("backend.warehouse.finishing.index", ['finish' => $finish, 'kirim' => $kirim]);
     }
@@ -164,6 +165,15 @@ class FinishingController extends Controller
                     $finish->no_surat = $request->get('no_surat');
                     $finish->status = "kirim warehouse";
                     $finish->save();
+
+
+                    $notif = new Notification();
+                    $notif->description = "finishing telah dikirim ke warehouse, silahkan di cek";
+                    $notif->url = route('warehouse.warehouse.index');
+                    $notif->aktif = 0;
+                    $notif->save();
+
+                    session(['notification' => 1]);
                 }
 
 
@@ -231,9 +241,9 @@ class FinishingController extends Controller
             if ($finish->warehouse()->exists()) {
                 $status = true;
             } else {
-                $diretur = FinishingRetur::where('finishing_id',$id)->delete();
-                $dibuang = FinishingDibuang::where('finishing_id',$id)->delete();
-                $detail = DetailFinishing::where('finishing_id',$id)->delete();
+                $diretur = FinishingRetur::where('finishing_id', $id)->delete();
+                $dibuang = FinishingDibuang::where('finishing_id', $id)->delete();
+                $detail = DetailFinishing::where('finishing_id', $id)->delete();
                 $finish->delete();
             }
             return response()->json([
@@ -303,7 +313,7 @@ class FinishingController extends Controller
             ];
 
             $x['title'] = $titlefinish;
-            $x['kode_bahan']=  $finish->rekapitulasi->cuci->jahit->potong->bahan->kode_bahan;
+            $x['kode_bahan'] =  $finish->rekapitulasi->cuci->jahit->potong->bahan->kode_bahan;
             $ukuran = '';
 
             foreach ($finish->detail_finish as $key => $row) {
@@ -345,7 +355,8 @@ class FinishingController extends Controller
         }
     }
 
-    public function cetakPdf(Request $request){
+    public function cetakPdf(Request $request)
+    {
         $finish = Finishing::findOrFail($request->get('id'));
         $titlefinish = [
             'Kode SKU',
@@ -364,7 +375,7 @@ class FinishingController extends Controller
 
         $x['title'] = $titlefinish;
         $ukuran = '';
-
+        $x['kode_bahan'] =  $finish->rekapitulasi->cuci->jahit->potong->bahan->kode_bahan;
         foreach ($finish->detail_finish as $key => $row) {
             $ukuran .= $row->ukuran . '=' . $row->jumlah . ', ';
         }

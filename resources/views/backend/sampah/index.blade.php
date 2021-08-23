@@ -3,14 +3,18 @@
 @section('title', 'Sampah')
 @section('title-nav', 'Sampah')
 @section('sampah', 'class=active-sidebar')
-
+@section('cssnav', 'cssnav')
 @section('content')
 <style>
+    .cssnav {
+        margin-left: -20px;
+    }
+
     .dropdown-menu {
         left: 50% !important;
         transform: translateX(-50%) !important;
         top: 100% !important;
-        width: 10% !important;
+
     }
 
     .left {

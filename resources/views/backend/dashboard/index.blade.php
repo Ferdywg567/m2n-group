@@ -113,7 +113,9 @@
 
                             <div class="row">
                                 <div class="col-md-12">
-                                    <h6 class="size10" style="color:#34C759"  id="labelarrow"><i class="ri-arrow-right-up-line"></i> Lebih banyak 12 yard dari bulan lalu</h6>
+                                    <h6 class="size10" style="color:#34C759" id="labelarrow"><i
+                                            class="ri-arrow-right-up-line"></i> Lebih banyak 12 yard dari bulan lalu
+                                    </h6>
                                 </div>
                             </div>
                         </div>
@@ -795,7 +797,7 @@
         </div>
         <div class="col-md-3">
             <div class="card card-statistic-1">
-                <div class="card-icon " style="background-color: rgba(255, 149, 0, 0.3);
+                <div class="card-icon" style="background-color: rgba(255, 149, 0, 0.3);
                 border-radius: 8px;">
                     <img src="{{asset('assets/icon/logout-box-fill-orange.png')}}" alt="" srcset="">
                 </div>

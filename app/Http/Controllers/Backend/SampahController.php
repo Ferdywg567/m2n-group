@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\DetailSampah;
 use App\Cuci;
 use App\Sampah;
+use PDF;
 
 class SampahController extends Controller
 {
@@ -182,5 +183,60 @@ class SampahController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function cetakPdf(Request $request)
+    {
+        $sampah = Sampah::findOrFail($request->get('id'));
+
+        $titletrash = [
+            'Kode SKU',
+            'Jenis Bahan',
+            'Nama Produk',
+            'Ukuran Baju',
+            'Warna Produk',
+            'Asal Barang',
+            'Keterangan',
+            'Total Barang Dibuang',
+        ];
+
+
+        $x['title'] = $titletrash;
+        $x['icon'] = 'delete-bin-2-fill.png';
+        $x['kode_bahan'] =   $sampah->bahan->kode_bahan;
+        $ukuran = '';
+
+        $jumlahjahit = 0;
+        $jumlahcuci = 0;
+        $keteranganjahit = '';
+        $keterangancuci = '';
+        foreach ($sampah->detail_sampah as $key => $row) {
+            if (!empty($row->jahit_dibuang_id)) {
+                $jumlahjahit = $row->jumlah;
+                $keteranganjahit = $row->keterangan;
+            }
+
+            if (!empty($row->cuci_dibuang_id)) {
+                $jumlahcuci = $row->jumlah;
+                $keterangancuci = $row->keterangan;
+            }
+        }
+
+        $keterangan = 'Washing : ' . $keterangancuci . "\r\n" . 'Tailoring : ' . $keteranganjahit;
+        $asalbarang = 'Washing : ' . $jumlahcuci . "\r\n" . 'Tailoring : ' . $jumlahjahit;
+
+        $x['data'] = [
+            $sampah->bahan->sku,
+            $sampah->bahan->jenis_bahan,
+            $sampah->bahan->nama_bahan,
+            $sampah->ukuran,
+            $sampah->bahan->warna,
+            $asalbarang,
+            $keterangan,
+            $sampah->total,
+        ];
+
+        $pdf = PDF::loadView('backend.sampah.pdf', ['data' => $x]);
+        return $pdf->stream('sampah.pdf');
     }
 }

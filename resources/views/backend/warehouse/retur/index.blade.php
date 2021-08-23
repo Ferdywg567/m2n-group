@@ -3,8 +3,24 @@
 @section('title', 'Retur')
 @section('title-nav', 'Retur')
 @section('retur', 'class=active-sidebar')
-
+@section('cssnav', 'cssnav')
 @section('content')
+<style>
+    .cssnav {
+        margin-left: -25px;
+    }
+
+    .dropdown-menu {
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        top: 100% !important;
+
+    }
+
+    .left {
+        text-align: left;
+    }
+</style>
 <section class="section mt-4">
     <a href="{{route('warehouse.print.index')}}" class="btn btn-outline-primary rounded ml-1">Print Semua <i
             class="ri-printer-fill"></i>
@@ -62,10 +78,10 @@
                                             <div class="dropdown-menu text-center" aria-labelledby="dropdownMenuButton">
                                                 <a class="dropdown-item"
                                                     href="{{route('warehouse.retur.show',[$item->id])}}"><i
-                                                        class="fas fa-eye"></i>
+                                                        class="ri-eye-fill"></i>
                                                     Detail</a>
                                                 <a class="dropdown-item btnprint" href="#" data-id="{{$item->id}}"><i
-                                                        class="fas fa-print"></i>
+                                                        class="ri-printer-fill"></i>
                                                     Print</a>
                                             </div>
                                         </div>
@@ -107,7 +123,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary"><i class="fas fa-print"></i> Print</button>
+                    <button type="submit" class="btn btn-primary"><i class="ri-printer-fill"></i> Print</button>
                 </div>
             </form>
         </div>
@@ -144,9 +160,13 @@
                                 var datahtml = "";
                                 for (let index = 0; index < title.length; index++) {
                                     const element = title[index];
+
                                     var nilai = datares[index];
+                                    if(nilai == null){
+                                        nilai = '-'
+                                    }
                                     datahtml += '<tr>'
-                                        datahtml += '<td>'+element+'</td>'
+                                        datahtml += '<td class="left">'+element+'</td>'
                                         datahtml += '<td class="text-right">'+nilai+'</td>'
                                     datahtml += '</tr>'
                                 }

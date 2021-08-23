@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use App\Notification;
 
 class LoginController extends Controller
 {
@@ -65,8 +66,16 @@ class LoginController extends Controller
     protected function authenticated(Request $request, $user)
     {
         if ($user->hasRole('production')) {
+            $notif = Notification::where('url','LIKE','%production%')->where('aktif',0)->first();
+            if($notif){
+                session(['notification' => 1]);
+            }
             return redirect()->route('dashboard.index');
         }elseif($user->hasRole('warehouse')){
+            $notif = Notification::where('url','LIKE','%warehouse%')->where('aktif',0)->first();
+            if($notif){
+                session(['notification' => 1]);
+            }
             return redirect()->route('warehouse.dashboard.index');
         }
     }

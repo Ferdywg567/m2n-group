@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Rekapitulasi;
 use App\DetailRekapitulasi;
 use App\Cuci;
+use PDF;
 use Illuminate\Support\Facades\DB;
 
 class RekapitulasiController extends Controller
@@ -150,5 +151,45 @@ class RekapitulasiController extends Controller
                 'data' => $cuci
             ]);
         }
+    }
+
+    public function cetakPdf(Request $request)
+    {
+        $rekap = Rekapitulasi::findOrFail($request->get('id'));
+
+        $titlerekap = [
+            'Kode SKU',
+            'Tanggal Selesai Cuci',
+            'Jenis Bahan',
+            'Nama Produk',
+            'Ukuran Baju',
+            'Warna Produk',
+            'Tanggal Barang Masuk',
+            'Tanggal Barang Dikirim',
+            'Total Barang Siap Quality Control',
+        ];
+
+
+        $x['title'] = $titlerekap;
+        $ukuran = '';
+        $x['kode_bahan'] =      $rekap->cuci->jahit->potong->bahan->kode_bahan;
+        foreach ($rekap->detail_rekap as $key => $row) {
+            $ukuran .= $row->ukuran . ',';
+        }
+
+        $x['data'] = [
+            $rekap->cuci->jahit->potong->bahan->sku,
+            $rekap->cuci->tanggal_selesai,
+            $rekap->cuci->jahit->potong->bahan->jenis_bahan,
+            $rekap->cuci->jahit->potong->bahan->nama_bahan,
+            $ukuran,
+            $rekap->cuci->jahit->potong->bahan->warna,
+            $rekap->cuci->jahit->potong->bahan->tanggal_masuk,
+            $rekap->tanggal_kirim,
+            $rekap->total_barang,
+        ];
+
+        $pdf = PDF::loadView('backend.rekapitulasi.pdf', ['data' => $x]);
+        return $pdf->stream('rekapitulasi.pdf');
     }
 }

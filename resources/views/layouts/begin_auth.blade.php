@@ -49,6 +49,10 @@
         .border {
             border: 2px solid #d4d4d4 !important;
         }
+
+        body {
+            font-family: 'Heebo';
+        }
     </style>
 </head>
 

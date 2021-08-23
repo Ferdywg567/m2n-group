@@ -4,9 +4,24 @@
 @section('title-nav', 'Retur')
 
 @section('retur', 'class=active-sidebar')
-
+@section('cssnav', 'cssnav')
 @section('content')
 <style>
+    .cssnav {
+        margin-left: -25px;
+    }
+
+    .dropdown-menu {
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        top: 100% !important;
+
+    }
+
+    .left {
+        text-align: left;
+    }
+
     textarea {
         width: 300px;
         height: 150px !important;
@@ -24,7 +39,10 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
+                        <form action="{{route('warehouse.retur.cetak')}}" target="_blank" method="post">
+                            @csrf
 
+                            <input type="hidden" name="id" id="idbahan" value="{{$retur->id}}">
                             <div class="card-body">
                                 @include('backend.include.alert')
                                 <div class="row">
@@ -85,10 +103,11 @@
                                             <label for="tanggal_retur">Tanggal Barang Direturn</label>
                                             <div class="input-group mb-2">
                                                 <input type="date" class="form-control" readonly required
-                                                    value="{{$retur->finishing->tanggal_masuk}}"
-                                                    id="tanggal_retur" name="tanggal_retur">
+                                                    value="{{$retur->finishing->tanggal_masuk}}" id="tanggal_retur"
+                                                    name="tanggal_retur">
                                                 <div class="input-group-prepend">
-                                                    <div class="input-group-text"><i class="ri-calendar-2-line"></i></div>
+                                                    <div class="input-group-text"><i class="ri-calendar-2-line"></i>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -189,11 +208,12 @@
                                     <div class="col-md-12 text-center">
                                         <a type="button" class="btn btn-secondary"
                                             href="{{route('warehouse.retur.index')}}">Close</a>
-
+                                        <button type="submit" class="btn btn-primary"><i class="ri-printer-fill"></i>
+                                            Print</button>
                                     </div>
                                 </div>
                             </div>
-
+                        </form>
                     </div>
                 </div>
             </div>

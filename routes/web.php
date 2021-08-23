@@ -96,6 +96,7 @@ Route::group(['prefix' => 'production', 'namespace' => 'Backend', 'middleware' =
 
 
     Route::group(['prefix' => 'rekapitulasi', 'as' => 'rekapitulasi.'], function () {
+        Route::post('/cetak', 'RekapitulasiController@cetakPdf')->name('cetak');
         Route::get('/getdatarekapitulasi', 'RekapitulasiController@getDataCuci')->name('getdata');
     });
 
@@ -107,6 +108,16 @@ Route::group(['prefix' => 'production', 'namespace' => 'Backend', 'middleware' =
         Route::post('/cetak', 'ReturController@cetakPdf')->name('cetak');
         Route::get('/getdataprint', 'ReturController@getDataPrint')->name('getdataprint');
     });
+
+    Route::group(['prefix' => 'perbaikan', 'as' => 'perbaikan.'], function () {
+        Route::post('/cetak', 'PerbaikanController@cetakPdf')->name('cetak');
+    });
+
+
+    Route::group(['prefix' => 'sampah', 'as' => 'sampah.'], function () {
+        Route::post('/cetak', 'SampahController@cetakPdf')->name('cetak');
+    });
+
     Route::resource('cuci', 'CuciController');
     Route::resource('retur', 'ReturController');
     Route::resource('rekapitulasi', 'RekapitulasiController');

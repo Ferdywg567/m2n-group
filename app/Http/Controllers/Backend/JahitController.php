@@ -200,7 +200,7 @@ class JahitController extends Controller
                     $jahit->keterangan_dibuang = $request->get('keterangan_dibuang');
 
                     $notif = new Notification();
-                    $notif->description = "jahit keluar telah masuk ke cuci, silahkan di cek";
+                    $notif->description = "jahit keluar telah dikirim ke cuci, silahkan di cek";
                     $notif->url = route('cuci.index');
                     $notif->aktif = 0;
                     $notif->save();
