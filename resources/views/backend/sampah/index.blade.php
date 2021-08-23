@@ -5,12 +5,24 @@
 @section('sampah', 'class=active-sidebar')
 
 @section('content')
+<style>
+    .dropdown-menu {
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        top: 100% !important;
+        width: 10% !important;
+    }
 
+    .left {
+        text-align: left;
+    }
+</style>
 <div id="non-printable">
-    <section class="section mt-2">
-        <a href="{{route('print.index')}}" class="btn btn-outline-primary rounded ml-1">Print Semua <i class="ri-printer-fill"></i>
+    <section class="section mt-4">
+        <a href="{{route('print.index')}}" class="btn btn-outline-primary rounded ml-1">Print Semua <i
+                class="ri-printer-fill"></i>
         </a>
-        <div class="section-body mt-2">
+        <div class="section-body mt-4">
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
@@ -37,7 +49,8 @@
                                         <td>{{$item->bahan->tanggal_masuk}}</td>
                                         <td>{{$item->total}}</td>
                                         <td>
-                                            <a href="{{route('sampah.show',[$item->id])}}" class="btn btn-outline-primary">Detail</a>
+                                            <a href="{{route('sampah.show',[$item->id])}}"
+                                                class="btn btn-outline-primary">Detail</a>
                                         </td>
                                     </tr>
                                     @empty

@@ -2,9 +2,14 @@
 
 @section('title', 'Print')
 @section('title-nav', 'Print')
-
-
+@section('cssnav', 'cssnav')
 @section('content')
+<style>
+    .cssnav {
+        margin-left: -25px;
+    }
+
+</style>
 <style>
     .tinggi_card {
         height: 29.7cm

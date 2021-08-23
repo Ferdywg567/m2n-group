@@ -22,8 +22,8 @@ class CuciController extends Controller
      */
     public function index()
     {
-        $masuk = Cuci::where('status', 'cucian masuk')->get();
-        $keluar = Cuci::where('status', 'cucian keluar')->get();
+        $masuk = Cuci::where('status', 'cucian masuk')->orderBy('created_at','DESC')->get();
+        $keluar = Cuci::where('status', 'cucian keluar')->orderBy('created_at','DESC')->get();
         return view("backend.cuci.index", ['masuk' => $masuk, 'keluar' => $keluar]);
     }
 

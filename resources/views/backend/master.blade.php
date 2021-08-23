@@ -50,6 +50,15 @@
         .active-sidebar a {
             color: #007AFF !important;
         }
+
+        th {
+
+            text-align: center;
+        }
+
+        td {
+            text-align: center;
+        }
     </style>
 </head>
 

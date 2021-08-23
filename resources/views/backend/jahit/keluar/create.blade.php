@@ -3,17 +3,11 @@
 @section('title', 'Jahit')
 @section('title-nav', 'Jahit')
 @section('jahit', 'class=active-sidebar')
-
+@section('cssnav', 'cssnav')
 @section('content')
 <style>
-    .modal-body {
-        max-height: calc(100vh - 210px);
-        overflow-y: auto;
-    }
-
-    textarea {
-        width: 300px;
-        height: 170px !important;
+    .cssnav{
+       margin-left:-25px;
     }
 </style>
 <div id="non-printable">

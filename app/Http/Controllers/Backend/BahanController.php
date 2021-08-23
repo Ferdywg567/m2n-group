@@ -17,8 +17,8 @@ class BahanController extends Controller
      */
     public function index()
     {
-        $masuk = Bahan::all()->where('status', 'bahan masuk');
-        $keluar = Bahan::all()->where('status', 'bahan keluar');
+        $masuk = Bahan::where('status', 'bahan masuk')->orderBy('created_at','DESC')->get();
+        $keluar = Bahan::where('status', 'bahan keluar')->orderBy('created_at','DESC')->get();
         return view("backend.bahan.index", ['masuk' => $masuk, 'keluar' => $keluar]);
     }
 

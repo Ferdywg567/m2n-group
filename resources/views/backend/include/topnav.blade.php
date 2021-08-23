@@ -9,7 +9,7 @@
                 <div class="col-md-6">
                     <h3 class="text-dark">@yield('title-nav') </h3>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 @yield('cssnav')" >
                     <span class="badge badge-success rounded" style="height: 80%">
                         <h6>
                             @if (auth()->user()->hasRole('production'))

@@ -3,8 +3,13 @@
 @section('title', 'Jahit')
 @section('title-nav', 'Jahit')
 @section('jahit', 'class=active-sidebar')
-
+@section('cssnav', 'cssnav')
 @section('content')
+<style>
+    .cssnav{
+       margin-left:-25px;
+    }
+</style>
 <style>
     textarea {
         width: 300px;

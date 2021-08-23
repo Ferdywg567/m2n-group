@@ -15,8 +15,8 @@
                 <i class="ri-dashboard-fill"></i> <span>Dashboard</span>
             </a>
         </li>
-        <li @yield('bahan') >
-            <a class="nav-link"  href="{{route('bahan.index')}}">
+        <li @yield('bahan')>
+            <a class="nav-link" href="{{route('bahan.index')}}">
                 <i class="ri-t-shirt-fill"></i> <span>Bahan</span>
             </a>
         </li>
@@ -87,5 +87,12 @@
             </a>
         </li>
         @endif
+
+        <li class="mt-5">
+            <a class="nav-link" href="#">
+                <i class="ri-copyright-fill"></i> <span style="font-size: 12px">Copyright ERP 2021 </span>
+            </a>
+
+        </li>
     </ul>
 </aside>

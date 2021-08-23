@@ -10,9 +10,20 @@
         max-height: calc(100vh - 210px);
         overflow-y: auto;
     }
+
+    .dropdown-menu {
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        top: 100% !important;
+        width: 10% !important;
+    }
+
+    .left{
+        text-align: left;
+    }
 </style>
 <div id="non-printable">
-    <section class="section mt-2">
+    <section class="section mt-4">
         <div class="btn-group">
             <a href="{{route('rekapitulasi.create')}}" class="btn btn-primary ">
                 Input Data <i class="fas fa-plus"></i>
@@ -20,7 +31,7 @@
             <a href="{{route('print.index')}}" class="btn btn-outline-primary rounded ml-1">Print Semua <i class="ri-printer-fill"></i>
             </a>
         </div>
-        <div class="section-body mt-2">
+        <div class="section-body mt-4">
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">

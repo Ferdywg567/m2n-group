@@ -2,9 +2,16 @@
 
 @section('title', 'Bahan')
 @section('title-nav', 'Bahan')
+@section('cssnav', 'cssnav')
 @section('bahan', 'class=active-sidebar')
 
+
 @section('content')
+<style>
+    .cssnav{
+       margin-left:-20px;
+    }
+</style>
 
 <div id="non-printable">
     <section class="section">

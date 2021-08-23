@@ -10,12 +10,23 @@
         max-height: calc(100vh - 210px);
         overflow-y: auto;
     }
+
+    .dropdown-menu {
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        top: 100% !important;
+        width: 10% !important;
+    }
+
+    .left{
+        text-align: left;
+    }
 </style>
 <div id="non-printable">
-    <section class="section mt-2">
+    <section class="section mt-4">
         <a href="{{route('print.index')}}" class="btn btn-outline-primary rounded ml-1">Print Semua <i class="ri-printer-fill"></i>
         </a>
-        <div class="section-body mt-2">
+        <div class="section-body mt-4">
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
@@ -45,14 +56,17 @@
                                         <td>{{$item->total}}</td>
                                         <td>{{$item->bahan->no_surat}}</td>
                                         <td>
+                                            @php
+                                                $status = strtoupper($item->status)
+                                            @endphp
                                             @if ($item->status == 'butuh konfirmasi')
                                             <a href="{{route('perbaikan.edit',[$item->id])}}"> <span class="badge badge-secondary text-dark"
-                                                    style="cursor: pointer">{{$item->status}}</span></a>
+                                                    style="cursor: pointer">{{$status}}</span></a>
 
                                             @elseif ($item->status == 'selesai')
-                                            <span class="badge badge-success text-dark">{{$item->status}}</span>
+                                            <span class="badge badge-success text-dark">{{$status}}</span>
                                             @else
-                                            <span class="badge badge-warning text-dark">{{$item->status}}</span>
+                                            <span class="badge badge-warning text-dark">{{$status}}</span>
                                             @endif
                                         </td>
                                         <td>

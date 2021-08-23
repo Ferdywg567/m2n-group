@@ -3,11 +3,26 @@
 @section('title', 'Jahit')
 @section('title-nav', 'Jahit')
 @section('jahit', 'class=active-sidebar')
-
+@section('cssnav', 'cssnav')
 @section('content')
+<style>
+    .cssnav {
+        margin-left: -25px;
+    }
 
+    .dropdown-menu {
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        top: 100% !important;
+        width: 10% !important;
+    }
+
+    .left {
+        text-align: left;
+    }
+</style>
 <div id="non-printable">
-    <section class="section mt-2">
+    <section class="section mt-4">
         <div class="btn-group">
             <button type="button" class="btn btn-primary rounded" data-toggle="dropdown" aria-haspopup="true"
                 aria-expanded="false">
@@ -24,12 +39,13 @@
                     <button class="dropdown-item">Jahitan Keluar</button>
                 </form>
             </div>
-            <a href="{{route('print.index')}}" class="btn btn-outline-primary rounded ml-1">Print Semua <i class="ri-printer-fill"></i>
+            <a href="{{route('print.index')}}" class="btn btn-outline-primary rounded ml-1">Print Semua <i
+                    class="ri-printer-fill"></i>
             </a>
         </div>
 
 
-        <div class="section-body mt-2">
+        <div class="section-body mt-4">
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
@@ -79,15 +95,18 @@
 
                                                 <td>{{$item->no_surat}}</td>
                                                 <td>
+                                                    @php
+                                                        $status = strtoupper($item->status_jahit);
+                                                    @endphp
                                                     @if ($item->status_jahit == 'belum jahit')
                                                     <span
-                                                        class="badge badge-secondary text-dark">{{$item->status_jahit}}</span>
+                                                        class="badge badge-secondary text-dark">{{$status}}</span>
                                                     @elseif ($item->status_jahit == 'selesai')
                                                     <span
-                                                        class="badge badge-success text-dark">{{$item->status_jahit}}</span>
+                                                        class="badge badge-success text-dark">{{$status}}</span>
                                                     @else
                                                     <span
-                                                        class="badge badge-warning text-dark">{{$item->status_jahit}}</span>
+                                                        class="badge badge-warning text-dark">{{$status}}</span>
                                                     @endif
                                                 </td>
                                                 <td>
@@ -102,17 +121,20 @@
 
                                                             <a class="dropdown-item"
                                                                 href="{{route('jahit.show',[$item->id])}}"><i
-                                                                    class="fas fa-eye"></i>
+                                                                    class="ri-eye-fill"></i>
                                                                 Detail</a>
+
                                                             <a class="dropdown-item btnprint" href="#"
-                                                                data-id="{{$item->id}}"><i class="fas fa-print"></i>
+                                                                data-id="{{$item->id}}"><i class="ri-printer-fill"></i>
                                                                 Print</a>
+
                                                             <a class="dropdown-item"
                                                                 href="{{route('jahit.edit',[$item->id])}}"><i
-                                                                    class="fas fa-edit"></i>
+                                                                    class="ri-edit-fill"></i>
                                                                 Edit</a>
+
                                                             <a class="dropdown-item hapus" data-id="{{$item->id}}"
-                                                                href="#"><i class="fa fa-trash"></i>
+                                                                href="#"><i class="ri-delete-bin-fill"></i>
                                                                 Delete</a>
 
                                                         </div>
@@ -157,7 +179,7 @@
 
                                                 <td>
                                                     <span
-                                                        class="badge badge-success text-dark">{{$item->status_jahit}}</span>
+                                                        class="badge badge-success text-dark">{{strtoupper($item->status_jahit)}}</span>
                                                 </td>
 
                                                 <td>
@@ -172,17 +194,20 @@
 
                                                             <a class="dropdown-item"
                                                                 href="{{route('jahit.show',[$item->id])}}"><i
-                                                                    class="fas fa-eye"></i>
+                                                                    class="ri-eye-fill"></i>
                                                                 Detail</a>
+
                                                             <a class="dropdown-item btnprint" href="#"
-                                                                data-id="{{$item->id}}"><i class="fas fa-print"></i>
+                                                                data-id="{{$item->id}}"><i class="ri-printer-fill"></i>
                                                                 Print</a>
+
                                                             <a class="dropdown-item"
                                                                 href="{{route('jahit.edit',[$item->id])}}"><i
-                                                                    class="fas fa-edit"></i>
+                                                                    class="ri-edit-fill"></i>
                                                                 Edit</a>
+
                                                             <a class="dropdown-item hapus" data-id="{{$item->id}}"
-                                                                href="#"><i class="fa fa-trash"></i>
+                                                                href="#"><i class="ri-delete-bin-fill"></i>
                                                                 Delete</a>
 
                                                         </div>

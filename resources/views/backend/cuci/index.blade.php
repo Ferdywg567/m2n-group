@@ -3,14 +3,29 @@
 @section('title', 'Cuci')
 @section('title-nav', 'Cuci')
 @section('cuci', 'class=active-sidebar')
-
+@section('cssnav', 'cssnav')
 @section('content')
+<style>
+    .cssnav {
+        margin-left: -25px;
+    }
 
+    .dropdown-menu {
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        top: 100% !important;
+        width: 10% !important;
+    }
+
+    .left {
+        text-align: left;
+    }
+</style>
 <div id="non-printable">
-    <section class="section mt-2">
+    <section class="section mt-4">
         <div class="btn-group">
-            <button type="button" class="btn btn-primary rounded" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
+            <button type="button" class="btn btn-primary rounded" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
                 Input Data <i class="fas fa-plus"></i>
             </button>
             <div class="dropdown-menu">
@@ -26,10 +41,11 @@
 
             </div>
 
-            <a href="{{route('print.index')}}" class="btn btn-outline-primary rounded ml-1">Print Semua <i class="ri-printer-fill"></i>
+            <a href="{{route('print.index')}}" class="btn btn-outline-primary rounded ml-1">Print Semua <i
+                    class="ri-printer-fill"></i>
             </a>
         </div>
-        <div class="section-body mt-2">
+        <div class="section-body mt-4">
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
@@ -75,15 +91,15 @@
                                                 <td>{{$item->berhasil_cuci}}</td>
                                                 <td>{{$item->no_surat}}</td>
                                                 <td>
+                                                    @php
+                                                    $status = strtoupper($item->status_cuci)
+                                                    @endphp
                                                     @if ($item->status_cuci == 'belum cuci')
-                                                    <span
-                                                        class="badge badge-secondary text-dark">{{$item->status_cuci}}</span>
+                                                    <span class="badge badge-secondary text-dark">{{$status}}</span>
                                                     @elseif ($item->status_cuci == 'selesai')
-                                                    <span
-                                                        class="badge badge-success text-dark">{{$item->status_cuci}}</span>
+                                                    <span class="badge badge-success text-dark">{{$status}}</span>
                                                     @else
-                                                    <span
-                                                        class="badge badge-warning text-dark">{{$item->status_cuci}}</span>
+                                                    <span class="badge badge-warning text-dark">{{$status}}</span>
                                                     @endif
                                                 </td>
                                                 <td>
@@ -96,17 +112,22 @@
                                                         <div class="dropdown-menu text-center"
                                                             aria-labelledby="dropdownMenuButton">
 
-                                                            <a class="dropdown-item"  href="{{route('cuci.show',[$item->id])}}"
-                                                                data-id="{{$item->id}}"><i class="fas fa-eye"></i>
+                                                            <a class="dropdown-item"
+                                                                href="{{route('cuci.show',[$item->id])}}"><i
+                                                                    class="ri-eye-fill"></i>
                                                                 Detail</a>
+
                                                             <a class="dropdown-item btnprint" href="#"
-                                                                data-id="{{$item->id}}"><i class="fas fa-print"></i>
+                                                                data-id="{{$item->id}}"><i class="ri-printer-fill"></i>
                                                                 Print</a>
-                                                            <a class="dropdown-item" href="{{route('cuci.edit',[$item->id])}}"
-                                                                data-id="{{$item->id}}"><i class="fas fa-edit"></i>
+
+                                                            <a class="dropdown-item"
+                                                                href="{{route('cuci.edit',[$item->id])}}"><i
+                                                                    class="ri-edit-fill"></i>
                                                                 Edit</a>
-                                                            <a class="dropdown-item hapus" data-id="{{$item->id}}" href="#"><i
-                                                                    class="fa fa-trash"></i>
+
+                                                            <a class="dropdown-item hapus" data-id="{{$item->id}}"
+                                                                href="#"><i class="ri-delete-bin-fill"></i>
                                                                 Delete</a>
 
                                                         </div>
@@ -148,15 +169,15 @@
                                                 <td>{{$item->berhasil_cuci}}</td>
                                                 <td>{{$item->no_surat}}</td>
                                                 <td>
+                                                    @php
+                                                    $status = strtoupper($item->status_cuci)
+                                                    @endphp
                                                     @if ($item->status_cuci == 'belum cuci')
-                                                    <span
-                                                        class="badge badge-secondary text-dark">{{$item->status_cuci}}</span>
+                                                    <span class="badge badge-secondary text-dark">{{$status}}</span>
                                                     @elseif ($item->status_cuci == 'selesai')
-                                                    <span
-                                                        class="badge badge-success text-dark">{{$item->status_cuci}}</span>
+                                                    <span class="badge badge-success text-dark">{{$status}}</span>
                                                     @else
-                                                    <span
-                                                        class="badge badge-warning text-dark">{{$item->status_cuci}}</span>
+                                                    <span class="badge badge-warning text-dark">{{$status}}</span>
                                                     @endif
                                                 </td>
                                                 <td>
@@ -169,17 +190,22 @@
                                                         <div class="dropdown-menu text-center"
                                                             aria-labelledby="dropdownMenuButton">
 
-                                                            <a class="dropdown-item"  href="{{route('cuci.show',[$item->id])}}"
-                                                                data-id="{{$item->id}}"><i class="fas fa-eye"></i>
+                                                            <a class="dropdown-item"
+                                                                href="{{route('cuci.show',[$item->id])}}"><i
+                                                                    class="ri-eye-fill"></i>
                                                                 Detail</a>
+
                                                             <a class="dropdown-item btnprint" href="#"
-                                                                data-id="{{$item->id}}"><i class="fas fa-print"></i>
+                                                                data-id="{{$item->id}}"><i class="ri-printer-fill"></i>
                                                                 Print</a>
-                                                            <a class="dropdown-item" href="{{route('cuci.edit',[$item->id])}}"
-                                                                data-id="{{$item->id}}"><i class="fas fa-edit"></i>
+
+                                                            <a class="dropdown-item"
+                                                                href="{{route('cuci.edit',[$item->id])}}"><i
+                                                                    class="ri-edit-fill"></i>
                                                                 Edit</a>
-                                                            <a class="dropdown-item hapus" data-id="{{$item->id}}" href="#"><i
-                                                                    class="fa fa-trash"></i>
+
+                                                            <a class="dropdown-item hapus" data-id="{{$item->id}}"
+                                                                href="#"><i class="ri-delete-bin-fill"></i>
                                                                 Delete</a>
 
                                                         </div>
@@ -202,37 +228,37 @@
         </div>
     </section>
 
- <!-- Modal -->
- <div class="modal fade" id="printModal" tabindex="-1" role="dialog" aria-labelledby="printModalLabel"
- aria-hidden="true">
- <div class="modal-dialog" role="document">
-     <div class="modal-content">
-         <div class="modal-header">
-             <h5 class="modal-title col-md-12" id="exampleModalLabel">
-                 <span class="float left text-primary" id="title_kode"></span>
-                 <span id="test" class=" float-right text-dark"> <img src="{{asset('assets/img/logo.png')}}"
-                         alt="" class="mr-1" srcset="" width="30">GARMENT</span></h5>
-         </div>
-         <form action="{{route('cuci.cetak')}}" target="_blank" method="post">
-             @csrf
-             <div class="modal-body" style="margin-top: -30px; height:38rem">
-                 <hr>
-                 <input type="hidden" name="id" id="idcuci">
-                 <span class="badge badge-primary  rounded"><i class="ri-hand-coin-fill"></i> Washing</span>
-                 <table class="table">
-                     <tbody id="dataprint">
+    <!-- Modal -->
+    <div class="modal fade" id="printModal" tabindex="-1" role="dialog" aria-labelledby="printModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title col-md-12" id="exampleModalLabel">
+                        <span class="float left text-primary" id="title_kode"></span>
+                        <span id="test" class=" float-right text-dark"> <img src="{{asset('assets/img/logo.png')}}"
+                                alt="" class="mr-1" srcset="" width="30">GARMENT</span></h5>
+                </div>
+                <form action="{{route('cuci.cetak')}}" target="_blank" method="post">
+                    @csrf
+                    <div class="modal-body" style="margin-top: -30px; height:38rem">
+                        <hr>
+                        <input type="hidden" name="id" id="idcuci">
+                        <span class="badge badge-primary  rounded"><i class="ri-hand-coin-fill"></i> Washing</span>
+                        <table class="table">
+                            <tbody id="dataprint">
 
-                     </tbody>
-                 </table>
-             </div>
-             <div class="modal-footer">
-                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                 <button type="submit" class="btn btn-primary"><i class="fas fa-print"></i> Print</button>
-             </div>
-         </form>
-     </div>
- </div>
-</div>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-print"></i> Print</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
 </div>
 

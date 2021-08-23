@@ -17,6 +17,31 @@
      .selectgrey{
         background-color: #E5E5EA;
     }
+
+
+    .size10{
+        font-size: 10px !important;
+    }
+
+    .size12{
+        font-size: 12px !important;
+        color:  #AEAEB2;
+    }
+
+    th{
+        font-size: 10px;
+        text-align: center;
+    }
+
+    td{
+        text-align: center;
+    }
+
+
+    .label-data{
+        font-size: 21px !important;
+    }
+
 </style>
 <section class="section mt-3">
 
@@ -70,15 +95,15 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card-header">
-                            <h4>Jumlah Kain</h4>
+                            <h4 class="size10">Jumlah Kain</h4>
                         </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-px-0 ml-3">
-                                    <h1 id="jumlah_kain"> 0</h1>
+                                    <h3 id="jumlah_kain" > 0</h3>
                                 </div>
-                                <div class="col-md-6  mt-2">
-                                    <h3>yard</h3>
+                                <div class="col-md-6 ">
+                                    <h3 style="color: #AEAEB2;">yard</h3>
                                 </div>
                             </div>
                         </div>
@@ -90,19 +115,22 @@
         <div class="col-md-3">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="card card-statistic-1">
-                        <div class="card-icon" style="background-color: rgba(176, 84, 222, 0.30);
-                        border-radius: 8px;">
-                            <img src="{{asset('assets/icon/shirt-fill-purple.png')}}" alt="" srcset="">
-                        </div>
+                    <div class="card card-statistic-1" style="height:100px;">
+
+                            <div class="card-icon mt-2" style="background-color: rgba(176, 84, 222, 0.30);
+                            border-radius: 8px;">
+                                <img src="{{asset('assets/icon/shirt-fill-purple.png')}}" alt="" srcset="">
+                            </div>
+
+
                         <div class="card-wrap">
                             <div class="card-header">
-                                <h4>Jenis Bahan</h4>
+                                <h4 class="size10">Jenis Bahan</h4>
                             </div>
                             <div class="card-body">
-                                <h2 id="jenis_bahan">
-                                    0
-                                </h2>
+                                <h4 id="jenis_bahan" class="label-data">
+                                    0  <span class="size12">Jenis Bahan</span>
+                                </h4>
                             </div>
                         </div>
                     </div>
@@ -117,13 +145,13 @@
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">
-                                <h4>Berhasil Cuci</h4>
+                                <h4 class="size10">Berhasil Cuci</h4>
                             </div>
                             <div class="card-body">
 
-                                <h2 id="berhasil_cuci">
+                                <h4 id="berhasil_cuci" class="label-data">
                                     0
-                                </h2>
+                                </h4>
                             </div>
                         </div>
                     </div>
@@ -140,12 +168,12 @@
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">
-                                <h4>Hasil Potong</h4>
+                                <h4 class="size10">Hasil Potong</h4>
                             </div>
                             <div class="card-body">
 
 
-                                <h2 id="hasil_potong">0</h2>
+                                <h4 id="hasil_potong" class="label-data">0</h4>
                             </div>
                         </div>
                     </div>
@@ -160,11 +188,11 @@
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">
-                                <h4>Siap Quality Control</h4>
+                                <h4 class="size10">Siap Quality Control</h4>
                             </div>
                             <div class="card-body">
 
-                                <h2 id="siap_qc"> 0</h2>
+                                <h4 id="siap_qc" class="label-data"> 0</h4>
                             </div>
                         </div>
                     </div>
@@ -181,12 +209,12 @@
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">
-                                <h4>Berhasil Jahit</h4>
+                                <h4 class="size10">Berhasil Jahit</h4>
                             </div>
                             <div class="card-body">
 
 
-                                <h2 id="berhasil_jahit"> 0</h2>
+                                <h4 id="berhasil_jahit" class="label-data"> 0</h4>
                             </div>
                         </div>
                     </div>
@@ -201,11 +229,11 @@
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">
-                                <h4>Baju Rusak / Buang</h4>
+                                <h4 class="size10">Baju Rusak / Buang</h4>
                             </div>
                             <div class="card-body">
 
-                                <h2 id="baju_rusak">0</h2>
+                                <h4 id="baju_rusak" class="label-data">0</h4>
                             </div>
                         </div>
                     </div>
@@ -218,11 +246,11 @@
             <div class="card">
                 <div class="card-header">
                     <h4 class="text-dark">Preview Cutting</h4>
-                    <div class="card-header-action">
+                    <div class="card-header-action" >
                         <a href="{{route('potong.index')}}">Lihat Semua <i class="fas fa-chevron-right"></i></a>
                     </div>
                 </div>
-                <div class="card-body">
+                <div class="card-body" style="margin-top: -30px">
                     <div class="table-responsive table-invoice">
                         <table class="table table-striped" id="table-cutting">
                             <thead>
@@ -248,7 +276,7 @@
                         <a href="{{route('jahit.index')}}">Lihat Semua <i class="fas fa-chevron-right"></i></a>
                     </div>
                 </div>
-                <div class="card-body">
+                <div class="card-body" style="margin-top: -30px">
                     <div class="table-responsive table-invoice">
                         <table class="table table-striped" id="table-jahit">
                             <thead>
@@ -275,7 +303,7 @@
                         <a href="{{route('cuci.index')}}">Lihat Semua <i class="fas fa-chevron-right"></i></a>
                     </div>
                 </div>
-                <div class="card-body">
+                <div class="card-body" style="margin-top: -30px">
                     <div class="table-responsive table-invoice">
                         <table class="table table-striped" id="table-cuci">
                             <thead>
@@ -529,20 +557,80 @@
 
          }
 
+         function cleartable() {
+            table_cutting.clear().draw();
+            table_jahit.clear().draw();
+            table_cuci.clear().draw();
+          }
+
+
+          $.ajax({
+                url:"{{route('dashboard.index')}}",
+                method:"GET",
+                success:function(data){
+                    console.log(data);
+                    if(data.status){
+
+                        if (typeof(pieChart) != "undefined") {
+                             pieChart.destroy();
+                        }
+                        if (typeof(barChart) != "undefined") {
+                             barChart.destroy();
+                        }
+                        if (typeof(lineChart) != "undefined") {
+                             lineChart.destroy();
+                        }
+
+
+                        var group_kain = data.group_kain
+                        var bulanbar = []
+                        var databar = []
+                        var pie = data.pie;
+                        group_kain.forEach(element => {
+                                bulanbar.push(element.months)
+                                databar.push(element.jumlah)
+                        });
+
+                        var line_data = data.line;
+                        var bulanline = []
+                        var dataline = []
+                        line_data.forEach(element => {
+                                bulanline.push(element.months)
+                                dataline.push(element.jumlah)
+                        });
+                        pieChartData(pie.label,pie.data)
+                        barChartData(databar, bulanbar)
+                        lineChartData(bulanline, dataline)
+                        table_cutting.rows.add(data.potong).draw();
+                        table_jahit.rows.add(data.jahit).draw();
+                        table_cuci.rows.add(data.cuci).draw();
+
+                        $('#jumlah_kain').text(data.jumlah_kain)
+                        $('#jenis_bahan').html(data.jenis_bahan+'  <span class="size12">Jenis Bahan</span>')
+                        $('#berhasil_cuci').html(data.berhasil_cuci+'  <span class="size12">dari '+data.berhasil_jahit+' pcs</span>')
+                        $('#siap_qc').html(data.berhasil_cuci+'  <span class="size12">pcs</span>')
+                        $('#hasil_potong').html(data.hasil_cutting+'  <span class="size12">pcs</span>')
+                        $('#berhasil_jahit').html(data.berhasil_jahit+'  <span class="size12">dari '+data.hasil_cutting+' pcs</span>')
+                        $('#baju_rusak').html(data.baju_rusak+'  <span class="size12">pcs</span>')
+                        $('#bulan').val(data.bulan).attr('selected','selected')
+                        $('#tahun').val(data.tahun).attr('selected','selected')
+                    }
+                }
+            })
+
         $('#bulan, #tahun').on('change', function () {
             var bulan = $('#bulan').find(':selected').val()
             var tahun = $('#tahun').find(':selected').val()
-            table_cutting.clear().draw;
-            table_jahit.clear().draw;
-            table_cuci.clear().draw;
+            cleartable()
             $.ajax({
                 url:"{{route('dashboard.index')}}",
                 method:"GET",
                 data:{
                     'bulan':bulan,
-                    'tahun':tahun
+                    'tahun':tahun,
+                    'status':'change'
                 },success:function(data){
-                    console.log(data);
+
                     if(data.status){
 
                         if (typeof(pieChart) != "undefined") {
@@ -578,12 +666,13 @@
                         table_jahit.rows.add(data.jahit).draw();
                         table_cuci.rows.add(data.cuci).draw();
                         $('#jumlah_kain').text(data.jumlah_kain)
-                        $('#jenis_bahan').text(data.jenis_bahan)
-                        $('#berhasil_cuci').text(data.berhasil_cuci)
-                        $('#siap_qc').text(data.berhasil_cuci)
-                        $('#hasil_potong').text(data.hasil_cutting)
-                        $('#berhasil_jahit').text(data.berhasil_jahit)
-                        $('#baju_rusak').text(data.baju_rusak)
+                        $('#jenis_bahan').html(data.jenis_bahan+'  <span class="size12">Jenis Bahan</span>')
+                        $('#berhasil_cuci').html(data.berhasil_cuci+'  <span class="size12">dari '+data.berhasil_jahit+' pcs</span>')
+
+                        $('#siap_qc').html(data.berhasil_cuci+'  <span class="size12">pcs</span>')
+                        $('#hasil_potong').html(data.hasil_cutting+'  <span class="size12">pcs</span>')
+                        $('#berhasil_jahit').html(data.berhasil_jahit+'  <span class="size12">dari '+data.hasil_cutting+' pcs</span>')
+                        $('#baju_rusak').html(data.baju_rusak+'  <span class="size12">pcs</span>')
                     }
                 }
             })

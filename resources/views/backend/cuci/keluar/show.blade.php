@@ -2,9 +2,14 @@
 
 @section('title', 'Cuci')
 @section('title-nav', 'Cuci')
-@section('cuci', 'class=active-sidebar-sidebar')
-
+@section('cuci', 'class=active-sidebar')
+@section('cssnav', 'cssnav')
 @section('content')
+<style>
+    .cssnav{
+       margin-left:-25px;
+    }
+</style>
 <style>
 
 

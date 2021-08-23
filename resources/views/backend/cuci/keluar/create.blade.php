@@ -3,8 +3,13 @@
 @section('title', 'Cuci')
 @section('title-nav', 'Cuci')
 @section('cuci', 'class=active-sidebar')
-
+@section('cssnav', 'cssnav')
 @section('content')
+<style>
+    .cssnav{
+       margin-left:-25px;
+    }
+</style>
 <style>
     .modal-body {
         max-height: calc(100vh - 210px);

@@ -6,7 +6,7 @@
 @section('warehouse', 'class=active-sidebar')
 
 @section('content')
-<section class="section mt-2">
+<section class="section mt-4">
     <div class="btn-group">
         <a href="{{route('warehouse.warehouse.create')}}" class="btn btn-primary ">
             Input Data <i class="fas fa-plus"></i>
@@ -14,7 +14,7 @@
         <a href="{{route('warehouse.print.index')}}" class="btn btn-outline-primary rounded ml-1">Print Semua  <i class="ri-printer-fill"></i>
         </a>
     </div>
-    <div class="section-body mt-2">
+    <div class="section-body mt-4">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
