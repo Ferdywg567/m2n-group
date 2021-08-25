@@ -20,4 +20,9 @@ class Bahan extends Model
     {
         return $this->hasMany('App\Sampah');
     }
+
+    public function skus()
+    {
+        return $this->belongsTo('App\Sku','sku_id','id');
+    }
 }

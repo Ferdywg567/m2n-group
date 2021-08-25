@@ -15,6 +15,9 @@ class CreateBahansTable extends Migration
     {
         Schema::create('bahans', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('sku_id')->unsigned()->index()->nullable();
+            $table->foreign('sku_id')->references('id')->on('skus')->onDelete('cascade');
+            $table->string('kode_transaksi')->nullable();
             $table->string('kode_bahan');
             $table->string('no_surat');
             $table->string('sku')->nullable();

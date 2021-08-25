@@ -1,18 +1,27 @@
+<style>
+    span{
+        font-size: 12px;
+    }
+</style>
+
 <aside id="sidebar-wrapper">
     <div class="sidebar-brand">
         <img src="{{asset('assets/img/logo.png')}}" alt="" srcset="" width="30">
         <a href="#">
             GARMENT</a>
     </div>
-    <div class="sidebar-brand sidebar-brand-sm">
-        <a href="#">Ts</a>
-    </div>
-    <ul class="sidebar-menu p-4">
+
+    <ul class="sidebar-menu" style="padding: 35px; margin-top:-20px;">
         <li class="menu-header"></li>
         @if (auth()->user()->hasRole('production'))
         <li @yield('dashboard')>
             <a class="nav-link" href="{{ route('dashboard.index') }}">
                 <i class="ri-dashboard-fill"></i> <span>Dashboard</span>
+            </a>
+        </li>
+        <li @yield('sku')>
+            <a class="nav-link" href="{{route('sku.index')}}">
+                <i class="ri-file-paper-line"></i> <span>SKU</span>
             </a>
         </li>
         <li @yield('bahan')>
@@ -56,6 +65,16 @@
                 <i class="ri-logout-box-fill"></i> <span>Retur</span>
             </a>
         </li>
+
+
+        <li style="position: fixed; margin-top:3%">
+            <a class="nav-link" href="#">
+                <footer>
+                    <i class="ri-copyright-fill"></i> <span style="font-size: 10px">Copyright ERP 2021 </span>
+                </footer>
+            </a>
+
+        </li>
         @endif
 
 
@@ -86,13 +105,17 @@
                 <i class="ri-booklet-fill"></i> <span>Rekapitulasi</span>
             </a>
         </li>
-        @endif
 
-        <li class="mt-5">
+
+        <li style="position: fixed; margin-top:20%">
             <a class="nav-link" href="#">
-                <i class="ri-copyright-fill"></i> <span style="font-size: 12px">Copyright ERP 2021 </span>
+                <footer>
+                    <i class="ri-copyright-fill"></i> <span style="font-size: 10px">Copyright ERP 2021 </span>
+                </footer>
             </a>
 
         </li>
+        @endif
+
     </ul>
 </aside>

@@ -137,6 +137,7 @@
                                         <thead>
                                             <tr>
                                                 <th scope="col">No</th>
+                                                <th scope="col">Kode Transaksi</th>
                                                 <th scope="col">Kode Bahan</th>
                                                 <th scope="col">Jenis Kain</th>
                                                 <th scope="col">SKU</th>
@@ -151,6 +152,7 @@
                                             @forelse ($keluar as $item)
                                             <tr>
                                                 <td>{{$loop->iteration}}</td>
+                                                <td>{{$item->kode_transaksi}}</td>
                                                 <td>{{$item->kode_bahan}}</td>
                                                 <td>{{$item->jenis_bahan}}</td>
                                                 <td>{{$item->sku}}</td>

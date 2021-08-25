@@ -52,13 +52,13 @@
         }
 
         th {
-            font-size: 8px;
+            font-size: 10px;
             text-align: center;
         }
 
         td {
             text-align: center;
-            font-size: 10px;
+            font-size: 12px;
         }
 
         td span {
@@ -113,6 +113,8 @@
 
     <script>
         $(document).ready(function () {
+            $('.nicescroll-rails.nicescroll-rails-vr').remove();
+            $(".do-nicescrol").niceScroll("{horizrailenabled:false}");
             $('#btnnotif').on('click',function () {
                 $.ajax({
                     url:"{{route('notification')}}",

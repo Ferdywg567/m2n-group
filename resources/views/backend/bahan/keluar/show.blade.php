@@ -55,7 +55,14 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="kode_transaksi">Kode Transaksi</label>
+                                            <input type="text" class="form-control" value="{{$bahan->kode_transaksi}}" readonly required id="kode_transaksi"
+                                                name="kode_transaksi">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="no_surat">Nomor Surat Jalan</label>
                                             <input type="text" class="form-control" value="{{$bahan->no_surat}}" required readonly

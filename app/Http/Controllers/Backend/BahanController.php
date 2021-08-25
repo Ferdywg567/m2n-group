@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Notification;
 use App\Bahan;
+use App\Sku;
 use PDF;
 
 class BahanController extends Controller
@@ -35,7 +36,10 @@ class BahanController extends Controller
             return view("backend.bahan.masuk.create");
         } else {
             $masuk = Bahan::all()->where('status', 'bahan masuk');
-            return view("backend.bahan.keluar.create", ['masuk' => $masuk]);
+            $sku = Sku::all();
+            $kode_transaksi = $this->getKode();
+
+            return view("backend.bahan.keluar.create", ['masuk' => $masuk, 'kode' => $kode_transaksi, 'sku' => $sku]);
         }
     }
 
@@ -101,7 +105,11 @@ class BahanController extends Controller
                 $bahan->tanggal_masuk = $request->get('tanggal');
                 $bahan->status = "bahan masuk";
             } else {
-                $bahan->sku = $request->get('sku');
+                $kode_transaksi = $this->getKode();
+                $sku = Sku::findOrFail($request->get('sku'));
+                $bahan->kode_transaksi = $kode_transaksi;
+                $bahan->sku = $sku->kode_sku;
+                $bahan->sku_id = $sku->id;
                 $bahan->status = "bahan keluar";
                 $bahan->tanggal_keluar = $request->get('tanggal');
             }
@@ -126,6 +134,7 @@ class BahanController extends Controller
         if ($bahan->status == 'bahan masuk') {
             return view("backend.bahan.masuk.show", ['bahan' => $bahan]);
         } else {
+
             return view("backend.bahan.keluar.show", ['bahan' => $bahan]);
         }
     }
@@ -142,6 +151,7 @@ class BahanController extends Controller
         if ($bahan->status == 'bahan masuk') {
             return view("backend.bahan.masuk.edit", ['bahan' => $bahan]);
         } else {
+
             return view("backend.bahan.keluar.edit", ['bahan' => $bahan]);
         }
     }
@@ -195,7 +205,6 @@ class BahanController extends Controller
                 $bahan->tanggal_masuk = $request->get('tanggal');
                 $bahan->status = "bahan masuk";
             } else {
-                $bahan->sku = $request->get('sku');
                 $bahan->status = "bahan keluar";
                 $bahan->tanggal_keluar = $request->get('tanggal');
             }
@@ -237,6 +246,17 @@ class BahanController extends Controller
             return response()->json([
                 'status' => true,
                 'data' => $bahan
+            ]);
+        }
+    }
+
+    public function getDataSKU(Request $request){
+        if ($request->ajax()) {
+            $ksu = Sku::findOrFail($request->get('id'));
+
+            return response()->json([
+                'status' => true,
+                'data' => $ksu
             ]);
         }
     }
@@ -305,5 +325,19 @@ class BahanController extends Controller
 
         $pdf = PDF::loadView('backend.bahan.pdf', ['data' => $x]);
         return $pdf->stream('bahan.pdf');
+    }
+
+    public function getKode()
+    {
+        $kode_transaksi = Bahan::max('kode_transaksi');
+        if (empty($kode_transaksi)) {
+            $kode_transaksi = "TR-" . date('Ymd') . "1";
+        } else {
+            $last = substr($kode_transaksi, -1);
+            $jumlah = $last + 1;
+            $kode_transaksi = "TR-" . date('Ymd') . $jumlah;
+        }
+
+        return $kode_transaksi;
     }
 }

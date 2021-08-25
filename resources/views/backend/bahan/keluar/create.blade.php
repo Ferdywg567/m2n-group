@@ -8,8 +8,8 @@
 
 @section('content')
 <style>
-    .cssnav{
-       margin-left:-20px;
+    .cssnav {
+        margin-left: -20px;
     }
 </style>
 
@@ -51,28 +51,36 @@
 
                                                         </select>
                                                     </div>
-                                                    {{-- <div id="kdbahanreadonly">
-                                                        <div class="form-group">
-                                                            <input type="text" class="form-control" readonly
-                                                                id="kode_bahanreadonly" name="kode_bahanreadonly">
-                                                        </div>
-                                                    </div> --}}
+
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="sku">SKU</label>
-                                                    <input type="text" class="form-control"  required id="sku"
-                                                        name="sku">
+                                                    <select class="form-control" id="sku" name="sku">
+                                                        <option value="">Pilih SKU</option>
+                                                        @forelse ($sku as $item)
+                                                        <option value="{{$item->id}}">{{$item->kode_sku}}</option>
+                                                        @empty
+
+                                                        @endforelse
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="kode_transaksi">Kode Transaksi</label>
+                                            <input type="text" class="form-control" value="{{$kode}}" readonly required id="kode_transaksi"
+                                                name="kode_transaksi">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="no_surat">Nomor Surat Jalan</label>
-                                            <input type="text" class="form-control" required readonly
-                                                id="no_surat_keluar" name="no_surat">
+                                            <input type="text" class="form-control" required id="no_surat_keluar"
+                                                name="no_surat">
                                         </div>
                                     </div>
                                 </div>
@@ -81,14 +89,14 @@
                                         <div class="form-group">
                                             <label for="nama_bahan">Nama Bahan</label>
                                             <input type="text" class="form-control" required readonly
-                                                id="nama_bahan_keluar" name="nama_bahan">
+                                                id="nama_bahan" name="nama_bahan">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="jenis_bahan">Jenis Bahan</label>
                                             <input type="text" class="form-control" required readonly
-                                                id="jenis_bahan_keluar" name="jenis_bahan">
+                                                id="jenis_bahan" name="jenis_bahan">
                                         </div>
                                     </div>
                                 </div>
@@ -96,7 +104,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="warna">Warna</label>
-                                            <input type="text" class="form-control" required readonly id="warna_keluar"
+                                            <input type="text" class="form-control" required readonly id="warna"
                                                 name="warna">
                                         </div>
                                     </div>
@@ -104,7 +112,7 @@
                                         <div class="form-group">
                                             <label for="panjang_bahan">Panjang Bahan</label>
                                             <div class="input-group mb-2">
-                                                <input type="number" class="form-control" required readonly
+                                                <input type="number" class="form-control" required
                                                     id="panjang_bahan_keluar" name="panjang_bahan">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">yard</div>
@@ -162,6 +170,7 @@
               }
 
               $('#kode_bahanselect').select2()
+              $('#sku').select2()
 
               $('#kode_bahanselect').on('change', function () {
                     var id = $(this).find(':selected').val()
@@ -176,14 +185,33 @@
                         }).done(function (response) {
 
                             if(response.status){
-                                var data = response.data;
-                                $('#no_surat_keluar').val(data.no_surat)
-                                $('#nama_bahan_keluar').val(data.nama_bahan)
-                                $('#jenis_bahan_keluar').val(data.jenis_bahan)
-                                $('#warna_keluar').val(data.warna)
+                                var data = response.data
                                 $('#vendor_keluar').val(data.vendor)
+                            }
 
-                                $('#panjang_bahan_keluar').val(data.panjang_bahan)
+                        })
+                    }
+            })
+
+
+            $('#sku').on('change', function () {
+                    var id = $(this).find(':selected').val()
+
+                    if(id != ''){
+                        $.ajax({
+                            url:"{{route('bahan.getdatasku')}}",
+                            method:"GET",
+                            data:{
+                                'id':id
+                            }
+                        }).done(function (response) {
+
+                            if(response.status){
+                                var data = response.data
+                                $('#nama_bahan').val(data.nama_produk)
+                                $('#jenis_bahan').val(data.jenis_bahan)
+                                $('#warna').val(data.warna)
+
                             }
 
                         })

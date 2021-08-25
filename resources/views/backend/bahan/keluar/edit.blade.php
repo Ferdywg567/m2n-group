@@ -51,13 +51,20 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="sku">SKU</label>
-                                                    <input type="text" class="form-control"  value="{{$bahan->sku}}" required id="sku"
+                                                    <input type="text" class="form-control" readonly  value="{{$bahan->sku}}" required id="sku"
                                                         name="sku">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="kode_transaksi">Kode Transaksi</label>
+                                            <input type="text" class="form-control" value="{{$bahan->kode_transaksi}}" required readonly
+                                                id="kode_transaksi_keluar" name="kode_transaksi">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="no_surat">Nomor Surat Jalan</label>
                                             <input type="text" class="form-control" value="{{$bahan->no_surat}}" required readonly
@@ -69,14 +76,14 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="nama_bahan">Nama Bahan</label>
-                                            <input type="text" class="form-control" value="{{$bahan->nama_bahan}}" required readonly
+                                            <input type="text" class="form-control" value="{{$bahan->skus->nama_produk}}" required readonly
                                                 id="nama_bahan_keluar" name="nama_bahan">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="jenis_bahan">Jenis Bahan</label>
-                                            <input type="text" class="form-control" value="{{$bahan->jenis_bahan}}" required readonly
+                                            <input type="text" class="form-control"  value="{{$bahan->skus->jenis_bahan}}" required readonly
                                                 id="jenis_bahan_keluar" name="jenis_bahan">
                                         </div>
                                     </div>
@@ -85,7 +92,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="warna">Warna</label>
-                                            <input type="text" class="form-control" value="{{$bahan->warna}}" required readonly id="warna_keluar"
+                                            <input type="text" class="form-control" value="{{$bahan->skus->warna}}" required readonly id="warna_keluar"
                                                 name="warna">
                                         </div>
                                     </div>
@@ -93,7 +100,7 @@
                                         <div class="form-group">
                                             <label for="panjang_bahan">Panjang Bahan</label>
                                             <div class="input-group mb-2">
-                                                <input type="number" class="form-control" value="{{$bahan->panjang_bahan}}" required readonly
+                                                <input type="number" class="form-control" value="{{$bahan->panjang_bahan}}" required 
                                                     id="panjang_bahan_keluar" name="panjang_bahan">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">yard</div>

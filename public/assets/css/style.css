@@ -1521,7 +1521,7 @@ h6 .badge {
 /* 3.18 Navbar */
 .navbar {
   height: 70px;
-  left: 250px;
+  left: 230px;
   right: 5px;
   position: absolute;
   z-index: 890;
@@ -2468,7 +2468,7 @@ pre {
   position: fixed;
   top: 0;
   height: 100%;
-  width: 250px;
+  width: 230px;
   background-color: #fff;
   z-index: 880;
   left: 0; }
@@ -2860,7 +2860,7 @@ body.layout-3 .main-footer {
         padding-left: 10px; }
 
 .main-content {
-  padding-left: 280px;
+  padding-left: 252px;
   padding-right: 30px;
   padding-top: 80px;
   width: 100%;
@@ -2914,7 +2914,7 @@ body:not(.sidebar-mini) .sidebar-style-2 .sidebar-menu li.active ul.dropdown-men
   padding-left: 61px;
   background-color: #fff; }
 
-@media (max-width: 1024px) {
+@media (max-width: 1280px) {
   .sidebar-gone-hide {
     display: none !important; }
   .sidebar-gone-show {

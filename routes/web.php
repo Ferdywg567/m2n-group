@@ -68,6 +68,7 @@ Route::group(['prefix' => 'production', 'namespace' => 'Backend', 'middleware' =
     Route::group(['prefix' => 'bahan', 'as' => 'bahan.'], function () {
         Route::post('/cetak', 'BahanController@cetakPdf')->name('cetak');
         Route::get('/getdatabahan', 'BahanController@getDataBahan')->name('getdata');
+        Route::get('/getdatasku', 'BahanController@getDataSKU')->name('getdatasku');
         Route::get('/getdataprint', 'BahanController@getDataPrint')->name('getdataprint');
     });
     Route::resource('bahan', 'BahanController');
@@ -117,7 +118,7 @@ Route::group(['prefix' => 'production', 'namespace' => 'Backend', 'middleware' =
     Route::group(['prefix' => 'sampah', 'as' => 'sampah.'], function () {
         Route::post('/cetak', 'SampahController@cetakPdf')->name('cetak');
     });
-
+    Route::resource('sku', 'SkuController');
     Route::resource('cuci', 'CuciController');
     Route::resource('retur', 'ReturController');
     Route::resource('rekapitulasi', 'RekapitulasiController');
