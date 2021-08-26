@@ -45,7 +45,7 @@ class RekapitulasiController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'kode_bahan' => 'required',
+            'kode_transaksi' => 'required',
             'tanggal_kirim' => 'required|date_format:"Y-m-d"',
         ]);
 
@@ -55,7 +55,7 @@ class RekapitulasiController extends Controller
             DB::beginTransaction();
             try {
                 $rekap = new Rekapitulasi();
-                $rekap->cuci_id = $request->get('kode_bahan');
+                $rekap->cuci_id = $request->get('kode_transaksi');
                 $rekap->tanggal_kirim = $request->get('tanggal_kirim');
                 $rekap->total_barang = $request->get('total_barang');
                 $rekap->save();
@@ -172,7 +172,7 @@ class RekapitulasiController extends Controller
 
         $x['title'] = $titlerekap;
         $ukuran = '';
-        $x['kode_bahan'] =      $rekap->cuci->jahit->potong->bahan->kode_bahan;
+        $x['kode_bahan'] =      $rekap->cuci->jahit->potong->bahan->kode_transaksi;
         foreach ($rekap->detail_rekap as $key => $row) {
             $ukuran .= $row->ukuran . ',';
         }

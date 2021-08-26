@@ -26,12 +26,12 @@
         <div class="dropdown-menu">
             <form action="{{route('warehouse.finishing.create')}}" method="get">
                 <input type="hidden" name="status" value="masuk">
-                <button class="dropdown-item">Finishing</button>
+                <button class="dropdown-item">Produk Masuk</button>
             </form>
 
             <form action="{{route('warehouse.finishing.create')}}" method="get">
                 <input type="hidden" name="status" value="keluar">
-                <button class="dropdown-item">Kirim Warehouse</button>
+                <button class="dropdown-item">Produk Keluar</button>
             </form>
 
         </div>
@@ -50,10 +50,10 @@
                                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                                     <a class="nav-item nav-link active " id="nav-masuk-tab" data-toggle="tab"
                                         href="#nav-masuk" role="tab" aria-controls="nav-masuk"
-                                        aria-selected="true">Finishing</a>
+                                        aria-selected="true">Produk Masuk</a>
                                     <a class="nav-item nav-link " id="nav-keluar-tab" data-toggle="tab"
                                         href="#nav-keluar" role="tab" aria-controls="nav-keluar"
-                                        aria-selected="false">Kirim Warehouse</a>
+                                        aria-selected="false">Produk Keluar</a>
                                 </div>
                             </nav>
                         </div>

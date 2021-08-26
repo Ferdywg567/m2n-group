@@ -27,10 +27,10 @@
                                 <div class="row">
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label for="kode_bahan">Kode Bahan</label>
+                                            <label for="kode_transaksi">Kode Transaksi</label>
                                             <input type="text" class="form-control" readonly
-                                                value="{{$rekap->cuci->jahit->potong->bahan->kode_bahan}}" required
-                                                id="kode_bahan" name="kode_bahan">
+                                                value="{{$rekap->cuci->jahit->potong->bahan->kode_transaksi}}" required
+                                                id="kode_transaksi" name="kode_transaksi">
                                         </div>
 
                                     </div>
@@ -47,7 +47,7 @@
                                         <div class="form-group">
                                             <label for="jenis_bahan">Jenis Bahan</label>
                                             <input type="text" class="form-control" readonly required id="jenis_bahan"
-                                                value="{{$rekap->cuci->jahit->potong->bahan->jenis_bahan}}"
+                                                value="{{$rekap->cuci->jahit->potong->bahan->skus->jenis_bahan}}"
                                                 name="jenis_bahan">
                                         </div>
                                     </div>
@@ -57,7 +57,7 @@
                                         <div class="form-group">
                                             <label for="nama_bahan">Nama Produk</label>
                                             <input type="text" class="form-control" readonly required id="nama_bahan"
-                                                value="{{$rekap->cuci->jahit->potong->bahan->nama_bahan}}"
+                                                value="{{$rekap->cuci->jahit->potong->bahan->skus->nama_produk}}"
                                                 name="nama_bahan">
                                         </div>
                                     </div>
@@ -74,7 +74,7 @@
                                         <div class="form-group">
                                             <label for="warna_baju">Warna Baju</label>
                                             <input type="text" class="form-control" readonly required
-                                                value="{{$rekap->cuci->jahit->potong->bahan->warna}}"
+                                                value="{{$rekap->cuci->jahit->potong->bahan->skus->warna}}"
                                                 id="warna_baju_keluar" name="warna_baju">
                                         </div>
 
@@ -101,7 +101,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="total_barang">Total Barang Siap QC</label>
+                                            <label for="total_barang">Total Stok Terbaru</label>
                                             <div class="input-group mb-2">
                                                 <input type="number" class="form-control" readonly required
                                                     value="{{$rekap->total_barang}}" id="total_barang"

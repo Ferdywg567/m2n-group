@@ -45,7 +45,7 @@ class CuciController extends Controller
             $cuci = Cuci::where('status', 'cucian masuk')->get();
             return view("backend.cuci.selesai.create", ['cuci' => $cuci]);
         } else {
-            $cuci = Cuci::where('status', 'cucian masuk')->get();
+            $cuci = Cuci::where('status', 'cucian selesai')->get();
             return view("backend.cuci.keluar.create", ['cuci' => $cuci]);
         }
     }

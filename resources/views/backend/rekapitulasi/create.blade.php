@@ -27,13 +27,13 @@
                                 <div class="row">
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label for="kode_bahan">Kode Bahan</label>
-                                            <select class="form-control" id="kode_bahanselect" name="kode_bahan">
-                                                <option value="">Pilih Kode Bahan</option>
+                                            <label for="kode_transaksi">Kode Transaksi</label>
+                                            <select class="form-control" id="kode_transaksiselect" name="kode_transaksi">
+                                                <option value="">Pilih Kode Transaksi</option>
                                                 @forelse ($cuci as $item)
                                                 <option value="{{$item->id}}">
-                                                    {{$item->jahit->potong->bahan->kode_bahan}} |
-                                                    {{$item->jahit->potong->bahan->nama_bahan}}
+                                                    {{$item->jahit->potong->bahan->kode_transaksi}}
+
                                                 </option>
                                                 @empty
 
@@ -162,7 +162,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="total_barang">Total Barang Siap QC</label>
+                                            <label for="total_barang">Total Stok Terbaru</label>
                                             <div class="input-group mb-2">
                                                 <input type="number" class="form-control" readonly required
                                                     id="total_barang" name="total_barang">
@@ -209,13 +209,13 @@
               $('.btnkeluar').prop('id','btnsimpankeluar')
               $('#tabelmasuk').DataTable()
               $('#tabelbahankeluar').DataTable()
-              $('#kode_bahanselect').select2()
-              $('#kode_bahanselectkeluar').select2()
+              $('#kode_transaksiselect').select2()
+              $('#kode_transaksiselectkeluar').select2()
               $('.btnmasuk').prop('id','btnsimpanmasuk')
 
 
 
-            $('#kode_bahanselect').on('change', function () {
+            $('#kode_transaksiselect').on('change', function () {
                     var id = $(this).find(':selected').val()
 
                     if(id != ''){

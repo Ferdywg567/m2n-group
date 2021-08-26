@@ -88,12 +88,18 @@
 
         <li @yield('finishing')>
             <a class="nav-link" href="{{route('warehouse.finishing.index')}}">
-                <i class="ri-check-double-line"></i><span>Finishing</span>
+                <i class="ri-check-double-line"></i><span>Sortir (QC)</span>
             </a>
         </li>
         <li @yield('warehouse')>
             <a class="nav-link" href="{{route('warehouse.warehouse.index')}}">
-                <i class="ri-home-gear-fill"></i> <span>Warehouse</span>
+                <i class="ri-home-gear-fill"></i> <span>Gudang</span>
+            </a>
+        </li>
+
+        <li @yield('rekapitulasi')>
+            <a class="nav-link" href="{{route('warehouse.rekapitulasi.index')}}">
+                <i class="ri-booklet-fill"></i> <span>Rekapitulasi</span>
             </a>
         </li>
         <li @yield('retur')>
@@ -101,12 +107,6 @@
                 <i class="ri-logout-box-fill"></i> <span>Retur</span>
             </a>
         </li>
-        <li @yield('rekapitulasi')>
-            <a class="nav-link" href="{{route('warehouse.rekapitulasi.index')}}">
-                <i class="ri-booklet-fill"></i> <span>Rekapitulasi</span>
-            </a>
-        </li>
-
 
         <li style="position: fixed; margin-top:20%">
             <a class="nav-link" href="#">
