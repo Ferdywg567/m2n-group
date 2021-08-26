@@ -24,12 +24,14 @@ class JahitController extends Controller
     public function index()
     {
         $proses = Jahit::whereDate('tanggal_jahit', date('Y-m-d'))->where('status', 'jahitan masuk')->update(['status_jahit' => 'proses jahit']);
-        $selesai = Jahit::whereDate('tanggal_selesai', date('Y-m-d'))->where('status', 'jahitan masuk')->update(['status_jahit' => 'selesai']);
+        // $selesai = Jahit::whereDate('tanggal_selesai', date('Y-m-d'))->where('status', 'jahitan masuk')->update(['status_jahit' => 'selesai']);
+        $selesai = Jahit::query()->update(['status_jahit' => 'selesai']);
         $datakeluar = Potong::where('status', 'potong keluar')->where('status_potong', 'selesai')->doesntHave('jahit')->get();
-        $jahitmasuk = Jahit::where('status', 'jahitan masuk')->orderBy('created_at','DESC')->get();
-        $jahitkeluar = Jahit::where('status', 'jahitan keluar')->orderBy('created_at','DESC')->get();
+        $jahitmasuk = Jahit::where('status', 'jahitan masuk')->orderBy('created_at', 'DESC')->get();
+        $jahitkeluar = Jahit::where('status', 'jahitan keluar')->orderBy('created_at', 'DESC')->get();
+        $jahitselesai = Jahit::where('status', 'jahitan selesai')->orderBy('created_at', 'DESC')->get();
 
-        return view("backend.jahit.index", ['datakeluar' => $datakeluar, 'jahitmasuk' => $jahitmasuk, 'jahitkeluar' => $jahitkeluar]);
+        return view("backend.jahit.index", ['datakeluar' => $datakeluar, 'jahitmasuk' => $jahitmasuk, 'jahitkeluar' => $jahitkeluar, 'jahitselesai' => $jahitselesai]);
     }
 
     /**
@@ -43,8 +45,12 @@ class JahitController extends Controller
         if ($request->get('status') == 'masuk') {
             $datakeluar = Potong::where('status', 'potong keluar')->where('status_potong', 'selesai')->doesntHave('jahit')->get();
             return view("backend.jahit.masuk.create", ['datakeluar' => $datakeluar]);
-        } else {
+        } else if ($request->get('status') == 'selesai') {
             $keluar = Jahit::all()->where('status', 'jahitan masuk')->where('status_jahit', 'selesai');
+            return view("backend.jahit.selesai.create", ['keluar' => $keluar]);
+        } else {
+            // $keluar = Jahit::all()->where('status', 'jahitan selesai')->where('status_jahit', 'selesai');
+            $keluar = Jahit::all()->where('status', 'jahitan selesai');
             return view("backend.jahit.keluar.create", ['keluar' => $keluar]);
         }
     }
@@ -57,20 +63,21 @@ class JahitController extends Controller
      */
     public function store(Request $request)
     {
-        if ($request->get('status') == 'jahitan masuk') {
+        $status = $request->get('status');
+        if ($status == 'jahitan masuk') {
 
             if ($request->get('vendor_jahit') == 'internal') {
                 $validasi = [
-                    'kode_bahan' =>  'required',
-                    'no_surat' => 'required|unique:potongs,no_surat',
+                    'kode_transaksi' =>  'required',
+                    'no_surat' => 'required|unique:jahits,no_surat',
                     'tanggal_jahit' => 'required|date_format:"Y-m-d"|after_or_equal:' . date('Y-m-d'),
                     'tanggal_selesai' => 'required|date_format:"Y-m-d"|after:tanggal_jahit',
                     'vendor_jahit' => 'required'
                 ];
             } else {
                 $validasi = [
-                    'kode_bahan' =>  'required',
-                    'no_surat' => 'required|unique:potongs,no_surat',
+                    'kode_transaksi' =>  'required',
+                    'no_surat' => 'required|unique:jahits,no_surat',
                     'tanggal_jahit' => 'required|date_format:"Y-m-d"|after_or_equal:' . date('Y-m-d'),
                     'tanggal_selesai' => 'required|date_format:"Y-m-d"|after:tanggal_jahit',
                     'vendor_jahit' => 'required',
@@ -79,9 +86,30 @@ class JahitController extends Controller
                 ];
             }
             $validator = Validator::make($request->all(), $validasi);
+        } elseif ($status == 'jahitan selesai') {
+            if ($request->get('vendor_jahit') == 'internal') {
+                $validasi = [
+                    'kode_transaksi' =>  'required',
+                    'no_surat' => 'required',
+                    'vendor_jahit' => 'required',
+                    'berhasil_jahit' => 'required|integer',
+                    'konversi' => 'required',
+                ];
+            } else {
+                $validasi = [
+                    'kode_transaksi' =>  'required',
+                    'no_surat' => 'required',
+                    'vendor_jahit' => 'required',
+                    'berhasil_jahit' => 'required|integer',
+                    'konversi' => 'required',
+                    'nama_vendor' => 'required',
+                    'harga_vendor' => 'required'
+                ];
+            }
+            $validator = Validator::make($request->all(), $validasi);
         } else {
             $validator = Validator::make($request->all(), [
-                'kode_bahan' =>  'required',
+                'kode_transaksi' =>  'required',
                 'no_surat' => 'required',
                 'vendor_jahit' => 'required',
                 'berhasil_jahit' => 'required|integer',
@@ -98,9 +126,9 @@ class JahitController extends Controller
 
                 if ($request->get('status') == 'jahitan masuk') {
                     $jahit = new Jahit();
-                    $jahit->potong_id = $request->get('kode_bahan');
+                    $jahit->potong_id = $request->get('kode_transaksi');
                 } else {
-                    $jahit = Jahit::findOrFail($request->get('kode_bahan'));
+                    $jahit = Jahit::findOrFail($request->get('kode_transaksi'));
                 }
                 $jahit->no_surat = $request->get('no_surat');
                 $jahit->vendor = $request->get('vendor_jahit');
@@ -113,12 +141,91 @@ class JahitController extends Controller
                     } else {
                         $jahit->status_jahit = "belum jahit";
                     }
-
                     if ($request->get('vendor_jahit') == 'eksternal') {
                         $jahit->nama_vendor = $request->get('nama_vendor');
                         $jahit->harga_vendor = $request->get('harga_vendor');
                         $jahit->status_pembayaran = $request->get('status_pembayaran');
                     }
+                }
+
+
+
+                if ($request->get('status') == 'jahitan selesai') {
+                    $jahit->berhasil = $request->get('berhasil_jahit');
+                    $jahit->konversi = $request->get('konversi');
+                    $jahit->status = "jahitan selesai";
+                    if ($request->get('vendor_jahit') == 'eksternal') {
+                        $jahit->nama_vendor = $request->get('nama_vendor');
+                        $jahit->harga_vendor = $request->get('harga_vendor');
+                        $jahit->status_pembayaran = $request->get('status_pembayaran');
+                    }
+                    $jumlah = $request->get('jumlah');
+                    $dataukuran = $request->get('dataukuran');
+                    $arr = [];
+                    foreach ($dataukuran as $key => $value) {
+                        if (!empty($jumlah[$key])) {
+                            $x['ukuran'] = $value;
+                            $x['jumlah'] = $jumlah[$key];
+                            array_push($arr, $x);
+                        }
+                    }
+
+                    foreach ($arr as $key => $value) {
+                        $detail = new DetailJahit();
+                        $detail->jahit_id = $jahit->id;
+                        $detail->size = $value['ukuran'];
+                        $detail->jumlah = $value['jumlah'];
+                        $detail->save();
+                    }
+
+                    //direpair
+                    unset($arr);
+                    $jumlah = $request->get('jumlahdirepair');
+                    $dataukuran = $request->get('dataukurandirepair');
+                    $arr = [];
+                    foreach ($dataukuran as $key => $value) {
+                        if (!empty($jumlah[$key])) {
+                            $x['ukuran'] = $value;
+                            $x['jumlah'] = $jumlah[$key];
+                            array_push($arr, $x);
+                        }
+                    }
+
+                    foreach ($arr as $key => $value) {
+                        $detail = new JahitDirepair();
+                        $detail->jahit_id = $jahit->id;
+                        $detail->ukuran = $value['ukuran'];
+                        $detail->jumlah = $value['jumlah'];
+                        $detail->save();
+                    }
+
+
+                    //dibuang
+                    unset($arr);
+                    $jumlah = $request->get('jumlahdibuang');
+                    $dataukuran = $request->get('dataukurandibuang');
+                    $arr = [];
+                    foreach ($dataukuran as $key => $value) {
+                        if (!empty($jumlah[$key])) {
+                            $x['ukuran'] = $value;
+                            $x['jumlah'] = $jumlah[$key];
+                            array_push($arr, $x);
+                        }
+                    }
+
+                    foreach ($arr as $key => $value) {
+                        $detail = new JahitDibuang();
+                        $detail->jahit_id = $jahit->id;
+                        $detail->ukuran = $value['ukuran'];
+                        $detail->jumlah = $value['jumlah'];
+                        $detail->save();
+                    }
+
+                    $jahit->gagal_jahit = $request->get('gagal_jahit');
+                    $jahit->barang_direpair = $request->get('barang_direpair');
+                    $jahit->barang_dibuang = $request->get('barang_dibuang');
+                    $jahit->keterangan_direpair = $request->get('keterangan_direpair');
+                    $jahit->keterangan_dibuang = $request->get('keterangan_dibuang');
                 }
 
 
@@ -230,7 +337,9 @@ class JahitController extends Controller
 
         if ($jahit->status == 'jahitan masuk') {
             return view("backend.jahit.masuk.show", ['jahit' => $jahit]);
-        } else {
+        } else  if ($jahit->status == 'jahitan selesai') {
+            return view("backend.jahit.selesai.show", ['jahit' => $jahit]);
+        }else {
             return view("backend.jahit.keluar.show", ['jahit' => $jahit]);
         }
     }
@@ -247,6 +356,8 @@ class JahitController extends Controller
 
         if ($jahit->status == 'jahitan masuk') {
             return view("backend.jahit.masuk.edit", ['jahit' => $jahit]);
+        } else  if ($jahit->status == 'jahitan selesai') {
+            return view("backend.jahit.selesai.edit", ['jahit' => $jahit]);
         } else {
             return view("backend.jahit.keluar.edit", ['jahit' => $jahit]);
         }
@@ -432,7 +543,7 @@ class JahitController extends Controller
             $status = false;
             if ($jahit->cuci()->exists()) {
                 $status = true;
-            }else{
+            } else {
                 $jahit->delete();
             }
             return response()->json([
@@ -469,7 +580,7 @@ class JahitController extends Controller
                 'Barang Dibuang',
                 'Keterangan Dibuang'
             ];
-            $x['kode_bahan']=  $jahit->potong->bahan->kode_bahan;
+            $x['kode_bahan'] =  $jahit->potong->bahan->kode_transaksi;
             $x['title'] = $titlejahit;
             $x['data'] = [
                 $jahit->potong->bahan->sku,
@@ -490,7 +601,8 @@ class JahitController extends Controller
         }
     }
 
-    public function cetakPdf(Request $request){
+    public function cetakPdf(Request $request)
+    {
         $jahit = Jahit::findOrFail($request->get('id'));
         $titlejahit = [
             'Kode SKU',
@@ -503,7 +615,7 @@ class JahitController extends Controller
             'Barang Dibuang',
             'Keterangan Dibuang'
         ];
-        $x['kode_bahan']=  $jahit->potong->bahan->kode_bahan;
+        $x['kode_bahan'] =  $jahit->potong->bahan->kode_bahan;
         $x['title'] = $titlejahit;
         $x['data'] = [
             $jahit->potong->bahan->sku,

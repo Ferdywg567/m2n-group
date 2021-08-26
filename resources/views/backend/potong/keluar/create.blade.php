@@ -27,13 +27,12 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="kode_bahan">Kode Bahan</label>
+                                            <label for="kode_transaksi">Kode Transaksi</label>
                                             <div id="kdbahanselectkeluar">
-                                                <select class="form-control" id="kode_bahanselectkeluar" name="kode_bahan">
-                                                    <option value="">Pilih Kode Bahan</option>
+                                                <select class="form-control" id="kode_transaksiselectkeluar" name="kode_transaksi">
+                                                    <option value="">Pilih Kode Transaksi</option>
                                                     @forelse ($keluar as $item)
-                                                    <option value="{{$item->id}}">{{$item->bahan->kode_bahan}} |
-                                                        {{$item->bahan->nama_bahan}}
+                                                    <option value="{{$item->id}}">{{$item->bahan->kode_transaksi}}
                                                     </option>
                                                     @empty
 
@@ -67,22 +66,6 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="tanggal_keluar">Tanggal Keluar</label>
-                                            <input type="date" class="form-control" required id="tanggal_keluar"
-                                                name="tanggal_keluar">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="jenis_kain">Jenis Kain</label>
-                                            <input type="text" class="form-control" readonly required id="jenis_kain_keluar"
-                                                name="jenis_kain">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
                                             <label for="sku">Kode SKU</label>
                                             <input type="text" class="form-control" readonly required id="sku_keluar"
                                                 name="sku">
@@ -92,14 +75,9 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="panjang_kain">Panjang kain</label>
-                                            <div class="input-group mb-2">
-                                                <input type="number" class="form-control" readonly required
-                                                    id="panjang_kain_keluar" name="panjang_kain">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">yard</div>
-                                                </div>
-                                            </div>
+                                            <label for="jenis_kain">Jenis Kain</label>
+                                            <input type="text" class="form-control" readonly required id="jenis_kain_keluar"
+                                                name="jenis_kain">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -119,25 +97,36 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="hasil_cutting">Hasil Cutting</label>
-                                                    <input type="number" class="form-control" required id="hasil_cutting"
-                                                        name="hasil_cutting">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="konversi">Konversi Lusin</label>
-                                                    <input type="text" readonly class="form-control" required id="konversi"
-                                                        name="konversi">
+                                        <div class="form-group">
+                                            <label for="panjang_bahan">Panjang Bahan</label>
+                                            <div class="input-group mb-2">
+                                                <input type="number" class="form-control" readonly required
+                                                    id="panjang_bahan_keluar" name="panjang_bahan">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">yard</div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
                                 <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="hasil_cutting">Hasil Cutting</label>
+                                            <input type="number" class="form-control" required id="hasil_cutting"
+                                                name="hasil_cutting">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="konversi">Konversi Lusin</label>
+                                            <input type="text" readonly class="form-control" required id="konversi"
+                                                name="konversi">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-bottom: -30px">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="ukuran">Ukuran</label>
@@ -152,7 +141,7 @@
                                             <label for="ukuran">S</label>
                                             <input type="hidden" name="dataukuran[]" value="S">
                                             <input type="hidden" name="iddetailukuran[]" id="iddetails">
-                                            <input type="number" min="0" class="form-control"  id="jumlahs"
+                                            <input type="number" min="0" class="form-control" value="0" id="jumlahs"
                                                 name="jumlah[]">
                                         </div>
                                     </div>
@@ -161,7 +150,7 @@
                                             <label for="ukuran">M</label>
                                             <input type="hidden" name="dataukuran[]" value="M">
                                             <input type="hidden" name="iddetailukuran[]" id="iddetailm">
-                                            <input type="number" min="0" class="form-control"  id="jumlahm"
+                                            <input type="number" min="0" class="form-control" value="0" id="jumlahm"
                                                 name="jumlah[]">
                                         </div>
                                     </div>
@@ -170,29 +159,18 @@
                                             <label for="ukuran">L</label>
                                             <input type="hidden" name="dataukuran[]" value="L">
                                             <input type="hidden" name="iddetailukuran[]" id="iddetaill">
-                                            <input type="number" min="0" class="form-control"  id="jumlahl"
+                                            <input type="number" min="0" class="form-control" value="0"  id="jumlahl"
                                                 name="jumlah[]">
                                         </div>
                                     </div>
-                                    <div class="col-md-2" id="ukuranxl">
+                                    <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="ukuran">XL</label>
-                                            <input type="hidden" name="dataukuran[]" value="XL">
-                                            <input type="hidden" name="iddetailukuran[]" id="iddetailxl">
-                                            <input type="number" min="0" class="form-control"  id="jumlahxl"
-                                                name="jumlah[]">
+                                            <label for="tanggal_keluar">Tanggal Keluar</label>
+                                            <input type="date" class="form-control" required id="tanggal_keluar"
+                                                name="tanggal_keluar">
                                         </div>
                                     </div>
-                                    <div class="col-md-2" id="ukuranxxl">
-                                        <div class="form-group">
-                                            <label for="ukuran">XXL</label>
-                                            <input type="hidden" name="dataukuran[]" value="XXL">
-                                            <input type="hidden" name="iddetailukuran[]" id="iddetailxxl">
-                                            <input type="number" min="0" class="form-control"  id="jumlahxxl"
-                                                name="jumlah[]">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-1" id="datahapus">
+                                    {{-- <div class="col-md-1" id="datahapus">
                                         <div class="form-group" style="margin-top: 30px">
                                             <button type="button" class="btn btn btn-outline-danger btn-sm" id="btnhapus">Hapus Size</button>
                                         </div>
@@ -201,7 +179,7 @@
                                         <div class="form-group" style="margin-top: 30px">
                                             <button type="button" class="btn btn-outline-primary btn-sm" id="btnsize">Tambah Size</button>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12 text-center">
@@ -237,10 +215,10 @@
                 });
               }
               $('#kdbahanreadonly').hide()
-              $('#ukuranm').hide()
-              $('#ukuranl').hide()
-              $('#ukuranxl').hide()
-              $('#ukuranxxl').hide()
+            //   $('#ukuranm').hide()
+            //   $('#ukuranl').hide()
+            //   $('#ukuranxl').hide()
+            //   $('#ukuranxxl').hide()
               $('#kdbahanselectmasuk').show()
               $('#kdbahanmasuk').hide()
               $('#datahapus').hide()
@@ -249,8 +227,8 @@
               $('.btnkeluar').prop('id','btnsimpankeluar')
               $('#tabelbahanmasuk').DataTable()
               $('#tabelbahankeluar').DataTable()
-              $('#kode_bahanselect').select2()
-              $('#kode_bahanselectkeluar').select2()
+              $('#kode_transaksiselect').select2()
+              $('#kode_transaksiselectkeluar').select2()
               $('.btnmasuk').prop('id','btnsimpanmasuk')
               $('#potongMasuk').on('hidden.bs.modal', function() {
                 $(this).find('form').trigger('reset');
@@ -263,54 +241,54 @@
               });
 
 
-              $(document).on('click','#btnsize', function(){
-                var ukuranm = $('#ukuranm').is(':visible')
-                var ukuranl = $('#ukuranl').is(':visible')
-                var ukuranxl = $('#ukuranxl').is(':visible')
-                var ukuranxxl = $('#ukuranxxl').is(':visible')
+            //   $(document).on('click','#btnsize', function(){
+            //     var ukuranm = $('#ukuranm').is(':visible')
+            //     var ukuranl = $('#ukuranl').is(':visible')
+            //     var ukuranxl = $('#ukuranxl').is(':visible')
+            //     var ukuranxxl = $('#ukuranxxl').is(':visible')
 
-                if(!ukuranm){
-                    $('#ukuranm').show()
-                    $('#datahapus').show()
-                    return false;
-                }else if(!ukuranl){
-                    $('#ukuranl').show()
-                    return false;
-                }else if(!ukuranxl){
-                    $('#ukuranxl').show()
-                    return false;
-                }else if(!ukuranxxl){
-                    $('#ukuranxxl').show()
-                    return false;
-                }
-            })
+            //     if(!ukuranm){
+            //         $('#ukuranm').show()
+            //         $('#datahapus').show()
+            //         return false;
+            //     }else if(!ukuranl){
+            //         $('#ukuranl').show()
+            //         return false;
+            //     }else if(!ukuranxl){
+            //         $('#ukuranxl').show()
+            //         return false;
+            //     }else if(!ukuranxxl){
+            //         $('#ukuranxxl').show()
+            //         return false;
+            //     }
+            // })
 
 
-            $(document).on('click','#btnhapus', function(){
-                var ukuranm = $('#ukuranm').is(':visible')
-                var ukuranl = $('#ukuranl').is(':visible')
-                var ukuranxl = $('#ukuranxl').is(':visible')
-                var ukuranxxl = $('#ukuranxxl').is(':visible')
+            // $(document).on('click','#btnhapus', function(){
+            //     var ukuranm = $('#ukuranm').is(':visible')
+            //     var ukuranl = $('#ukuranl').is(':visible')
+            //     var ukuranxl = $('#ukuranxl').is(':visible')
+            //     var ukuranxxl = $('#ukuranxxl').is(':visible')
 
-                if(ukuranxxl){
-                    $('#ukuranxxl').hide()
-                    $('#jumlahxxl').val('')
-                    return false;
-                }else if(ukuranxl){
-                    $('#ukuranxl').hide()
-                    $('#jumlahxl').val('')
-                    return false;
-                }else if(ukuranl){
-                    $('#ukuranl').hide()
-                    $('#jumlahl').val('')
-                    return false;
-                }else if(ukuranm){
-                    $('#ukuranm').hide()
-                    $('#jumlahm').val('')
-                    $('#datahapus').hide()
-                    return false;
-                }
-            })
+            //     if(ukuranxxl){
+            //         $('#ukuranxxl').hide()
+            //         $('#jumlahxxl').val('')
+            //         return false;
+            //     }else if(ukuranxl){
+            //         $('#ukuranxl').hide()
+            //         $('#jumlahxl').val('')
+            //         return false;
+            //     }else if(ukuranl){
+            //         $('#ukuranl').hide()
+            //         $('#jumlahl').val('')
+            //         return false;
+            //     }else if(ukuranm){
+            //         $('#ukuranm').hide()
+            //         $('#jumlahm').val('')
+            //         $('#datahapus').hide()
+            //         return false;
+            //     }
+            // })
 
 
             $('#hasil_cutting').on('keyup', function(){
@@ -323,7 +301,7 @@
                   $('#konversi').val(res)
               })
 
-            $('#kode_bahanselectkeluar').on('change', function () {
+            $('#kode_transaksiselectkeluar').on('change', function () {
                     var id = $(this).find(':selected').val()
 
                     if(id != ''){
@@ -345,7 +323,7 @@
                                 $('#warna_keluar').val(bahan.warna)
                                 $('#tanggal_selesai_keluar').val(data.tanggal_selesai)
 
-                                $('#panjang_kain_keluar').val(bahan.panjang_bahan)
+                                $('#panjang_bahan_keluar').val(bahan.panjang_bahan)
                             }
 
                         })

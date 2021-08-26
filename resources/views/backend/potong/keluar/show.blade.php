@@ -27,11 +27,11 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="kode_bahan">Kode Bahan</label>
+                                            <label for="kode_transaksi">Kode Transaksi</label>
 
                                             <div id="kdbahankeluar">
                                                 <input type="text" class="form-control"
-                                                    value="{{$potong->bahan->kode_bahan}}" readonly
+                                                    value="{{$potong->bahan->kode_transaksi}}" readonly
                                                     id="kdbahanreadkeluar" name="kdbahanreadkeluar">
                                             </div>
                                         </div>
@@ -57,24 +57,6 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="tanggal_keluar">Tanggal Keluar</label>
-                                            <input type="date" class="form-control" readonly
-                                                value="{{$potong->tanggal_keluar}}" required id="tanggal_keluar"
-                                                name="tanggal_keluar">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="jenis_kain">Jenis Kain</label>
-                                            <input type="text" class="form-control" readonly
-                                                value="{{$potong->bahan->jenis_bahan}}" required id="jenis_kain_keluar"
-                                                name="jenis_kain">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
                                             <label for="sku">Kode SKU</label>
                                             <input type="text" class="form-control" readonly required
                                                 value="{{$potong->bahan->sku}}" id="sku_keluar" name="sku">
@@ -84,11 +66,29 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="panjang_kain">Panjang kain</label>
+                                            <label for="jenis_kain">Jenis Kain</label>
+                                            <input type="text" class="form-control" readonly
+                                                value="{{$potong->bahan->skus->jenis_bahan}}" required id="jenis_kain_keluar"
+                                                name="jenis_kain">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="nama_produk">Nama Produk</label>
+                                            <input type="text" class="form-control" readonly required
+                                                value="{{$potong->bahan->skus->nama_produk}}" id="nama_produk_keluar"
+                                                name="nama_produk">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="panjang_bahan">Panjang Bahan</label>
                                             <div class="input-group mb-2">
                                                 <input type="number" class="form-control" readonly
                                                     value="{{$potong->bahan->panjang_bahan}}" required
-                                                    id="panjang_kain_keluar" name="panjang_kain">
+                                                    id="panjang_bahan_keluar" name="panjang_bahan">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">yard</div>
                                                 </div>
@@ -97,43 +97,31 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="nama_produk">Nama Produk</label>
+                                            <label for="warna">Warna</label>
                                             <input type="text" class="form-control" readonly required
-                                                value="{{$potong->bahan->nama_bahan}}" id="nama_produk_keluar"
-                                                name="nama_produk">
+                                                value="{{$potong->bahan->skus->warna}}" id="warna_keluar" name="warna">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="warna">Warna</label>
-                                            <input type="text" class="form-control" readonly required
-                                                value="{{$potong->bahan->warna}}" id="warna_keluar" name="warna">
+                                            <label for="hasil_cutting">Hasil Cutting</label>
+                                            <input type="number" class="form-control" required
+                                                value="{{$potong->hasil_cutting}}" readonly id="hasil_cutting"
+                                                name="hasil_cutting">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="hasil_cutting">Hasil Cutting</label>
-                                                    <input type="number" class="form-control" required
-                                                        value="{{$potong->hasil_cutting}}" readonly id="hasil_cutting"
-                                                        name="hasil_cutting">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="konversi">Konversi Lusin</label>
-                                                    <input type="text" readonly class="form-control"
-                                                        value="{{$potong->konversi}}" required id="konversi"
-                                                        name="konversi">
-                                                </div>
-                                            </div>
+                                        <div class="form-group">
+                                            <label for="konversi">Konversi Lusin</label>
+                                            <input type="text" readonly class="form-control"
+                                                value="{{$potong->konversi}}" required id="konversi"
+                                                name="konversi">
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row" style="margin-bottom: -30px">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="ukuran">Ukuran</label>
@@ -178,33 +166,19 @@
                                                 class="form-control" required id="jumlahl" name="jumlah[]">
                                         </div>
                                     </div>
-                                    @elseif($item->size == 'XL')
-                                    <div class="col-md-2" id="ukuranxl">
-                                        <div class="form-group">
-                                            <label for="ukuran">XL</label>
-                                            <input type="hidden" name="dataukuran[]" value="XL">
-                                            <input type="hidden" name="iddetailukuran[]" value="{{$item->id}}"
-                                                id="iddetailxl">
-                                            <input type="number" min="0" readonly value="{{$item->jumlah}}"
-                                                class="form-control" required id="jumlahxl" name="jumlah[]">
-                                        </div>
-                                    </div>
-                                    @elseif($item->size == 'XXL')
-                                    <div class="col-md-2" id="ukuranxxl">
-                                        <div class="form-group">
-                                            <label for="ukuran">XXL</label>
-                                            <input type="hidden" name="dataukuran[]" value="XXL">
-                                            <input type="hidden" name="iddetailukuran[]" value="{{$item->id}}"
-                                                id="iddetailxxl">
-                                            <input type="number" min="0" readonly value="{{$item->jumlah}}"
-                                                class="form-control" required id="jumlahxxl" name="jumlah[]">
-                                        </div>
-                                    </div>
+
                                     @endif
                                     @empty
 
                                     @endforelse
-
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="tanggal_keluar">Tanggal Keluar</label>
+                                            <input type="date" class="form-control" readonly
+                                                value="{{$potong->tanggal_keluar}}" required id="tanggal_keluar"
+                                                name="tanggal_keluar">
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12 text-center">

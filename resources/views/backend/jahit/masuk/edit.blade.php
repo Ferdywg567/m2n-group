@@ -33,11 +33,11 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="kode_bahan">Kode Bahan</label>
+                                            <label for="kode_transaksi">Kode Transaksi</label>
 
                                             <div id="kdbahanmasuk">
-                                                <input type="text" class="form-control" value="{{$jahit->potong->bahan->kode_bahan}}" readonly id="kdbahanreadmasuk"
-                                                    name="kdbahanreadmasuk">
+                                                <input type="text" class="form-control" value="{{$jahit->potong->bahan->kode_transaksi}}" readonly id="kdbahanreadmasuk"
+                                                    name="kode_transaksi">
                                             </div>
                                         </div>
 
@@ -49,23 +49,6 @@
                                                 name="sku">
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="tanggal_jahit">Tanggal Jahit</label>
-                                            <input type="date" class="form-control" value="{{$jahit->tanggal_jahit}}" required id="tanggal_jahit"
-                                                name="tanggal_jahit">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="tanggal_selesai">Tanggal Selesai Jahit</label>
-                                            <input type="date" class="form-control" required value="{{$jahit->tanggal_selesai}}" id="tanggal_selesai"
-                                                name="tanggal_selesai">
-                                        </div>
-                                    </div>
-
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
@@ -87,6 +70,24 @@
                                     </div>
 
                                 </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="tanggal_jahit">Tanggal Jahit</label>
+                                            <input type="date" class="form-control" value="{{$jahit->tanggal_jahit}}" required id="tanggal_jahit"
+                                                name="tanggal_jahit">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="tanggal_selesai">Tanggal Selesai Jahit</label>
+                                            <input type="date" class="form-control" required value="{{$jahit->tanggal_selesai}}" id="tanggal_selesai"
+                                                name="tanggal_selesai">
+                                        </div>
+                                    </div>
+
+                                </div>
+
                                 @if ($jahit->vendor == 'eksternal')
                                 <div class="row" id="datavendor">
                                     <div class="col-md-3">

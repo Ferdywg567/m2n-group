@@ -64,7 +64,7 @@
                                         <thead>
                                             <tr>
                                                 <th scope="col">No</th>
-                                                <th scope="col">Kode Bahan</th>
+                                                <th scope="col">Kode Transaksi</th>
                                                 <th scope="col">SKU</th>
                                                 <th scope="col">Jenis Kain</th>
                                                 <th scope="col">Warna Kain</th>
@@ -80,7 +80,7 @@
                                             @forelse ($masuk as $item)
                                             <tr>
                                                 <td>{{$loop->iteration}}</td>
-                                                <td>{{$item->bahan->kode_bahan}}</td>
+                                                <td>{{$item->bahan->kode_transaksi}}</td>
                                                 <td>{{$item->bahan->sku}}</td>
                                                 <td>{{$item->bahan->jenis_bahan}}</td>
                                                 <td>{{$item->bahan->warna}}</td>

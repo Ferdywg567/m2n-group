@@ -27,13 +27,12 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="kode_bahan">Kode Bahan</label>
+                                            <label for="kode_transaksi">Kode Transaksi</label>
                                             <div id="kdbahanselectmasuk">
-                                                <select class="form-control" id="kode_bahanselect" name="kode_bahan">
-                                                    <option value="">Pilih Kode Bahan</option>
+                                                <select class="form-control" id="kode_transaksi" name="kode_transaksi">
+                                                    <option value="">Pilih Kode Transaksi</option>
                                                     @forelse ($bahan as $item)
-                                                    <option value="{{$item->id}}">{{$item->kode_bahan}} |
-                                                        {{$item->nama_bahan}}
+                                                    <option value="{{$item->id}}">{{$item->kode_transaksi}}
                                                     </option>
                                                     @empty
 
@@ -167,25 +166,14 @@
               $('.btnkeluar').prop('id','btnsimpankeluar')
               $('#tabelbahanmasuk').DataTable()
               $('#tabelbahankeluar').DataTable()
-              $('#kode_bahanselect').select2()
-              $('#kode_bahanselectkeluar').select2()
+              $('#kode_transaksi').select2()
+              $('#kode_transaksikeluar').select2()
               $('.btnmasuk').prop('id','btnsimpanmasuk')
-              $('#potongMasuk').on('hidden.bs.modal', function() {
-                $(this).find('form').trigger('reset');
-                $('#potongMasukLabel').text('Input Data [Potong Masuk]')
-                $('#alert-potong-masuk').empty()
-                $('.btnmasuk').prop('id','btnsimpanmasuk')
-                $('.btnmasuk').show()
-                $('#kdbahanselectmasuk').show()
-              $('#kdbahanmasuk').hide()
-              });
+       
 
 
 
-
-
-
-             $('#kode_bahanselect').on('change', function () {
+             $('#kode_transaksi').on('change', function () {
                     var id = $(this).find(':selected').val()
 
                     if(id != ''){
@@ -200,10 +188,12 @@
                             if(response.status){
                                 console.log(response);
                                 var data = response.data;
+                                var sku = data.skus;
+
                                 $('#sku').val(data.sku)
-                                $('#nama_produk').val(data.nama_bahan)
-                                $('#jenis_kain').val(data.jenis_bahan)
-                                $('#warna').val(data.warna)
+                                $('#nama_produk').val(sku.nama_produk)
+                                $('#jenis_kain').val(sku.jenis_bahan)
+                                $('#warna').val(sku.warna)
                                 $('#vendor_keluar').val(data.vendor)
 
                                 $('#panjang_kain').val(data.panjang_bahan)

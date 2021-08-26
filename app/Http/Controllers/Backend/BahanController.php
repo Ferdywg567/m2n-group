@@ -241,7 +241,7 @@ class BahanController extends Controller
     public function getDataBahan(Request $request)
     {
         if ($request->ajax()) {
-            $bahan = Bahan::findOrFail($request->get('id'));
+            $bahan = Bahan::with('skus')->where('id',$request->get('id'))->first();
 
             return response()->json([
                 'status' => true,

@@ -29,11 +29,11 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="kode_bahan">Kode Bahan</label>
+                                            <label for="kode_transaksi">Kode Transaksi</label>
 
                                             <div id="kdbahanmasuk">
                                                 <input type="text" class="form-control"
-                                                    value="{{$potong->bahan->kode_bahan}}" readonly
+                                                    value="{{$potong->bahan->kode_transaksi}}" readonly
                                                     id="kdbahanreadmasuk" name="kdbahanreadmasuk">
                                             </div>
                                         </div>
@@ -68,7 +68,7 @@
                                         <div class="form-group">
                                             <label for="jenis_kain">Jenis Kain</label>
                                             <input type="text" class="form-control"
-                                                value="{{$potong->bahan->jenis_bahan}}" readonly required
+                                                value="{{$potong->bahan->skus->jenis_bahan}}" readonly required
                                                 id="jenis_kain" name="jenis_kain">
                                         </div>
                                     </div>
@@ -98,7 +98,7 @@
                                         <div class="form-group">
                                             <label for="nama_produk">Nama Produk</label>
                                             <input type="text" class="form-control" readonly
-                                                value="{{$potong->bahan->nama_bahan}}" required id="nama_produk"
+                                                value="{{$potong->bahan->skus->nama_produk}}" required id="nama_produk"
                                                 name="nama_produk">
                                         </div>
                                     </div>
@@ -109,7 +109,7 @@
                                         <div class="form-group">
                                             <label for="warna">Warna</label>
                                             <input type="text" class="form-control" readonly
-                                                value="{{$potong->bahan->warna}}" required id="warna" name="warna">
+                                                value="{{$potong->bahan->skus->warna}}" required id="warna" name="warna">
                                         </div>
                                     </div>
 

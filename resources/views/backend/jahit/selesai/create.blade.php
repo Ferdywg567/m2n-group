@@ -68,10 +68,16 @@
                                     </div>
                                 </div>
                                 <div class="row">
-
-                                    <div class="col-md-6">
+                                    <div class="col-md-3">
                                         <div class="form-group">
-                                            <label for="tanggal_selesai_keluar">Tanggal Selesai Jahit</label>
+                                            <label for="tanggal_jahit">Tanggal Jahit</label>
+                                            <input type="date" class="form-control" readonly required id="tanggal_jahit"
+                                                name="tanggal_jahit">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="tanggal_selesai_keluar">Tanggal Selesai</label>
                                             <input type="date" class="form-control" readonly required
                                                 id="tanggal_selesai_keluar" name="tanggal_selesai">
                                         </div>

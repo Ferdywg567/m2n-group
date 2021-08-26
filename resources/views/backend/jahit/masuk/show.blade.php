@@ -32,11 +32,11 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="kode_bahan">Kode Bahan</label>
+                                            <label for="kode_transaksi">Kode Transaksi</label>
 
                                             <div id="kdbahanmasuk">
                                                 <input type="text" class="form-control"
-                                                    value="{{$jahit->potong->bahan->kode_bahan}}" readonly
+                                                    value="{{$jahit->potong->bahan->kode_transaksi}}" readonly
                                                     id="kdbahanreadmasuk" name="kdbahanreadmasuk">
                                             </div>
                                         </div>
@@ -50,6 +50,23 @@
                                                 name="sku">
                                         </div>
                                     </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="no_surat">Nomor Surat Jalan</label>
+                                            <input type="text" class="form-control" required
+                                                value="{{$jahit->no_surat}}" readonly id="no_surat" name="no_surat">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="vendor_jahit">Vendor Jahit</label>
+                                            <input type="text" class="form-control" value="{{$jahit->vendor}}" readonly
+                                                required id="vendor_jahit" name="vendor_jahit">
+                                        </div>
+                                    </div>
+
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
@@ -69,23 +86,7 @@
                                     </div>
 
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="no_surat">Nomor Surat Jalan</label>
-                                            <input type="text" class="form-control" required
-                                                value="{{$jahit->no_surat}}" readonly id="no_surat" name="no_surat">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="vendor_jahit">Vendor Jahit</label>
-                                            <input type="text" class="form-control" value="{{$jahit->vendor}}" readonly
-                                                required id="vendor_jahit" name="vendor_jahit">
-                                        </div>
-                                    </div>
 
-                                </div>
                                 @if ($jahit->vendor == 'eksternal')
                                 <div class="row" id="datavendor">
                                     <div class="col-md-3">

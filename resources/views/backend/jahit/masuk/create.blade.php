@@ -32,12 +32,12 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="kode_bahan">Kode Bahan</label>
+                                            <label for="kode_transaksi">Kode Transaksi</label>
                                             <div id="kdbahanselectmasuk">
-                                                <select class="form-control" id="kode_bahanselect" name="kode_bahan">
-                                                    <option value="">Pilih Kode Bahan</option>
+                                                <select class="form-control" id="kode_transaksiselect" name="kode_transaksi">
+                                                    <option value="">Pilih Kode Transaksi</option>
                                                     @forelse ($datakeluar as $item)
-                                                    <option value="{{$item->id}}">{{$item->bahan->kode_bahan}} |
+                                                    <option value="{{$item->id}}">{{$item->bahan->kode_transaksi}} |
                                                         {{$item->bahan->nama_bahan}}
                                                     </option>
                                                     @empty
@@ -63,25 +63,8 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="tanggal_jahit">Tanggal Jahit</label>
-                                            <input type="date" class="form-control" required id="tanggal_jahit"
-                                                name="tanggal_jahit">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="tanggal_selesai">Tanggal Selesai Jahit</label>
-                                            <input type="date" class="form-control" required id="tanggal_selesai"
-                                                name="tanggal_selesai">
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
                                             <label for="no_surat">Nomor Surat Jalan</label>
-                                            <input type="text" class="form-control" required id="no_surat"
+                                            <input type="text" class="form-control" readonly required id="no_surat"
                                                 name="no_surat">
                                         </div>
                                     </div>
@@ -97,6 +80,24 @@
                                     </div>
 
                                 </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="tanggal_jahit">Tanggal Jahit</label>
+                                            <input type="date" class="form-control" required id="tanggal_jahit"
+                                                name="tanggal_jahit">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="tanggal_selesai">Tanggal Selesai Jahit</label>
+                                            <input type="date" class="form-control" required id="tanggal_selesai"
+                                                name="tanggal_selesai">
+                                        </div>
+                                    </div>
+
+                                </div>
+
                                 <div class="row" id="datavendor">
                                     <div class="col-md-3">
                                         <div class="form-group">
@@ -182,18 +183,8 @@
               $('.btnkeluar').prop('id','btnsimpankeluar')
               $('#tabelmasuk').DataTable()
               $('#tabelbahankeluar').DataTable()
-              $('#kode_bahanselect').select2()
+              $('#kode_transaksiselect').select2()
 
-              $('#jahitMasuk').on('hidden.bs.modal', function() {
-                $(this).find('form').trigger('reset');
-                $('#jahitMasukLabel').text('Input Data [jahit Masuk]')
-                $('#alert-jahit-masuk').empty()
-                $('.btnmasuk').prop('id','btnsimpanmasuk')
-                $('.btnmasuk').show()
-                $('#kdbahanselectmasuk').show()
-              $('#kdbahanmasuk').hide()
-              $('#datavendor').hide()
-              });
 
 
               $('#vendor_jahit').on('change', function () {
@@ -223,12 +214,12 @@
 
 
 
-             $('#kode_bahanselect').on('change', function () {
+             $('#kode_transaksiselect').on('change', function () {
                     var id = $(this).find(':selected').val()
 
                     if(id != ''){
                         $.ajax({
-                            url:"{{route('bahan.getdata')}}",
+                            url:"{{route('potong.getdata')}}",
                             method:"GET",
                             data:{
                                 'id':id
@@ -238,13 +229,11 @@
                             if(response.status){
                                 console.log(response);
                                 var data = response.data;
-                                $('#sku').val(data.sku)
-                                $('#nama_produk').val(data.nama_bahan)
-                                $('#jenis_kain').val(data.jenis_bahan)
-                                $('#warna').val(data.warna)
-                                $('#vendor_keluar').val(data.vendor)
+                                var bahan = data.bahan
 
-                                $('#panjang_kain').val(data.panjang_bahan)
+                                $('#sku').val(bahan.sku)
+                                $('#no_surat').val(data.no_surat)
+
                             }
 
                         })

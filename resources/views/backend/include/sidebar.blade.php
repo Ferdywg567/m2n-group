@@ -44,21 +44,18 @@
                 <i class="ri-hand-coin-fill"></i> <span>Cuci</span>
             </a>
         </li>
-        <li @yield('perbaikan')>
-            <a class="nav-link" href="{{route('perbaikan.index')}}">
-                <i class="ri-refresh-fill"></i></i> <span>Perbaikan</span>
-            </a>
-        </li>
-        <li @yield('sampah')>
-            <a class="nav-link" href="{{route('sampah.index')}}">
-                <i class="ri-delete-bin-2-fill"></i><span>Sampah</span>
-            </a>
-        </li>
         <li @yield('rekapitulasi')>
             <a class="nav-link" href="{{route('rekapitulasi.index')}}">
                 <i class="ri-booklet-fill"></i><span>Rekapitulasi</span>
             </a>
         </li>
+
+        <li @yield('sampah')>
+            <a class="nav-link" href="{{route('sampah.index')}}">
+                <i class="ri-delete-bin-2-fill"></i><span>Sampah</span>
+            </a>
+        </li>
+
         <hr>
         <li @yield('retur')>
             <a class="nav-link" href="{{route('retur.index')}}">
@@ -66,7 +63,11 @@
             </a>
         </li>
 
-
+        <li @yield('perbaikan')>
+            <a class="nav-link" href="{{route('perbaikan.index')}}">
+                <i class="ri-refresh-fill"></i></i> <span>Perbaikan</span>
+            </a>
+        </li>
         <li style="position: fixed; margin-top:3%">
             <a class="nav-link" href="#">
                 <footer>

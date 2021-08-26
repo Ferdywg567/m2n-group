@@ -56,15 +56,15 @@ class PotongController extends Controller
 
         if ($request->get('status') == 'potong masuk') {
             $validator = Validator::make($request->all(), [
-                'kode_bahan' =>  'required',
+                'kode_transaksi' =>  'required',
                 'no_surat' => 'required|unique:potongs,no_surat',
                 'tanggal_cutting' => 'required|date_format:"Y-m-d"|after_or_equal:' . date('Y-m-d'),
                 'tanggal_selesai' => 'required|date_format:"Y-m-d"|after_or_equal:tanggal_cutting',
             ]);
         } else {
             $validator = Validator::make($request->all(), [
-                'kode_bahan' =>  'required',
-                'no_surat' => 'required',
+                'kode_transaksi' =>  'required',
+                'no_surat' => 'required|unique:potongs,no_surat',
                 'tanggal_selesai' => 'required|date_format:"Y-m-d"',
                 'tanggal_keluar' => 'required|date_format:"Y-m-d"|after_or_equal:tanggal_selesai',
                 'hasil_cutting' => 'required|integer',
@@ -93,9 +93,9 @@ class PotongController extends Controller
 
             if ($request->get('status') == 'potong masuk') {
                 $potong = new Potong();
-                $potong->bahan_id = $request->get('kode_bahan');
+                $potong->bahan_id = $request->get('kode_transaksi');
             } else {
-                $potong = Potong::findOrFail($request->get('kode_bahan'));
+                $potong = Potong::findOrFail($request->get('kode_transaksi'));
             }
             $potong->no_surat = $request->get('no_surat');
             if ($request->get('status') == 'potong masuk') {

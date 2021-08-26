@@ -14,7 +14,7 @@
         left: 50% !important;
         transform: translateX(-50%) !important;
         top: 100% !important;
-      
+
     }
 
     .left {
@@ -33,7 +33,10 @@
                     <input type="hidden" name="status" value="masuk">
                     <button class="dropdown-item">Jahitan Masuk</button>
                 </form>
-
+                <form action="{{route('jahit.create')}}" method="get">
+                    <input type="hidden" name="status" value="selesai">
+                    <button class="dropdown-item">Jahitan Selesai</button>
+                </form>
                 <form action="{{route('jahit.create')}}" method="get">
                     <input type="hidden" name="status" value="keluar">
                     <button class="dropdown-item">Jahitan Keluar</button>
@@ -57,6 +60,9 @@
                                         <a class="nav-item nav-link active" id="nav-masuk-tab" data-toggle="tab"
                                             href="#nav-masuk" role="tab" aria-controls="nav-masuk"
                                             aria-selected="true">Jahitan Masuk</a>
+                                        <a class="nav-item nav-link" id="nav-selesai-tab" data-toggle="tab"
+                                            href="#nav-selesai" role="tab" aria-controls="nav-selesai"
+                                            aria-selected="false">Jahitan Selesai</a>
                                         <a class="nav-item nav-link" id="nav-keluar-tab" data-toggle="tab"
                                             href="#nav-keluar" role="tab" aria-controls="nav-keluar"
                                             aria-selected="false">Jahitan Keluar</a>
@@ -70,7 +76,7 @@
                                         <thead>
                                             <tr>
                                                 <th scope="col">No</th>
-                                                <th scope="col">Kode Bahan</th>
+                                                <th scope="col">Kode Transaksi</th>
                                                 <th scope="col">SKU</th>
                                                 <th scope="col">Tanggal Jahit</th>
                                                 <th scope="col">Tanggal Selesai</th>
@@ -86,7 +92,7 @@
                                             @forelse ($jahitmasuk as $item)
                                             <tr>
                                                 <td>{{$loop->iteration}}</td>
-                                                <td>{{$item->potong->bahan->kode_bahan}}</td>
+                                                <td>{{$item->potong->bahan->kode_transaksi}}</td>
                                                 <td>{{$item->potong->bahan->sku}}</td>
                                                 <td>{{$item->tanggal_jahit}}</td>
                                                 <td>{{$item->tanggal_selesai}}</td>
@@ -96,17 +102,14 @@
                                                 <td>{{$item->no_surat}}</td>
                                                 <td>
                                                     @php
-                                                        $status = strtoupper($item->status_jahit);
+                                                    $status = strtoupper($item->status_jahit);
                                                     @endphp
                                                     @if ($item->status_jahit == 'belum jahit')
-                                                    <span
-                                                        class="badge badge-secondary text-dark">{{$status}}</span>
+                                                    <span class="badge badge-secondary text-dark">{{$status}}</span>
                                                     @elseif ($item->status_jahit == 'selesai')
-                                                    <span
-                                                        class="badge badge-success text-dark">{{$status}}</span>
+                                                    <span class="badge badge-success text-dark">{{$status}}</span>
                                                     @else
-                                                    <span
-                                                        class="badge badge-warning text-dark">{{$status}}</span>
+                                                    <span class="badge badge-warning text-dark">{{$status}}</span>
                                                     @endif
                                                 </td>
                                                 <td>
@@ -144,6 +147,81 @@
                                             @empty
 
                                             @endforelse
+
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                                <div class="tab-pane fade" id="nav-selesai" role="tabpanel"
+                                    aria-labelledby="nav-selesai-tab">
+                                    <table class="table table-hover" id="tabelbahanselesai">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">No</th>
+                                                <th scope="col">Kode Transaksi</th>
+                                                <th scope="col">SKU</th>
+                                                <th scope="col">Tgl Jahit</th>
+                                                <th scope="col">Vendor Jahit</th>
+                                                <th scope="col">Jahit Sukses</th>
+                                                <th scope="col">Jahit Gagal</th>
+
+                                                <th scope="col">Status</th>
+                                                <th scope="col">Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="">
+                                            @forelse ($jahitselesai as $item)
+                                            <tr>
+                                                <td>{{$loop->iteration}}</td>
+                                                <td>{{$item->potong->bahan->kode_transaksi}}</td>
+                                                <td>{{$item->potong->bahan->sku}}</td>
+                                                <td>{{$item->tanggal_jahit}}</td>
+                                                <td>{{$item->vendor}}</td>
+                                                <td>{{$item->berhasil}}</td>
+                                                <td>{{$item->gagal_jahit}}</td>
+
+                                                <td>
+                                                    <span
+                                                        class="badge badge-success text-dark">{{strtoupper($item->status_jahit)}}</span>
+                                                </td>
+
+                                                <td>
+                                                    <div class="dropdown dropleft">
+                                                        <a class="" href="#" id="dropdownMenuButton"
+                                                            data-toggle="dropdown" aria-haspopup="true"
+                                                            aria-expanded="false">
+                                                            <i class="fa fa-ellipsis-h"></i>
+                                                        </a>
+                                                        <div class="dropdown-menu text-center"
+                                                            aria-labelledby="dropdownMenuButton">
+
+                                                            <a class="dropdown-item"
+                                                                href="{{route('jahit.show',[$item->id])}}"><i
+                                                                    class="ri-eye-fill"></i>
+                                                                Detail</a>
+
+                                                            <a class="dropdown-item btnprint" href="#"
+                                                                data-id="{{$item->id}}"><i class="ri-printer-fill"></i>
+                                                                Print</a>
+
+                                                            <a class="dropdown-item"
+                                                                href="{{route('jahit.edit',[$item->id])}}"><i
+                                                                    class="ri-edit-fill"></i>
+                                                                Edit</a>
+
+                                                            <a class="dropdown-item hapus" data-id="{{$item->id}}"
+                                                                href="#"><i class="ri-delete-bin-fill"></i>
+                                                                Delete</a>
+
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            @empty
+
+                                            @endforelse
+
+
 
                                         </tbody>
                                     </table>
@@ -280,25 +358,41 @@
 
               $('#tabelmasuk').DataTable()
               $('#tabelbahankeluar').DataTable()
+              $('#tabelbahanselesai').DataTable()
               $('#nav-masuk-tab').css('background-color','black')
                   $('#nav-masuk-tab').css('color','white')
                   $('#nav-keluar-tab').css('background-color','')
                   $('#nav-keluar-tab').css('color','black')
+                  $('#nav-selesai-tab').css('background-color','')
+                  $('#nav-selesai-tab').css('color','black')
 
               $('#nav-masuk-tab').click(function () {
                   $(this).css('background-color','black')
                   $(this).css('color','white')
                   $('#nav-keluar-tab').css('background-color','')
                   $('#nav-keluar-tab').css('color','black')
+                  $('#nav-selesai-tab').css('background-color','')
+                  $('#nav-selesai-tab').css('color','black')
                })
 
                $('#nav-keluar-tab').click(function () {
                   $('#nav-masuk-tab').css('background-color','')
                   $('#nav-masuk-tab').css('color','black')
+                  $('#nav-selesai-tab').css('background-color','')
+                  $('#nav-selesai-tab').css('color','black')
                   $(this).css('color','white')
                   $(this).css('background-color','black')
                })
 
+
+               $('#nav-selesai-tab').click(function () {
+                  $('#nav-masuk-tab').css('background-color','')
+                  $('#nav-masuk-tab').css('color','black')
+                  $('#nav-keluar-tab').css('background-color','')
+                  $('#nav-keluar-tab').css('color','black')
+                  $(this).css('color','white')
+                  $(this).css('background-color','black')
+               })
               $(document).on('click','.btnprint' ,function () {
                   var id = $(this).data('id')
                   $.ajax({

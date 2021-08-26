@@ -56,23 +56,6 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="tanggal_keluar">Tanggal Keluar</label>
-                                            <input type="date" class="form-control" value="{{$potong->tanggal_keluar}}"
-                                                required id="tanggal_keluar" name="tanggal_keluar">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="jenis_kain">Jenis Kain</label>
-                                            <input type="text" class="form-control" readonly
-                                                value="{{$potong->bahan->jenis_bahan}}" required id="jenis_kain_keluar"
-                                                name="jenis_kain">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
                                             <label for="sku">Kode SKU</label>
                                             <input type="text" class="form-control" readonly required
                                                 value="{{$potong->bahan->sku}}" id="sku_keluar" name="sku">
@@ -82,7 +65,25 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="panjang_kain">Panjang kain</label>
+                                            <label for="jenis_kain">Jenis Kain</label>
+                                            <input type="text" class="form-control" readonly
+                                                value="{{$potong->bahan->skus->jenis_bahan}}" required id="jenis_kain_keluar"
+                                                name="jenis_kain">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="nama_produk">Nama Produk</label>
+                                            <input type="text" class="form-control" readonly required
+                                                value="{{$potong->bahan->skus->nama_produk}}" id="nama_produk_keluar"
+                                                name="nama_produk">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="panjang_kain">Panjang Bahan</label>
                                             <div class="input-group mb-2">
                                                 <input type="number" class="form-control" readonly
                                                     value="{{$potong->bahan->panjang_bahan}}" required
@@ -95,43 +96,32 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="nama_produk">Nama Produk</label>
+                                            <label for="warna">Warna</label>
                                             <input type="text" class="form-control" readonly required
-                                                value="{{$potong->bahan->nama_bahan}}" id="nama_produk_keluar"
-                                                name="nama_produk">
+                                                value="{{$potong->bahan->skus->warna}}" id="warna_keluar" name="warna">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="warna">Warna</label>
-                                            <input type="text" class="form-control" readonly required
-                                                value="{{$potong->bahan->warna}}" id="warna_keluar" name="warna">
+                                            <label for="hasil_cutting">Hasil Cutting</label>
+                                            <input type="number" class="form-control" required
+                                                value="{{$potong->hasil_cutting}}" id="hasil_cutting"
+                                                name="hasil_cutting">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="hasil_cutting">Hasil Cutting</label>
-                                                    <input type="number" class="form-control" required
-                                                        value="{{$potong->hasil_cutting}}" id="hasil_cutting"
-                                                        name="hasil_cutting">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="konversi">Konversi Lusin</label>
-                                                    <input type="text" readonly class="form-control"
-                                                        value="{{$potong->konversi}}" required id="konversi"
-                                                        name="konversi">
-                                                </div>
-                                            </div>
+                                        <div class="form-group">
+                                            <label for="konversi">Konversi Lusin</label>
+                                            <input type="text" readonly class="form-control"
+                                                value="{{$potong->konversi}}" required id="konversi"
+                                                name="konversi">
                                         </div>
                                     </div>
+
                                 </div>
-                                <div class="row">
+                                <div class="row" style="margin-bottom: -30px">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="ukuran">Ukuran</label>
@@ -173,40 +163,16 @@
                                                 name="jumlah[]">
                                         </div>
                                     </div>
-                                    @elseif($item->size == 'XL')
-                                    <div class="col-md-2" id="ukuranxl">
-                                        <div class="form-group">
-                                            <label for="ukuran">XL</label>
-                                            <input type="hidden" name="dataukuran[]" value="XL">
-                                            <input type="hidden" name="iddetailukuran[]" value="{{$item->id}}" id="iddetailxl">
-                                            <input type="number" min="0" value="{{$item->jumlah}}" class="form-control" required id="jumlahxl"
-                                                name="jumlah[]">
-                                        </div>
-                                    </div>
-                                    @elseif($item->size == 'XXL')
-                                    <div class="col-md-2" id="ukuranxxl">
-                                        <div class="form-group">
-                                            <label for="ukuran">XXL</label>
-                                            <input type="hidden" name="dataukuran[]" value="XXL">
-                                            <input type="hidden" name="iddetailukuran[]" value="{{$item->id}}" id="iddetailxxl">
-                                            <input type="number" min="0" value="{{$item->jumlah}}" class="form-control" required id="jumlahxxl"
-                                                name="jumlah[]">
-                                        </div>
-                                    </div>
+
                                     @endif
                                     @empty
 
                                     @endforelse
-                                    <div class="col-md-1" id="datahapus">
-                                        <div class="form-group" style="margin-top: 30px">
-                                            <button type="button" class="btn btn btn-outline-danger" id="btnhapus">Hapus
-                                                Size</button>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-1">
-                                        <div class="form-group" style="margin-top: 30px">
-                                            <button type="button" class="btn btn-outline-primary" id="btnsize">Tambah
-                                                Size</button>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="tanggal_keluar">Tanggal Keluar</label>
+                                            <input type="date" class="form-control" value="{{$potong->tanggal_keluar}}"
+                                                required id="tanggal_keluar" name="tanggal_keluar">
                                         </div>
                                     </div>
                                 </div>
@@ -252,53 +218,53 @@
 
 
 
-              $(document).on('click','#btnsize', function(){
-                var ukuranm = $('#ukuranm').is(':visible')
-                var ukuranl = $('#ukuranl').is(':visible')
-                var ukuranxl = $('#ukuranxl').is(':visible')
-                var ukuranxxl = $('#ukuranxxl').is(':visible')
+            //   $(document).on('click','#btnsize', function(){
+            //     var ukuranm = $('#ukuranm').is(':visible')
+            //     var ukuranl = $('#ukuranl').is(':visible')
+            //     var ukuranxl = $('#ukuranxl').is(':visible')
+            //     var ukuranxxl = $('#ukuranxxl').is(':visible')
 
-                if(!ukuranm){
-                    $('#ukuranm').show()
-                    $('#datahapus').show()
-                    return false;
-                }else if(!ukuranl){
-                    $('#ukuranl').show()
-                    return false;
-                }else if(!ukuranxl){
-                    $('#ukuranxl').show()
-                    return false;
-                }else if(!ukuranxxl){
-                    $('#ukuranxxl').show()
-                    return false;
-                }
-            })
+            //     if(!ukuranm){
+            //         $('#ukuranm').show()
+            //         $('#datahapus').show()
+            //         return false;
+            //     }else if(!ukuranl){
+            //         $('#ukuranl').show()
+            //         return false;
+            //     }else if(!ukuranxl){
+            //         $('#ukuranxl').show()
+            //         return false;
+            //     }else if(!ukuranxxl){
+            //         $('#ukuranxxl').show()
+            //         return false;
+            //     }
+            // })
 
-            $(document).on('click','#btnhapus', function(){
-                var ukuranm = $('#ukuranm').is(':visible')
-                var ukuranl = $('#ukuranl').is(':visible')
-                var ukuranxl = $('#ukuranxl').is(':visible')
-                var ukuranxxl = $('#ukuranxxl').is(':visible')
+            // $(document).on('click','#btnhapus', function(){
+            //     var ukuranm = $('#ukuranm').is(':visible')
+            //     var ukuranl = $('#ukuranl').is(':visible')
+            //     var ukuranxl = $('#ukuranxl').is(':visible')
+            //     var ukuranxxl = $('#ukuranxxl').is(':visible')
 
-                if(ukuranxxl){
-                    $('#ukuranxxl').hide()
-                    $('#jumlahxxl').val('')
-                    return false;
-                }else if(ukuranxl){
-                    $('#ukuranxl').hide()
-                    $('#jumlahxl').val('')
-                    return false;
-                }else if(ukuranl){
-                    $('#ukuranl').hide()
-                    $('#jumlahl').val('')
-                    return false;
-                }else if(ukuranm){
-                    $('#ukuranm').hide()
-                    $('#jumlahm').val('')
-                    $('#datahapus').hide()
-                    return false;
-                }
-            })
+            //     if(ukuranxxl){
+            //         $('#ukuranxxl').hide()
+            //         $('#jumlahxxl').val('')
+            //         return false;
+            //     }else if(ukuranxl){
+            //         $('#ukuranxl').hide()
+            //         $('#jumlahxl').val('')
+            //         return false;
+            //     }else if(ukuranl){
+            //         $('#ukuranl').hide()
+            //         $('#jumlahl').val('')
+            //         return false;
+            //     }else if(ukuranm){
+            //         $('#ukuranm').hide()
+            //         $('#jumlahm').val('')
+            //         $('#datahapus').hide()
+            //         return false;
+            //     }
+            // })
 
 
             $('#hasil_cutting').on('keyup', function(){
