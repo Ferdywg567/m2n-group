@@ -14,7 +14,7 @@
         left: 50% !important;
         transform: translateX(-50%) !important;
         top: 100% !important;
-       
+
     }
 
     .left {
@@ -33,7 +33,10 @@
                     <input type="hidden" name="status" value="masuk">
                     <button class="dropdown-item">Cucian Masuk</button>
                 </form>
-
+                <form action="{{route('cuci.create')}}" method="get">
+                    <input type="hidden" name="status" value="selesai">
+                    <button class="dropdown-item">Cucian Selesai</button>
+                </form>
                 <form action="{{route('cuci.create')}}" method="get">
                     <input type="hidden" name="status" value="keluar">
                     <button class="dropdown-item">Cucian Keluar</button>
@@ -57,6 +60,9 @@
                                         <a class="nav-item nav-link active" id="nav-bahanmasuk-tab" data-toggle="tab"
                                             href="#nav-bahanmasuk" role="tab" aria-controls="nav-bahanmasuk"
                                             aria-selected="true">Cucian Masuk</a>
+                                            <a class="nav-item nav-link " id="nav-selesai-tab" data-toggle="tab"
+                                            href="#nav-selesai" role="tab" aria-controls="nav-selesai"
+                                            aria-selected="true">Cucian Selesai</a>
                                         <a class="nav-item nav-link" id="nav-keluar-tab" data-toggle="tab"
                                             href="#nav-keluar" role="tab" aria-controls="nav-keluar"
                                             aria-selected="false">Cucian Keluar</a>
@@ -70,7 +76,7 @@
                                         <thead>
                                             <tr>
                                                 <th scope="col">No</th>
-                                                <th scope="col">Kode Bahan</th>
+                                                <th scope="col">Kode Transaksi</th>
                                                 <th scope="col">SKU</th>
                                                 <th scope="col">Tgl Cuci</th>
                                                 <th scope="col">Vendor Cuci</th>
@@ -84,7 +90,7 @@
                                             @forelse ($masuk as $item)
                                             <tr>
                                                 <td>{{$loop->iteration}}</td>
-                                                <td>{{$item->jahit->potong->bahan->kode_bahan}}</td>
+                                                <td>{{$item->jahit->potong->bahan->kode_transaksi}}</td>
                                                 <td>{{$item->jahit->potong->bahan->sku}}</td>
                                                 <td>{{$item->tanggal_cuci}}</td>
                                                 <td>{{$item->vendor}}</td>
@@ -142,6 +148,84 @@
                                     </table>
 
                                 </div>
+                                <div class="tab-pane fade show " id="nav-selesai" role="tabpanel"
+                                aria-labelledby="nav-selesai-tab">
+                                <table class="table table-hover" id="tabelselesai">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">No</th>
+                                            <th scope="col">Kode Transaksi</th>
+                                            <th scope="col">SKU</th>
+                                            <th scope="col">Tgl Cuci</th>
+                                            <th scope="col">Vendor Cuci</th>
+                                            <th scope="col">Cuci Sukses</th>
+                                            <th scope="col">Surat Jalan</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="">
+                                        @forelse ($selesai as $item)
+                                        <tr>
+                                            <td>{{$loop->iteration}}</td>
+                                            <td>{{$item->jahit->potong->bahan->kode_transaksi}}</td>
+                                            <td>{{$item->jahit->potong->bahan->sku}}</td>
+                                            <td>{{$item->tanggal_cuci}}</td>
+                                            <td>{{$item->vendor}}</td>
+                                            <td>{{$item->berhasil_cuci}}</td>
+                                            <td>{{$item->no_surat}}</td>
+                                            <td>
+                                                @php
+                                                $status = strtoupper($item->status_cuci)
+                                                @endphp
+                                                @if ($item->status_cuci == 'belum cuci')
+                                                <span class="badge badge-secondary text-dark">{{$status}}</span>
+                                                @elseif ($item->status_cuci == 'selesai')
+                                                <span class="badge badge-success text-dark">{{$status}}</span>
+                                                @else
+                                                <span class="badge badge-warning text-dark">{{$status}}</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <div class="dropdown dropleft">
+                                                    <a class="" href="#" id="dropdownMenuButton"
+                                                        data-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false">
+                                                        <i class="fa fa-ellipsis-h"></i>
+                                                    </a>
+                                                    <div class="dropdown-menu text-center"
+                                                        aria-labelledby="dropdownMenuButton">
+
+                                                        <a class="dropdown-item"
+                                                            href="{{route('cuci.show',[$item->id])}}"><i
+                                                                class="ri-eye-fill"></i>
+                                                            Detail</a>
+
+                                                        <a class="dropdown-item btnprint" href="#"
+                                                            data-id="{{$item->id}}"><i class="ri-printer-fill"></i>
+                                                            Print</a>
+
+                                                        <a class="dropdown-item"
+                                                            href="{{route('cuci.edit',[$item->id])}}"><i
+                                                                class="ri-edit-fill"></i>
+                                                            Edit</a>
+
+                                                        <a class="dropdown-item hapus" data-id="{{$item->id}}"
+                                                            href="#"><i class="ri-delete-bin-fill"></i>
+                                                            Delete</a>
+
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        @empty
+
+                                        @endforelse
+
+                                    </tbody>
+                                </table>
+
+                            </div>
                                 <div class="tab-pane fade" id="nav-keluar" role="tabpanel"
                                     aria-labelledby="nav-keluar-tab">
                                     <table class="table table-hover" id="tabelbahankeluar">
@@ -275,21 +359,39 @@
               }
               $('#tabelbahanmasuk').DataTable()
               $('#tabelbahankeluar').DataTable()
+              $('#tabelselesai').DataTable()
               $('#nav-bahanmasuk-tab').css('background-color','black')
                   $('#nav-bahanmasuk-tab').css('color','white')
                   $('#nav-keluar-tab').css('background-color','')
                   $('#nav-keluar-tab').css('color','black')
+                  $('#nav-selesai-tab').css('background-color','')
+                  $('#nav-selesai-tab').css('color','black')
 
               $('#nav-bahanmasuk-tab').click(function () {
                   $(this).css('background-color','black')
                   $(this).css('color','white')
                   $('#nav-keluar-tab').css('background-color','')
                   $('#nav-keluar-tab').css('color','black')
+                  $('#nav-selesai-tab').css('background-color','')
+                  $('#nav-selesai-tab').css('color','black')
                })
 
                $('#nav-keluar-tab').click(function () {
                   $('#nav-bahanmasuk-tab').css('background-color','')
                   $('#nav-bahanmasuk-tab').css('color','black')
+                  $('#nav-selesai-tab').css('background-color','')
+                  $('#nav-selesai-tab').css('color','black')
+                  $(this).css('color','white')
+                  $(this).css('background-color','black')
+               })
+
+
+
+               $('#nav-selesai-tab').click(function () {
+                  $('#nav-bahanmasuk-tab').css('background-color','')
+                  $('#nav-bahanmasuk-tab').css('color','black')
+                  $('#nav-keluar-tab').css('background-color','')
+                  $('#nav-keluar-tab').css('color','black')
                   $(this).css('color','white')
                   $(this).css('background-color','black')
                })

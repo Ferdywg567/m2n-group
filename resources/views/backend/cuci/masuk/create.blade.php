@@ -32,13 +32,13 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="kode_bahan">Kode Bahan</label>
+                                            <label for="kode_transaksi">Kode Transaksi</label>
                                             <div id="kdbahanselectmasuk">
-                                                <select class="form-control" id="kode_bahanselect" name="kode_bahan">
-                                                    <option value="">Pilih Kode Bahan</option>
+                                                <select class="form-control" id="kode_transaksiselect" name="kode_transaksi">
+                                                    <option value="">Pilih Kode Transaksi</option>
                                                     @forelse ($jahit as $item)
-                                                    <option value="{{$item->id}}">{{$item->potong->bahan->kode_bahan}} |
-                                                        {{$item->potong->bahan->nama_bahan}}
+                                                    <option value="{{$item->id}}">{{$item->potong->bahan->kode_transaksi}}
+
                                                     </option>
                                                     @empty
 
@@ -64,7 +64,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="no_surat">Nomor Surat Jalan</label>
-                                                    <input type="text" class="form-control" required id="no_surat"
+                                                    <input type="text" class="form-control" required id="no_surat" readonly
                                                         name="no_surat">
                                                 </div>
                                             </div>
@@ -74,16 +74,16 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="tanggal_masuk">Tanggal Masuk</label>
-                                            <input type="date" class="form-control" required id="tanggal_masuk"
-                                                name="tanggal_masuk">
+                                            <label for="tanggal_mulai_cuci">Tanggal Mulai Cuci</label>
+                                            <input type="date" class="form-control" required id="tanggal_mulai_cuci"
+                                                name="tanggal_mulai_cuci">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="tanggal_cuci">Estimasi Mulai Cuci</label>
-                                            <input type="date" class="form-control" required id="tanggal_cuci"
-                                                name="tanggal_cuci">
+                                            <label for="tanggal_selesai_cuci">Tanggal Selesai Cuci</label>
+                                            <input type="date" class="form-control" required id="tanggal_selesai_cuci"
+                                                name="tanggal_selesai_cuci">
                                         </div>
                                     </div>
 
@@ -127,25 +127,13 @@
 
                                 </div>
                                 <div class="row" id="datavendor">
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="status_pembayaran">Status Pembayaran</label>
-                                            <select class="form-control" id="status_pembayaran"
-                                                name="status_pembayaran">
-                                                <option value="lunas">Lunas</option>
-                                                <option value="belum">Belum</option>
-
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="nama_vendor">Nama Vendor</label>
-                                            <input type="text" class="form-control"  id="nama_vendor"
+                                            <input type="text" class="form-control"  required id="nama_vendor"
                                                 name="nama_vendor">
                                         </div>
                                     </div>
-
 
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -167,7 +155,7 @@
 
                                 </div>
 
-                                <div class="row">
+                                <div class="row" id="labelukuran" style="margin-bottom: -30px">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="ukuran">Ukuran</label>
@@ -175,7 +163,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row" id="dataukuranall">
 
                                     <div class="col-md-2">
                                         <div class="form-group">
@@ -204,7 +192,7 @@
                                                 name="jumlah[]">
                                         </div>
                                     </div>
-                                    <div class="col-md-2" id="ukuranxl">
+                                    {{-- <div class="col-md-2" id="ukuranxl">
                                         <div class="form-group">
                                             <label for="ukuran">XL</label>
                                             <input type="hidden" name="dataukuran[]" value="XL">
@@ -233,7 +221,7 @@
                                             <button type="button" class="btn btn-outline-primary" id="btnsize">Tambah
                                                 Size</button>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12 text-center">
@@ -255,9 +243,7 @@
 
 
 </div>
-<div id="printable">
-    <h1>Hello print</h1>
-</div>
+
 @endsection
 @push('scripts')
 <script>
@@ -270,11 +256,10 @@
                 });
               }
               $('#kdbahanreadonly').hide()
-              $('#ukuranm').hide()
-              $('#ukuranl').hide()
-              $('#ukuranxl').hide()
-              $('#ukuranxxl').hide()
+
               $('#idnamavendor').hide()
+              $('#dataukuranall').hide()
+              $('#labelukuran').hide()
               $('#datavendor').hide()
               $('#datahapus').hide()
               $('#kdbahanselectmasuk').show()
@@ -284,7 +269,7 @@
               $('.btnkeluar').prop('id','btnsimpankeluar')
               $('#tabelmasuk').DataTable()
               $('#tabelbahankeluar').DataTable()
-              $('#kode_bahanselect').select2()
+              $('#kode_transaksiselect').select2()
 
               $('#vendor_cuci').on('change', function () {
                   var data = $(this).find(':selected').val()
@@ -292,11 +277,15 @@
                   if(data == 'eksternal'){
                     $('#idnamavendor').show()
                     $('#datavendor').show()
+                    $('#labelukuran').show()
+                    $('#dataukuranall').show()
                     $('#nama_vendor').prop('required',true)
                     $('#harga_vendor').prop('required',true)
                   }else{
                     $('#idnamavendor').hide()
                     $('#datavendor').hide()
+                    $('#labelukuran').hide()
+                    $('#dataukuranall').hide()
                     $('#nama_vendor').prop('required',false)
                     $('#harga_vendor').prop('required',false)
                   }
@@ -361,7 +350,7 @@
                 }
             })
 
-             $('#kode_bahanselect').on('change', function () {
+             $('#kode_transaksiselect').on('change', function () {
                     var id = $(this).find(':selected').val()
 
                     if(id != ''){
@@ -379,6 +368,7 @@
                                 var bahan = data.potong.bahan
 
                                 $('#sku').val(bahan.sku)
+                                $('#no_surat').val(data.no_surat)
                                 // $('#nama_produk').val(data.nama_bahan)
                                 // $('#jenis_kain').val(data.jenis_bahan)
                                 // $('#warna').val(data.warna)

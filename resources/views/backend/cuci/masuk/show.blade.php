@@ -25,15 +25,15 @@
                     <div class="card">
                         <form action="{{route('cuci.cetak')}}" target="_blank" method="post">
                             @csrf
-                            <input type="hidden" name="id" id="idcuci" value="{{$cuci->id}}">
-                            <div class="card-body">
 
+                            <div class="card-body">
+                                <input type="hidden" name="id" id="idcuci" value="{{$cuci->id}}">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="kode_bahan">Kode Bahan</label>
-                                            <input type="text" class="form-control" readonly required id="kode_bahan"
-                                                value="{{$cuci->jahit->potong->bahan->kode_bahan}}" name="kode_bahan">
+                                            <label for="kode_transaksi">Kode Transaksi</label>
+                                            <input type="text" class="form-control" readonly required id="kode_transaksi"
+                                                value="{{$cuci->jahit->potong->bahan->kode_transaksi}}" name="kode_transaksi">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -60,20 +60,19 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="tanggal_masuk">Tanggal Masuk</label>
-                                            <input type="date" class="form-control" readonly
-                                                value="{{$cuci->tanggal_masuk}}" required id="tanggal_masuk"
-                                                name="tanggal_masuk">
+                                            <label for="tanggal_mulai_cuci">Tanggal Mulai Cuci</label>
+                                            <input type="date" class="form-control" required id="tanggal_mulai_cuci"
+                                                name="tanggal_mulai_cuci" readonly value="{{$cuci->tanggal_cuci}}">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="tanggal_cuci">Estimasi Mulai Cuci</label>
-                                            <input type="date" class="form-control" readonly
-                                                value="{{$cuci->tanggal_cuci}}" required id="tanggal_cuci"
-                                                name="tanggal_cuci">
+                                            <label for="tanggal_selesai_cuci">Tanggal Selesai Cuci</label>
+                                            <input type="date" class="form-control" required id="tanggal_selesai_cuci"
+                                                name="tanggal_selesai_cuci" readonly value="{{$cuci->tanggal_selesai}}">
                                         </div>
                                     </div>
+
 
                                 </div>
                                 <div class="row">
@@ -111,15 +110,8 @@
                                 </div>
 
                                 <div class="row" id="datavendor">
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="status_pembayaran">Status Pembayaran</label>
-                                            <input type="text" readonly class="form-control" readonly required
-                                                value="{{$cuci->status_pembayaran}}" id="status_pembayaran"
-                                                name="status_pembayaran">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
+
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="nama_vendor">Nama Vendor</label>
                                             <input type="text" class="form-control" value="{{$cuci->nama_vendor}}"
@@ -144,7 +136,7 @@
                                     </div>
                                 </div>
 
-                                <div class="row">
+                                <div class="row" style="margin-bottom: -30px">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="ukuran">Ukuran</label>
@@ -187,28 +179,7 @@
                                                 class="form-control" required id="jumlahl" name="jumlah[]">
                                         </div>
                                     </div>
-                                    @elseif($item->size == 'XL')
-                                    <div class="col-md-2" id="ukuranxl">
-                                        <div class="form-group">
-                                            <label for="ukuran">XL</label>
-                                            <input type="hidden" name="dataukuran[]" value="XL">
-                                            <input type="hidden" name="iddetailukuran[]" value="{{$item->id}}"
-                                                id="iddetailxl">
-                                            <input type="number" min="0" readonly value="{{$item->jumlah}}"
-                                                class="form-control" required id="jumlahxl" name="jumlah[]">
-                                        </div>
-                                    </div>
-                                    @elseif($item->size == 'XXL')
-                                    <div class="col-md-2" id="ukuranxxl">
-                                        <div class="form-group">
-                                            <label for="ukuran">XXL</label>
-                                            <input type="hidden" name="dataukuran[]" value="XXL">
-                                            <input type="hidden" name="iddetailukuran[]" value="{{$item->id}}"
-                                                id="iddetailxxl">
-                                            <input type="number" min="0" readonly value="{{$item->jumlah}}"
-                                                class="form-control" required id="jumlahxxl" name="jumlah[]">
-                                        </div>
-                                    </div>
+
                                     @endif
                                     @empty
 
