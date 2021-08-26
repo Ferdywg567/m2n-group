@@ -21,7 +21,7 @@
             <a class="btn btn-primary" href="{{route('jahit.index')}}">
                 <i class="fas fa-arrow-left"></i>
             </a>
-            <h1 class="ml-2">Input Data | Selesai</h1>
+            <h1 class="ml-2">Input Data | Keluar</h1>
         </div>
         <div class="section-body">
             <div class="row">
@@ -32,7 +32,7 @@
                             <div class="card-body">
                                 @include('backend.include.alert')
                                 @csrf
-                                <input type="hidden" name="status" value="jahitan selesai">
+                                <input type="hidden" name="status" value="jahitan keluar">
                                 <input type="hidden" name="id" id="idkeluar">
                                 <div class="row">
                                     <div class="col-md-6">
@@ -58,13 +58,20 @@
                                         </div>
 
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="sku">Kode SKU</label>
                                             <input type="text" class="form-control" readonly required id="sku_keluar"
                                                 name="sku">
                                         </div>
 
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="no_surat_keluar">Nomor Surat Jalan</label>
+                                            <input type="text" class="form-control"  required id="no_surat_keluar"
+                                                name="no_surat">
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -76,24 +83,16 @@
                                                 id="tanggal_selesai_keluar" name="tanggal_selesai">
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="no_surat_keluar">Nomor Surat Jalan</label>
-                                            <input type="text" class="form-control" readonly required id="no_surat_keluar"
-                                                name="no_surat">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
+
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="vendor_jahit">Vendor Jahit</label>
-                                            <select class="form-control" id="vendor_jahit" name="vendor_jahit">
-                                                <option value="internal" selected>Internal</option>
-                                                <option value="eksternal">Eksternal</option>
-                                            </select>
+                                            <input type="text" class="form-control" readonly required id="vendor_jahit"
+                                            name="vendor_jahit">
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row" id="iddatavendor">
+                                {{-- <div class="row" id="iddatavendor">
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="status_pembayaran">Status Pembayaran</label>
@@ -127,7 +126,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -538,7 +537,7 @@
                                 var data = response.data;
                                 var bahan = data.potong.bahan
                                 $('#sku_keluar').val(bahan.sku)
-                                $('#no_surat_keluar').val(data.no_surat)
+                                $('#vendor_jahit').val(data.vendor)
                                 $('#nama_produk_keluar').val(bahan.nama_bahan)
                                 $('#jenis_kain_keluar').val(bahan.jenis_bahan)
                                 $('#warna_keluar').val(bahan.warna)

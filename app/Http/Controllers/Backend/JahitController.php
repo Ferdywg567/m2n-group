@@ -249,6 +249,7 @@ class JahitController extends Controller
                         }
                     }
 
+                    DetailJahit::where('jahit_id',$jahit->id)->delete();
                     foreach ($arr as $key => $value) {
                         $detail = new DetailJahit();
                         $detail->jahit_id = $jahit->id;
@@ -261,15 +262,18 @@ class JahitController extends Controller
                     unset($arr);
                     $jumlah = $request->get('jumlahdirepair');
                     $dataukuran = $request->get('dataukurandirepair');
+                    $iddetailukurandirepair = $request->get('iddetailukurandirepair');
                     $arr = [];
                     foreach ($dataukuran as $key => $value) {
                         if (!empty($jumlah[$key])) {
+
                             $x['ukuran'] = $value;
                             $x['jumlah'] = $jumlah[$key];
                             array_push($arr, $x);
                         }
                     }
 
+                    JahitDirepair::where('jahit_id',$jahit->id)->delete();
                     foreach ($arr as $key => $value) {
                         $detail = new JahitDirepair();
                         $detail->jahit_id = $jahit->id;
@@ -283,15 +287,17 @@ class JahitController extends Controller
                     unset($arr);
                     $jumlah = $request->get('jumlahdibuang');
                     $dataukuran = $request->get('dataukurandibuang');
+                    $iddetailukurandibuang = $request->get('iddetailukurandibuang');
                     $arr = [];
                     foreach ($dataukuran as $key => $value) {
                         if (!empty($jumlah[$key])) {
+
                             $x['ukuran'] = $value;
                             $x['jumlah'] = $jumlah[$key];
                             array_push($arr, $x);
                         }
                     }
-
+                    JahitDibuang::where('jahit_id',$jahit->id)->delete();
                     foreach ($arr as $key => $value) {
                         $detail = new JahitDibuang();
                         $detail->jahit_id = $jahit->id;
@@ -299,7 +305,6 @@ class JahitController extends Controller
                         $detail->jumlah = $value['jumlah'];
                         $detail->save();
                     }
-
                     $jahit->gagal_jahit = $request->get('gagal_jahit');
                     $jahit->barang_direpair = $request->get('barang_direpair');
                     $jahit->barang_dibuang = $request->get('barang_dibuang');
@@ -440,11 +445,6 @@ class JahitController extends Controller
                     $jahit->berhasil = $request->get('berhasil_jahit');
                     $jahit->konversi = $request->get('konversi');
                     $jahit->status = "jahitan keluar";
-                    if ($request->get('vendor_jahit') == 'eksternal') {
-                        $jahit->nama_vendor = $request->get('nama_vendor');
-                        $jahit->harga_vendor = $request->get('harga_vendor');
-                        $jahit->status_pembayaran = $request->get('status_pembayaran');
-                    }
                     $jumlah = $request->get('jumlah');
                     $dataukuran = $request->get('dataukuran');
                     $iddetailukuran = $request->get('iddetailukuran');
@@ -458,8 +458,9 @@ class JahitController extends Controller
                         }
                     }
 
+                    DetailJahit::where('jahit_id',$jahit->id)->delete();
                     foreach ($arr as $key => $value) {
-                        $detail = DetailJahit::firstOrNew(['id' => $value['id']]);
+                        $detail = new DetailJahit();
                         $detail->jahit_id = $jahit->id;
                         $detail->size = $value['ukuran'];
                         $detail->jumlah = $value['jumlah'];
@@ -474,15 +475,16 @@ class JahitController extends Controller
                     $arr = [];
                     foreach ($dataukuran as $key => $value) {
                         if (!empty($jumlah[$key])) {
-                            $x['id'] = $iddetailukurandirepair[$key];
+
                             $x['ukuran'] = $value;
                             $x['jumlah'] = $jumlah[$key];
                             array_push($arr, $x);
                         }
                     }
 
+                    JahitDirepair::where('jahit_id',$jahit->id)->delete();
                     foreach ($arr as $key => $value) {
-                        $detail = JahitDirepair::firstOrNew(['id' => $value['id']]);
+                        $detail = new JahitDirepair();
                         $detail->jahit_id = $jahit->id;
                         $detail->ukuran = $value['ukuran'];
                         $detail->jumlah = $value['jumlah'];
@@ -498,15 +500,101 @@ class JahitController extends Controller
                     $arr = [];
                     foreach ($dataukuran as $key => $value) {
                         if (!empty($jumlah[$key])) {
-                            $x['id'] = $iddetailukurandibuang[$key];
+
+                            $x['ukuran'] = $value;
+                            $x['jumlah'] = $jumlah[$key];
+                            array_push($arr, $x);
+                        }
+                    }
+                    JahitDibuang::where('jahit_id',$jahit->id)->delete();
+                    foreach ($arr as $key => $value) {
+                        $detail = new JahitDibuang();
+                        $detail->jahit_id = $jahit->id;
+                        $detail->ukuran = $value['ukuran'];
+                        $detail->jumlah = $value['jumlah'];
+                        $detail->save();
+                    }
+
+                    $jahit->gagal_jahit = $request->get('gagal_jahit');
+                    $jahit->barang_direpair = $request->get('barang_direpair');
+                    $jahit->barang_dibuang = $request->get('barang_dibuang');
+                    $jahit->keterangan_direpair = $request->get('keterangan_direpair');
+                    $jahit->keterangan_dibuang = $request->get('keterangan_dibuang');
+                }
+
+
+
+                if ($request->get('status') == 'jahitan selesai') {
+                    $jahit->berhasil = $request->get('berhasil_jahit');
+                    $jahit->konversi = $request->get('konversi');
+                    if ($request->get('vendor_jahit') == 'eksternal') {
+                        $jahit->nama_vendor = $request->get('nama_vendor');
+                        $jahit->harga_vendor = $request->get('harga_vendor');
+                        $jahit->status_pembayaran = $request->get('status_pembayaran');
+                    }
+                    $jumlah = $request->get('jumlah');
+                    $dataukuran = $request->get('dataukuran');
+                    $iddetailukuran = $request->get('iddetailukuran');
+                    $arr = [];
+                    foreach ($dataukuran as $key => $value) {
+                        if (!empty($jumlah[$key])) {
                             $x['ukuran'] = $value;
                             $x['jumlah'] = $jumlah[$key];
                             array_push($arr, $x);
                         }
                     }
 
+                    DetailJahit::where('jahit_id',$jahit->id)->delete();
                     foreach ($arr as $key => $value) {
-                        $detail = JahitDibuang::firstOrNew(['id' => $value['id']]);
+                        $detail = new DetailJahit();
+                        $detail->jahit_id = $jahit->id;
+                        $detail->size = $value['ukuran'];
+                        $detail->jumlah = $value['jumlah'];
+                        $detail->save();
+                    }
+
+                    //direpair
+                    unset($arr);
+                    $jumlah = $request->get('jumlahdirepair');
+                    $dataukuran = $request->get('dataukurandirepair');
+                    $iddetailukurandirepair = $request->get('iddetailukurandirepair');
+                    $arr = [];
+                    foreach ($dataukuran as $key => $value) {
+                        if (!empty($jumlah[$key])) {
+
+                            $x['ukuran'] = $value;
+                            $x['jumlah'] = $jumlah[$key];
+                            array_push($arr, $x);
+                        }
+                    }
+
+                    JahitDirepair::where('jahit_id',$jahit->id)->delete();
+                    foreach ($arr as $key => $value) {
+                        $detail = new JahitDirepair();
+                        $detail->jahit_id = $jahit->id;
+                        $detail->ukuran = $value['ukuran'];
+                        $detail->jumlah = $value['jumlah'];
+                        $detail->save();
+                    }
+
+
+                    //dibuang
+                    unset($arr);
+                    $jumlah = $request->get('jumlahdibuang');
+                    $dataukuran = $request->get('dataukurandibuang');
+                    $iddetailukurandibuang = $request->get('iddetailukurandibuang');
+                    $arr = [];
+                    foreach ($dataukuran as $key => $value) {
+                        if (!empty($jumlah[$key])) {
+
+                            $x['ukuran'] = $value;
+                            $x['jumlah'] = $jumlah[$key];
+                            array_push($arr, $x);
+                        }
+                    }
+                    JahitDibuang::where('jahit_id',$jahit->id)->delete();
+                    foreach ($arr as $key => $value) {
+                        $detail = new JahitDibuang();
                         $detail->jahit_id = $jahit->id;
                         $detail->ukuran = $value['ukuran'];
                         $detail->jumlah = $value['jumlah'];

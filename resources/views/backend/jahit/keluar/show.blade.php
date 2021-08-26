@@ -37,17 +37,17 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="kode_bahan">Kode Bahan</label>
+                                            <label for="kode_transaksi">Kode Transaksi</label>
 
                                             <div id="kdbahankeluar">
                                                 <input type="text" class="form-control"
-                                                    value="{{$jahit->potong->bahan->kode_bahan}}" readonly
+                                                    value="{{$jahit->potong->bahan->kode_transaksi}}" readonly
                                                     id="kdbahanreadkeluar" name="kdbahanreadkeluar">
                                             </div>
                                         </div>
 
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="sku">Kode SKU</label>
                                             <input type="text" class="form-control" readonly
@@ -56,8 +56,16 @@
                                         </div>
 
                                     </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="no_surat_keluar">Nomor Surat Jalan</label>
+                                            <input type="text" class="form-control" readonly required id="no_surat_keluar"
+                                                value="{{$jahit->no_surat}}" name="no_surat">
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="row">
+
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="tanggal_selesai_keluar">Tanggal Selesai</label>
@@ -68,48 +76,31 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="no_surat_keluar">Nomor Surat Jalan</label>
-                                            <input type="text" class="form-control" readonly required id="no_surat_keluar"
-                                                value="{{$jahit->no_surat}}" name="no_surat">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <div class="form-group">
                                             <label for="vendor_jahit">Vendor Jahit</label>
                                             <input type="text" class="form-control" readonly value="{{$jahit->vendor}}"
                                             value="" id="vendor_jahit" name="vendor_jahit">
                                         </div>
                                     </div>
-                                    @if ($jahit->vendor == 'eksternal')
-                                    <div class="col-md-3">
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="nama_vendor">Nama Vendor</label>
-                                            <input type="text" class="form-control" readonly value="{{$jahit->nama_vendor}}"
-                                                value="" id="nama_vendor" name="nama_vendor">
+                                            <label for="berhasil_jahit">Berhasil Jahit</label>
+                                            <input type="number" value="{{$jahit->berhasil}}"
+                                                class="form-control" readonly required id="berhasil_jahit"
+                                                name="berhasil_jahit">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="harga_vendor_keluar">Harga Vendor</label>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <input type="text" class="form-control"
-                                                        value="{{$jahit->harga_vendor}}" readonly id="harga_vendor_keluar"
-                                                        name="harga_vendor">
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <input type="text" value="/ lusin" readonly class="form-control"
-                                                        required id="lusin" name="lusin">
-                                                </div>
-                                            </div>
+                                            <label for="konversi">Konversi Lusin</label>
+                                            <input type="text" readonly value="{{$jahit->konversi}}"
+                                                class="form-control" required id="konversi" name="konversi">
                                         </div>
                                     </div>
-                                    @endif
                                 </div>
-
-                                <div class="row">
+                                <div class="row" style="margin-bottom: -30px">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="ukuran">Ukuran</label>
@@ -153,54 +144,11 @@
                                                 required id="jumlahl" name="jumlah[]">
                                         </div>
                                     </div>
-                                    @elseif($item->size == 'XL')
-                                    <div class="col-md-2" id="ukuranxl">
-                                        <div class="form-group">
-                                            <label for="ukuran">XL</label>
-                                            <input type="hidden" name="dataukuran[]" value="XL">
-                                            <input type="hidden" name="iddetailukuran[]" value="{{$item->id}}"
-                                                id="iddetailxl">
-                                            <input type="number" min="0" readonly value="{{$item->jumlah}}" class="form-control"
-                                                required id="jumlahxl" name="jumlah[]">
-                                        </div>
-                                    </div>
-                                    @elseif($item->size == 'XXL')
-                                    <div class="col-md-2" id="ukuranxxl">
-                                        <div class="form-group">
-                                            <label for="ukuran">XXL</label>
-                                            <input type="hidden" name="dataukuran[]" value="XXL">
-                                            <input type="hidden" name="iddetailukuran[]" value="{{$item->id}}"
-                                                id="iddetailxxl">
-                                            <input type="number" min="0" readonly value="{{$item->jumlah}}" class="form-control"
-                                                required id="jumlahxxl" name="jumlah[]">
-                                        </div>
-                                    </div>
+
                                     @endif
                                     @empty
 
                                     @endforelse
-
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="berhasil_jahit">Berhasil Jahit</label>
-                                                    <input type="number" value="{{$jahit->berhasil}}"
-                                                        class="form-control" readonly required id="berhasil_jahit"
-                                                        name="berhasil_jahit">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="konversi">Konversi Lusin</label>
-                                                    <input type="text" readonly value="{{$jahit->konversi}}"
-                                                        class="form-control" required id="konversi" name="konversi">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="gagal_jahit">Gagal Jahit</label>
@@ -215,8 +163,8 @@
 
                                         </div>
                                     </div>
-
                                 </div>
+
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="row">
@@ -244,7 +192,7 @@
                                             @forelse ($jahit->jahit_direpair as $item)
 
                                             @if ($item->ukuran == 'S')
-                                            <div class="col-md-2">
+                                            <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="ukuran">S</label>
                                                     <input type="hidden" name="dataukurandirepair[]" value="S">
@@ -256,7 +204,7 @@
                                                 </div>
                                             </div>
                                             @elseif ($item->ukuran == 'M')
-                                            <div class="col-md-2" id="ukurandirepairm">
+                                            <div class="col-md-4" id="ukurandirepairm">
                                                 <div class="form-group">
                                                     <label for="ukuran">M</label>
                                                     <input type="hidden" name="dataukurandirepair[]" value="M">
@@ -268,7 +216,7 @@
                                                 </div>
                                             </div>
                                             @elseif ($item->ukuran == 'L')
-                                            <div class="col-md-2" id="ukurandirepairl">
+                                            <div class="col-md-4" id="ukurandirepairl">
                                                 <div class="form-group">
                                                     <label for="ukuran">L</label>
                                                     <input type="hidden" name="dataukurandirepair[]" value="L">
@@ -279,30 +227,7 @@
                                                         name="jumlahdirepair[]">
                                                 </div>
                                             </div>
-                                            @elseif ($item->ukuran == 'XL')
-                                            <div class="col-md-2" id="ukurandirepairxl">
-                                                <div class="form-group">
-                                                    <label for="ukuran">XL</label>
-                                                    <input type="hidden" name="dataukurandirepair[]" value="XL">
-                                                    <input type="hidden" name="iddetailukurandirepair[]"
-                                                        id="iddetaildirepairxl" value="{{$item->id}}">
-                                                    <input type="number" min="0" readonly value="{{$item->jumlah}}"
-                                                        class="form-control" required id="jumlahdirepairxl"
-                                                        name="jumlahdirepair[]">
-                                                </div>
-                                            </div>
-                                            @elseif ($item->ukuran == 'XL')
-                                            <div class="col-md-2" id="ukurandirepairxxl">
-                                                <div class="form-group">
-                                                    <label for="ukuran">XXL</label>
-                                                    <input type="hidden" name="dataukurandirepair[]" value="XXL">
-                                                    <input type="hidden" name="iddetailukurandirepair[]"
-                                                        id="iddetaildirepairxxl" value="{{$item->id}}">
-                                                    <input type="number" min="0" readonly value="{{$item->jumlah}}"
-                                                        class="form-control" required id="jumlahdirepairxxl"
-                                                        name="jumlahdirepair[]">
-                                                </div>
-                                            </div>
+
 
                                             @endif
 
@@ -352,7 +277,7 @@
                                             @forelse ($jahit->jahit_dibuang as $item)
 
                                             @if ($item->ukuran == 'S')
-                                            <div class="col-md-2">
+                                            <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="ukuran">S</label>
                                                     <input type="hidden" name="dataukurandibuang[]" value="S">
@@ -364,7 +289,7 @@
                                                 </div>
                                             </div>
                                             @elseif ($item->ukuran == 'M')
-                                            <div class="col-md-2" id="ukurandibuangm">
+                                            <div class="col-md-4" id="ukurandibuangm">
                                                 <div class="form-group">
                                                     <label for="ukuran">M</label>
                                                     <input type="hidden" name="dataukurandibuang[]" value="M">
@@ -376,7 +301,7 @@
                                                 </div>
                                             </div>
                                             @elseif ($item->ukuran == 'L')
-                                            <div class="col-md-2" id="ukurandibuangl">
+                                            <div class="col-md-4" id="ukurandibuangl">
                                                 <div class="form-group">
                                                     <label for="ukuran">L</label>
                                                     <input type="hidden" name="dataukurandibuang[]" value="L">
@@ -384,30 +309,6 @@
                                                         id="iddetaildibuangl" value="{{$item->id}}">
                                                     <input type="number" min="0" value="{{$item->jumlah}}"
                                                         class="form-control" readonly required id="jumlahdibuangl"
-                                                        name="jumlahdibuang[]">
-                                                </div>
-                                            </div>
-                                            @elseif ($item->ukuran == 'XL')
-                                            <div class="col-md-2" id="ukurandibuangxl">
-                                                <div class="form-group">
-                                                    <label for="ukuran">XL</label>
-                                                    <input type="hidden" name="dataukurandibuang[]" value="XL">
-                                                    <input type="hidden" name="iddetailukurandibuang[]"
-                                                        id="iddetaildibuangxl" value="{{$item->id}}">
-                                                    <input type="number" min="0" value="{{$item->jumlah}}"
-                                                        class="form-control" readonly required id="jumlahdibuangxl"
-                                                        name="jumlahdibuang[]">
-                                                </div>
-                                            </div>
-                                            @elseif ($item->ukuran == 'XL')
-                                            <div class="col-md-2" id="ukurandibuangxxl">
-                                                <div class="form-group">
-                                                    <label for="ukuran">XXL</label>
-                                                    <input type="hidden" name="dataukurandibuang[]" value="XXL">
-                                                    <input type="hidden" name="iddetailukurandibuang[]"
-                                                        id="iddetaildibuangxxl" value="{{$item->id}}">
-                                                    <input type="number" min="0" value="{{$item->jumlah}}"
-                                                        class="form-control" readonly required id="jumlahdibuangxxl"
                                                         name="jumlahdibuang[]">
                                                 </div>
                                             </div>
