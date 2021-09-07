@@ -71,6 +71,24 @@
                                                 id="warna" name="warna">
                                         </div>
                                     </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="vendor">Vendor</label>
+                                            <input type="text" class="form-control" readonly value="{{$bahan->vendor}}" required
+                                                id="vendor" name="vendor">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="tanggal_masuk">Tanggal Masuk</label>
+                                            <input type="date" class="form-control" readonly value="{{$bahan->tanggal_masuk}}"
+                                                required id="tanggal_masuk" name="tanggal">
+                                        </div>
+                                    </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="panjang_bahan">Panjang Bahan</label>
@@ -82,22 +100,6 @@
                                                     <div class="input-group-text">yard</div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="vendor">Vendor</label>
-                                            <input type="text" class="form-control" readonly value="{{$bahan->vendor}}" required
-                                                id="vendor" name="vendor">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="tanggal_masuk">Tanggal Masuk</label>
-                                            <input type="date" class="form-control" readonly value="{{$bahan->tanggal_masuk}}"
-                                                required id="tanggal_masuk" name="tanggal">
                                         </div>
                                     </div>
                                 </div>

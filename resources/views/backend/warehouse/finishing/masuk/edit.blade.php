@@ -1,120 +1,140 @@
 @extends('backend.master')
 
-@section('title', 'Jahit')
+@section('title', 'Sortir')
+@section('title-nav', 'Sortir')
+@section('finishing', 'class=active-sidebar')
 
-@section('jahit', 'class=active-sidebar')
-
+@section('cssnav', 'cssnav')
 @section('content')
+<style>
+    .cssnav {
+        margin-left: -25px;
+    }
 
+    .dropdown-menu {
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        top: 100% !important;
+
+    }
+
+    .left {
+        text-align: left;
+    }
+</style>
+<style>
+    textarea {
+        width: 300px;
+        height: 170px !important;
+    }
+</style>
 <div id="non-printable">
     <section class="section">
         <div class="section-header ">
-            <a class="btn btn-primary" href="{{route('jahit.index')}}">
+            <a class="btn btn-primary" href="{{route('warehouse.finishing.index')}}">
                 <i class="fas fa-arrow-left"></i>
             </a>
-            <h1 class="ml-2">Edit Data | Masuk</h1>
+            <h1 class="ml-2">Edit Data | Sortir</h1>
         </div>
         <div class="section-body">
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <form action="{{route('jahit.update',[$jahit->id])}}" method="POST">
+                        <form action="{{route('warehouse.finishing.update',[$finish->id])}}" method="post">
+                            @csrf
+                            @method('put')
+                            <input type="hidden" name="id" id="idbahan" value="{{$finish->id}}">
                             <div class="card-body">
-                                @include('backend.include.alert')
-                                @csrf
-                                @method('put')
-                                <input type="hidden" name="status" value="jahitan masuk">
-                                <input type="hidden" name="id" id="idmasuk">
+                                <input type="hidden" name="status" value="finishing masuk">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="kode_bahan">Kode Bahan</label>
+                                            <label for="kode_transaksi">Kode Transaksi</label>
+                                            <input type="text" class="form-control"
+                                                value="{{$finish->rekapitulasi->cuci->jahit->potong->bahan->kode_transaksi}}"
+                                                readonly required id="kode_transaksi" name="kode_transaksi">
 
-                                            <div id="kdbahanmasuk">
-                                                <input type="text" class="form-control" value="{{$jahit->potong->bahan->kode_bahan}}" readonly id="kdbahanreadmasuk"
-                                                    name="kdbahanreadmasuk">
-                                            </div>
+
                                         </div>
 
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-3">
                                         <div class="form-group">
-                                            <label for="sku">SKU</label>
-                                            <input type="text" class="form-control" value="{{$jahit->potong->bahan->sku}}" readonly required id="sku"
-                                                name="sku">
+                                            <label for="sku">Kode SKU</label>
+                                            <input type="text" class="form-control" readonly
+                                                value="{{$finish->rekapitulasi->cuci->jahit->potong->bahan->sku}}"
+                                                required id="sku" name="sku">
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="tanggal_jahit">Tanggal Jahit</label>
-                                            <input type="date" class="form-control" value="{{$jahit->tanggal_jahit}}" required id="tanggal_jahit"
-                                                name="tanggal_jahit">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="tanggal_selesai">Tanggal Selesai Jahit</label>
-                                            <input type="date" class="form-control" required value="{{$jahit->tanggal_selesai}}" id="tanggal_selesai"
-                                                name="tanggal_selesai">
-                                        </div>
-                                    </div>
 
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
+                                    </div>
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="no_surat">Nomor Surat Jalan</label>
-                                            <input type="text" class="form-control" required value="{{$jahit->no_surat}}" id="no_surat"
-                                                name="no_surat">
+                                            <input type="text" class="form-control" readonly
+                                                value="{{$finish->no_surat}}" required id="no_surat" name="no_surat">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="tanggal_masuk">Tanggal Barang Masuk</label>
+                                            <input type="date" class="form-control" readonly
+                                                value="{{$finish->rekapitulasi->cuci->jahit->potong->bahan->tanggal_masuk}}"
+                                                required id="tanggal_masuk" name="tanggal_masuk">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="vendor_jahit">Vendor Jahit</label>
-                                            <select class="form-control" id="vendor_jahit"  name="vendor_jahit">
-                                                <option value="internal" @if($jahit->vendor == 'internal') selected @endif >Internal</option>
-                                                <option value="eksternal" @if($jahit->vendor == 'eksternal') selected @endif>Eksternal</option>
-
-                                            </select>
+                                            <label for="tanggal_mulai_sortir">Tanggal Mulai Sortir</label>
+                                            <input type="date" class="form-control"
+                                                value="{{$finish->tanggal_qc}}" required id="tanggal_mulai_sortir"
+                                                name="tanggal_mulai_sortir">
                                         </div>
                                     </div>
 
                                 </div>
-                                @if ($jahit->vendor == 'eksternal')
-                                <div class="row" id="datavendor">
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="status_pembayaran">Status Pembayaran</label>
-                                            <select class="form-control" id="status_pembayaran" name="status_pembayaran">
-                                                <option value="lunas" @if($jahit->status_pembayaran == 'lunas') selected @endif>Lunas</option>
-                                                <option value="belum" @if($jahit->status_pembayaran == 'belum') selected @endif>Belum</option>
 
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="nama_vendor">Nama Vendor</label>
-                                            <input type="text" class="form-control" value="{{$jahit->nama_vendor}}" required id="nama_vendor"
-                                                name="nama_vendor">
-                                        </div>
-                                    </div>
-
-
+                                <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="harga_vendor">Harga Vendor</label>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <input type="text" class="form-control" value="{{$jahit->harga_vendor}}" required id="harga_vendor"
-                                                        name="harga_vendor">
-                                                </div>
-                                                <div class="col-md-6">
+                                            <label for="nama_produk">Nama Produk</label>
+                                            <input type="text" class="form-control" readonly required
+                                                value="{{$finish->rekapitulasi->cuci->jahit->potong->bahan->skus->nama_produk}}"
+                                                id="nama_produk" name="nama_produk">
+                                        </div>
 
-                                                    <input type="text" class="form-control" value="/lusin" readonly
-                                                        required id="lusin" name="lusin">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="warna">Warna</label>
+                                            <input type="text" class="form-control" readonly
+                                                value="{{$finish->rekapitulasi->cuci->jahit->potong->bahan->skus->warna}}"
+                                                required id="warna" name="warna">
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="jenis_kain">Jenis Kain</label>
+                                            <input type="text" class="form-control" readonly
+                                                value="{{$finish->rekapitulasi->cuci->jahit->potong->bahan->skus->jenis_bahan}}"
+                                                required id="jenis_kain" name="jenis_kain">
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="barang_siap_qc">Stok Siap Sortir</label>
+                                            <div class="input-group mb-2">
+                                                <input type="number" class="form-control" readonly
+                                                    value="{{$finish->rekapitulasi->total_barang}}" required
+                                                    id="barang_siap_qc" name="barang_siap_qc">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">pcs</div>
                                                 </div>
                                             </div>
 
@@ -122,14 +142,61 @@
                                     </div>
 
                                 </div>
-                                @endif
+                                <div class="row" id="ukuran" style="margin-bottom: -30px">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="ukuran">Ukuran</label>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    @forelse ($finish->detail_finish as $item)
+                                    @if ($item->ukuran == 'S')
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="ukuran">S</label>
+                                            <input type="hidden" name="dataukuran[]" value="S">
+                                            <input type="hidden" name="iddetailukuran[]" value="{{$item->id}}"
+                                                id="iddetails">
+                                            <input type="number" min="0"  value="{{$item->jumlah}}"
+                                                class="form-control" required id="jumlahs" name="jumlah[]">
+                                        </div>
+                                    </div>
+                                    @elseif($item->ukuran == 'M')
+                                    <div class="col-md-2" id="ukuranm">
+                                        <div class="form-group">
+                                            <label for="ukuran">M</label>
+                                            <input type="hidden" name="dataukuran[]" value="M">
+                                            <input type="hidden" name="iddetailukuran[]" value="{{$item->id}}"
+                                                id="iddetailm">
+                                            <input type="number" min="0"  value="{{$item->jumlah}}"
+                                                class="form-control" required id="jumlahm" name="jumlah[]">
+                                        </div>
+                                    </div>
+                                    @elseif($item->ukuran == 'L')
+                                    <div class="col-md-2" id="ukuranl">
+                                        <div class="form-group">
+                                            <label for="ukuran">L</label>
+                                            <input type="hidden" name="dataukuran[]" value="L">
+                                            <input type="hidden" name="iddetailukuran[]" value="{{$item->id}}"
+                                                id="iddetaill">
+                                            <input type="number" min="0"  value="{{$item->jumlah}}"
+                                                class="form-control" required id="jumlahl" name="jumlah[]">
+                                        </div>
+                                    </div>
+
+                                    @endif
+                                    @empty
+
+                                    @endforelse
+
+                                </div>
                                 <div class="row">
                                     <div class="col-md-12 text-center">
                                         <a type="button" class="btn btn-secondary"
-                                            href="{{route('jahit.index')}}">Batal</a>
-
-                                        <button type="submit" class="btn btn-primary btnmasuk">Update</button>
-
+                                            href="{{route('warehouse.finishing.index')}}">Close</a>
+                                            <button type="submit" class="btn btn-primary">Update</button>
                                     </div>
                                 </div>
                             </div>
@@ -145,64 +212,3 @@
 </div>
 
 @endsection
-@push('scripts')
-<script>
-    $(document).ready(function () {
-             function ajax() {
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-              }
-              $('#kdbahanreadonly').hide()
-              $('#ukuranm').hide()
-              $('#ukuranl').hide()
-              $('#ukuranxl').hide()
-              $('#ukuranxxl').hide()
-              $('#idnamavendor').hide()
-            //   $('#datavendor').hide()
-              $('#kdbahanselectmasuk').show()
-
-              $('#kdbahanselectkeluar').show()
-              $('#kdbahankeluar').hide()
-              $('.btnkeluar').prop('id','btnsimpankeluar')
-              $('#tabelmasuk').DataTable()
-              $('#tabelbahankeluar').DataTable()
-              $('#kode_bahanselect').select2()
-
-
-
-
-              $('#vendor_jahit').on('change', function () {
-                  var data = $(this).find(':selected').val()
-
-                  if(data == 'eksternal'){
-                    $('#idnamavendor').show()
-                    $('#datavendor').show()
-                  }else{
-                    $('#idnamavendor').hide()
-                    $('#datavendor').hide()
-                  }
-               })
-
-              $('#hasil_cutting').on('keyup', function(){
-                  var data = $(this).val()
-                  var lusin = 12
-
-                  var sisa = data%lusin;
-                  var hasil = (data - sisa) / lusin;
-                  var res = hasil+' Lusin '+sisa+ ' pcs'
-                  $('#konversi').val(res)
-              })
-
-
-
-
-
-
-
-
-     })
-</script>
-@endpush

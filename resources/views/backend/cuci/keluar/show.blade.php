@@ -11,11 +11,14 @@
     }
 </style>
 <style>
-
+    .modal-body {
+        max-height: calc(100vh - 210px);
+        overflow-y: auto;
+    }
 
     textarea {
         width: 300px;
-        height: 150px !important;
+        height: 170px !important;
     }
 </style>
 <div id="non-printable">
@@ -34,30 +37,29 @@
                             @csrf
                             <input type="hidden" name="id" id="idcuci" value="{{$cuci->id}}">
                             <div class="card-body">
-
+                                @include('backend.include.alert')
+                                <input type="hidden" name="status" value="cucian keluar">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="kode_bahan">Kode Bahan</label>
-                                            <input type="text" class="form-control" readonly required id="kode_bahan" value="{{$cuci->jahit->potong->bahan->kode_bahan}}" name="kode_bahan">
+                                            <label for="kode_transaksi">Kode Transaksi</label>
+                                            <input type="text" class="form-control" value="{{$cuci->jahit->potong->bahan->kode_transaksi}}" readonly required id="kode_transaksi"
+                                                name="kode_transaksi">
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="sku">SKU</label>
-                                                    <input type="text" class="form-control" readonly value="{{$cuci->jahit->potong->bahan->sku}}" required id="sku"
-                                                        name="sku">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="no_surat">Nomor Surat Jalan</label>
-                                                    <input type="text" class="form-control" readonly value="{{$cuci->no_surat}}" required id="no_surat"
-                                                        name="no_surat">
-                                                </div>
-                                            </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="sku">Kode SKU</label>
+                                            <input type="text" class="form-control" readonly value="{{$cuci->jahit->potong->bahan->sku}}" required id="sku_keluar"
+                                                name="sku">
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="no_surat_keluar">Nomor Surat Jalan</label>
+                                            <input type="text" class="form-control" required id="no_surat_keluar" readonly value="{{$cuci->no_surat}}"
+                                                name="no_surat">
                                         </div>
                                     </div>
                                 </div>
@@ -65,58 +67,34 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="tanggal_selesai_keluar">Tanggal Selesai</label>
-                                            <input type="date" class="form-control" readonly  value="{{$cuci->tanggal_selesai}}" required id="tanggal_selesai_keluar"
-                                                name="tanggal_selesai">
+                                            <input type="date" class="form-control"  required readonly  value="{{$cuci->tanggal_selesai}}"
+                                                id="tanggal_selesai_keluar" name="tanggal_selesai">
                                         </div>
                                     </div>
 
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="tanggal_keluar">Tanggal Keluar</label>
+                                            <input type="date" class="form-control"  required  readonly value="{{$cuci->tanggal_keluar}}"
+                                                id="tanggal_keluar" name="tanggal_keluar">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="vendor_cuci">Vendor Cuci</label>
-                                            <input type="text" class="form-control" readonly value="{{$cuci->vendor}}"  id="vendor_cuci"
-                                            name="vendor_cuci">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row" id="iddatavendor">
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="status_pembayaran">Status Pembayaran</label>
-                                            <input type="text" class="form-control" readonly value="{{$cuci->status_pembayaran}}"  id="status_pembayaran"
-                                            name="status_pembayaran">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="nama_vendor">Nama Vendor</label>
-                                            <input type="text" class="form-control" readonly value="{{$cuci->nama_vendor}}"  id="nama_vendor"
-                                                name="nama_vendor">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="harga_vendor">Harga Vendor</label>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <input type="text" readonly class="form-control"  id="harga_vendor"  value="{{$cuci->harga_vendor}}"
-                                                        name="harga_vendor">
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <input type="text" class="form-control" value="/lusin" readonly
-                                                         id="lusin" name="lusin">
-                                                </div>
-                                            </div>
+                                            <input type="text" readonly class="form-control" readonly required id="vendor_cuci" value="{{$cuci->vendor}}"
+                                                name="vendor_cuci">
 
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-
-                                    <div class="col-md-6">
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="berhasil_cuci">Berhasil Cuci</label>
                                             <div class="input-group mb-2">
-                                                <input type="number" readonly class="form-control" required id="berhasil_cuci" value="{{$cuci->berhasil_cuci}}"
+                                                <input type="number" class="form-control" required readonly id="berhasil_cuci" value="{{$cuci->berhasil_cuci}}"
                                                     name="berhasil_cuci">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">pcs</div>
@@ -124,17 +102,17 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="konversi">Konversi</label>
-                                            <input type="text" readonly class="form-control" required id="konversi" value="{{$cuci->konversi}}"
+                                            <input type="text" readonly class="form-control" required id="konversi"
                                                 name="konversi">
 
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="row">
+                                <div class="row" style="margin-bottom: -30px">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="ukuran">Ukuran</label>
@@ -143,6 +121,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
+
                                     @forelse ($cuci->detail_cuci as $item)
                                     @if ($item->size == 'S')
                                     <div class="col-md-2">
@@ -177,40 +156,16 @@
                                                 required id="jumlahl" name="jumlah[]">
                                         </div>
                                     </div>
-                                    @elseif($item->size == 'XL')
-                                    <div class="col-md-2" id="ukuranxl">
-                                        <div class="form-group">
-                                            <label for="ukuran">XL</label>
-                                            <input type="hidden" name="dataukuran[]" value="XL">
-                                            <input type="hidden" name="iddetailukuran[]" value="{{$item->id}}"
-                                                id="iddetailxl">
-                                            <input type="number" min="0" readonly value="{{$item->jumlah}}" class="form-control"
-                                                required id="jumlahxl" name="jumlah[]">
-                                        </div>
-                                    </div>
-                                    @elseif($item->size == 'XXL')
-                                    <div class="col-md-2" id="ukuranxxl">
-                                        <div class="form-group">
-                                            <label for="ukuran">XXL</label>
-                                            <input type="hidden" name="dataukuran[]" value="XXL">
-                                            <input type="hidden" name="iddetailukuran[]" value="{{$item->id}}"
-                                                id="iddetailxxl">
-                                            <input type="number" min="0" readonly value="{{$item->jumlah}}" class="form-control"
-                                                required id="jumlahxxl" name="jumlah[]">
-                                        </div>
-                                    </div>
+
                                     @endif
                                     @empty
 
                                     @endforelse
-
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="kain_gagal_cuci">Kain Gagal Cuci</label>
                                             <div class="input-group mb-2">
-                                                <input type="number" class="form-control" readonly value="{{$cuci->gagal_cuci}}" required id="kain_gagal_cuci"
+                                                <input type="number" class="form-control" readonly required id="kain_gagal_cuci" value="{{$cuci->gagal_cuci}}"
                                                     name="kain_gagal_cuci">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">pcs</div>
@@ -218,69 +173,158 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="barang_direpair">Barang Direpair</label>
-                                            <div class="input-group mb-2">
-                                                <input type="number" class="form-control"  readonly value="{{$cuci->barang_direpair}}" required id="barang_direpair"
-                                                    name="barang_direpair">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">pcs</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="barang_dibuang">Barang Dibuang</label>
-                                            <div class="input-group mb-2">
-                                                <input type="number" class="form-control" readonly value="{{$cuci->barang_dibuang}}" required id="barang_dibuang"
-                                                    name="barang_dibuang">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">pcs</div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="barang_akan_direpair">Barang Akan Direpair</label>
-                                            <div class="input-group mb-2">
-                                                <input type="number" class="form-control" required readonly
-                                                    id="barang_akan_direpair" name="barang_akan_direpair" value="{{$cuci->barang_akan_direpair}}">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">pcs</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="barang_akan_dibuang">Barang Akan Dibuang</label>
-                                            <div class="input-group mb-2">
-                                                <input type="number" class="form-control" readonly required
-                                                    id="barang_akan_dibuang" name="barang_akan_dibuang" value="{{$cuci->barang_akan_dibuang}}">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">pcs</div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-
                                 </div>
 
-
                                 <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="barang_direpair">Barang  Direpair</label>
+                                                    <div class="input-group mb-2">
+                                                        <input type="number" class="form-control" required readonly value="{{$cuci->barang_direpair}}"
+                                                            id="barang_direpair" name="barang_direpair">
+                                                        <div class="input-group-prepend">
+                                                            <div class="input-group-text">pcs</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <label for="" class="text-dark">Ukuran barang yang di repair</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            @forelse ($cuci->cuci_direpair as $item)
+
+                                            @if ($item->ukuran == 'S')
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="ukuran">S</label>
+                                                    <input type="hidden" name="dataukurandirepair[]" value="S">
+                                                    <input type="hidden" name="iddetailukurandirepair[]"
+                                                        id="iddetaildirepairs" value="{{$item->id}}">
+                                                    <input type="number" min="0" value="{{$item->jumlah}}"
+                                                        class="form-control" required id="jumlahdirepairs" readonly
+                                                        name="jumlahdirepair[]">
+                                                </div>
+                                            </div>
+                                            @elseif ($item->ukuran == 'M')
+                                            <div class="col-md-4" id="ukurandirepairm">
+                                                <div class="form-group">
+                                                    <label for="ukuran">M</label>
+                                                    <input type="hidden" name="dataukurandirepair[]" value="M">
+                                                    <input type="hidden" name="iddetailukurandirepair[]"
+                                                        id="iddetaildirepairm" value="{{$item->id}}">
+                                                    <input type="number" min="0" value="{{$item->jumlah}}"
+                                                        class="form-control" required id="jumlahdirepairm" readonly
+                                                        name="jumlahdirepair[]">
+                                                </div>
+                                            </div>
+                                            @elseif ($item->ukuran == 'L')
+                                            <div class="col-md-4" id="ukurandirepairl">
+                                                <div class="form-group">
+                                                    <label for="ukuran">L</label>
+                                                    <input type="hidden" name="dataukurandirepair[]" value="L">
+                                                    <input type="hidden" name="iddetailukurandirepair[]"
+                                                        id="iddetaildirepairl" value="{{$item->id}}">
+                                                    <input type="number" min="0" value="{{$item->jumlah}}"
+                                                        class="form-control" required id="jumlahdirepairl" readonly
+                                                        name="jumlahdirepair[]">
+                                                </div>
+                                            </div>
+
+
+                                            @endif
+
+                                            @empty
+
+                                            @endforelse
+                                        </div>
+                                    </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="keterangan_direpair">Keterangan Barang Direpair</label>
                                             <textarea class="form-control" id="keterangan_direpair" readonly
                                                 name="keterangan_direpair" rows="3">{{$cuci->keterangan_direpair}}</textarea>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="barang_dibuang">Barang  Dibuang</label>
+                                                    <div class="input-group mb-2">
+                                                        <input type="text" class="form-control" readonly required value="{{$cuci->barang_dibuang}}"
+                                                            id="barang_dibuang" name="barang_dibuang">
+                                                        <div class="input-group-prepend">
+                                                            <div class="input-group-text">pcs</div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <label for="" class="text-dark">Ukuran barang yang di buang</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+
+
+                                            @forelse ($cuci->cuci_dibuang as $item)
+
+                                            @if ($item->ukuran == 'S')
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="ukuran">S</label>
+                                                    <input type="hidden" name="dataukurandibuang[]" value="S">
+                                                    <input type="hidden" name="iddetailukurandibuang[]"
+                                                        id="iddetaildibuangs" value="{{$item->id}}">
+                                                    <input type="number" min="0" value="{{$item->jumlah}}"
+                                                        class="form-control" required id="jumlahdibuangs" readonly
+                                                        name="jumlahdibuang[]">
+                                                </div>
+                                            </div>
+                                            @elseif ($item->ukuran == 'M')
+                                            <div class="col-md-4" id="ukurandibuangm">
+                                                <div class="form-group">
+                                                    <label for="ukuran">M</label>
+                                                    <input type="hidden" name="dataukurandibuang[]" value="M">
+                                                    <input type="hidden" name="iddetailukurandibuang[]"
+                                                        id="iddetaildibuangm" value="{{$item->id}}">
+                                                    <input type="number" min="0" value="{{$item->jumlah}}"
+                                                        class="form-control" required id="jumlahdibuangm" readonly
+                                                        name="jumlahdibuang[]">
+                                                </div>
+                                            </div>
+                                            @elseif ($item->ukuran == 'L')
+                                            <div class="col-md-4" id="ukurandibuangl">
+                                                <div class="form-group">
+                                                    <label for="ukuran">L</label>
+                                                    <input type="hidden" name="dataukurandibuang[]" value="L">
+                                                    <input type="hidden" name="iddetailukurandibuang[]"
+                                                        id="iddetaildibuangl" value="{{$item->id}}">
+                                                    <input type="number" min="0" value="{{$item->jumlah}}"
+                                                        class="form-control" required id="jumlahdibuangl" readonly
+                                                        name="jumlahdibuang[]">
+                                                </div>
+                                            </div>
+
+                                            @endif
+
+                                            @empty
+
+                                            @endforelse
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -291,11 +335,14 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="row">
                                     <div class="col-md-12 text-center">
                                         <a type="button" class="btn btn-secondary"
                                             href="{{route('cuci.index')}}">Close</a>
-                                            <button type="submit" class="btn btn-primary"><i class="ri-printer-fill"></i> Print</button>
+
+                                            <button type="submit" class="btn btn-primary"><i class="ri-printer-fill"></i>
+                                                Print</button>
                                     </div>
                                 </div>
                             </div>
@@ -319,15 +366,20 @@
                 });
               }
               $('#kdbahanreadonly').hide()
-
-              $('#ukurandirepairm').hide()
-              $('#ukurandirepairl').hide()
-              $('#ukurandirepairxl').hide()
-              $('#ukurandirepairxxl').hide()
-              $('#ukurandibuangm').hide()
-              $('#ukurandibuangl').hide()
-              $('#ukurandibuangxl').hide()
-              $('#ukurandibuangxxl').hide()
+            //   $('#ukuranm').hide()
+            //   $('#ukuranl').hide()
+            //   $('#ukuranxl').hide()
+            //   $('#ukuranxxl').hide()
+            //   $('#ukurandirepairm').hide()
+            //   $('#ukurandirepairl').hide()
+            //   $('#ukurandirepairxl').hide()
+            //   $('#ukurandirepairxxl').hide()
+            //   $('#ukurandibuangm').hide()
+            //   $('#ukurandibuangl').hide()
+              $('#datahapus').hide()
+            //   $('#ukurandibuangxl').hide()
+            //   $('#ukurandibuangxxl').hide()
+              $('#idnamavendor').hide()
               $('#idhargavendor').hide()
               $('#datavendor').hide()
               $('#kdbahanselectmasuk').show()
@@ -338,24 +390,19 @@
               $('.btnkeluar').prop('id','btnsimpankeluar')
               $('#tabelmasuk').DataTable()
               $('#tabelbahankeluar').DataTable()
-              $('#kode_bahanselect').select2()
-              $('#kode_bahanselectkeluar').select2()
+              $('#kode_transaksiselect').select2()
+              $('#kode_transaksiselectkeluar').select2()
               $('.btnmasuk').prop('id','btnsimpanmasuk')
-              var vendor = "{{$cuci->vendor}}"
-
-              if(vendor == 'internal'){
-                $('#iddatavendor').hide()
-              }
 
               $('#vendor_cuci').on('change', function () {
                   var data = $(this).find(':selected').val()
 
                   if(data == 'eksternal'){
-                    $('#iddatavendor').show()
+                    $('#idnamavendor').show()
                     $('#idpembayaran').show()
                     $('#idhargavendor').show()
                   }else{
-                    $('#iddatavendor').hide()
+                    $('#idnamavendor').hide()
                     $('#idhargavendor').hide()
                     $('#idpembayaran').hide()
                   }
@@ -373,8 +420,20 @@
                    }
                })
 
-              $('#berhasil_cuci').on('keyup', function(){
-                  var data = $(this).val()
+               $('#barang_direpair').on('keyup', function(){
+                   var nilai = $(this).val()
+                   var dibuang = $('#kain_gagal_cuci').val()
+                   nilai = parseInt(nilai)
+                   dibuang = parseInt(dibuang)
+                   if(nilai > 0 && dibuang > 0 && dibuang >= nilai){
+                        var res =dibuang-nilai;
+
+                        $('#barang_dibuang').val(res)
+                   }
+               })
+
+
+                  var data = "{{$cuci->berhasil_cuci}}"
                   var lusin = 12
 
                   var sisa = data%lusin;
@@ -382,15 +441,16 @@
                   var res = hasil+' Lusin '+sisa+ ' pcs'
 
                   $('#konversi').val(res)
-              })
 
-            $(document).on('click','#btnsize', function(){
+
+              $(document).on('click','#btnsize', function(){
                 var ukuranm = $('#ukuranm').is(':visible')
                 var ukuranl = $('#ukuranl').is(':visible')
                 var ukuranxl = $('#ukuranxl').is(':visible')
                 var ukuranxxl = $('#ukuranxxl').is(':visible')
 
                 if(!ukuranm){
+                    $('#datahapus').show()
                     $('#ukuranm').show()
                     $('#ukurandirepairm').show()
                     $('#ukurandibuangm').show()
@@ -412,7 +472,35 @@
                     return false;
                 }
             })
+            $(document).on('click','#btnhapus', function(){
+                var ukuranm = $('#ukuranm').is(':visible')
+                var ukuranl = $('#ukuranl').is(':visible')
+                var ukuranxl = $('#ukuranxl').is(':visible')
+                var ukuranxxl = $('#ukuranxxl').is(':visible')
 
+                if(ukuranxxl){
+                    $('#ukuranxxl').hide()
+                    $('#ukurandirepairxxl').hide()
+                    $('#ukurandibuangxxl').hide()
+                    return false;
+                }else if(ukuranxl){
+                    $('#ukuranxl').hide()
+                    $('#ukurandirepairxl').hide()
+                    $('#ukurandibuangxl').hide()
+                    return false;
+                }else if(ukuranl){
+                    $('#ukuranl').hide()
+                    $('#ukurandirepairl').hide()
+                    $('#ukurandibuangl').hide()
+                    return false;
+                }else if(ukuranm){
+                    $('#ukuranm').hide()
+                    $('#ukurandirepairm').hide()
+                    $('#ukurandibuangm').hide()
+                    $('#datahapus').hide()
+                    return false;
+                }
+            })
 
             function emptyUkuran()
             {
@@ -436,7 +524,7 @@
                 $('#ukuranxxl').hide()
             }
 
-            $('#kode_bahanselectkeluar').on('change', function () {
+            $('#kode_transaksiselectkeluar').on('change', function () {
                     var id = $(this).find(':selected').val()
 
                     if(id != ''){
@@ -455,6 +543,8 @@
                                 var bahan = data.jahit.potong.bahan
                                 var detail_cuci = data.detail_cuci
                                 $('#sku_keluar').val(bahan.sku)
+                                $('#vendor_cuci').val(data.vendor)
+                                $('#tanggal_selesai_keluar').val(data.tanggal_selesai)
                                 console.log(detail_cuci);
 
                                 for (let index = 0; index < detail_cuci.length; index++) {
@@ -467,18 +557,14 @@
                                         $('#iddetailm').val(element.id)
                                         $('#jumlahm').val(element.jumlah)
                                         $('#ukuranm').show()
+                                        $('#ukurandirepairm').show()
+                                         $('#ukurandibuangm').show()
                                     }else if(element.size == 'L'){
                                         $('#iddetaill').val(element.id)
                                         $('#jumlahl').val(element.jumlah)
                                         $('#ukuranl').show()
-                                    }else if(element.size == 'XL'){
-                                        $('#iddetailxl').val(element.id)
-                                        $('#jumlahxl').val(element.jumlah)
-                                        $('#ukuranxl').show()
-                                    }else if(element.size == 'XXL'){
-                                        $('#iddetailxxl').val(element.id)
-                                        $('#jumlahxxl').val(element.jumlah)
-                                        $('#ukuranxxl').show()
+                                        $('#ukurandirepairl').show()
+                                        $('#ukurandibuangl').show()
                                     }
                                 }
                             }

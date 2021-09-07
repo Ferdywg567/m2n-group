@@ -6,8 +6,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Notification;
+use App\Kategori;
 use App\Bahan;
+use App\DetailSubKategori;
 use App\Sku;
+use App\SubKategori;
 use PDF;
 
 class BahanController extends Controller
@@ -21,7 +24,9 @@ class BahanController extends Controller
     {
         $masuk = Bahan::where('status', 'bahan masuk')->orderBy('created_at', 'DESC')->get();
         $keluar = Bahan::where('status', 'bahan keluar')->orderBy('created_at', 'DESC')->get();
-        return view("backend.bahan.index", ['masuk' => $masuk, 'keluar' => $keluar]);
+        $bahan = Bahan::orderBy('created_at', 'DESC')->get();
+        $kategori = Kategori::all();
+        return view("backend.bahan.index", ['masuk' => $masuk, 'keluar' => $keluar, 'kategori' => $kategori, 'bahan' => $bahan]);
     }
 
     /**
@@ -36,10 +41,9 @@ class BahanController extends Controller
             return view("backend.bahan.masuk.create");
         } else {
             $masuk = Bahan::all()->where('status', 'bahan masuk');
-            $sku = Sku::all();
             $kode_transaksi = $this->getKode();
-
-            return view("backend.bahan.keluar.create", ['masuk' => $masuk, 'kode' => $kode_transaksi, 'sku' => $sku]);
+            $kategori = Kategori::all();
+            return view("backend.bahan.keluar.create", ['masuk' => $masuk, 'kode' => $kode_transaksi, 'kategori' => $kategori]);
         }
     }
 
@@ -51,7 +55,7 @@ class BahanController extends Controller
      */
     public function store(Request $request)
     {
-
+        // dd($request->all());
         if ($request->get('status') == 'bahan masuk') {
             $validator = Validator::make($request->all(), [
                 'kode_bahan' =>  'required|unique:bahans,kode_bahan',
@@ -66,14 +70,15 @@ class BahanController extends Controller
         } else {
             $validator = Validator::make($request->all(), [
                 'kode_bahan' =>  'required',
-                'no_surat' => 'required',
+                'no_surat' => 'required|unique:bahans,no_surat',
                 'nama_bahan' => 'required',
                 'jenis_bahan' => 'required',
                 'warna' => 'required',
                 'vendor' => 'required',
-                'tanggal' => 'required',
+                'tanggal_keluar' => 'required',
                 'panjang_bahan' => 'required',
-                'sku' => 'required|unique:bahans,sku'
+                'sku_bahan' => 'required',
+                'panjang_bahan_diambil' => 'required'
             ]);
         }
 
@@ -106,18 +111,16 @@ class BahanController extends Controller
                 $bahan->status = "bahan masuk";
             } else {
                 $kode_transaksi = $this->getKode();
-                $sku = Sku::findOrFail($request->get('sku'));
                 $bahan->kode_transaksi = $kode_transaksi;
-                $bahan->sku = $sku->kode_sku;
-                $bahan->sku_id = $sku->id;
+                $bahan->sku = $request->get('sku_bahan');
+                $bahan->detail_sub_kategori_id = $request->get('detail_sub_kategori');
+                $bahan->sisa_bahan = $request->get('sisa_bahan');
+                $bahan->panjang_bahan_diambil = $request->get('panjang_bahan_diambil');
                 $bahan->status = "bahan keluar";
-                $bahan->tanggal_keluar = $request->get('tanggal');
+                $bahan->tanggal_keluar = $request->get('tanggal_keluar');
             }
-
             $bahan->panjang_bahan = $request->get('panjang_bahan');
-
             $bahan->save();
-
             return redirect()->route('bahan.index')->with('success', $request->get('status') . ' berhasil disimpan');
         }
     }
@@ -134,7 +137,7 @@ class BahanController extends Controller
         if ($bahan->status == 'bahan masuk') {
             return view("backend.bahan.masuk.show", ['bahan' => $bahan]);
         } else {
-
+            $kategori = Kategori::all();
             return view("backend.bahan.keluar.show", ['bahan' => $bahan]);
         }
     }
@@ -151,8 +154,11 @@ class BahanController extends Controller
         if ($bahan->status == 'bahan masuk') {
             return view("backend.bahan.masuk.edit", ['bahan' => $bahan]);
         } else {
-
-            return view("backend.bahan.keluar.edit", ['bahan' => $bahan]);
+            $kategori = Kategori::all();
+            $sub = SubKategori::all();
+            $detail = DetailSubKategori::all();
+            // dd($bahan->detail_sub);
+            return view("backend.bahan.keluar.edit", ['bahan' => $bahan, 'kategori' => $kategori, 'sub' => $sub, 'detail' => $detail]);
         }
     }
 
@@ -177,16 +183,17 @@ class BahanController extends Controller
                 'panjang_bahan' => 'required',
             ]);
         } else {
+            $bahan = Bahan::findOrFail($id);
             $validator = Validator::make($request->all(), [
-
-                'no_surat' => 'required',
+                'no_surat' => 'required|unique:bahans,no_surat,'.$bahan->no_surat.',no_surat',
                 'nama_bahan' => 'required',
                 'jenis_bahan' => 'required',
                 'warna' => 'required',
                 'vendor' => 'required',
-                'tanggal' => 'required',
+                'tanggal_keluar' => 'required',
                 'panjang_bahan' => 'required',
-                'sku' => 'required'
+                'sku_bahan' => 'required',
+                'panjang_bahan_diambil' => 'required'
             ]);
         }
 
@@ -205,8 +212,12 @@ class BahanController extends Controller
                 $bahan->tanggal_masuk = $request->get('tanggal');
                 $bahan->status = "bahan masuk";
             } else {
+                $bahan->sku = $request->get('sku_bahan');
+                $bahan->detail_sub_kategori_id = $request->get('detail_sub_kategori');
+                $bahan->sisa_bahan = $request->get('sisa_bahan');
+                $bahan->panjang_bahan_diambil = $request->get('panjang_bahan_diambil');
                 $bahan->status = "bahan keluar";
-                $bahan->tanggal_keluar = $request->get('tanggal');
+                $bahan->tanggal_keluar = $request->get('tanggal_keluar');
             }
 
             $bahan->panjang_bahan = $request->get('panjang_bahan');
@@ -241,7 +252,7 @@ class BahanController extends Controller
     public function getDataBahan(Request $request)
     {
         if ($request->ajax()) {
-            $bahan = Bahan::with('skus')->where('id',$request->get('id'))->first();
+            $bahan = Bahan::where('id', $request->get('id'))->first();
 
             return response()->json([
                 'status' => true,
@@ -250,7 +261,8 @@ class BahanController extends Controller
         }
     }
 
-    public function getDataSKU(Request $request){
+    public function getDataSKU(Request $request)
+    {
         if ($request->ajax()) {
             $ksu = Sku::findOrFail($request->get('id'));
 

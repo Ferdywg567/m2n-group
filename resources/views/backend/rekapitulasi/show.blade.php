@@ -62,15 +62,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="ukuran_baju">Ukuran Baju</label>
-                                            <input type="text" class="form-control" readonly required id="ukuran_baju"
-                                                value="{{$rekap->ukuran}}" name="ukuran_baju">
-                                        </div>
-
-                                    </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="warna_baju">Warna Baju</label>
                                             <input type="text" class="form-control" readonly required
@@ -112,6 +104,57 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="row" style="margin-bottom: -30px">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="ukuran">Ukuran</label>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    @forelse ($rekap->detail_rekap as $item)
+                                    @if ($item->ukuran == 'S')
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="ukuran">S</label>
+                                            <input type="hidden" name="dataukuran[]" value="S">
+                                            <input type="hidden" name="iddetailukuran[]" value="{{$item->id}}"
+                                                id="iddetails">
+                                            <input type="number" min="0" readonly value="{{$item->jumlah}}" class="form-control"
+                                                required id="jumlahs" name="jumlah[]">
+                                        </div>
+                                    </div>
+                                    @elseif($item->ukuran == 'M')
+                                    <div class="col-md-2" id="ukuranm">
+                                        <div class="form-group">
+                                            <label for="ukuran">M</label>
+                                            <input type="hidden" name="dataukuran[]" value="M">
+                                            <input type="hidden" name="iddetailukuran[]" value="{{$item->id}}"
+                                                id="iddetailm">
+                                            <input type="number" min="0" readonly value="{{$item->jumlah}}" class="form-control"
+                                                required id="jumlahm" name="jumlah[]">
+                                        </div>
+                                    </div>
+                                    @elseif($item->ukuran == 'L')
+                                    <div class="col-md-2" id="ukuranl">
+                                        <div class="form-group">
+                                            <label for="ukuran">L</label>
+                                            <input type="hidden" name="dataukuran[]" value="L">
+                                            <input type="hidden" name="iddetailukuran[]" value="{{$item->id}}"
+                                                id="iddetaill">
+                                            <input type="number" min="0" readonly value="{{$item->jumlah}}" class="form-control"
+                                                required id="jumlahl" name="jumlah[]">
+                                        </div>
+                                    </div>
+
+                                    @endif
+                                    @empty
+
+                                    @endforelse
+
                                 </div>
 
                                 <div class="row">

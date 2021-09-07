@@ -1,10 +1,26 @@
 @extends('backend.master')
 
-@section('title', 'Finishing')
-
+@section('title', 'Sortir')
+@section('title-nav', 'Sortir')
 @section('finishing', 'class=active-sidebar')
-
+@section('cssnav', 'cssnav')
 @section('content')
+<style>
+    .cssnav {
+        margin-left: -25px;
+    }
+
+    .dropdown-menu {
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        top: 100% !important;
+
+    }
+
+    .left {
+        text-align: left;
+    }
+</style>
 <style>
     textarea {
         width: 300px;
@@ -17,27 +33,25 @@
             <a class="btn btn-primary" href="{{route('warehouse.finishing.index')}}">
                 <i class="fas fa-arrow-left"></i>
             </a>
-            <h1 class="ml-2">Input Data | Kirim Warehouse</h1>
+            <h1 class="ml-2">Input Data | Produk Keluar</h1>
         </div>
         <div class="section-body">
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
                         <form action="{{route('warehouse.finishing.store')}}"  method="post">
-
                             <div class="card-body">
                                 @include('backend.include.alert')
                                 @csrf
                                 <input type="hidden" name="status" value="kirim warehouse">
-
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="kode_bahan">Kode Bahan</label>
+                                            <label for="kode_transaksi">Kode Transaksi</label>
                                             <div id="kdbahanselectkeluar">
-                                                <select class="form-control" id="kode_bahanselectkeluar"
-                                                    name="kode_bahan">
-                                                    <option value="">Pilih Kode Bahan</option>
+                                                <select class="form-control" id="kode_transaksiselectkeluar"
+                                                    name="kode_transaksi">
+                                                    <option value="">Pilih Kode Transaksi</option>
                                                     @forelse ($finish as $item)
                                                         <option value="{{$item->id}}">{{$item->rekapitulasi->cuci->jahit->potong->bahan->kode_bahan}} | {{$item->rekapitulasi->cuci->jahit->potong->bahan->nama_bahan}}</option>
                                                     @empty
@@ -45,10 +59,7 @@
                                                     @endforelse
                                                 </select>
                                             </div>
-
-
                                         </div>
-
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
@@ -56,7 +67,6 @@
                                             <input type="text" class="form-control" readonly required id="sku"
                                                 name="sku">
                                         </div>
-
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
@@ -69,67 +79,17 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="tanggal_masuk">Tanggal Barang Masuk</label>
-                                            <input type="date" class="form-control" readonly required id="tanggal_masuk"
-                                                name="tanggal_masuk">
+                                            <label for="tanggal_selesai">Tanggal Selesai Sortir</label>
+                                            <input type="date" class="form-control"  required id="tanggal_selesai"
+                                                name="tanggal_selesai">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="tanggal_qc">Tanggal QC Barang</label>
-                                            <input type="date" class="form-control" readonly required id="tanggal_qc"
-                                                name="tanggal_qc">
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="nama_produk">Nama Produk</label>
-                                            <input type="text" class="form-control" readonly required id="nama_produk"
-                                                name="nama_produk">
-                                        </div>
-
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="warna">Warna</label>
-                                            <input type="text" class="form-control" readonly required id="warna"
-                                                name="warna">
-                                        </div>
-
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="jenis_kain">Jenis Kain</label>
-                                            <input type="text" class="form-control" readonly required id="jenis_kain"
-                                                name="jenis_kain">
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="barang_siap_qc">Barang Siap QC</label>
-                                            <div class="input-group mb-2">
-                                                <input type="number" class="form-control" readonly required
-                                                    id="barang_siap_qc" name="barang_siap_qc">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">pcs</div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="barang_lolos_qc">Barang Lolos QC</label>
+                                            <label for="stok_lolos_sortir">Stok Lolos Sortir</label>
                                             <div class="input-group mb-2">
                                                 <input type="number" class="form-control"  required
-                                                    id="barang_lolos_qc" readonly name="barang_lolos_qc">
+                                                    id="stok_lolos_sortir"  name="stok_lolos_sortir">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">pcs</div>
                                                 </div>
@@ -139,7 +99,10 @@
                                     </div>
 
                                 </div>
-                                <div class="row" id="ukuran">
+
+
+
+                                <div class="row" id="ukuran" style="margin-bottom: -30px">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="ukuran">Ukuran</label>
@@ -154,7 +117,7 @@
                                             <label for="ukuran">S</label>
                                             <input type="hidden" name="dataukuran[]" value="S">
                                             <input type="hidden" name="iddetailukuran[]" id="iddetails">
-                                            <input type="number" min="0" class="form-control" readonly required id="jumlahs"
+                                            <input type="number" min="0" class="form-control"  required id="jumlahs"
                                                 name="jumlah[]">
                                         </div>
                                     </div>
@@ -163,7 +126,7 @@
                                             <label for="ukuran">M</label>
                                             <input type="hidden" name="dataukuran[]" value="M">
                                             <input type="hidden" name="iddetailukuran[]" id="iddetailm">
-                                            <input type="number" min="0" class="form-control" readonly required id="jumlahm"
+                                            <input type="number" min="0" class="form-control"  required id="jumlahm"
                                                 name="jumlah[]">
                                         </div>
                                     </div>
@@ -172,37 +135,15 @@
                                             <label for="ukuran">L</label>
                                             <input type="hidden" name="dataukuran[]" value="L">
                                             <input type="hidden" name="iddetailukuran[]" id="iddetaill">
-                                            <input type="number" min="0" class="form-control" readonly required id="jumlahl"
+                                            <input type="number" min="0" class="form-control"  required id="jumlahl"
                                                 name="jumlah[]">
                                         </div>
                                     </div>
-                                    <div class="col-md-2" id="ukuranxl">
+                                    <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="ukuran">XL</label>
-                                            <input type="hidden" name="dataukuran[]" value="XL">
-                                            <input type="hidden" name="iddetailukuran[]" id="iddetailxl">
-                                            <input type="number" min="0" class="form-control" readonly required id="jumlahxl"
-                                                name="jumlah[]">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2" id="ukuranxxl">
-                                        <div class="form-group">
-                                            <label for="ukuran">XXL</label>
-                                            <input type="hidden" name="dataukuran[]" value="XXL">
-                                            <input type="hidden" name="iddetailukuran[]"  id="iddetailxxl">
-                                            <input type="number" min="0" class="form-control" readonly required id="jumlahxxl"
-                                                name="jumlah[]">
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="gagal_qc">Barang Gagal QC</label>
+                                            <label for="gagal_qc">Produk Gagal QC</label>
                                             <div class="input-group mb-2">
-                                                <input type="number" class="form-control" readonly required
+                                                <input type="number" class="form-control"  required
                                                     id="gagal_qc" name="gagal_qc">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">pcs</div>
@@ -213,15 +154,17 @@
                                     </div>
 
                                 </div>
+
+
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label for="barang_diretur">Barang Diretur</label>
+                                                    <label for="barang_diretur">Produk Diretur</label>
                                                     <div class="input-group mb-2">
                                                         <input type="number" class="form-control" required
-                                                            id="barang_diretur" readonly name="barang_diretur">
+                                                            id="barang_diretur"  name="produk_diretur">
                                                         <div class="input-group-prepend">
                                                             <div class="input-group-text">pcs</div>
                                                         </div>
@@ -232,60 +175,40 @@
 
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <label for="" class="text-dark">Ukuran barang yang Diretur</label>
+                                                <label for="" class="text-dark">Ukuran produk yang Diretur</label>
                                             </div>
                                         </div>
                                         <div class="row">
 
-                                            <div class="col-md-2">
+                                            <div class="col-md-4">
 
                                                 <div class="form-group">
                                                     <label for="ukuran">S</label>
                                                     <input type="hidden" name="dataukurandiretur[]" value="S">
                                                     <input type="hidden" name="iddetailukurandiretur[]"
                                                         id="iddetaildireturs">
-                                                    <input type="number" min="0" readonly class="form-control" required
+                                                    <input type="number" min="0"  class="form-control" required
                                                         id="jumlahdireturs" name="jumlahdiretur[]">
                                                 </div>
                                             </div>
-                                            <div class="col-md-2" id="ukurandireturm">
+                                            <div class="col-md-4" id="ukurandireturm">
                                                 <div class="form-group">
                                                     <label for="ukuran">M</label>
                                                     <input type="hidden" name="dataukurandiretur[]" value="M">
                                                     <input type="hidden" name="iddetailukurandiretur[]"
                                                         id="iddetaildireturm">
-                                                    <input type="number" min="0" readonly class="form-control" required
+                                                    <input type="number" min="0"  class="form-control" required
                                                         id="jumlahdireturm" name="jumlahdiretur[]">
                                                 </div>
                                             </div>
-                                            <div class="col-md-2" id="ukurandireturl">
+                                            <div class="col-md-4" id="ukurandireturl">
                                                 <div class="form-group">
                                                     <label for="ukuran">L</label>
                                                     <input type="hidden" name="dataukurandiretur[]" value="L">
                                                     <input type="hidden" name="iddetailukurandiretur[]"
                                                         id="iddetaildireturl">
-                                                    <input type="number" min="0" readonly class="form-control" required
+                                                    <input type="number" min="0"  class="form-control" required
                                                         id="jumlahdireturl" name="jumlahdiretur[]">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2" id="ukurandireturxl">
-                                                <div class="form-group">
-                                                    <label for="ukuran">XL</label>
-                                                    <input type="hidden" name="dataukurandiretur[]" value="XL">
-                                                    <input type="hidden" name="iddetailukurandiretur[]"
-                                                        id="iddetaildireturxl">
-                                                    <input type="number" min="0" readonly class="form-control" required
-                                                        id="jumlahdireturxl" name="jumlahdiretur[]">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2" id="ukurandireturxxl">
-                                                <div class="form-group">
-                                                    <label for="ukuran">XXL</label>
-                                                    <input type="hidden" name="dataukurandiretur[]" value="XXL">
-                                                    <input type="hidden" name="iddetailukurandiretur[]"
-                                                        id="iddetaildireturxxl">
-                                                    <input type="text" min="0" readonly class="form-control" required
-                                                        id="jumlahdireturxxl" name="jumlahdiretur[]">
                                                 </div>
                                             </div>
 
@@ -293,8 +216,8 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="keterangan_diretur">Keterangan Barang Diretur</label>
-                                            <textarea class="form-control" readonly  id="keterangan_diretur"
+                                            <label for="keterangan_diretur">Keterangan Produk Diretur</label>
+                                            <textarea class="form-control"   id="keterangan_diretur"
                                                 name="keterangan_diretur"  rows="3"></textarea>
                                         </div>
 
@@ -307,10 +230,10 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label for="barang_dibuang">Barang Dibuang</label>
+                                                    <label for="barang_dibuang">Produk Dibuang</label>
                                                     <div class="input-group mb-2">
                                                         <input type="number" class="form-control" readonly required
-                                                            id="barang_dibuang"  name="barang_dibuang">
+                                                            id="barang_dibuang"  name="produk_dibuang">
                                                         <div class="input-group-prepend">
                                                             <div class="input-group-text">pcs</div>
                                                         </div>
@@ -321,68 +244,49 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <label for="" class="text-dark">Ukuran barang yang Dibuang</label>
+                                                <label for="" class="text-dark">Ukuran produk yang Dibuang</label>
                                             </div>
                                         </div>
                                         <div class="row">
 
-                                            <div class="col-md-2">
+                                            <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="ukuran">S</label>
                                                     <input type="hidden" name="dataukurandibuang[]" value="S">
                                                     <input type="hidden" name="iddetailukurandibuang[]"
                                                         id="iddetaildibuangs">
-                                                    <input type="number" min="0" readonly class="form-control" required
+                                                    <input type="number" min="0"  class="form-control" required
                                                         id="jumlahdibuangs" name="jumlahdibuang[]">
                                                 </div>
                                             </div>
-                                            <div class="col-md-2" id="ukurandibuangm">
+                                            <div class="col-md-4" id="ukurandibuangm">
                                                 <div class="form-group">
                                                     <label for="ukuran">M</label>
                                                     <input type="hidden" name="dataukurandibuang[]" value="M">
                                                     <input type="hidden" name="iddetailukurandibuang[]"
                                                         id="iddetaildibuangm">
-                                                    <input type="number" min="0" readonly class="form-control" required
+                                                    <input type="number" min="0"  class="form-control" required
                                                         id="jumlahdibuangm" name="jumlahdibuang[]">
                                                 </div>
                                             </div>
-                                            <div class="col-md-2" id="ukurandibuangl">
+                                            <div class="col-md-4" id="ukurandibuangl">
                                                 <div class="form-group">
                                                     <label for="ukuran">L</label>
                                                     <input type="hidden" name="dataukurandibuang[]" value="L">
                                                     <input type="hidden" name="iddetailukurandibuang[]"
                                                         id="iddetaildibuangl">
-                                                    <input type="number" min="0" readonly class="form-control" required
+                                                    <input type="number" min="0"  class="form-control" required
                                                         id="jumlahdibuangl" name="jumlahdibuang[]">
                                                 </div>
                                             </div>
-                                            <div class="col-md-2" id="ukurandibuangxl">
-                                                <div class="form-group">
-                                                    <label for="ukuran">XL</label>
-                                                    <input type="hidden" name="dataukurandibuang[]" value="XL">
-                                                    <input type="hidden" name="iddetailukurandibuang[]"
-                                                        id="iddetaildibuangxl">
-                                                    <input type="number" min="0" readonly class="form-control" required
-                                                        id="jumlahdibuangxl" name="jumlahdibuang[]">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2" id="ukurandibuangxxl">
-                                                <div class="form-group">
-                                                    <label for="ukuran">XXL</label>
-                                                    <input type="hidden" name="dataukurandibuang[]" value="XXL">
-                                                    <input type="hidden" name="iddetailukurandibuang[]"
-                                                        id="iddetaildibuangxxl">
-                                                    <input type="text" min="0" readonly class="form-control" required
-                                                        id="jumlahdibuangxxl" name="jumlahdibuang[]">
-                                                </div>
-                                            </div>
+
 
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="keterangan_dibuang">Keterangan Barang Dibuang</label>
-                                            <textarea class="form-control" readonly  id="keterangan_dibuang"
+                                            <label for="keterangan_dibuang">Keterangan Produk Dibuang</label>
+                                            <textarea class="form-control"   id="keterangan_dibuang"
                                                 name="keterangan_dibuang" rows="6"></textarea>
                                         </div>
                                     </div>
@@ -421,18 +325,18 @@
                 });
               }
               $('#kdbahanreadonly').hide()
-              $('#ukuranm').hide()
-              $('#ukuranl').hide()
-              $('#ukuranxl').hide()
-              $('#ukuranxxl').hide()
-              $('#ukurandireturm').hide()
-              $('#ukurandireturl').hide()
-              $('#ukurandireturxl').hide()
-              $('#ukurandireturxxl').hide()
-              $('#ukurandibuangm').hide()
-              $('#ukurandibuangl').hide()
-              $('#ukurandibuangxl').hide()
-              $('#ukurandibuangxxl').hide()
+            //   $('#ukuranm').hide()
+            //   $('#ukuranl').hide()
+            //   $('#ukuranxl').hide()
+            //   $('#ukuranxxl').hide()
+            //   $('#ukurandireturm').hide()
+            //   $('#ukurandireturl').hide()
+            //   $('#ukurandireturxl').hide()
+            //   $('#ukurandireturxxl').hide()
+            //   $('#ukurandibuangm').hide()
+            //   $('#ukurandibuangl').hide()
+            //   $('#ukurandibuangxl').hide()
+            //   $('#ukurandibuangxxl').hide()
               $('#iddatavendor').hide()
               $('#idhargavendor').hide()
               $('#datavendor').hide()
@@ -444,12 +348,23 @@
               $('#tabelmasuk').DataTable()
               $('#tabelbahankeluar').DataTable()
               $('#kode_bahanselect').select2()
-              $('#kode_bahanselectkeluar').select2()
+              $('#kode_transaksiselectkeluar').select2()
               $('.btnmasuk').prop('id','btnsimpanmasuk')
 
 
+              $('#barang_diretur').on('keyup', function(){
+                   var nilai = $(this).val()
+                   var dibuang = $('#gagal_qc').val()
+                   nilai = parseInt(nilai)
+                   dibuang = parseInt(dibuang)
+                   if(nilai > 0 && dibuang > 0 && dibuang >= nilai){
+                        var res =dibuang-nilai;
 
-            $('#kode_bahanselectkeluar').on('change', function () {
+                        $('#barang_dibuang').val(res)
+                   }
+               })
+
+            $('#kode_transaksiselectkeluar').on('change', function () {
                     var id = $(this).find(':selected').val()
 
                     if(id != ''){
@@ -475,7 +390,7 @@
                                 $('#warna').val(bahan.warna)
                                 $('#tanggal_masuk').val(bahan.tanggal_masuk)
                                 $('#tanggal_qc').val(data.tanggal_qc)
-                                $('#barang_lolos_qc').val(data.barang_lolos_qc)
+                                // $('#barang_lolos_qc').val(data.barang_lolos_qc)
                                 $('#gagal_qc').val(data.barang_gagal_qc)
                                 $('#barang_diretur').val(data.barang_diretur)
                                 $('#barang_dibuang').val(data.barang_dibuang)
@@ -493,46 +408,46 @@
                                     if(element.ukuran == 'S'){
                                         $('#iddetails').val(element.id)
                                         $('#jumlahs').val(element.jumlah)
-                                        $('#jumlahdireturs').val(retur.jumlah)
-                                        $('#jumlahdibuangs').val(dibuang.jumlah)
-                                        $('#jumlahs').prop('readonly',true)
+                                        // $('#jumlahdireturs').val(retur.jumlah)
+                                        // $('#jumlahdibuangs').val(dibuang.jumlah)
+                                        // $('#jumlahs').prop('readonly',true)
 
                                     }else if(element.ukuran == 'M'){
                                         $('#iddetailm').val(element.id)
                                         $('#jumlahm').val(element.jumlah)
-                                        $('#jumlahdireturm').val(retur.jumlah)
-                                        $('#jumlahdibuangm').val(dibuang.jumlah)
-                                        $('#jumlahm').prop('readonly',true)
-                                        $('#ukuranm').show()
-                                        $('#ukurandireturm').show()
-                                         $('#ukurandibuangm').show()
+                                        // $('#jumlahdireturm').val(retur.jumlah)
+                                        // $('#jumlahdibuangm').val(dibuang.jumlah)
+                                        // $('#jumlahm').prop('readonly',true)
+                                        // $('#ukuranm').show()
+                                        // $('#ukurandireturm').show()
+                                        //  $('#ukurandibuangm').show()
                                     }else if(element.ukuran == 'L'){
                                         $('#iddetaill').val(element.id)
                                         $('#jumlahl').val(element.jumlah)
-                                        $('#jumlahdireturl').val(retur.jumlah)
-                                        $('#jumlahdibuangm').val(dibuang.jumlah)
-                                        $('#jumlahl').prop('readonly',true)
-                                        $('#ukuranl').show()
-                                        $('#ukurandireturl').show()
-                                        $('#ukurandibuangl').show()
+                                        // $('#jumlahdireturl').val(retur.jumlah)
+                                        // $('#jumlahdibuangm').val(dibuang.jumlah)
+                                        // $('#jumlahl').prop('readonly',true)
+                                        // $('#ukuranl').show()
+                                        // $('#ukurandireturl').show()
+                                        // $('#ukurandibuangl').show()
                                     }else if(element.ukuran == 'XL'){
                                         $('#iddetailxl').val(element.id)
                                         $('#jumlahxl').val(element.jumlah)
-                                        $('#jumlahdireturxl').val(retur.jumlah)
-                                        $('#jumlahdibuangxl').val(dibuang.jumlah)
-                                        $('#jumlahxl').prop('readonly',true)
-                                        $('#ukuranxl').show()
-                                        $('#ukurandireturxl').show()
-                                        $('#ukurandibuangxl').show()
+                                        // $('#jumlahdireturxl').val(retur.jumlah)
+                                        // $('#jumlahdibuangxl').val(dibuang.jumlah)
+                                        // $('#jumlahxl').prop('readonly',true)
+                                        // $('#ukuranxl').show()
+                                        // $('#ukurandireturxl').show()
+                                        // $('#ukurandibuangxl').show()
                                     }else if(element.ukuran == 'XXL'){
                                         $('#iddetailxxl').val(element.id)
                                         $('#jumlahxxl').val(element.jumlah)
-                                        $('#jumlahdireturxxl').val(retur.jumlah)
-                                        $('#jumlahdibuangxxl').val(dibuang.jumlah)
-                                        $('#jumlahxxl').prop('readonly',true)
-                                        $('#ukuranxxl').show()
-                                        $('#ukurandireturxxl').show()
-                                        $('#ukurandibuangxxl').show()
+                                        // $('#jumlahdireturxxl').val(retur.jumlah)
+                                        // $('#jumlahdibuangxxl').val(dibuang.jumlah)
+                                        // $('#jumlahxxl').prop('readonly',true)
+                                        // $('#ukuranxxl').show()
+                                        // $('#ukurandireturxxl').show()
+                                        // $('#ukurandibuangxxl').show()
                                     }
                                 }
 

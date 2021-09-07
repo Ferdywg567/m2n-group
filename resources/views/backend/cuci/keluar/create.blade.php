@@ -92,9 +92,9 @@
 
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="tanggal_selesai_keluar">Tanggal Selesai</label>
+                                            <label for="tanggal_keluar">Tanggal Keluar</label>
                                             <input type="date" class="form-control"  required
-                                                id="tanggal_selesai_keluar" name="tanggal_selesai">
+                                                id="tanggal_keluar" name="tanggal_keluar">
                                         </div>
                                     </div>
                                 </div>
@@ -400,6 +400,18 @@
                    }
                })
 
+               $('#barang_direpair').on('keyup', function(){
+                   var nilai = $(this).val()
+                   var dibuang = $('#kain_gagal_cuci').val()
+                   nilai = parseInt(nilai)
+                   dibuang = parseInt(dibuang)
+                   if(nilai > 0 && dibuang > 0 && dibuang >= nilai){
+                        var res =dibuang-nilai;
+
+                        $('#barang_dibuang').val(res)
+                   }
+               })
+
               $('#berhasil_cuci').on('keyup', function(){
                   var data = $(this).val()
                   var lusin = 12
@@ -513,6 +525,7 @@
                                 var detail_cuci = data.detail_cuci
                                 $('#sku_keluar').val(bahan.sku)
                                 $('#vendor_cuci').val(data.vendor)
+                                $('#tanggal_selesai_keluar').val(data.tanggal_selesai)
                                 console.log(detail_cuci);
 
                                 for (let index = 0; index < detail_cuci.length; index++) {
@@ -533,18 +546,6 @@
                                         $('#ukuranl').show()
                                         $('#ukurandirepairl').show()
                                         $('#ukurandibuangl').show()
-                                    }else if(element.size == 'XL'){
-                                        $('#iddetailxl').val(element.id)
-                                        $('#jumlahxl').val(element.jumlah)
-                                        $('#ukuranxl').show()
-                                        $('#ukurandirepairxl').show()
-                                        $('#ukurandibuangxl').show()
-                                    }else if(element.size == 'XXL'){
-                                        $('#iddetailxxl').val(element.id)
-                                        $('#jumlahxxl').val(element.jumlah)
-                                        $('#ukuranxxl').show()
-                                        $('#ukurandirepairxxl').show()
-                                        $('#ukurandibuangxxl').show()
                                     }
                                 }
                             }

@@ -73,6 +73,22 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
+                                            <label for="vendor">Vendor</label>
+                                            <input type="text" class="form-control" required id="vendor" name="vendor">
+                                        </div>
+                                    </div>
+                             
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="tanggal_masuk">Tanggal Masuk</label>
+                                            <input type="date" class="form-control" required id="tanggal_masuk"
+                                                name="tanggal">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
                                             <label for="panjang_bahan">Panjang Bahan</label>
                                             <div class="input-group mb-2">
                                                 <input type="number" class="form-control" required id="panjang_bahan"
@@ -83,21 +99,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="vendor">Vendor</label>
-                                            <input type="text" class="form-control" required id="vendor" name="vendor">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="tanggal_masuk">Tanggal Masuk</label>
-                                            <input type="date" class="form-control" required id="tanggal_masuk"
-                                                name="tanggal">
-                                        </div>
-                                    </div>
+                                 
                                 </div>
 
                                 <div class="row">

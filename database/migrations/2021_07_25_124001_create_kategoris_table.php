@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSkusTable extends Migration
+class CreateKategorisTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,10 @@ class CreateSkusTable extends Migration
      */
     public function up()
     {
-        Schema::create('skus', function (Blueprint $table) {
+        Schema::create('kategoris', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_sku');
-            $table->string('nama_produk');
-            $table->string('warna');
-            $table->string('jenis_bahan');
-            $table->string('ukuran');
+            $table->string('nama_kategori');
+            $table->string('sku');
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ class CreateSkusTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('skus');
+        Schema::dropIfExists('kategoris');
     }
 }

@@ -69,7 +69,6 @@
                                         </div>
                                     </div>
 
-
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="warna_baju">Warna Baju</label>
@@ -79,16 +78,46 @@
 
                                     </div>
                                 </div>
-                                <div class="row" id="ukuran">
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="tanggal_masuk">Tanggal Barang Masuk </label>
+                                            <input type="date" class="form-control" readonly required id="tanggal_masuk"
+                                                name="tanggal_masuk">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="tanggal_kirim">Tanggal Kirim Barang ke Warehouse</label>
+                                            <input type="date" class="form-control" required id="tanggal_kirim"
+                                                name="tanggal_kirim">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="total_barang">Total Stok Terbaru</label>
+                                            <div class="input-group mb-2">
+                                                <input type="number" class="form-control" readonly required
+                                                    id="total_barang" name="total_barang">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">pcs</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" id="ukuran" style="margin-bottom: -30px;">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="ukuran">Ukuran</label>
-
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row" id="idukuran">
-
                                     <div class="col-md-2">
                                         <div class="form-group">
                                             <label for="jumlahs">S</label>
@@ -116,64 +145,7 @@
                                                 name="jumlah[]">
                                         </div>
                                     </div>
-                                    <div class="col-md-2" id="ukuranxl">
-                                        <div class="form-group">
-                                            <label for="jumlahxl">XL</label>
-                                            <input type="hidden" name="dataukuran[]" value="XL">
-                                            <input type="hidden" name="iddetailukuran[]" id="iddetailxl">
-                                            <input type="number" min="0" class="form-control"  id="jumlahxl"
-                                                name="jumlah[]">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2" id="ukuranxxl">
-                                        <div class="form-group">
-                                            <label for="jumlahxxl">XXL</label>
-                                            <input type="hidden" name="dataukuran[]" value="XXL">
-                                            <input type="hidden" name="iddetailukuran[]" id="iddetailxxl">
-                                            <input type="number" min="0" class="form-control"  id="jumlahxxl"
-                                                name="jumlah[]">
-                                        </div>
-                                    </div>
-
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <label for="" class="text-dark font-weight-bold">Asal Barang</label>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="tanggal_masuk">Tanggal Barang Masuk </label>
-                                            <input type="date" class="form-control" readonly required id="tanggal_masuk"
-                                                name="tanggal_masuk">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="tanggal_kirim">Tanggal Kirim Barang</label>
-                                            <input type="date" class="form-control" required id="tanggal_kirim"
-                                                name="tanggal_kirim">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="total_barang">Total Stok Terbaru</label>
-                                            <div class="input-group mb-2">
-                                                <input type="number" class="form-control" readonly required
-                                                    id="total_barang" name="total_barang">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">pcs</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
                                 <div class="row">
                                     <div class="col-md-12 text-center">
                                         <a type="button" class="btn btn-secondary"
@@ -234,10 +206,11 @@
 
                                 var bahan = data.jahit.potong.bahan
                                 var detail_cuci = data.detail_cuci
+                                var sku = bahan.skus
                                 $('#sku_keluar').val(bahan.sku)
-                                $('#nama_bahan').val(bahan.nama_bahan)
-                                $('#jenis_bahan').val(bahan.jenis_bahan)
-                                $('#warna_baju_keluar').val(bahan.warna)
+                                $('#nama_bahan').val(sku.nama_produk)
+                                $('#jenis_bahan').val(sku.jenis_bahan)
+                                $('#warna_baju_keluar').val(sku.warna)
                                 $('#tanggal_masuk').val(bahan.tanggal_masuk)
                                 $('#tanggal_selesai_keluar').val(data.tanggal_selesai)
 

@@ -1,11 +1,15 @@
 @extends('backend.master')
 
-@section('title', 'Finishing')
-@section('title-nav', 'Finishing')
+@section('title', 'Sortir')
+@section('title-nav', 'Sortir')
 @section('finishing', 'class=active-sidebar')
+@section('cssnav', 'cssnav')
 @section('content')
-
 <style>
+    .cssnav {
+        margin-left: -25px;
+    }
+
     .dropdown-menu {
         left: 50% !important;
         transform: translateX(-50%) !important;
@@ -64,14 +68,14 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">No</th>
-                                            <th scope="col">Kode Bahan</th>
+                                            <th scope="col">Kode Transaksi</th>
                                             <th scope="col">SKU</th>
                                             <th scope="col">Jenis Kain</th>
                                             <th scope="col">Nama Produk</th>
                                             <th scope="col">Ukuran</th>
                                             <th scope="col">Tgl Masuk</th>
-                                            <th scope="col">Tgl Finishing</th>
-                                            <th scope="col">Berhasil Finishing</th>
+                                            <th scope="col">Tgl Mulai Sortir</th>
+                                            {{-- <th scope="col">Berhasil Finishing</th> --}}
                                             <th scope="col">Aksi</th>
                                         </tr>
                                     </thead>
@@ -80,11 +84,11 @@
                                         @forelse ($finish as $item)
                                         <tr>
                                             <td>{{$loop->iteration}}</td>
-                                            <td>{{$item->rekapitulasi->cuci->jahit->potong->bahan->kode_bahan}}</td>
+                                            <td>{{$item->rekapitulasi->cuci->jahit->potong->bahan->kode_transaksi}}</td>
                                             <td>{{$item->rekapitulasi->cuci->jahit->potong->bahan->sku}}</td>
-                                            <td>{{$item->rekapitulasi->cuci->jahit->potong->bahan->jenis_bahan}}
+                                            <td>{{$item->rekapitulasi->cuci->jahit->potong->bahan->skus->jenis_bahan}}
                                             </td>
-                                            <td>{{$item->rekapitulasi->cuci->jahit->potong->bahan->nama_bahan}}</td>
+                                            <td>{{$item->rekapitulasi->cuci->jahit->potong->bahan->skus->nama_produk}}</td>
                                             <td>
                                                 @php
                                                 $ukuran = '';
@@ -102,7 +106,7 @@
                                             </td>
                                             <td>{{$item->tanggal_masuk}}</td>
                                             <td>{{$item->tanggal_qc}}</td>
-                                            <td>{{$item->barang_lolos_qc}}/{{$item->rekapitulasi->total_barang}}
+                                            {{-- <td>{{$item->barang_lolos_qc}}/{{$item->rekapitulasi->total_barang}} --}}
                                             </td>
                                             <td>
                                                 <div class="dropdown dropleft">

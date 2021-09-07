@@ -74,7 +74,7 @@ class CuciController extends Controller
                     'kode_transaksi' =>  'required',
                     'no_surat' => 'required|unique:potongs,no_surat',
                     'tanggal_mulai_cuci' => 'required|date_format:"Y-m-d"|after_or_equal:' . date('Y-m-d'),
-                    'tanggal_selesai_cuci' => 'required|date_format:"Y-m-d"|after:tanggal_mulai_cuci',
+                    'tanggal_selesai_cuci' => 'required|date_format:"Y-m-d"|after_or_equal:tanggal_mulai_cuci',
                     'vendor_cuci' => 'required',
                     'kain_siap_cuci' => 'required',
                     'nama_vendor' => 'required',
@@ -88,7 +88,7 @@ class CuciController extends Controller
                 'no_surat' => 'required',
                 'vendor_cuci' => 'required',
                 'tanggal_mulai_cuci' => 'required|date_format:"Y-m-d"',
-                'tanggal_selesai_cuci' => 'required|date_format:"Y-m-d"|after:tanggal_mulai_cuci',
+                'tanggal_selesai_cuci' => 'required|date_format:"Y-m-d"|after_or_equal:tanggal_mulai_cuci',
                 'berhasil_cuci' => 'required|integer',
                 'kain_gagal_cuci' => 'required|integer',
                 'konversi' => 'required'
@@ -98,8 +98,8 @@ class CuciController extends Controller
                 'kode_transaksi' =>  'required',
                 'no_surat' => 'required',
                 'vendor_cuci' => 'required',
-                'tanggal_mulai_cuci' => 'required|date_format:"Y-m-d"',
-                'tanggal_selesai_cuci' => 'required|date_format:"Y-m-d"|after:tanggal_mulai_cuci',
+                'tanggal_selesai' => 'required|date_format:"Y-m-d"',
+                'tanggal_keluar' => 'required|date_format:"Y-m-d"|after_or_equal:tanggal_selesai',
                 'berhasil_cuci' => 'required|integer',
                 'kain_gagal_cuci' => 'required|integer',
                 'konversi' => 'required'
@@ -244,20 +244,11 @@ class CuciController extends Controller
                 }
                 if ($request->get('status') == 'cucian keluar') {
                     $cuci->berhasil_cuci = $request->get('berhasil_cuci');
-                    $cuci->tanggal_selesai = date('Y-m-d', strtotime($request->get('tanggal_selesai')));
-
                     $cuci->gagal_cuci = $request->get('kain_gagal_cuci');
                     $cuci->barang_direpair = $request->get('barang_direpair');
                     $cuci->barang_dibuang = $request->get('barang_dibuang');
-                    $cuci->barang_akan_direpair = $request->get('barang_akan_direpair');
-                    $cuci->barang_akan_dibuang = $request->get('barang_akan_dibuang');
-
+                    $cuci->tanggal_keluar = date('Y-m-d', strtotime($request->get('tanggal_keluar')));
                     $cuci->status = "cucian keluar";
-                    if ($request->get('vendor_cuci') == 'eksternal') {
-                        $cuci->nama_vendor = $request->get('nama_vendor');
-                        $cuci->harga_vendor = $request->get('harga_vendor');
-                        $cuci->status_pembayaran = $request->get('status_pembayaran');
-                    }
                     $jumlah = $request->get('jumlah');
                     $dataukuran = $request->get('dataukuran');
                     $iddetailukuran = $request->get('iddetailukuran');
@@ -270,9 +261,9 @@ class CuciController extends Controller
                             array_push($arr, $x);
                         }
                     }
-
+                    DetailCuci::where('cuci_id', $cuci->id)->delete();
                     foreach ($arr as $key => $value) {
-                        $detail = DetailCuci::findOrFail($value['id']);
+                        $detail = new DetailCuci();
                         $detail->cuci_id = $cuci->id;
                         $detail->size = $value['ukuran'];
                         $detail->jumlah = $value['jumlah'];
@@ -291,7 +282,7 @@ class CuciController extends Controller
                             array_push($arr, $x);
                         }
                     }
-
+                    CuciDirepair::where('cuci_id', $cuci->id)->delete();
                     foreach ($arr as $key => $value) {
                         $detail = new CuciDirepair();
                         $detail->cuci_id = $cuci->id;
@@ -313,7 +304,7 @@ class CuciController extends Controller
                             array_push($arr, $x);
                         }
                     }
-
+                    CuciDibuang::where('cuci_id', $cuci->id)->delete();
                     foreach ($arr as $key => $value) {
                         $detail = new CuciDibuang();
                         $detail->cuci_id = $cuci->id;
@@ -440,10 +431,8 @@ class CuciController extends Controller
             $validator = Validator::make($request->all(), $validasi);
         } else {
             $validator = Validator::make($request->all(), [
-
                 'no_surat' => 'required',
                 'vendor_cuci' => 'required',
-                'tanggal_selesai' => 'required|date_format:"Y-m-d"|after_or_equal:' . date('Y-m-d'),
                 'berhasil_cuci' => 'required|integer',
                 'kain_gagal_cuci' => 'required|integer',
                 'konversi' => 'required'
@@ -599,35 +588,32 @@ class CuciController extends Controller
 
                 if ($request->get('status') == 'cucian keluar') {
                     $cuci->berhasil_cuci = $request->get('berhasil_cuci');
-                    $cuci->tanggal_selesai = date('Y-m-d', strtotime($request->get('tanggal_selesai')));
 
                     $cuci->gagal_cuci = $request->get('kain_gagal_cuci');
                     $cuci->barang_direpair = $request->get('barang_direpair');
                     $cuci->barang_dibuang = $request->get('barang_dibuang');
-                    $cuci->barang_akan_direpair = $request->get('barang_akan_direpair');
-                    $cuci->barang_akan_dibuang = $request->get('barang_akan_dibuang');
+                    // $cuci->barang_akan_direpair = $request->get('barang_akan_direpair');
+                    // $cuci->barang_akan_dibuang = $request->get('barang_akan_dibuang');
 
                     $cuci->status = "cucian keluar";
-                    if ($request->get('vendor_cuci') == 'eksternal') {
-                        $cuci->nama_vendor = $request->get('nama_vendor');
-                        $cuci->harga_vendor = $request->get('harga_vendor');
-                        $cuci->status_pembayaran = $request->get('status_pembayaran');
-                    }
+
                     $jumlah = $request->get('jumlah');
                     $dataukuran = $request->get('dataukuran');
                     $iddetailukuran = $request->get('iddetailukuran');
                     $arr = [];
                     foreach ($dataukuran as $key => $value) {
                         if (!empty($jumlah[$key])) {
-                            $x['id'] = $iddetailukuran[$key];
+
                             $x['ukuran'] = $value;
                             $x['jumlah'] = $jumlah[$key];
                             array_push($arr, $x);
                         }
                     }
 
+                    DetailCuci::where('cuci_id', $cuci->id)->delete();
+
                     foreach ($arr as $key => $value) {
-                        $detail = DetailCuci::findOrFail($value['id']);
+                        $detail = new DetailCuci;
                         $detail->cuci_id = $cuci->id;
                         $detail->size = $value['ukuran'];
                         $detail->jumlah = $value['jumlah'];
@@ -642,15 +628,16 @@ class CuciController extends Controller
                     $arr = [];
                     foreach ($dataukuran as $key => $value) {
                         if (!empty($jumlah[$key])) {
-                            $x['id'] = $iddetailukurandirepair[$key];
+
                             $x['ukuran'] = $value;
                             $x['jumlah'] = $jumlah[$key];
                             array_push($arr, $x);
                         }
                     }
+                    CuciDirepair::where('cuci_id', $cuci->id)->delete();
 
                     foreach ($arr as $key => $value) {
-                        $detail =  CuciDirepair::findOrFail($value['id']);
+                        $detail = new CuciDirepair;
                         $detail->cuci_id = $cuci->id;
                         $detail->ukuran = $value['ukuran'];
                         $detail->jumlah = $value['jumlah'];
@@ -666,21 +653,20 @@ class CuciController extends Controller
                     $arr = [];
                     foreach ($dataukuran as $key => $value) {
                         if (!empty($jumlah[$key])) {
-                            $x['id'] = $iddetailukurandibuang[$key];
+
                             $x['ukuran'] = $value;
                             $x['jumlah'] = $jumlah[$key];
                             array_push($arr, $x);
                         }
                     }
-
+                    CuciDibuang::where('cuci_id', $cuci->id)->delete();
                     foreach ($arr as $key => $value) {
-                        $detail =  CuciDibuang::findOrFail($value['id']);
+                        $detail =  new CuciDibuang;
                         $detail->cuci_id = $cuci->id;
                         $detail->ukuran = $value['ukuran'];
                         $detail->jumlah = $value['jumlah'];
                         $detail->save();
                     }
-
                     $cuci->keterangan_direpair = $request->get('keterangan_direpair');
                     $cuci->keterangan_dibuang = $request->get('keterangan_dibuang');
                     $cuci->save();

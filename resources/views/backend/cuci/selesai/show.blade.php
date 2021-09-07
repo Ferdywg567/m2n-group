@@ -38,9 +38,8 @@
                             <input type="hidden" name="id" id="idcuci" value="{{$cuci->id}}">
                             <div class="card-body">
                                 @include('backend.include.alert')
-                                @csrf
                                 <input type="hidden" name="status" value="cucian selesai">
-                              
+
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -344,37 +343,51 @@
                                         </div>
                                         <div class="row">
 
+
+                                            @forelse ($cuci->cuci_dibuang as $item)
+
+                                            @if ($item->ukuran == 'S')
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="ukuran">S</label>
                                                     <input type="hidden" name="dataukurandibuang[]" value="S">
                                                     <input type="hidden" name="iddetailukurandibuang[]"
-                                                        id="iddetaildibuangs">
-                                                    <input type="number" min="0" class="form-control" required value="0" readonly
-                                                        id="jumlahdibuangs" name="jumlahdibuang[]">
+                                                        id="iddetaildibuangs" value="{{$item->id}}">
+                                                    <input type="number" min="0" value="{{$item->jumlah}}"
+                                                        class="form-control" required id="jumlahdibuangs"
+                                                        name="jumlahdibuang[]">
                                                 </div>
                                             </div>
+                                            @elseif ($item->ukuran == 'M')
                                             <div class="col-md-4" id="ukurandibuangm">
                                                 <div class="form-group">
                                                     <label for="ukuran">M</label>
                                                     <input type="hidden" name="dataukurandibuang[]" value="M">
                                                     <input type="hidden" name="iddetailukurandibuang[]"
-                                                        id="iddetaildibuangm">
-                                                    <input type="number" min="0" class="form-control" required value="0" readonly
-                                                        id="jumlahdibuangm" name="jumlahdibuang[]">
+                                                        id="iddetaildibuangm" value="{{$item->id}}">
+                                                    <input type="number" min="0" value="{{$item->jumlah}}"
+                                                        class="form-control" required id="jumlahdibuangm"
+                                                        name="jumlahdibuang[]">
                                                 </div>
                                             </div>
+                                            @elseif ($item->ukuran == 'L')
                                             <div class="col-md-4" id="ukurandibuangl">
                                                 <div class="form-group">
                                                     <label for="ukuran">L</label>
                                                     <input type="hidden" name="dataukurandibuang[]" value="L">
                                                     <input type="hidden" name="iddetailukurandibuang[]"
-                                                        id="iddetaildibuangl">
-                                                    <input type="number" min="0" class="form-control" required value="0" readonly
-                                                        id="jumlahdibuangl" name="jumlahdibuang[]">
+                                                        id="iddetaildibuangl" value="{{$item->id}}">
+                                                    <input type="number" min="0" value="{{$item->jumlah}}"
+                                                        class="form-control" required id="jumlahdibuangl"
+                                                        name="jumlahdibuang[]">
                                                 </div>
                                             </div>
 
+                                            @endif
+
+                                            @empty
+
+                                            @endforelse
                                         </div>
                                     </div>
                                     <div class="col-md-6">

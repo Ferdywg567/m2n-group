@@ -19,9 +19,9 @@
                 <i class="ri-dashboard-fill"></i> <span>Dashboard</span>
             </a>
         </li>
-        <li @yield('sku')>
-            <a class="nav-link" href="{{route('sku.index')}}">
-                <i class="ri-file-paper-line"></i> <span>SKU</span>
+        <li @yield('kategori')>
+            <a class="nav-link" href="{{route('kategori.index')}}">
+                <i class="ri-list-settings-fill"></i> <span>Kategori</span>
             </a>
         </li>
         <li @yield('bahan')>
@@ -88,7 +88,7 @@
 
         <li @yield('finishing')>
             <a class="nav-link" href="{{route('warehouse.finishing.index')}}">
-                <i class="ri-check-double-line"></i><span>Sortir (QC)</span>
+                <i class="ri-check-double-line"></i><span>Sortir</span>
             </a>
         </li>
         <li @yield('warehouse')>

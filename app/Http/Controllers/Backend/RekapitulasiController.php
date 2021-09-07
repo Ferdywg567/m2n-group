@@ -47,6 +47,7 @@ class RekapitulasiController extends Controller
         $validator = Validator::make($request->all(), [
             'kode_transaksi' => 'required',
             'tanggal_kirim' => 'required|date_format:"Y-m-d"',
+            'total_barang' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -142,7 +143,9 @@ class RekapitulasiController extends Controller
 
             $cuci = Cuci::with(['detail_cuci', 'jahit' => function ($q) {
                 $q->with(['potong' => function ($q) {
-                    $q->with('bahan');
+                    $q->with(['bahan' => function ($q) {
+                        $q->with('skus');
+                    }]);
                 }]);
             }])->where('id', $request->get('id'))->first();
 

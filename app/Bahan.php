@@ -25,4 +25,9 @@ class Bahan extends Model
     {
         return $this->belongsTo('App\Sku','sku_id','id');
     }
+
+    public function detail_sub()
+    {
+        return $this->belongsTo('App\DetailSubKategori','detail_sub_kategori_id','id');
+    }
 }
