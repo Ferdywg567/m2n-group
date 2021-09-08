@@ -6,8 +6,8 @@
 @section('cssnav', 'cssnav')
 @section('content')
 <style>
-    .cssnav{
-       margin-left:-25px;
+    .cssnav {
+        margin-left: -25px;
     }
 </style>
 
@@ -33,25 +33,44 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="kode_transaksi">Kode Transaksi</label>
-                                            <div id="kdbahanselectmasuk">
-                                                <select class="form-control" id="kode_transaksiselect" name="kode_transaksi">
-                                                    <option value="">Pilih Kode Transaksi</option>
-                                                    @forelse ($datakeluar as $item)
-                                                    <option value="{{$item->id}}">{{$item->bahan->kode_transaksi}} |
-                                                        {{$item->bahan->nama_bahan}}
-                                                    </option>
-                                                    @empty
 
-                                                    @endforelse
+                                            <select class="form-control" id="kode_transaksiselect"
+                                                name="kode_transaksi">
+                                                <option value="">Pilih Kode Transaksi</option>
+                                                @forelse ($datakeluar as $item)
+                                                <option value="{{$item->id}}">{{$item->bahan->kode_transaksi}} |
+                                                    {{$item->bahan->nama_bahan}}
+                                                </option>
+                                                @empty
+
+                                                @endforelse
 
 
-                                                </select>
-                                            </div>
+                                            </select>
 
 
                                         </div>
 
                                     </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="no_surat">Nomor Surat Jalan</label>
+                                            <input type="text" class="form-control" required id="no_surat"
+                                                name="no_surat">
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="sku">Nama Produk</label>
+                                            <input type="text" class="form-control" readonly required id="nama_produk"
+                                                name="nama_produk">
+                                        </div>
+                                    </div>
+
+
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="sku">SKU</label>
@@ -61,21 +80,25 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-3">
                                         <div class="form-group">
-                                            <label for="no_surat">Nomor Surat Jalan</label>
-                                            <input type="text" class="form-control" readonly required id="no_surat"
-                                                name="no_surat">
+                                            <label for="kategori">Kategori</label>
+                                            <input type="text" class="form-control" required readonly id="kategori"
+                                                name="kategori">
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="vendor_jahit">Vendor Jahit</label>
-                                            <select class="form-control" id="vendor_jahit" name="vendor_jahit">
-                                                <option value="internal">Internal</option>
-                                                <option value="eksternal">Eksternal</option>
-
-                                            </select>
+                                            <label for="sub_kategori">Sub Kategori</label>
+                                            <input type="text" class="form-control" required readonly id="sub_kategori"
+                                                name="sub_kategori">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="detail_sub_kategori">Detail Sub Kategori</label>
+                                            <input type="text" class="form-control" required readonly
+                                                id="detail_sub_kategori" name="detail_sub_kategori">
                                         </div>
                                     </div>
 
@@ -90,14 +113,25 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="tanggal_selesai">Tanggal Selesai Jahit</label>
-                                            <input type="date" class="form-control" required id="tanggal_selesai"
-                                                name="tanggal_selesai">
+                                            <label for="estimasi_selesai_jahit">Estimasi Selesai Jahit</label>
+                                            <input type="date" class="form-control" required id="estimasi_selesai_jahit"
+                                                name="estimasi_selesai_jahit">
                                         </div>
                                     </div>
 
                                 </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="vendor_jahit">Vendor Jahit</label>
+                                            <select class="form-control" id="vendor_jahit" name="vendor_jahit">
+                                                <option value="internal">Internal</option>
+                                                <option value="eksternal">Eksternal</option>
 
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="row" id="datavendor">
 
                                     <div class="col-md-6">
@@ -129,6 +163,50 @@
 
                                 </div>
                                 <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="jumlah_bahan_yang_dijahit">Jumlah Bahan Yang Dijahit</label>
+                                            <div class="input-group mb-2">
+                                                <input type="number" class="form-control" required
+                                                    id="jumlah_bahan_yang_dijahit" name="jumlah_bahan_yang_dijahit">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">pcs</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="konversi">Konversi Lusin</label>
+                                            <input type="text" class="form-control" required readonly id="konversi"
+                                                name="konversi">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" id="title-ukuran">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="ukuran">Ukuran Yang Dijahit</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="data-ukuran">
+
+                                </div>
+                                {{-- <div class="row">
+                                   <div class="col-md-2">
+                                    <div class="input-group mb-2">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">pcs</div>
+                                        </div>
+                                        <input type="number" class="form-control" required
+                                            id="jumlah" name="jumlah[]">
+
+                                    </div>
+                                   </div>
+                                </div> --}}
+
+                                <div class="row mt-2">
                                     <div class="col-md-12 text-center">
                                         <a type="button" class="btn btn-secondary"
                                             href="{{route('jahit.index')}}">Batal</a>
@@ -175,7 +253,16 @@
               $('#tabelmasuk').DataTable()
               $('#tabelbahankeluar').DataTable()
               $('#kode_transaksiselect').select2()
+              $('#title-ukuran').hide()
+              $('#jumlah_bahan_yang_dijahit').on('keyup', function(){
+                  var data = $(this).val()
+                  var lusin = 12
 
+                  var sisa = data%lusin;
+                  var hasil = (data - sisa) / lusin;
+                  var res = hasil+' Lusin '+sisa+ ' pcs'
+                  $('#konversi').val(res)
+              })
 
 
               $('#vendor_jahit').on('change', function () {
@@ -221,9 +308,41 @@
                                 console.log(response);
                                 var data = response.data;
                                 var bahan = data.bahan
+                                var detail_potong = data.detail_potong
+                                var detail = bahan.detail_sub.nama_kategori;
+                                var subkategori = bahan.detail_sub.sub_kategori.nama_kategori;
+                                var kategori = bahan.detail_sub.sub_kategori.kategori.nama_kategori;
 
+
+                                $('#nama_produk').val(bahan.nama_bahan)
                                 $('#sku').val(bahan.sku)
-                                $('#no_surat').val(data.no_surat)
+                                $('#kategori').val(kategori)
+                                $('#sub_kategori').val(subkategori)
+                                $('#detail_sub_kategori').val(detail)
+                                $('#jumlah_bahan_yang_dijahit').prop('max',data.hasil_cutting)
+                                var content="";
+                                detail_potong.forEach((result, i) => {
+                                    if(i == 0){
+                                        content+= '<div class="row">'
+                                    }
+
+                                    content += '<div class="col-md-2">'+
+                                    '<input type="hidden" name="ukuran[]" value="'+result.size+'">'+
+                                    '<div class="input-group mb-2">'+
+                                        '<div class="input-group-prepend">'+
+                                            '<div class="input-group-text">'+result.size+'</div>'+
+                                        '</div>'+
+                                        '<input type="number" class="form-control" required id="jumlah" name="jumlah[]" value="'+result.jumlah+'">'+
+                                    '</div>'+
+                                   '</div>';
+                                    if(i!=0 && i%6 == 0){
+
+                                        // add end of row ,and start new row on every 5 elements
+                                        content += '</div><div class="row">'
+                                    }
+                                });
+                                $('#title-ukuran').show()
+                                $('#data-ukuran').html(content)
 
                             }
 

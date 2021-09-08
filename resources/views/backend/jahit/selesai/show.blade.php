@@ -47,12 +47,30 @@
                                         </div>
 
                                     </div>
+
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="no_surat_keluar">Nomor Surat Jalan</label>
+                                            <input type="text" class="form-control" value="{{$jahit->no_surat}}"
+                                                readonly required id="no_surat_keluar" name="no_surat">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="sku">Nama Produk</label>
+                                            <input type="text" class="form-control" readonly required id="nama_produk"
+                                                value="{{$jahit->potong->bahan->nama_bahan}}" name="nama_produk">
+                                        </div>
+                                    </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="sku">Kode SKU</label>
-                                            <input type="text" class="form-control" readonly
-                                                value="{{$jahit->potong->bahan->sku}}" required id="sku_keluar"
-                                                name="sku">
+                                            <input type="text" class="form-control" readonly required id="sku_keluar"
+                                                value="{{$jahit->potong->bahan->sku}}" name="sku">
                                         </div>
 
                                     </div>
@@ -60,50 +78,58 @@
                                 <div class="row">
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label for="tanggal_jahit">Tanggal Jahit</label>
-                                            <input type="date" class="form-control" value="{{$jahit->tanggal_jahit}}" readonly required id="tanggal_jahit"
-                                                name="tanggal_jahit">
+                                            <label for="kategori">Kategori</label>
+                                            <input type="text" class="form-control" required readonly id="kategori"
+                                                value="{{$jahit->potong->bahan->detail_sub->sub_kategori->kategori->nama_kategori}}"
+                                                name="kategori">
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="tanggal_selesai_keluar">Tanggal Selesai</label>
-                                            <input type="date" class="form-control" readonly required
-                                                value="{{$jahit->tanggal_selesai}}" id="tanggal_selesai_keluar"
-                                                name="tanggal_selesai">
+                                            <label for="sub_kategori">Sub Kategori</label>
+                                            <input type="text" class="form-control" required readonly id="sub_kategori"
+                                                value="{{$jahit->potong->bahan->detail_sub->sub_kategori->nama_kategori}}"
+                                                name="sub_kategori">
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-5">
                                         <div class="form-group">
-                                            <label for="no_surat_keluar">Nomor Surat Jalan</label>
-                                            <input type="text" class="form-control" readonly required id="no_surat_keluar"
-                                                value="{{$jahit->no_surat}}" name="no_surat">
+                                            <label for="detail_sub_kategori">Detail Sub Kategori</label>
+
+                                            <input type="text" class="form-control" required readonly
+                                                value="{{$jahit->potong->bahan->detail_sub->nama_kategori}}"
+                                                id="detail_sub_kategori" name="detail_sub_kategori">
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="vendor_jahit">Vendor Jahit</label>
+                                            <input type="text" class="form-control" required readonly id="vendor_jahit"
+                                                value="{{$jahit->vendor}}" name="vendor_jahit">
+
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="vendor_jahit">Vendor Jahit</label>
-                                            <input type="text" class="form-control" readonly value="{{$jahit->vendor}}"
-                                            value="" id="vendor_jahit" name="vendor_jahit">
-                                        </div>
-                                    </div>
-                                    @if ($jahit->vendor == 'eksternal')
-                                    <div class="col-md-3">
+                                @if ($jahit->vendor=='eksternal')
+                                <div class="row" id="iddatavendor">
+
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="nama_vendor">Nama Vendor</label>
-                                            <input type="text" class="form-control" readonly value="{{$jahit->nama_vendor}}"
-                                                value="" id="nama_vendor" name="nama_vendor">
+                                            <input type="text" class="form-control" id="nama_vendor" readonly
+                                                value="{{$jahit->nama_vendor}}" name="nama_vendor">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="harga_vendor_keluar">Harga Vendor</label>
+                                            <label for="harga_vendor">Harga Vendor</label>
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <input type="text" class="form-control"
-                                                        value="{{$jahit->harga_vendor}}" readonly id="harga_vendor_keluar"
+                                                    <input type="text" class="form-control" readonly
+                                                        value="{{$jahit->harga_vendor}}" id="harga_vendor"
                                                         name="harga_vendor">
                                                 </div>
                                                 <div class="col-md-6">
@@ -113,81 +139,107 @@
                                             </div>
                                         </div>
                                     </div>
-                                    @endif
+                                </div>
+                                @endif
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="jumlah_bahan">Jumlah Bahan yang Dijahit</label>
+                                            <div class="input-group mb-2">
+                                                <input type="number" class="form-control" required readonly
+                                                    value="{{$jahit->jumlah_bahan}}" id="jumlah_bahan"
+                                                    name="jumlah_bahan">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">pcs</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="berhasil_jahit">Jumlah Berhasil Jahit</label>
+                                            <div class="input-group mb-2">
+                                                <input type="number" class="form-control" required readonly
+                                                    value="{{$jahit->berhasil}}" id="berhasil_jahit" max="{{$jahit->jumlah_bahan}}"
+                                                    name="berhasil_jahit">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">pcs</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="gagal_jahit">Jumlah Gagal Jahit</label>
+                                            <div class="input-group mb-2">
+                                                <input type="number" class="form-control" required readonly
+                                                    value="{{$jahit->gagal_jahit}}" id="gagal_jahit" name="gagal_jahit">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">pcs</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="berhasil_jahit">Berhasil Jahit</label>
-                                            <input type="number" value="{{$jahit->berhasil}}"
-                                                class="form-control" readonly required id="berhasil_jahit"
-                                                name="berhasil_jahit">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="konversi">Konversi Lusin</label>
-                                            <input type="text" readonly value="{{$jahit->konversi}}"
-                                                class="form-control" required id="konversi" name="konversi">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row" style="margin-bottom: -30px">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="ukuran">Ukuran</label>
-
+                                            <label for="barang_direpair">Jumlah Perbaikan</label>
+                                            <div class="input-group mb-2">
+                                                <input type="number" class="form-control" required readonly
+                                                    value="{{$jahit->barang_direpair}}" id="barang_direpair"
+                                                    name="barang_direpair">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">pcs</div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                <label for="ukurandirepair" class="text-dark">Ukuran yang Direpair</label>
                                 <div class="row">
 
-                                    @forelse ($jahit->detail_jahit as $item)
-                                    @if ($item->size == 'S')
+                                    @forelse ($jahit->jahit_direpair as $item)
                                     <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label for="ukuran">S</label>
-                                            <input type="hidden" name="dataukuran[]" value="S">
-                                            <input type="hidden" name="iddetailukuran[]" value="{{$item->id}}"
-                                                id="iddetails">
-                                            <input type="number" min="0" readonly value="{{$item->jumlah}}" class="form-control"
-                                                required id="jumlahs" name="jumlah[]">
-                                        </div>
-                                    </div>
-                                    @elseif($item->size == 'M')
-                                    <div class="col-md-2" id="ukuranm">
-                                        <div class="form-group">
-                                            <label for="ukuran">M</label>
-                                            <input type="hidden" name="dataukuran[]" value="M">
-                                            <input type="hidden" name="iddetailukuran[]" value="{{$item->id}}"
-                                                id="iddetailm">
-                                            <input type="number" min="0" readonly value="{{$item->jumlah}}" class="form-control"
-                                                required id="jumlahm" name="jumlah[]">
-                                        </div>
-                                    </div>
-                                    @elseif($item->size == 'L')
-                                    <div class="col-md-2" id="ukuranl">
-                                        <div class="form-group">
-                                            <label for="ukuran">L</label>
-                                            <input type="hidden" name="dataukuran[]" value="L">
-                                            <input type="hidden" name="iddetailukuran[]" value="{{$item->id}}"
-                                                id="iddetaill">
-                                            <input type="number" min="0" readonly value="{{$item->jumlah}}" class="form-control"
-                                                required id="jumlahl" name="jumlah[]">
+                                        <input type="hidden" name="dataukurandirepair[]" value="{{$item->ukuran}}" readonly>
+                                        <div class="input-group mb-2">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">{{$item->ukuran}}</div>
+                                            </div>
+                                            <input type="number" class="form-control" required id="jumlahdirepair" readonly
+                                                name="jumlahdirepair[]" value="{{$item->jumlah}}">
                                         </div>
                                     </div>
 
+                                    @if ($loop->iteration % 6 ==0)
+                                </div>
+                                <div class="row">
                                     @endif
                                     @empty
 
                                     @endforelse
-                                    <div class="col-md-6">
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="gagal_jahit">Gagal Jahit</label>
+                                            <label for="keterangan_direpair">Keterangan Direpair</label>
+                                            <textarea class="form-control" id="keterangan_direpair" readonly
+                                                name="keterangan_direpair"
+                                                rows="3">{{$jahit->keterangan_direpair}}</textarea>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="barang_dibuang">Jumlah Dibuang</label>
                                             <div class="input-group mb-2">
-                                                <input type="number" class="form-control"
-                                                    value="{{$jahit->gagal_jahit}}" readonly required id="gagal_jahit"
-                                                    name="gagal_jahit">
+                                                <input type="text" class="form-control" readonly required
+                                                    value="{{$jahit->barang_dibuang}}" id="barang_dibuang"
+                                                    name="barang_dibuang">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">pcs</div>
                                                 </div>
@@ -196,171 +248,39 @@
                                         </div>
                                     </div>
                                 </div>
-
+                                <label for="ukurandibuang" class="text-dark">Ukuran yang Dibuang</label>
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label for="barang_direpair">Barang Akan Direpair</label>
-                                                    <div class="input-group mb-2">
-                                                        <input type="number" class="form-control"
-                                                            value="{{$jahit->barang_direpair}}" required
-                                                            id="barang_direpair" readonly name="barang_direpair">
-                                                        <div class="input-group-prepend">
-                                                            <div class="input-group-text">pcs</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+
+                                    @forelse ($jahit->jahit_dibuang as $item)
+                                    <div class="col-md-2">
+                                        <input type="hidden" name="dataukurandibuang[]" value="{{$item->ukuran}}" readonly>
+                                        <div class="input-group mb-2">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">{{$item->ukuran}}</div>
                                             </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <label for="" class="text-dark">Ukuran barang yang di repair</label>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-
-                                            @forelse ($jahit->jahit_direpair as $item)
-
-                                            @if ($item->ukuran == 'S')
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="ukuran">S</label>
-                                                    <input type="hidden" name="dataukurandirepair[]" value="S">
-                                                    <input type="hidden" name="iddetailukurandirepair[]"
-                                                        id="iddetaildirepairs" value="{{$item->id}}">
-                                                    <input type="number" min="0" readonly value="{{$item->jumlah}}"
-                                                        class="form-control" required id="jumlahdirepairs"
-                                                        name="jumlahdirepair[]">
-                                                </div>
-                                            </div>
-                                            @elseif ($item->ukuran == 'M')
-                                            <div class="col-md-4" id="ukurandirepairm">
-                                                <div class="form-group">
-                                                    <label for="ukuran">M</label>
-                                                    <input type="hidden" name="dataukurandirepair[]" value="M">
-                                                    <input type="hidden" name="iddetailukurandirepair[]"
-                                                        id="iddetaildirepairm" value="{{$item->id}}">
-                                                    <input type="number" min="0" readonly value="{{$item->jumlah}}"
-                                                        class="form-control" required id="jumlahdirepairm"
-                                                        name="jumlahdirepair[]">
-                                                </div>
-                                            </div>
-                                            @elseif ($item->ukuran == 'L')
-                                            <div class="col-md-4" id="ukurandirepairl">
-                                                <div class="form-group">
-                                                    <label for="ukuran">L</label>
-                                                    <input type="hidden" name="dataukurandirepair[]" value="L">
-                                                    <input type="hidden" name="iddetailukurandirepair[]"
-                                                        id="iddetaildirepairl" value="{{$item->id}}">
-                                                    <input type="number" min="0" readonly value="{{$item->jumlah}}"
-                                                        class="form-control" required id="jumlahdirepairl"
-                                                        name="jumlahdirepair[]">
-                                                </div>
-                                            </div>
-
-
-                                            @endif
-
-                                            @empty
-
-                                            @endforelse
-
+                                            <input type="number" class="form-control" required id="jumlahdibuang" readonly
+                                                name="jumlahdibuang[]" value="{{$item->jumlah}}">
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
 
-                                        <div class="form-group">
-                                            <label for="keterangan_direpair">Keterangan Barang Direpair</label>
-                                            <textarea class="form-control" readonly id="keterangan_direpair"
-                                                name="keterangan_direpair"
-                                                rows="3">{{$jahit->keterangan_direpair}}</textarea>
-                                        </div>
-                                    </div>
+                                    @if ($loop->iteration % 6 ==0)
+                                </div><div class="row">
+                                    @endif
+                                    @empty
+
+                                    @endforelse
 
                                 </div>
-
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label for="barang_dibuang">Barang Akan Dibuang</label>
-                                                    <div class="input-group mb-2">
-                                                        <input type="number" class="form-control"
-                                                            value="{{$jahit->barang_dibuang}}" readonly required
-                                                            id="barang_dibuang" name="barang_dibuang">
-                                                        <div class="input-group-prepend">
-                                                            <div class="input-group-text">pcs</div>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <label for="" class="text-dark">Ukuran barang yang di buang</label>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-
-                                            @forelse ($jahit->jahit_dibuang as $item)
-
-                                            @if ($item->ukuran == 'S')
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="ukuran">S</label>
-                                                    <input type="hidden" name="dataukurandibuang[]" value="S">
-                                                    <input type="hidden" name="iddetailukurandibuang[]"
-                                                        id="iddetaildibuangs" value="{{$item->id}}">
-                                                    <input type="number" min="0" value="{{$item->jumlah}}"
-                                                        class="form-control" readonly required id="jumlahdibuangs"
-                                                        name="jumlahdibuang[]">
-                                                </div>
-                                            </div>
-                                            @elseif ($item->ukuran == 'M')
-                                            <div class="col-md-4" id="ukurandibuangm">
-                                                <div class="form-group">
-                                                    <label for="ukuran">M</label>
-                                                    <input type="hidden" name="dataukurandibuang[]" value="M">
-                                                    <input type="hidden" name="iddetailukurandibuang[]"
-                                                        id="iddetaildibuangm" value="{{$item->id}}">
-                                                    <input type="number" min="0" value="{{$item->jumlah}}"
-                                                        class="form-control" readonly required id="jumlahdibuangm"
-                                                        name="jumlahdibuang[]">
-                                                </div>
-                                            </div>
-                                            @elseif ($item->ukuran == 'L')
-                                            <div class="col-md-4" id="ukurandibuangl">
-                                                <div class="form-group">
-                                                    <label for="ukuran">L</label>
-                                                    <input type="hidden" name="dataukurandibuang[]" value="L">
-                                                    <input type="hidden" name="iddetailukurandibuang[]"
-                                                        id="iddetaildibuangl" value="{{$item->id}}">
-                                                    <input type="number" min="0" value="{{$item->jumlah}}"
-                                                        class="form-control" readonly required id="jumlahdibuangl"
-                                                        name="jumlahdibuang[]">
-                                                </div>
-                                            </div>
-
-                                            @endif
-
-                                            @empty
-
-                                            @endforelse
-
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="keterangan_dibuang">Keterangan Barang Dibuang</label>
-                                            <textarea class="form-control" readonly id="keterangan_dibuang"
+                                            <label for="keterangan_dibuang">Keterangan Dibuang</label>
+                                            <textarea class="form-control" id="keterangan_dibuang" readonly
                                                 name="keterangan_dibuang"
                                                 rows="6">{{$jahit->keterangan_dibuang}}</textarea>
                                         </div>
                                     </div>
+
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12 text-center">

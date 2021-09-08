@@ -37,13 +37,15 @@ class PotongController extends Controller
      */
     public function create(Request $request)
     {
-        if ($request->get('status') == 'masuk') {
-            $bahan = Bahan::doesntHave('potong')->where('status', 'bahan keluar')->get();
-            return view("backend.potong.masuk.create", ['bahan' => $bahan]);
-        } else {
-            $keluar = Potong::all()->where('status', 'potong masuk')->where('status_potong', 'selesai');
-            return view("backend.potong.keluar.create", ['keluar' => $keluar]);
-        }
+        $bahan = Bahan::doesntHave('potong')->where('status', 'bahan keluar')->get();
+        return view("backend.potong.masuk.create", ['bahan' => $bahan]);
+        // if ($request->get('status') == 'masuk') {
+        //     $bahan = Bahan::doesntHave('potong')->where('status', 'bahan keluar')->get();
+        //     return view("backend.potong.masuk.create", ['bahan' => $bahan]);
+        // } else {
+        //     $keluar = Potong::all()->where('status', 'potong masuk')->where('status_potong', 'selesai');
+        //     return view("backend.potong.keluar.create", ['keluar' => $keluar]);
+        // }
     }
 
     /**
@@ -253,7 +255,13 @@ class PotongController extends Controller
     public function getDataPotong(Request $request)
     {
         if ($request->ajax()) {
-            $potong = Potong::with(['detail_potong', 'bahan'])->where('id', $request->get('id'))->first();
+            $potong = Potong::with(['detail_potong', 'bahan' => function($q){
+                $q->with(['detail_sub' => function ($q) {
+                    $q->with(['sub_kategori' => function ($q) {
+                        $q->with('kategori');
+                    }]);
+                }]);
+            }])->where('id', $request->get('id'))->first();
 
             return response()->json([
                 'status' => true,

@@ -24,6 +24,7 @@ class CreateJahitsTable extends Migration
             $table->string('nama_vendor')->nullable();
             $table->float('harga_vendor')->nullable();
             $table->integer('berhasil')->nullable();
+            $table->integer('jumlah_bahan')->nullable();
             $table->string('konversi')->nullable();
             $table->integer('gagal_jahit')->nullable();
             $table->integer('barang_direpair')->nullable();

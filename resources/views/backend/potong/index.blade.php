@@ -19,11 +19,11 @@
 <div id="non-printable">
     <section class="section mt-4">
         <div class="btn-group">
-            <button type="button" class="btn btn-primary rounded" data-toggle="dropdown" aria-haspopup="true"
+            <a type="button" href="{{route('potong.create')}}" class="btn btn-primary rounded"
                 aria-expanded="false">
                 Input Data <i class="fas fa-plus"></i>
-            </button>
-            <div class="dropdown-menu">
+        </a>
+            {{-- <div class="dropdown-menu">
                 <form action="{{route('potong.create')}}" method="get">
                     <input type="hidden" name="status" value="masuk">
                     <button class="dropdown-item">Potongan Masuk</button>
@@ -34,7 +34,7 @@
                     <button class="dropdown-item">Potongan Keluar</button>
                 </form>
 
-            </div>
+            </div> --}}
             <a href="{{route('print.index')}}" class="btn btn-outline-primary rounded ml-1">Print Semua <i
                     class="ri-printer-fill"></i>
             </a>
