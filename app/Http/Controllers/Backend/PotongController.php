@@ -20,12 +20,13 @@ class PotongController extends Controller
      */
     public function index()
     {
-        $proses = Potong::whereDate('tanggal_cutting', date('Y-m-d'))->where('status', 'potong masuk')->update(['status_potong' => 'proses potong']);
-        $selesai = Potong::whereDate('tanggal_selesai', date('Y-m-d'))->where('status', 'potong masuk')->update(['status_potong' => 'selesai']);
+        // $proses = Potong::whereDate('tanggal_cutting', date('Y-m-d'))->where('status', 'potong masuk')->update(['status_potong' => 'proses potong']);
+        // $selesai = Potong::whereDate('tanggal_selesai', date('Y-m-d'))->where('status', 'potong masuk')->update(['status_potong' => 'selesai']);
+        $selesai = Potong::query()->update(['status_potong' => 'selesai']);
         $bahan = Bahan::doesntHave('potong')->where('status', 'bahan keluar')->get();
-        $masuk = Potong::where('status', 'potong masuk')->orderBy('created_at','DESC')->get();
+        $masuk = Potong::orderBy('created_at', 'DESC')->get();
         $keluar = Potong::all()->where('status', 'potong masuk')->where('status_potong', 'selesai');
-        $datakeluar = Potong::where('status', 'potong keluar')->where('status_potong', 'selesai')->orderBy('created_at','DESC')->get();
+        $datakeluar = Potong::where('status', 'potong keluar')->where('status_potong', 'selesai')->orderBy('created_at', 'DESC')->get();
         return view("backend.potong.index", ['bahan' => $bahan, 'masuk' => $masuk, 'keluar' => $keluar, 'datakeluar' => $datakeluar]);
     }
 
@@ -57,9 +58,12 @@ class PotongController extends Controller
         if ($request->get('status') == 'potong masuk') {
             $validator = Validator::make($request->all(), [
                 'kode_transaksi' =>  'required',
+                'hasil_cutting' =>  'required',
                 'no_surat' => 'required|unique:potongs,no_surat',
-                'tanggal_cutting' => 'required|date_format:"Y-m-d"|after_or_equal:' . date('Y-m-d'),
-                'tanggal_selesai' => 'required|date_format:"Y-m-d"|after_or_equal:tanggal_cutting',
+                'tanggal_potong' => 'required|date_format:"Y-m-d"|after_or_equal:' . date('Y-m-d'),
+                'estimasi_selesai_potong' => 'required|date_format:"Y-m-d"|after_or_equal:tanggal_potong',
+                'ukuran.*' => 'required',
+                'jumlah.*' => 'required',
             ]);
         } else {
             $validator = Validator::make($request->all(), [
@@ -71,25 +75,19 @@ class PotongController extends Controller
                 'konversi' => 'required'
             ]);
         }
-
         if ($validator->fails()) {
-
             return redirect()->back()->withErrors($validator->errors());
         } else {
-
-            if ($request->get('status') == 'potong keluar') {
-                $jumlah = $request->get('jumlah');
-                $dataukuran = $request->get('dataukuran');
-                $arr = [];
-                foreach ($dataukuran as $key => $value) {
-                    if (!empty($jumlah[$key])) {
-                        $x['ukuran'] = $value;
-                        $x['jumlah'] = $jumlah[$key];
-                        array_push($arr, $x);
-                    }
+            $jumlah = $request->get('jumlah');
+            $dataukuran = $request->get('ukuran');
+            $arr = [];
+            foreach ($dataukuran as $key => $value) {
+                if (!empty($jumlah[$key])) {
+                    $x['ukuran'] = $value;
+                    $x['jumlah'] = $jumlah[$key];
+                    array_push($arr, $x);
                 }
             }
-
 
             if ($request->get('status') == 'potong masuk') {
                 $potong = new Potong();
@@ -99,42 +97,41 @@ class PotongController extends Controller
             }
             $potong->no_surat = $request->get('no_surat');
             if ($request->get('status') == 'potong masuk') {
-                $potong->tanggal_cutting = date('Y-m-d', strtotime($request->get('tanggal_cutting')));
-                $potong->tanggal_selesai = date('Y-m-d', strtotime($request->get('tanggal_selesai')));
+                $potong->tanggal_cutting = date('Y-m-d', strtotime($request->get('tanggal_potong')));
+                $potong->tanggal_selesai = date('Y-m-d', strtotime($request->get('estimasi_selesai_potong')));
                 $potong->status = "potong masuk";
                 if ($potong->tanggal_cutting == date('Y-m-d')) {
                     $potong->status_potong = "proses potong";
                 } else {
                     $potong->status_potong = "belum potong";
                 }
-            } else {
                 $potong->hasil_cutting = $request->get('hasil_cutting');
-                $potong->tanggal_keluar =  date('Y-m-d', strtotime($request->get('tanggal_keluar')));
                 $potong->konversi = $request->get('konversi');
-                $potong->status = "potong keluar";
-            }
-            $potong->save();
+                $potong->save();
 
-            if ($request->get('status') == 'potong keluar') {
                 foreach ($arr as $key => $value) {
                     $detail = new DetailPotong();
                     $detail->potong_id = $potong->id;
-                    $detail->size = $value['ukuran'];
+                    $detail->size = strtoupper($value['ukuran']);
                     $detail->jumlah = $value['jumlah'];
                     $detail->save();
                 }
-
-                $notif = new Notification();
-                $notif->description = "potong keluar telah dikirim ke jahit, silahkan di cek";
-                $notif->url = route('jahit.index');
-                $notif->aktif = 0;
-                $notif->save();
-
-                session(['notification' => 1]);
             }
 
+            // if ($request->get('status') == 'potong keluar') {
 
-            return redirect()->route('potong.index')->with('success', $request->get('status') . ' berhasil disimpan');
+
+            //     $notif = new Notification();
+            //     $notif->description = "potong keluar telah dikirim ke jahit, silahkan di cek";
+            //     $notif->url = route('jahit.index');
+            //     $notif->aktif = 0;
+            //     $notif->save();
+
+            //     session(['notification' => 1]);
+            // }
+
+
+            return redirect()->route('potong.index')->with('success', 'Data potong berhasil disimpan');
         }
     }
 
@@ -149,7 +146,7 @@ class PotongController extends Controller
         $potong = Potong::with(['detail_potong', 'bahan'])->where('id', $id)->first();
         if ($potong->status == 'potong masuk') {
             return view("backend.potong.masuk.show", ['potong' => $potong]);
-        }else{
+        } else {
             return view("backend.potong.keluar.show", ['potong' => $potong]);
         }
     }
@@ -180,10 +177,12 @@ class PotongController extends Controller
     public function update(Request $request, $id)
     {
         if ($request->get('status') == 'potong masuk') {
+            $potong = Potong::findOrFail($id);
             $validator = Validator::make($request->all(), [
-                'no_surat' => 'required',
-                'tanggal_cutting' => 'required|date_format:"Y-m-d"|after_or_equal:' . date('Y-m-d'),
-                'tanggal_selesai' => 'required|date_format:"Y-m-d"|after_or_equal:tanggal_cutting',
+                'hasil_cutting' =>  'required',
+                'no_surat' => 'required|unique:potongs,no_surat,'.$potong->no_surat.',no_surat',
+                'ukuran.*' => 'required',
+                'jumlah.*' => 'required',
             ]);
         } else {
             $validator = Validator::make($request->all(), [
@@ -200,52 +199,33 @@ class PotongController extends Controller
             return redirect()->back()->withErrors($validator->errors());
         } else {
 
-            if ($request->get('status') == 'potong keluar') {
-                $jumlah = $request->get('jumlah');
-                $dataukuran = $request->get('dataukuran');
-                $detail = $request->get('iddetailukuran');
-                $arr = [];
-                foreach ($dataukuran as $key => $value) {
-                    if (!empty($jumlah[$key])) {
-                        $x['ukuran'] = $value;
-                        $x['id'] = $detail[$key];
-                        $x['jumlah'] = $jumlah[$key];
-                        array_push($arr, $x);
-                    }
+            $jumlah = $request->get('jumlah');
+            $dataukuran = $request->get('ukuran');
+            $arr = [];
+            foreach ($dataukuran as $key => $value) {
+                if (!empty($jumlah[$key])) {
+                    $x['ukuran'] = $value;
+                    $x['jumlah'] = $jumlah[$key];
+
+                    array_push($arr, $x);
                 }
             }
-
-
             $potong = Potong::findOrFail($id);
             $potong->no_surat = $request->get('no_surat');
-            if ($request->get('status') == 'potong masuk') {
-                $potong->tanggal_cutting = date('Y-m-d', strtotime($request->get('tanggal_cutting')));
-                $potong->tanggal_selesai = date('Y-m-d', strtotime($request->get('tanggal_selesai')));
-                $potong->status = "potong masuk";
-                if ($potong->tanggal_cutting == date('Y-m-d')) {
-                    $potong->status_potong = "proses potong";
-                } else {
-                    $potong->status_potong = "belum potong";
-                }
-            } else {
-                $potong->hasil_cutting = $request->get('hasil_cutting');
-                $potong->tanggal_keluar =  date('Y-m-d', strtotime($request->get('tanggal_keluar')));
-                $potong->konversi = $request->get('konversi');
-                $potong->status = "potong keluar";
-            }
+            $potong->hasil_cutting = $request->get('hasil_cutting');
+            $potong->konversi = $request->get('konversi');
             $potong->save();
-
-            if ($request->get('status') == 'potong keluar') {
-                foreach ($arr as $key => $value) {
-                    $detail =  DetailPotong::find($value['id']);
-                    $detail->potong_id = $potong->id;
-                    $detail->size = $value['ukuran'];
-                    $detail->jumlah = $value['jumlah'];
-                    $detail->save();
-                }
+            DetailPotong::where('potong_id',$potong->id)->delete();
+            foreach ($arr as $key => $value) {
+                $detail = new DetailPotong();
+                $detail->potong_id = $potong->id;
+                $detail->size = strtoupper($value['ukuran']);
+                $detail->jumlah = $value['jumlah'];
+                $detail->save();
             }
 
-            return redirect()->route('potong.index')->with('success', $request->get('status') . ' berhasil diupdate');
+
+            return redirect()->route('potong.index')->with('success', ' Data Potong berhasil diupdate');
         }
     }
 
@@ -262,7 +242,7 @@ class PotongController extends Controller
             $status = false;
             if ($potong->jahit()->exists()) {
                 $status = true;
-            }else{
+            } else {
                 $potong->delete();
             }
             return response()->json([
@@ -295,7 +275,7 @@ class PotongController extends Controller
                 'Warna Kain',
                 'Nama Produk'
             ];
-            $x['kode_bahan']=  $potong->bahan->kode_bahan;
+            $x['kode_bahan'] =  $potong->bahan->kode_bahan;
             $x['title'] = $titlepotong;
             $x['data'] = [
                 $potong->bahan->sku,
@@ -313,7 +293,8 @@ class PotongController extends Controller
         }
     }
 
-    public function cetakPdf(Request $request){
+    public function cetakPdf(Request $request)
+    {
         $potong = Potong::findOrFail($request->get('id'));
         $titlepotong = [
             'Kode SKU',
@@ -324,7 +305,7 @@ class PotongController extends Controller
             'Warna Kain',
             'Nama Produk'
         ];
-        $x['kode_bahan']=  $potong->bahan->kode_bahan;
+        $x['kode_bahan'] =  $potong->bahan->kode_bahan;
         $x['title'] = $titlepotong;
         $x['data'] = [
             $potong->bahan->sku,

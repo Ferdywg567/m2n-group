@@ -185,7 +185,7 @@ class BahanController extends Controller
         } else {
             $bahan = Bahan::findOrFail($id);
             $validator = Validator::make($request->all(), [
-                'no_surat' => 'required|unique:bahans,no_surat,'.$bahan->no_surat.',no_surat',
+                'no_surat' => 'required|unique:bahans,no_surat,' . $bahan->no_surat . ',no_surat',
                 'nama_bahan' => 'required',
                 'jenis_bahan' => 'required',
                 'warna' => 'required',
@@ -252,7 +252,11 @@ class BahanController extends Controller
     public function getDataBahan(Request $request)
     {
         if ($request->ajax()) {
-            $bahan = Bahan::where('id', $request->get('id'))->first();
+            $bahan = Bahan::where('id', $request->get('id'))->with(['detail_sub' => function ($q) {
+                $q->with(['sub_kategori' => function ($q) {
+                    $q->with('kategori');
+                }]);
+            }])->first();
 
             return response()->json([
                 'status' => true,
