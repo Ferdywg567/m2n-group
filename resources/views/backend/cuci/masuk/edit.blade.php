@@ -38,156 +38,154 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="sku">SKU</label>
-                                                    <input type="text" class="form-control" readonly value="{{$cuci->jahit->potong->bahan->sku}}" required id="sku"
-                                                        name="sku">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="no_surat">Nomor Surat Jalan</label>
-                                                    <input type="text" class="form-control" value="{{$cuci->no_surat}}" required id="no_surat"
-                                                        name="no_surat">
-                                                </div>
-                                            </div>
+                                        <div class="form-group">
+                                            <label for="no_surat">Nomor Surat Jalan</label>
+                                            <input type="text" class="form-control" value="{{$cuci->no_surat}}" required id="no_surat"
+                                                name="no_surat">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="tanggal_mulai_cuci">Tanggal Mulai Cuci</label>
-                                            <input type="date" class="form-control" required id="tanggal_mulai_cuci"
-                                                name="tanggal_mulai_cuci" readonly value="{{$cuci->tanggal_cuci}}">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="tanggal_selesai_cuci">Tanggal Selesai Cuci</label>
-                                            <input type="date" class="form-control" required id="tanggal_selesai_cuci"
-                                                name="tanggal_selesai_cuci"  value="{{$cuci->tanggal_selesai}}">
+                                            <label for="sku">Nama Produk</label>
+                                            <input type="text" class="form-control" readonly required id="nama_produk"
+                                                name="nama_produk"   value="{{$cuci->jahit->potong->bahan->nama_bahan}}">
                                         </div>
                                     </div>
 
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="sku">SKU</label>
+                                            <input type="text" class="form-control" readonly required id="sku" value="{{$cuci->jahit->potong->bahan->sku}}"
+                                                name="sku">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="kategori">Kategori</label>
+                                            <input type="text" class="form-control" required readonly id="kategori" value="{{$cuci->jahit->potong->bahan->detail_sub->sub_kategori->kategori->nama_kategori}}"
+                                                name="kategori">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="sub_kategori">Sub Kategori</label>
+                                            <input type="text" class="form-control" required readonly id="sub_kategori" value="{{$cuci->jahit->potong->bahan->detail_sub->sub_kategori->nama_kategori}}"
+                                                name="sub_kategori">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="detail_sub_kategori">Detail Sub Kategori</label>
+                                            <input type="text" class="form-control" required readonly value="{{$cuci->jahit->potong->bahan->detail_sub->nama_kategori}}"
+                                                id="detail_sub_kategori" name="detail_sub_kategori">
+                                        </div>
+                                    </div>
 
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="kain_siap_cuci">Kain Siap Cuci</label>
-                                                    <div class="input-group mb-2">
-                                                        <input type="number" class="form-control" required
-                                                            id="kain_siap_cuci" name="kain_siap_cuci" value="{{$cuci->kain_siap_cuci}}">
-                                                        <div class="input-group-prepend">
-                                                            <div class="input-group-text">pcs</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="konversi">Konversi Lusin</label>
-                                                    <input type="text" readonly class="form-control" required value="{{$cuci->konversi}}"
-                                                        id="konversi" name="konversi">
-                                                </div>
-                                            </div>
+                                        <div class="form-group">
+                                            <label for="tanggal_cuci">Tanggal Cuci</label>
+                                            <input type="date" class="form-control" readonly required id="tanggal_cuci" value="{{$cuci->tanggal_cuci}}"
+                                                name="tanggal_cuci">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="vendor_cuci">Vendor Cuci</label>
-                                            <select class="form-control" id="vendor_cuci" name="vendor_cuci">
-                                                <option value="internal"  @if($cuci->vendor == 'internal') selected @endif>Internal</option>
-                                                <option value="eksternal"  @if($cuci->vendor == 'eksternal') selected @endif>Eksternal</option>
-
-                                            </select>
+                                            <label for="estimasi_selesai_cuci">Estimasi Selesai Cuci</label>
+                                            <input type="date" class="form-control" readonly required id="estimasi_selesai_cuci"  value="{{$cuci->tanggal_selesai}}"
+                                                name="estimasi_selesai_cuci">
                                         </div>
                                     </div>
+
                                 </div>
 
-                                <div class="row" id="datavendor">
+                                <div class="row" >
 
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="nama_vendor">Nama Vendor</label>
-                                            <input type="text" class="form-control" value="{{$cuci->nama_vendor}}"  id="nama_vendor"
+                                            <input type="text" class="form-control" required id="nama_vendor" value="{{$cuci->nama_vendor}}"
                                                 name="nama_vendor">
                                         </div>
                                     </div>
+
+
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="harga_vendor">Harga Vendor</label>
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <input type="text" class="form-control" value="{{$cuci->harga_vendor}}" id="harga_vendor"
+                                                    <input type="text" class="form-control" required id="harga_vendor" value="{{$cuci->harga_vendor}}"
                                                         name="harga_vendor">
                                                 </div>
                                                 <div class="col-md-6">
+
                                                     <input type="text" class="form-control" value="/lusin" readonly
-                                                         id="lusin" name="lusin">
+                                                        required id="lusin" name="lusin">
                                                 </div>
                                             </div>
 
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="row" style="margin-bottom: -30px">
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="jumlah_bahan_yang_dicuci">Jumlah Bahan Yang Dicuci</label>
+                                            <div class="input-group mb-2">
+                                                <input type="number" class="form-control" required value="{{$cuci->kain_siap_cuci}}"
+                                                    id="jumlah_bahan_yang_dicuci" name="jumlah_bahan_yang_dicuci" max="{{$cuci->kain_siap_cuci}}">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">pcs</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="konversi">Konversi Lusin</label>
+                                            <input type="text" class="form-control" required readonly id="konversi" value="{{$cuci->konversi}}"
+                                                name="konversi">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" id="title-ukuran">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="ukuran">Ukuran</label>
-
+                                            <label for="ukuran">Ukuran Yang Dijahit</label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
+
                                     @forelse ($cuci->detail_cuci as $item)
-                                    @if ($item->size == 'S')
                                     <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label for="ukuran">S</label>
-                                            <input type="hidden" name="dataukuran[]" value="S">
-                                            <input type="hidden" name="iddetailukuran[]" value="{{$item->id}}"
-                                                id="iddetails">
-                                            <input type="number" min="0" value="{{$item->jumlah}}" class="form-control"
-                                                required id="jumlahs" name="jumlah[]">
-                                        </div>
-                                    </div>
-                                    @elseif($item->size == 'M')
-                                    <div class="col-md-2" id="ukuranm">
-                                        <div class="form-group">
-                                            <label for="ukuran">M</label>
-                                            <input type="hidden" name="dataukuran[]" value="M">
-                                            <input type="hidden" name="iddetailukuran[]" value="{{$item->id}}"
-                                                id="iddetailm">
-                                            <input type="number" min="0" value="{{$item->jumlah}}" class="form-control"
-                                                required id="jumlahm" name="jumlah[]">
-                                        </div>
-                                    </div>
-                                    @elseif($item->size == 'L')
-                                    <div class="col-md-2" id="ukuranl">
-                                        <div class="form-group">
-                                            <label for="ukuran">L</label>
-                                            <input type="hidden" name="dataukuran[]" value="L">
-                                            <input type="hidden" name="iddetailukuran[]" value="{{$item->id}}"
-                                                id="iddetaill">
-                                            <input type="number" min="0" value="{{$item->jumlah}}" class="form-control"
-                                                required id="jumlahl" name="jumlah[]">
+                                        <input type="hidden" name="dataukuran[]" value="{{$item->size}}" readonly>
+                                        <div class="input-group mb-2">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">{{$item->size}}</div>
+                                            </div>
+                                            <input type="number" class="form-control" required id="jumlah"
+                                                name="jumlah[]" value="{{$item->jumlah}}">
                                         </div>
                                     </div>
 
+                                    @if ($loop->iteration % 6 ==0)
+                                     </div><div class="row">
                                     @endif
                                     @empty
 
                                     @endforelse
 
                                 </div>
-                                <div class="row">
+                                <div class="row mt-2">
                                     <div class="col-md-12 text-center">
                                         <a type="button" class="btn btn-secondary"
                                             href="{{route('cuci.index')}}">Batal</a>
@@ -254,7 +252,7 @@
                   }
                })
 
-              $('#kain_siap_cuci').on('keyup', function(){
+              $('#jumlah_bahan_yang_dicuci').on('keyup', function(){
                   var data = $(this).val()
                   var lusin = 12
 

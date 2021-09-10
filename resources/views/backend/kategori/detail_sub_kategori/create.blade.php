@@ -79,7 +79,7 @@
                                 </div>
                                 <hr>
                                 <div id="datasub">
-                                    <div class="row">
+                                    {{-- <div class="row">
                                         <input type="hidden" name="nilai" id="nilai" value="1">
                                         <div class="col-md-6">
                                             <div class="form-group">
@@ -94,7 +94,7 @@
                                                 <input type="text" class="form-control" readonly required id="sku" name="sku[]">
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <button type="button" class="btn btn-outline-primary btn-block btntambah">Tambah Sub Kategori Baru</button>
                                 <div class="row mt-2">
@@ -117,38 +117,48 @@
 @push('scripts')
 <script>
     $(document).ready(function(){
+        var maksku = 0;
         $('.btntambah').on('click', function () {
             // var nilai = $('#nilai').val()
-            var nilai = 0
-            var sku = $('#sku_sub').val()
-            var hide = $('#datasub').find('input[type=hidden]')
-            var maxIndex;
-            maxIndex = hide.length - 1;
-            nilai = maxIndex+2
-            var resku = sku +'/'+nilai
-            var tambah = parseInt(nilai);
-            var datahtml = '<div class="row">' +
-                '<input type="hidden" name="nilai" id="nilai" value="'+tambah+'">'+
-                                        '<div class="col-md-6">'+
-                                            '<div class="form-group">'+
-                                                '<label for="detail_sub_kategori">Detail Sub Kategori '+tambah+'</label>'+
-                                                '<input type="text" class="form-control" required id="detail_sub_kategori" name="detail_sub_kategori[]">'+
+            var kategori_utama = $('#kategori_utama').val()
+            var sub_kategori = $('#sub_kategori').val()
+
+            if(kategori_utama != '' && sub_kategori != ''){
+                var nilai = 0
+                var sku = $('#sku_sub').val()
+                var hide = $('#datasub').find('input[type=hidden]')
+                var maxIndex;
+                maxIndex = hide.length - 1;
+                nilai = maxIndex+maksku+1
+                var resku = sku +'/'+nilai
+                var tambah = parseInt(nilai);
+                var datahtml = '<div class="row">' +
+                    '<input type="hidden" name="nilai" id="nilai" value="'+tambah+'">'+
+                                            '<div class="col-md-6">'+
+                                                '<div class="form-group">'+
+                                                    '<label for="detail_sub_kategori">Detail Sub Kategori '+tambah+'</label>'+
+                                                    '<input type="text" class="form-control" required id="detail_sub_kategori" name="detail_sub_kategori[]">'+
+                                                '</div>'+
                                             '</div>'+
-                                        '</div>'+
-                                        '<div class="col-md-6">'+
-                                            '<div class="form-group">'+
-                                                '<label for="sku"> Detail SKU Sub Kategori '+tambah+'</label>'+
-                                                '<input type="text" class="form-control" readonly required id="sku" name="sku[]" value="'+resku+'">'+
+                                            '<div class="col-md-6">'+
+                                                '<div class="form-group">'+
+                                                    '<label for="sku"> Detail SKU Sub Kategori '+tambah+'</label>'+
+                                                    '<input type="text" class="form-control" readonly required id="sku" name="sku[]" value="'+resku+'">'+
+                                                '</div>'+
                                             '</div>'+
-                                        '</div>'+
-                            '</div>'
-            $('#datasub').append(datahtml)
+                                '</div>'
+                $('#datasub').append(datahtml)
+            }else{
+                swal("Kategori utama dan sub kategori wajib dipilih!");
+            }
+
         })
 
         $('#kategori_utama').on('change', function () {
                 var kategori = $(this).val()
                 $('#sub_kategori').empty()
-                $.ajax({
+                if(kategori != ''){
+                    $.ajax({
                     url:"{{route('kategori.getkategori')}}",
                     method:"GET",
                     data:{
@@ -166,25 +176,52 @@
                          }
                      }
                 })
+                }else{
+                    $('#sku_utama').val('')
+                    $('#sub_kategori').append('<option value="">Pilih Sub Kategori</option>')
+                }
+
          })
 
 
 
         $('#sub_kategori').on('change', function () {
                 var kategori = $(this).val()
-                $.ajax({
-                    url:"{{route('kategori.getSubKategori')}}",
-                    method:"GET",
-                    data:{
-                        'kategori':kategori
-                    }
-                }).done(function (response) {
-                     if(response.status){
-                         var sku = response.data.sku
-                         $('#sku_sub').val(sku)
-                         $('#sku').val(sku+'/'+'1')
-                     }
-                })
+                var hide = $('#datasub').empty()
+                var kategori_utama = $('#kategori_utama').val()
+                 var sub_kategori = $('#sub_kategori').val()
+                 if(kategori_utama != '' && sub_kategori!= ''){
+                        $.ajax({
+                        url:"{{route('kategori.getSubKategori')}}",
+                        method:"GET",
+                        data:{
+                            'kategori':kategori
+                        }
+                    }).done(function (response) {
+                        if(response.status){
+                            console.log(response);
+                            var sku = response.data.sku
+                            var detail_sub = response.data.detail_sub
+                            var arr = []
+                            if(detail_sub.length != 0){
+                                detail_sub.forEach(element => {
+                                arr.push(element.sku.substr(-1))
+                                });
+                                maksku = Math.max(...arr) +1
+                            }else{
+                                maksku = 1
+                            }
+
+                            $('#sku_sub').val(sku)
+                            $('#sku').val(sku+'/'+maksku)
+                        }
+                    })
+                 }else if(sub_kategori == ''){
+                    $('#sku_sub').val('')
+                 }else if(kategori_utama == ''){
+                    $('#sku_utama').val('')
+                 }
+
          })
 
     })

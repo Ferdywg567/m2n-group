@@ -44,28 +44,51 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
+                                            <label for="no_surat">Nomor Surat Jalan</label>
+                                            <input type="text" class="form-control" required id="no_surat" value="{{$jahit->no_surat}}"
+                                                name="no_surat">
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="sku">Nama Produk</label>
+                                            <input type="text" class="form-control" readonly required id="nama_produk" value="{{$jahit->potong->bahan->nama_bahan}}"
+                                                name="nama_produk">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
                                             <label for="sku">SKU</label>
-                                            <input type="text" class="form-control" value="{{$jahit->potong->bahan->sku}}" readonly required id="sku"
+                                            <input type="text" class="form-control" readonly required id="sku" value="{{$jahit->potong->bahan->sku}}"
                                                 name="sku">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-3">
                                         <div class="form-group">
-                                            <label for="no_surat">Nomor Surat Jalan</label>
-                                            <input type="text" class="form-control" required value="{{$jahit->no_surat}}" id="no_surat"
-                                                name="no_surat">
+                                            <label for="kategori">Kategori</label>
+                                            <input type="text" class="form-control" required readonly id="kategori"   value="{{$jahit->potong->bahan->detail_sub->sub_kategori->kategori->nama_kategori}}"
+                                                name="kategori">
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="vendor_jahit">Vendor Jahit</label>
-                                            <select class="form-control" id="vendor_jahit"  name="vendor_jahit">
-                                                <option value="internal" @if($jahit->vendor == 'internal') selected @endif >Internal</option>
-                                                <option value="eksternal" @if($jahit->vendor == 'eksternal') selected @endif>Eksternal</option>
-
-                                            </select>
+                                            <label for="sub_kategori">Sub Kategori</label>
+                                            <input type="text" class="form-control" required readonly id="sub_kategori" value="{{$jahit->potong->bahan->detail_sub->sub_kategori->nama_kategori}}"
+                                                name="sub_kategori">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="detail_sub_kategori">Detail Sub Kategori</label>
+                                            <input type="text" class="form-control" required readonly value="{{$jahit->potong->bahan->detail_sub->nama_kategori}}"
+                                                id="detail_sub_kategori" name="detail_sub_kategori">
                                         </div>
                                     </div>
 
@@ -74,36 +97,38 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="tanggal_jahit">Tanggal Jahit</label>
-                                            <input type="date" class="form-control" value="{{$jahit->tanggal_jahit}}" required id="tanggal_jahit"
+                                            <input type="date" class="form-control" required id="tanggal_jahit" value="{{$jahit->tanggal_jahit}}"
                                                 name="tanggal_jahit">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="tanggal_selesai">Tanggal Selesai Jahit</label>
-                                            <input type="date" class="form-control" required value="{{$jahit->tanggal_selesai}}" id="tanggal_selesai"
-                                                name="tanggal_selesai">
+                                            <label for="estimasi_selesai_jahit">Estimasi Selesai Jahit</label>
+                                            <input type="date" class="form-control" required id="estimasi_selesai_jahit" value="{{$jahit->tanggal_selesai}}"
+                                                name="estimasi_selesai_jahit">
                                         </div>
                                     </div>
 
                                 </div>
-
-                                @if ($jahit->vendor == 'eksternal')
-                                <div class="row" id="datavendor">
-                                    <div class="col-md-3">
+                                <div class="row">
+                                    <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="status_pembayaran">Status Pembayaran</label>
-                                            <select class="form-control" id="status_pembayaran" name="status_pembayaran">
-                                                <option value="lunas" @if($jahit->status_pembayaran == 'lunas') selected @endif>Lunas</option>
-                                                <option value="belum" @if($jahit->status_pembayaran == 'belum') selected @endif>Belum</option>
+                                            <label for="vendor_jahit">Vendor Jahit</label>
+                                            <select class="form-control" id="vendor_jahit" name="vendor_jahit">
+                                                <option value="internal" @if($jahit->vendor == 'internal') selected @endif >Internal</option>
+                                                <option value="eksternal" @if($jahit->vendor == 'eksternal') selected @endif>Eksternal</option>
 
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                </div>
+                                @if ($jahit->vendor == 'eksternal')
+                                <div class="row" id="datavendor">
+
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="nama_vendor">Nama Vendor</label>
-                                            <input type="text" class="form-control" value="{{$jahit->nama_vendor}}" required id="nama_vendor"
+                                            <input type="text" class="form-control" required id="nama_vendor" value="{{$jahit->nama_vendor}}"
                                                 name="nama_vendor">
                                         </div>
                                     </div>
@@ -114,13 +139,13 @@
                                             <label for="harga_vendor">Harga Vendor</label>
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <input type="text" class="form-control" value="{{$jahit->harga_vendor}}" required id="harga_vendor"
+                                                    <input type="text" class="form-control" required id="harga_vendor" value="{{$jahit->harga_vendor}}"
                                                         name="harga_vendor">
                                                 </div>
                                                 <div class="col-md-6">
 
                                                     <input type="text" class="form-control" value="/lusin" readonly
-                                                        required id="lusin" name="lusin">
+                                                         id="lusin" name="lusin">
                                                 </div>
                                             </div>
 
@@ -129,7 +154,58 @@
 
                                 </div>
                                 @endif
+
                                 <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="jumlah_bahan_yang_dijahit">Jumlah Bahan Yang Dijahit</label>
+                                            <div class="input-group mb-2">
+                                                <input type="number" class="form-control" required
+                                                    id="jumlah_bahan_yang_dijahit" name="jumlah_bahan_yang_dijahit" value="{{$jahit->jumlah_bahan}}" max="{{$jahit->potong->panjang_bahan_diambil}}">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">pcs</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="konversi">Konversi Lusin</label>
+                                            <input type="text" class="form-control" required readonly id="konversi" value="{{$jahit->konversi}}"
+                                                name="konversi">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" id="title-ukuran">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="ukuran">Ukuran Yang Dijahit</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    @forelse ($jahit->detail_jahit as $item)
+                                    <div class="col-md-2">
+                                        <input type="hidden" name="dataukuran[]" value="{{$item->size}}" readonly>
+                                        <div class="input-group mb-2">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">{{$item->size}}</div>
+                                            </div>
+                                            <input type="number" class="form-control" required id="jumlah"
+                                                name="jumlah[]" value="{{$item->jumlah}}">
+                                        </div>
+                                    </div>
+
+                                    @if ($loop->iteration % 6 ==0)
+                                     </div><div class="row">
+                                    @endif
+                                    @empty
+
+                                    @endforelse
+
+                                </div>
+                                <div class="row mt-2">
                                     <div class="col-md-12 text-center">
                                         <a type="button" class="btn btn-secondary"
                                             href="{{route('jahit.index')}}">Batal</a>
@@ -186,9 +262,13 @@
                   if(data == 'eksternal'){
                     $('#idnamavendor').show()
                     $('#datavendor').show()
+                    $('#nama_vendor').prop('required',true)
+                    $('#harga_vendor').prop('required',true)
                   }else{
                     $('#idnamavendor').hide()
                     $('#datavendor').hide()
+                    $('#nama_vendor').prop('required',false)
+                    $('#harga_vendor').prop('required',false)
                   }
                })
 

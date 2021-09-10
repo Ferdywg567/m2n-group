@@ -380,7 +380,7 @@ class JahitController extends Controller
 
                     'no_surat' => 'required|unique:potongs,no_surat',
                     'tanggal_jahit' => 'required|date_format:"Y-m-d"|after_or_equal:' . date('Y-m-d'),
-                    'tanggal_selesai' => 'required|date_format:"Y-m-d"|after:tanggal_jahit',
+                    'estimasi_selesai_jahit' => 'required|date_format:"Y-m-d"|after:tanggal_jahit',
                     'vendor_jahit' => 'required'
                 ];
             } else {
@@ -388,7 +388,7 @@ class JahitController extends Controller
 
                     'no_surat' => 'required|unique:potongs,no_surat',
                     'tanggal_jahit' => 'required|date_format:"Y-m-d"|after_or_equal:' . date('Y-m-d'),
-                    'tanggal_selesai' => 'required|date_format:"Y-m-d"|after:tanggal_jahit',
+                    'estimasi_selesai_jahit' => 'required|date_format:"Y-m-d"|after:tanggal_jahit',
                     'vendor_jahit' => 'required',
                     'nama_vendor' => 'required',
                     'harga_vendor' => 'required'
@@ -415,14 +415,14 @@ class JahitController extends Controller
                 $jahit->no_surat = $request->get('no_surat');
                 $jahit->vendor = $request->get('vendor_jahit');
                 if ($request->get('status') == 'jahitan masuk') {
-                    $jahit->tanggal_selesai = date('Y-m-d', strtotime($request->get('tanggal_selesai')));
+                    $jahit->tanggal_selesai = date('Y-m-d', strtotime($request->get('estimasi_selesai_jahit')));
                     $jahit->tanggal_jahit = date('Y-m-d', strtotime($request->get('tanggal_jahit')));
                     $jahit->status = "jahitan masuk";
-                    if ($jahit->tanggal_selesai == date('Y-m-d')) {
-                        $jahit->status_jahit = "proses jahit";
-                    } else {
-                        $jahit->status_jahit = "belum jahit";
-                    }
+                    // if ($jahit->tanggal_selesai == date('Y-m-d')) {
+                    //     $jahit->status_jahit = "proses jahit";
+                    // } else {
+                    //     $jahit->status_jahit = "belum jahit";
+                    // }
 
                     if ($request->get('vendor_jahit') == 'eksternal') {
                         $jahit->nama_vendor = $request->get('nama_vendor');
@@ -432,6 +432,27 @@ class JahitController extends Controller
                         $jahit->nama_vendor = null;
                         $jahit->harga_vendor = null;
                         $jahit->status_pembayaran = null;
+                    }
+                    $jahit->jumlah_bahan = $request->get('jumlah_bahan_yang_dijahit');
+                    $jahit->konversi = $request->get('konversi');
+                    $dataukuran = $request->get('dataukuran');
+                    $jumlah = $request->get('jumlah');
+                    $arr = [];
+                    foreach ($dataukuran as $key => $value) {
+                        if (!empty($jumlah[$key])) {
+                            $x['ukuran'] = $value;
+                            $x['jumlah'] = $jumlah[$key];
+                            array_push($arr, $x);
+                        }
+                    }
+
+                    DetailJahit::where('jahit_id',$jahit->id)->delete();
+                    foreach ($arr as $key => $value) {
+                        $detail = new DetailJahit();
+                        $detail->jahit_id = $jahit->id;
+                        $detail->size = $value['ukuran'];
+                        $detail->jumlah = $value['jumlah'];
+                        $detail->save();
                     }
                 }
 

@@ -299,8 +299,8 @@
                                 $('#jenis_kain').val(data.jenis_bahan)
                                 $('#warna').val(data.warna)
                                 $('#vendor_keluar').val(data.vendor)
-                                $('#panjang_kain').val(data.panjang_bahan)
-                                $('#hasil_cutting').prop('max',data.panjang_bahan)
+                                $('#panjang_kain').val(data.panjang_bahan_diambil)
+                                $('#hasil_cutting').prop('max',data.panjang_bahan_diambil)
                             }
 
                         })

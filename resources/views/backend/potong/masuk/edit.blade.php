@@ -128,7 +128,7 @@
                                             <label for="panjang_kain">Panjang kain</label>
                                             <div class="input-group mb-2">
                                                 <input type="number" class="form-control" readonly required
-                                                    id="panjang_kain" name="panjang_kain" value="{{$potong->bahan->panjang_bahan}}">
+                                                    id="panjang_kain" name="panjang_kain" value="{{$potong->bahan->panjang_bahan_diambil}}">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">yard</div>
                                                 </div>

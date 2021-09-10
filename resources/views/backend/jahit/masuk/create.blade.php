@@ -271,11 +271,16 @@
                   if(data == 'eksternal'){
                     $('#idnamavendor').show()
                     $('#datavendor').show()
+                    $('#nama_vendor').prop('required',true)
+                    $('#harga_vendor').prop('required',true)
                   }else{
                     $('#idnamavendor').hide()
                     $('#datavendor').hide()
+                    $('#nama_vendor').prop('required',false)
+                    $('#harga_vendor').prop('required',false)
                   }
                })
+
 
               $('#hasil_cutting').on('keyup', function(){
                   var data = $(this).val()
