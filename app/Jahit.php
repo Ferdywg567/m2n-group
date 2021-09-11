@@ -28,4 +28,9 @@ class Jahit extends Model
     {
         return $this->hasOne('App\Cuci');
     }
+
+    public function sampah()
+    {
+        return $this->hasOne('App\Sampah');
+    }
 }

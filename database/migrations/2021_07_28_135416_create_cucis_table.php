@@ -35,6 +35,11 @@ class CreateCucisTable extends Migration
             $table->integer('barang_akan_dibuang')->nullable();
             $table->longText('keterangan_direpair')->nullable();
             $table->longText('keterangan_dibuang')->nullable();
+            $table->integer('total_bayar')->nullable();
+            $table->integer('sisa_bayar')->nullable();
+            $table->integer('pembayaran_pertama')->nullable();
+            $table->integer('pembayaran_kedua')->nullable();
+            $table->integer('pembayaran_ketiga')->nullable();
             $table->string('status');
             $table->string('status_cuci');
             $table->timestamps();

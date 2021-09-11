@@ -15,10 +15,13 @@ class CreateSampahsTable extends Migration
     {
         Schema::create('sampahs', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('bahan_id')->unsigned()->index()->nullable();
-            $table->foreign('bahan_id')->references('id')->on('bahans')->onDelete('cascade');
+            $table->bigInteger('cuci_id')->unsigned()->index()->nullable();
+            $table->foreign('cuci_id')->references('id')->on('cucis')->onDelete('cascade');
+            $table->bigInteger('jahit_id')->unsigned()->index()->nullable();
+            $table->foreign('jahit_id')->references('id')->on('jahits')->onDelete('cascade');
             $table->integer('total')->default(0);
-            $table->string('ukuran');
+            $table->date('tanggal_masuk')->nullable();
+            $table->string('asal');
             $table->timestamps();
         });
     }

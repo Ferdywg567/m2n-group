@@ -225,18 +225,7 @@
                 });
               }
               $('#kdbahanreadonly').hide()
-            //   $('#ukuranm').hide()
-            //   $('#ukuranl').hide()
-            //   $('#ukuranxl').hide()
-            //   $('#ukuranxxl').hide()
-            //   $('#ukurandireturm').hide()
-            //   $('#ukurandireturl').hide()
-            //   $('#ukurandireturxl').hide()
-            //   $('#ukurandireturxxl').hide()
-            //   $('#ukurandibuangm').hide()
-            //   $('#ukurandibuangl').hide()
-            //   $('#ukurandibuangxl').hide()
-            //   $('#ukurandibuangxxl').hide()
+
               $('#iddatavendor').hide()
               $('#idhargavendor').hide()
               $('#datavendor').hide()

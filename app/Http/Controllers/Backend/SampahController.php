@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\DetailSampah;
+use App\Jahit;
 use App\Cuci;
 use App\Sampah;
 use PDF;
@@ -19,64 +20,61 @@ class SampahController extends Controller
      */
     public function index()
     {
-        $cuci = Cuci::all();
-
+        $cuci = Cuci::all()->where('status_cuci','selesai');
+        $jahit = Jahit::all()->where('status_jahit','selesai');
         DB::beginTransaction();
 
         try {
-            foreach ($cuci as $key => $value) {
-                $idbahan = $value->jahit->potong->bahan->id;
-                foreach ($value->cuci_dibuang as $key => $row) {
-                    $sampah = Sampah::where('bahan_id', $idbahan)->where('ukuran', $row->ukuran)->first();
+            if($cuci->isNotEmpty()){
+                foreach ($cuci as $key => $value) {
+
+                    $sampah = Sampah::where('cuci_id', $value->id)->first();
                     if ($sampah) {
-                        $total = DetailSampah::where('sampah_id', $sampah->id)->sum('jumlah');
-                        $sampah->total = $total;
+                        $sampah->total =  $value->barang_dibuang;
                     } else {
                         $sampah = new Sampah();
-                        $sampah->bahan_id = $idbahan;
-                        $sampah->ukuran = $row->ukuran;
-                        $sampah->total = $row->jumlah;
+                        $sampah->cuci_id =  $value->id;
+                        $sampah->asal = "cuci";
+                        $sampah->total = $value->barang_dibuang;
+                        $sampah->tanggal_masuk = $value->created_at;
                     }
                     $sampah->save();
-
-                    $detail = DetailSampah::where('sampah_id', $sampah->id)->where('cuci_dibuang_id', $row->id)->first();
-                    if ($detail) {
-                        $detail->jumlah = $row->jumlah;
-                    } else {
+                    foreach ($value->cuci_dibuang as $key => $row) {
+                        $detail = DetailSampah::where('sampah_id', $sampah->id)->delete();
                         $detail = new DetailSampah();
                         $detail->sampah_id = $sampah->id;
-                        $detail->cuci_dibuang_id = $row->id;
                         $detail->jumlah = $row->jumlah;
+                        $detail->ukuran = $row->ukuran;
+                        $detail->save();
                     }
 
-                    $detail->save();
                 }
+            }
 
-                foreach ($value->jahit->jahit_dibuang as $key => $row) {
-                    $sampah = Sampah::where('bahan_id', $idbahan)->where('ukuran', $row->ukuran)->first();
+
+            if($jahit->isNotEmpty()){
+                foreach ($jahit as $key => $value) {
+
+                    $sampah = Sampah::where('jahit_id', $value->id)->first();
                     if ($sampah) {
-                        $total = DetailSampah::where('sampah_id', $sampah->id)->sum('jumlah');
-
-                        $sampah->total = $total;
+                        $sampah->total =  $value->barang_dibuang;
                     } else {
                         $sampah = new Sampah();
-                        $sampah->bahan_id = $idbahan;
-                        $sampah->ukuran = $row->ukuran;
-                        $sampah->total = $row->jumlah;
+                        $sampah->jahit_id =  $value->id;
+                        $sampah->asal = "jahit";
+                        $sampah->total = $value->barang_dibuang;
+                        $sampah->tanggal_masuk = $value->created_at;
                     }
                     $sampah->save();
-
-                    $detail = DetailSampah::where('sampah_id', $sampah->id)->where('jahit_dibuang_id', $row->id)->first();
-                    if ($detail) {
-                        $detail->jumlah = $row->jumlah;
-                    } else {
+                    foreach ($value->jahit_dibuang as $key => $row) {
+                        $detail = DetailSampah::where('sampah_id', $sampah->id)->delete();
                         $detail = new DetailSampah();
                         $detail->sampah_id = $sampah->id;
-                        $detail->jahit_dibuang_id = $row->id;
                         $detail->jumlah = $row->jumlah;
+                        $detail->ukuran = $row->ukuran;
+                        $detail->save();
                     }
 
-                    $detail->save();
                 }
             }
             DB::commit();

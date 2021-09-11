@@ -92,7 +92,7 @@
                                                         </a>
                                                         <div class="dropdown-menu text-center dropdown-menu-custom"
                                                             aria-labelledby="dropdownMenuButton">
-                                                            <a class="dropdown-item hapus" data-id="{{$item->id}}"
+                                                            <a class="dropdown-item hapus" data-status="kategori" data-id="{{$item->id}}"
                                                                 href="#"><i class="ri-delete-bin-fill"></i>
                                                                 Delete</a>
 
@@ -138,7 +138,7 @@
                                                             aria-labelledby="dropdownMenuButton">
 
 
-                                                            <a class="dropdown-item hapus" data-id="{{$item->id}}"
+                                                            <a class="dropdown-item hapus" data-status="sub kategori" data-id="{{$item->id}}"
                                                                 href="#"><i class="ri-delete-bin-fill"></i>
                                                                 Delete</a>
 
@@ -191,7 +191,7 @@
 
 
 
-                                                            <a class="dropdown-item hapus" data-id="{{$item->id}}"
+                                                            <a class="dropdown-item hapus" data-status="detail sub kategori" data-id="{{$item->id}}"
                                                                 href="#"><i class="ri-delete-bin-fill"></i>
                                                                 Delete</a>
 
@@ -300,43 +300,11 @@
                   $(this).css('color','white')
                   $(this).css('background-color','black')
                })
-              $(document).on('click','.btnprint' ,function () {
-                  var id = $(this).data('id')
-                  $.ajax({
-                      url:"{{route('jahit.getdataprint')}}",
-                      method:"GET",
-                      data:{'id':id},
-                      success:function(response){
-                            if(response.status){
-                                $('#idjahit').val(id)
-                                var data =response.data
-                                var title = data.title
-                                var datares = data.data
-                                var tbody = $('#dataprint');
-
-                                var datahtml = "";
-                                for (let index = 0; index < title.length; index++) {
-                                    const element = title[index];
-                                    var nilai = datares[index];
-                                    if(nilai == null){
-                                        nilai = '-'
-                                    }
-                                    datahtml += '<tr>'
-                                        datahtml += '<td class="left">'+element+'</td>'
-                                        datahtml += '<td class="text-right">'+nilai+'</td>'
-                                    datahtml += '</tr>'
-                                }
-                                var kode = data.kode_bahan;
-                                $('#title_kode').text(kode)
-                                tbody.html(datahtml)
-                                $('#printModal').modal('show')
-                            }
-                      }
-                  })
-               })
 
               $(document).on('click','.hapus', function () {
                   var id = $(this).data('id')
+                  var status = $(this).data('status')
+                  console.log(status);
                     swal({
                     title: "Are you sure?",
                     text: "Once deleted, you will not be able to recover this imaginary file!",
@@ -348,19 +316,18 @@
                     if (willDelete) {
                         ajax()
                         $.ajax({
-                            url:"{{url('production/jahit/')}}/"+id,
+                            url:"{{url('production/kategori/')}}/"+id,
                             method:"DELETE",
+                            data:{'status':status},
                             success:function(data){
-
                                 if(data.status){
-                                    swal("Sorry, cant delete this file!");
-
-                                }else{
                                     swal("Success! Your imaginary file has been deleted!", {
                                     icon: "success",
                                     });
-
+                                    console.log(data);
                                     setTimeout(function () {  location.reload(true) },1500)
+                                }else{
+                                    swal("Sorry, cant delete this file!");
                                 }
                             }
                        })

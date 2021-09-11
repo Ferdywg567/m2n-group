@@ -378,13 +378,13 @@ class PrintController extends Controller
                             $retur .= ')';
 
                             $x['data'] = [
-                                $value->rekapitulasi->cuci->jahit->potong->bahan->sku,
-                                $value->rekapitulasi->cuci->jahit->potong->bahan->jenis_bahan,
-                                $value->rekapitulasi->cuci->jahit->potong->bahan->nama_bahan,
-                                $value->rekapitulasi->cuci->jahit->potong->bahan->warna,
+                                $value->cuci->jahit->potong->bahan->sku,
+                                $value->cuci->jahit->potong->bahan->jenis_bahan,
+                                $value->cuci->jahit->potong->bahan->nama_bahan,
+                                $value->cuci->jahit->potong->bahan->warna,
                                 $ukuran,
                                 $value->tanggal_qc,
-                                $value->rekapitulasi->total_barang,
+                                $value->cuci->berhasil_cuci,
                                 $value->barang_lolos_qc,
                                 $retur,
                                 $value->keterangan_diretur,
@@ -408,10 +408,10 @@ class PrintController extends Controller
                             $jumlahproduk = $value->detail_warehouse->sum('jumlah');
                             $harga = $this->rupiah($value->harga_produk);
                             $x['data'] = [
-                                $value->finishing->rekapitulasi->cuci->jahit->potong->bahan->sku,
-                                $value->finishing->rekapitulasi->cuci->jahit->potong->bahan->jenis_bahan,
-                                $value->finishing->rekapitulasi->cuci->jahit->potong->bahan->nama_bahan,
-                                $value->finishing->rekapitulasi->cuci->jahit->potong->bahan->warna,
+                                $value->finishing->cuci->jahit->potong->bahan->sku,
+                                $value->finishing->cuci->jahit->potong->bahan->jenis_bahan,
+                                $value->finishing->cuci->jahit->potong->bahan->nama_bahan,
+                                $value->finishing->cuci->jahit->potong->bahan->warna,
                                 $jumlahproduk,
                                 $ukuran,
                                 $harga
@@ -432,11 +432,11 @@ class PrintController extends Controller
                             $jumlahproduk = $value->total_barang;
                             $tanggalretur = date('Y-m-d', strtotime($value->created_at));
                             $x['data'] = [
-                                $value->finishing->rekapitulasi->cuci->jahit->potong->bahan->sku,
-                                $value->finishing->rekapitulasi->cuci->tanggal_selesai,
-                                $value->finishing->rekapitulasi->cuci->jahit->potong->bahan->jenis_bahan,
-                                $value->finishing->rekapitulasi->cuci->jahit->potong->bahan->nama_bahan,
-                                $value->finishing->rekapitulasi->cuci->jahit->potong->bahan->warna,
+                                $value->finishing->cuci->jahit->potong->bahan->sku,
+                                $value->finishing->cuci->tanggal_selesai,
+                                $value->finishing->cuci->jahit->potong->bahan->jenis_bahan,
+                                $value->finishing->cuci->jahit->potong->bahan->nama_bahan,
+                                $value->finishing->cuci->jahit->potong->bahan->warna,
                                 $tanggalretur,
                                 $jumlahproduk,
                                 $ukuran,
@@ -459,12 +459,12 @@ class PrintController extends Controller
                             $jumlahproduk = $value->total_barang;
                             $harga = $this->rupiah($value->warehouse->harga_produk);
                             $x['data'] = [
-                                $value->warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->sku,
+                                $value->warehouse->finishing->cuci->jahit->potong->bahan->sku,
                                 $value->tanggal_masuk,
                                 $value->tanggal_kirim,
-                                $value->warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->nama_bahan,
-                                $value->warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->warna,
-                                $value->warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->jenis_bahan,
+                                $value->warehouse->finishing->cuci->jahit->potong->bahan->nama_bahan,
+                                $value->warehouse->finishing->cuci->jahit->potong->bahan->warna,
+                                $value->warehouse->finishing->cuci->jahit->potong->bahan->jenis_bahan,
                                 $jumlahproduk,
                                 $ukuran,
                                 $harga
@@ -1155,7 +1155,7 @@ class PrintController extends Controller
                         $x['title'] = $titlefinish;
                         $x['icon'] = 'check-double-fill.png';
                         $ukuran = '';
-                        $x['kode_bahan'] = $value->rekapitulasi->cuci->jahit->potong->bahan->sku;
+                        $x['kode_bahan'] = $value->cuci->jahit->potong->bahan->sku;
                         foreach ($value->detail_finish as $key => $row) {
                             $ukuran .= $row->ukuran . '=' . $row->jumlah . ', ';
                         }
@@ -1175,13 +1175,13 @@ class PrintController extends Controller
                         $retur .= ')';
 
                         $x['data'] = [
-                            $value->rekapitulasi->cuci->jahit->potong->bahan->sku,
-                            $value->rekapitulasi->cuci->jahit->potong->bahan->jenis_bahan,
-                            $value->rekapitulasi->cuci->jahit->potong->bahan->nama_bahan,
-                            $value->rekapitulasi->cuci->jahit->potong->bahan->warna,
+                            $value->cuci->jahit->potong->bahan->sku,
+                            $value->cuci->jahit->potong->bahan->jenis_bahan,
+                            $value->cuci->jahit->potong->bahan->nama_bahan,
+                            $value->cuci->jahit->potong->bahan->warna,
                             $ukuran,
                             $value->tanggal_qc,
-                            $value->rekapitulasi->total_barang,
+                            $value->total_barang,
                             $value->barang_lolos_qc,
                             $retur,
                             $value->keterangan_diretur,
@@ -1198,7 +1198,7 @@ class PrintController extends Controller
                         $x['title'] = $titlewarehouse;
                         $x['icon'] = 'home-gear-fill.png';
                         $ukuran = '';
-                        $x['kode_bahan'] = $value->finishing->rekapitulasi->cuci->jahit->potong->bahan->sku;
+                        $x['kode_bahan'] = $value->finishing->cuci->jahit->potong->bahan->sku;
                         foreach ($value->detail_warehouse as $key => $row) {
                             $ukuran .= $row->ukuran . '=' . $row->jumlah . ', ';
                         }
@@ -1206,10 +1206,10 @@ class PrintController extends Controller
                         $jumlahproduk = $value->detail_warehouse->sum('jumlah');
                         $harga = $this->rupiah($value->harga_produk);
                         $x['data'] = [
-                            $value->finishing->rekapitulasi->cuci->jahit->potong->bahan->sku,
-                            $value->finishing->rekapitulasi->cuci->jahit->potong->bahan->jenis_bahan,
-                            $value->finishing->rekapitulasi->cuci->jahit->potong->bahan->nama_bahan,
-                            $value->finishing->rekapitulasi->cuci->jahit->potong->bahan->warna,
+                            $value->finishing->cuci->jahit->potong->bahan->sku,
+                            $value->finishing->cuci->jahit->potong->bahan->jenis_bahan,
+                            $value->finishing->cuci->jahit->potong->bahan->nama_bahan,
+                            $value->finishing->cuci->jahit->potong->bahan->warna,
                             $jumlahproduk,
                             $ukuran,
                             $harga
@@ -1223,7 +1223,7 @@ class PrintController extends Controller
                         $x['title'] = $titleretur;
                         $x['retur'] = 'logout-box-fill.png';
                         $ukuran = '';
-                        $x['kode_bahan'] =  $value->finishing->rekapitulasi->cuci->jahit->potong->bahan->sku;
+                        $x['kode_bahan'] =  $value->finishing->cuci->jahit->potong->bahan->sku;
                         foreach ($value->detail_retur as $key => $row) {
                             $ukuran .= $row->ukuran . '=' . $row->jumlah . ', ';
                         }
@@ -1231,11 +1231,11 @@ class PrintController extends Controller
                         $jumlahproduk = $value->total_barang;
                         $tanggalretur = date('Y-m-d', strtotime($value->created_at));
                         $x['data'] = [
-                            $value->finishing->rekapitulasi->cuci->jahit->potong->bahan->sku,
-                            $value->finishing->rekapitulasi->cuci->tanggal_selesai,
-                            $value->finishing->rekapitulasi->cuci->jahit->potong->bahan->jenis_bahan,
-                            $value->finishing->rekapitulasi->cuci->jahit->potong->bahan->nama_bahan,
-                            $value->finishing->rekapitulasi->cuci->jahit->potong->bahan->warna,
+                            $value->finishing->cuci->jahit->potong->bahan->sku,
+                            $value->finishing->cuci->tanggal_selesai,
+                            $value->finishing->cuci->jahit->potong->bahan->jenis_bahan,
+                            $value->finishing->cuci->jahit->potong->bahan->nama_bahan,
+                            $value->finishing->cuci->jahit->potong->bahan->warna,
                             $tanggalretur,
                             $jumlahproduk,
                             $ukuran,
@@ -1251,7 +1251,7 @@ class PrintController extends Controller
                         $x['title'] = $titlerekap;
                         $x['icon'] = 'booklet-fill.png';
                         $ukuran = '';
-                        $x['kode_bahan'] =    $value->warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->sku;
+                        $x['kode_bahan'] =    $value->warehouse->finishing->cuci->jahit->potong->bahan->sku;
                         foreach ($value->detail_rekap_warehouse as $key => $row) {
                             $ukuran .= $row->ukuran . '=' . $row->jumlah . ', ';
                         }
@@ -1259,12 +1259,12 @@ class PrintController extends Controller
                         $jumlahproduk = $value->total_barang;
                         $harga = $this->rupiah($value->warehouse->harga_produk);
                         $x['data'] = [
-                            $value->warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->sku,
+                            $value->warehouse->finishing->cuci->jahit->potong->bahan->sku,
                             $value->tanggal_masuk,
                             $value->tanggal_kirim,
-                            $value->warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->nama_bahan,
-                            $value->warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->warna,
-                            $value->warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->jenis_bahan,
+                            $value->warehouse->finishing->cuci->jahit->potong->bahan->nama_bahan,
+                            $value->warehouse->finishing->cuci->jahit->potong->bahan->warna,
+                            $value->warehouse->finishing->cuci->jahit->potong->bahan->jenis_bahan,
                             $jumlahproduk,
                             $ukuran,
                             $harga

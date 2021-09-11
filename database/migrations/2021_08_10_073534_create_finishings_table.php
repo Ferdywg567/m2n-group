@@ -20,6 +20,7 @@ class CreateFinishingsTable extends Migration
             $table->string('no_surat');
             $table->date('tanggal_masuk')->nullable();
             $table->date('tanggal_qc')->nullable();
+            $table->date('tanggal_selesai')->nullable();
             $table->integer('barang_lolos_qc');
             $table->integer('barang_gagal_qc')->nullable();
             $table->integer('barang_diretur')->nullable();

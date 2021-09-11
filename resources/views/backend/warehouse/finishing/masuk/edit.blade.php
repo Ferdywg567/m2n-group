@@ -34,7 +34,7 @@
             <a class="btn btn-primary" href="{{route('warehouse.finishing.index')}}">
                 <i class="fas fa-arrow-left"></i>
             </a>
-            <h1 class="ml-2">Edit Data | Sortir</h1>
+            <h1 class="ml-2">Edit Data | Produk Masuk</h1>
         </div>
         <div class="section-body">
             <div class="row">
@@ -158,7 +158,7 @@
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text">{{$item->ukuran}}</div>
                                             </div>
-                                            <input type="number" class="form-control" required id="jumlah" 
+                                            <input type="number" class="form-control" required id="jumlah"
                                                 name="jumlah[]" value="{{$item->jumlah}}">
                                         </div>
                                     </div>

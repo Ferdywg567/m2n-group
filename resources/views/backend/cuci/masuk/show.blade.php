@@ -104,8 +104,14 @@
                                 </div>
 
                                 <div class="row" >
-
-                                    <div class="col-md-6">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="status_pembayaran">Status Pembayaran</label>
+                                            <input type="text" class="form-control" required readonly id="status_pembayaran" value="{{$cuci->status_pembayaran}}"
+                                                name="status_pembayaran">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="nama_vendor">Nama Vendor</label>
                                             <input type="text" class="form-control" readonly required id="nama_vendor" value="{{$cuci->nama_vendor}}"

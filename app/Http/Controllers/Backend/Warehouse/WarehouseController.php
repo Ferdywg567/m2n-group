@@ -45,7 +45,7 @@ class WarehouseController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'kode_bahan' => 'required',
+            'kode_transaksi' => 'required',
             'harga_produk' => 'required',
         ]);
 
@@ -54,7 +54,7 @@ class WarehouseController extends Controller
         } else {
             DB::beginTransaction();
             try {
-                $finish = Finishing::findOrfail($request->get('kode_bahan'));
+                $finish = Finishing::findOrfail($request->get('kode_transaksi'));
                 $warehouse = new Warehouse();
                 $warehouse->finishing_id = $finish->id;
                 $warehouse->harga_produk = $request->get('harga_produk');
@@ -130,7 +130,7 @@ class WarehouseController extends Controller
                 $warehouse->harga_produk = $request->get('harga_produk');
                 $warehouse->save();
                 DB::commit();
-                return redirect()->route('warehouse.warehouse.index')->with('success', 'Data warehouse berhasil diupdate');
+                return redirect()->route('warehouse.warehouse.index')->with('success', 'Data gudang berhasil diupdate');
             } catch (\Exception $th) {
                 //throw $th;
                 DB::rollBack();
@@ -177,7 +177,7 @@ class WarehouseController extends Controller
             ];
 
             $x['title'] = $titlewarehouse;
-            $x['kode_bahan']=  $warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->kode_bahan;
+            $x['kode_bahan']=  $warehouse->finishing->cuci->jahit->potong->bahan->kode_transaksi;
             $ukuran = '';
 
             foreach ($warehouse->detail_warehouse as $key => $row) {
@@ -187,10 +187,10 @@ class WarehouseController extends Controller
             $jumlahproduk = $warehouse->detail_warehouse->sum('jumlah');
                             $harga = $this->rupiah($warehouse->harga_produk);
             $x['data'] = [
-                $warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->sku,
-                $warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->jenis_bahan,
-                $warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->nama_bahan,
-                $warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->warna,
+                $warehouse->finishing->cuci->jahit->potong->bahan->sku,
+                $warehouse->finishing->cuci->jahit->potong->bahan->jenis_bahan,
+                $warehouse->finishing->cuci->jahit->potong->bahan->nama_bahan,
+                $warehouse->finishing->cuci->jahit->potong->bahan->warna,
                 $jumlahproduk,
                 $ukuran,
                 $harga
@@ -216,7 +216,7 @@ class WarehouseController extends Controller
         ];
 
         $x['title'] = $titlewarehouse;
-        $x['kode_bahan']=  $warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->kode_bahan;
+        $x['kode_bahan']=  $warehouse->finishing->cuci->jahit->potong->bahan->kode_transaksi;
         $ukuran = '';
 
         foreach ($warehouse->detail_warehouse as $key => $row) {
@@ -226,10 +226,10 @@ class WarehouseController extends Controller
         $jumlahproduk = $warehouse->detail_warehouse->sum('jumlah');
                         $harga = $this->rupiah($warehouse->harga_produk);
         $x['data'] = [
-            $warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->sku,
-            $warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->jenis_bahan,
-            $warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->nama_bahan,
-            $warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->warna,
+            $warehouse->finishing->cuci->jahit->potong->bahan->sku,
+            $warehouse->finishing->cuci->jahit->potong->bahan->jenis_bahan,
+            $warehouse->finishing->cuci->jahit->potong->bahan->nama_bahan,
+            $warehouse->finishing->cuci->jahit->potong->bahan->warna,
             $jumlahproduk,
             $ukuran,
             $harga

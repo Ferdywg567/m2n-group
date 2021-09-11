@@ -156,7 +156,8 @@ class KategoriController extends Controller
                 if ($kategori) {
                     Kategori::where('id', $id)->doesntHave('sub_kategori')->delete();
                     return response()->json([
-                        'status' => true
+                        'status' => true,
+                        'data' => $kategori
                     ]);
                 } else {
                     return response()->json([

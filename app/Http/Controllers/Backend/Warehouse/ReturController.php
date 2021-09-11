@@ -26,14 +26,14 @@ class ReturController extends Controller
                 $retur = Retur::where('finishing_id', $value->id)->first();
                 if ($retur) {
                     $total = DetailRetur::where('retur_id', $retur->id)->sum('jumlah');
-                    $retur->tanggal_masuk = $value->rekapitulasi->cuci->jahit->potong->bahan->tanggal_masuk;
+                    $retur->tanggal_masuk = $value->cuci->jahit->potong->bahan->tanggal_masuk;
                     $retur->total_barang = $total;
                 } else {
                     $retur = new Retur();
                     $retur->finishing_id = $value->id;
                     $retur->total_barang = $value->barang_diretur;
                     $retur->keterangan_diretur = $value->keterangan_diretur;
-                    $retur->tanggal_masuk = $value->rekapitulasi->cuci->jahit->potong->bahan->tanggal_masuk;
+                    $retur->tanggal_masuk = $value->cuci->jahit->potong->bahan->tanggal_masuk;
                 }
 
                 $retur->save();
@@ -148,7 +148,7 @@ class ReturController extends Controller
 
 
             $x['title'] = $titleretur;
-            $x['kode_bahan']=  $retur->finishing->rekapitulasi->cuci->jahit->potong->bahan->kode_bahan;
+            $x['kode_bahan']=  $retur->finishing->cuci->jahit->potong->bahan->kode_bahan;
             $ukuran = '';
 
             foreach ($retur->detail_retur as $key => $row) {
@@ -158,11 +158,11 @@ class ReturController extends Controller
             $jumlahproduk = $retur->detail_retur->sum('jumlah');
 
             $x['data'] = [
-                $retur->finishing->rekapitulasi->cuci->jahit->potong->bahan->sku,
-                $retur->finishing->rekapitulasi->cuci->tanggal_selesai,
-                $retur->finishing->rekapitulasi->cuci->jahit->potong->bahan->jenis_bahan,
-                $retur->finishing->rekapitulasi->cuci->jahit->potong->bahan->nama_bahan,
-                $retur->finishing->rekapitulasi->cuci->jahit->potong->bahan->warna,
+                $retur->finishing->cuci->jahit->potong->bahan->sku,
+                $retur->finishing->cuci->tanggal_selesai,
+                $retur->finishing->cuci->jahit->potong->bahan->jenis_bahan,
+                $retur->finishing->cuci->jahit->potong->bahan->nama_bahan,
+                $retur->finishing->cuci->jahit->potong->bahan->warna,
                 $tanggalretur,
                 $jumlahproduk,
                 $ukuran,
@@ -192,7 +192,7 @@ class ReturController extends Controller
 
 
         $x['title'] = $titleretur;
-        $x['kode_bahan']=  $retur->finishing->rekapitulasi->cuci->jahit->potong->bahan->kode_bahan;
+        $x['kode_bahan']=  $retur->finishing->cuci->jahit->potong->bahan->kode_bahan;
         $ukuran = '';
 
         foreach ($retur->detail_retur as $key => $row) {
@@ -202,11 +202,11 @@ class ReturController extends Controller
         $jumlahproduk = $retur->detail_retur->sum('jumlah');
 
         $x['data'] = [
-            $retur->finishing->rekapitulasi->cuci->jahit->potong->bahan->sku,
-            $retur->finishing->rekapitulasi->cuci->tanggal_selesai,
-            $retur->finishing->rekapitulasi->cuci->jahit->potong->bahan->jenis_bahan,
-            $retur->finishing->rekapitulasi->cuci->jahit->potong->bahan->nama_bahan,
-            $retur->finishing->rekapitulasi->cuci->jahit->potong->bahan->warna,
+            $retur->finishing->cuci->jahit->potong->bahan->sku,
+            $retur->finishing->cuci->tanggal_selesai,
+            $retur->finishing->cuci->jahit->potong->bahan->jenis_bahan,
+            $retur->finishing->cuci->jahit->potong->bahan->nama_bahan,
+            $retur->finishing->cuci->jahit->potong->bahan->warna,
             $tanggalretur,
             $jumlahproduk,
             $ukuran,

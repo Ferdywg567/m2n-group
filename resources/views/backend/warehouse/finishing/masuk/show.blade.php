@@ -34,7 +34,7 @@
             <a class="btn btn-primary" href="{{route('warehouse.finishing.index')}}">
                 <i class="fas fa-arrow-left"></i>
             </a>
-            <h1 class="ml-2">Detail Data | Sortir</h1>
+            <h1 class="ml-2">Detail Data | Produk Masuk</h1>
         </div>
         <div class="section-body">
             <div class="row">

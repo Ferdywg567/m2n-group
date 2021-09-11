@@ -122,8 +122,17 @@
                                 </div>
 
                                 <div class="row" >
-
-                                    <div class="col-md-6">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="status_pembayaran">Status Pembayaran</label>
+                                            <select class="form-control" id="status_pembayaran" name="status_pembayaran">
+                                              <option value="Lunas">Lunas</option>
+                                              <option value="Belum Lunas">Belum Lunas</option>
+                                              <option value="Termin">Termin</option>
+                                            </select>
+                                          </div>
+                                    </div>
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="nama_vendor">Nama Vendor</label>
                                             <input type="text" class="form-control" required id="nama_vendor"

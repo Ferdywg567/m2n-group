@@ -43,7 +43,7 @@ class RekapitulasiController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'kode_bahan' => 'required',
+            'kode_transaksi' => 'required',
             'tanggal_kirim' => 'required|date_format:"Y-m-d"'
         ]);
 
@@ -54,7 +54,7 @@ class RekapitulasiController extends Controller
 
             try {
                 $rekap = new RekapitulasiWarehouse();
-                $rekap->warehouse_id = $request->get('kode_bahan');
+                $rekap->warehouse_id = $request->get('kode_transaksi');
                 $rekap->tanggal_kirim = date('Y-m-d', strtotime($request->get('tanggal_kirim')));
                 $rekap->tanggal_masuk = date('Y-m-d', strtotime($request->get('tanggal_masuk')));
                 $rekap->total_barang = $request->get('total_barang');
@@ -176,7 +176,7 @@ class RekapitulasiController extends Controller
 
 
             $x['title'] = $titlerekap;
-            $x['kode_bahan']=  $rekap->warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->kode_bahan;
+            $x['kode_bahan']=  $rekap->warehouse->finishing->cuci->jahit->potong->bahan->kode_transaksi;
             $ukuran = '';
 
             foreach ($rekap->detail_rekap_warehouse as $key => $row) {
@@ -187,12 +187,12 @@ class RekapitulasiController extends Controller
             $harga = $this->rupiah($rekap->warehouse->harga_produk);
 
             $x['data'] = [
-                $rekap->warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->sku,
+                $rekap->warehouse->finishing->cuci->jahit->potong->bahan->sku,
                 $rekap->tanggal_masuk,
                 $rekap->tanggal_kirim,
-                $rekap->warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->nama_bahan,
-                $rekap->warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->warna,
-                $rekap->warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->jenis_bahan,
+                $rekap->warehouse->finishing->cuci->jahit->potong->bahan->nama_bahan,
+                $rekap->warehouse->finishing->cuci->jahit->potong->bahan->warna,
+                $rekap->warehouse->finishing->cuci->jahit->potong->bahan->jenis_bahan,
                 $jumlahproduk,
                 $ukuran,
                 $harga
@@ -221,7 +221,7 @@ class RekapitulasiController extends Controller
 
 
         $x['title'] = $titlerekap;
-        $x['kode_bahan']=  $rekap->warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->kode_bahan;
+        $x['kode_bahan']=  $rekap->warehouse->finishing->cuci->jahit->potong->bahan->kode_transaksi;
         $ukuran = '';
 
         foreach ($rekap->detail_rekap_warehouse as $key => $row) {
@@ -232,12 +232,12 @@ class RekapitulasiController extends Controller
         $harga = $this->rupiah($rekap->warehouse->harga_produk);
 
         $x['data'] = [
-            $rekap->warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->sku,
+            $rekap->warehouse->finishing->cuci->jahit->potong->bahan->sku,
             $rekap->tanggal_masuk,
             $rekap->tanggal_kirim,
-            $rekap->warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->nama_bahan,
-            $rekap->warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->warna,
-            $rekap->warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->jenis_bahan,
+            $rekap->warehouse->finishing->cuci->jahit->potong->bahan->nama_bahan,
+            $rekap->warehouse->finishing->cuci->jahit->potong->bahan->warna,
+            $rekap->warehouse->finishing->cuci->jahit->potong->bahan->jenis_bahan,
             $jumlahproduk,
             $ukuran,
             $harga

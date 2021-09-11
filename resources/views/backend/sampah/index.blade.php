@@ -36,10 +36,12 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">No</th>
-                                        <th scope="col">Kode Bahan</th>
+                                        <th scope="col">Kode</th>
                                         <th scope="col">SKU</th>
-                                        <th scope="col">Tgl Masuk</th>
-                                        <th scope="col">Barang Rusak</th>
+                                        <th scope="col">Nama Produk</th>
+                                        <th scope="col">Tgl. Masuk</th>
+                                        <th scope="col">Asal</th>
+                                        <th scope="col">Jumlah</th>
 
                                         <th scope="col">Aksi</th>
                                     </tr>
@@ -48,10 +50,22 @@
                                     @forelse ($sampah as $item)
                                     <tr>
                                         <td>{{$loop->iteration}}</td>
-                                        <td>{{$item->bahan->kode_bahan}}</td>
-                                        <td>{{$item->bahan->sku}}</td>
-                                        <td>{{$item->bahan->tanggal_masuk}}</td>
-                                        <td>{{$item->total}}</td>
+                                        @if ($item->asal == 'cuci')
+                                        <td>{{$item->cuci->jahit->potong->bahan->kode_transaksi}}</td>
+                                        <td>{{$item->cuci->jahit->potong->bahan->sku}}</td>
+                                        <td>{{$item->cuci->jahit->potong->bahan->nama_bahan}}</td>
+                                        <td>{{$item->tanggal_masuk}}</td>
+                                        <td>{{$item->asal}} </td>
+                                        <td>{{$item->total}} pcs</td>
+                                        @else
+                                        <td>{{$item->jahit->potong->bahan->kode_transaksi}}</td>
+                                        <td>{{$item->jahit->potong->bahan->sku}}</td>
+                                        <td>{{$item->jahit->potong->bahan->nama_bahan}}</td>
+                                        <td>{{$item->tanggal_masuk}}</td>
+                                        <td>{{$item->asal}} </td>
+                                        <td>{{$item->total}} pcs</td>
+                                        @endif
+
                                         <td>
                                             <a href="{{route('sampah.show',[$item->id])}}"
                                                 class="btn btn-outline-primary">Detail</a>

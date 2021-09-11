@@ -122,6 +122,11 @@ class CuciController extends Controller
                     $cuci->status_cuci = "konfirmasi cuci";
                     $cuci->nama_vendor = $request->get('nama_vendor');
                     $cuci->harga_vendor = $request->get('harga_vendor');
+                    $cuci->status_pembayaran = $request->get('status_pembayaran');
+                    if ( $cuci->status_pembayaran == 'Termin') {
+                         $cuci->total_bayar =   $cuci->harga_vendor * $request->get('jumlah_bahan_yang_dicuci');
+                         $cuci->sisa_bayar =   $cuci->harga_vendor * $request->get('jumlah_bahan_yang_dicuci');
+                    }
                     $cuci->save();
                     // $cuci->status_pembayaran = $request->get('status_pembayaran');
                     $jumlah = $request->get('jumlah');
@@ -395,7 +400,11 @@ class CuciController extends Controller
 
                     $cuci->nama_vendor = $request->get('nama_vendor');
                     $cuci->harga_vendor = $request->get('harga_vendor');
-                    // $cuci->status_pembayaran = $request->get('status_pembayaran');
+                    $cuci->status_pembayaran = $request->get('status_pembayaran');
+                    if ( $cuci->status_pembayaran == 'Termin') {
+                         $cuci->total_bayar =   $cuci->harga_vendor * $request->get('jumlah_bahan_yang_dicuci');
+                         $cuci->sisa_bayar =   $cuci->harga_vendor * $request->get('jumlah_bahan_yang_dicuci');
+                    }
                     $jumlah = $request->get('jumlah');
                     $dataukuran = $request->get('dataukuran');
                     $iddetailukuran = $request->get('iddetailukuran');
@@ -686,5 +695,63 @@ class CuciController extends Controller
 
         $pdf = PDF::loadView('backend.cuci.pdf', ['data' => $x]);
         return $pdf->stream('cuci.pdf');
+    }
+
+    public function pembayaranVendor(Request $request, $id)
+    {
+        $cuci = Cuci::where('id', $id)->where('status_pembayaran', 'Termin')->firstOrFail();
+        return view("backend.cuci.pembayaran.edit", ['cuci' => $cuci]);
+    }
+
+    public function pembayaranVendorUpdate(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'pembayaran_pertama' =>  'nullable|integer',
+            'pembayaran_kedua' =>  'nullable|integer',
+            'pembayaran_ketiga' =>  'nullable|integer',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator->errors());
+        } else {
+            $cuci = Cuci::where('id', $id)->where('status_pembayaran', 'Termin')->firstOrFail();
+
+            if ($request->has('pembayaran_pertama')) {
+                $cuci->pembayaran_pertama = $request->get('pembayaran_pertama');
+                $cuci->sisa_bayar = $cuci->sisa_bayar -  $request->get('pembayaran_pertama');
+            }
+
+            if ($request->has('pembayaran_kedua')) {
+                $cuci->pembayaran_kedua = $request->get('pembayaran_kedua');
+                $cuci->sisa_bayar = $cuci->sisa_bayar -  $request->get('pembayaran_kedua');
+            }
+
+            if ($request->has('pembayaran_ketiga')) {
+                $cuci->pembayaran_ketiga = $request->get('pembayaran_ketiga');
+                $cuci->sisa_bayar = $cuci->sisa_bayar -  $request->get('pembayaran_ketiga');
+            }
+
+            if ($cuci->pembayaran_pertama > 0) {
+                $total = $cuci->pembayaran_pertama;
+                if ($total >= $cuci->total_bayar) {
+                    $cuci->status_pembayaran = 'Lunas';
+                }
+            }
+
+            if ($cuci->pembayaran_pertama > 0 && $cuci->pembayaran_kedua > 0) {
+                $total = $cuci->pembayaran_pertama + $cuci->pembayaran_kedua;
+                if ($total >= $cuci->total_bayar) {
+                    $cuci->status_pembayaran = 'Lunas';
+                }
+            }
+
+            if ($cuci->pembayaran_pertama > 0 && $cuci->pembayaran_kedua > 0 && $cuci->pembayaran_ketiga > 0) {
+                $total = $cuci->pembayaran_pertama + $cuci->pembayaran_kedua + $cuci->pembayaran_ketiga;
+                if ($total >= $cuci->total_bayar) {
+                    $cuci->status_pembayaran = 'Lunas';
+                }
+            }
+            $cuci->save();
+            return redirect()->route('cuci.index')->with('success',  'Pembayaran berhasil diupdate');
+        }
     }
 }

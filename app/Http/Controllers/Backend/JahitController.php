@@ -86,6 +86,7 @@ class JahitController extends Controller
                     'vendor_jahit' => 'required',
                     'nama_vendor' => 'required',
                     'harga_vendor' => 'required',
+                    'status_pembayaran' => 'required',
                     'jumlah_bahan_yang_dijahit' => 'required',
                 ];
             }
@@ -149,6 +150,11 @@ class JahitController extends Controller
                         $jahit->nama_vendor = $request->get('nama_vendor');
                         $jahit->harga_vendor = $request->get('harga_vendor');
                         $jahit->status_pembayaran = $request->get('status_pembayaran');
+
+                        if ($jahit->status_pembayaran == 'Termin') {
+                            $jahit->total_bayar =  $jahit->harga_vendor * $request->get('jumlah_bahan_yang_dijahit');
+                            $jahit->sisa_bayar =  $jahit->harga_vendor * $request->get('jumlah_bahan_yang_dijahit');
+                        }
                     }
 
                     $jahit->jumlah_bahan = $request->get('jumlah_bahan_yang_dijahit');
@@ -157,14 +163,13 @@ class JahitController extends Controller
                     $ukuran = $request->get('ukuran');
                     $jumlah = $request->get('jumlah');
                     foreach ($ukuran as $key => $value) {
-                        if($jumlah[$key] >= 0 || $jumlah[$key] != null){
+                        if ($jumlah[$key] >= 0 || $jumlah[$key] != null) {
                             $detail = new DetailJahit();
                             $detail->jahit_id = $jahit->id;
                             $detail->size = $value;
                             $detail->jumlah = $jumlah[$key];
                             $detail->save();
                         }
-
                     }
                 }
 
@@ -245,7 +250,7 @@ class JahitController extends Controller
                         }
                     }
 
-                    DetailJahit::where('jahit_id',$jahit->id)->delete();
+                    DetailJahit::where('jahit_id', $jahit->id)->delete();
                     foreach ($arr as $key => $value) {
                         $detail = new DetailJahit();
                         $detail->jahit_id = $jahit->id;
@@ -269,7 +274,7 @@ class JahitController extends Controller
                         }
                     }
 
-                    JahitDirepair::where('jahit_id',$jahit->id)->delete();
+                    JahitDirepair::where('jahit_id', $jahit->id)->delete();
                     foreach ($arr as $key => $value) {
                         $detail = new JahitDirepair();
                         $detail->jahit_id = $jahit->id;
@@ -293,7 +298,7 @@ class JahitController extends Controller
                             array_push($arr, $x);
                         }
                     }
-                    JahitDibuang::where('jahit_id',$jahit->id)->delete();
+                    JahitDibuang::where('jahit_id', $jahit->id)->delete();
                     foreach ($arr as $key => $value) {
                         $detail = new JahitDibuang();
                         $detail->jahit_id = $jahit->id;
@@ -340,7 +345,7 @@ class JahitController extends Controller
             return view("backend.jahit.masuk.show", ['jahit' => $jahit]);
         } else  if ($jahit->status == 'jahitan selesai') {
             return view("backend.jahit.selesai.show", ['jahit' => $jahit]);
-        }else {
+        } else {
             return view("backend.jahit.keluar.show", ['jahit' => $jahit]);
         }
     }
@@ -446,7 +451,7 @@ class JahitController extends Controller
                         }
                     }
 
-                    DetailJahit::where('jahit_id',$jahit->id)->delete();
+                    DetailJahit::where('jahit_id', $jahit->id)->delete();
                     foreach ($arr as $key => $value) {
                         $detail = new DetailJahit();
                         $detail->jahit_id = $jahit->id;
@@ -474,7 +479,7 @@ class JahitController extends Controller
                         }
                     }
 
-                    DetailJahit::where('jahit_id',$jahit->id)->delete();
+                    DetailJahit::where('jahit_id', $jahit->id)->delete();
                     foreach ($arr as $key => $value) {
                         $detail = new DetailJahit();
                         $detail->jahit_id = $jahit->id;
@@ -498,7 +503,7 @@ class JahitController extends Controller
                         }
                     }
 
-                    JahitDirepair::where('jahit_id',$jahit->id)->delete();
+                    JahitDirepair::where('jahit_id', $jahit->id)->delete();
                     foreach ($arr as $key => $value) {
                         $detail = new JahitDirepair();
                         $detail->jahit_id = $jahit->id;
@@ -522,7 +527,7 @@ class JahitController extends Controller
                             array_push($arr, $x);
                         }
                     }
-                    JahitDibuang::where('jahit_id',$jahit->id)->delete();
+                    JahitDibuang::where('jahit_id', $jahit->id)->delete();
                     foreach ($arr as $key => $value) {
                         $detail = new JahitDibuang();
                         $detail->jahit_id = $jahit->id;
@@ -558,7 +563,7 @@ class JahitController extends Controller
                         }
                     }
 
-                    JahitDirepair::where('jahit_id',$jahit->id)->delete();
+                    JahitDirepair::where('jahit_id', $jahit->id)->delete();
                     foreach ($arr as $key => $value) {
                         $detail = new JahitDirepair();
                         $detail->jahit_id = $jahit->id;
@@ -582,7 +587,7 @@ class JahitController extends Controller
                             array_push($arr, $x);
                         }
                     }
-                    JahitDibuang::where('jahit_id',$jahit->id)->delete();
+                    JahitDibuang::where('jahit_id', $jahit->id)->delete();
                     foreach ($arr as $key => $value) {
                         $detail = new JahitDibuang();
                         $detail->jahit_id = $jahit->id;
@@ -632,8 +637,8 @@ class JahitController extends Controller
     public function getDataJahit(Request $request)
     {
         if ($request->ajax()) {
-            $jahit = Jahit::with(['detail_jahit','potong' => function ($q) {
-                $q->with(['bahan'  => function($q){
+            $jahit = Jahit::with(['detail_jahit', 'potong' => function ($q) {
+                $q->with(['bahan'  => function ($q) {
                     $q->with(['detail_sub' => function ($q) {
                         $q->with(['sub_kategori' => function ($q) {
                             $q->with('kategori');
@@ -715,5 +720,63 @@ class JahitController extends Controller
 
         $pdf = PDF::loadView('backend.jahit.pdf', ['data' => $x]);
         return $pdf->stream('jahit.pdf');
+    }
+
+    public function pembayaranVendor(Request $request, $id)
+    {
+        $jahit = Jahit::where('id', $id)->where('status_pembayaran', 'Termin')->firstOrFail();
+        return view("backend.jahit.pembayaran.edit", ['jahit' => $jahit]);
+    }
+
+    public function pembayaranVendorUpdate(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'pembayaran_pertama' =>  'nullable|integer',
+            'pembayaran_kedua' =>  'nullable|integer',
+            'pembayaran_ketiga' =>  'nullable|integer',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator->errors());
+        } else {
+            $jahit = Jahit::where('id', $id)->where('status_pembayaran', 'Termin')->firstOrFail();
+
+            if ($request->has('pembayaran_pertama')) {
+                $jahit->pembayaran_pertama = $request->get('pembayaran_pertama');
+                $jahit->sisa_bayar = $jahit->sisa_bayar -  $request->get('pembayaran_pertama');
+            }
+
+            if ($request->has('pembayaran_kedua')) {
+                $jahit->pembayaran_kedua = $request->get('pembayaran_kedua');
+                $jahit->sisa_bayar = $jahit->sisa_bayar -  $request->get('pembayaran_kedua');
+            }
+
+            if ($request->has('pembayaran_ketiga')) {
+                $jahit->pembayaran_ketiga = $request->get('pembayaran_ketiga');
+                $jahit->sisa_bayar = $jahit->sisa_bayar -  $request->get('pembayaran_ketiga');
+            }
+
+            if ($jahit->pembayaran_pertama > 0) {
+                $total = $jahit->pembayaran_pertama;
+                if ($total >= $jahit->total_bayar) {
+                    $jahit->status_pembayaran = 'Lunas';
+                }
+            }
+
+            if ($jahit->pembayaran_pertama > 0 && $jahit->pembayaran_kedua > 0) {
+                $total = $jahit->pembayaran_pertama + $jahit->pembayaran_kedua;
+                if ($total >= $jahit->total_bayar) {
+                    $jahit->status_pembayaran = 'Lunas';
+                }
+            }
+
+            if ($jahit->pembayaran_pertama > 0 && $jahit->pembayaran_kedua > 0 && $jahit->pembayaran_ketiga > 0) {
+                $total = $jahit->pembayaran_pertama + $jahit->pembayaran_kedua + $jahit->pembayaran_ketiga;
+                if ($total >= $jahit->total_bayar) {
+                    $jahit->status_pembayaran = 'Lunas';
+                }
+            }
+            $jahit->save();
+            return redirect()->route('jahit.index')->with('success',  'Pembayaran berhasil diupdate');
+        }
     }
 }

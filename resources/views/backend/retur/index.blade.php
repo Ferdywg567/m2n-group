@@ -34,37 +34,28 @@
                             <thead>
                                 <tr>
                                     <th scope="col">No</th>
-                                    <th scope="col">Kode Bahan</th>
+                                    <th scope="col">Kode Transaksi</th>
                                     <th scope="col">SKU</th>
                                     <th scope="col">Tgl Masuk</th>
-                                    <th scope="col">Nama Barang</th>
+
                                     <th scope="col">Warna</th>
-                                    <th scope="col">Ukuran</th>
-                                    <th scope="col">Barang Return</th>
+
+                                    <th scope="col">Jumlah</th>
                                     <th scope="col">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody id="">
 
                                 @forelse ($retur as $item)
-                                @php
-                                $ukuran = '';
-                                @endphp
-                                @forelse ($item->detail_retur as $row)
-                                @php
-                                $ukuran .= $row->ukuran . ', ';
-                                @endphp
-                                @empty
 
-                                @endforelse
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
-                                    <td>{{$item->finishing->rekapitulasi->cuci->jahit->potong->bahan->kode_bahan}}</td>
-                                    <td>{{$item->finishing->rekapitulasi->cuci->jahit->potong->bahan->sku}}</td>
-                                    <td>{{$item->finishing->rekapitulasi->cuci->jahit->potong->bahan->tanggal_masuk}}</td>
-                                    <td>{{$item->finishing->rekapitulasi->cuci->jahit->potong->bahan->nama_bahan}}</td>
-                                    <td>{{$item->finishing->rekapitulasi->cuci->jahit->potong->bahan->warna}}</td>
-                                    <td>{{$ukuran}}</td>
+                                    <td>{{$item->finishing->cuci->jahit->potong->bahan->kode_transaksi}}</td>
+                                    <td>{{$item->finishing->cuci->jahit->potong->bahan->sku}}</td>
+                                    <td>{{$item->finishing->cuci->jahit->potong->bahan->tanggal_masuk}}</td>
+                                  
+                                    <td>{{$item->finishing->cuci->jahit->potong->bahan->warna}}</td>
+
                                     <td>{{$item->total_barang}} pcs</td>
                                     <td>
                                         <div class="dropdown dropleft">

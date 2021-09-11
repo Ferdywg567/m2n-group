@@ -1,7 +1,7 @@
 @extends('backend.master')
 
-@section('title', 'Warehouse')
-@section('title-nav', 'Warehouse')
+@section('title', 'Gudang')
+@section('title-nav', 'Gudang')
 
 @section('warehouse', 'class=active-sidebar')
 
@@ -36,7 +36,7 @@
                             <thead>
                                 <tr>
                                     <th scope="col">No</th>
-                                    <th scope="col">Kode Bahan</th>
+                                    <th scope="col">Kode Transaksi</th>
                                     <th scope="col">SKU</th>
                                     <th scope="col">Jenis Kain</th>
                                     <th scope="col">Nama Produk</th>
@@ -56,12 +56,12 @@
                                 @endphp
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
-                                    <td>{{$item->finishing->rekapitulasi->cuci->jahit->potong->bahan->kode_bahan}}</td>
-                                    <td>{{$item->finishing->rekapitulasi->cuci->jahit->potong->bahan->sku}}</td>
-                                    <td>{{$item->finishing->rekapitulasi->cuci->jahit->potong->bahan->jenis_bahan}}</td>
-                                    <td>{{$item->finishing->rekapitulasi->cuci->jahit->potong->bahan->nama_bahan}}</td>
+                                    <td>{{$item->finishing->cuci->jahit->potong->bahan->kode_transaksi}}</td>
+                                    <td>{{$item->finishing->cuci->jahit->potong->bahan->sku}}</td>
+                                    <td>{{$item->finishing->cuci->jahit->potong->bahan->jenis_bahan}}</td>
+                                    <td>{{$item->finishing->cuci->jahit->potong->bahan->nama_bahan}}</td>
                                     <td>{{$total}}</td>
-                                    <td>{{$item->harga_produk}}/pcs</td>
+                                    <td>@rupiah($item->harga_produk)/pcs</td>
 
                                     <td>
                                         <div class="dropdown dropleft">

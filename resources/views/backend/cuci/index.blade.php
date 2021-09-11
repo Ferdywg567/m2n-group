@@ -100,7 +100,10 @@
                                                 </a>
                                                 <div class="dropdown-menu text-center"
                                                     aria-labelledby="dropdownMenuButton">
-
+                                                    <a class="dropdown-item"
+                                                    href="{{route('cuci.pembayaran',[$item->id])}}"><i
+                                                        class="ri-eye-fill"></i>
+                                                    Pembayaran Vendor</a>
                                                     <a class="dropdown-item"
                                                         href="{{route('cuci.show',[$item->id])}}"><i
                                                             class="ri-eye-fill"></i>

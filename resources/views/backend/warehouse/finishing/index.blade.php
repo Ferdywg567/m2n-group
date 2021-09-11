@@ -185,7 +185,7 @@
                                                 {{rtrim($ukuran,", ")}}
                                             </td>
                                             <td>{{$item->tanggal_masuk}}</td>
-                                            <td>{{$item->tanggal_qc}}</td>
+                                            <td>{{$item->tanggal_selesai}}</td>
                                             <td>{{$item->barang_lolos_qc}}/{{$item->cuci->berhasil_cuci}}</td>
                                             <td>
                                                 <div class="dropdown dropleft">

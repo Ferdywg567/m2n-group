@@ -100,8 +100,15 @@
                                 </div>
                                 @if ($jahit->vendor == 'eksternal')
                                 <div class="row" id="datavendor">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="status_pembayaran">Status Pembayaran</label>
+                                            <input type="text" class="form-control" required readonly id="status_pembayaran" value="{{$jahit->status_pembayaran}}"
+                                                name="status_pembayaran">
+                                        </div>
+                                    </div>
 
-                                    <div class="col-md-6">
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="nama_vendor">Nama Vendor</label>
                                             <input type="text" class="form-control" required readonly id="nama_vendor" value="{{$jahit->nama_vendor}}"

@@ -327,7 +327,8 @@
               $('#berhasil_jahit').on('keyup', function(){
                   var data = $(this).val()
                 var jumlah_bahan = $('#jumlah_bahan').val()
-
+                data = parseInt(data)
+                jumlah_bahan = parseInt(jumlah_bahan)
                 if(data <= jumlah_bahan){
                     var res = jumlah_bahan -  data;
                     $('#gagal_jahit').val(res)

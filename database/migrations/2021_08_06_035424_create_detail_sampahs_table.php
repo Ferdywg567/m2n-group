@@ -17,10 +17,7 @@ class CreateDetailSampahsTable extends Migration
             $table->id();
             $table->bigInteger('sampah_id')->unsigned()->index()->nullable();
             $table->foreign('sampah_id')->references('id')->on('sampahs')->onDelete('cascade');
-            $table->bigInteger('jahit_dibuang_id')->unsigned()->index()->nullable();
-            $table->foreign('jahit_dibuang_id')->references('id')->on('jahit_dibuangs')->onDelete('cascade');
-            $table->bigInteger('cuci_dibuang_id')->unsigned()->index()->nullable();
-            $table->foreign('cuci_dibuang_id')->references('id')->on('cuci_dibuangs')->onDelete('cascade');
+            $table->string('ukuran');
             $table->integer('jumlah');
             $table->timestamps();
         });

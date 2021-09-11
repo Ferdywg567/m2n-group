@@ -128,6 +128,7 @@ class FinishingController extends Controller
                     $finish->barang_dibuang = $request->get('produk_dibuang');
                     $finish->keterangan_diretur = $request->get('keterangan_diretur');
                     $finish->keterangan_dibuang = $request->get('keterangan_dibuang');
+                    $finish->tanggal_selesai = date('Y-m-d', strtotime($request->get('tanggal_selesai')));
                     $finish->save();
 
                     $jumlah = $request->get('jumlah');
@@ -270,6 +271,7 @@ class FinishingController extends Controller
                 'stok_lolos_sortir' => 'required',
                 'gagal_qc' => 'required',
                 'produk_diretur' => 'required',
+                'produk_dibuang' => 'required',
             ]);
         }
 
@@ -306,10 +308,75 @@ class FinishingController extends Controller
 
                     $status = 'produk masuk';
                 } else {
-                    $finish = Finishing::findOrFail($request->get('kode_transaksi'));
+                    $finish = Finishing::findOrFail($id);
                     $finish->no_surat = $request->get('no_surat');
-                    $finish->status = "kirim warehouse";
+                    $finish->barang_lolos_qc = $request->get('stok_lolos_sortir');
+                    $finish->barang_gagal_qc = $request->get('gagal_qc');
+                    $finish->barang_diretur = $request->get('produk_diretur');
+                    $finish->barang_dibuang = $request->get('produk_dibuang');
+                    $finish->keterangan_diretur = $request->get('keterangan_diretur');
+                    $finish->keterangan_dibuang = $request->get('keterangan_dibuang');
+                    $finish->tanggal_selesai = date('Y-m-d', strtotime($request->get('tanggal_selesai')));
                     $finish->save();
+
+                    $jumlah = $request->get('jumlah');
+                    $dataukuran = $request->get('dataukuran');
+                    $arr = [];
+                    foreach ($dataukuran as $key => $value) {
+                        if (!empty($jumlah[$key])) {
+                            $x['ukuran'] = $value;
+                            $x['jumlah'] = $jumlah[$key];
+                            array_push($arr, $x);
+                        }
+                    }
+                    DetailFinishing::where('finishing_id',$finish->id)->delete();
+                    foreach ($arr as $key => $value) {
+                        $detail = new DetailFinishing();
+                        $detail->finishing_id = $finish->id;
+                        $detail->ukuran = $value['ukuran'];
+                        $detail->jumlah = $value['jumlah'];
+                        $detail->save();
+                    }
+
+                    $jumlah = $request->get('jumlahdiretur');
+                    $dataukuran = $request->get('dataukurandiretur');
+                    $arr = [];
+                    foreach ($dataukuran as $key => $value) {
+                        if (!empty($jumlah[$key])) {
+                            $x['ukuran'] = $value;
+                            $x['jumlah'] = $jumlah[$key];
+                            array_push($arr, $x);
+                        }
+                    }
+
+                    FinishingRetur::where('finishing_id',$finish->id)->delete();
+                    foreach ($arr as $key => $value) {
+                        $detail = new FinishingRetur();
+                        $detail->finishing_id = $finish->id;
+                        $detail->ukuran = $value['ukuran'];
+                        $detail->jumlah = $value['jumlah'];
+                        $detail->save();
+                    }
+
+                    $jumlah = $request->get('jumlahdibuang');
+                    $dataukuran = $request->get('dataukurandibuang');
+                    $arr = [];
+                    foreach ($dataukuran as $key => $value) {
+                        if (!empty($jumlah[$key])) {
+                            $x['ukuran'] = $value;
+                            $x['jumlah'] = $jumlah[$key];
+                            array_push($arr, $x);
+                        }
+                    }
+
+                    FinishingDibuang::where('finishing_id',$finish->id)->delete();
+                    foreach ($arr as $key => $value) {
+                        $detail = new FinishingDibuang();
+                        $detail->finishing_id = $finish->id;
+                        $detail->ukuran = $value['ukuran'];
+                        $detail->jumlah = $value['jumlah'];
+                        $detail->save();
+                    }
                     $status = 'produk keluar';
                 }
 
@@ -407,7 +474,7 @@ class FinishingController extends Controller
             ];
 
             $x['title'] = $titlefinish;
-            $x['kode_bahan'] =  $finish->rekapitulasi->cuci->jahit->potong->bahan->kode_transaksi;
+            $x['kode_bahan'] =  $finish->cuci->jahit->potong->bahan->kode_transaksi;
             $ukuran = '';
 
             foreach ($finish->detail_finish as $key => $row) {
@@ -428,13 +495,13 @@ class FinishingController extends Controller
             }
             $retur .= ')';
             $x['data'] = [
-                $finish->rekapitulasi->cuci->jahit->potong->bahan->sku,
-                $finish->rekapitulasi->cuci->jahit->potong->bahan->jenis_bahan,
-                $finish->rekapitulasi->cuci->jahit->potong->bahan->nama_bahan,
-                $finish->rekapitulasi->cuci->jahit->potong->bahan->warna,
+                $finish->cuci->jahit->potong->bahan->sku,
+                $finish->cuci->jahit->potong->bahan->jenis_bahan,
+                $finish->cuci->jahit->potong->bahan->nama_bahan,
+                $finish->cuci->jahit->potong->bahan->warna,
                 $ukuran,
                 $finish->tanggal_qc,
-                $finish->rekapitulasi->total_barang,
+                $finish->cuci->berhasil_cuci,
                 $finish->barang_lolos_qc,
                 $retur,
                 $finish->keterangan_diretur,
@@ -469,7 +536,7 @@ class FinishingController extends Controller
 
         $x['title'] = $titlefinish;
         $ukuran = '';
-        $x['kode_bahan'] =  $finish->rekapitulasi->cuci->jahit->potong->bahan->kode_transaksi;
+        $x['kode_bahan'] =  $finish->cuci->jahit->potong->bahan->kode_transaksi;
         foreach ($finish->detail_finish as $key => $row) {
             $ukuran .= $row->ukuran . '=' . $row->jumlah . ', ';
         }
@@ -488,13 +555,13 @@ class FinishingController extends Controller
         }
         $retur .= ')';
         $x['data'] = [
-            $finish->rekapitulasi->cuci->jahit->potong->bahan->sku,
-            $finish->rekapitulasi->cuci->jahit->potong->bahan->jenis_bahan,
-            $finish->rekapitulasi->cuci->jahit->potong->bahan->nama_bahan,
-            $finish->rekapitulasi->cuci->jahit->potong->bahan->warna,
+            $finish->cuci->jahit->potong->bahan->sku,
+            $finish->cuci->jahit->potong->bahan->jenis_bahan,
+            $finish->cuci->jahit->potong->bahan->nama_bahan,
+            $finish->cuci->jahit->potong->bahan->warna,
             $ukuran,
             $finish->tanggal_qc,
-            $finish->rekapitulasi->total_barang,
+            $finish->total_barang,
             $finish->barang_lolos_qc,
             $retur,
             $finish->keterangan_diretur,
