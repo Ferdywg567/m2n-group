@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 class Cuci extends Model
+
 {
     public function jahit()
     {
@@ -26,8 +27,8 @@ class Cuci extends Model
         return $this->hasMany('App\CuciDibuang');
     }
 
-    public function rekapitulasi()
+    public function finishing()
     {
-        return $this->hasOne('App\Rekapitulasi');
+        return $this->hasOne('App\Finishing');
     }
 }

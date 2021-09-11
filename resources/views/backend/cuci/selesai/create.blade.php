@@ -153,10 +153,10 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="berhasil_jahit">Jumlah Berhasil Cuci</label>
+                                            <label for="berhasil_cuci">Jumlah Berhasil Cuci</label>
                                             <div class="input-group mb-2">
                                                 <input type="number" class="form-control" required
-                                                    id="berhasil_jahit" name="berhasil_jahit">
+                                                    id="berhasil_cuci" name="berhasil_cuci">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">pcs</div>
                                                 </div>
@@ -165,10 +165,10 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="gagal_jahit">Jumlah Gagal Cuci</label>
+                                            <label for="gagal_cuci">Jumlah Gagal Cuci</label>
                                             <div class="input-group mb-2">
                                                 <input type="number" class="form-control" required readonly
-                                                    id="gagal_jahit" name="gagal_jahit">
+                                                    id="gagal_cuci" name="gagal_cuci">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">pcs</div>
                                                 </div>
@@ -308,7 +308,7 @@
 
                $('#barang_direpair').on('keyup', function(){
                    var nilai = $(this).val()
-                   var dibuang = $('#kain_gagal_cuci').val()
+                   var dibuang = $('#gagal_cuci').val()
                    nilai = parseInt(nilai)
                    dibuang = parseInt(dibuang)
                    if(nilai > 0 && dibuang > 0 && dibuang >= nilai){
@@ -338,6 +338,19 @@
                   var res = hasil+' Lusin '+sisa+ ' pcs'
                   $('#konversi_siap').val(res)
               })
+
+              $('#berhasil_cuci').on('keyup', function(){
+                  var data = $(this).val()
+                var jumlah_bahan = $('#jumlah_bahan').val()
+
+                if(parseInt(data) <= parseInt(jumlah_bahan)){
+                    var res = jumlah_bahan -  data;
+                    $('#gagal_cuci').val(res)
+                }else{
+                    $('#gagal_cuci').val(0)
+                }
+              })
+
 
             //   $(document).on('click','#btnsize', function(){
             //     var ukuranm = $('#ukuranm').is(':visible')

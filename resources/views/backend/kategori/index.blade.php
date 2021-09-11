@@ -92,14 +92,6 @@
                                                         </a>
                                                         <div class="dropdown-menu text-center dropdown-menu-custom"
                                                             aria-labelledby="dropdownMenuButton">
-                                                            <form action="{{route('kategori.edit',[$item->id])}}"
-                                                                method="get" id="edit_kategori">
-                                                                <input type="hidden" name="status" value="kategori">
-                                                                <a href="#"
-                                                                    onclick="event.preventDefault(); document.getElementById('edit_kategori').submit();"
-                                                                    class="dropdown-item"><i
-                                                                        class="ri-edit-fill"></i>Edit</a>
-                                                            </form>
                                                             <a class="dropdown-item hapus" data-id="{{$item->id}}"
                                                                 href="#"><i class="ri-delete-bin-fill"></i>
                                                                 Delete</a>
@@ -145,11 +137,6 @@
                                                         <div class="dropdown-menu text-center dropdown-menu-custom"
                                                             aria-labelledby="dropdownMenuButton">
 
-
-                                                            <a class="dropdown-item"
-                                                                href="{{route('jahit.edit',[$item->id])}}"><i
-                                                                    class="ri-edit-fill"></i>
-                                                                Edit</a>
 
                                                             <a class="dropdown-item hapus" data-id="{{$item->id}}"
                                                                 href="#"><i class="ri-delete-bin-fill"></i>
@@ -202,10 +189,7 @@
                                                             aria-labelledby="dropdownMenuButton">
 
 
-                                                            <a class="dropdown-item"
-                                                                href="{{route('jahit.edit',[$item->id])}}"><i
-                                                                    class="ri-edit-fill"></i>
-                                                                Edit</a>
+
 
                                                             <a class="dropdown-item hapus" data-id="{{$item->id}}"
                                                                 href="#"><i class="ri-delete-bin-fill"></i>

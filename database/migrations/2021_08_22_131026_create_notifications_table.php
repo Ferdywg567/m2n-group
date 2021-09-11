@@ -18,6 +18,7 @@ class CreateNotificationsTable extends Migration
             $table->longText('description');
             $table->longText('url');
             $table->integer('aktif')->default(0);
+            $table->integer('read')->default(0);
             $table->timestamps();
         });
     }

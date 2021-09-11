@@ -265,8 +265,10 @@
                     var diambil = $(this).val();
                     var panjang_bahan = $('#panjang_bahan').val()
                     var res = 0
-                    if(diambil <= panjang_bahan){
+                    if(parseInt(diambil) <= parseInt(panjang_bahan)){
                         res = panjang_bahan - diambil
+                    }else{
+                        re
                     }
                     $('#sisa_bahan').val(res)
              })

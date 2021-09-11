@@ -15,8 +15,8 @@ class CreateFinishingsTable extends Migration
     {
         Schema::create('finishings', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('rekapitulasi_id')->unsigned()->index()->nullable();
-            $table->foreign('rekapitulasi_id')->references('id')->on('rekapitulasis')->onDelete('cascade');
+            $table->bigInteger('cuci_id')->unsigned()->index()->nullable();
+            $table->foreign('cuci_id')->references('id')->on('cucis')->onDelete('cascade');
             $table->string('no_surat');
             $table->date('tanggal_masuk')->nullable();
             $table->date('tanggal_qc')->nullable();

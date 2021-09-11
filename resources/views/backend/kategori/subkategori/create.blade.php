@@ -26,11 +26,11 @@
             <a class="btn btn-primary" href="{{route('kategori.index')}}">
                 <i class="fas fa-arrow-left"></i>
             </a>
-            <h1 class="ml-2">Input Kategori</h1>
+            <h1 class="ml-2">Input Sub Kategori</h1>
         </div>
         <div class="section-body">
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <div class="card">
                         <form action="{{route('kategori.store')}}" method="post">
                             @csrf

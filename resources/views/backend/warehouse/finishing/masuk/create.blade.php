@@ -55,7 +55,7 @@
                                                     name="kode_transaksi">
                                                     <option value="">Pilih Kode Transaksi</option>
                                                     @forelse ($rekap as $item)
-                                                        <option value="{{$item->id}}">{{$item->cuci->jahit->potong->bahan->kode_transaksi}}</option>
+                                                        <option value="{{$item->id}}">{{$item->jahit->potong->bahan->kode_transaksi}}</option>
                                                     @empty
 
                                                     @endforelse
@@ -140,46 +140,18 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row" style="margin-bottom: -30px">
+                                <div class="row" id="title-ukuran">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="ukuran">Ukuran</label>
+                                            <label for="ukuran">Ukuran Yang Dijahit</label>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label for="ukuran">S</label>
-                                            <input type="hidden" name="dataukuran[]" value="S">
-                                            <input type="hidden" name="iddetailukuran[]" id="iddetails">
-                                            <input type="number" min="0" class="form-control" required id="jumlahs" value="0"
-                                                name="jumlah[]">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2" id="ukuranm">
-                                        <div class="form-group">
-                                            <label for="ukuran">M</label>
-                                            <input type="hidden" name="dataukuran[]" value="M">
-                                            <input type="hidden" name="iddetailukuran[]" id="iddetailm">
-                                            <input type="number" min="0" class="form-control" required id="jumlahm" value="0"
-                                                name="jumlah[]">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2" id="ukuranl">
-                                        <div class="form-group">
-                                            <label for="ukuran">L</label>
-                                            <input type="hidden" name="dataukuran[]" value="L">
-                                            <input type="hidden" name="iddetailukuran[]" id="iddetaill">
-                                            <input type="number" min="0" class="form-control" required id="jumlahl" value="0"
-                                                name="jumlah[]">
-                                        </div>
-                                    </div>
+                                <div id="data-ukuran">
 
                                 </div>
 
-
-                                <div class="row">
+                                <div class="row mt-2">
                                     <div class="col-md-12 text-center">
                                         <a type="button" class="btn btn-secondary"
                                             href="{{route('warehouse.finishing.index')}}">Batal</a>
@@ -237,7 +209,7 @@
               $('#kode_transaksiselect').select2()
               $('#kode_transaksiselectkeluar').select2()
               $('.btnmasuk').prop('id','btnsimpanmasuk')
-
+              $('#title-ukuran').hide()
 
               $('#vendor_jahit').on('change', function () {
                   var data = $(this).find(':selected').val()
@@ -285,78 +257,78 @@
                   $('#konversi').val(res)
               })
 
-            $(document).on('click','#btnsize', function(){
-                var ukuranm = $('#ukuranm').is(':visible')
-                var ukuranl = $('#ukuranl').is(':visible')
-                var ukuranxl = $('#ukuranxl').is(':visible')
-                var ukuranxxl = $('#ukuranxxl').is(':visible')
+            // $(document).on('click','#btnsize', function(){
+            //     var ukuranm = $('#ukuranm').is(':visible')
+            //     var ukuranl = $('#ukuranl').is(':visible')
+            //     var ukuranxl = $('#ukuranxl').is(':visible')
+            //     var ukuranxxl = $('#ukuranxxl').is(':visible')
 
-                if(!ukuranm){
-                    $('#ukuranm').show()
-                    $('#ukurandireturm').show()
-                    $('#ukurandibuangm').show()
-                    return false;
-                }else if(!ukuranl){
-                    $('#ukuranl').show()
-                    $('#ukurandireturl').show()
-                    $('#ukurandibuangl').show()
-                    return false;
-                }else if(!ukuranxl){
-                    $('#ukuranxl').show()
-                    $('#ukurandireturxl').show()
-                    $('#ukurandibuangxl').show()
-                    return false;
-                }else if(!ukuranxxl){
-                    $('#ukuranxxl').show()
-                    $('#ukurandireturxxl').show()
-                    $('#ukurandibuangxxl').show()
-                    return false;
-                }
-            })
+            //     if(!ukuranm){
+            //         $('#ukuranm').show()
+            //         $('#ukurandireturm').show()
+            //         $('#ukurandibuangm').show()
+            //         return false;
+            //     }else if(!ukuranl){
+            //         $('#ukuranl').show()
+            //         $('#ukurandireturl').show()
+            //         $('#ukurandibuangl').show()
+            //         return false;
+            //     }else if(!ukuranxl){
+            //         $('#ukuranxl').show()
+            //         $('#ukurandireturxl').show()
+            //         $('#ukurandibuangxl').show()
+            //         return false;
+            //     }else if(!ukuranxxl){
+            //         $('#ukuranxxl').show()
+            //         $('#ukurandireturxxl').show()
+            //         $('#ukurandibuangxxl').show()
+            //         return false;
+            //     }
+            // })
 
 
-            $(document).on('click','#btnhapus', function(){
-                var ukuranm = $('#ukuranm').is(':visible')
-                var ukuranl = $('#ukuranl').is(':visible')
-                var ukuranxl = $('#ukuranxl').is(':visible')
-                var ukuranxxl = $('#ukuranxxl').is(':visible')
+            // $(document).on('click','#btnhapus', function(){
+            //     var ukuranm = $('#ukuranm').is(':visible')
+            //     var ukuranl = $('#ukuranl').is(':visible')
+            //     var ukuranxl = $('#ukuranxl').is(':visible')
+            //     var ukuranxxl = $('#ukuranxxl').is(':visible')
 
-                if(ukuranxxl){
-                    $('#ukuranxxl').hide()
-                    $('#ukurandirepairxxl').hide()
-                    $('#ukurandibuangxxl').hide()
-                    $('#jumlahxxl').val('')
-                    $('#jumlahdirepairxxl').val('')
-                    $('#jumlahdibuangxxl').val('')
+            //     if(ukuranxxl){
+            //         $('#ukuranxxl').hide()
+            //         $('#ukurandirepairxxl').hide()
+            //         $('#ukurandibuangxxl').hide()
+            //         $('#jumlahxxl').val('')
+            //         $('#jumlahdirepairxxl').val('')
+            //         $('#jumlahdibuangxxl').val('')
 
-                    return false;
-                }else if(ukuranxl){
-                    $('#ukuranxl').hide()
-                    $('#ukurandirepairxl').hide()
-                    $('#ukurandibuangxl').hide()
-                    $('#jumlahxl').val('')
-                    $('#jumlahdirepairxl').val('')
-                    $('#jumlahdibuangxl').val('')
-                    return false;
-                }else if(ukuranl){
-                    $('#ukuranl').hide()
-                    $('#ukurandirepairl').hide()
-                    $('#ukurandibuangl').hide()
-                    $('#jumlahl').val('')
-                    $('#jumlahdirepairl').val('')
-                    $('#jumlahdibuangl').val('')
-                    return false;
-                }else if(ukuranm){
-                    $('#ukuranm').hide()
-                    $('#ukurandirepairm').hide()
-                    $('#ukurandibuangm').hide()
-                    $('#datahapus').hide()
-                    $('#jumlahm').val('')
-                    $('#jumlahdirepairm').val('')
-                    $('#jumlahdibuangm').val('')
-                    return false;
-                }
-            })
+            //         return false;
+            //     }else if(ukuranxl){
+            //         $('#ukuranxl').hide()
+            //         $('#ukurandirepairxl').hide()
+            //         $('#ukurandibuangxl').hide()
+            //         $('#jumlahxl').val('')
+            //         $('#jumlahdirepairxl').val('')
+            //         $('#jumlahdibuangxl').val('')
+            //         return false;
+            //     }else if(ukuranl){
+            //         $('#ukuranl').hide()
+            //         $('#ukurandirepairl').hide()
+            //         $('#ukurandibuangl').hide()
+            //         $('#jumlahl').val('')
+            //         $('#jumlahdirepairl').val('')
+            //         $('#jumlahdibuangl').val('')
+            //         return false;
+            //     }else if(ukuranm){
+            //         $('#ukuranm').hide()
+            //         $('#ukurandirepairm').hide()
+            //         $('#ukurandibuangm').hide()
+            //         $('#datahapus').hide()
+            //         $('#jumlahm').val('')
+            //         $('#jumlahdirepairm').val('')
+            //         $('#jumlahdibuangm').val('')
+            //         return false;
+            //     }
+            // })
 
             $('#kode_transaksiselectkeluar').on('change', function () {
                     var id = $(this).find(':selected').val()
@@ -373,17 +345,39 @@
                             if(response.status){
                                 console.log(response);
                                 var data = response.data;
-                                var cuci = data.cuci
-                                var bahan = data.cuci.jahit.potong.bahan
-                                var sku = bahan.skus
-                                $('#sku').val(bahan.sku)
-                                $('#no_surat').val(cuci.no_surat)
-                                $('#nama_produk').val(sku.nama_produk)
-                                $('#jenis_kain').val(sku.jenis_bahan)
-                                $('#warna').val(sku.warna)
-                                $('#tanggal_masuk').val(bahan.tanggal_masuk)
-                                $('#barang_siap_qc').val(data.total_barang)
 
+                                var bahan = data.jahit.potong.bahan
+                                var detail_cuci = data.detail_cuci
+                                $('#sku').val(bahan.sku)
+                                $('#no_surat').val(data.no_surat)
+                                $('#nama_produk').val(bahan.nama_bahan)
+                                $('#jenis_kain').val(bahan.jenis_bahan)
+                                $('#warna').val(bahan.warna)
+                                $('#tanggal_masuk').val(bahan.tanggal_masuk)
+                                $('#barang_siap_qc').val(data.berhasil_cuci)
+                                var content="";
+                                detail_cuci.forEach((result, i) => {
+                                    if(i == 0){
+                                        content+= '<div class="row">'
+                                    }
+
+                                    content += '<div class="col-md-2">'+
+                                    '<input type="hidden" name="ukuran[]" value="'+result.size+'">'+
+                                    '<div class="input-group mb-2">'+
+                                        '<div class="input-group-prepend">'+
+                                            '<div class="input-group-text">'+result.size+'</div>'+
+                                        '</div>'+
+                                        '<input type="number" class="form-control" required id="jumlah" name="jumlah[]" >'+
+                                    '</div>'+
+                                   '</div>';
+                                    if(i!=0 && i%6 == 0){
+
+                                        // add end of row ,and start new row on every 5 elements
+                                        content += '</div><div class="row">'
+                                    }
+                                });
+                                $('#title-ukuran').show()
+                                $('#data-ukuran').html(content)
                             }
 
                         })

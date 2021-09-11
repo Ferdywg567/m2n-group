@@ -84,11 +84,11 @@
                                         @forelse ($finish as $item)
                                         <tr>
                                             <td>{{$loop->iteration}}</td>
-                                            <td>{{$item->rekapitulasi->cuci->jahit->potong->bahan->kode_transaksi}}</td>
-                                            <td>{{$item->rekapitulasi->cuci->jahit->potong->bahan->sku}}</td>
-                                            <td>{{$item->rekapitulasi->cuci->jahit->potong->bahan->skus->jenis_bahan}}
+                                            <td>{{$item->cuci->jahit->potong->bahan->kode_transaksi}}</td>
+                                            <td>{{$item->cuci->jahit->potong->bahan->sku}}</td>
+                                            <td>{{$item->cuci->jahit->potong->bahan->jenis_bahan}}
                                             </td>
-                                            <td>{{$item->rekapitulasi->cuci->jahit->potong->bahan->skus->nama_produk}}</td>
+                                            <td>{{$item->cuci->jahit->potong->bahan->nama_bahan}}</td>
                                             <td>
                                                 @php
                                                 $ukuran = '';
@@ -106,7 +106,7 @@
                                             </td>
                                             <td>{{$item->tanggal_masuk}}</td>
                                             <td>{{$item->tanggal_qc}}</td>
-                                            {{-- <td>{{$item->barang_lolos_qc}}/{{$item->rekapitulasi->total_barang}} --}}
+                                            {{-- <td>{{$item->barang_lolos_qc}}/{{$item->total_barang}} --}}
                                             </td>
                                             <td>
                                                 <div class="dropdown dropleft">
@@ -164,11 +164,11 @@
                                         @forelse ($kirim as $item)
                                         <tr>
                                             <td>{{$loop->iteration}}</td>
-                                            <td>{{$item->rekapitulasi->cuci->jahit->potong->bahan->kode_bahan}}</td>
-                                            <td>{{$item->rekapitulasi->cuci->jahit->potong->bahan->sku}}</td>
-                                            <td>{{$item->rekapitulasi->cuci->jahit->potong->bahan->jenis_bahan}}
+                                            <td>{{$item->cuci->jahit->potong->bahan->kode_bahan}}</td>
+                                            <td>{{$item->cuci->jahit->potong->bahan->sku}}</td>
+                                            <td>{{$item->cuci->jahit->potong->bahan->jenis_bahan}}
                                             </td>
-                                            <td>{{$item->rekapitulasi->cuci->jahit->potong->bahan->nama_bahan}}</td>
+                                            <td>{{$item->cuci->jahit->potong->bahan->nama_bahan}}</td>
                                             <td>
                                                 @php
                                                 $ukuran = '';
@@ -186,7 +186,7 @@
                                             </td>
                                             <td>{{$item->tanggal_masuk}}</td>
                                             <td>{{$item->tanggal_qc}}</td>
-                                            <td>{{$item->barang_lolos_qc}}/{{$item->rekapitulasi->total_barang}}</td>
+                                            <td>{{$item->barang_lolos_qc}}/{{$item->cuci->berhasil_cuci}}</td>
                                             <td>
                                                 <div class="dropdown dropleft">
                                                     <a class="" href="#" id="dropdownMenuButton" data-toggle="dropdown"

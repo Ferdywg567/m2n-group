@@ -36,4 +36,9 @@ class Finishing extends Model
     {
         $this->hasOne('App\Retur');
     }
+
+    public function cuci()
+    {
+        return $this->belongsTo('App\Cuci');
+    }
 }
