@@ -225,7 +225,7 @@
                                             htmldata += '<div class="col-md-6"><div class="card tinggi_card"><div class="card-body"><h5 class="card-title right mr-2">GARMENT</h5><hr><div class="row ml-2"><div class="col-md-3"><span  class="btn btn-primary">'+element.icon+' '+element.menu+'</span></div></div><table class="table" ><tbody>'
                                             data.forEach((value, index) => {
                                                     htmldata += '<tr>'
-                                                        htmldata += '<td>' +title[index]+ '</td>'
+                                                        htmldata += '<td style="text-align:left">' +title[index]+ '</td>'
                                                         htmldata += '<td class="right font-weight-bold">' +value+ '</td>'
                                                     htmldata += '</tr>'
                                             });

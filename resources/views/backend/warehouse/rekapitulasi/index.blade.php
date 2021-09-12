@@ -20,9 +20,9 @@
 <div id="non-printable">
     <section class="section mt-4">
         <div class="btn-group">
-            <a href="{{route('warehouse.rekapitulasi.create')}}" class="btn btn-primary rounded">
+            {{-- <a href="{{route('warehouse.rekapitulasi.create')}}" class="btn btn-primary rounded">
                 Input Data <i class="fas fa-plus"></i>
-            </a>
+            </a> --}}
             <a href="{{route('warehouse.print.index')}}" class="btn btn-outline-primary rounded ml-1">Print Semua  <i class="ri-printer-fill"></i>
             </a>
         </div>
@@ -37,14 +37,14 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">No</th>
-                                        <th scope="col">Kode Bahan</th>
+                                        <th scope="col">Kode Transaksi</th>
                                         <th scope="col">SKU</th>
                                         <th scope="col">Jenis Bahan</th>
-                                        <th scope="col">Tgl Masuk</th>
-                                        <th scope="col">Tgl Kirim</th>
+
                                         <th scope="col">Nama Barang</th>
                                         <th scope="col">Warna</th>
-                                        <th scope="col">Siap QC</th>
+                                        <th scope="col">Diretur</th>
+                                        <th scope="col">Dibuang</th>
                                         <th scope="col">Aksi</th>
                                     </tr>
                                 </thead>
@@ -52,20 +52,21 @@
                                     @forelse ($rekap as $item)
                                     <tr>
                                         <td>{{$loop->iteration}}</td>
-                                        <td>{{$item->warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->kode_bahan}}
+                                        <td>{{$item->warehouse->finishing->cuci->jahit->potong->bahan->kode_transaksi}}
                                         </td>
-                                        <td>{{$item->warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->sku}}
+                                        <td>{{$item->warehouse->finishing->cuci->jahit->potong->bahan->sku}}
                                         </td>
-                                        <td>{{$item->warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->jenis_bahan}}
+                                        <td>{{$item->warehouse->finishing->cuci->jahit->potong->bahan->jenis_bahan}}
                                         </td>
-                                        <td>{{$item->warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->tanggal_masuk}}
+                                        <td>{{$item->warehouse->finishing->cuci->jahit->potong->bahan->nama_bahan}}
                                         </td>
-                                        <td>{{$item->tanggal_kirim}}</td>
-                                        <td>{{$item->warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->nama_bahan}}
+                                        <td>{{$item->warehouse->finishing->cuci->jahit->potong->bahan->warna}}
                                         </td>
-                                        <td>{{$item->warehouse->finishing->rekapitulasi->cuci->jahit->potong->bahan->warna}}
+                                        <td>{{$item->jumlah_diretur}} pcs
                                         </td>
-                                        <td>{{$item->total_barang}}</td>
+                                        <td>{{$item->jumlah_dibuang}} pcs
+                                        </td>
+
 
                                         <td>
                                             <div class="dropdown dropleft">

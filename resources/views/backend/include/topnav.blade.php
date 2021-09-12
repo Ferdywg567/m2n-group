@@ -40,9 +40,9 @@
                 style="overflow: hidden; outline: none; touch-action: none;">
                 @php
                     if(auth()->user()->hasRole('production')){
-                        $notif = \App\Notification::where('url','LIKE','%production%')->get();
+                        $notif = \App\Notification::where('url','LIKE','%production%')->orderBy('created_at','DESC')->get();
                     }else{
-                        $notif = \App\Notification::where('url','LIKE','%warehouse%')->get();
+                        $notif = \App\Notification::where('url','LIKE','%warehouse%')->orderBy('created_at','DESC')->get();
                     }
 
                 @endphp

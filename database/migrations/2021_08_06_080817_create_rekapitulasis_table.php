@@ -17,9 +17,10 @@ class CreateRekapitulasisTable extends Migration
             $table->id();
             $table->bigInteger('cuci_id')->unsigned()->index()->nullable();
             $table->foreign('cuci_id')->references('id')->on('cucis')->onDelete('cascade');
-            $table->date('tanggal_masuk')->nullable();
-            $table->date('tanggal_kirim')->nullable();
-            $table->integer('total_barang')->default(0);
+            $table->bigInteger('jahit_id')->unsigned()->index()->nullable();
+            $table->foreign('jahit_id')->references('id')->on('jahits')->onDelete('cascade');
+            $table->integer('jumlah_diperbaiki')->nullable();
+            $table->integer('jumlah_dibuang')->nullable();
             $table->timestamps();
         });
     }

@@ -19,7 +19,8 @@ class CreateRekapitulasiWarehousesTable extends Migration
             $table->foreign('warehouse_id')->references('id')->on('warehouses')->onDelete('cascade');
             $table->date('tanggal_kirim')->nullable();
             $table->date('tanggal_masuk')->nullable();
-            $table->integer('total_barang');
+            $table->integer('jumlah_diretur')->nullable();
+            $table->integer('jumlah_dibuang')->nullable();
             $table->timestamps();
         });
     }

@@ -22,82 +22,121 @@
                             @csrf
 
                             <input type="hidden" name="id" value="{{$rekap->id}}">
+                            @if (!empty($rekap->cuci_id))
                             <div class="card-body">
-
                                 <div class="row">
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="kode_transaksi">Kode Transaksi</label>
-                                            <input type="text" class="form-control" readonly
-                                                value="{{$rekap->cuci->jahit->potong->bahan->kode_transaksi}}" required
-                                                id="kode_transaksi" name="kode_transaksi">
-                                        </div>
-
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="sku">SKU</label>
-                                            <input type="text" class="form-control" readonly
-                                                value="{{$rekap->cuci->jahit->potong->bahan->sku}}" required
-                                                id="sku_keluar" name="sku">
-                                        </div>
-
-                                    </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="jenis_bahan">Jenis Bahan</label>
-                                            <input type="text" class="form-control" readonly required id="jenis_bahan"
-                                                value="{{$rekap->cuci->jahit->potong->bahan->skus->jenis_bahan}}"
-                                                name="jenis_bahan">
+                                            <label for="kode_transaksi">Kode Transaksi</label>
+                                            <input type="text" class="form-control" readonly required
+                                                id="kode_transaksi" name="kode_transaksi"
+                                                value="{{$rekap->cuci->jahit->potong->bahan->kode_transaksi}}">
                                         </div>
+
                                     </div>
-                                </div>
-                                <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="nama_bahan">Nama Produk</label>
                                             <input type="text" class="form-control" readonly required id="nama_bahan"
-                                                value="{{$rekap->cuci->jahit->potong->bahan->skus->nama_produk}}"
-                                                name="nama_bahan">
+                                                name="nama_bahan"
+                                                value="{{$rekap->cuci->jahit->potong->bahan->nama_bahan}}">
                                         </div>
                                     </div>
 
+                                </div>
+                                <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="warna_baju">Warna Baju</label>
+                                            <label for="warna_baju">Warna</label>
                                             <input type="text" class="form-control" readonly required
-                                                value="{{$rekap->cuci->jahit->potong->bahan->skus->warna}}"
-                                                id="warna_baju_keluar" name="warna_baju">
+                                                id="warna_baju_keluar" name="warna_baju"
+                                                value="{{$rekap->cuci->jahit->potong->bahan->warna}}">
                                         </div>
 
                                     </div>
+
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="jenis_bahan">Jenis Kain</label>
+                                            <input type="text" class="form-control" readonly required
+                                                id="jenis_bahan_keluar" name="jenis_bahan"
+                                                value="{{$rekap->cuci->jahit->potong->bahan->jenis_bahan}}">
+                                        </div>
+
+                                    </div>
+
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="tanggal_masuk">Tanggal Barang Masuk </label>
-                                            <input type="date" class="form-control" readonly required id="tanggal_masuk"
-                                                value="{{$rekap->tanggal_masuk}}" name="tanggal_masuk">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="tanggal_kirim">Tanggal Kirim Barang</label>
-                                            <input type="date" class="form-control" readonly required id="tanggal_kirim"
-                                                value="{{$rekap->tanggal_kirim}}" name="tanggal_kirim">
-                                        </div>
-                                    </div>
-                                </div>
 
-                                <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="total_barang">Total Stok Terbaru</label>
+                                            <label for="sku">SKU</label>
+                                            <input type="text" class="form-control" readonly required id="sku_keluar"
+                                                name="sku" value="{{$rekap->cuci->jahit->potong->bahan->sku}}">
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="kategori">Kategori</label>
+                                            <input type="text" class="form-control" required readonly id="kategori"
+                                                value="{{$rekap->cuci->jahit->potong->bahan->detail_sub->sub_kategori->kategori->nama_kategori}}"
+                                                name="kategori">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="sub_kategori">Sub Kategori</label>
+                                            <input type="text" class="form-control" required readonly id="sub_kategori"
+                                                value="{{$rekap->cuci->jahit->potong->bahan->detail_sub->nama_kategori}}"
+                                                name="sub_kategori">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="detail_sub_kategori">Detail Sub Kategori</label>
+
+                                            <input type="text" class="form-control" required readonly
+                                                value="{{$rekap->cuci->jahit->potong->bahan->detail_sub->nama_kategori}}"
+                                                id="detail_sub_kategori" name="detail_sub_kategori">
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="asal">Asal</label>
+                                            <input type="text" class="form-control" readonly required id="asal_keluar"
+                                                name="asal" value="Cuci">
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="barang_direpair">Jumlah Diperbaiki</label>
                                             <div class="input-group mb-2">
-                                                <input type="number" class="form-control" readonly required
-                                                    value="{{$rekap->total_barang}}" id="total_barang"
-                                                    name="total_barang">
+                                                <input type="number" class="form-control" required readonly
+                                                    value="{{$rekap->jumlah_diperbaiki}}" id="barang_direpair"
+                                                    name="barang_direpair">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">pcs</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="barang_direpair">Jumlah Dibuang</label>
+                                            <div class="input-group mb-2">
+                                                <input type="number" class="form-control" required readonly
+                                                    value="{{$rekap->jumlah_dibuang}}" id="barang_direpair"
+                                                    name="barang_direpair">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">pcs</div>
                                                 </div>
@@ -105,59 +144,53 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row" style="margin-bottom: -30px">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="ukuran">Ukuran</label>
-
-                                        </div>
-                                    </div>
-                                </div>
+                                <label for="ukurandirepair" class="text-dark">Ukuran yang Direpair</label>
                                 <div class="row">
 
                                     @forelse ($rekap->detail_rekap as $item)
-                                    @if ($item->ukuran == 'S')
+                                    @if ($item->status == 'direpair')
                                     <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label for="ukuran">S</label>
-                                            <input type="hidden" name="dataukuran[]" value="S">
-                                            <input type="hidden" name="iddetailukuran[]" value="{{$item->id}}"
-                                                id="iddetails">
-                                            <input type="number" min="0" readonly value="{{$item->jumlah}}" class="form-control"
-                                                required id="jumlahs" name="jumlah[]">
-                                        </div>
-                                    </div>
-                                    @elseif($item->ukuran == 'M')
-                                    <div class="col-md-2" id="ukuranm">
-                                        <div class="form-group">
-                                            <label for="ukuran">M</label>
-                                            <input type="hidden" name="dataukuran[]" value="M">
-                                            <input type="hidden" name="iddetailukuran[]" value="{{$item->id}}"
-                                                id="iddetailm">
-                                            <input type="number" min="0" readonly value="{{$item->jumlah}}" class="form-control"
-                                                required id="jumlahm" name="jumlah[]">
-                                        </div>
-                                    </div>
-                                    @elseif($item->ukuran == 'L')
-                                    <div class="col-md-2" id="ukuranl">
-                                        <div class="form-group">
-                                            <label for="ukuran">L</label>
-                                            <input type="hidden" name="dataukuran[]" value="L">
-                                            <input type="hidden" name="iddetailukuran[]" value="{{$item->id}}"
-                                                id="iddetaill">
-                                            <input type="number" min="0" readonly value="{{$item->jumlah}}" class="form-control"
-                                                required id="jumlahl" name="jumlah[]">
+                                        <input type="hidden" name="dataukurandirepair[]" value="{{$item->ukuran}}">
+                                        <div class="input-group mb-2">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">{{$item->ukuran}}</div>
+                                            </div>
+                                            <input type="number" class="form-control" readonly required
+                                                id="jumlahdirepair" name="jumlahdirepair[]" value="{{$item->jumlah}}">
                                         </div>
                                     </div>
 
                                     @endif
+
                                     @empty
 
                                     @endforelse
 
                                 </div>
-
+                                <label for="ukurandirepair" class="text-dark">Ukuran yang Dibuang</label>
                                 <div class="row">
+
+                                    @forelse ($rekap->detail_rekap as $item)
+                                    @if ($item->status == 'dibuang')
+                                    <div class="col-md-2">
+                                        <input type="hidden" name="dataukurandirepair[]" value="{{$item->ukuran}}">
+                                        <div class="input-group mb-2">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">{{$item->ukuran}}</div>
+                                            </div>
+                                            <input type="number" class="form-control" readonly required
+                                                id="jumlahdirepair" name="jumlahdirepair[]" value="{{$item->jumlah}}">
+                                        </div>
+                                    </div>
+
+                                    @endif
+
+                                    @empty
+
+                                    @endforelse
+
+                                </div>
+                                <div class="row mt-2">
                                     <div class="col-md-12 text-center">
                                         <a type="button" class="btn btn-secondary"
                                             href="{{route('rekapitulasi.index')}}">Close</a>
@@ -167,6 +200,186 @@
                                     </div>
                                 </div>
                             </div>
+                            @else
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="kode_transaksi">Kode Transaksi</label>
+                                            <input type="text" class="form-control" readonly required
+                                                id="kode_transaksi" name="kode_transaksi"
+                                                value="{{$rekap->jahit->potong->bahan->kode_transaksi}}">
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="nama_bahan">Nama Produk</label>
+                                            <input type="text" class="form-control" readonly required id="nama_bahan"
+                                                name="nama_bahan"
+                                                value="{{$rekap->jahit->potong->bahan->nama_bahan}}">
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="warna_baju">Warna</label>
+                                            <input type="text" class="form-control" readonly required
+                                                id="warna_baju_keluar" name="warna_baju"
+                                                value="{{$rekap->jahit->potong->bahan->warna}}">
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="jenis_bahan">Jenis Kain</label>
+                                            <input type="text" class="form-control" readonly required
+                                                id="jenis_bahan_keluar" name="jenis_bahan"
+                                                value="{{$rekap->jahit->potong->bahan->jenis_bahan}}">
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="sku">SKU</label>
+                                            <input type="text" class="form-control" readonly required id="sku_keluar"
+                                                name="sku" value="{{$rekap->jahit->potong->bahan->sku}}">
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="kategori">Kategori</label>
+                                            <input type="text" class="form-control" required readonly id="kategori"
+                                                value="{{$rekap->jahit->potong->bahan->detail_sub->sub_kategori->kategori->nama_kategori}}"
+                                                name="kategori">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="sub_kategori">Sub Kategori</label>
+                                            <input type="text" class="form-control" required readonly id="sub_kategori"
+                                                value="{{$rekap->jahit->potong->bahan->detail_sub->nama_kategori}}"
+                                                name="sub_kategori">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="detail_sub_kategori">Detail Sub Kategori</label>
+
+                                            <input type="text" class="form-control" required readonly
+                                                value="{{$rekap->jahit->potong->bahan->detail_sub->nama_kategori}}"
+                                                id="detail_sub_kategori" name="detail_sub_kategori">
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="asal">Asal</label>
+                                            <input type="text" class="form-control" readonly required id="asal_keluar"
+                                                name="asal" value="Jahit">
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="barang_direpair">Jumlah Diperbaiki</label>
+                                            <div class="input-group mb-2">
+                                                <input type="number" class="form-control" required readonly
+                                                    value="{{$rekap->jumlah_diperbaiki}}" id="barang_direpair"
+                                                    name="barang_direpair">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">pcs</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="barang_direpair">Jumlah Dibuang</label>
+                                            <div class="input-group mb-2">
+                                                <input type="number" class="form-control" required readonly
+                                                    value="{{$rekap->jumlah_dibuang}}" id="barang_direpair"
+                                                    name="barang_direpair">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">pcs</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <label for="ukurandirepair" class="text-dark">Ukuran yang Direpair</label>
+                                <div class="row">
+
+                                    @forelse ($rekap->detail_rekap as $item)
+                                    @if ($item->status == 'direpair')
+                                    <div class="col-md-2">
+                                        <input type="hidden" name="dataukurandirepair[]" value="{{$item->ukuran}}">
+                                        <div class="input-group mb-2">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">{{$item->ukuran}}</div>
+                                            </div>
+                                            <input type="number" class="form-control" readonly required
+                                                id="jumlahdirepair" name="jumlahdirepair[]" value="{{$item->jumlah}}">
+                                        </div>
+                                    </div>
+
+                                    @endif
+
+                                    @empty
+
+                                    @endforelse
+
+                                </div>
+                                <label for="ukurandirepair" class="text-dark">Ukuran yang Dibuang</label>
+                                <div class="row">
+
+                                    @forelse ($rekap->detail_rekap as $item)
+                                    @if ($item->status == 'dibuang')
+                                    <div class="col-md-2">
+                                        <input type="hidden" name="dataukurandirepair[]" value="{{$item->ukuran}}">
+                                        <div class="input-group mb-2">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">{{$item->ukuran}}</div>
+                                            </div>
+                                            <input type="number" class="form-control" readonly required
+                                                id="jumlahdirepair" name="jumlahdirepair[]" value="{{$item->jumlah}}">
+                                        </div>
+                                    </div>
+
+                                    @endif
+
+                                    @empty
+
+                                    @endforelse
+
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-md-12 text-center">
+                                        <a type="button" class="btn btn-secondary"
+                                            href="{{route('rekapitulasi.index')}}">Close</a>
+                                        <button type="submit" class="btn btn-primary"><i class="ri-printer-fill"></i>
+                                            Print</button>
+
+                                    </div>
+                                </div>
+                            </div>
+                            @endif
+
                         </form>
                     </div>
                 </div>

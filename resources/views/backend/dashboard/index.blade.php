@@ -267,7 +267,7 @@
                         <table class="table table-striped" id="table-cutting">
                             <thead>
                                 <tr>
-                                    <th>Kode Bahan</th>
+                                    <th>Kode Transaksi</th>
                                     <th>Nomor SKU</th>
                                     <th>Status</th>
                                 </tr>
@@ -293,7 +293,7 @@
                         <table class="table table-striped" id="table-jahit">
                             <thead>
                                 <tr>
-                                    <th>Kode Bahan</th>
+                                    <th>Kode Transaksi</th>
                                     <th>Nomor SKU</th>
                                     <th>Status</th>
                                 </tr>
@@ -320,7 +320,7 @@
                         <table class="table table-striped" id="table-cuci">
                             <thead>
                                 <tr>
-                                    <th>Kode Bahan</th>
+                                    <th>Kode Transaksi</th>
                                     <th>Nomor SKU</th>
                                     <th>Status</th>
                                 </tr>
@@ -384,7 +384,7 @@
             "bAutoWidth": false,
              data:[],
                 columns: [
-                { "data": "bahan.kode_bahan"  },
+                { "data": "bahan.kode_transaksi"  },
                 { "data": "bahan.sku" },
                 { "data": "status_potong" }
             ],
@@ -413,7 +413,7 @@
             "bAutoWidth": false,
             data:[],
                 columns: [
-                { "data": "potong.bahan.kode_bahan"  },
+                { "data": "potong.bahan.kode_transaksi"  },
                 { "data": "potong.bahan.sku" },
                 { "data": "status_jahit" }
             ],
@@ -442,7 +442,7 @@
             "bAutoWidth": false,
             data:[],
                 columns: [
-                { "data": "jahit.potong.bahan.kode_bahan"  },
+                { "data": "jahit.potong.bahan.kode_transaksi"  },
                 { "data": "jahit.potong.bahan.sku" },
                 { "data": "status_cuci" }
             ],
@@ -869,7 +869,7 @@
                         <table class="table table-striped" id="table-finish">
                             <thead>
                                 <tr>
-                                    <th>Kode Bahan</th>
+                                    <th>Kode Transaksi</th>
                                     <th>SKU</th>
                                     <th>Berhasil</th>
                                 </tr>
@@ -896,7 +896,7 @@
                         <table class="table table-striped" id="table-warehouse">
                             <thead>
                                 <tr>
-                                    <th>Kode Bahan</th>
+                                    <th>Kode Transaksi</th>
                                     <th>SKU</th>
                                     <th>Harga</th>
                                 </tr>
@@ -924,7 +924,7 @@
                         <table class="table table-striped" id="table-retur">
                             <thead>
                                 <tr>
-                                    <th>Kode Bahan</th>
+                                    <th>Kode Transaksi</th>
                                     <th>SKU</th>
                                     <th>Total</th>
                                 </tr>
@@ -986,8 +986,8 @@
             "bAutoWidth": false,
              data:[],
                 columns: [
-                { "data": "rekapitulasi.cuci.jahit.potong.bahan.kode_bahan"  },
-                { "data": "rekapitulasi.cuci.jahit.potong.bahan.sku" },
+                { "data": "cuci.jahit.potong.bahan.kode_transaksi"  },
+                { "data": "cuci.jahit.potong.bahan.sku" },
                 { "data": "barang_lolos_qc" }
             ]
 
@@ -1003,8 +1003,8 @@
             "bAutoWidth": false,
             data:[],
                 columns: [
-                { "data": "finishing.rekapitulasi.cuci.jahit.potong.bahan.kode_bahan"  },
-                { "data": "finishing.rekapitulasi.cuci.jahit.potong.bahan.sku" },
+                { "data": "finishing.cuci.jahit.potong.bahan.kode_transaksi"  },
+                { "data": "finishing.cuci.jahit.potong.bahan.sku" },
                 { "data": "harga_produk" }
             ],
 
@@ -1020,8 +1020,8 @@
             "bAutoWidth": false,
             data:[],
                 columns: [
-                { "data": "finishing.rekapitulasi.cuci.jahit.potong.bahan.kode_bahan"  },
-                { "data": "finishing.rekapitulasi.cuci.jahit.potong.bahan.sku" },
+                { "data": "finishing.cuci.jahit.potong.bahan.kode_transaksi"  },
+                { "data": "finishing.cuci.jahit.potong.bahan.sku" },
                 { "data": "total_barang" }
             ]
         })

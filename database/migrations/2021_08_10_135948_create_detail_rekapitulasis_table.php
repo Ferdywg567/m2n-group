@@ -17,6 +17,7 @@ class CreateDetailRekapitulasisTable extends Migration
             $table->id();
             $table->bigInteger('rekapitulasi_id')->unsigned()->index()->nullable();
             $table->foreign('rekapitulasi_id')->references('id')->on('rekapitulasis')->onDelete('cascade');
+            $table->string('status');
             $table->string('ukuran');
             $table->integer('jumlah');
             $table->timestamps();

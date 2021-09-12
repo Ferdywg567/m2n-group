@@ -18,6 +18,7 @@ class CreateDetailRekapitulasiWarehousesTable extends Migration
             $table->bigInteger('rekapitulasi_warehouse_id')->unsigned()->index()->nullable();
             $table->foreign('rekapitulasi_warehouse_id')->references('id')->on('rekapitulasi_warehouses')->onDelete('cascade');
             $table->string('ukuran');
+            $table->string('status');
             $table->integer('jumlah');
             $table->timestamps();
         });

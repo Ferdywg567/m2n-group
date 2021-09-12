@@ -36,4 +36,10 @@ class Cuci extends Model
     {
         return $this->hasOne('App\Sampah');
     }
+
+    public function rekap()
+    {
+        return $this->hasOne('App\Rekapitulasi');
+    }
+    
 }

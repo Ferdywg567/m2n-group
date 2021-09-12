@@ -15,6 +15,7 @@ use App\JahitDibuang;
 use App\Jahit;
 use App\Bahan;
 use App\Cuci;
+use App\DetailWarehouse;
 use App\Potong;
 use App\Retur;
 use Illuminate\Support\Facades\Auth;
@@ -51,7 +52,7 @@ class DashboardController extends Controller
                 $jumlah_kain = Bahan::whereMonth('tanggal_masuk', $bulan)->whereYear('tanggal_masuk', $tahun)->sum('panjang_bahan');
                 $jumlah_kain_lalu = Bahan::whereMonth('tanggal_masuk', $bulanlalu)->whereYear('tanggal_masuk', $tahun)->sum('panjang_bahan');
                 $jenis_bahan = Bahan::whereMonth('tanggal_masuk', $bulan)->whereYear('tanggal_masuk', $tahun)->count();
-                $berhasil_cuci = Cuci::whereMonth('tanggal_masuk', $bulan)->whereYear('tanggal_masuk', $tahun)->sum('berhasil_cuci');
+                $berhasil_cuci = Cuci::whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->sum('berhasil_cuci');
                 $hasil_cutting = Potong::whereMonth('tanggal_cutting', $bulan)->whereYear('tanggal_cutting', $tahun)->sum('hasil_cutting');
                 $berhasil_jahit = Jahit::whereMonth('tanggal_jahit', $bulan)->whereYear('tanggal_jahit', $tahun)->sum('berhasil');
                 $cucidibuang = Cuci::whereMonth('tanggal_selesai', $bulan)->whereYear('tanggal_selesai', $tahun)->sum('barang_dibuang');
@@ -59,7 +60,7 @@ class DashboardController extends Controller
                 $gagal_jahit = Jahit::whereMonth('tanggal_selesai', $bulan)->whereYear('tanggal_selesai', $tahun)->sum('gagal_jahit');
                 $baju_rusak = $cucidibuang + $jahitdibuang;
                 $reslalu = $jumlah_kain - $jumlah_kain_lalu;
-                $potong = Potong::with(['bahan'])->whereMonth('tanggal_keluar', $bulan)->whereYear('tanggal_keluar', $tahun)->limit(5)->get();
+                $potong = Potong::with(['bahan'])->whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->limit(5)->get();
                 $jahit = Jahit::with(['potong' => function ($q) {
                     $q->with('bahan');
                 }])->whereMonth('tanggal_selesai', $bulan)->whereYear('tanggal_selesai', $tahun)->limit(5)->get();
@@ -175,15 +176,26 @@ class DashboardController extends Controller
                 ]);
             } elseif ($user->hasRole('warehouse')) {
 
-                $rekap = RekapitulasiWarehouse::whereMonth('tanggal_masuk', $bulan)->whereYear('tanggal_masuk', $tahun)->sum('total_barang');
+                $rekap = DetailWarehouse::whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->sum('jumlah');
+
                 $retur = Finishing::whereMonth('tanggal_masuk', $bulan)->whereYear('tanggal_masuk', $tahun)->sum('barang_diretur');
                 $buang = Finishing::whereMonth('tanggal_masuk', $bulan)->whereYear('tanggal_masuk', $tahun)->sum('barang_dibuang');
-                $avg = Warehouse::whereMonth('tanggal_masuk', $bulan)->whereYear('tanggal_masuk', $tahun)->avg('harga_produk');
+                $avg = Warehouse::whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->avg('harga_produk');
 
                 if (empty($avg)) {
                     $avg = 0;
                 }
-                $finish = Finishing::with(['rekapitulasi' => function ($q) {
+                $finish = Finishing::with(['cuci' => function ($q) {
+                    $q->with(['jahit' => function ($q) {
+                        $q->with(['potong' => function ($q) {
+                            $q->with('bahan');
+                        }]);
+                    }]);
+                }])->whereMonth('tanggal_masuk', $bulan)->whereYear('tanggal_masuk', $tahun)->limit(5)->get();
+
+
+                $warehouse = Warehouse::with(['finishing' => function ($q) {
+
                     $q->with(['cuci' => function ($q) {
                         $q->with(['jahit' => function ($q) {
                             $q->with(['potong' => function ($q) {
@@ -191,29 +203,15 @@ class DashboardController extends Controller
                             }]);
                         }]);
                     }]);
-                }])->whereMonth('tanggal_masuk', $bulan)->whereYear('tanggal_masuk', $tahun)->limit(5)->get();
-
-
-                $warehouse = Warehouse::with(['finishing' => function ($q) {
-                    $q->with(['rekapitulasi' => function ($q) {
-                        $q->with(['cuci' => function ($q) {
-                            $q->with(['jahit' => function ($q) {
-                                $q->with(['potong' => function ($q) {
-                                    $q->with('bahan');
-                                }]);
-                            }]);
-                        }]);
-                    }]);
-                }])->whereMonth('tanggal_masuk', $bulan)->whereYear('tanggal_masuk', $tahun)->limit(5)->get();
+                }])->whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->limit(5)->get();
 
 
                 $dataretur = Retur::with(['finishing' => function ($q) use ($bulan, $tahun) {
-                    $q->with(['rekapitulasi' => function ($q) {
-                        $q->with(['cuci' => function ($q) {
-                            $q->with(['jahit' => function ($q) {
-                                $q->with(['potong' => function ($q) {
-                                    $q->with('bahan');
-                                }]);
+
+                    $q->with(['cuci' => function ($q) {
+                        $q->with(['jahit' => function ($q) {
+                            $q->with(['potong' => function ($q) {
+                                $q->with('bahan');
                             }]);
                         }]);
                     }]);
@@ -247,13 +245,20 @@ class DashboardController extends Controller
                     'data' => $datapie
                 ];
 
-                $bar = RekapitulasiWarehouse::select(
-                    DB::raw('sum(total_barang) as jumlah'),
-                    DB::raw("DATE_FORMAT(tanggal_masuk,'%M %Y') as months")
-                )->whereYear('tanggal_masuk', $tahun)->orderBy('months', 'DESC')
+                // $bar = RekapitulasiWarehouse::select(
+                //     DB::raw('sum(total_barang) as jumlah'),
+                //     DB::raw("DATE_FORMAT(tanggal_masuk,'%M %Y') as months")
+                // )->whereYear('tanggal_masuk', $tahun)->orderBy('months', 'DESC')
+                //     ->groupBy('months')
+                //     ->get();
+
+                $bar = DetailWarehouse::select(
+                    DB::raw('sum(jumlah) as jumlah'),
+                    DB::raw("DATE_FORMAT(created_at,'%M %Y') as months")
+                )->whereYear('created_at', $tahun)->orderBy('months', 'DESC')
                     ->groupBy('months')
                     ->get();
-
+                $line = $bar;
                 if ($request->get('status') == 'change') {
                     $bulan = $request->get('bulan');
                     $tahun = $request->get('tahun');

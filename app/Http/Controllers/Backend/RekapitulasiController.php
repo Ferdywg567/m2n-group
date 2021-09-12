@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Rekapitulasi;
 use App\DetailRekapitulasi;
+use App\Jahit;
 use App\Cuci;
 use PDF;
 use Illuminate\Support\Facades\DB;
@@ -20,9 +21,9 @@ class RekapitulasiController extends Controller
      */
     public function index()
     {
-        $cuci = Cuci::where('status', 'cucian keluar')->where('status_cuci', 'selesai')->get();
+        $rekap = Rekapitulasi::generateRekap();
         $rekap = Rekapitulasi::all();
-        return view("backend.rekapitulasi.index", ['cuci' => $cuci, 'rekap' => $rekap]);
+        return view("backend.rekapitulasi.index", ['rekap' => $rekap]);
     }
 
     /**
@@ -32,7 +33,7 @@ class RekapitulasiController extends Controller
      */
     public function create()
     {
-        $cuci = Cuci::where('status', 'cucian keluar')->where('status_cuci', 'selesai')->doesntHave('rekapitulasi')->get();
+        $cuci = Cuci::where('status_cuci', 'selesai')->doesntHave('rekapitulasi')->get();
         return view("backend.rekapitulasi.create", ['cuci' => $cuci]);
     }
 

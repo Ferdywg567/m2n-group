@@ -19,6 +19,47 @@ class RekapitulasiController extends Controller
      */
     public function index()
     {
+        $warehouse = Warehouse::all();
+        DB::beginTransaction();
+        try {
+            foreach ($warehouse as $key => $value) {
+                $rekap = RekapitulasiWarehouse::where('warehouse_id',$value->id)->first();
+                if($rekap){
+                    $rekap->jumlah_diretur = $value->finishing->barang_diretur;
+                    $rekap->jumlah_dibuang = $value->finishing->barang_dibuang;
+                }else{
+                    $rekap = new RekapitulasiWarehouse();
+                    $rekap->warehouse_id = $value->id;
+                    $rekap->jumlah_diretur = $value->finishing->barang_diretur;
+                    $rekap->jumlah_dibuang = $value->finishing->barang_dibuang;
+                }
+
+                $rekap->save();
+                $cek = DetailRekapitulasiWarehouse::where('rekapitulasi_warehouse_id',$rekap->id)->where('status','diretur')->delete();
+                foreach ($value->finishing->finish_retur as $key => $row) {
+
+                    $detail = new DetailRekapitulasiWarehouse();
+                    $detail->rekapitulasi_warehouse_id = $rekap->id;
+                    $detail->status = 'diretur';
+                    $detail->ukuran = $row->ukuran;
+                    $detail->jumlah = $row->jumlah;
+                    $detail->save();
+                }
+                $cek = DetailRekapitulasiWarehouse::where('rekapitulasi_warehouse_id',$rekap->id)->where('status','dibuang')->delete();
+                foreach ($value->finishing->finish_dibuang as $key => $row) {
+                    $detail = new DetailRekapitulasiWarehouse();
+                    $detail->rekapitulasi_warehouse_id = $rekap->id;
+                    $detail->status = 'dibuang';
+                    $detail->ukuran = $row->ukuran;
+                    $detail->jumlah = $row->jumlah;
+                    $detail->save();
+                }
+            }
+            DB::commit();
+        } catch (\Exception $th) {
+            //throw $th;
+            DB::rollBack();
+        }
         $rekap = RekapitulasiWarehouse::orderBy('created_at','DESC')->get();;
         return view('backend.warehouse.rekapitulasi.index', ['rekap' => $rekap]);
     }

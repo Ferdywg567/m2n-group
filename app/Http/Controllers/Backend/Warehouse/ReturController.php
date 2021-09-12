@@ -19,7 +19,7 @@ class ReturController extends Controller
      */
     public function index()
     {
-        $finish = Finishing::all();
+        $finish = Finishing::all()->where('status','kirim warehouse');
         DB::beginTransaction();
         try {
             foreach ($finish as $key => $value) {
