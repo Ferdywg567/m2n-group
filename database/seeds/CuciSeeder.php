@@ -57,6 +57,11 @@ class CuciSeeder extends Seeder
                 $cuci->nama_vendor =  Arr::random($namavendor);
                 $cuci->harga_vendor = $faker->numberBetween(20000, 100000);
                 $cuci->status_pembayaran = Arr::random($bayar);
+
+                if($cuci->status_pembayaran == 'Termin'){
+                    $cuci->sisa_bayar = $cuci->harga_vendor * $cuci->kain_siap_cuci;
+                    $cuci->total_bayar = $cuci->harga_vendor * $cuci->kain_siap_cuci;
+                }
             }
             $cuci->save();
 

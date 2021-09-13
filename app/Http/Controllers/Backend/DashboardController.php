@@ -60,7 +60,7 @@ class DashboardController extends Controller
                 $gagal_jahit = Jahit::whereMonth('tanggal_selesai', $bulan)->whereYear('tanggal_selesai', $tahun)->sum('gagal_jahit');
                 $baju_rusak = $cucidibuang + $jahitdibuang;
                 $reslalu = $jumlah_kain - $jumlah_kain_lalu;
-                $potong = Potong::with(['bahan'])->whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->limit(5)->get();
+                $potong = Potong::with(['bahan'])->whereMonth('tanggal_selesai', $bulan)->whereYear('tanggal_selesai', $tahun)->limit(5)->get();
                 $jahit = Jahit::with(['potong' => function ($q) {
                     $q->with('bahan');
                 }])->whereMonth('tanggal_selesai', $bulan)->whereYear('tanggal_selesai', $tahun)->limit(5)->get();

@@ -28,17 +28,23 @@ class FinishingSeeder extends Seeder
      */
     public function run()
     {
-        $rekap = Rekapitulasi::doesntHave('finishing')->get();
+        $rekap = Cuci::doesntHave('finishing')->get();
         $faker = Factory::create();
         $status = ['finishing masuk', 'kirim warehouse'];
         foreach ($rekap as $key => $value) {
             $finish = new Finishing();
-            $finish->rekapitulasi_id = $value->id;
+            $finish->cuci_id = $value->id;
             $finish->no_surat = '#SIN00' . $faker->unique()->numberBetween(1, 300);
             $finish->status = Arr::random($status);
-            $finish->tanggal_masuk = $value->tanggal_masuk;
+            if($finish->status == 'kirim warehouse'){
+                $finish->barang_lolos_qc = $value->berhasil_cuci - 10;
+                $finish->tanggal_selesai = $faker->dateTimeBetween('-5 days', '+4 days');
+            }else{
+                $finish->barang_lolos_qc = 0;
+            }
+            $finish->tanggal_masuk = $faker->dateTimeBetween('-12 days', '+4 days');
             $finish->tanggal_qc = $faker->dateTimeBetween('-12 days', '+4 days');
-            $finish->barang_lolos_qc = $value->total_barang - 10;
+
             $finish->barang_gagal_qc = 10;
             $finish->barang_diretur = 5;
             $finish->barang_dibuang = 5;
@@ -46,24 +52,36 @@ class FinishingSeeder extends Seeder
             $finish->keterangan_dibuang = "warna kain luntur terlalu parah";
             $finish->save();
 
-            foreach ($value->detail_rekap as $key => $row) {
-                $detail = new DetailFinishing();
-                $detail->finishing_id = $finish->id;
-                $detail->ukuran = $row->ukuran;
-                $detail->jumlah = $row->jumlah - 2;
-                $detail->save();
 
-                $detail = new FinishingRetur();
-                $detail->finishing_id = $finish->id;
-                $detail->ukuran = $row->ukuran;
-                $detail->jumlah = 1;
-                $detail->save();
+            if($finish->status == 'kirim warehouse'){
+                DetailFinishing::where('finishing_id',$finish->id)->delete();
+                foreach ($value->detail_cuci as $key => $row) {
+                    $detail = new DetailFinishing();
+                    $detail->finishing_id = $finish->id;
+                    $detail->ukuran = $row->size;
+                    $detail->jumlah = $row->jumlah - 2;
+                    $detail->save();
 
-                $detail = new FinishingDibuang();
-                $detail->finishing_id = $finish->id;
-                $detail->ukuran = $row->ukuran;
-                $detail->jumlah = 1;
-                $detail->save();
+                    $detail = new FinishingRetur();
+                    $detail->finishing_id = $finish->id;
+                    $detail->ukuran = $row->size;
+                    $detail->jumlah = 1;
+                    $detail->save();
+
+                    $detail = new FinishingDibuang();
+                    $detail->finishing_id = $finish->id;
+                    $detail->ukuran = $row->size;
+                    $detail->jumlah = 1;
+                    $detail->save();
+                }
+            }else{
+                foreach ($value->detail_cuci as $key => $row) {
+                    $detail = new DetailFinishing();
+                    $detail->finishing_id = $finish->id;
+                    $detail->ukuran = $row->size;
+                    $detail->jumlah = $row->jumlah - 2;
+                    $detail->save();
+                }
             }
         }
     }

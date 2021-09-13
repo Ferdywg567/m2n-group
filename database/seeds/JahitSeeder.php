@@ -21,7 +21,7 @@ class JahitSeeder extends Seeder
         $datakeluar = Potong::where('status', 'potong keluar')->where('status_potong', 'selesai')->doesntHave('jahit')->get();
         $faker = Factory::create();
         $vendor = ['internal', 'eksternal'];
-        $bayar = ['lunas', 'belum'];
+        $bayar = ['Lunas', 'Belum Lunas','Termin'];
         $status_jahit = ['proses jahit', 'belum jahit'];
         $status = ['jahitan masuk', 'jahitan keluar'];
         $namavendor = ['Triple A', 'J. Developer', 'Kaos Polos Surabaya', 'Chief Garment', 'Quax Kain'];
@@ -30,12 +30,14 @@ class JahitSeeder extends Seeder
             $jahit->potong_id = $value->id;
             $jahit->no_surat = '#SKN00' . $faker->unique()->numberBetween(1, 300);
             $jahit->status = Arr::random($status);
+            $jahit->jumlah_bahan =$value->hasil_cutting;
             $jahit->tanggal_jahit = $faker->dateTimeBetween('-18 days', '-1 days');
             $jahit->tanggal_selesai = $faker->dateTimeBetween('-15 days', '+2 days');
             if ($jahit->status == 'jahitan keluar') {
                 $jahit->berhasil = $value->hasil_cutting - 10;
                 $jahit->konversi = $this->konversi($jahit->berhasil);
                 $jahit->status_jahit = 'selesai';
+
                 $jahit->gagal_jahit = 10;
                 $jahit->barang_direpair = 5;
                 $jahit->barang_dibuang = 5;
@@ -51,6 +53,11 @@ class JahitSeeder extends Seeder
                 $jahit->nama_vendor =  Arr::random($namavendor);
                 $jahit->harga_vendor = $faker->numberBetween(20000, 100000);
                 $jahit->status_pembayaran = Arr::random($bayar);
+
+                if($jahit->status_pembayaran == 'Termin'){
+                    $jahit->sisa_bayar = $jahit->harga_vendor * $jahit->jumlah_bahan;
+                    $jahit->total_bayar = $jahit->harga_vendor * $jahit->jumlah_bahan;
+                }
             }
 
 

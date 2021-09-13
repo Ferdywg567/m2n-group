@@ -4,6 +4,7 @@ use Illuminate\Database\Seeder;
 use App\Bahan;
 use Faker\Factory;
 use Illuminate\Support\Arr;
+use App\DetailSubKategori;
 
 class BahanSeeder extends Seeder
 {
@@ -22,6 +23,8 @@ class BahanSeeder extends Seeder
         $jenis =['Cotton Combed 38s', 'Cotton Combed 28s', 'Cotton Combed 23s', 'Cotton Combed 14s'];
         for ($i = 0; $i <= 250; $i++) {
             $bahan = new Bahan();
+            $bahan->detail_sub_kategori_id = Arr::random([1,2]);
+            $bahan->kode_transaksi = $this->getKode();
             $bahan->kode_bahan = '#B00' . $i;
             $bahan->no_surat = '#SJM00' . $i;
             $bahan->status = Arr::random($status);
@@ -38,5 +41,19 @@ class BahanSeeder extends Seeder
             $bahan->save();
 
         }
+    }
+
+    public function getKode()
+    {
+        $kode_transaksi = Bahan::max('kode_transaksi');
+        if (empty($kode_transaksi)) {
+            $kode_transaksi = "TR-" . date('Ymd') . "1";
+        } else {
+            $last = substr($kode_transaksi, -1);
+            $jumlah = $last + 1;
+            $kode_transaksi = "TR-" . date('Ymd') . $jumlah;
+        }
+
+        return $kode_transaksi;
     }
 }
