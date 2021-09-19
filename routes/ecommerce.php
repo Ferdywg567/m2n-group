@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view("ecommerce.frontend.main");
+Route::group(['namespace' => 'Ecommerce\Frontend'],function () {
+    Route::resource('/', 'LandingPageController');
+    Route::resource('product', 'ProductController');
 });

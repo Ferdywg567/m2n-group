@@ -1,3 +1,5 @@
+@extends('ecommerce.frontend.main')
+@section('content')
 <div class="mobile-header-active mobile-header-wrapper-style">
     <div class="clickalbe-sidebar-wrap">
         <a class="sidebar-close"><i class="icon_close"></i></a>
@@ -3415,3 +3417,5 @@
         </div>
     </div>
 </div>
+
+@endsection

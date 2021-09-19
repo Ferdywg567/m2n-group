@@ -32,7 +32,60 @@
     <link rel="stylesheet" href="assets/css/vendor/vendor.min.css">
     <link rel="stylesheet" href="assets/css/plugins/plugins.min.css">
     <link rel="stylesheet" href="assets/css/style.min.css"> -->
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
 
+        /* The Modal (background) */
+        .modalSearch {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 1;
+            /* Sit on top */
+            padding-top: 100px;
+            /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%;
+            /* Full width */
+            height: 100%;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            /* background-color: rgb(0, 0, 0); */
+            /* Fallback color */
+            /* background-color: rgba(0, 0, 0, 0.4); */
+            /* Black w/ opacity */
+        }
+
+        /* Modal Content */
+        .modal-content-search {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            border-radius: 5px;
+            width: 40%;
+        }
+
+        /* The Close Button */
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
@@ -45,7 +98,8 @@
                         <div class="row align-items-center">
                             <div class="col-xl-2 col-lg-2">
                                 <div class="logo">
-                                    <a href="index.html"><img src="{{asset('ecommerce/assets/images/logo/logo.png')}}" alt="logo"></a>
+                                    <a href="index.html"><img src="{{asset('ecommerce/assets/images/logo/logo.png')}}"
+                                            alt="logo"></a>
                                 </div>
                             </div>
                             <div class="col-xl-7 col-lg-7">
@@ -61,7 +115,7 @@
                                     </div>
                                     <div class="search-wrap-3">
                                         <form action="#">
-                                            <input placeholder="Search Products..." type="text">
+                                            <input placeholder="Search Products..." type="text" id="search">
                                             <button><i class="lnr lnr-magnifier"></i></button>
                                         </form>
                                     </div>
@@ -73,7 +127,8 @@
                                         <a href="login-register.html"><i class="icon-user"></i></a>
                                     </div>
                                     <div class="same-style-2 same-style-2-font-inc">
-                                        <a href="wishlist.html"><i class="icon-heart"></i><span class="pro-count green">03</span></a>
+                                        <a href="wishlist.html"><i class="icon-heart"></i><span
+                                                class="pro-count green">03</span></a>
                                     </div>
                                     <div class="same-style-2 same-style-2-font-inc header-cart">
                                         <a class="cart-active" href="#">
@@ -104,7 +159,8 @@
                                     <a href="login-register.html"><i class="icon-user"></i></a>
                                 </div>
                                 <div class="same-style-2 same-style-2-font-inc">
-                                    <a href="wishlist.html"><i class="icon-heart"></i><span class="pro-count green">03</span></a>
+                                    <a href="wishlist.html"><i class="icon-heart"></i><span
+                                            class="pro-count green">03</span></a>
                                 </div>
                                 <div class="same-style-2 same-style-2-font-inc header-cart">
                                     <a class="cart-active" href="#">
@@ -133,7 +189,7 @@
                             </div>
                             <div class="cart-title">
                                 <h4><a href="#">Simple Black T-Shirt</a></h4>
-                                <span> 1 × $49.00	</span>
+                                <span> 1 × $49.00 </span>
                             </div>
                             <div class="cart-delete">
                                 <a href="#">×</a>
@@ -145,7 +201,7 @@
                             </div>
                             <div class="cart-title">
                                 <h4><a href="#">Norda Backpack</a></h4>
-                                <span> 1 × $49.00	</span>
+                                <span> 1 × $49.00 </span>
                             </div>
                             <div class="cart-delete">
                                 <a href="#">×</a>
@@ -163,7 +219,7 @@
             </div>
         </div>
         <!-- mobile header start -->
-        @include('ecommerce.frontend.index')
+        @yield('content')
         <div class="service-area pt-20 pb-15">
             <div class="container">
                 <div class="row">
@@ -225,14 +281,19 @@
                     </div>
                     <div class="col-lg-7 col-md-7">
                         <div id="mc_embed_signup" class="subscribe-form-2">
-                            <form id="mc-embedded-subscribe-form" class="validate subscribe-form-style-2" novalidate="" target="_blank" name="mc-embedded-subscribe-form" method="post" action="https://devitems.us11.list-manage.com/subscribe/post?u=6bbb9b6f5827bd842d9640c82&amp;id=05d85f18ef">
+                            <form id="mc-embedded-subscribe-form" class="validate subscribe-form-style-2" novalidate=""
+                                target="_blank" name="mc-embedded-subscribe-form" method="post"
+                                action="https://devitems.us11.list-manage.com/subscribe/post?u=6bbb9b6f5827bd842d9640c82&amp;id=05d85f18ef">
                                 <div id="mc_embed_signup_scroll" class="mc-form-2">
-                                    <input class="email" type="email" required="" placeholder="Enter your email address" name="EMAIL" value="">
+                                    <input class="email" type="email" required="" placeholder="Enter your email address"
+                                        name="EMAIL" value="">
                                     <div class="mc-news-2" aria-hidden="true">
-                                        <input type="text" value="" tabindex="-1" name="b_6bbb9b6f5827bd842d9640c82_05d85f18ef">
+                                        <input type="text" value="" tabindex="-1"
+                                            name="b_6bbb9b6f5827bd842d9640c82_05d85f18ef">
                                     </div>
                                     <div class="clear-2">
-                                        <input id="mc-embedded-subscribe" class="button" type="submit" name="subscribe" value="Subscribe">
+                                        <input id="mc-embedded-subscribe" class="button" type="submit" name="subscribe"
+                                            value="Subscribe">
                                     </div>
                                 </div>
                             </form>
@@ -247,7 +308,8 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">x</span></button>
                     </div>
                     <div class="modal-body">
                         <div class="row">
@@ -268,10 +330,14 @@
                                 </div>
                                 <div class="quickview-wrap mt-15">
                                     <div class="quickview-slide-active nav-style-6">
-                                        <a class="active" data-toggle="tab" href="#pro-1"><img src="assets/images/product/quickview-s1.jpg" alt=""></a>
-                                        <a data-toggle="tab" href="#pro-2"><img src="assets/images/product/quickview-s2.jpg" alt=""></a>
-                                        <a data-toggle="tab" href="#pro-3"><img src="assets/images/product/quickview-s3.jpg" alt=""></a>
-                                        <a data-toggle="tab" href="#pro-4"><img src="assets/images/product/quickview-s2.jpg" alt=""></a>
+                                        <a class="active" data-toggle="tab" href="#pro-1"><img
+                                                src="assets/images/product/quickview-s1.jpg" alt=""></a>
+                                        <a data-toggle="tab" href="#pro-2"><img
+                                                src="assets/images/product/quickview-s2.jpg" alt=""></a>
+                                        <a data-toggle="tab" href="#pro-3"><img
+                                                src="assets/images/product/quickview-s3.jpg" alt=""></a>
+                                        <a data-toggle="tab" href="#pro-4"><img
+                                                src="assets/images/product/quickview-s2.jpg" alt=""></a>
                                     </div>
                                 </div>
                             </div>
@@ -296,7 +362,8 @@
                                             <span>242 orders</span>
                                         </div>
                                     </div>
-                                    <p>Seamlessly predominate enterprise metrics without performance based process improvements.</p>
+                                    <p>Seamlessly predominate enterprise metrics without performance based process
+                                        improvements.</p>
                                     <div class="pro-details-price">
                                         <span class="new-price">$75.72</span>
                                         <span class="old-price">$95.72</span>
@@ -334,8 +401,10 @@
                                     </div>
                                     <div class="product-details-meta">
                                         <ul>
-                                            <li><span>Categories:</span> <a href="#">Woman,</a> <a href="#">Dress,</a> <a href="#">T-Shirt</a></li>
-                                            <li><span>Tag: </span> <a href="#">Fashion,</a> <a href="#">Mentone</a> , <a href="#">Texas</a></li>
+                                            <li><span>Categories:</span> <a href="#">Woman,</a> <a href="#">Dress,</a>
+                                                <a href="#">T-Shirt</a></li>
+                                            <li><span>Tag: </span> <a href="#">Fashion,</a> <a href="#">Mentone</a> , <a
+                                                    href="#">Texas</a></li>
                                         </ul>
                                     </div>
                                     <div class="pro-details-action-wrap">
@@ -347,10 +416,14 @@
                                             <a title="Add to Compare" href="#"><i class="icon-refresh"></i></a>
                                             <a class="social" title="Social" href="#"><i class="icon-share"></i></a>
                                             <div class="product-dec-social">
-                                                <a class="facebook" title="Facebook" href="#"><i class="icon-social-facebook"></i></a>
-                                                <a class="twitter" title="Twitter" href="#"><i class="icon-social-twitter"></i></a>
-                                                <a class="instagram" title="Instagram" href="#"><i class="icon-social-instagram"></i></a>
-                                                <a class="pinterest" title="Pinterest" href="#"><i class="icon-social-pinterest"></i></a>
+                                                <a class="facebook" title="Facebook" href="#"><i
+                                                        class="icon-social-facebook"></i></a>
+                                                <a class="twitter" title="Twitter" href="#"><i
+                                                        class="icon-social-twitter"></i></a>
+                                                <a class="instagram" title="Instagram" href="#"><i
+                                                        class="icon-social-instagram"></i></a>
+                                                <a class="pinterest" title="Pinterest" href="#"><i
+                                                        class="icon-social-pinterest"></i></a>
                                             </div>
                                         </div>
                                     </div>
@@ -362,6 +435,20 @@
             </div>
         </div>
         <!-- Modal end -->
+
+
+
+        <!-- The Modal -->
+        <div id="modalSearch" class="modalSearch">
+
+            <!-- Modal content -->
+            <div class="modal-content-search">
+                <span class="close">&times;</span>
+                <p>Some text in the Modal..</p>
+            </div>
+
+        </div>
+
     </div>
 
     <!-- All JS is here
@@ -389,7 +476,22 @@
 <script src="assets/js/plugins/plugins.min.js"></script>  -->
     <!-- Main JS -->
     <script src="{{asset('ecommerce/assets/js/main.js')}}"></script>
+    <script>
+        $(document).ready(function () {
+            var modal = document.getElementById("modalSearch");
+            $('#search').on('keyup', function () {
+                $('#modalSearch').show()
+             })
 
+             window.onclick = function(event) {
+                    if (event.target == modal) {
+                        $('#modalSearch').hide()
+                    }
+             }
+            })
+    </script>
+
+    @stack('scripts')
 </body>
 
 </html>
