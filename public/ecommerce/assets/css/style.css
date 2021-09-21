@@ -1,10 +1,10 @@
 /*-----------------------------------------------------------------------------------
-    
+
     Template Name: Norda - Minimal eCommerce HTML Template
     Version: 1.0
-    
+
 -----------------------------------------------------------------------------------
-    
+
     CSS INDEX
     ===================
     1. Template default CSS
@@ -34,7 +34,7 @@
     25. Contect us style
     26. Blog details style
     27. Order tracking style
-    
+
 -----------------------------------------------------------------------------------*/
 /*----------------------------------------*/
 /*  1. Template default CSS
@@ -162,7 +162,7 @@ ul {
   padding: 0;
 }
 
-/*-- 
+/*--
     - Common Classes
 -----------------------------------------*/
 .fix {
@@ -1487,7 +1487,7 @@ ul {
 }
 
 /***************************
-    Page section padding 
+    Page section padding
 ****************************/
 .ptb-0 {
   padding: 0;
@@ -1602,7 +1602,7 @@ ul {
 }
 
 /***************************
-    Page section margin 
+    Page section margin
 ****************************/
 .mtb-0 {
   margin: 0;
@@ -1676,7 +1676,7 @@ ul {
   margin: 290px 0;
 }
 
-/*-- 
+/*--
     - Input Placeholder
 -----------------------------------------*/
 input:-moz-placeholder,
@@ -1855,8 +1855,8 @@ textarea:focus {
   }
 }
 
-/*-- 
-    Scroll Up 
+/*--
+    Scroll Up
 -----------------------------------------*/
 #scrollUp {
   width: 40px;
@@ -3638,7 +3638,7 @@ textarea:focus {
 }
 
 .header-action .same-style-2 a span.green {
-  background-color: #4dbdaf;
+  background-color: #FF3B30;
 }
 
 .header-action .same-style-2 a span.purple {
@@ -4404,7 +4404,7 @@ textarea:focus {
 }
 
 .main-categori-wrap > a {
-  color: #4dbdaf;
+  color: #FF3B30;
   font-size: 14px;
   font-weight: 600;
   text-transform: uppercase;
@@ -4655,7 +4655,7 @@ textarea:focus {
 }
 
 .category-menu nav > ul > li .category-menu-dropdown .single-category-menu ul li a:hover {
-  color: #4dbdaf;
+  color: #FF3B30;
 }
 
 .category-menu nav > ul > li .category-menu-dropdown .single-category-menu > a img {
@@ -4684,7 +4684,7 @@ textarea:focus {
 }
 
 .category-menu nav > ul > li:hover > a, .category-menu nav > ul > li:hover > a span {
-  color: #4dbdaf;
+  color: #FF3B30;
 }
 
 .category-menu nav > ul > li:hover .category-menu-dropdown {
@@ -5008,7 +5008,7 @@ textarea:focus {
 .header-offer-wrap-5 h4 {
   font-size: 12px;
   font-weight: 800;
-  color: #4dbdaf;
+  color: #FF3B30;
   margin: 0;
   text-transform: uppercase;
   letter-spacing: -.25px;
@@ -6213,7 +6213,7 @@ textarea:focus {
 }
 
 .nav-style-1.nav-style-1-green > span:hover {
-  background-color: #4dbdaf;
+  background-color: #FF3B30;
   color: #ffffff;
 }
 
@@ -6852,7 +6852,7 @@ textarea:focus {
   font-size: 14px;
   font-weight: 600;
   text-transform: uppercase;
-  color: #4dbdaf;
+  color: #FF3B30;
   margin: 0;
   letter-spacing: .5px;
 }
@@ -6980,7 +6980,7 @@ textarea:focus {
   font-weight: bold;
   color: #ffffff;
   text-transform: uppercase;
-  background-color: #4dbdaf;
+  background-color: #FF3B30;
   padding: 12px 27px 11px;
 }
 
@@ -7862,7 +7862,7 @@ textarea:focus {
 }
 
 .single-service-wrap-2:hover .service-icon-2 i {
-  color: #4dbdaf;
+  color: #FF3B30;
 }
 
 .single-service-wrap-2:hover .service-icon-2.icon-purple i {
@@ -9167,7 +9167,7 @@ textarea:focus {
 }
 
 .single-product-wrap .product-content-wrap-3 .product-content-categories a:hover {
-  color: #4dbdaf;
+  color: #FF3B30;
 }
 
 .single-product-wrap .product-content-wrap-3 .product-content-categories a:hover.blue {
@@ -9198,7 +9198,7 @@ textarea:focus {
 }
 
 .single-product-wrap .product-content-wrap-3 h3 a:hover {
-  color: #4dbdaf;
+  color: #FF3B30;
 }
 
 .single-product-wrap .product-content-wrap-3 h3 a:hover.blue {
@@ -10122,12 +10122,12 @@ textarea:focus {
 }
 
 .tab-style-3 a:hover {
-  color: #4dbdaf;
+  color: #FF3B30;
 }
 
 .tab-style-3 a.active {
   font-weight: 600;
-  color: #4dbdaf;
+  color: #FF3B30;
   background-color: #edf8f7;
 }
 
@@ -10417,7 +10417,7 @@ textarea:focus {
 }
 
 .single-product-wrap-2 .product-content-3 .pro-price-action-wrap .product-action-3 button:hover {
-  color: #4dbdaf;
+  color: #FF3B30;
 }
 
 .single-product-wrap-2 .product-content-3 .pro-price-action-wrap .product-action-3.pro-action-3-blue button:hover {
@@ -10633,7 +10633,7 @@ textarea:focus {
 }
 
 .product-categories-wrap .product-categories-content .product-categories-btn a:hover {
-  color: #4dbdaf;
+  color: #FF3B30;
 }
 
 .product-categories-wrap.product-categories-border {
@@ -10684,7 +10684,7 @@ textarea:focus {
 }
 
 .btn-style-5 a:hover {
-  color: #4dbdaf;
+  color: #FF3B30;
 }
 
 @media only screen and (max-width: 767px) {
@@ -12630,7 +12630,7 @@ textarea:focus {
   font-size: 14px;
   font-weight: bold;
   text-transform: uppercase;
-  color: #4dbdaf;
+  color: #FF3B30;
 }
 
 .banner-wrap .banner-content-6 .banner-btn-1 a i {
@@ -12792,7 +12792,7 @@ textarea:focus {
   color: #ffffff;
   padding: 6px 15px 6px 17px;
   text-transform: uppercase;
-  background-color: #4dbdaf;
+  background-color: #FF3B30;
 }
 
 .banner-wrap .banner-content-7-8-wrap .banner-content-8 .banner-btn-2 a i {
@@ -14312,7 +14312,7 @@ textarea:focus {
 }
 
 .btn-style-4 a:hover {
-  color: #4dbdaf;
+  color: #FF3B30;
 }
 
 .banner-wrap-mrg-1 {
@@ -14802,7 +14802,7 @@ textarea:focus {
   letter-spacing: .75px;
   padding: 0 30px;
   color: #ffffff;
-  background-color: #4dbdaf;
+  background-color: #FF3B30;
 }
 
 @media only screen and (max-width: 767px) {
@@ -15310,7 +15310,7 @@ textarea:focus {
 .footer-widget .contact-info-2 .single-contact-info-2 .contact-info-2-content h3 {
   font-size: 30px;
   font-weight: 600;
-  color: #4dbdaf;
+  color: #FF3B30;
   margin: 19px 0 28px;
 }
 
