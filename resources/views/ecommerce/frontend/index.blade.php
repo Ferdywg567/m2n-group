@@ -373,7 +373,7 @@
         <div class="tab-content jump">
             <div class="row">
                 <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
-                    <div class="single-product-wrap mb-35">
+                    <div class="single-product-wrap mb-35 shadow rounded">
                         <div class="product-img product-img-zoom mb-15">
                             <a href="product-details.html">
                                 <img src="{{asset('ecommerce/assets/images/product/product-13.jpg')}}" alt="">
@@ -422,7 +422,7 @@
                     </div>
                 </div>
                 <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
-                    <div class="single-product-wrap mb-35">
+                    <div class="single-product-wrap mb-35 shadow rounded">
                         <div class="product-img product-img-zoom mb-15">
                             <a href="product-details.html">
                                 <img src="{{asset('ecommerce/assets/images/product/product-13.jpg')}}" alt="">
@@ -471,7 +471,7 @@
                     </div>
                 </div>
                 <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
-                    <div class="single-product-wrap mb-35">
+                    <div class="single-product-wrap mb-35 shadow rounded">
                         <div class="product-img product-img-zoom mb-15">
                             <a href="product-details.html">
                                 <img src="{{asset('ecommerce/assets/images/product/product-13.jpg')}}" alt="">
@@ -520,7 +520,7 @@
                     </div>
                 </div>
                 <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
-                    <div class="single-product-wrap mb-35">
+                    <div class="single-product-wrap mb-35 shadow rounded">
                         <div class="product-img product-img-zoom mb-15">
                             <a href="product-details.html">
                                 <img src="{{asset('ecommerce/assets/images/product/product-13.jpg')}}" alt="">

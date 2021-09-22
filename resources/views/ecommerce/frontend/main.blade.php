@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="{{asset('ecommerce/assets/css/plugins/magnific-popup.css')}}">
     <link rel="stylesheet" href="{{asset('ecommerce/assets/css/plugins/jquery-ui.css')}}">
     <link rel="stylesheet" href="{{asset('ecommerce/assets/css/style.css')}}">
-
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
     <!-- Use the minified version files listed below for better performance and remove the files listed above
     <link rel="stylesheet" href="assets/css/vendor/vendor.min.css">
     <link rel="stylesheet" href="assets/css/plugins/plugins.min.css">
@@ -37,6 +37,7 @@
             font-family: Arial, Helvetica, sans-serif;
         }
 
+       
         /* The Modal (background) */
         .modalSearch {
             display: none;
@@ -90,9 +91,38 @@
             color: #FF3B30
         }
 
-        .btn-primary{
+        .btn-primary {
             background-color: #FF3B30 !important;
             border: none !important;
+        }
+
+        .shadow {
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        }
+
+        .rounded {
+            border-radius: 5px;
+        }
+
+        /* For small devices (e.g. smartphones) */
+
+        .mobile-logo a img {
+            max-width: 80%;
+            /* display: inline-block; */
+        }
+
+        /* For medium devices (e.g. tablets) */
+        @media (min-width: 420px) {
+            .logo-img a img {
+                max-width: 48%;
+            }
+        }
+
+        /* For large devices (e.g. desktops) */
+        @media (min-width: 760px) {
+            .logo-img a img {
+                max-width: 85%;
+            }
         }
     </style>
 </head>
@@ -102,15 +132,16 @@
     <div class="main-wrapper">
         <header class="header-area">
             <div class="header-large-device">
-                <div class="header-middle header-middle-padding-2">
+                <div class="header-middle header-middle-padding-tb">
                     <div class="container">
                         <div class="row align-items-center">
                             <div class="col-xl-2 col-lg-2">
-                                <div class="logo">
+                                <div class="logo-img">
                                     <a href="index.html"><img src="{{asset('ecommerce/assets/images/logo.png')}}"
-                                            width="130" alt="logo"></a>
+                                            alt="logo"></a>
                                 </div>
                             </div>
+
                             <div class="col-xl-7 col-lg-7">
                                 <div class="categori-search-wrap">
                                     <div class="categori-style-1">
@@ -134,16 +165,23 @@
                                 <div class="header-action header-action-flex float-left">
                                     <div class="same-style-2 same-style-2-font-inc header-cart">
                                         <a class="cart-active" href="#">
-                                            <i class="icon-basket-loaded"></i><span class="pro-count green">02</span>
+                                            <i class="ri-shopping-cart-line"></i><span class="pro-count green">02</span>
 
                                         </a>
                                     </div>
-                                    <div class="same-style-2 same-style-2-font-inc header-cart">
+                                    <div class="same-style-2 same-style-2-font-inc">
+                                        <a class="cart-active" href="#">
+                                            <i class="ri-notification-2-line"></i><span
+                                                class="pro-count green">02</span>
+
+                                        </a>
+                                    </div>
+                                    <div class="same-style-2 same-style-2-font-inc">
                                         <a href="">|</a>
                                     </div>
                                     <div class="same-style-2 same-style-2-font-inc">
-                                        <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                            ><i class="icon-user"></i> Samantha</a>
+                                        <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
+                                                class="icon-user"></i> Samantha</a>
                                         <div class="dropdown-menu" style="width: 70%">
                                             <a class="dropdown-item" href="#" style="font-size:16px">Profil</a>
                                             <a class="dropdown-item" href="#" style="font-size:16px">Pembelian</a>
@@ -173,17 +211,28 @@
                         </div>
                         <div class="col-7">
                             <div class="header-action header-action-flex">
-                                <div class="same-style-2 same-style-2-font-inc">
-                                    <a href="login-register.html"><i class="icon-user"></i></a>
-                                </div>
-                                <div class="same-style-2 same-style-2-font-inc">
-                                    <a href="wishlist.html"><i class="icon-heart"></i><span
-                                            class="pro-count green">03</span></a>
-                                </div>
                                 <div class="same-style-2 same-style-2-font-inc header-cart">
                                     <a class="cart-active" href="#">
-                                        <i class="icon-basket-loaded"></i><span class="pro-count green">02</span>
+                                        <i class="ri-shopping-cart-line"></i><span class="pro-count green">02</span>
+
                                     </a>
+                                </div>
+                                <div class="same-style-2 same-style-2-font-inc">
+                                    <a class="cart-active" href="#">
+                                        <i class="ri-notification-2-line"></i><span class="pro-count green">02</span>
+
+                                    </a>
+                                </div>
+                                <div class="same-style-2 same-style-2-font-inc">
+                                    <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
+                                            class="icon-user"></i></a>
+                                    <div class="dropdown-menu" style="width: 70%">
+                                        <a class="dropdown-item" href="#" style="font-size:16px">Profil</a>
+                                        <a class="dropdown-item" href="#" style="font-size:16px">Pembelian</a>
+                                        <a class="dropdown-item" href="#" style="font-size:16px">Favorit</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="#" style="font-size:16px">Logout</a>
+                                    </div>
                                 </div>
                                 <div class="same-style-2 main-menu-icon">
                                     <a class="mobile-header-button-active" href="#"><i class="icon-menu"></i> </a>
@@ -288,7 +337,7 @@
                 </div>
             </div>
         </div>
-       
+
         @include('ecommerce.frontend.include.footer')
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog">
