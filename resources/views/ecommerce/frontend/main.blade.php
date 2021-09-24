@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Norda - Minimal eCommerce HTML Template</title>
+    <title>Garment - Ecommerce</title>
     <meta name="robots" content="noindex, follow" />
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -22,12 +22,14 @@
     <link rel="stylesheet" href="{{asset('ecommerce/assets/css/vendor/linear-icon.css')}}">
     <link rel="stylesheet" href="{{asset('ecommerce/assets/css/plugins/nice-select.css')}}">
     <link rel="stylesheet" href="{{asset('ecommerce/assets/css/plugins/easyzoom.css')}}">
+
     <link rel="stylesheet" href="{{asset('ecommerce/assets/css/plugins/slick.css')}}">
     <link rel="stylesheet" href="{{asset('ecommerce/assets/css/plugins/animate.css')}}">
     <link rel="stylesheet" href="{{asset('ecommerce/assets/css/plugins/magnific-popup.css')}}">
     <link rel="stylesheet" href="{{asset('ecommerce/assets/css/plugins/jquery-ui.css')}}">
     <link rel="stylesheet" href="{{asset('ecommerce/assets/css/style.css')}}">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
     <!-- Use the minified version files listed below for better performance and remove the files listed above
     <link rel="stylesheet" href="assets/css/vendor/vendor.min.css">
     <link rel="stylesheet" href="assets/css/plugins/plugins.min.css">
@@ -37,7 +39,7 @@
             font-family: Arial, Helvetica, sans-serif;
         }
 
-       
+
         /* The Modal (background) */
         .modalSearch {
             display: none;
@@ -163,25 +165,24 @@
                             </div>
                             <div class="col-xl-3 col-lg-3">
                                 <div class="header-action header-action-flex float-left">
-                                    <div class="same-style-2 same-style-2-font-inc header-cart">
+                                    <div class="same-style-2 same-style-2-font-inc header-cart mt-2">
                                         <a class="cart-active" href="#">
                                             <i class="ri-shopping-cart-line"></i><span class="pro-count green">02</span>
 
                                         </a>
                                     </div>
-                                    <div class="same-style-2 same-style-2-font-inc">
+                                    <div class="same-style-2 same-style-2-font-inc mt-2">
                                         <a class="cart-active" href="#">
                                             <i class="ri-notification-2-line"></i><span
                                                 class="pro-count green">02</span>
 
                                         </a>
                                     </div>
-                                    <div class="same-style-2 same-style-2-font-inc">
+                                    <div class="same-style-2 same-style-2-font-inc mt-2">
                                         <a href="">|</a>
                                     </div>
                                     <div class="same-style-2 same-style-2-font-inc">
-                                        <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
-                                                class="icon-user"></i> Samantha</a>
+                                        <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <img src="{{asset('ecommerce/assets/images/samantha.png')}}" style="width:25%" class="rounded-circle" alt=""> Samantha</a>
                                         <div class="dropdown-menu" style="width: 70%">
                                             <a class="dropdown-item" href="#" style="font-size:16px">Profil</a>
                                             <a class="dropdown-item" href="#" style="font-size:16px">Pembelian</a>
@@ -293,44 +294,44 @@
                     <div class="col-lg-3 col-md-6 col-sm-6 col-12 service-border-1">
                         <div class="single-service-wrap-2 mb-30">
                             <div class="service-icon-2">
-                                <i class="icon-cursor"></i>
+                                <i class="ri-truck-line"  style="color:#FF3B30"></i>
                             </div>
                             <div class="service-content-2">
-                                <h3>Free Shipping</h3>
-                                <p>Oders over $99</p>
+                                <h5 style="font-weight: bold">Gratis Ongkir</h5>
+                                <p style="font-size: 10px">Jika melebihi order 10 lusin</p>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-6 col-12 service-border-1 service-border-1-none-md">
                         <div class="single-service-wrap-2 mb-30">
                             <div class="service-icon-2">
-                                <i class="icon-refresh "></i>
+                                <i class="ri-shield-check-line"  style="color:#FF3B30"></i>
                             </div>
                             <div class="service-content-2">
-                                <h3>90 Days Return</h3>
-                                <p>For any problems</p>
+                                <h5 style="font-weight: bold">100% Pembayaran Aman </h5>
+                                <p style="font-size: 10px">Jaminan pembayaran yang aman</p>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-6 col-12 service-border-1">
                         <div class="single-service-wrap-2 mb-30">
                             <div class="service-icon-2">
-                                <i class="icon-credit-card "></i>
+                                <i class="ri-user-voice-line" style="color:#FF3B30"></i>
                             </div>
                             <div class="service-content-2">
-                                <h3>Secure Payment</h3>
-                                <p>100% Guarantee</p>
+                                <h5 style="font-weight: bold">24/7 Dukungan Khusus</h5>
+                                <p style="font-size: 10px">Kapan pun & dimana pun</p>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                         <div class="single-service-wrap-2 mb-30">
                             <div class="service-icon-2">
-                                <i class="icon-earphones "></i>
+                                <i class="ri-calendar-check-line" style="color:#FF3B30"></i>
                             </div>
                             <div class="service-content-2">
-                                <h3>24h Support</h3>
-                                <p>Dedicated support</p>
+                                <h5 style="font-weight: bold">Tawaran Setiap Hari</h5>
+                                <p style="font-size: 10px">Diskon s/d 50%</p>
                             </div>
                         </div>
                     </div>
@@ -352,28 +353,28 @@
                             <div class="col-lg-5 col-md-6 col-12 col-sm-12">
                                 <div class="tab-content quickview-big-img">
                                     <div id="pro-1" class="tab-pane fade show active">
-                                        <img src="assets/images/product/product-1.jpg" alt="">
+                                        <img src="{{asset('ecommerce/assets/images/product/product-1.jpg')}}" alt="">
                                     </div>
                                     <div id="pro-2" class="tab-pane fade">
-                                        <img src="assets/images/product/product-3.jpg" alt="">
+                                        <img src="{{asset('ecommerce/assets/images/product/product-3.jpg')}}" alt="">
                                     </div>
                                     <div id="pro-3" class="tab-pane fade">
-                                        <img src="assets/images/product/product-6.jpg" alt="">
+                                        <img src="{{asset('ecommerce/assets/images/product/product-6.jpg')}}" alt="">
                                     </div>
                                     <div id="pro-4" class="tab-pane fade">
-                                        <img src="assets/images/product/product-3.jpg" alt="">
+                                        <img src="{{asset('ecommerce/assets/images/product/product-3.jpg')}}" alt="">
                                     </div>
                                 </div>
                                 <div class="quickview-wrap mt-15">
                                     <div class="quickview-slide-active nav-style-6">
                                         <a class="active" data-toggle="tab" href="#pro-1"><img
-                                                src="assets/images/product/quickview-s1.jpg" alt=""></a>
+                                                src="{{asset('ecommerce/assets/images/product/quickview-s1.jpg')}}" alt=""></a>
                                         <a data-toggle="tab" href="#pro-2"><img
-                                                src="assets/images/product/quickview-s2.jpg" alt=""></a>
+                                                src="{{asset('ecommerce/assets/images/product/quickview-s2.jpg')}}" alt=""></a>
                                         <a data-toggle="tab" href="#pro-3"><img
-                                                src="assets/images/product/quickview-s3.jpg" alt=""></a>
+                                                src="{{asset('ecommerce/assets/images/product/quickview-s3.jpg')}}" alt=""></a>
                                         <a data-toggle="tab" href="#pro-4"><img
-                                                src="assets/images/product/quickview-s2.jpg" alt=""></a>
+                                                src="{{asset('ecommerce/assets/images/product/quickview-s2.jpg')}}" alt=""></a>
                                     </div>
                                 </div>
                             </div>
