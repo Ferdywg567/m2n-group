@@ -19,6 +19,21 @@
         color: white;
     }
 
+    .product-details-tab .btn-wishlist {
+        position: absolute;
+        top: 6% !important;
+        left: 72%;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        font-size: 16px;
+        text-align: right;
+        background-color: white;
+    }
+
+    .product-details-tab .btn-wishlist:hover{
+        background-color: black;
+        color: white;
+    }
 </style>
 <div class="breadcrumb-area bg-white" style="margin-top: -2%">
     <div class="container">
@@ -36,19 +51,23 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-6 col-md-12">
-                <div class="product-details-tab">
-                    <div class="product-dec-left-detail pro-dec-big-img-slider">
+                <div class="product-details-tab single-product-wrap">
+                    <div class="product-dec-left-detail pro-dec-big-img-slider product-img product-img-zoom">
                         <img src="{{asset('ecommerce/assets/images/product-details/product-detail-1.png')}}"
-                        class="rounded-lg" alt="">
+                            class="rounded-lg" alt="">
                         <img src="{{asset('ecommerce/assets/images/product-details/product-detail-2.png')}}"
-                        class="rounded-lg" alt="">
+                            class="rounded-lg" alt="">
                         <img src="{{asset('ecommerce/assets/images/product-details/product-detail-3.png')}}"
-                        class="rounded-lg" alt="">
+                            class="rounded-lg" alt="">
                         <img src="{{asset('ecommerce/assets/images/product-details/product-detail-4.png')}}"
-                                class="rounded-lg" alt="">
+                            class="rounded-lg" alt="">
 
                     </div>
-                    <div class="product-dec-right-detail product-dec-slider-small-2 product-dec-small-style2" >
+                    <div class="img-overlay">
+                        <button class="btn btn-sm btn-wishlist rounded-circle"><i class="ri-heart-line"></i></button>
+                    </div>
+
+                    <div class="product-dec-right-detail product-dec-slider-small-2 product-dec-small-style2">
                         <div class="product-dec-small active">
                             <img src="{{asset('ecommerce/assets/images/product-details/product-detail-1.png')}}"
                                 class="rounded-lg" alt="">
@@ -1086,6 +1105,9 @@
                     slidesToShow: 1,
                     adaptiveHeight: true
                 });
+
+
+                // $('.pro-dec-big-img-slider').slick('unslick', $('.btn-wishlist').index());
         })
 </script>
 @endpush
