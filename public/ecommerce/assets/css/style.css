@@ -9068,7 +9068,7 @@ textarea:focus {
   -webkit-box-pack: center;
   -webkit-justify-content: center;
       -ms-flex-pack: center;
-          justify-content: center;
+          justify-content: left;
 }
 
 .single-product-wrap .product-content-wrap-2 .product-rating-wrap .product-rating i {
@@ -9146,7 +9146,7 @@ textarea:focus {
   background-color: #000000;
   font-size: 14px;
   padding: 8px 28px 8px;
-  border-radius: 50px;
+  border-radius: 10px;
   -webkit-transition: all .3s ease 0s;
   -o-transition: all .3s ease 0s;
   transition: all .3s ease 0s;
@@ -9683,6 +9683,7 @@ textarea:focus {
 .product-slider-active-9 .slick-list,
 .related-product-active .slick-list {
   margin: 0 -15px;
+
 }
 
 .product-slider-active .slick-list .product-plr-1,
@@ -9694,6 +9695,7 @@ textarea:focus {
 .product-slider-active-9 .slick-list .product-plr-1,
 .related-product-active .slick-list .product-plr-1 {
   padding: 0 15px;
+  margin-bottom: 20px;
 }
 
 .product-categories-slider-1 .slick-list,

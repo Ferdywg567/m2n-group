@@ -241,123 +241,42 @@
         </div>
     </div>
 </div>
-<div class="slider-area bg-gray-2">
-    <div class="hero-slider-active-2 nav-style-1 nav-style-1-green">
-        <div class="single-hero-slider single-hero-slider-hm3 single-animation-wrap">
+<div class="slider-area">
+    <div class="hero-slider-active-1 nav-style-1 dot-style-2 dot-style-2-position-2 dot-style-2-active-black">
+        <div class="single-hero-slider single-animation-wrap slider-height-2 custom-d-flex custom-align-item-center bg-img hm2-slider-bg res-white-overly-xs" style="background-image:url({{asset('ecommerce/assets/images/banner/banner-utama.png')}});">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-8 col-md-12 col-12 ml-auto">
-                        <div class="row align-items-center slider-animated-1">
-                            <div class="col-lg-7 col-md-7 col-sm-7 col-12">
-                                <div class="hero-slider-content-3 slider-animated-1">
-                                    <h4 class="animated">New Arrivals</h4>
-                                    <h1 class="animated">Basic thick knit <br>T-shirt</h1>
-                                    <p class="animated">Men's basic coat with a high lapel collar and side pockets with
-                                        button fastening.</p>
-                                    <h5 class="animated">3 Colors: <span>Grey</span></h5>
-                                    <div class="slider-tab-small-img nav animated">
-                                        <a class="active" href="#tshirt-4" data-toggle="tab"><img
-                                                src="{{asset('ecommerce/assets/images/slider/hm-3-small-tshirt-1.jpg')}}"
-                                                alt=""> </a>
-                                        <a href="#tshirt-5" data-toggle="tab"> <img
-                                                src="{{asset('ecommerce/assets/images/slider/hm-3-small-tshirt-2.jpg')}}"
-                                                alt=""> </a>
-                                        <a href="#tshirt-6" data-toggle="tab"><img
-                                                src="{{asset('ecommerce/assets/images/slider/hm-3-small-tshirt-3.jpg')}}"
-                                                alt=""> </a>
-                                    </div>
-                                    <div class="btn-style-3">
-                                        <a class="animated btn-1-padding-1" href="product-details.html">Shop now <i
-                                                class="icon-arrow-right"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-5 col-md-5 col-sm-5 col-12">
-                                <div class="tab-content slider-tab-big-img-wrap jump animated">
-                                    <div id="tshirt-4" class="tab-pane active">
-                                        <div class="slider-tab-big-img slider-tab-big-img-mrg-1">
-                                            <img src="{{asset('ecommerce/assets/images/slider/hm-3-slider-1.png')}}"
-                                                alt="">
-                                        </div>
-                                    </div>
-                                    <div id="tshirt-5" class="tab-pane ">
-                                        <div class="slider-tab-big-img slider-tab-big-img-mrg-2">
-                                            <img src="{{asset('ecommerce/assets/images/slider/hm-3-slider-2.png')}}"
-                                                alt="">
-                                        </div>
-                                    </div>
-                                    <div id="tshirt-6" class="tab-pane">
-                                        <div class="slider-tab-big-img slider-tab-big-img-mrg-3">
-                                            <img src="{{asset('ecommerce/assets/images/slider/hm-3-slider-3.png')}}"
-                                                alt="">
-                                        </div>
-                                    </div>
-                                </div>
+                    {{-- <div class="col-12">
+                        <div class="hero-slider-content-4 slider-animated-1">
+                            <h4 class="animated">Lookbook</h4>
+                            <h1 class="animated">Denim Mixed <br>Layering Combine <br>collect</h1>
+                            <p class="animated">We love seeing how our Raifa wearers like to wear their Norda</p>
+                            <div class="btn-style-1">
+                                <a class="animated btn-1-padding-1" href="product-details.html">Explore Now</a>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
-        <div class="single-hero-slider single-hero-slider-hm3 single-animation-wrap">
+        <div class="single-hero-slider single-animation-wrap slider-height-2 custom-d-flex custom-align-item-center bg-img hm2-slider-bg res-white-overly-xs " style="background-image:url({{asset('ecommerce/assets/images/banner/banner-utama.png')}});">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-8 col-md-12 col-12 ml-auto">
-                        <div class="row align-items-center slider-animated-1">
-                            <div class="col-lg-7 col-md-7 col-sm-7 col-12">
-                                <div class="hero-slider-content-3">
-                                    <h4 class="animated">New Arrivals</h4>
-                                    <h1 class="animated">Basic thick knit <br>T-shirt</h1>
-                                    <p class="animated">Men's basic coat with a high lapel collar and side pockets with
-                                        button fastening.</p>
-                                    <h5 class="animated">3 Colors: <span>Grey</span></h5>
-                                    <div class="slider-tab-small-img nav animated">
-                                        <a href="#tshirt-7" data-toggle="tab"><img
-                                                src="{{asset('ecommerce/assets/images/slider/hm-3-small-tshirt-1.jpg')}}"
-                                                alt=""> </a>
-                                        <a class="active" href="#tshirt-8" data-toggle="tab"> <img
-                                                src="{{asset('ecommerce/assets/images/slider/hm-3-small-tshirt-2.jpg')}}"
-                                                alt=""> </a>
-                                        <a href="#tshirt-9" data-toggle="tab"><img
-                                                src="{{asset('ecommerce/assets/images/slider/hm-3-small-tshirt-3.jpg')}}"
-                                                alt=""> </a>
-                                    </div>
-                                    <div class="btn-style-3">
-                                        <a class="animated btn-1-padding-1" href="product-details.html">Shop now <i
-                                                class="icon-arrow-right"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-5 col-md-5 col-sm-5 col-12">
-                                <div class="tab-content slider-tab-big-img-wrap jump animated">
-                                    <div id="tshirt-7" class="tab-pane">
-                                        <div class="slider-tab-big-img slider-tab-big-img-mrg-1">
-                                            <img src="{{asset('ecommerce/assets/images/slider/hm-3-slider-1.png')}}"
-                                                alt="">
-                                        </div>
-                                    </div>
-                                    <div id="tshirt-8" class="tab-pane active">
-                                        <div class="slider-tab-big-img slider-tab-big-img-mrg-2">
-                                            <img src="{{asset('ecommerce/assets/images/slider/hm-3-slider-2.png')}}"
-                                                alt="">
-                                        </div>
-                                    </div>
-                                    <div id="tshirt-9" class="tab-pane">
-                                        <div class="slider-tab-big-img slider-tab-big-img-mrg-3">
-                                            <img src="{{asset('ecommerce/assets/images/slider/hm-3-slider-3.png')}}"
-                                                alt="">
-                                        </div>
-                                    </div>
-                                </div>
+                    {{-- <div class="col-12">
+                        <div class="hero-slider-content-4 slider-animated-1">
+                            <h4 class="animated">Lookbook</h4>
+                            <h1 class="animated">Denim Mixed <br>Layering Combine <br>collect</h1>
+                            <p class="animated">We love seeing how our Raifa wearers like to wear their Norda</p>
+                            <div class="btn-style-1">
+                                <a class="animated btn-1-padding-1" href="product-details.html">Explore Now</a>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 
 <div class="product-area pb-80 mt-4">
     <div class="container">
@@ -376,16 +295,20 @@
                     <div class="single-product-wrap mb-35 shadow rounded">
                         <div class="product-img product-img-zoom mb-15">
                             <a href="product-details.html">
-                                <img src="{{asset('ecommerce/assets/images/product/product-13.jpg')}}" alt="">
+                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-4.png')}}" alt="">
                             </a>
                             <div class="product-action-2 tooltip-style-2">
                                 <button title="Wishlist"><i class="icon-heart"></i></button>
-                                <button title="Quick View" data-toggle="modal" data-target="#exampleModal"><i class="icon-size-fullscreen icons"></i></button>
-                                <button title="Compare"><i class="icon-refresh"></i></button>
                             </div>
                         </div>
-                        <div class="product-content-wrap-2 text-center">
-                            <div class="product-rating-wrap">
+                        <div class="product-content-wrap-2 text-left ml-2">
+
+                            <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                            <div class="product-price-2">
+                                <span class="new-price">Rp. 32,000</span>
+                                <span class="old-price">Rp. 45,000</span>
+                            </div>
+                            <div class="product-rating-wrap pb-10">
                                 <div class="product-rating">
                                     <i class="icon_star"></i>
                                     <i class="icon_star"></i>
@@ -395,29 +318,26 @@
                                 </div>
                                 <span>(2)</span>
                             </div>
-                            <h3><a href="product-details.html">Basic Joggin Shorts</a></h3>
-                            <div class="product-price-2">
-                                <span>$20.50</span>
-                            </div>
                         </div>
-                        <div class="product-content-wrap-2 product-content-position text-center">
-                            <div class="product-rating-wrap">
-                                <div class="product-rating">
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star gray"></i>
-                                </div>
-                                <span>(2)</span>
+                        <div class="product-content-wrap-2 product-content-position text-left">
+                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                        <div class="product-price-2">
+                            <span class="new-price">Rp. 32,000</span>
+                            <span class="old-price">Rp. 45,000</span>
+                        </div>
+                        <div class="product-rating-wrap">
+                            <div class="product-rating">
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star gray"></i>
                             </div>
-                            <h3><a href="product-details.html">Basic Joggin Shorts</a></h3>
-                            <div class="product-price-2">
-                                <span>$20.50</span>
-                            </div>
-                            <div class="pro-add-to-cart">
-                                <button title="Add to Cart">Add To Cart</button>
-                            </div>
+                            <span>(2)</span>
+                        </div>
+                        <div class="pro-add-to-cart">
+                            <button class="btn btn-primary btn-block" >Lihat Produk</button>
+                        </div>
                         </div>
                     </div>
                 </div>
@@ -425,16 +345,20 @@
                     <div class="single-product-wrap mb-35 shadow rounded">
                         <div class="product-img product-img-zoom mb-15">
                             <a href="product-details.html">
-                                <img src="{{asset('ecommerce/assets/images/product/product-13.jpg')}}" alt="">
+                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-1.png')}}" alt="">
                             </a>
                             <div class="product-action-2 tooltip-style-2">
                                 <button title="Wishlist"><i class="icon-heart"></i></button>
-                                <button title="Quick View" data-toggle="modal" data-target="#exampleModal"><i class="icon-size-fullscreen icons"></i></button>
-                                <button title="Compare"><i class="icon-refresh"></i></button>
                             </div>
                         </div>
-                        <div class="product-content-wrap-2 text-center">
-                            <div class="product-rating-wrap">
+                        <div class="product-content-wrap-2 text-left ml-2">
+
+                            <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                            <div class="product-price-2">
+                                <span class="new-price">Rp. 32,000</span>
+                                <span class="old-price">Rp. 45,000</span>
+                            </div>
+                            <div class="product-rating-wrap pb-10">
                                 <div class="product-rating">
                                     <i class="icon_star"></i>
                                     <i class="icon_star"></i>
@@ -444,29 +368,26 @@
                                 </div>
                                 <span>(2)</span>
                             </div>
-                            <h3><a href="product-details.html">Basic Joggin Shorts</a></h3>
-                            <div class="product-price-2">
-                                <span>$20.50</span>
-                            </div>
                         </div>
-                        <div class="product-content-wrap-2 product-content-position text-center">
-                            <div class="product-rating-wrap">
-                                <div class="product-rating">
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star gray"></i>
-                                </div>
-                                <span>(2)</span>
+                        <div class="product-content-wrap-2 product-content-position text-left">
+                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                        <div class="product-price-2">
+                            <span class="new-price">Rp. 32,000</span>
+                            <span class="old-price">Rp. 45,000</span>
+                        </div>
+                        <div class="product-rating-wrap">
+                            <div class="product-rating">
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star gray"></i>
                             </div>
-                            <h3><a href="product-details.html">Basic Joggin Shorts</a></h3>
-                            <div class="product-price-2">
-                                <span>$20.50</span>
-                            </div>
-                            <div class="pro-add-to-cart">
-                                <button title="Add to Cart">Add To Cart</button>
-                            </div>
+                            <span>(2)</span>
+                        </div>
+                        <div class="pro-add-to-cart">
+                            <button class="btn btn-primary btn-block" >Lihat Produk</button>
+                        </div>
                         </div>
                     </div>
                 </div>
@@ -474,16 +395,20 @@
                     <div class="single-product-wrap mb-35 shadow rounded">
                         <div class="product-img product-img-zoom mb-15">
                             <a href="product-details.html">
-                                <img src="{{asset('ecommerce/assets/images/product/product-13.jpg')}}" alt="">
+                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-3.png')}}" alt="">
                             </a>
                             <div class="product-action-2 tooltip-style-2">
                                 <button title="Wishlist"><i class="icon-heart"></i></button>
-                                <button title="Quick View" data-toggle="modal" data-target="#exampleModal"><i class="icon-size-fullscreen icons"></i></button>
-                                <button title="Compare"><i class="icon-refresh"></i></button>
                             </div>
                         </div>
-                        <div class="product-content-wrap-2 text-center">
-                            <div class="product-rating-wrap">
+                        <div class="product-content-wrap-2 text-left ml-2">
+
+                            <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                            <div class="product-price-2">
+                                <span class="new-price">Rp. 32,000</span>
+                                <span class="old-price">Rp. 45,000</span>
+                            </div>
+                            <div class="product-rating-wrap pb-10">
                                 <div class="product-rating">
                                     <i class="icon_star"></i>
                                     <i class="icon_star"></i>
@@ -493,29 +418,26 @@
                                 </div>
                                 <span>(2)</span>
                             </div>
-                            <h3><a href="product-details.html">Basic Joggin Shorts</a></h3>
-                            <div class="product-price-2">
-                                <span>$20.50</span>
-                            </div>
                         </div>
-                        <div class="product-content-wrap-2 product-content-position text-center">
-                            <div class="product-rating-wrap">
-                                <div class="product-rating">
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star gray"></i>
-                                </div>
-                                <span>(2)</span>
+                        <div class="product-content-wrap-2 product-content-position text-left">
+                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                        <div class="product-price-2">
+                            <span class="new-price">Rp. 32,000</span>
+                            <span class="old-price">Rp. 45,000</span>
+                        </div>
+                        <div class="product-rating-wrap">
+                            <div class="product-rating">
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star gray"></i>
                             </div>
-                            <h3><a href="product-details.html">Basic Joggin Shorts</a></h3>
-                            <div class="product-price-2">
-                                <span>$20.50</span>
-                            </div>
-                            <div class="pro-add-to-cart">
-                                <button title="Add to Cart">Add To Cart</button>
-                            </div>
+                            <span>(2)</span>
+                        </div>
+                        <div class="pro-add-to-cart">
+                            <button class="btn btn-primary btn-block" >Lihat Produk</button>
+                        </div>
                         </div>
                     </div>
                 </div>
@@ -523,16 +445,20 @@
                     <div class="single-product-wrap mb-35 shadow rounded">
                         <div class="product-img product-img-zoom mb-15">
                             <a href="product-details.html">
-                                <img src="{{asset('ecommerce/assets/images/product/product-13.jpg')}}" alt="">
+                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-2.png')}}" alt="">
                             </a>
                             <div class="product-action-2 tooltip-style-2">
                                 <button title="Wishlist"><i class="icon-heart"></i></button>
-                                <button title="Quick View" data-toggle="modal" data-target="#exampleModal"><i class="icon-size-fullscreen icons"></i></button>
-                                <button title="Compare"><i class="icon-refresh"></i></button>
                             </div>
                         </div>
-                        <div class="product-content-wrap-2 text-center">
-                            <div class="product-rating-wrap">
+                        <div class="product-content-wrap-2 text-left ml-2">
+
+                            <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                            <div class="product-price-2">
+                                <span class="new-price">Rp. 32,000</span>
+                                <span class="old-price">Rp. 45,000</span>
+                            </div>
+                            <div class="product-rating-wrap pb-10">
                                 <div class="product-rating">
                                     <i class="icon_star"></i>
                                     <i class="icon_star"></i>
@@ -542,29 +468,26 @@
                                 </div>
                                 <span>(2)</span>
                             </div>
-                            <h3><a href="product-details.html">Basic Joggin Shorts</a></h3>
-                            <div class="product-price-2">
-                                <span>$20.50</span>
-                            </div>
                         </div>
-                        <div class="product-content-wrap-2 product-content-position text-center">
-                            <div class="product-rating-wrap">
-                                <div class="product-rating">
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star gray"></i>
-                                </div>
-                                <span>(2)</span>
+                        <div class="product-content-wrap-2 product-content-position text-left">
+                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                        <div class="product-price-2">
+                            <span class="new-price">Rp. 32,000</span>
+                            <span class="old-price">Rp. 45,000</span>
+                        </div>
+                        <div class="product-rating-wrap">
+                            <div class="product-rating">
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star gray"></i>
                             </div>
-                            <h3><a href="product-details.html">Basic Joggin Shorts</a></h3>
-                            <div class="product-price-2">
-                                <span>$20.50</span>
-                            </div>
-                            <div class="pro-add-to-cart">
-                                <button title="Add to Cart">Add To Cart</button>
-                            </div>
+                            <span>(2)</span>
+                        </div>
+                        <div class="pro-add-to-cart">
+                            <button class="btn btn-primary btn-block" >Lihat Produk</button>
+                        </div>
                         </div>
                     </div>
                 </div>
@@ -572,1822 +495,852 @@
         </div>
     </div>
 </div>
-<div class="banner-area padding-10-row-col pb-105">
+<div class="banner-area padding-10-row-col pb-80">
     <div class="container">
         <div class="row">
             <div class="col-lg-4 col-md-6 col-12">
                 <div class="banner-wrap mb-10">
                     <div class="banner-img banner-img-border banner-img-zoom">
                         <a href="product-details.html"><img
-                                src="{{asset('ecommerce/assets/images/banner/banner-3.jpg')}}" alt=""></a>
+                                src="{{asset('ecommerce/assets/images/banner/banner-1.png')}}"  alt=""></a>
                     </div>
-                    <div class="banner-content-3">
-                        <h2>Basic Solid Color <br>Sneaker</h2>
-                        <span>Start</span>
-                        <h3>$168.50</h3>
-                        <div class="btn-style-4">
-                            <a href="product-details.html">Shop now <i class="icon-arrow-right"></i></a>
-                        </div>
-                    </div>
+
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 col-12">
                 <div class="banner-wrap mb-10">
                     <div class="banner-img banner-img-border banner-img-zoom">
                         <a href="product-details.html"><img
-                                src="{{asset('ecommerce/assets/images/banner/banner-4.jpg')}}" alt=""></a>
+                                src="{{asset('ecommerce/assets/images/banner/banner-2.png')}}" alt=""></a>
                     </div>
-                    <div class="banner-content-4">
-                        <h2>Discount <br> <span>50%</span> OFF</h2>
-                        <span>backpack</span>
-                        <h3>new era</h3>
-                        <div class="btn-style-4">
-                            <a href="product-details.html">Shop now <i class="icon-arrow-right"></i></a>
-                        </div>
-                    </div>
+
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 col-12">
                 <div class="banner-wrap mb-10">
                     <div class="banner-img banner-img-border banner-img-zoom">
                         <a href="product-details.html"><img
-                                src="{{asset('ecommerce/assets/images/banner/banner-5.jpg')}}" alt=""></a>
+                                src="{{asset('ecommerce/assets/images/banner/banner-4.png')}}" alt=""></a>
                     </div>
-                    <div class="banner-content-5">
-                        <span>Hello kids</span>
-                        <h2>Activities Boys <br>with HelloKid</h2>
-                        <p>Discover collection from Hello Kid brand</p>
-                        <div class="btn-style-4">
-                            <a href="product-details.html">explore <i class="icon-arrow-right"></i></a>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<div class="product-area pb-110">
+<div class="product-area pb-80">
     <div class="container">
-        <div class="section-title-tab-wrap border-bottom-5 align-items-inherit mb-50">
+        <div class="section-title-tab-wrap border-bottom-3 mb-30 pb-15">
             <div class="section-title-3">
                 <h2>Rekomendasi Untukmu</h2>
             </div>
-            <div class="tab-style-4 nav">
-                <a class="active" href="#product-6" data-toggle="tab">Top 10</a>
-                <a href="#product-7" data-toggle="tab"> Women </a>
-                <a href="#product-8" data-toggle="tab">Men </a>
-                <a href="#product-9" data-toggle="tab"> Shoes</a>
-                <a href="#product-10" data-toggle="tab">Accessories</a>
-            </div>
+
         </div>
         <div class="tab-content jump">
-            <div id="product-6" class="tab-pane active">
-                <div class="product-slider-active-3 nav-style-3">
-                    <div class="product-plr-1">
-                        <div class="single-product-wrap">
-                            <div class="product-img product-img-zoom mb-15">
-                                <a href="product-details.html">
-                                    <img src="{{asset('ecommerce/assets/images/product/product-27.jpg')}}" alt="">
-                                </a>
-                                <div class="product-action-2 tooltip-style-2">
-                                    <button title="Wishlist"><i class="icon-heart"></i></button>
-                                    <button title="Quick View" data-toggle="modal" data-target="#exampleModal"><i
-                                            class="icon-size-fullscreen icons"></i></button>
-                                    <button title="Compare"><i class="icon-refresh"></i></button>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-3">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">Men</a>
-                                </div>
-                                <h3><a href="product-details.html">Basic Simple T-Shirt</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span class="new-price">$38.50 </span>
-                                    <span class="old-price">$42.85</span>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-3 product-content-position-2">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">Men</a>
-                                </div>
-                                <h3><a href="product-details.html">Basic Simple T-Shirt</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span class="new-price">$38.50 </span>
-                                    <span class="old-price">$42.85</span>
-                                </div>
-                                <div class="pro-add-to-cart-2">
-                                    <button title="Add to Cart">Add To Cart</button>
-                                </div>
+            <div class="row">
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+                    <div class="single-product-wrap mb-35 shadow rounded">
+                        <div class="product-img product-img-zoom mb-15">
+                            <a href="product-details.html">
+                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-4.png')}}" alt="">
+                            </a>
+                            <div class="product-action-2 tooltip-style-2">
+                                <button title="Wishlist"><i class="icon-heart"></i></button>
                             </div>
                         </div>
-                    </div>
-                    <div class="product-plr-1">
-                        <div class="single-product-wrap">
-                            <div class="product-img product-img-zoom mb-15">
-                                <a href="product-details.html">
-                                    <img src="{{asset('ecommerce/assets/images/product/product-28.jpg')}}" alt="">
-                                </a>
-                                <div class="product-action-2 tooltip-style-2">
-                                    <button title="Wishlist"><i class="icon-heart"></i></button>
-                                    <button title="Quick View" data-toggle="modal" data-target="#exampleModal"><i
-                                            class="icon-size-fullscreen icons"></i></button>
-                                    <button title="Compare"><i class="icon-refresh"></i></button>
-                                </div>
+                        <div class="product-content-wrap-2 text-left ml-2">
+
+                            <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                            <div class="product-price-2">
+                                <span class="new-price">Rp. 32,000</span>
+                                <span class="old-price">Rp. 45,000</span>
                             </div>
-                            <div class="product-content-wrap-3">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">Women,</a>
-                                    <a href="shop.html">accessories</a>
+                            <div class="product-rating-wrap pb-10">
+                                <div class="product-rating">
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star gray"></i>
                                 </div>
-                                <h3><a href="product-details.html">Scarf Fabric Wedges</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span>$56.50 </span>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-3 product-content-position-2">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">Women,</a>
-                                    <a href="shop.html">accessories</a>
-                                </div>
-                                <h3><a href="product-details.html">Scarf Fabric Wedges</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span>$56.50 </span>
-                                </div>
-                                <div class="pro-add-to-cart-2">
-                                    <button title="Add to Cart">Add To Cart</button>
-                                </div>
+                                <span>(2)</span>
                             </div>
                         </div>
-                    </div>
-                    <div class="product-plr-1">
-                        <div class="single-product-wrap">
-                            <div class="product-img product-img-zoom mb-15">
-                                <a href="product-details.html">
-                                    <img src="{{asset('ecommerce/assets/images/product/product-29.jpg')}}" alt="">
-                                </a>
-                                <div class="product-action-2 tooltip-style-2">
-                                    <button title="Wishlist"><i class="icon-heart"></i></button>
-                                    <button title="Quick View" data-toggle="modal" data-target="#exampleModal"><i
-                                            class="icon-size-fullscreen icons"></i></button>
-                                    <button title="Compare"><i class="icon-refresh"></i></button>
-                                </div>
+                        <div class="product-content-wrap-2 product-content-position text-left">
+                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                        <div class="product-price-2">
+                            <span class="new-price">Rp. 32,000</span>
+                            <span class="old-price">Rp. 45,000</span>
+                        </div>
+                        <div class="product-rating-wrap">
+                            <div class="product-rating">
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star gray"></i>
                             </div>
-                            <div class="product-content-wrap-3">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">Women,</a>
-                                    <a href="shop.html">Short</a>
-                                </div>
-                                <h3><a href="product-details.html">Black Simple Sneaker</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(6)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span>$43.50</span>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-3 product-content-position-2">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">Women,</a>
-                                    <a href="shop.html">Short</a>
-                                </div>
-                                <h3><a href="product-details.html">Black Simple Sneaker</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(6)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span>$43.50</span>
-                                </div>
-                                <div class="pro-add-to-cart-2">
-                                    <button title="Add to Cart">Add To Cart</button>
-                                </div>
-                            </div>
+                            <span>(2)</span>
+                        </div>
+                        <div class="pro-add-to-cart">
+                            <button class="btn btn-primary btn-block" >Lihat Produk</button>
+                        </div>
                         </div>
                     </div>
-                    <div class="product-plr-1">
-                        <div class="single-product-wrap">
-                            <div class="product-img product-img-zoom mb-15">
-                                <a href="product-details.html">
-                                    <img src="{{asset('ecommerce/assets/images/product/product-30.jpg')}}" alt="">
-                                </a>
-                                <div class="product-action-2 tooltip-style-2">
-                                    <button title="Wishlist"><i class="icon-heart"></i></button>
-                                    <button title="Quick View" data-toggle="modal" data-target="#exampleModal"><i
-                                            class="icon-size-fullscreen icons"></i></button>
-                                    <button title="Compare"><i class="icon-refresh"></i></button>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-3">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">Men, </a>
-                                    <a href="shop.html">Watches</a>
-                                </div>
-                                <h3><a href="product-details.html">Silver Coloured Watch</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(3)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span>$265.70 </span>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-3 product-content-position-2">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">Men, </a>
-                                    <a href="shop.html">Watches</a>
-                                </div>
-                                <h3><a href="product-details.html">Silver Coloured Watch</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(3)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span>$265.70 </span>
-                                </div>
-                                <div class="pro-add-to-cart-2">
-                                    <button title="Add to Cart">Add To Cart</button>
-                                </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+                    <div class="single-product-wrap mb-35 shadow rounded">
+                        <div class="product-img product-img-zoom mb-15">
+                            <a href="product-details.html">
+                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-1.png')}}" alt="">
+                            </a>
+                            <div class="product-action-2 tooltip-style-2">
+                                <button title="Wishlist"><i class="icon-heart"></i></button>
                             </div>
                         </div>
-                    </div>
-                    <div class="product-plr-1">
-                        <div class="single-product-wrap">
-                            <div class="product-img product-img-zoom mb-15">
-                                <a href="product-details.html">
-                                    <img src="{{asset('ecommerce/assets/images/product/product-31.jpg')}}" alt="">
-                                </a>
-                                <div class="product-action-2 tooltip-style-2">
-                                    <button title="Wishlist"><i class="icon-heart"></i></button>
-                                    <button title="Quick View" data-toggle="modal" data-target="#exampleModal"><i
-                                            class="icon-size-fullscreen icons"></i></button>
-                                    <button title="Compare"><i class="icon-refresh"></i></button>
-                                </div>
+                        <div class="product-content-wrap-2 text-left ml-2">
+
+                            <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                            <div class="product-price-2">
+                                <span class="new-price">Rp. 32,000</span>
+                                <span class="old-price">Rp. 45,000</span>
                             </div>
-                            <div class="product-content-wrap-3">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">women</a>
+                            <div class="product-rating-wrap pb-10">
+                                <div class="product-rating">
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star gray"></i>
                                 </div>
-                                <h3><a href="product-details.html">Make Thing Happen T-Shirt</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star "></i>
-                                    </div>
-                                    <span>(1)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span>$25.56 </span>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-3 product-content-position-2">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">women</a>
-                                </div>
-                                <h3><a href="product-details.html">Make Thing Happen T-Shirt</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star "></i>
-                                    </div>
-                                    <span>(1)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span>$25.56 </span>
-                                </div>
-                                <div class="pro-add-to-cart-2">
-                                    <button title="Add to Cart">Add To Cart</button>
-                                </div>
+                                <span>(2)</span>
                             </div>
                         </div>
+                        <div class="product-content-wrap-2 product-content-position text-left">
+                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                        <div class="product-price-2">
+                            <span class="new-price">Rp. 32,000</span>
+                            <span class="old-price">Rp. 45,000</span>
+                        </div>
+                        <div class="product-rating-wrap">
+                            <div class="product-rating">
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star gray"></i>
+                            </div>
+                            <span>(2)</span>
+                        </div>
+                        <div class="pro-add-to-cart">
+                            <button class="btn btn-primary btn-block" >Lihat Produk</button>
+                        </div>
+                        </div>
                     </div>
-                    <div class="product-plr-1">
-                        <div class="single-product-wrap">
-                            <div class="product-img product-img-zoom mb-15">
-                                <a href="product-details.html">
-                                    <img src="{{asset('ecommerce/assets/images/product/product-32.jpg')}}" alt="">
-                                </a>
-                                <div class="product-action-2 tooltip-style-2">
-                                    <button title="Wishlist"><i class="icon-heart"></i></button>
-                                    <button title="Quick View" data-toggle="modal" data-target="#exampleModal"><i
-                                            class="icon-size-fullscreen icons"></i></button>
-                                    <button title="Compare"><i class="icon-refresh"></i></button>
-                                </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+                    <div class="single-product-wrap mb-35 shadow rounded">
+                        <div class="product-img product-img-zoom mb-15">
+                            <a href="product-details.html">
+                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-3.png')}}" alt="">
+                            </a>
+                            <div class="product-action-2 tooltip-style-2">
+                                <button title="Wishlist"><i class="icon-heart"></i></button>
                             </div>
-                            <div class="product-content-wrap-3">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">Women,</a>
-                                    <a href="shop.html">accessories</a>
-                                </div>
-                                <h3><a href="product-details.html">Scarf Fabric Wedges</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span>$56.50 </span>
-                                </div>
+                        </div>
+                        <div class="product-content-wrap-2 text-left ml-2">
+
+                            <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                            <div class="product-price-2">
+                                <span class="new-price">Rp. 32,000</span>
+                                <span class="old-price">Rp. 45,000</span>
                             </div>
-                            <div class="product-content-wrap-3 product-content-position-2">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">Women,</a>
-                                    <a href="shop.html">accessories</a>
+                            <div class="product-rating-wrap pb-10">
+                                <div class="product-rating">
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star gray"></i>
                                 </div>
-                                <h3><a href="product-details.html">Scarf Fabric Wedges</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span>$56.50 </span>
-                                </div>
-                                <div class="pro-add-to-cart-2">
-                                    <button title="Add to Cart">Add To Cart</button>
-                                </div>
+                                <span>(2)</span>
                             </div>
+                        </div>
+                        <div class="product-content-wrap-2 product-content-position text-left">
+                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                        <div class="product-price-2">
+                            <span class="new-price">Rp. 32,000</span>
+                            <span class="old-price">Rp. 45,000</span>
+                        </div>
+                        <div class="product-rating-wrap">
+                            <div class="product-rating">
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star gray"></i>
+                            </div>
+                            <span>(2)</span>
+                        </div>
+                        <div class="pro-add-to-cart">
+                            <button class="btn btn-primary btn-block" >Lihat Produk</button>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+                    <div class="single-product-wrap mb-35 shadow rounded">
+                        <div class="product-img product-img-zoom mb-15">
+                            <a href="product-details.html">
+                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-2.png')}}" alt="">
+                            </a>
+                            <div class="product-action-2 tooltip-style-2">
+                                <button title="Wishlist"><i class="icon-heart"></i></button>
+                            </div>
+                        </div>
+                        <div class="product-content-wrap-2 text-left ml-2">
+
+                            <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                            <div class="product-price-2">
+                                <span class="new-price">Rp. 32,000</span>
+                                <span class="old-price">Rp. 45,000</span>
+                            </div>
+                            <div class="product-rating-wrap pb-10">
+                                <div class="product-rating">
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star gray"></i>
+                                </div>
+                                <span>(2)</span>
+                            </div>
+                        </div>
+                        <div class="product-content-wrap-2 product-content-position text-left">
+                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                        <div class="product-price-2">
+                            <span class="new-price">Rp. 32,000</span>
+                            <span class="old-price">Rp. 45,000</span>
+                        </div>
+                        <div class="product-rating-wrap">
+                            <div class="product-rating">
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star gray"></i>
+                            </div>
+                            <span>(2)</span>
+                        </div>
+                        <div class="pro-add-to-cart">
+                            <button class="btn btn-primary btn-block" >Lihat Produk</button>
+                        </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div id="product-7" class="tab-pane">
-                <div class="product-slider-active-3 nav-style-3">
-                    <div class="product-plr-1">
-                        <div class="single-product-wrap">
-                            <div class="product-img product-img-zoom mb-15">
-                                <a href="product-details.html">
-                                    <img src="assets/images/product/product-28.jpg" alt="">
-                                </a>
-                                <div class="product-action-2 tooltip-style-2">
-                                    <button title="Wishlist"><i class="icon-heart"></i></button>
-                                    <button title="Quick View" data-toggle="modal" data-target="#exampleModal"><i
-                                            class="icon-size-fullscreen icons"></i></button>
-                                    <button title="Compare"><i class="icon-refresh"></i></button>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-3">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">Women,</a>
-                                    <a href="shop.html">accessories</a>
-                                </div>
-                                <h3><a href="product-details.html">Scarf Fabric Wedges</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span>$56.50 </span>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-3 product-content-position-2">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">Women,</a>
-                                    <a href="shop.html">accessories</a>
-                                </div>
-                                <h3><a href="product-details.html">Scarf Fabric Wedges</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span>$56.50 </span>
-                                </div>
-                                <div class="pro-add-to-cart-2">
-                                    <button title="Add to Cart">Add To Cart</button>
-                                </div>
+            <div class="row">
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+                    <div class="single-product-wrap mb-35 shadow rounded">
+                        <div class="product-img product-img-zoom mb-15">
+                            <a href="product-details.html">
+                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-4.png')}}" alt="">
+                            </a>
+                            <div class="product-action-2 tooltip-style-2">
+                                <button title="Wishlist"><i class="icon-heart"></i></button>
                             </div>
                         </div>
-                    </div>
-                    <div class="product-plr-1">
-                        <div class="single-product-wrap">
-                            <div class="product-img product-img-zoom mb-15">
-                                <a href="product-details.html">
-                                    <img src="assets/images/product/product-31.jpg" alt="">
-                                </a>
-                                <div class="product-action-2 tooltip-style-2">
-                                    <button title="Wishlist"><i class="icon-heart"></i></button>
-                                    <button title="Quick View" data-toggle="modal" data-target="#exampleModal"><i
-                                            class="icon-size-fullscreen icons"></i></button>
-                                    <button title="Compare"><i class="icon-refresh"></i></button>
-                                </div>
+                        <div class="product-content-wrap-2 text-left ml-2">
+
+                            <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                            <div class="product-price-2">
+                                <span class="new-price">Rp. 32,000</span>
+                                <span class="old-price">Rp. 45,000</span>
                             </div>
-                            <div class="product-content-wrap-3">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">women</a>
+                            <div class="product-rating-wrap pb-10">
+                                <div class="product-rating">
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star gray"></i>
                                 </div>
-                                <h3><a href="product-details.html">Make Thing Happen T-Shirt</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star "></i>
-                                    </div>
-                                    <span>(1)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span>$25.56 </span>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-3 product-content-position-2">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">women</a>
-                                </div>
-                                <h3><a href="product-details.html">Make Thing Happen T-Shirt</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star "></i>
-                                    </div>
-                                    <span>(1)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span>$25.56 </span>
-                                </div>
-                                <div class="pro-add-to-cart-2">
-                                    <button title="Add to Cart">Add To Cart</button>
-                                </div>
+                                <span>(2)</span>
                             </div>
                         </div>
-                    </div>
-                    <div class="product-plr-1">
-                        <div class="single-product-wrap">
-                            <div class="product-img product-img-zoom mb-15">
-                                <a href="product-details.html">
-                                    <img src="assets/images/product/product-30.jpg" alt="">
-                                </a>
-                                <div class="product-action-2 tooltip-style-2">
-                                    <button title="Wishlist"><i class="icon-heart"></i></button>
-                                    <button title="Quick View" data-toggle="modal" data-target="#exampleModal"><i
-                                            class="icon-size-fullscreen icons"></i></button>
-                                    <button title="Compare"><i class="icon-refresh"></i></button>
-                                </div>
+                        <div class="product-content-wrap-2 product-content-position text-left">
+                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                        <div class="product-price-2">
+                            <span class="new-price">Rp. 32,000</span>
+                            <span class="old-price">Rp. 45,000</span>
+                        </div>
+                        <div class="product-rating-wrap">
+                            <div class="product-rating">
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star gray"></i>
                             </div>
-                            <div class="product-content-wrap-3">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">Men, </a>
-                                    <a href="shop.html">Watches</a>
-                                </div>
-                                <h3><a href="product-details.html">Silver Coloured Watch</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(3)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span>$265.70 </span>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-3 product-content-position-2">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">Men, </a>
-                                    <a href="shop.html">Watches</a>
-                                </div>
-                                <h3><a href="product-details.html">Silver Coloured Watch</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(3)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span>$265.70 </span>
-                                </div>
-                                <div class="pro-add-to-cart-2">
-                                    <button title="Add to Cart">Add To Cart</button>
-                                </div>
-                            </div>
+                            <span>(2)</span>
+                        </div>
+                        <div class="pro-add-to-cart">
+                            <button class="btn btn-primary btn-block" >Lihat Produk</button>
+                        </div>
                         </div>
                     </div>
-                    <div class="product-plr-1">
-                        <div class="single-product-wrap">
-                            <div class="product-img product-img-zoom mb-15">
-                                <a href="product-details.html">
-                                    <img src="assets/images/product/product-29.jpg" alt="">
-                                </a>
-                                <div class="product-action-2 tooltip-style-2">
-                                    <button title="Wishlist"><i class="icon-heart"></i></button>
-                                    <button title="Quick View" data-toggle="modal" data-target="#exampleModal"><i
-                                            class="icon-size-fullscreen icons"></i></button>
-                                    <button title="Compare"><i class="icon-refresh"></i></button>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-3">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">Women,</a>
-                                    <a href="shop.html">Short</a>
-                                </div>
-                                <h3><a href="product-details.html">Black Simple Sneaker</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(6)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span>$43.50</span>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-3 product-content-position-2">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">Women,</a>
-                                    <a href="shop.html">Short</a>
-                                </div>
-                                <h3><a href="product-details.html">Black Simple Sneaker</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(6)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span>$43.50</span>
-                                </div>
-                                <div class="pro-add-to-cart-2">
-                                    <button title="Add to Cart">Add To Cart</button>
-                                </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+                    <div class="single-product-wrap mb-35 shadow rounded">
+                        <div class="product-img product-img-zoom mb-15">
+                            <a href="product-details.html">
+                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-1.png')}}" alt="">
+                            </a>
+                            <div class="product-action-2 tooltip-style-2">
+                                <button title="Wishlist"><i class="icon-heart"></i></button>
                             </div>
                         </div>
-                    </div>
-                    <div class="product-plr-1">
-                        <div class="single-product-wrap">
-                            <div class="product-img product-img-zoom mb-15">
-                                <a href="product-details.html">
-                                    <img src="assets/images/product/product-28.jpg" alt="">
-                                </a>
-                                <div class="product-action-2 tooltip-style-2">
-                                    <button title="Wishlist"><i class="icon-heart"></i></button>
-                                    <button title="Quick View" data-toggle="modal" data-target="#exampleModal"><i
-                                            class="icon-size-fullscreen icons"></i></button>
-                                    <button title="Compare"><i class="icon-refresh"></i></button>
-                                </div>
+                        <div class="product-content-wrap-2 text-left ml-2">
+
+                            <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                            <div class="product-price-2">
+                                <span class="new-price">Rp. 32,000</span>
+                                <span class="old-price">Rp. 45,000</span>
                             </div>
-                            <div class="product-content-wrap-3">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">Women,</a>
-                                    <a href="shop.html">accessories</a>
+                            <div class="product-rating-wrap pb-10">
+                                <div class="product-rating">
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star gray"></i>
                                 </div>
-                                <h3><a href="product-details.html">Scarf Fabric Wedges</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span>$56.50 </span>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-3 product-content-position-2">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">Women,</a>
-                                    <a href="shop.html">accessories</a>
-                                </div>
-                                <h3><a href="product-details.html">Scarf Fabric Wedges</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span>$56.50 </span>
-                                </div>
-                                <div class="pro-add-to-cart-2">
-                                    <button title="Add to Cart">Add To Cart</button>
-                                </div>
+                                <span>(2)</span>
                             </div>
                         </div>
+                        <div class="product-content-wrap-2 product-content-position text-left">
+                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                        <div class="product-price-2">
+                            <span class="new-price">Rp. 32,000</span>
+                            <span class="old-price">Rp. 45,000</span>
+                        </div>
+                        <div class="product-rating-wrap">
+                            <div class="product-rating">
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star gray"></i>
+                            </div>
+                            <span>(2)</span>
+                        </div>
+                        <div class="pro-add-to-cart">
+                            <button class="btn btn-primary btn-block" >Lihat Produk</button>
+                        </div>
+                        </div>
                     </div>
-                    <div class="product-plr-1">
-                        <div class="single-product-wrap">
-                            <div class="product-img product-img-zoom mb-15">
-                                <a href="product-details.html">
-                                    <img src="assets/images/product/product-27.jpg" alt="">
-                                </a>
-                                <div class="product-action-2 tooltip-style-2">
-                                    <button title="Wishlist"><i class="icon-heart"></i></button>
-                                    <button title="Quick View" data-toggle="modal" data-target="#exampleModal"><i
-                                            class="icon-size-fullscreen icons"></i></button>
-                                    <button title="Compare"><i class="icon-refresh"></i></button>
-                                </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+                    <div class="single-product-wrap mb-35 shadow rounded">
+                        <div class="product-img product-img-zoom mb-15">
+                            <a href="product-details.html">
+                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-3.png')}}" alt="">
+                            </a>
+                            <div class="product-action-2 tooltip-style-2">
+                                <button title="Wishlist"><i class="icon-heart"></i></button>
                             </div>
-                            <div class="product-content-wrap-3">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">Men</a>
-                                </div>
-                                <h3><a href="product-details.html">Basic Simple T-Shirt</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span class="new-price">$38.50 </span>
-                                    <span class="old-price">$42.85</span>
-                                </div>
+                        </div>
+                        <div class="product-content-wrap-2 text-left ml-2">
+
+                            <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                            <div class="product-price-2">
+                                <span class="new-price">Rp. 32,000</span>
+                                <span class="old-price">Rp. 45,000</span>
                             </div>
-                            <div class="product-content-wrap-3 product-content-position-2">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">Men</a>
+                            <div class="product-rating-wrap pb-10">
+                                <div class="product-rating">
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star gray"></i>
                                 </div>
-                                <h3><a href="product-details.html">Basic Simple T-Shirt</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span class="new-price">$38.50 </span>
-                                    <span class="old-price">$42.85</span>
-                                </div>
-                                <div class="pro-add-to-cart-2">
-                                    <button title="Add to Cart">Add To Cart</button>
-                                </div>
+                                <span>(2)</span>
                             </div>
+                        </div>
+                        <div class="product-content-wrap-2 product-content-position text-left">
+                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                        <div class="product-price-2">
+                            <span class="new-price">Rp. 32,000</span>
+                            <span class="old-price">Rp. 45,000</span>
+                        </div>
+                        <div class="product-rating-wrap">
+                            <div class="product-rating">
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star gray"></i>
+                            </div>
+                            <span>(2)</span>
+                        </div>
+                        <div class="pro-add-to-cart">
+                            <button class="btn btn-primary btn-block" >Lihat Produk</button>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+                    <div class="single-product-wrap mb-35 shadow rounded">
+                        <div class="product-img product-img-zoom mb-15">
+                            <a href="product-details.html">
+                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-2.png')}}" alt="">
+                            </a>
+                            <div class="product-action-2 tooltip-style-2">
+                                <button title="Wishlist"><i class="icon-heart"></i></button>
+                            </div>
+                        </div>
+                        <div class="product-content-wrap-2 text-left ml-2">
+
+                            <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                            <div class="product-price-2">
+                                <span class="new-price">Rp. 32,000</span>
+                                <span class="old-price">Rp. 45,000</span>
+                            </div>
+                            <div class="product-rating-wrap pb-10">
+                                <div class="product-rating">
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star gray"></i>
+                                </div>
+                                <span>(2)</span>
+                            </div>
+                        </div>
+                        <div class="product-content-wrap-2 product-content-position text-left">
+                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                        <div class="product-price-2">
+                            <span class="new-price">Rp. 32,000</span>
+                            <span class="old-price">Rp. 45,000</span>
+                        </div>
+                        <div class="product-rating-wrap">
+                            <div class="product-rating">
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star gray"></i>
+                            </div>
+                            <span>(2)</span>
+                        </div>
+                        <div class="pro-add-to-cart">
+                            <button class="btn btn-primary btn-block" >Lihat Produk</button>
+                        </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div id="product-8" class="tab-pane">
-                <div class="product-slider-active-3 nav-style-3">
-                    <div class="product-plr-1">
-                        <div class="single-product-wrap">
-                            <div class="product-img product-img-zoom mb-15">
-                                <a href="product-details.html">
-                                    <img src="assets/images/product/product-31.jpg" alt="">
-                                </a>
-                                <div class="product-action-2 tooltip-style-2">
-                                    <button title="Wishlist"><i class="icon-heart"></i></button>
-                                    <button title="Quick View" data-toggle="modal" data-target="#exampleModal"><i
-                                            class="icon-size-fullscreen icons"></i></button>
-                                    <button title="Compare"><i class="icon-refresh"></i></button>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-3">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">women</a>
-                                </div>
-                                <h3><a href="product-details.html">Make Thing Happen T-Shirt</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star "></i>
-                                    </div>
-                                    <span>(1)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span>$25.56 </span>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-3 product-content-position-2">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">women</a>
-                                </div>
-                                <h3><a href="product-details.html">Make Thing Happen T-Shirt</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star "></i>
-                                    </div>
-                                    <span>(1)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span>$25.56 </span>
-                                </div>
-                                <div class="pro-add-to-cart-2">
-                                    <button title="Add to Cart">Add To Cart</button>
-                                </div>
+            <div class="row">
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+                    <div class="single-product-wrap mb-35 shadow rounded">
+                        <div class="product-img product-img-zoom mb-15">
+                            <a href="product-details.html">
+                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-4.png')}}" alt="">
+                            </a>
+                            <div class="product-action-2 tooltip-style-2">
+                                <button title="Wishlist"><i class="icon-heart"></i></button>
                             </div>
                         </div>
-                    </div>
-                    <div class="product-plr-1">
-                        <div class="single-product-wrap">
-                            <div class="product-img product-img-zoom mb-15">
-                                <a href="product-details.html">
-                                    <img src="assets/images/product/product-30.jpg" alt="">
-                                </a>
-                                <div class="product-action-2 tooltip-style-2">
-                                    <button title="Wishlist"><i class="icon-heart"></i></button>
-                                    <button title="Quick View" data-toggle="modal" data-target="#exampleModal"><i
-                                            class="icon-size-fullscreen icons"></i></button>
-                                    <button title="Compare"><i class="icon-refresh"></i></button>
-                                </div>
+                        <div class="product-content-wrap-2 text-left ml-2">
+
+                            <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                            <div class="product-price-2">
+                                <span class="new-price">Rp. 32,000</span>
+                                <span class="old-price">Rp. 45,000</span>
                             </div>
-                            <div class="product-content-wrap-3">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">Men, </a>
-                                    <a href="shop.html">Watches</a>
+                            <div class="product-rating-wrap pb-10">
+                                <div class="product-rating">
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star gray"></i>
                                 </div>
-                                <h3><a href="product-details.html">Silver Coloured Watch</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(3)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span>$265.70 </span>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-3 product-content-position-2">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">Men, </a>
-                                    <a href="shop.html">Watches</a>
-                                </div>
-                                <h3><a href="product-details.html">Silver Coloured Watch</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(3)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span>$265.70 </span>
-                                </div>
-                                <div class="pro-add-to-cart-2">
-                                    <button title="Add to Cart">Add To Cart</button>
-                                </div>
+                                <span>(2)</span>
                             </div>
                         </div>
-                    </div>
-                    <div class="product-plr-1">
-                        <div class="single-product-wrap">
-                            <div class="product-img product-img-zoom mb-15">
-                                <a href="product-details.html">
-                                    <img src="assets/images/product/product-29.jpg" alt="">
-                                </a>
-                                <div class="product-action-2 tooltip-style-2">
-                                    <button title="Wishlist"><i class="icon-heart"></i></button>
-                                    <button title="Quick View" data-toggle="modal" data-target="#exampleModal"><i
-                                            class="icon-size-fullscreen icons"></i></button>
-                                    <button title="Compare"><i class="icon-refresh"></i></button>
-                                </div>
+                        <div class="product-content-wrap-2 product-content-position text-left">
+                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                        <div class="product-price-2">
+                            <span class="new-price">Rp. 32,000</span>
+                            <span class="old-price">Rp. 45,000</span>
+                        </div>
+                        <div class="product-rating-wrap">
+                            <div class="product-rating">
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star gray"></i>
                             </div>
-                            <div class="product-content-wrap-3">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">Women,</a>
-                                    <a href="shop.html">Short</a>
-                                </div>
-                                <h3><a href="product-details.html">Black Simple Sneaker</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(6)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span>$43.50</span>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-3 product-content-position-2">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">Women,</a>
-                                    <a href="shop.html">Short</a>
-                                </div>
-                                <h3><a href="product-details.html">Black Simple Sneaker</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(6)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span>$43.50</span>
-                                </div>
-                                <div class="pro-add-to-cart-2">
-                                    <button title="Add to Cart">Add To Cart</button>
-                                </div>
-                            </div>
+                            <span>(2)</span>
+                        </div>
+                        <div class="pro-add-to-cart">
+                            <button class="btn btn-primary btn-block" >Lihat Produk</button>
+                        </div>
                         </div>
                     </div>
-                    <div class="product-plr-1">
-                        <div class="single-product-wrap">
-                            <div class="product-img product-img-zoom mb-15">
-                                <a href="product-details.html">
-                                    <img src="assets/images/product/product-28.jpg" alt="">
-                                </a>
-                                <div class="product-action-2 tooltip-style-2">
-                                    <button title="Wishlist"><i class="icon-heart"></i></button>
-                                    <button title="Quick View" data-toggle="modal" data-target="#exampleModal"><i
-                                            class="icon-size-fullscreen icons"></i></button>
-                                    <button title="Compare"><i class="icon-refresh"></i></button>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-3">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">Women,</a>
-                                    <a href="shop.html">accessories</a>
-                                </div>
-                                <h3><a href="product-details.html">Scarf Fabric Wedges</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span>$56.50 </span>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-3 product-content-position-2">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">Women,</a>
-                                    <a href="shop.html">accessories</a>
-                                </div>
-                                <h3><a href="product-details.html">Scarf Fabric Wedges</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span>$56.50 </span>
-                                </div>
-                                <div class="pro-add-to-cart-2">
-                                    <button title="Add to Cart">Add To Cart</button>
-                                </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+                    <div class="single-product-wrap mb-35 shadow rounded">
+                        <div class="product-img product-img-zoom mb-15">
+                            <a href="product-details.html">
+                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-1.png')}}" alt="">
+                            </a>
+                            <div class="product-action-2 tooltip-style-2">
+                                <button title="Wishlist"><i class="icon-heart"></i></button>
                             </div>
                         </div>
-                    </div>
-                    <div class="product-plr-1">
-                        <div class="single-product-wrap">
-                            <div class="product-img product-img-zoom mb-15">
-                                <a href="product-details.html">
-                                    <img src="assets/images/product/product-27.jpg" alt="">
-                                </a>
-                                <div class="product-action-2 tooltip-style-2">
-                                    <button title="Wishlist"><i class="icon-heart"></i></button>
-                                    <button title="Quick View" data-toggle="modal" data-target="#exampleModal"><i
-                                            class="icon-size-fullscreen icons"></i></button>
-                                    <button title="Compare"><i class="icon-refresh"></i></button>
-                                </div>
+                        <div class="product-content-wrap-2 text-left ml-2">
+
+                            <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                            <div class="product-price-2">
+                                <span class="new-price">Rp. 32,000</span>
+                                <span class="old-price">Rp. 45,000</span>
                             </div>
-                            <div class="product-content-wrap-3">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">Men</a>
+                            <div class="product-rating-wrap pb-10">
+                                <div class="product-rating">
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star gray"></i>
                                 </div>
-                                <h3><a href="product-details.html">Basic Simple T-Shirt</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span class="new-price">$38.50 </span>
-                                    <span class="old-price">$42.85</span>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-3 product-content-position-2">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">Men</a>
-                                </div>
-                                <h3><a href="product-details.html">Basic Simple T-Shirt</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span class="new-price">$38.50 </span>
-                                    <span class="old-price">$42.85</span>
-                                </div>
-                                <div class="pro-add-to-cart-2">
-                                    <button title="Add to Cart">Add To Cart</button>
-                                </div>
+                                <span>(2)</span>
                             </div>
                         </div>
+                        <div class="product-content-wrap-2 product-content-position text-left">
+                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                        <div class="product-price-2">
+                            <span class="new-price">Rp. 32,000</span>
+                            <span class="old-price">Rp. 45,000</span>
+                        </div>
+                        <div class="product-rating-wrap">
+                            <div class="product-rating">
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star gray"></i>
+                            </div>
+                            <span>(2)</span>
+                        </div>
+                        <div class="pro-add-to-cart">
+                            <button class="btn btn-primary btn-block" >Lihat Produk</button>
+                        </div>
+                        </div>
                     </div>
-                    <div class="product-plr-1">
-                        <div class="single-product-wrap">
-                            <div class="product-img product-img-zoom mb-15">
-                                <a href="product-details.html">
-                                    <img src="assets/images/product/product-28.jpg" alt="">
-                                </a>
-                                <div class="product-action-2 tooltip-style-2">
-                                    <button title="Wishlist"><i class="icon-heart"></i></button>
-                                    <button title="Quick View" data-toggle="modal" data-target="#exampleModal"><i
-                                            class="icon-size-fullscreen icons"></i></button>
-                                    <button title="Compare"><i class="icon-refresh"></i></button>
-                                </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+                    <div class="single-product-wrap mb-35 shadow rounded">
+                        <div class="product-img product-img-zoom mb-15">
+                            <a href="product-details.html">
+                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-3.png')}}" alt="">
+                            </a>
+                            <div class="product-action-2 tooltip-style-2">
+                                <button title="Wishlist"><i class="icon-heart"></i></button>
                             </div>
-                            <div class="product-content-wrap-3">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">Women,</a>
-                                    <a href="shop.html">accessories</a>
-                                </div>
-                                <h3><a href="product-details.html">Scarf Fabric Wedges</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span>$56.50 </span>
-                                </div>
+                        </div>
+                        <div class="product-content-wrap-2 text-left ml-2">
+
+                            <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                            <div class="product-price-2">
+                                <span class="new-price">Rp. 32,000</span>
+                                <span class="old-price">Rp. 45,000</span>
                             </div>
-                            <div class="product-content-wrap-3 product-content-position-2">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">Women,</a>
-                                    <a href="shop.html">accessories</a>
+                            <div class="product-rating-wrap pb-10">
+                                <div class="product-rating">
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star gray"></i>
                                 </div>
-                                <h3><a href="product-details.html">Scarf Fabric Wedges</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span>$56.50 </span>
-                                </div>
-                                <div class="pro-add-to-cart-2">
-                                    <button title="Add to Cart">Add To Cart</button>
-                                </div>
+                                <span>(2)</span>
                             </div>
+                        </div>
+                        <div class="product-content-wrap-2 product-content-position text-left">
+                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                        <div class="product-price-2">
+                            <span class="new-price">Rp. 32,000</span>
+                            <span class="old-price">Rp. 45,000</span>
+                        </div>
+                        <div class="product-rating-wrap">
+                            <div class="product-rating">
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star gray"></i>
+                            </div>
+                            <span>(2)</span>
+                        </div>
+                        <div class="pro-add-to-cart">
+                            <button class="btn btn-primary btn-block" >Lihat Produk</button>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+                    <div class="single-product-wrap mb-35 shadow rounded">
+                        <div class="product-img product-img-zoom mb-15">
+                            <a href="product-details.html">
+                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-2.png')}}" alt="">
+                            </a>
+                            <div class="product-action-2 tooltip-style-2">
+                                <button title="Wishlist"><i class="icon-heart"></i></button>
+                            </div>
+                        </div>
+                        <div class="product-content-wrap-2 text-left ml-2">
+
+                            <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                            <div class="product-price-2">
+                                <span class="new-price">Rp. 32,000</span>
+                                <span class="old-price">Rp. 45,000</span>
+                            </div>
+                            <div class="product-rating-wrap pb-10">
+                                <div class="product-rating">
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star gray"></i>
+                                </div>
+                                <span>(2)</span>
+                            </div>
+                        </div>
+                        <div class="product-content-wrap-2 product-content-position text-left">
+                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                        <div class="product-price-2">
+                            <span class="new-price">Rp. 32,000</span>
+                            <span class="old-price">Rp. 45,000</span>
+                        </div>
+                        <div class="product-rating-wrap">
+                            <div class="product-rating">
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star gray"></i>
+                            </div>
+                            <span>(2)</span>
+                        </div>
+                        <div class="pro-add-to-cart">
+                            <button class="btn btn-primary btn-block" >Lihat Produk</button>
+                        </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div id="product-9" class="tab-pane">
-                <div class="product-slider-active-3 nav-style-3">
-                    <div class="product-plr-1">
-                        <div class="single-product-wrap">
-                            <div class="product-img product-img-zoom mb-15">
-                                <a href="product-details.html">
-                                    <img src="assets/images/product/product-30.jpg" alt="">
-                                </a>
-                                <div class="product-action-2 tooltip-style-2">
-                                    <button title="Wishlist"><i class="icon-heart"></i></button>
-                                    <button title="Quick View" data-toggle="modal" data-target="#exampleModal"><i
-                                            class="icon-size-fullscreen icons"></i></button>
-                                    <button title="Compare"><i class="icon-refresh"></i></button>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-3">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">Men, </a>
-                                    <a href="shop.html">Watches</a>
-                                </div>
-                                <h3><a href="product-details.html">Silver Coloured Watch</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(3)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span>$265.70 </span>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-3 product-content-position-2">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">Men, </a>
-                                    <a href="shop.html">Watches</a>
-                                </div>
-                                <h3><a href="product-details.html">Silver Coloured Watch</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(3)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span>$265.70 </span>
-                                </div>
-                                <div class="pro-add-to-cart-2">
-                                    <button title="Add to Cart">Add To Cart</button>
-                                </div>
+            <div class="row">
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+                    <div class="single-product-wrap mb-35 shadow rounded">
+                        <div class="product-img product-img-zoom mb-15">
+                            <a href="product-details.html">
+                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-4.png')}}" alt="">
+                            </a>
+                            <div class="product-action-2 tooltip-style-2">
+                                <button title="Wishlist"><i class="icon-heart"></i></button>
                             </div>
                         </div>
-                    </div>
-                    <div class="product-plr-1">
-                        <div class="single-product-wrap">
-                            <div class="product-img product-img-zoom mb-15">
-                                <a href="product-details.html">
-                                    <img src="assets/images/product/product-29.jpg" alt="">
-                                </a>
-                                <div class="product-action-2 tooltip-style-2">
-                                    <button title="Wishlist"><i class="icon-heart"></i></button>
-                                    <button title="Quick View" data-toggle="modal" data-target="#exampleModal"><i
-                                            class="icon-size-fullscreen icons"></i></button>
-                                    <button title="Compare"><i class="icon-refresh"></i></button>
-                                </div>
+                        <div class="product-content-wrap-2 text-left ml-2">
+
+                            <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                            <div class="product-price-2">
+                                <span class="new-price">Rp. 32,000</span>
+                                <span class="old-price">Rp. 45,000</span>
                             </div>
-                            <div class="product-content-wrap-3">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">Women,</a>
-                                    <a href="shop.html">Short</a>
+                            <div class="product-rating-wrap pb-10">
+                                <div class="product-rating">
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star gray"></i>
                                 </div>
-                                <h3><a href="product-details.html">Black Simple Sneaker</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(6)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span>$43.50</span>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-3 product-content-position-2">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">Women,</a>
-                                    <a href="shop.html">Short</a>
-                                </div>
-                                <h3><a href="product-details.html">Black Simple Sneaker</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(6)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span>$43.50</span>
-                                </div>
-                                <div class="pro-add-to-cart-2">
-                                    <button title="Add to Cart">Add To Cart</button>
-                                </div>
+                                <span>(2)</span>
                             </div>
                         </div>
-                    </div>
-                    <div class="product-plr-1">
-                        <div class="single-product-wrap">
-                            <div class="product-img product-img-zoom mb-15">
-                                <a href="product-details.html">
-                                    <img src="assets/images/product/product-28.jpg" alt="">
-                                </a>
-                                <div class="product-action-2 tooltip-style-2">
-                                    <button title="Wishlist"><i class="icon-heart"></i></button>
-                                    <button title="Quick View" data-toggle="modal" data-target="#exampleModal"><i
-                                            class="icon-size-fullscreen icons"></i></button>
-                                    <button title="Compare"><i class="icon-refresh"></i></button>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-3">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">Women,</a>
-                                    <a href="shop.html">accessories</a>
-                                </div>
-                                <h3><a href="product-details.html">Scarf Fabric Wedges</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span>$56.50 </span>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-3 product-content-position-2">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">Women,</a>
-                                    <a href="shop.html">accessories</a>
-                                </div>
-                                <h3><a href="product-details.html">Scarf Fabric Wedges</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span>$56.50 </span>
-                                </div>
-                                <div class="pro-add-to-cart-2">
-                                    <button title="Add to Cart">Add To Cart</button>
-                                </div>
-                            </div>
+                        <div class="product-content-wrap-2 product-content-position text-left">
+                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                        <div class="product-price-2">
+                            <span class="new-price">Rp. 32,000</span>
+                            <span class="old-price">Rp. 45,000</span>
                         </div>
-                    </div>
-                    <div class="product-plr-1">
-                        <div class="single-product-wrap">
-                            <div class="product-img product-img-zoom mb-15">
-                                <a href="product-details.html">
-                                    <img src="assets/images/product/product-27.jpg" alt="">
-                                </a>
-                                <div class="product-action-2 tooltip-style-2">
-                                    <button title="Wishlist"><i class="icon-heart"></i></button>
-                                    <button title="Quick View" data-toggle="modal" data-target="#exampleModal"><i
-                                            class="icon-size-fullscreen icons"></i></button>
-                                    <button title="Compare"><i class="icon-refresh"></i></button>
-                                </div>
+                        <div class="product-rating-wrap">
+                            <div class="product-rating">
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star gray"></i>
                             </div>
-                            <div class="product-content-wrap-3">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">Men</a>
-                                </div>
-                                <h3><a href="product-details.html">Basic Simple T-Shirt</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span class="new-price">$38.50 </span>
-                                    <span class="old-price">$42.85</span>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-3 product-content-position-2">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">Men</a>
-                                </div>
-                                <h3><a href="product-details.html">Basic Simple T-Shirt</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span class="new-price">$38.50 </span>
-                                    <span class="old-price">$42.85</span>
-                                </div>
-                                <div class="pro-add-to-cart-2">
-                                    <button title="Add to Cart">Add To Cart</button>
-                                </div>
-                            </div>
+                            <span>(2)</span>
                         </div>
-                    </div>
-                    <div class="product-plr-1">
-                        <div class="single-product-wrap">
-                            <div class="product-img product-img-zoom mb-15">
-                                <a href="product-details.html">
-                                    <img src="assets/images/product/product-31.jpg" alt="">
-                                </a>
-                                <div class="product-action-2 tooltip-style-2">
-                                    <button title="Wishlist"><i class="icon-heart"></i></button>
-                                    <button title="Quick View" data-toggle="modal" data-target="#exampleModal"><i
-                                            class="icon-size-fullscreen icons"></i></button>
-                                    <button title="Compare"><i class="icon-refresh"></i></button>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-3">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">women</a>
-                                </div>
-                                <h3><a href="product-details.html">Make Thing Happen T-Shirt</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star "></i>
-                                    </div>
-                                    <span>(1)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span>$25.56 </span>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-3 product-content-position-2">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">women</a>
-                                </div>
-                                <h3><a href="product-details.html">Make Thing Happen T-Shirt</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star "></i>
-                                    </div>
-                                    <span>(1)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span>$25.56 </span>
-                                </div>
-                                <div class="pro-add-to-cart-2">
-                                    <button title="Add to Cart">Add To Cart</button>
-                                </div>
-                            </div>
+                        <div class="pro-add-to-cart">
+                            <button class="btn btn-primary btn-block" >Lihat Produk</button>
                         </div>
-                    </div>
-                    <div class="product-plr-1">
-                        <div class="single-product-wrap">
-                            <div class="product-img product-img-zoom mb-15">
-                                <a href="product-details.html">
-                                    <img src="assets/images/product/product-28.jpg" alt="">
-                                </a>
-                                <div class="product-action-2 tooltip-style-2">
-                                    <button title="Wishlist"><i class="icon-heart"></i></button>
-                                    <button title="Quick View" data-toggle="modal" data-target="#exampleModal"><i
-                                            class="icon-size-fullscreen icons"></i></button>
-                                    <button title="Compare"><i class="icon-refresh"></i></button>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-3">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">Women,</a>
-                                    <a href="shop.html">accessories</a>
-                                </div>
-                                <h3><a href="product-details.html">Scarf Fabric Wedges</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span>$56.50 </span>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-3 product-content-position-2">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">Women,</a>
-                                    <a href="shop.html">accessories</a>
-                                </div>
-                                <h3><a href="product-details.html">Scarf Fabric Wedges</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span>$56.50 </span>
-                                </div>
-                                <div class="pro-add-to-cart-2">
-                                    <button title="Add to Cart">Add To Cart</button>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div id="product-10" class="tab-pane">
-                <div class="product-slider-active-3 nav-style-3">
-                    <div class="product-plr-1">
-                        <div class="single-product-wrap">
-                            <div class="product-img product-img-zoom mb-15">
-                                <a href="product-details.html">
-                                    <img src="assets/images/product/product-28.jpg" alt="">
-                                </a>
-                                <div class="product-action-2 tooltip-style-2">
-                                    <button title="Wishlist"><i class="icon-heart"></i></button>
-                                    <button title="Quick View" data-toggle="modal" data-target="#exampleModal"><i
-                                            class="icon-size-fullscreen icons"></i></button>
-                                    <button title="Compare"><i class="icon-refresh"></i></button>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-3">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">Women,</a>
-                                    <a href="shop.html">accessories</a>
-                                </div>
-                                <h3><a href="product-details.html">Scarf Fabric Wedges</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span>$56.50 </span>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-3 product-content-position-2">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">Women,</a>
-                                    <a href="shop.html">accessories</a>
-                                </div>
-                                <h3><a href="product-details.html">Scarf Fabric Wedges</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span>$56.50 </span>
-                                </div>
-                                <div class="pro-add-to-cart-2">
-                                    <button title="Add to Cart">Add To Cart</button>
-                                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+                    <div class="single-product-wrap mb-35 shadow rounded">
+                        <div class="product-img product-img-zoom mb-15">
+                            <a href="product-details.html">
+                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-1.png')}}" alt="">
+                            </a>
+                            <div class="product-action-2 tooltip-style-2">
+                                <button title="Wishlist"><i class="icon-heart"></i></button>
                             </div>
                         </div>
-                    </div>
-                    <div class="product-plr-1">
-                        <div class="single-product-wrap">
-                            <div class="product-img product-img-zoom mb-15">
-                                <a href="product-details.html">
-                                    <img src="assets/images/product/product-29.jpg" alt="">
-                                </a>
-                                <div class="product-action-2 tooltip-style-2">
-                                    <button title="Wishlist"><i class="icon-heart"></i></button>
-                                    <button title="Quick View" data-toggle="modal" data-target="#exampleModal"><i
-                                            class="icon-size-fullscreen icons"></i></button>
-                                    <button title="Compare"><i class="icon-refresh"></i></button>
-                                </div>
+                        <div class="product-content-wrap-2 text-left ml-2">
+
+                            <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                            <div class="product-price-2">
+                                <span class="new-price">Rp. 32,000</span>
+                                <span class="old-price">Rp. 45,000</span>
                             </div>
-                            <div class="product-content-wrap-3">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">Women,</a>
-                                    <a href="shop.html">Short</a>
+                            <div class="product-rating-wrap pb-10">
+                                <div class="product-rating">
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star gray"></i>
                                 </div>
-                                <h3><a href="product-details.html">Black Simple Sneaker</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(6)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span>$43.50</span>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-3 product-content-position-2">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">Women,</a>
-                                    <a href="shop.html">Short</a>
-                                </div>
-                                <h3><a href="product-details.html">Black Simple Sneaker</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(6)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span>$43.50</span>
-                                </div>
-                                <div class="pro-add-to-cart-2">
-                                    <button title="Add to Cart">Add To Cart</button>
-                                </div>
+                                <span>(2)</span>
                             </div>
                         </div>
-                    </div>
-                    <div class="product-plr-1">
-                        <div class="single-product-wrap">
-                            <div class="product-img product-img-zoom mb-15">
-                                <a href="product-details.html">
-                                    <img src="assets/images/product/product-30.jpg" alt="">
-                                </a>
-                                <div class="product-action-2 tooltip-style-2">
-                                    <button title="Wishlist"><i class="icon-heart"></i></button>
-                                    <button title="Quick View" data-toggle="modal" data-target="#exampleModal"><i
-                                            class="icon-size-fullscreen icons"></i></button>
-                                    <button title="Compare"><i class="icon-refresh"></i></button>
-                                </div>
+                        <div class="product-content-wrap-2 product-content-position text-left">
+                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                        <div class="product-price-2">
+                            <span class="new-price">Rp. 32,000</span>
+                            <span class="old-price">Rp. 45,000</span>
+                        </div>
+                        <div class="product-rating-wrap">
+                            <div class="product-rating">
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star gray"></i>
                             </div>
-                            <div class="product-content-wrap-3">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">Men, </a>
-                                    <a href="shop.html">Watches</a>
-                                </div>
-                                <h3><a href="product-details.html">Silver Coloured Watch</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(3)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span>$265.70 </span>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-3 product-content-position-2">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">Men, </a>
-                                    <a href="shop.html">Watches</a>
-                                </div>
-                                <h3><a href="product-details.html">Silver Coloured Watch</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(3)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span>$265.70 </span>
-                                </div>
-                                <div class="pro-add-to-cart-2">
-                                    <button title="Add to Cart">Add To Cart</button>
-                                </div>
-                            </div>
+                            <span>(2)</span>
+                        </div>
+                        <div class="pro-add-to-cart">
+                            <button class="btn btn-primary btn-block" >Lihat Produk</button>
+                        </div>
                         </div>
                     </div>
-                    <div class="product-plr-1">
-                        <div class="single-product-wrap">
-                            <div class="product-img product-img-zoom mb-15">
-                                <a href="product-details.html">
-                                    <img src="assets/images/product/product-31.jpg" alt="">
-                                </a>
-                                <div class="product-action-2 tooltip-style-2">
-                                    <button title="Wishlist"><i class="icon-heart"></i></button>
-                                    <button title="Quick View" data-toggle="modal" data-target="#exampleModal"><i
-                                            class="icon-size-fullscreen icons"></i></button>
-                                    <button title="Compare"><i class="icon-refresh"></i></button>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-3">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">women</a>
-                                </div>
-                                <h3><a href="product-details.html">Make Thing Happen T-Shirt</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star "></i>
-                                    </div>
-                                    <span>(1)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span>$25.56 </span>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-3 product-content-position-2">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">women</a>
-                                </div>
-                                <h3><a href="product-details.html">Make Thing Happen T-Shirt</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star "></i>
-                                    </div>
-                                    <span>(1)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span>$25.56 </span>
-                                </div>
-                                <div class="pro-add-to-cart-2">
-                                    <button title="Add to Cart">Add To Cart</button>
-                                </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+                    <div class="single-product-wrap mb-35 shadow rounded">
+                        <div class="product-img product-img-zoom mb-15">
+                            <a href="product-details.html">
+                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-3.png')}}" alt="">
+                            </a>
+                            <div class="product-action-2 tooltip-style-2">
+                                <button title="Wishlist"><i class="icon-heart"></i></button>
                             </div>
                         </div>
-                    </div>
-                    <div class="product-plr-1">
-                        <div class="single-product-wrap">
-                            <div class="product-img product-img-zoom mb-15">
-                                <a href="product-details.html">
-                                    <img src="assets/images/product/product-27.jpg" alt="">
-                                </a>
-                                <div class="product-action-2 tooltip-style-2">
-                                    <button title="Wishlist"><i class="icon-heart"></i></button>
-                                    <button title="Quick View" data-toggle="modal" data-target="#exampleModal"><i
-                                            class="icon-size-fullscreen icons"></i></button>
-                                    <button title="Compare"><i class="icon-refresh"></i></button>
-                                </div>
+                        <div class="product-content-wrap-2 text-left ml-2">
+
+                            <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                            <div class="product-price-2">
+                                <span class="new-price">Rp. 32,000</span>
+                                <span class="old-price">Rp. 45,000</span>
                             </div>
-                            <div class="product-content-wrap-3">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">Men</a>
+                            <div class="product-rating-wrap pb-10">
+                                <div class="product-rating">
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star gray"></i>
                                 </div>
-                                <h3><a href="product-details.html">Basic Simple T-Shirt</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span class="new-price">$38.50 </span>
-                                    <span class="old-price">$42.85</span>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-3 product-content-position-2">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">Men</a>
-                                </div>
-                                <h3><a href="product-details.html">Basic Simple T-Shirt</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span class="new-price">$38.50 </span>
-                                    <span class="old-price">$42.85</span>
-                                </div>
-                                <div class="pro-add-to-cart-2">
-                                    <button title="Add to Cart">Add To Cart</button>
-                                </div>
+                                <span>(2)</span>
                             </div>
                         </div>
+                        <div class="product-content-wrap-2 product-content-position text-left">
+                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                        <div class="product-price-2">
+                            <span class="new-price">Rp. 32,000</span>
+                            <span class="old-price">Rp. 45,000</span>
+                        </div>
+                        <div class="product-rating-wrap">
+                            <div class="product-rating">
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star gray"></i>
+                            </div>
+                            <span>(2)</span>
+                        </div>
+                        <div class="pro-add-to-cart">
+                            <button class="btn btn-primary btn-block" >Lihat Produk</button>
+                        </div>
+                        </div>
                     </div>
-                    <div class="product-plr-1">
-                        <div class="single-product-wrap">
-                            <div class="product-img product-img-zoom mb-15">
-                                <a href="product-details.html">
-                                    <img src="assets/images/product/product-28.jpg" alt="">
-                                </a>
-                                <div class="product-action-2 tooltip-style-2">
-                                    <button title="Wishlist"><i class="icon-heart"></i></button>
-                                    <button title="Quick View" data-toggle="modal" data-target="#exampleModal"><i
-                                            class="icon-size-fullscreen icons"></i></button>
-                                    <button title="Compare"><i class="icon-refresh"></i></button>
-                                </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+                    <div class="single-product-wrap mb-35 shadow rounded">
+                        <div class="product-img product-img-zoom mb-15">
+                            <a href="product-details.html">
+                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-2.png')}}" alt="">
+                            </a>
+                            <div class="product-action-2 tooltip-style-2">
+                                <button title="Wishlist"><i class="icon-heart"></i></button>
                             </div>
-                            <div class="product-content-wrap-3">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">Women,</a>
-                                    <a href="shop.html">accessories</a>
-                                </div>
-                                <h3><a href="product-details.html">Scarf Fabric Wedges</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span>$56.50 </span>
-                                </div>
+                        </div>
+                        <div class="product-content-wrap-2 text-left ml-2">
+
+                            <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                            <div class="product-price-2">
+                                <span class="new-price">Rp. 32,000</span>
+                                <span class="old-price">Rp. 45,000</span>
                             </div>
-                            <div class="product-content-wrap-3 product-content-position-2">
-                                <div class="product-content-categories">
-                                    <a href="shop.html">Women,</a>
-                                    <a href="shop.html">accessories</a>
+                            <div class="product-rating-wrap pb-10">
+                                <div class="product-rating">
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star gray"></i>
                                 </div>
-                                <h3><a href="product-details.html">Scarf Fabric Wedges</a></h3>
-                                <div class="product-rating-wrap-2">
-                                    <div class="product-rating-4">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <div class="product-price-4">
-                                    <span>$56.50 </span>
-                                </div>
-                                <div class="pro-add-to-cart-2">
-                                    <button title="Add to Cart">Add To Cart</button>
-                                </div>
+                                <span>(2)</span>
                             </div>
+                        </div>
+                        <div class="product-content-wrap-2 product-content-position text-left">
+                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                        <div class="product-price-2">
+                            <span class="new-price">Rp. 32,000</span>
+                            <span class="old-price">Rp. 45,000</span>
+                        </div>
+                        <div class="product-rating-wrap">
+                            <div class="product-rating">
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star gray"></i>
+                            </div>
+                            <span>(2)</span>
+                        </div>
+                        <div class="pro-add-to-cart">
+                            <button class="btn btn-primary btn-block" >Lihat Produk</button>
+                        </div>
                         </div>
                     </div>
                 </div>

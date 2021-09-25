@@ -3,7 +3,7 @@
 @section('content')
 <style>
     .btn-cart {
-        padding: 12px 145px;
+        padding: 12px 150px;
         font-size: 14px;
     }
 
@@ -319,743 +319,272 @@
         </div>
     </div>
 </div>
-<div class="related-product pb-115">
-    <div class="container">
+<div class="related-product pb-50">
+    <div class="container pb-50">
         <div class="section-title mb-45 text-left">
             <h3>Produk Terkait</h3>
         </div>
-        <div class="related-product-active slick-initialized slick-slider">
-            <div class="slick-list draggable">
-                <div class="slick-track" style="opacity: 1; width: 4200px; transform: translate3d(-1200px, 0px, 0px);">
-                    <div class="product-plr-1 slick-slide slick-cloned" data-slick-index="-4" id="" aria-hidden="true"
-                        tabindex="-1" style="width: 300px;">
-                        <div class="single-product-wrap">
-                            <div class="product-img product-img-zoom mb-15">
-                                <a href="product-details.html" tabindex="-1">
-                                    <img src="{{asset('ecommerce/assets/images/product/product-14.jpg')}}" alt="">
-                                </a>
+        <div class="related-product-active">
+            <div class="product-plr-1">
+                <div class="single-product-wrap shadow rounded">
+                    <div class="product-img product-img-zoom mb-15">
+                        <a href="product-details.html">
+                            <img src="{{asset('ecommerce/assets/images/product-details/product-detail-4.png')}}" alt="">
+                        </a>
 
-                                <div class="product-action-2 tooltip-style-2">
-                                    <button title="Wishlist" tabindex="-1"><i class="icon-heart"></i></button>
-                                    <button title="Quick View" data-toggle="modal" data-target="#exampleModal"
-                                        tabindex="-1"><i class="icon-size-fullscreen icons"></i></button>
-                                    <button title="Compare" tabindex="-1"><i class="icon-refresh"></i></button>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-2 text-center">
-                                <div class="product-rating-wrap">
-                                    <div class="product-rating">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <h3><a href="product-details.html" tabindex="-1">Make Thing Happen T-Shirt</a></h3>
-                                <div class="product-price-2">
-                                    <span class="new-price">$35.45</span>
-                                    <span class="old-price">$45.80</span>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-2 product-content-position text-center">
-                                <div class="product-rating-wrap">
-                                    <div class="product-rating">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <h3><a href="product-details.html" tabindex="-1">Make Thing Happen T-Shirt</a></h3>
-                                <div class="product-price-2">
-                                    <span class="new-price">$35.45</span>
-                                    <span class="old-price">$45.80</span>
-                                </div>
-                                <div class="pro-add-to-cart">
-                                    <button title="Add to Cart" tabindex="-1">Add To Cart</button>
-                                </div>
-                            </div>
+                        <div class="product-action-2 tooltip-style-2">
+                            <button title="Wishlist"><i class="icon-heart"></i></button>
+
                         </div>
                     </div>
-                    <div class="product-plr-1 slick-slide slick-cloned" data-slick-index="-3" id="" aria-hidden="true"
-                        tabindex="-1" style="width: 300px;">
-                        <div class="single-product-wrap">
-                            <div class="product-img product-img-zoom mb-15">
-                                <a href="product-details.html" tabindex="-1">
-                                    <img src="{{asset('ecommerce/assets/images/product/product-15.jpg')}}" alt="">
-                                </a>
-                                <div class="product-action-2 tooltip-style-2">
-                                    <button title="Wishlist" tabindex="-1"><i class="icon-heart"></i></button>
-                                    <button title="Quick View" data-toggle="modal" data-target="#exampleModal"
-                                        tabindex="-1"><i class="icon-size-fullscreen icons"></i></button>
-                                    <button title="Compare" tabindex="-1"><i class="icon-refresh"></i></button>
-                                </div>
+                    <div class="product-content-wrap-2 text-left ml-2">
+                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                        <div class="product-price-2">
+                            <span class="new-price">Rp. 32,000</span>
+                            <span class="old-price">Rp. 45,000</span>
+                        </div>
+                        <div class="product-rating-wrap pb-10">
+                            <div class="product-rating">
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star gray"></i>
                             </div>
-                            <div class="product-content-wrap-2 text-center">
-                                <div class="product-rating-wrap">
-                                    <div class="product-rating">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <h3><a href="product-details.html" tabindex="-1">Basic White Simple Sneaker</a></h3>
-                                <div class="product-price-2">
-                                    <span>$35.45</span>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-2 product-content-position text-center">
-                                <div class="product-rating-wrap">
-                                    <div class="product-rating">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <h3><a href="product-details.html" tabindex="-1">Basic White Simple Sneaker</a></h3>
-                                <div class="product-price-2">
-                                    <span>$35.45</span>
-                                </div>
-                                <div class="pro-add-to-cart">
-                                    <button title="Add to Cart" tabindex="-1">Add To Cart</button>
-                                </div>
-                            </div>
+                            <span>(2)</span>
                         </div>
                     </div>
-                    <div class="product-plr-1 slick-slide slick-cloned" data-slick-index="-2" id="" aria-hidden="true"
-                        tabindex="-1" style="width: 300px;">
-                        <div class="single-product-wrap">
-                            <div class="product-img product-img-zoom mb-15">
-                                <a href="product-details.html" tabindex="-1">
-                                    <img src="{{asset('ecommerce/assets/images/product/product-18.jpg')}}" alt="">
-                                </a>
-                                <div class="product-action-2 tooltip-style-2">
-                                    <button title="Wishlist" tabindex="-1"><i class="icon-heart"></i></button>
-                                    <button title="Quick View" data-toggle="modal" data-target="#exampleModal"
-                                        tabindex="-1"><i class="icon-size-fullscreen icons"></i></button>
-                                    <button title="Compare" tabindex="-1"><i class="icon-refresh"></i></button>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-2 text-center">
-                                <div class="product-rating-wrap">
-                                    <div class="product-rating">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <h3><a href="product-details.html" tabindex="-1">Tie-up Sute Sandals</a></h3>
-                                <div class="product-price-2">
-                                    <span>$55.50</span>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-2 product-content-position text-center">
-                                <div class="product-rating-wrap">
-                                    <div class="product-rating">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <h3><a href="product-details.html" tabindex="-1">Tie-up Sute Sandals</a></h3>
-                                <div class="product-price-2">
-                                    <span>$55.50</span>
-                                </div>
-                                <div class="pro-add-to-cart">
-                                    <button title="Add to Cart" tabindex="-1">Add To Cart</button>
-                                </div>
-                            </div>
+                    <div class="product-content-wrap-2 product-content-position text-left">
+
+                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                        <div class="product-price-2">
+                            <span class="new-price">Rp. 32,000</span>
+                            <span class="old-price">Rp. 45,000</span>
                         </div>
-                    </div>
-                    <div class="product-plr-1 slick-slide slick-cloned" data-slick-index="-1" id="" aria-hidden="true"
-                        tabindex="-1" style="width: 300px;">
-                        <div class="single-product-wrap">
-                            <div class="product-img product-img-zoom mb-15">
-                                <a href="product-details.html" tabindex="-1">
-                                    <img src="{{asset('ecommerce/assets/images/product/product-19.jpg')}}" alt="">
-                                </a>
-                                <div class="product-action-2 tooltip-style-2">
-                                    <button title="Wishlist" tabindex="-1"><i class="icon-heart"></i></button>
-                                    <button title="Quick View" data-toggle="modal" data-target="#exampleModal"
-                                        tabindex="-1"><i class="icon-size-fullscreen icons"></i></button>
-                                    <button title="Compare" tabindex="-1"><i class="icon-refresh"></i></button>
-                                </div>
+                        <div class="product-rating-wrap">
+                            <div class="product-rating">
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star gray"></i>
                             </div>
-                            <div class="product-content-wrap-2 text-center">
-                                <div class="product-rating-wrap">
-                                    <div class="product-rating">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <h3><a href="product-details.html" tabindex="-1">Faded Grey T-Shirt</a></h3>
-                                <div class="product-price-2">
-                                    <span>$65.50</span>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-2 product-content-position text-center">
-                                <div class="product-rating-wrap">
-                                    <div class="product-rating">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <h3><a href="product-details.html" tabindex="-1">Faded Grey T-Shirt</a></h3>
-                                <div class="product-price-2">
-                                    <span>$65.50</span>
-                                </div>
-                                <div class="pro-add-to-cart">
-                                    <button title="Add to Cart" tabindex="-1">Add To Cart</button>
-                                </div>
-                            </div>
+                            <span>(2)</span>
                         </div>
-                    </div>
-                    <div class="product-plr-1 slick-slide slick-current slick-active" data-slick-index="0"
-                        aria-hidden="false" tabindex="0" style="width: 300px;">
-                        <div class="single-product-wrap">
-                            <div class="product-img product-img-zoom mb-15">
-                                <a href="product-details.html" tabindex="0">
-                                    <img src="{{asset('ecommerce/assets/images/product/product-13.jpg')}}" alt="">
-                                </a>
-                                <div class="product-action-2 tooltip-style-2">
-                                    <button title="Wishlist" tabindex="0"><i class="icon-heart"></i></button>
-                                    <button title="Quick View" data-toggle="modal" data-target="#exampleModal"
-                                        tabindex="0"><i class="icon-size-fullscreen icons"></i></button>
-                                    <button title="Compare" tabindex="0"><i class="icon-refresh"></i></button>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-2 text-center">
-                                <div class="product-rating-wrap">
-                                    <div class="product-rating">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <h3><a href="product-details.html" tabindex="0">Basic Joggin Shorts</a></h3>
-                                <div class="product-price-2">
-                                    <span>$20.50</span>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-2 product-content-position text-center">
-                                <div class="product-rating-wrap">
-                                    <div class="product-rating">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <h3><a href="product-details.html" tabindex="0">Basic Joggin Shorts</a></h3>
-                                <div class="product-price-2">
-                                    <span>$20.50</span>
-                                </div>
-                                <div class="pro-add-to-cart">
-                                    <button title="Add to Cart" tabindex="0">Add To Cart</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-plr-1 slick-slide slick-active" data-slick-index="1" aria-hidden="false"
-                        tabindex="0" style="width: 300px;">
-                        <div class="single-product-wrap">
-                            <div class="product-img product-img-zoom mb-15">
-                                <a href="product-details.html" tabindex="0">
-                                    <img src="{{asset('ecommerce/assets/images/product/product-14.jpg')}}" alt="">
-                                </a>
-                                <span class="pro-badge left bg-red">-20%</span>
-                                <div class="product-action-2 tooltip-style-2">
-                                    <button title="Wishlist" tabindex="0"><i class="icon-heart"></i></button>
-                                    <button title="Quick View" data-toggle="modal" data-target="#exampleModal"
-                                        tabindex="0"><i class="icon-size-fullscreen icons"></i></button>
-                                    <button title="Compare" tabindex="0"><i class="icon-refresh"></i></button>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-2 text-center">
-                                <div class="product-rating-wrap">
-                                    <div class="product-rating">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <h3><a href="product-details.html" tabindex="0">Make Thing Happen T-Shirt</a></h3>
-                                <div class="product-price-2">
-                                    <span class="new-price">$35.45</span>
-                                    <span class="old-price">$45.80</span>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-2 product-content-position text-center">
-                                <div class="product-rating-wrap">
-                                    <div class="product-rating">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <h3><a href="product-details.html" tabindex="0">Make Thing Happen T-Shirt</a></h3>
-                                <div class="product-price-2">
-                                    <span class="new-price">$35.45</span>
-                                    <span class="old-price">$45.80</span>
-                                </div>
-                                <div class="pro-add-to-cart">
-                                    <button title="Add to Cart" tabindex="0">Add To Cart</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-plr-1 slick-slide slick-active" data-slick-index="2" aria-hidden="false"
-                        tabindex="0" style="width: 300px;">
-                        <div class="single-product-wrap">
-                            <div class="product-img product-img-zoom mb-15">
-                                <a href="product-details.html" tabindex="0">
-                                    <img src="{{asset('ecommerce/assets/images/product/product-15.jpg')}}" alt="">
-                                </a>
-                                <div class="product-action-2 tooltip-style-2">
-                                    <button title="Wishlist" tabindex="0"><i class="icon-heart"></i></button>
-                                    <button title="Quick View" data-toggle="modal" data-target="#exampleModal"
-                                        tabindex="0"><i class="icon-size-fullscreen icons"></i></button>
-                                    <button title="Compare" tabindex="0"><i class="icon-refresh"></i></button>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-2 text-center">
-                                <div class="product-rating-wrap">
-                                    <div class="product-rating">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <h3><a href="product-details.html" tabindex="0">Basic White Simple Sneaker</a></h3>
-                                <div class="product-price-2">
-                                    <span>$35.45</span>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-2 product-content-position text-center">
-                                <div class="product-rating-wrap">
-                                    <div class="product-rating">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <h3><a href="product-details.html" tabindex="0">Basic White Simple Sneaker</a></h3>
-                                <div class="product-price-2">
-                                    <span>$35.45</span>
-                                </div>
-                                <div class="pro-add-to-cart">
-                                    <button title="Add to Cart" tabindex="0">Add To Cart</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-plr-1 slick-slide slick-active" data-slick-index="3" aria-hidden="false"
-                        tabindex="0" style="width: 300px;">
-                        <div class="single-product-wrap">
-                            <div class="product-img product-img-zoom mb-15">
-                                <a href="product-details.html" tabindex="0">
-                                    <img src="{{asset('ecommerce/assets/images/product/product-18.jpg')}}" alt="">
-                                </a>
-                                <div class="product-action-2 tooltip-style-2">
-                                    <button title="Wishlist" tabindex="0"><i class="icon-heart"></i></button>
-                                    <button title="Quick View" data-toggle="modal" data-target="#exampleModal"
-                                        tabindex="0"><i class="icon-size-fullscreen icons"></i></button>
-                                    <button title="Compare" tabindex="0"><i class="icon-refresh"></i></button>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-2 text-center">
-                                <div class="product-rating-wrap">
-                                    <div class="product-rating">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <h3><a href="product-details.html" tabindex="0">Tie-up Sute Sandals</a></h3>
-                                <div class="product-price-2">
-                                    <span>$55.50</span>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-2 product-content-position text-center">
-                                <div class="product-rating-wrap">
-                                    <div class="product-rating">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <h3><a href="product-details.html" tabindex="0">Tie-up Sute Sandals</a></h3>
-                                <div class="product-price-2">
-                                    <span>$55.50</span>
-                                </div>
-                                <div class="pro-add-to-cart">
-                                    <button title="Add to Cart" tabindex="0">Add To Cart</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-plr-1 slick-slide" data-slick-index="4" aria-hidden="true" tabindex="-1"
-                        style="width: 300px;">
-                        <div class="single-product-wrap">
-                            <div class="product-img product-img-zoom mb-15">
-                                <a href="product-details.html" tabindex="-1">
-                                    <img src="{{asset('ecommerce/assets/images/product/product-19.jpg')}}" alt="">
-                                </a>
-                                <div class="product-action-2 tooltip-style-2">
-                                    <button title="Wishlist" tabindex="-1"><i class="icon-heart"></i></button>
-                                    <button title="Quick View" data-toggle="modal" data-target="#exampleModal"
-                                        tabindex="-1"><i class="icon-size-fullscreen icons"></i></button>
-                                    <button title="Compare" tabindex="-1"><i class="icon-refresh"></i></button>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-2 text-center">
-                                <div class="product-rating-wrap">
-                                    <div class="product-rating">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <h3><a href="product-details.html" tabindex="-1">Faded Grey T-Shirt</a></h3>
-                                <div class="product-price-2">
-                                    <span>$65.50</span>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-2 product-content-position text-center">
-                                <div class="product-rating-wrap">
-                                    <div class="product-rating">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <h3><a href="product-details.html" tabindex="-1">Faded Grey T-Shirt</a></h3>
-                                <div class="product-price-2">
-                                    <span>$65.50</span>
-                                </div>
-                                <div class="pro-add-to-cart">
-                                    <button title="Add to Cart" tabindex="-1">Add To Cart</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-plr-1 slick-slide slick-cloned" data-slick-index="5" id="" aria-hidden="true"
-                        tabindex="-1" style="width: 300px;">
-                        <div class="single-product-wrap">
-                            <div class="product-img product-img-zoom mb-15">
-                                <a href="product-details.html" tabindex="-1">
-                                    <img src="{{asset('ecommerce/assets/images/product/product-13.jpg')}}" alt="">
-                                </a>
-                                <div class="product-action-2 tooltip-style-2">
-                                    <button title="Wishlist" tabindex="-1"><i class="icon-heart"></i></button>
-                                    <button title="Quick View" data-toggle="modal" data-target="#exampleModal"
-                                        tabindex="-1"><i class="icon-size-fullscreen icons"></i></button>
-                                    <button title="Compare" tabindex="-1"><i class="icon-refresh"></i></button>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-2 text-center">
-                                <div class="product-rating-wrap">
-                                    <div class="product-rating">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <h3><a href="product-details.html" tabindex="-1">Basic Joggin Shorts</a></h3>
-                                <div class="product-price-2">
-                                    <span>$20.50</span>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-2 product-content-position text-center">
-                                <div class="product-rating-wrap">
-                                    <div class="product-rating">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <h3><a href="product-details.html" tabindex="-1">Basic Joggin Shorts</a></h3>
-                                <div class="product-price-2">
-                                    <span>$20.50</span>
-                                </div>
-                                <div class="pro-add-to-cart">
-                                    <button title="Add to Cart" tabindex="-1">Add To Cart</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-plr-1 slick-slide slick-cloned" data-slick-index="6" id="" aria-hidden="true"
-                        tabindex="-1" style="width: 300px;">
-                        <div class="single-product-wrap">
-                            <div class="product-img product-img-zoom mb-15">
-                                <a href="product-details.html" tabindex="-1">
-                                    <img src="{{asset('ecommerce/assets/images/product/product-14.jpg')}}" alt="">
-                                </a>
-                                <span class="pro-badge left bg-red">-20%</span>
-                                <div class="product-action-2 tooltip-style-2">
-                                    <button title="Wishlist" tabindex="-1"><i class="icon-heart"></i></button>
-                                    <button title="Quick View" data-toggle="modal" data-target="#exampleModal"
-                                        tabindex="-1"><i class="icon-size-fullscreen icons"></i></button>
-                                    <button title="Compare" tabindex="-1"><i class="icon-refresh"></i></button>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-2 text-center">
-                                <div class="product-rating-wrap">
-                                    <div class="product-rating">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <h3><a href="product-details.html" tabindex="-1">Make Thing Happen T-Shirt</a></h3>
-                                <div class="product-price-2">
-                                    <span class="new-price">$35.45</span>
-                                    <span class="old-price">$45.80</span>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-2 product-content-position text-center">
-                                <div class="product-rating-wrap">
-                                    <div class="product-rating">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <h3><a href="product-details.html" tabindex="-1">Make Thing Happen T-Shirt</a></h3>
-                                <div class="product-price-2">
-                                    <span class="new-price">$35.45</span>
-                                    <span class="old-price">$45.80</span>
-                                </div>
-                                <div class="pro-add-to-cart">
-                                    <button title="Add to Cart" tabindex="-1">Add To Cart</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-plr-1 slick-slide slick-cloned" data-slick-index="7" id="" aria-hidden="true"
-                        tabindex="-1" style="width: 300px;">
-                        <div class="single-product-wrap">
-                            <div class="product-img product-img-zoom mb-15">
-                                <a href="product-details.html" tabindex="-1">
-                                    <img src="{{asset('ecommerce/assets/images/product/product-15.jpg')}}" alt="">
-                                </a>
-                                <div class="product-action-2 tooltip-style-2">
-                                    <button title="Wishlist" tabindex="-1"><i class="icon-heart"></i></button>
-                                    <button title="Quick View" data-toggle="modal" data-target="#exampleModal"
-                                        tabindex="-1"><i class="icon-size-fullscreen icons"></i></button>
-                                    <button title="Compare" tabindex="-1"><i class="icon-refresh"></i></button>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-2 text-center">
-                                <div class="product-rating-wrap">
-                                    <div class="product-rating">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <h3><a href="product-details.html" tabindex="-1">Basic White Simple Sneaker</a></h3>
-                                <div class="product-price-2">
-                                    <span>$35.45</span>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-2 product-content-position text-center">
-                                <div class="product-rating-wrap">
-                                    <div class="product-rating">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <h3><a href="product-details.html" tabindex="-1">Basic White Simple Sneaker</a></h3>
-                                <div class="product-price-2">
-                                    <span>$35.45</span>
-                                </div>
-                                <div class="pro-add-to-cart">
-                                    <button title="Add to Cart" tabindex="-1">Add To Cart</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-plr-1 slick-slide slick-cloned" data-slick-index="8" id="" aria-hidden="true"
-                        tabindex="-1" style="width: 300px;">
-                        <div class="single-product-wrap">
-                            <div class="product-img product-img-zoom mb-15">
-                                <a href="product-details.html" tabindex="-1">
-                                    <img src="{{asset('ecommerce/assets/images/product/product-18.jpg')}}" alt="">
-                                </a>
-                                <div class="product-action-2 tooltip-style-2">
-                                    <button title="Wishlist" tabindex="-1"><i class="icon-heart"></i></button>
-                                    <button title="Quick View" data-toggle="modal" data-target="#exampleModal"
-                                        tabindex="-1"><i class="icon-size-fullscreen icons"></i></button>
-                                    <button title="Compare" tabindex="-1"><i class="icon-refresh"></i></button>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-2 text-center">
-                                <div class="product-rating-wrap">
-                                    <div class="product-rating">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <h3><a href="product-details.html" tabindex="-1">Tie-up Sute Sandals</a></h3>
-                                <div class="product-price-2">
-                                    <span>$55.50</span>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-2 product-content-position text-center">
-                                <div class="product-rating-wrap">
-                                    <div class="product-rating">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <h3><a href="product-details.html" tabindex="-1">Tie-up Sute Sandals</a></h3>
-                                <div class="product-price-2">
-                                    <span>$55.50</span>
-                                </div>
-                                <div class="pro-add-to-cart">
-                                    <button title="Add to Cart" tabindex="-1">Add To Cart</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-plr-1 slick-slide slick-cloned" data-slick-index="9" id="" aria-hidden="true"
-                        tabindex="-1" style="width: 300px;">
-                        <div class="single-product-wrap">
-                            <div class="product-img product-img-zoom mb-15">
-                                <a href="product-details.html" tabindex="-1">
-                                    <img src="{{asset('ecommerce/assets/images/product/product-19.jpg')}}" alt="">
-                                </a>
-                                <div class="product-action-2 tooltip-style-2">
-                                    <button title="Wishlist" tabindex="-1"><i class="icon-heart"></i></button>
-                                    <button title="Quick View" data-toggle="modal" data-target="#exampleModal"
-                                        tabindex="-1"><i class="icon-size-fullscreen icons"></i></button>
-                                    <button title="Compare" tabindex="-1"><i class="icon-refresh"></i></button>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-2 text-center">
-                                <div class="product-rating-wrap">
-                                    <div class="product-rating">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <h3><a href="product-details.html" tabindex="-1">Faded Grey T-Shirt</a></h3>
-                                <div class="product-price-2">
-                                    <span>$65.50</span>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap-2 product-content-position text-center">
-                                <div class="product-rating-wrap">
-                                    <div class="product-rating">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star gray"></i>
-                                    </div>
-                                    <span>(2)</span>
-                                </div>
-                                <h3><a href="product-details.html" tabindex="-1">Faded Grey T-Shirt</a></h3>
-                                <div class="product-price-2">
-                                    <span>$65.50</span>
-                                </div>
-                                <div class="pro-add-to-cart">
-                                    <button title="Add to Cart" tabindex="-1">Add To Cart</button>
-                                </div>
-                            </div>
+                        <div class="pro-add-to-cart">
+                            <button class="btn btn-primary btn-block" >Lihat Produk</button>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="product-plr-1">
+                <div class="single-product-wrap shadow rounded">
+                    <div class="product-img product-img-zoom mb-15">
+                        <a href="product-details.html">
+                            <img src="{{asset('ecommerce/assets/images/product-details/product-detail-1.png')}}" alt="">
+                        </a>
 
+                        <div class="product-action-2 tooltip-style-2">
+                            <button title="Wishlist"><i class="icon-heart"></i></button>
 
+                        </div>
+                    </div>
+                    <div class="product-content-wrap-2 text-left ml-2">
+                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                        <div class="product-price-2">
+                            <span class="new-price">Rp. 32,000</span>
+                            <span class="old-price">Rp. 45,000</span>
+                        </div>
+                        <div class="product-rating-wrap pb-10">
+                            <div class="product-rating">
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star gray"></i>
+                            </div>
+                            <span>(2)</span>
+                        </div>
+                    </div>
+                    <div class="product-content-wrap-2 product-content-position text-left">
 
+                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                        <div class="product-price-2">
+                            <span class="new-price">Rp. 32,000</span>
+                            <span class="old-price">Rp. 45,000</span>
+                        </div>
+                        <div class="product-rating-wrap">
+                            <div class="product-rating">
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star gray"></i>
+                            </div>
+                            <span>(2)</span>
+                        </div>
+                        <div class="pro-add-to-cart">
+                            <button class="btn btn-primary btn-block" >Lihat Produk</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-plr-1">
+                <div class="single-product-wrap shadow rounded">
+                    <div class="product-img product-img-zoom mb-15">
+                        <a href="product-details.html">
+                            <img src="{{asset('ecommerce/assets/images/product-details/product-detail-2.png')}}" alt="">
+                        </a>
 
+                        <div class="product-action-2 tooltip-style-2">
+                            <button title="Wishlist"><i class="icon-heart"></i></button>
+
+                        </div>
+                    </div>
+                    <div class="product-content-wrap-2 text-left ml-2">
+                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                        <div class="product-price-2">
+                            <span class="new-price">Rp. 32,000</span>
+                            <span class="old-price">Rp. 45,000</span>
+                        </div>
+                        <div class="product-rating-wrap pb-10">
+                            <div class="product-rating">
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star gray"></i>
+                            </div>
+                            <span>(2)</span>
+                        </div>
+                    </div>
+                    <div class="product-content-wrap-2 product-content-position text-left">
+
+                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                        <div class="product-price-2">
+                            <span class="new-price">Rp. 32,000</span>
+                            <span class="old-price">Rp. 45,000</span>
+                        </div>
+                        <div class="product-rating-wrap">
+                            <div class="product-rating">
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star gray"></i>
+                            </div>
+                            <span>(2)</span>
+                        </div>
+                        <div class="pro-add-to-cart">
+                            <button class="btn btn-primary btn-block" >Lihat Produk</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-plr-1">
+                <div class="single-product-wrap shadow rounded">
+                    <div class="product-img product-img-zoom mb-15">
+                        <a href="product-details.html">
+                            <img src="{{asset('ecommerce/assets/images/product-details/product-detail-3.png')}}" alt="">
+                        </a>
+
+                        <div class="product-action-2 tooltip-style-2">
+                            <button title="Wishlist"><i class="icon-heart"></i></button>
+
+                        </div>
+                    </div>
+                    <div class="product-content-wrap-2 text-left ml-2">
+                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                        <div class="product-price-2">
+                            <span class="new-price">Rp. 32,000</span>
+                            <span class="old-price">Rp. 45,000</span>
+                        </div>
+                        <div class="product-rating-wrap pb-10">
+                            <div class="product-rating">
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star gray"></i>
+                            </div>
+                            <span>(2)</span>
+                        </div>
+                    </div>
+                    <div class="product-content-wrap-2 product-content-position text-left">
+
+                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                        <div class="product-price-2">
+                            <span class="new-price">Rp. 32,000</span>
+                            <span class="old-price">Rp. 45,000</span>
+                        </div>
+                        <div class="product-rating-wrap">
+                            <div class="product-rating">
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star gray"></i>
+                            </div>
+                            <span>(2)</span>
+                        </div>
+                        <div class="pro-add-to-cart">
+                            <button class="btn btn-primary btn-block" >Lihat Produk</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-plr-1">
+                <div class="single-product-wrap shadow rounded">
+                    <div class="product-img product-img-zoom mb-15">
+                        <a href="product-details.html">
+                            <img src="{{asset('ecommerce/assets/images/product-details/product-detail-4.png')}}" alt="">
+                        </a>
+
+                        <div class="product-action-2 tooltip-style-2">
+                            <button title="Wishlist"><i class="icon-heart"></i></button>
+
+                        </div>
+                    </div>
+                    <div class="product-content-wrap-2 text-left ml-2">
+                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                        <div class="product-price-2">
+                            <span class="new-price">Rp. 32,000</span>
+                            <span class="old-price">Rp. 45,000</span>
+                        </div>
+                        <div class="product-rating-wrap pb-10">
+                            <div class="product-rating">
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star gray"></i>
+                            </div>
+                            <span>(2)</span>
+                        </div>
+                    </div>
+                    <div class="product-content-wrap-2 product-content-position text-left">
+
+                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                        <div class="product-price-2">
+                            <span class="new-price">Rp. 32,000</span>
+                            <span class="old-price">Rp. 45,000</span>
+                        </div>
+                        <div class="product-rating-wrap">
+                            <div class="product-rating">
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star gray"></i>
+                            </div>
+                            <span>(2)</span>
+                        </div>
+                        <div class="pro-add-to-cart">
+                            <button class="btn btn-primary btn-block" >Lihat Produk</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
