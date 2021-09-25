@@ -1,7 +1,16 @@
 @extends('ecommerce.frontend.main')
 
 @section('content')
-<div class="my-account-wrapper pt-120 pb-120">
+<style>
+    .text-gray {
+        color: #8E8E93;
+    }
+
+    .badge-primary{
+        background-color: #FF3B30;
+    }
+</style>
+<div class="my-account-wrapper  pb-120">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -40,45 +49,88 @@
                                                         title and make up
                                                         the bulk of the card's content.</p>
                                                     <div class="text-center">
-                                                        <button type="button" class="btn btn-outline-dark">Ubah Kata
+                                                        <button type="button"
+                                                            class="btn btn-outline-dark btn-block">Ubah Kata
                                                             Sandi</button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-8">
-                                            <div class="myaccount-content">
-                                                <h3>Dashboard</h3>
-                                                <div class="welcome">
-                                                    <p>Hello, <strong>Alex Tuntuni</strong> (If Not <strong>Tuntuni
-                                                            !</strong><a href="login-register.html" class="logout">
-                                                            Logout</a>)</p>
+                                            <h3 class="text-gray">Biodata Diri</h3>
+                                            <div class="row mt-3">
+                                                <div class="col-md-2">
+                                                    <h5 class="text-gray">Nama </h5>
                                                 </div>
 
-                                                <p class="mb-0">From your account dashboard. you can easily check &amp;
-                                                    view
-                                                    your recent orders, manage your shipping and billing addresses and
-                                                    edit your
-                                                    password and account details.</p>
+                                                <div class="col-md-6">
+                                                    <h5>Samantha</h5>
+                                                </div>
                                             </div>
+                                            <div class="row mt-3">
+                                                <div class="col-md-2">
+                                                    <h5 class="text-gray">Tanggal Lahir </h5>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <h5>14 April 2000</h5>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-3">
+                                                <div class="col-md-2">
+                                                    <h5 class="text-gray">Jenis Kelamin </h5>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <h5>Perempuan</h5>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <h3 class="text-gray">Kontak</h3>
+                                            <div class="row mt-3">
+                                                <div class="col-md-2">
+                                                    <h5 class="text-gray">Email </h5>
+                                                </div>
+
+                                                <div class="col-md-3">
+                                                    <h5>example@gmail.com</h5>
+                                                </div>
+                                                <div class="col-md-6" style="margin-top:-4px; display:inline-block">
+                                                    <span class="badge badge-primary">Belum terverifikasi</span>  <a href="http://" class="ml-2">verifikasi sekarang</a>
+                                                </div>
+
+                                            </div>
+                                            <div class="row mt-3">
+                                                <div class="col-md-2">
+                                                    <h5 class="text-gray">Nomor HP</h5>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <h5>6281339760178</h5>
+                                                </div>
+                                                <div class="col-md-6" style="margin-top:-4px; display:inline-block">
+                                                    <span class="badge badge-success">Terverifikasi</span>
+                                                </div>
+
+                                            </div>
+                                            <hr>
                                         </div>
                                     </div>
 
                                 </div>
                                 <div class="tab-pane fade show" id="nav-alamat" role="tabpanel"
-                                aria-labelledby="nav-alamat-tab">
-                                <div class="row mt-3">
-                                    <div class="col-md-12">
-                                        <button type="button" class="btn btn-primary">Tambah Alamat Baru</button>
-                                        <div class="card mt-2">
-                                            <div class="card-body">
-                                              This is some text within a card body.
+                                    aria-labelledby="nav-alamat-tab">
+                                    <div class="row mt-3">
+                                        <div class="col-md-12">
+                                            <button type="button" class="btn btn-primary">Tambah Alamat Baru</button>
+                                            <div class="card mt-2">
+                                                <div class="card-body">
+                                                    This is some text within a card body.
+                                                </div>
                                             </div>
-                                          </div>
+                                        </div>
                                     </div>
-                                </div>
 
-                            </div>
+                                </div>
                             </div>
 
                         </div> <!-- My Account Tab Content End -->

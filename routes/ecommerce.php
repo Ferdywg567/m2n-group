@@ -14,4 +14,7 @@ Route::group(['namespace' => 'Ecommerce\Frontend'],function () {
     Route::get('/user', function(){
         return view("ecommerce.frontend.user.index");
     });
+    Route::get('/checkout', function(){
+        return view("ecommerce.frontend.checkout.index");
+    });
 });

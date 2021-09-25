@@ -1,7 +1,20 @@
 @extends('ecommerce.frontend.main')
 
 @section('content')
-<div class="cart-main-area pt-80 pb-120">
+<div class="breadcrumb-area bg-white" style="margin-top: -2%">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                <a href="/" class="text-left"><i class="ri-arrow-left-line"></i> Kembali</a>
+
+            </div>
+            <div class="col-md-10" style="margin-left: -80px !important;">
+                <h3 class="text-center">Keranjang</h3>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="cart-main-area  pb-120">
     <div class="container">
         <h3 class="cart-page-title">Your cart items</h3>
         <div class="row">
@@ -11,25 +24,40 @@
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Image</th>
-                                    <th>Product Name</th>
+                                    <th><input type="checkbox" name="all" id="all" style="width: 15px"></th>
+                                    <th>Produk</th>
+                                    <th></th>
                                     <th>Until Price</th>
                                     <th>Qty</th>
                                     <th>Subtotal</th>
-                                    <th>action</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
+                                    <td><input type="checkbox" name="cart" id="" style="width: 15px"></td>
                                     <td class="product-thumbnail">
-                                        <a href="#"><img src="assets/images/cart/cart-1.jpg" alt=""></a>
+                                        <a href="#"><img
+                                                src="{{asset('ecommerce/assets/images/product-details/product-detail-4.png')}}"
+                                                alt="" width="80"></a>
                                     </td>
-                                    <td class="product-name"><a href="#">Simple Black T-Shirt</a></td>
+                                    <td class="product-name" style="text-align: left">
+                                        <a href="#" style="">Simple Black T-Shirt</a>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <a href="#" style="font-size: 11px; color:#8E8E93"><i
+                                                        class="ri-heart-add-line"></i> Tambahkan ke favorit</a>
+                                            </div>
+
+                                        </div>
+                                    </td>
                                     <td class="product-price-cart"><span class="amount">$260.00</span></td>
                                     <td class="product-quantity pro-details-quality">
-                                        <div class="cart-plus-minus"><div class="dec qtybutton">-</div>
+                                        <div class="cart-plus-minus">
+                                            <div class="dec qtybutton">-</div>
                                             <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1">
-                                        <div class="inc qtybutton">+</div></div>
+                                            <div class="inc qtybutton">+</div>
+                                        </div>
                                     </td>
                                     <td class="product-subtotal">$110.00</td>
                                     <td class="product-remove">
@@ -37,31 +65,59 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    <td><input type="checkbox" name="cart" id="" style="width: 15px"></td>
                                     <td class="product-thumbnail">
-                                        <a href="#"><img src="assets/images/cart/cart-2.jpg" alt=""></a>
+                                        <a href="#"><img
+                                                src="{{asset('ecommerce/assets/images/product-details/product-detail-1.png')}}"
+                                                alt="" width="80"></a>
                                     </td>
-                                    <td class="product-name"><a href="#">Norda Simple Backpack</a></td>
-                                    <td class="product-price-cart"><span class="amount">$150.00</span></td>
+                                    <td class="product-name" style="text-align: left"><a href="#">Norda Simple
+                                            Backpack</a>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <a href="#" style="font-size: 11px; color:#8E8E93"><i
+                                                        class="ri-heart-add-line"></i> Tambahkan ke favorit</a>
+                                            </div>
+
+                                        </div>
+                                    </td>
+                                    <td class="product-price-cart"><span class="amount">$180.00</span></td>
                                     <td class="product-quantity pro-details-quality">
-                                        <div class="cart-plus-minus"><div class="dec qtybutton">-</div>
+                                        <div class="cart-plus-minus">
+                                            <div class="dec qtybutton">-</div>
                                             <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1">
-                                        <div class="inc qtybutton">+</div></div>
+                                            <div class="inc qtybutton">+</div>
+                                        </div>
                                     </td>
-                                    <td class="product-subtotal">$150.00</td>
+                                    <td class="product-subtotal">$180.00</td>
                                     <td class="product-remove">
                                         <a href="#"><i class="icon_close"></i></a>
                                     </td>
                                 </tr>
                                 <tr>
+                                    <td><input type="checkbox" name="cart" id="" style="width: 15px"></td>
                                     <td class="product-thumbnail">
-                                        <a href="#"><img src="assets/images/cart/cart-1.jpg" alt=""></a>
+                                        <a href="#"><img
+                                                src="{{asset('ecommerce/assets/images/product-details/product-detail-3.png')}}"
+                                                alt="" width="80"></a>
                                     </td>
-                                    <td class="product-name"><a href="#">Simple Black T-Shirt </a></td>
+                                    <td class="product-name" style="text-align: left"><a href="#">Simple Black T-Shirt
+                                        </a>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <a href="#" style="font-size: 11px; color:#8E8E93"><i
+                                                        class="ri-heart-add-line"></i> Tambahkan ke favorit</a>
+                                            </div>
+
+                                        </div>
+                                    </td>
                                     <td class="product-price-cart"><span class="amount">$170.00</span></td>
                                     <td class="product-quantity pro-details-quality">
-                                        <div class="cart-plus-minus"><div class="dec qtybutton">-</div>
+                                        <div class="cart-plus-minus">
+                                            <div class="dec qtybutton">-</div>
                                             <input class="cart-plus-minus-box" type="text" name="qtybutton" value="2">
-                                        <div class="inc qtybutton">+</div></div>
+                                            <div class="inc qtybutton">+</div>
+                                        </div>
                                     </td>
                                     <td class="product-subtotal">$170.00</td>
                                     <td class="product-remove">
@@ -71,96 +127,23 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="cart-shiping-update-wrapper">
-                                <div class="cart-shiping-update">
-                                    <a href="#">Continue Shopping</a>
-                                </div>
-                                <div class="cart-clear">
-                                    <button>Update Cart</button>
-                                    <a href="#">Clear Cart</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </form>
-                <div class="row">
-                    <div class="col-lg-4 col-md-6">
-                        <div class="cart-tax">
-                            <div class="title-wrap">
-                                <h4 class="cart-bottom-title section-bg-gray">Estimate Shipping And Tax</h4>
+            </div>
+        </div>
+        <div class="row pt-50">
+            <div class="col-md-12">
+                <div class="card" style="background-color: black">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4 class="text-white pt-5">Total : Rp. 1,000,000</h4>
                             </div>
-                            <div class="tax-wrapper">
-                                <p>Enter your destination to get a shipping estimate.</p>
-                                <div class="tax-select-wrapper">
-                                    <div class="tax-select">
-                                        <label>
-                                            * Country
-                                        </label>
-                                        <select class="email s-email s-wid">
-                                            <option>Bangladesh</option>
-                                            <option>Albania</option>
-                                            <option>Åland Islands</option>
-                                            <option>Afghanistan</option>
-                                            <option>Belgium</option>
-                                        </select>
-                                    </div>
-                                    <div class="tax-select">
-                                        <label>
-                                            * Region / State
-                                        </label>
-                                        <select class="email s-email s-wid">
-                                            <option>Bangladesh</option>
-                                            <option>Albania</option>
-                                            <option>Åland Islands</option>
-                                            <option>Afghanistan</option>
-                                            <option>Belgium</option>
-                                        </select>
-                                    </div>
-                                    <div class="tax-select">
-                                        <label>
-                                            * Zip/Postal Code
-                                        </label>
-                                        <input type="text">
-                                    </div>
-                                    <button class="cart-btn-2" type="submit">Get A Quote</button>
-                                </div>
+                            <div class="col-md-6 text-right">
+                                <button type="button" class="btn btn-light pl-5 pr-5"><i class="ri-money-dollar-circle-line"></i> Checkout</button>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="discount-code-wrapper">
-                            <div class="title-wrap">
-                                <h4 class="cart-bottom-title section-bg-gray">Use Coupon Code</h4>
-                            </div>
-                            <div class="discount-code">
-                                <p>Enter your coupon code if you have one.</p>
-                                <form>
-                                    <input type="text" required="" name="name">
-                                    <button class="cart-btn-2" type="submit">Apply Coupon</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-12">
-                        <div class="grand-totall">
-                            <div class="title-wrap">
-                                <h4 class="cart-bottom-title section-bg-gary-cart">Cart Total</h4>
-                            </div>
-                            <h5>Total products <span>$260.00</span></h5>
-                            <div class="total-shipping">
-                                <h5>Total shipping</h5>
-                                <ul>
-                                    <li><input type="checkbox"> Standard <span>$20.00</span></li>
-                                    <li><input type="checkbox"> Express <span>$30.00</span></li>
-                                </ul>
-                            </div>
-                            <h4 class="grand-totall-title">Grand Total <span>$260.00</span></h4>
-                            <a href="#">Proceed to Checkout</a>
-                        </div>
-                    </div>
-                </div>
+                  </div>
             </div>
         </div>
     </div>

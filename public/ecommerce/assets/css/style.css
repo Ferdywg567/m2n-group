@@ -1864,7 +1864,7 @@ textarea:focus {
   background-color: transparent;
   color: #666;
   right: 70px;
-  bottom: 120px;
+  bottom: 80px;
   text-align: center;
   overflow: hidden;
   border: 1px solid #666;
@@ -18873,8 +18873,8 @@ h3.cart-page-title {
 }
 
 .grand-totall {
-  background-color: #f9f9f9;
-  border: 1px solid #ebebeb;
+  background-color: white;
+  border: 1px solid #dadada;
   border-radius: 5px;
   padding: 45px 30px 50px;
 }
@@ -18940,6 +18940,12 @@ h3.cart-page-title {
   font-size: 18px;
   font-weight: 500;
 }
+
+.grand-totall h6 span {
+    float: right;
+    font-size: 12px;
+    font-weight: 500;
+  }
 
 .grand-totall .total-shipping {
   border-bottom: 1px solid #ebebeb;
