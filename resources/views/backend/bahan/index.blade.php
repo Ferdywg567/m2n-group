@@ -153,20 +153,28 @@
                                     <tbody id="">
 
                                         @forelse ($bahan as $item)
+                                        @if ($item->status == 'bahan masuk')
                                         <tr>
                                             <td>{{$loop->iteration}}</td>
                                             <td>{{$item->kode_bahan}}</td>
                                             <td>{{$item->jenis_bahan}}</td>
                                             <td>{{$item->nama_bahan}}</td>
                                             <td>{{$item->tanggal_masuk}}</td>
-                                            @if ($item->status == 'bahan masuk')
                                             <td>{{$item->panjang_bahan}} yard</td>
-                                            @else
-                                            <td>{{$item->sisa_bahan}} yard</td>
-                                            @endif
                                             <td>{{$item->no_surat}}</td>
-
                                         </tr>
+                                        @elseif ($item->status == 'bahan keluar' && $item->sisa_bahan != null)
+                                        <tr>
+                                            <td>{{$loop->iteration}}</td>
+                                            <td>{{$item->kode_bahan}}</td>
+                                            <td>{{$item->jenis_bahan}}</td>
+                                            <td>{{$item->nama_bahan}}</td>
+                                            <td>{{$item->tanggal_masuk}}</td>
+                                            <td>{{$item->sisa_bahan}} yard</td>
+                                            <td>{{$item->no_surat}}</td>
+                                        </tr>
+                                        @endif
+
                                         @empty
 
                                         @endforelse

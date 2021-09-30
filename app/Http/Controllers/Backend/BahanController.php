@@ -40,7 +40,7 @@ class BahanController extends Controller
         if ($status == 'masuk') {
             return view("backend.bahan.masuk.create");
         } else {
-            $masuk = Bahan::all()->where('status', 'bahan masuk');
+            $masuk = Bahan::all()->where('sisa_bahan', '!=', null);
             $kode_transaksi = $this->getKode();
             $kategori = Kategori::all();
             return view("backend.bahan.keluar.create", ['masuk' => $masuk, 'kode' => $kode_transaksi, 'kategori' => $kategori]);
@@ -91,10 +91,16 @@ class BahanController extends Controller
                 $bahan = new Bahan();
                 $bahan->kode_bahan = $request->get('kode_bahan');
             } else {
-                $bahan = Bahan::findOrFail($request->get('kode_bahan'));
-
+                $cekbahan = Bahan::find($request->get('kode_bahan'));
+                $cekbahan->status = "bahan keluar";
+                $cekbahan->sisa_bahan = null;
+                $cekbahan->save();
+                // dd($cekbahan);
+                $bahan = new Bahan();
+                $bahan->kode_bahan = $cekbahan->kode_bahan;
+                $bahan->tanggal_masuk = $cekbahan->tanggal_masuk;
                 $notif = new Notification();
-                $notif->description = "bahan keluar telah dikirim ke potong, silahkan di cek";
+                $notif->description = "bahan keluar telah dikirim ke potong, silahkan di cekbahan";
                 $notif->url = route('potong.index');
                 $notif->aktif = 0;
                 $notif->save();
@@ -345,15 +351,15 @@ class BahanController extends Controller
 
     public function getKode()
     {
-        $kode_transaksi = Bahan::max('kode_transaksi');
-        if (empty($kode_transaksi)) {
-            $kode_transaksi = "TR-" . date('Ymd') . "1";
+        $kode_transaksi = Bahan::select('kode_transaksi')->orderBy('created_at', 'DESC')->first();
+        if (!$kode_transaksi) {
+            $datakode = "TR-" . date('Ymd') . "1";
         } else {
-            $last = substr($kode_transaksi, -1);
+            $last = substr($kode_transaksi->kode_transaksi, -1);
             $jumlah = $last + 1;
-            $kode_transaksi = "TR-" . date('Ymd') . $jumlah;
+            $datakode = "TR-" . date('Ymd') . $jumlah;
         }
 
-        return $kode_transaksi;
+        return $datakode;
     }
 }

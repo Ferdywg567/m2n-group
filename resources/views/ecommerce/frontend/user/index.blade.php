@@ -6,7 +6,7 @@
         color: #8E8E93;
     }
 
-    .badge-primary{
+    .badge-primary {
         background-color: #FF3B30;
     }
 </style>
@@ -96,7 +96,8 @@
                                                     <h5>example@gmail.com</h5>
                                                 </div>
                                                 <div class="col-md-6" style="margin-top:-4px; display:inline-block">
-                                                    <span class="badge badge-primary">Belum terverifikasi</span>  <a href="http://" class="ml-2">verifikasi sekarang</a>
+                                                    <span class="badge badge-primary">Belum terverifikasi</span> <a
+                                                        href="http://" class="ml-2">verifikasi sekarang</a>
                                                 </div>
 
                                             </div>
@@ -122,9 +123,78 @@
                                     <div class="row mt-3">
                                         <div class="col-md-12">
                                             <button type="button" class="btn btn-primary">Tambah Alamat Baru</button>
-                                            <div class="card mt-2">
-                                                <div class="card-body">
-                                                    This is some text within a card body.
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="card mt-2" style="background-color: rgba(0, 123, 255, 0.29); border-color:#007bff">
+                                                        <div class="card-body">
+                                                            <div>
+                                                                <div style="display:inline-block">
+                                                                    <h3>Kantor Sidoarjo </h3>
+                                                                </div>
+                                                                <div style="display:inline-block" class="ml-2">
+                                                                    <h5>Utama</h5>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="pt-20">
+                                                                <div style="display:inline-block">
+                                                                    <h3>Ryan Ardito </h3>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="pt-5">
+                                                                <p>628123456789</p>
+                                                                <p style="margin-top:-5px">Dusun Balongbiru Desa Sadang RT. 08 RW. 03 Gang 8X No. 5,
+                                                                    Sidoarjo</p>
+                                                            </div>
+                                                            <div class="pt-10">
+                                                                <div style="display:inline-block">
+                                                                    <a href="http://">Ubah Alamat</a>
+                                                                </div>
+                                                                <div style="display:inline-block" class="ml-2">
+                                                                    <a href="http://">Hapus Alamat</a>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="card mt-2">
+                                                        <div class="card-body">
+                                                            <div>
+                                                                <div style="display:inline-block">
+                                                                    <h3>Kantor Sidoarjo </h3>
+                                                                </div>
+                                                                <div style="display:inline-block" class="ml-2">
+                                                                    <h5>Utama</h5>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="pt-20">
+                                                                <div style="display:inline-block">
+                                                                    <h3>Ryan Ardito </h3>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="pt-5">
+                                                                <p>628123456789</p>
+                                                                <p style="margin-top:-5px">Dusun Balongbiru Desa Sadang RT. 08 RW. 03 Gang 8X No. 5,
+                                                                    Sidoarjo</p>
+                                                            </div>
+                                                            <div class="pt-10">
+                                                                <div style="display:inline-block">
+                                                                    <a href="http://">Ubah Alamat</a>
+                                                                </div>
+                                                                <div style="display:inline-block" class="ml-2">
+                                                                    <a href="http://">Hapus Alamat</a>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

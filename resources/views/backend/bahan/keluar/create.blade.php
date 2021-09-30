@@ -248,7 +248,12 @@
                             if(response.status){
                                 var data = response.data
                                 $('#vendor_keluar').val(data.vendor)
-                                $('#panjang_bahan').val(data.panjang_bahan)
+                                if(data.sisa_bahan!= null){
+                                    $('#panjang_bahan').val(data.sisa_bahan)
+                                }else{
+                                    $('#panjang_bahan').val(data.panjang_bahan)
+                                }
+
                                 $('#tanggal_masuk').val(data.tanggal_masuk)
                                 $('#nama_bahan').val(data.nama_bahan)
                                 $('#jenis_bahan').val(data.jenis_bahan)
