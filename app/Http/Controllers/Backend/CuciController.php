@@ -131,6 +131,10 @@ class CuciController extends Controller
                     // $cuci->status_pembayaran = $request->get('status_pembayaran');
                     $jumlah = $request->get('jumlah');
                     $dataukuran = $request->get('ukuran');
+                    $sum = array_sum($jumlah);
+                    if ($sum != intval($request->get('jumlah_bahan_yang_dicuci'))) {
+                        return redirect()->back()->withErrors('Jumlah bahan di cuci yang harus dimasukkan sebanyak ' . $request->get('jumlah_bahan_yang_dicuci'));
+                    }
                     $arr = [];
                     foreach ($dataukuran as $key => $value) {
                         if (!empty($jumlah[$key])) {
@@ -407,6 +411,10 @@ class CuciController extends Controller
                     }
                     $jumlah = $request->get('jumlah');
                     $dataukuran = $request->get('dataukuran');
+                    $sum = array_sum($jumlah);
+                    if ($sum != intval($request->get('jumlah_bahan_yang_dicuci'))) {
+                        return redirect()->back()->withErrors('Jumlah bahan di cuci yang harus dimasukkan sebanyak ' . $request->get('jumlah_bahan_yang_dicuci'));
+                    }
                     $iddetailukuran = $request->get('iddetailukuran');
                     $arr = [];
                     foreach ($dataukuran as $key => $value) {

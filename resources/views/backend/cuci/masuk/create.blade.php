@@ -196,7 +196,7 @@
                                         <a type="button" class="btn btn-secondary"
                                             href="{{route('cuci.index')}}">Batal</a>
 
-                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                        <button type="submit" class="btn btn-primary btnsimpan">Simpan</button>
 
                                     </div>
                                 </div>
@@ -252,7 +252,9 @@
                   $('#konversi').val(res)
               })
 
-
+              $(document).on('click','.btnsimpan', function () {
+                    
+               })
 
               $(document).on('click','#btnsize', function(){
                 var ukuranm = $('#ukuranm').is(':visible')

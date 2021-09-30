@@ -40,7 +40,7 @@ class BahanController extends Controller
         if ($status == 'masuk') {
             return view("backend.bahan.masuk.create");
         } else {
-            $masuk = Bahan::all()->where('sisa_bahan', '!=', null);
+            $masuk = Bahan::where('sisa_bahan', '=', -1)->orwhere('sisa_bahan','>',0)->get();
             $kode_transaksi = $this->getKode();
             $kategori = Kategori::all();
             return view("backend.bahan.keluar.create", ['masuk' => $masuk, 'kode' => $kode_transaksi, 'kategori' => $kategori]);
@@ -89,6 +89,7 @@ class BahanController extends Controller
 
             if ($request->get('status') == 'bahan masuk') {
                 $bahan = new Bahan();
+                $bahan->sisa_bahan = -1;
                 $bahan->kode_bahan = $request->get('kode_bahan');
             } else {
                 $cekbahan = Bahan::find($request->get('kode_bahan'));
@@ -351,7 +352,7 @@ class BahanController extends Controller
 
     public function getKode()
     {
-        $kode_transaksi = Bahan::select('kode_transaksi')->orderBy('created_at', 'DESC')->first();
+        $kode_transaksi = Bahan::select('kode_transaksi')->whereNotNull('kode_transaksi')->orderBy('created_at', 'DESC')->first();
         if (!$kode_transaksi) {
             $datakode = "TR-" . date('Ymd') . "1";
         } else {

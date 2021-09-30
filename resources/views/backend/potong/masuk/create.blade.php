@@ -190,7 +190,7 @@
                                         <a type="button" class="btn btn-secondary"
                                             href="{{route('potong.index')}}">Batal</a>
 
-                                        <button type="submit" class="btn btn-primary btnmasuk">Simpan</button>
+                                        <button type="submit" onclick="return submitbtn()" class="btn btn-primary btnmasuk btnsimpan">Simpan</button>
 
                                     </div>
                                 </div>
@@ -270,7 +270,6 @@
                     '</div>'
                 $('#datasub').append(datahtml)
             })
-
 
              $('#kode_transaksi').on('change', function () {
                     var id = $(this).find(':selected').val()

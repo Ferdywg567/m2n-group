@@ -156,12 +156,19 @@ class JahitController extends Controller
                             $jahit->sisa_bayar =  $jahit->harga_vendor * $request->get('jumlah_bahan_yang_dijahit');
                         }
                     }
+                    $ukuran = $request->get('ukuran');
+                    $jumlah = $request->get('jumlah');
+                    $sum = array_sum($jumlah);
+                    if ($sum != intval($request->get('jumlah_bahan_yang_dijahit'))) {
+                        return redirect()->back()->withErrors('Jumlah yang harus dimasukkan sebanyak ' . $request->get('jumlah_bahan_yang_dijahit'));
+                    }
+
 
                     $jahit->jumlah_bahan = $request->get('jumlah_bahan_yang_dijahit');
                     $jahit->konversi = $request->get('konversi');
+
                     $jahit->save();
-                    $ukuran = $request->get('ukuran');
-                    $jumlah = $request->get('jumlah');
+
                     foreach ($ukuran as $key => $value) {
                         if ($jumlah[$key] >= 0 || $jumlah[$key] != null) {
                             $detail = new DetailJahit();
@@ -183,6 +190,10 @@ class JahitController extends Controller
 
                     $jumlah = $request->get('jumlahdirepair');
                     $dataukuran = $request->get('dataukurandirepair');
+                    $sum = array_sum($jumlah);
+                    if ($sum != intval($request->get('barang_direpair'))) {
+                        return redirect()->back()->withErrors('Jumlah repair yang harus dimasukkan sebanyak ' . $request->get('barang_direpair'));
+                    }
                     $arr = [];
                     foreach ($dataukuran as $key => $value) {
                         if (!empty($jumlah[$key])) {
@@ -205,6 +216,10 @@ class JahitController extends Controller
                     unset($arr);
                     $jumlah = $request->get('jumlahdibuang');
                     $dataukuran = $request->get('dataukurandibuang');
+                    $sum = array_sum($jumlah);
+                    if ($sum != intval($request->get('barang_dibuang'))) {
+                        return redirect()->back()->withErrors('Jumlah dibuang yang harus dimasukkan sebanyak ' . $request->get('barang_dibuang'));
+                    }
                     $arr = [];
                     foreach ($dataukuran as $key => $value) {
                         if (!empty($jumlah[$key])) {
@@ -241,6 +256,10 @@ class JahitController extends Controller
                     }
                     $jumlah = $request->get('jumlah');
                     $dataukuran = $request->get('dataukuran');
+                    $sum = array_sum($jumlah);
+                    if ($sum != intval($request->get('berhasil_jahit'))) {
+                        return redirect()->back()->withErrors('Jumlah berhasil jahit yang harus dimasukkan sebanyak ' . $request->get('berhasil_jahit'));
+                    }
                     $arr = [];
                     foreach ($dataukuran as $key => $value) {
                         if (!empty($jumlah[$key])) {
@@ -264,6 +283,10 @@ class JahitController extends Controller
                     $jumlah = $request->get('jumlahdirepair');
                     $dataukuran = $request->get('dataukurandirepair');
                     $iddetailukurandirepair = $request->get('iddetailukurandirepair');
+                    $sum = array_sum($jumlah);
+                    if ($sum != intval($request->get('barang_direpair'))) {
+                        return redirect()->back()->withErrors('Jumlah direpair jahit yang harus dimasukkan sebanyak ' . $request->get('barang_direpair'));
+                    }
                     $arr = [];
                     foreach ($dataukuran as $key => $value) {
                         if (!empty($jumlah[$key])) {
@@ -289,6 +312,10 @@ class JahitController extends Controller
                     $jumlah = $request->get('jumlahdibuang');
                     $dataukuran = $request->get('dataukurandibuang');
                     $iddetailukurandibuang = $request->get('iddetailukurandibuang');
+                    $sum = array_sum($jumlah);
+                    if ($sum != intval($request->get('barang_dibuang'))) {
+                        return redirect()->back()->withErrors('Jumlah dibuang yang harus dimasukkan sebanyak ' . $request->get('barang_dibuang'));
+                    }
                     $arr = [];
                     foreach ($dataukuran as $key => $value) {
                         if (!empty($jumlah[$key])) {
@@ -442,6 +469,10 @@ class JahitController extends Controller
                     $jahit->konversi = $request->get('konversi');
                     $dataukuran = $request->get('dataukuran');
                     $jumlah = $request->get('jumlah');
+                    $sum = array_sum($jumlah);
+                    if ($sum != intval($request->get('jumlah_bahan_yang_dijahit'))) {
+                        return redirect()->back()->withErrors('Jumlah bahan jahit yang harus dimasukkan sebanyak ' . $request->get('jumlah_bahan_yang_dijahit'));
+                    }
                     $arr = [];
                     foreach ($dataukuran as $key => $value) {
                         if (!empty($jumlah[$key])) {

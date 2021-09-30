@@ -100,6 +100,7 @@ class FinishingController extends Controller
 
                     $jumlah = $request->get('jumlah');
                     $dataukuran = $request->get('ukuran');
+
                     $arr = [];
                     foreach ($dataukuran as $key => $value) {
                         if (!empty($jumlah[$key])) {
@@ -133,6 +134,11 @@ class FinishingController extends Controller
 
                     $jumlah = $request->get('jumlah');
                     $dataukuran = $request->get('dataukuran');
+                    $sum = array_sum($jumlah);
+
+                    if ($sum != intval($request->get('stok_lolos_sortir'))) {
+                        return redirect()->back()->withErrors('Jumlah yang harus dimasukkan sebanyak ' . $request->get('stok_lolos_sortir'));
+                    }
                     $arr = [];
                     foreach ($dataukuran as $key => $value) {
                         if (!empty($jumlah[$key])) {
@@ -141,7 +147,7 @@ class FinishingController extends Controller
                             array_push($arr, $x);
                         }
                     }
-                    DetailFinishing::where('finishing_id',$finish->id)->delete();
+                    DetailFinishing::where('finishing_id', $finish->id)->delete();
                     foreach ($arr as $key => $value) {
                         $detail = new DetailFinishing();
                         $detail->finishing_id = $finish->id;
@@ -152,6 +158,11 @@ class FinishingController extends Controller
 
                     $jumlah = $request->get('jumlahdiretur');
                     $dataukuran = $request->get('dataukurandiretur');
+                    $sum = array_sum($jumlah);
+
+                    if ($sum != intval($request->get('produk_diretur'))) {
+                        return redirect()->back()->withErrors('Jumlah di retur yang harus dimasukkan sebanyak ' . $request->get('produk_diretur'));
+                    }
                     $arr = [];
                     foreach ($dataukuran as $key => $value) {
                         if (!empty($jumlah[$key])) {
@@ -161,7 +172,7 @@ class FinishingController extends Controller
                         }
                     }
 
-                    FinishingRetur::where('finishing_id',$finish->id)->delete();
+                    FinishingRetur::where('finishing_id', $finish->id)->delete();
                     foreach ($arr as $key => $value) {
                         $detail = new FinishingRetur();
                         $detail->finishing_id = $finish->id;
@@ -172,6 +183,11 @@ class FinishingController extends Controller
 
                     $jumlah = $request->get('jumlahdibuang');
                     $dataukuran = $request->get('dataukurandibuang');
+                    $sum = array_sum($jumlah);
+
+                    if ($sum != intval($request->get('produk_dibuang'))) {
+                        return redirect()->back()->withErrors('Jumlah di buang yang harus dimasukkan sebanyak ' . $request->get('produk_dibuang'));
+                    }
                     $arr = [];
                     foreach ($dataukuran as $key => $value) {
                         if (!empty($jumlah[$key])) {
@@ -181,7 +197,7 @@ class FinishingController extends Controller
                         }
                     }
 
-                    FinishingDibuang::where('finishing_id',$finish->id)->delete();
+                    FinishingDibuang::where('finishing_id', $finish->id)->delete();
                     foreach ($arr as $key => $value) {
                         $detail = new FinishingDibuang();
                         $detail->finishing_id = $finish->id;
@@ -329,7 +345,7 @@ class FinishingController extends Controller
                             array_push($arr, $x);
                         }
                     }
-                    DetailFinishing::where('finishing_id',$finish->id)->delete();
+                    DetailFinishing::where('finishing_id', $finish->id)->delete();
                     foreach ($arr as $key => $value) {
                         $detail = new DetailFinishing();
                         $detail->finishing_id = $finish->id;
@@ -349,7 +365,7 @@ class FinishingController extends Controller
                         }
                     }
 
-                    FinishingRetur::where('finishing_id',$finish->id)->delete();
+                    FinishingRetur::where('finishing_id', $finish->id)->delete();
                     foreach ($arr as $key => $value) {
                         $detail = new FinishingRetur();
                         $detail->finishing_id = $finish->id;
@@ -369,7 +385,7 @@ class FinishingController extends Controller
                         }
                     }
 
-                    FinishingDibuang::where('finishing_id',$finish->id)->delete();
+                    FinishingDibuang::where('finishing_id', $finish->id)->delete();
                     foreach ($arr as $key => $value) {
                         $detail = new FinishingDibuang();
                         $detail->finishing_id = $finish->id;
@@ -422,11 +438,11 @@ class FinishingController extends Controller
 
         if ($request->ajax()) {
             $finish = Finishing::with(['cuci' => function ($q) {
-                    $q->with(['jahit' => function ($q) {
-                        $q->with(['potong' => function ($q) {
-                            $q->with('bahan');
-                        }]);
+                $q->with(['jahit' => function ($q) {
+                    $q->with(['potong' => function ($q) {
+                        $q->with('bahan');
                     }]);
+                }]);
             }, 'detail_finish', 'finish_dibuang', 'finish_retur'])->where('id', $request->get('id'))->first();
 
             return response()->json([
@@ -441,11 +457,11 @@ class FinishingController extends Controller
     {
 
         if ($request->ajax()) {
-            $finish = Cuci::with(['detail_cuci','jahit' => function ($q) {
-                    $q->with(['potong' => function ($q) {
-                        $q->with('bahan');
-                    }]);
-                }])->where('id', $request->get('id'))->first();
+            $finish = Cuci::with(['detail_cuci', 'jahit' => function ($q) {
+                $q->with(['potong' => function ($q) {
+                    $q->with('bahan');
+                }]);
+            }])->where('id', $request->get('id'))->first();
 
             return response()->json([
                 'status' => true,

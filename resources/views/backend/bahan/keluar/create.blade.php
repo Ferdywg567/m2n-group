@@ -248,7 +248,7 @@
                             if(response.status){
                                 var data = response.data
                                 $('#vendor_keluar').val(data.vendor)
-                                if(data.sisa_bahan!= null){
+                                if(data.sisa_bahan!= null && data.sisa_bahan > 0){
                                     $('#panjang_bahan').val(data.sisa_bahan)
                                 }else{
                                     $('#panjang_bahan').val(data.panjang_bahan)
