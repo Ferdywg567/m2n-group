@@ -19,7 +19,8 @@ class KategoriSeeder extends Seeder
         for ($i = 0; $i < 2; $i++) {
             $kategori = new Kategori();
             $kategori->nama_kategori = $arrkat[$i];
-            $kategori->sku = "SKU00" . $i + 1;
+            $nomor = $i + 1;
+            $kategori->sku = "SKU00" . $nomor;
             $kategori->save();
         }
         $kategori = Kategori::all();
