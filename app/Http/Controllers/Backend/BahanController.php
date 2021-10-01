@@ -78,7 +78,7 @@ class BahanController extends Controller
                 'tanggal_keluar' => 'required',
                 'panjang_bahan' => 'required',
                 'sku_bahan' => 'required',
-                'panjang_bahan_diambil' => 'required'
+                'panjang_bahan_diambil' => 'required|integer|max:'.$request->get('panjang_bahan')
             ]);
         }
 

@@ -272,8 +272,6 @@
                     var res = 0
                     if(parseInt(diambil) <= parseInt(panjang_bahan)){
                         res = panjang_bahan - diambil
-                    }else{
-                        re
                     }
                     $('#sisa_bahan').val(res)
              })
