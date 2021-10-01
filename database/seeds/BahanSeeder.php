@@ -45,15 +45,15 @@ class BahanSeeder extends Seeder
 
     public function getKode()
     {
-        $kode_transaksi = Bahan::max('kode_transaksi');
-        if (empty($kode_transaksi)) {
-            $kode_transaksi = "TR-" . date('Ymd') . "1";
+        $kode_transaksi = Bahan::select('kode_transaksi')->whereNotNull('kode_transaksi')->orderBy('created_at', 'DESC')->first();
+        if (!$kode_transaksi) {
+            $datakode = "TR-" . date('Ymd') . "1";
         } else {
-            $last = substr($kode_transaksi, -1);
+            $last = substr($kode_transaksi->kode_transaksi, -1);
             $jumlah = $last + 1;
-            $kode_transaksi = "TR-" . date('Ymd') . $jumlah;
+            $datakode = "TR-" . date('Ymd') . $jumlah;
         }
 
-        return $kode_transaksi;
+        return $datakode;
     }
 }
