@@ -28,7 +28,8 @@ class KategoriSeeder extends Seeder
             $sub = new SubKategori();
             $sub->kategori_id = $value->id;
             $sub->nama_kategori = "Kemeja";
-            $sub->sku = $value->sku . '/' . $key + 1;
+            $nomor = $key + 1;
+            $sub->sku = $value->sku . '/' . $nomor;
             $sub->save();
         }
 
@@ -38,7 +39,8 @@ class KategoriSeeder extends Seeder
             $detail = new DetailSubKategori();
             $detail->sub_kategori_id = $value->id;
             $detail->nama_kategori = $kemeja[$key];
-            $detail->sku = $value->sku . '/' . $key + 1;
+            $nomor = $key + 1;
+            $detail->sku = $value->sku . '/' .  $nomor;
             $detail->save();
         }
     }
