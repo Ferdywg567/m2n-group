@@ -201,6 +201,9 @@
                                             </tr>
                                         </thead>
                                         <tbody id="">
+                                            @php
+                                                $no = 1;
+                                            @endphp
                                             @forelse ($keluar as $item)
                                             <tr>
                                                 <td>{{$loop->iteration}}</td>

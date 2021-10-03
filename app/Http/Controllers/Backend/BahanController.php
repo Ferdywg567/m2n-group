@@ -23,7 +23,7 @@ class BahanController extends Controller
     public function index()
     {
         $masuk = Bahan::where('status', 'bahan masuk')->orderBy('created_at', 'DESC')->get();
-        $keluar = Bahan::where('status', 'bahan keluar')->orderBy('created_at', 'DESC')->get();
+        $keluar = Bahan::where('status', 'bahan keluar')->whereNotNull('kode_transaksi')->orderBy('created_at', 'DESC')->get();
         $bahan = Bahan::orderBy('created_at', 'DESC')->get();
         $kategori = Kategori::all();
         return view("backend.bahan.index", ['masuk' => $masuk, 'keluar' => $keluar, 'kategori' => $kategori, 'bahan' => $bahan]);

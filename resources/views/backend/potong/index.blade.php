@@ -19,22 +19,24 @@
 <div id="non-printable">
     <section class="section mt-4">
         <div class="btn-group">
-            <a type="button" href="{{route('potong.create')}}" class="btn btn-primary rounded"
-                aria-expanded="false">
+            <a type="button" href="{{route('potong.create')}}" class="btn btn-primary rounded" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false" aria-expanded="false">
                 Input Data <i class="fas fa-plus"></i>
-        </a>
-            {{-- <div class="dropdown-menu">
+            </a>
+            <div class="dropdown-menu">
                 <form action="{{route('potong.create')}}" method="get">
                     <input type="hidden" name="status" value="masuk">
                     <button class="dropdown-item">Potongan Masuk</button>
                 </form>
-
+                <form action="{{route('potong.create')}}" method="get">
+                    <input type="hidden" name="status" value="selesai">
+                    <button class="dropdown-item">Potongan Selesai</button>
+                </form>
                 <form action="{{route('potong.create')}}" method="get">
                     <input type="hidden" name="status" value="keluar">
                     <button class="dropdown-item">Potongan Keluar</button>
                 </form>
-
-            </div> --}}
+            </div>
             <a href="{{route('print.index')}}" class="btn btn-outline-primary rounded ml-1">Print Semua <i
                     class="ri-printer-fill"></i>
             </a>
@@ -43,89 +45,253 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-
                         <div class="card-body">
-                            <table class="table table-hover" id="tabelbahanmasuk">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">No</th>
-                                        <th scope="col">Kode Transaksi</th>
-                                        <th scope="col">SKU</th>
-                                        <th scope="col">Jenis Kain</th>
-                                        <th scope="col">Warna Kain</th>
-                                        <th scope="col">Tanggal Cutting</th>
-                                        <th scope="col">Tanggal Selesai</th>
-                                        <th scope="col">Surat Jalan</th>
-                                        <th scope="col">Status</th>
-                                        <th scope="col">Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="">
+                            <div class="ml-2">
+                                <nav>
+                                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                        <a class="nav-item nav-link active" id="nav-masuk-tab" data-toggle="tab"
+                                            href="#nav-masuk" role="tab" aria-controls="nav-masuk"
+                                            aria-selected="true">Potongan Masuk</a>
+                                        <a class="nav-item nav-link" id="nav-selesai-tab" data-toggle="tab"
+                                            href="#nav-selesai" role="tab" aria-controls="nav-selesai"
+                                            aria-selected="false">Potongan Selesai</a>
+                                        <a class="nav-item nav-link" id="nav-keluar-tab" data-toggle="tab"
+                                            href="#nav-keluar" role="tab" aria-controls="nav-keluar"
+                                            aria-selected="false">Potongan Keluar</a>
+                                    </div>
+                                </nav>
+                            </div>
+                            <div class="tab-content ml-2 mr-2" id="nav-tabContent">
+                                <div class="tab-pane fade show active" id="nav-masuk" role="tabpanel"
+                                    aria-labelledby="nav-masuk-tab">
 
-                                    @forelse ($masuk as $item)
-                                    <tr>
-                                        <td>{{$loop->iteration}}</td>
-                                        <td>{{$item->bahan->kode_transaksi}}</td>
-                                        <td>{{$item->bahan->sku}}</td>
-                                        <td>{{$item->bahan->jenis_bahan}}</td>
-                                        <td>{{$item->bahan->warna}}</td>
-                                        <td>{{$item->tanggal_cutting}}</td>
-                                        <td>{{$item->tanggal_selesai}}</td>
+                                    <table class="table table-hover" id="tabelbahanmasuk">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">No</th>
+                                                <th scope="col">Kode Transaksi</th>
+                                                <th scope="col">SKU</th>
+                                                <th scope="col">Jenis Kain</th>
+                                                <th scope="col">Warna Kain</th>
+                                                <th scope="col">Tanggal Cutting</th>
+                                                <th scope="col">Tanggal Selesai</th>
+                                                <th scope="col">Surat Jalan</th>
+                                                <th scope="col">Status</th>
+                                                <th scope="col">Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="">
 
-                                        <td>{{$item->no_surat}}</td>
-                                        <td>
-                                            @php
-                                                $status = strtoupper($item->status_potong)
-                                            @endphp
-                                            @if ($item->status_potong == 'belum potong')
-                                            <span
-                                                class="badge badge-secondary text-dark">{{$status}}</span>
-                                            @elseif ($item->status_potong == 'selesai')
-                                            <span
-                                                class="badge badge-success text-dark">{{$status}}</span>
-                                            @else
-                                            <span
-                                                class="badge badge-warning text-dark">{{$status}}</span>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            <div class="dropdown dropleft">
-                                                <a class="" href="#" id="dropdownMenuButton"
-                                                    data-toggle="dropdown" aria-haspopup="true"
-                                                    aria-expanded="false">
-                                                    <i class="fa fa-ellipsis-h"></i>
-                                                </a>
-                                                <div class="dropdown-menu text-center"
-                                                    aria-labelledby="dropdownMenuButton">
-                                                    <a class="dropdown-item"
-                                                        href="{{route('potong.show',[$item->id])}}"><i
-                                                            class="ri-eye-fill"></i>
-                                                        Detail</a>
+                                            @forelse ($masuk as $item)
+                                            <tr>
+                                                <td>{{$loop->iteration}}</td>
+                                                <td>{{$item->bahan->kode_transaksi}}</td>
+                                                <td>{{$item->bahan->sku}}</td>
+                                                <td>{{$item->bahan->jenis_bahan}}</td>
+                                                <td>{{$item->bahan->warna}}</td>
+                                                <td>{{$item->tanggal_cutting}}</td>
+                                                <td>{{$item->tanggal_selesai}}</td>
 
-                                                    <a class="dropdown-item btnprint" href="#"
-                                                        data-id="{{$item->id}}"><i class="ri-printer-fill"></i>
-                                                        Print</a>
+                                                <td>{{$item->no_surat}}</td>
+                                                <td>
+                                                    @php
+                                                    $status = strtoupper($item->status_potong)
+                                                    @endphp
+                                                    @if ($item->status_potong == 'belum potong')
+                                                    <span class="badge badge-secondary text-dark">{{$status}}</span>
+                                                    @elseif ($item->status_potong == 'selesai')
+                                                    <span class="badge badge-success text-dark">{{$status}}</span>
+                                                    @else
+                                                    <span class="badge badge-warning text-dark">{{$status}}</span>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    <div class="dropdown dropleft">
+                                                        <a class="" href="#" id="dropdownMenuButton"
+                                                            data-toggle="dropdown" aria-haspopup="true"
+                                                            aria-expanded="false">
+                                                            <i class="fa fa-ellipsis-h"></i>
+                                                        </a>
+                                                        <div class="dropdown-menu text-center"
+                                                            aria-labelledby="dropdownMenuButton">
+                                                            <a class="dropdown-item"
+                                                                href="{{route('potong.show',[$item->id])}}"><i
+                                                                    class="ri-eye-fill"></i>
+                                                                Detail</a>
 
-                                                    <a class="dropdown-item"
-                                                        href="{{route('potong.edit',[$item->id])}}"><i
-                                                            class="ri-edit-fill"></i>
-                                                        Edit</a>
+                                                            <a class="dropdown-item btnprint" href="#"
+                                                                data-id="{{$item->id}}"><i class="ri-printer-fill"></i>
+                                                                Print</a>
 
-                                                    <a class="dropdown-item hapus" data-id="{{$item->id}}"
-                                                        href="#"><i class="ri-delete-bin-fill"></i>
-                                                        Delete</a>
+                                                            <a class="dropdown-item"
+                                                                href="{{route('potong.edit',[$item->id])}}"><i
+                                                                    class="ri-edit-fill"></i>
+                                                                Edit</a>
 
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    @empty
+                                                            <a class="dropdown-item hapus" data-id="{{$item->id}}"
+                                                                href="#"><i class="ri-delete-bin-fill"></i>
+                                                                Delete</a>
 
-                                    @endforelse
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            @empty
 
-                                </tbody>
-                            </table>
+                                            @endforelse
 
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="tab-pane fade" id="nav-selesai" role="tabpanel"
+                                    aria-labelledby="nav-selesai-tab">
+                                    <table class="table table-hover" id="tabelseleai">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">No</th>
+                                                <th scope="col">Kode Transaksi</th>
+                                                <th scope="col">SKU</th>
+                                                <th scope="col">Jenis Kain</th>
+                                                <th scope="col">Warna Kain</th>
+                                                <th scope="col">Tanggal Cutting</th>
+                                                <th scope="col">Tanggal Selesai</th>
+                                                <th scope="col">Surat Jalan</th>
+                                                <th scope="col">Status</th>
+                                                <th scope="col">Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="">
+
+                                            @forelse ($selesai as $item)
+                                            <tr>
+                                                <td>{{$loop->iteration}}</td>
+                                                <td>{{$item->bahan->kode_transaksi}}</td>
+                                                <td>{{$item->bahan->sku}}</td>
+                                                <td>{{$item->bahan->jenis_bahan}}</td>
+                                                <td>{{$item->bahan->warna}}</td>
+                                                <td>{{$item->tanggal_cutting}}</td>
+                                                <td>{{$item->tanggal_selesai}}</td>
+
+                                                <td>{{$item->no_surat}}</td>
+                                                <td>
+                                                    @php
+                                                    $status = strtoupper($item->status_potong)
+                                                    @endphp
+                                                    <span class="badge badge-success text-dark">{{$status}}</span>
+                                                </td>
+                                                <td>
+                                                    <div class="dropdown dropleft">
+                                                        <a class="" href="#" id="dropdownMenuButton"
+                                                            data-toggle="dropdown" aria-haspopup="true"
+                                                            aria-expanded="false">
+                                                            <i class="fa fa-ellipsis-h"></i>
+                                                        </a>
+                                                        <div class="dropdown-menu text-center"
+                                                            aria-labelledby="dropdownMenuButton">
+                                                            <a class="dropdown-item"
+                                                                href="{{route('potong.show',[$item->id])}}"><i
+                                                                    class="ri-eye-fill"></i>
+                                                                Detail</a>
+
+                                                            <a class="dropdown-item btnprint" href="#"
+                                                                data-id="{{$item->id}}"><i class="ri-printer-fill"></i>
+                                                                Print</a>
+
+                                                            <a class="dropdown-item"
+                                                                href="{{route('potong.edit',[$item->id])}}"><i
+                                                                    class="ri-edit-fill"></i>
+                                                                Edit</a>
+
+                                                            <a class="dropdown-item hapus" data-id="{{$item->id}}"
+                                                                href="#"><i class="ri-delete-bin-fill"></i>
+                                                                Delete</a>
+
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            @empty
+
+                                            @endforelse
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="tab-pane fade" id="nav-keluar" role="tabpanel"
+                                    aria-labelledby="nav-keluar-tab">
+                                    <table class="table table-hover" id="tabelkeluar">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">No</th>
+                                                <th scope="col">Kode Transaksi</th>
+                                                <th scope="col">SKU</th>
+                                                <th scope="col">Jenis Kain</th>
+                                                <th scope="col">Warna Kain</th>
+                                                <th scope="col">Tanggal Cutting</th>
+                                                <th scope="col">Tanggal Selesai</th>
+                                                <th scope="col">Surat Jalan</th>
+                                                <th scope="col">Status</th>
+                                                <th scope="col">Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="">
+
+                                            @forelse ($masuk as $item)
+                                            <tr>
+                                                <td>{{$loop->iteration}}</td>
+                                                <td>{{$item->bahan->kode_transaksi}}</td>
+                                                <td>{{$item->bahan->sku}}</td>
+                                                <td>{{$item->bahan->jenis_bahan}}</td>
+                                                <td>{{$item->bahan->warna}}</td>
+                                                <td>{{$item->tanggal_cutting}}</td>
+                                                <td>{{$item->tanggal_selesai}}</td>
+
+                                                <td>{{$item->no_surat}}</td>
+                                                <td>
+                                                    @php
+                                                    $status = strtoupper($item->status_potong)
+                                                    @endphp
+                                                    <span class="badge badge-success text-dark">{{$status}}</span>
+                                                </td>
+                                                <td>
+                                                    <div class="dropdown dropleft">
+                                                        <a class="" href="#" id="dropdownMenuButton"
+                                                            data-toggle="dropdown" aria-haspopup="true"
+                                                            aria-expanded="false">
+                                                            <i class="fa fa-ellipsis-h"></i>
+                                                        </a>
+                                                        <div class="dropdown-menu text-center"
+                                                            aria-labelledby="dropdownMenuButton">
+                                                            <a class="dropdown-item"
+                                                                href="{{route('potong.show',[$item->id])}}"><i
+                                                                    class="ri-eye-fill"></i>
+                                                                Detail</a>
+
+                                                            <a class="dropdown-item btnprint" href="#"
+                                                                data-id="{{$item->id}}"><i class="ri-printer-fill"></i>
+                                                                Print</a>
+
+                                                            <a class="dropdown-item"
+                                                                href="{{route('potong.edit',[$item->id])}}"><i
+                                                                    class="ri-edit-fill"></i>
+                                                                Edit</a>
+
+                                                            <a class="dropdown-item hapus" data-id="{{$item->id}}"
+                                                                href="#"><i class="ri-delete-bin-fill"></i>
+                                                                Delete</a>
+
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            @empty
+
+                                            @endforelse
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -179,26 +345,42 @@
               }
 
               $('#tabelbahanmasuk').DataTable()
-              $('#tabelbahankeluar').DataTable()
-              $('#nav-bahanmasuk-tab').css('background-color','black')
-                  $('#nav-bahanmasuk-tab').css('color','white')
-                  $('#nav-keluar-tab').css('background-color','')
-                  $('#nav-keluar-tab').css('color','black')
+              $('#tabelseleai').DataTable()
+              $('#tabelkeluar').DataTable()
+              $('#nav-masuk-tab').css('background-color','black')
+              $('#nav-masuk-tab').css('color','white')
+              $('#nav-keluar-tab').css('background-color','')
+              $('#nav-keluar-tab').css('color','black')
+              $('#nav-selesai-tab').css('background-color','')
+              $('#nav-selesai-tab').css('color','black')
 
-              $('#nav-bahanmasuk-tab').click(function () {
+              $('#nav-masuk-tab').click(function () {
                   $(this).css('background-color','black')
                   $(this).css('color','white')
                   $('#nav-keluar-tab').css('background-color','')
                   $('#nav-keluar-tab').css('color','black')
+                  $('#nav-selesai-tab').css('background-color','')
+                  $('#nav-selesai-tab').css('color','black')
                })
 
                $('#nav-keluar-tab').click(function () {
-                  $('#nav-bahanmasuk-tab').css('background-color','')
-                  $('#nav-bahanmasuk-tab').css('color','black')
+                  $('#nav-masuk-tab').css('background-color','')
+                  $('#nav-masuk-tab').css('color','black')
+                  $('#nav-selesai-tab').css('background-color','')
+                  $('#nav-selesai-tab').css('color','black')
                   $(this).css('color','white')
                   $(this).css('background-color','black')
                })
 
+
+               $('#nav-selesai-tab').click(function () {
+                  $('#nav-masuk-tab').css('background-color','')
+                  $('#nav-masuk-tab').css('color','black')
+                  $('#nav-keluar-tab').css('background-color','')
+                  $('#nav-keluar-tab').css('color','black')
+                  $(this).css('color','white')
+                  $(this).css('background-color','black')
+               })
 
               $(document).on('click','.btnprint' ,function () {
                   var id = $(this).data('id')

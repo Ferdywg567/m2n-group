@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -24,10 +25,11 @@ class PotongController extends Controller
         // $selesai = Potong::whereDate('tanggal_selesai', date('Y-m-d'))->where('status', 'potong masuk')->update(['status_potong' => 'selesai']);
         $selesai = Potong::query()->update(['status_potong' => 'selesai']);
         $bahan = Bahan::doesntHave('potong')->where('status', 'bahan keluar')->get();
-        $masuk = Potong::orderBy('created_at', 'DESC')->get();
+        $masuk = Potong::where('status', 'potong masuk')->orderBy('created_at', 'DESC')->get();
+        $selesai = Potong::where('status', 'potong selesai')->orderBy('created_at', 'DESC')->get();
         $keluar = Potong::all()->where('status', 'potong masuk')->where('status_potong', 'selesai');
         $datakeluar = Potong::where('status', 'potong keluar')->where('status_potong', 'selesai')->orderBy('created_at', 'DESC')->get();
-        return view("backend.potong.index", ['bahan' => $bahan, 'masuk' => $masuk, 'keluar' => $keluar, 'datakeluar' => $datakeluar]);
+        return view("backend.potong.index", ['bahan' => $bahan, 'masuk' => $masuk, 'keluar' => $keluar, 'datakeluar' => $datakeluar, 'selesai' => $selesai]);
     }
 
     /**
@@ -37,15 +39,17 @@ class PotongController extends Controller
      */
     public function create(Request $request)
     {
-        $bahan = Bahan::doesntHave('potong')->where('status', 'bahan keluar')->get();
-        return view("backend.potong.masuk.create", ['bahan' => $bahan]);
-        // if ($request->get('status') == 'masuk') {
-        //     $bahan = Bahan::doesntHave('potong')->where('status', 'bahan keluar')->get();
-        //     return view("backend.potong.masuk.create", ['bahan' => $bahan]);
-        // } else {
-        //     $keluar = Potong::all()->where('status', 'potong masuk')->where('status_potong', 'selesai');
-        //     return view("backend.potong.keluar.create", ['keluar' => $keluar]);
-        // }
+        $status = $request->get('status');
+        if ($status == 'masuk') {
+            $bahan = Bahan::doesntHave('potong')->where('status', 'bahan keluar')->whereNotNull('kode_transaksi')->get();
+            return view("backend.potong.masuk.create", ['bahan' => $bahan]);
+        } elseif ($status == 'selesai') {
+            $selesai = Potong::all()->where('status', 'potong masuk')->where('status_potong', 'selesai');
+            return view("backend.potong.selesai.create", ['selesai' => $selesai]);
+        } else {
+            $keluar = Potong::all()->where('status', 'potong masuk')->where('status_potong', 'selesai');
+            return view("backend.potong.keluar.create", ['keluar' => $keluar]);
+        }
     }
 
     /**
@@ -60,12 +64,18 @@ class PotongController extends Controller
         if ($request->get('status') == 'potong masuk') {
             $validator = Validator::make($request->all(), [
                 'kode_transaksi' =>  'required',
-                'hasil_cutting' =>  'required',
                 'no_surat' => 'required|unique:potongs,no_surat',
-                'tanggal_potong' => 'required|date_format:"Y-m-d"|after_or_equal:' . date('Y-m-d'),
-                'estimasi_selesai_potong' => 'required|date_format:"Y-m-d"|after_or_equal:tanggal_potong',
-                'ukuran.*' => 'required',
-                'jumlah.*' => 'required',
+                'tanggal_potong' => 'required|date_format:"Y-m-d"',
+                'estimasi_selesai_potong' => 'required|date_format:"Y-m-d"',
+            ]);
+        } else if ($request->get('status') == 'potong selesai') {
+            $validator = Validator::make($request->all(), [
+                'kode_transaksi' =>  'required',
+                'no_surat' => 'required',
+                'tanggal_potong' => 'required|date_format:"Y-m-d"',
+                'estimasi_selesai_potong' => 'required|date_format:"Y-m-d"',
+                'hasil_cutting' => 'required|integer',
+                'konversi' => 'required'
             ]);
         } else {
             $validator = Validator::make($request->all(), [
@@ -78,40 +88,33 @@ class PotongController extends Controller
             ]);
         }
         if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator->errors());
+            return redirect()->back()->withErrors($validator->errors())->withInput();
         } else {
-            $jumlah = $request->get('jumlah');
-            $dataukuran = $request->get('ukuran');
-            $sum = array_sum($jumlah);
 
-            if ($sum != intval($request->get('hasil_cutting'))) {
-                return redirect()->back()->withErrors('Jumlah yang harus dimasukkan sebanyak ' . $request->get('hasil_cutting'));
-            }else{
-                $arr = [];
-                foreach ($dataukuran as $key => $value) {
-                    if (!empty($jumlah[$key])) {
-                        $x['ukuran'] = $value;
-                        $x['jumlah'] = $jumlah[$key];
-                        array_push($arr, $x);
-                    }
-                }
-
+            DB::beginTransaction();
+            try {
                 if ($request->get('status') == 'potong masuk') {
                     $potong = new Potong();
                     $potong->bahan_id = $request->get('kode_transaksi');
-                } else {
+                    $potong->no_surat = $request->get('no_surat');
+                } else if ($request->get('status') == 'potong selesai') {
                     $potong = Potong::findOrFail($request->get('kode_transaksi'));
-                }
-                $potong->no_surat = $request->get('no_surat');
-                if ($request->get('status') == 'potong masuk') {
-                    $potong->tanggal_cutting = date('Y-m-d', strtotime($request->get('tanggal_potong')));
-                    $potong->tanggal_selesai = date('Y-m-d', strtotime($request->get('estimasi_selesai_potong')));
-                    $potong->status = "potong masuk";
-                    if ($potong->tanggal_cutting == date('Y-m-d')) {
-                        $potong->status_potong = "proses potong";
-                    } else {
-                        $potong->status_potong = "belum potong";
+                    $jumlah = $request->get('jumlah');
+                    $dataukuran = $request->get('ukuran');
+                    $potong->no_surat = $request->get('no_surat');
+                    $sum = array_sum($jumlah);
+                    if ($sum != intval($request->get('hasil_cutting'))) {
+                        return redirect()->back()->withErrors('Jumlah yang harus dimasukkan sebanyak ' . $request->get('hasil_cutting'));
                     }
+                    $arr = [];
+                    foreach ($dataukuran as $key => $value) {
+                        if (!empty($jumlah[$key])) {
+                            $x['ukuran'] = $value;
+                            $x['jumlah'] = $jumlah[$key];
+                            array_push($arr, $x);
+                        }
+                    }
+                    $potong->status = "potong selesai";
                     $potong->hasil_cutting = $request->get('hasil_cutting');
                     $potong->konversi = $request->get('konversi');
                     $potong->save();
@@ -123,24 +126,50 @@ class PotongController extends Controller
                         $detail->jumlah = $value['jumlah'];
                         $detail->save();
                     }
+                } else {
+                    $jumlah = $request->get('jumlah');
+                    $dataukuran = $request->get('ukuran');
+                    $sum = array_sum($jumlah);
+                    if ($sum != intval($request->get('hasil_cutting'))) {
+                        return redirect()->back()->withErrors('Jumlah yang harus dimasukkan sebanyak ' . $request->get('hasil_cutting'));
+                    } else {
+                    }
+                    $potong = Potong::findOrFail($request->get('kode_transaksi'));
+                    $arr = [];
+                    foreach ($dataukuran as $key => $value) {
+                        if (!empty($jumlah[$key])) {
+                            $x['ukuran'] = $value;
+                            $x['jumlah'] = $jumlah[$key];
+                            array_push($arr, $x);
+                        }
+                    }
                 }
 
-                // if ($request->get('status') == 'potong keluar') {
-
-
-                //     $notif = new Notification();
-                //     $notif->description = "potong keluar telah dikirim ke jahit, silahkan di cek";
-                //     $notif->url = route('jahit.index');
-                //     $notif->aktif = 0;
-                //     $notif->save();
-
-                //     session(['notification' => 1]);
-                // }
-
-
+                if ($request->get('status') == 'potong masuk') {
+                    $potong->tanggal_cutting = date('Y-m-d', strtotime($request->get('tanggal_potong')));
+                    $potong->tanggal_selesai = date('Y-m-d', strtotime($request->get('estimasi_selesai_potong')));
+                    $potong->status = "potong masuk";
+                    if ($potong->tanggal_cutting == date('Y-m-d')) {
+                        $potong->status_potong = "proses potong";
+                    } else {
+                        $potong->status_potong = "belum potong";
+                    }
+                    $potong->save();
+                }
+                if ($request->get('status') == 'potong keluar') {
+                    $notif = new Notification();
+                    $notif->description = "potong keluar telah dikirim ke jahit, silahkan di cek";
+                    $notif->url = route('jahit.index');
+                    $notif->aktif = 0;
+                    $notif->save();
+                    session(['notification' => 1]);
+                }
+                DB::commit();
                 return redirect()->route('potong.index')->with('success', 'Data potong berhasil disimpan');
+            } catch (\Throwable $th) {
+                //throw $th;
+                DB::rollBack();
             }
-
         }
     }
 
@@ -171,6 +200,8 @@ class PotongController extends Controller
         $potong = Potong::with(['detail_potong', 'bahan'])->where('id', $id)->first();
         if ($potong->status == 'potong masuk') {
             return view("backend.potong.masuk.edit", ['potong' => $potong]);
+        } else  if ($potong->status == 'potong selesai') {
+            return view("backend.potong.selesai.edit", ['potong' => $potong]);
         } else {
             return view("backend.potong.keluar.edit", ['potong' => $potong]);
         }
@@ -188,8 +219,14 @@ class PotongController extends Controller
         if ($request->get('status') == 'potong masuk') {
             $potong = Potong::findOrFail($id);
             $validator = Validator::make($request->all(), [
+                'kode_transaksi' =>  'required',
+                'no_surat' => 'required',
+                'tanggal_potong' => 'required|date_format:"Y-m-d"',
+                'estimasi_selesai_potong' => 'required|date_format:"Y-m-d"',
+            ]);
+        } elseif ($request->get('status') == 'potong selesai') {
+            $validator = Validator::make($request->all(), [
                 'hasil_cutting' =>  'required',
-                'no_surat' => 'required|unique:potongs,no_surat,' . $potong->no_surat . ',no_surat',
                 'ukuran.*' => 'required',
                 'jumlah.*' => 'required',
             ]);
@@ -204,43 +241,48 @@ class PotongController extends Controller
         }
 
         if ($validator->fails()) {
-
             return redirect()->back()->withErrors($validator->errors());
         } else {
+            DB::beginTransaction();
+            try {
+                $status = $request->get('status');
+                $potong = Potong::findOrFail($id);
+                if ($status == 'potong masuk') {
+                    $potong->tanggal_cutting = $request->get('tanggal_potong');
+                    $potong->tanggal_selesai = $request->get('estimasi_selesai_potong');
+                    $potong->save();
+                } elseif ($status == 'potong selesai') {
+                    $jumlah = $request->get('jumlah');
+                    $dataukuran = $request->get('ukuran');
+                    $sum = array_sum($jumlah);
+                    $arr = [];
+                    foreach ($dataukuran as $key => $value) {
+                        if (!empty($jumlah[$key])) {
+                            $x['ukuran'] = $value;
+                            $x['jumlah'] = $jumlah[$key];
 
-            $jumlah = $request->get('jumlah');
-            $dataukuran = $request->get('ukuran');
-            $sum = array_sum($jumlah);
-
-            if ($sum != intval($request->get('hasil_cutting'))) {
-                return redirect()->back()->withErrors('Jumlah yang harus dimasukkan sebanyak ' . $request->get('hasil_cutting'));
-            }else{
-                $arr = [];
-                foreach ($dataukuran as $key => $value) {
-                    if (!empty($jumlah[$key])) {
-                        $x['ukuran'] = $value;
-                        $x['jumlah'] = $jumlah[$key];
-
-                        array_push($arr, $x);
+                            array_push($arr, $x);
+                        }
+                    }
+                    $potong = Potong::findOrFail($id);
+                    $potong->hasil_cutting = $request->get('hasil_cutting');
+                    $potong->konversi = $request->get('konversi');
+                    $potong->save();
+                    DetailPotong::where('potong_id', $potong->id)->delete();
+                    foreach ($arr as $key => $value) {
+                        $detail = new DetailPotong();
+                        $detail->potong_id = $potong->id;
+                        $detail->size = strtoupper($value['ukuran']);
+                        $detail->jumlah = $value['jumlah'];
+                        $detail->save();
                     }
                 }
-                $potong = Potong::findOrFail($id);
-                $potong->no_surat = $request->get('no_surat');
-                $potong->hasil_cutting = $request->get('hasil_cutting');
-                $potong->konversi = $request->get('konversi');
-                $potong->save();
-                DetailPotong::where('potong_id', $potong->id)->delete();
-                foreach ($arr as $key => $value) {
-                    $detail = new DetailPotong();
-                    $detail->potong_id = $potong->id;
-                    $detail->size = strtoupper($value['ukuran']);
-                    $detail->jumlah = $value['jumlah'];
-                    $detail->save();
-                }
+
+                DB::commit();
                 return redirect()->route('potong.index')->with('success', ' Data Potong berhasil diupdate');
+            } catch (\Throwable $th) {
+                DB::rollBack();
             }
-
-
         }
     }
 
