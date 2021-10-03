@@ -184,6 +184,8 @@ class PotongController extends Controller
         $potong = Potong::with(['detail_potong', 'bahan'])->where('id', $id)->first();
         if ($potong->status == 'potong masuk') {
             return view("backend.potong.masuk.show", ['potong' => $potong]);
+        } else if ($potong->status == 'potong selesai') {
+            return view("backend.potong.selesai.show", ['potong' => $potong]);
         } else {
             return view("backend.potong.keluar.show", ['potong' => $potong]);
         }

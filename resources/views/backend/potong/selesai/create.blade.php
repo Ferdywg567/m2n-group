@@ -231,7 +231,7 @@
                     $('#dataalert').text('Jumlah ukuran harus sesuai dengan hasil potong')
                     return false;
                 }else{
-                    alert('hello')
+                    
                    return true;
                 }
                 //add stuff here
