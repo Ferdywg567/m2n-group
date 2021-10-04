@@ -129,6 +129,7 @@ Route::group(['prefix' => 'production', 'namespace' => 'Backend', 'middleware' =
     });
 
     Route::resource('kategori', 'KategoriController');
+    Route::resource('pembayaran', 'PembayaranController');
     Route::resource('sku', 'SkuController');
     Route::resource('cuci', 'CuciController');
     Route::resource('retur', 'ReturController');

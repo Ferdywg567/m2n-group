@@ -57,6 +57,12 @@
         </li>
 
         <hr>
+        <li @yield('pembayaran')>
+            <a class="nav-link" href="{{route('pembayaran.index')}}">
+                <i class="ri-currency-line"></i> <span>Pembayaran</span>
+            </a>
+        </li>
+
         <li @yield('retur')>
             <a class="nav-link" href="{{route('retur.index')}}">
                 <i class="ri-logout-box-fill"></i> <span>Retur</span>
@@ -68,7 +74,7 @@
                 <i class="ri-refresh-fill"></i></i> <span>Perbaikan</span>
             </a>
         </li>
-        <li style="position: fixed; margin-top:3%">
+        <li style="position: fixed">
             <a class="nav-link" href="#">
                 <footer>
                     <i class="ri-copyright-fill"></i> <span style="font-size: 10px">Copyright ERP 2021 </span>

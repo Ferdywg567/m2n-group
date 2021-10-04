@@ -3,7 +3,7 @@
 @section('title', 'Potong')
 @section('title-nav', 'Pemotongan')
 @section('potong', 'class=active-sidebar')
-
+@section('cssnav', 'cssnav')
 @section('content')
 <style>
     .dropdown-menu {
@@ -11,7 +11,9 @@
         transform: translateX(-50%) !important;
         top: 100% !important;
     }
-
+    .cssnav {
+        margin-left: 10px;
+    }
     .left {
         text-align: left;
     }
