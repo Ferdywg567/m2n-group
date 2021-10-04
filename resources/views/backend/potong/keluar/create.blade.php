@@ -153,7 +153,7 @@
                                         <div class="form-group">
                                             <label for="hasil_cutting">Hasil Cutting</label>
                                             <div class="input-group mb-2">
-                                                <input type="number" class="form-control" required id="hasil_cutting" min="1"
+                                                <input type="number" class="form-control" required id="hasil_cutting"  readonly
                                                     name="hasil_cutting">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">pcs</div>
@@ -171,23 +171,7 @@
                                 </div>
                                 <hr>
                                 <div id="datasub">
-                                    <div class="row">
-                                        <input type="hidden" name="nilai" id="nilai" value="1">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="ukuran">Ukuran</label>
-                                                <input type="text" class="form-control" readonly required id="ukuran"
-                                                    name="ukuran[]">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="jumlah">Jumlah</label>
-                                                <input type="number" class="form-control" readonly required id="jumlah"
-                                                    name="jumlah[]">
-                                            </div>
-                                        </div>
-                                    </div>
+
                                 </div>
 
                                 <div class="row mt-2">
@@ -268,6 +252,32 @@
                   $('#konversi').val(res)
               })
 
+              function generateUkuran(ukuran, jumlah)
+              {
+                var nilai = 0
+                var hide = $('#datasub').find('input[type=hidden]')
+                var maxIndex;
+                maxIndex = hide.length - 1;
+                nilai = maxIndex+2
+                var tambah = parseInt(nilai);
+                var datahtml = '<div class="row">' +
+                    '<input type="hidden" name="nilai" id="nilai" value="'+tambah+'">'+
+                                            '<div class="col-md-6">'+
+                                                '<div class="form-group">'+
+                                                    '<label for="ukuran">Ukuran</label>'+
+                                                    '<input type="text" class="form-control" readonly required id="ukuran" name="ukuran[]" value="'+ukuran+'" >'+
+                                                '</div>'+
+                                            '</div>'+
+                                            '<div class="col-md-6">'+
+                                                '<div class="form-group">'+
+                                                    '<label for="jumlah">Jumlah</label>'+
+                                                    '<input type="number" class="form-control"  readonly required id="jumlah" name="jumlah[]" value="'+jumlah+'" >'+
+                                        '</div>'+
+                            '</div>'+
+                    '</div>'
+                $('#datasub').append(datahtml)
+              }
+
 
               $('.btntambah').on('click', function () {
             // var nilai = $('#nilai').val()
@@ -308,9 +318,10 @@
                         }).done(function (response) {
 
                             if(response.status){
-                                // console.log(response);
+                                console.log(response);
                                 var data = response.data;
                                 var bahan = data.bahan
+                                var detail_potong = data.detail_potong
                                 var detail = bahan.detail_sub.nama_kategori;
                                 var subkategori = bahan.detail_sub.sub_kategori.nama_kategori;
                                 var kategori = bahan.detail_sub.sub_kategori.kategori.nama_kategori;
@@ -326,6 +337,14 @@
                                 $('#warna').val(bahan.warna)
                                 $('#vendor_keluar').val(bahan.vendor)
                                 $('#panjang_kain').val(bahan.panjang_bahan_diambil)
+                                $('#hasil_cutting').val(data.hasil_cutting)
+                                $('#konversi').val(data.konversi)
+
+                                for (let index = 0; index < detail_potong.length; index++) {
+                                    const element = detail_potong[index];
+                                    generateUkuran(element.size, element.jumlah)
+
+                                }
                             }
 
                         })

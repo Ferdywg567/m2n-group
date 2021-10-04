@@ -236,7 +236,7 @@
                                         </thead>
                                         <tbody id="">
 
-                                            @forelse ($masuk as $item)
+                                            @forelse ($keluar as $item)
                                             <tr>
                                                 <td>{{$loop->iteration}}</td>
                                                 <td>{{$item->bahan->kode_transaksi}}</td>
@@ -270,11 +270,6 @@
                                                             <a class="dropdown-item btnprint" href="#"
                                                                 data-id="{{$item->id}}"><i class="ri-printer-fill"></i>
                                                                 Print</a>
-
-                                                            <a class="dropdown-item"
-                                                                href="{{route('potong.edit',[$item->id])}}"><i
-                                                                    class="ri-edit-fill"></i>
-                                                                Edit</a>
 
                                                             <a class="dropdown-item hapus" data-id="{{$item->id}}"
                                                                 href="#"><i class="ri-delete-bin-fill"></i>
