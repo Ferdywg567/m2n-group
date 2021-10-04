@@ -257,7 +257,7 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="text-dark">Preview Cutting</h4>
+                    <h4 class="text-dark">Daftar Potong</h4>
                     <div class="card-header-action">
                         <a href="{{route('potong.index')}}">Lihat Semua <i class="fas fa-chevron-right"></i></a>
                     </div>
@@ -283,7 +283,7 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="text-dark">Preview Tailoring</h4>
+                    <h4 class="text-dark">Daftar Jahit</h4>
                     <div class="card-header-action">
                         <a href="{{route('jahit.index')}}">Lihat Semua <i class="fas fa-chevron-right"></i></a>
                     </div>
@@ -310,7 +310,7 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="text-dark">Preview Washing</h4>
+                    <h4 class="text-dark">Daftar Cuci</h4>
                     <div class="card-header-action">
                         <a href="{{route('cuci.index')}}">Lihat Semua <i class="fas fa-chevron-right"></i></a>
                     </div>
@@ -349,7 +349,7 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="text-center">Proses Production</h4>
+                    <h4 class="text-center">Proses Produksi</h4>
                     <canvas id="pieChart" width="400" height="300"></canvas>
                 </div>
             </div>
@@ -381,6 +381,9 @@
             "bLengthChange": false,
             "bFilter": true,
             "bInfo": false,
+            language: {
+                    url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'
+            },
             "bAutoWidth": false,
              data:[],
                 columns: [
@@ -410,6 +413,9 @@
             "bLengthChange": false,
             "bFilter": true,
             "bInfo": false,
+            language: {
+                    url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'
+            },
             "bAutoWidth": false,
             data:[],
                 columns: [
@@ -439,6 +445,9 @@
             "bLengthChange": false,
             "bFilter": true,
             "bInfo": false,
+            language: {
+                    url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'
+            },
             "bAutoWidth": false,
             data:[],
                 columns: [
@@ -858,7 +867,7 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="text-dark">Preview Finishing</h4>
+                    <h4 class="text-dark">Daftar Finishing</h4>
                     <div class="card-header-action">
                         <a href="{{route('warehouse.finishing.index')}}">Lihat Semua <i
                                 class="fas fa-chevron-right"></i></a>
@@ -885,7 +894,7 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="text-dark">Preview Warehouse</h4>
+                    <h4 class="text-dark">Daftar Warehouse</h4>
                     <div class="card-header-action">
                         <a href="{{route('warehouse.warehouse.index')}}">Lihat Semua <i
                                 class="fas fa-chevron-right"></i></a>
@@ -913,7 +922,7 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="text-dark">Preview Retur</h4>
+                    <h4 class="text-dark">Daftar Retur</h4>
                     <div class="card-header-action">
                         <a href="{{route('warehouse.retur.index')}}">Lihat Semua <i
                                 class="fas fa-chevron-right"></i></a>
@@ -983,6 +992,9 @@
             "bLengthChange": false,
             "bFilter": true,
             "bInfo": false,
+            language: {
+                    url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'
+            },
             "bAutoWidth": false,
              data:[],
                 columns: [
@@ -1000,6 +1012,9 @@
             "bLengthChange": false,
             "bFilter": true,
             "bInfo": false,
+            language: {
+                    url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'
+            },
             "bAutoWidth": false,
             data:[],
                 columns: [
@@ -1017,6 +1032,9 @@
             "bLengthChange": false,
             "bFilter": true,
             "bInfo": false,
+            language: {
+                    url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'
+            },
             "bAutoWidth": false,
             data:[],
                 columns: [

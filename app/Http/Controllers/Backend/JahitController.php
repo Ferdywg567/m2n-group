@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\DetailJahit;
+use App\DetailPotong;
 use App\Notification;
 use App\JahitDirepair;
 use App\JahitDibuang;
@@ -66,12 +67,11 @@ class JahitController extends Controller
         // dd($request->all());
         $status = $request->get('status');
         if ($status == 'jahitan masuk') {
-
             if ($request->get('vendor_jahit') == 'internal') {
                 $validasi = [
                     'kode_transaksi' =>  'required',
                     'no_surat' => 'required|unique:jahits,no_surat',
-                    'tanggal_jahit' => 'required|date_format:"Y-m-d"|after_or_equal:' . date('Y-m-d'),
+                    'tanggal_jahit' => 'required|date_format:"Y-m-d"',
                     'estimasi_selesai_jahit' => 'required|date_format:"Y-m-d"|after:tanggal_jahit',
                     'vendor_jahit' => 'required',
                     'jumlah_bahan_yang_dijahit' => 'required',
@@ -81,12 +81,11 @@ class JahitController extends Controller
                 $validasi = [
                     'kode_transaksi' =>  'required',
                     'no_surat' => 'required|unique:jahits,no_surat',
-                    'tanggal_jahit' => 'required|date_format:"Y-m-d"|after_or_equal:' . date('Y-m-d'),
+                    'tanggal_jahit' => 'required|date_format:"Y-m-d"',
                     'estimasi_selesai_jahit' => 'required|date_format:"Y-m-d"|after:tanggal_jahit',
                     'vendor_jahit' => 'required',
                     'nama_vendor' => 'required',
                     'harga_vendor' => 'required',
-                    'status_pembayaran' => 'required',
                     'jumlah_bahan_yang_dijahit' => 'required',
                 ];
             }
@@ -121,7 +120,7 @@ class JahitController extends Controller
         }
 
         if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator->errors());
+            return redirect()->back()->withErrors($validator->errors())->withInput();
         } else {
 
             DB::beginTransaction();
@@ -141,42 +140,26 @@ class JahitController extends Controller
                     $jahit->status = "jahitan masuk";
                     if ($jahit->tanggal_selesai == date('Y-m-d')) {
                         // $jahit->status_jahit = "proses jahit";
-                        $jahit->status_jahit = "konfirmasi selesai";
+                        $jahit->status_jahit = "selesai";
                     } else {
                         // $jahit->status_jahit = "belum jahit";
-                        $jahit->status_jahit = "konfirmasi selesai";
+                        $jahit->status_jahit = "selesai";
                     }
                     if ($request->get('vendor_jahit') == 'eksternal') {
                         $jahit->nama_vendor = $request->get('nama_vendor');
                         $jahit->harga_vendor = $request->get('harga_vendor');
-                        $jahit->status_pembayaran = $request->get('status_pembayaran');
-
-                        if ($jahit->status_pembayaran == 'Termin') {
-                            $jahit->total_bayar =  $jahit->harga_vendor * $request->get('jumlah_bahan_yang_dijahit');
-                            $jahit->sisa_bayar =  $jahit->harga_vendor * $request->get('jumlah_bahan_yang_dijahit');
-                        }
+                        $jahit->status_pembayaran = "Belum Lunas";
                     }
-                    $ukuran = $request->get('ukuran');
-                    $jumlah = $request->get('jumlah');
-                    $sum = array_sum($jumlah);
-                    if ($sum != intval($request->get('jumlah_bahan_yang_dijahit'))) {
-                        return redirect()->back()->withErrors('Jumlah yang harus dimasukkan sebanyak ' . $request->get('jumlah_bahan_yang_dijahit'));
-                    }
-
-
+                    $detailpotong = DetailPotong::where('potong_id', $jahit->potong_id)->get();
                     $jahit->jumlah_bahan = $request->get('jumlah_bahan_yang_dijahit');
                     $jahit->konversi = $request->get('konversi');
-
                     $jahit->save();
-
-                    foreach ($ukuran as $key => $value) {
-                        if ($jumlah[$key] >= 0 || $jumlah[$key] != null) {
-                            $detail = new DetailJahit();
-                            $detail->jahit_id = $jahit->id;
-                            $detail->size = $value;
-                            $detail->jumlah = $jumlah[$key];
-                            $detail->save();
-                        }
+                    foreach ($detailpotong as $key => $value) {
+                        $detail = new DetailJahit();
+                        $detail->jahit_id = $jahit->id;
+                        $detail->size = $value->size;
+                        $detail->jumlah = $value->jumlah;
+                        $detail->save();
                     }
                 }
 

@@ -14,9 +14,9 @@
                     <span class="badge badge-success rounded" style="height: 80%">
                         <h6>
                             @if (auth()->user()->hasRole('production'))
-                            PRODUCTION
+                            PRODUKSI
                             @elseif (auth()->user()->hasRole('warehouse'))
-                            WAREHOUSE
+                            GUDANG
                             @endif
                         </h6>
 
