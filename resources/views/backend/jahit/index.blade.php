@@ -118,14 +118,9 @@
                                                         <div class="dropdown-menu text-center"
                                                             aria-labelledby="dropdownMenuButton">
                                                             <a class="dropdown-item"
-                                                                href="{{route('jahit.pembayaran',[$item->id])}}"><i
-                                                                    class="ri-eye-fill"></i>
-                                                                Pembayaran Vendor</a>
-                                                            <a class="dropdown-item"
                                                                 href="{{route('jahit.show',[$item->id])}}"><i
                                                                     class="ri-eye-fill"></i>
                                                                 Detail</a>
-
                                                             <a class="dropdown-item btnprint" href="#"
                                                                 data-id="{{$item->id}}"><i class="ri-printer-fill"></i>
                                                                 Print</a>
@@ -153,11 +148,152 @@
                                 </div>
                                 <div class="tab-pane fade" id="nav-selesai" role="tabpanel"
                                     aria-labelledby="nav-selesai-tab">
+                                    <table class="table table-hover" id="tabelselesai">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">No</th>
+                                                <th scope="col">Kode Transaksi</th>
+                                                <th scope="col">SKU</th>
+                                                <th scope="col">Tanggal Jahit</th>
+                                                <th scope="col">Tanggal Selesai</th>
+                                                <th scope="col">Vendor Jahit</th>
+                                                <th scope="col">Jahit Sukses</th>
+                                                <th scope="col">Surat Jalan</th>
+                                                <th scope="col">Status</th>
+                                                <th scope="col">Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="">
 
+                                            @forelse ($jahitselesai as $item)
+                                            <tr>
+                                                <td>{{$loop->iteration}}</td>
+                                                <td>{{$item->potong->bahan->kode_transaksi}}</td>
+                                                <td>{{$item->potong->bahan->sku}}</td>
+                                                <td>{{$item->tanggal_jahit}}</td>
+                                                <td>{{$item->tanggal_selesai}}</td>
+                                                <td>{{$item->vendor}}</td>
+                                                <td>{{$item->berhasil}} pcs</td>
+                                                <td>{{$item->no_surat}}</td>
+                                                <td>
+                                                    @php
+                                                    $status = strtoupper($item->status_jahit);
+                                                    @endphp
+                                                    @if ($item->status_jahit == 'belum jahit')
+                                                    <span class="badge badge-secondary text-dark">{{$status}}</span>
+                                                    @elseif ($item->status_jahit == 'selesai')
+                                                    <span class="badge badge-success text-dark">{{$status}}</span>
+                                                    @else
+                                                    <span class="badge badge-warning text-dark">{{$status}}</span>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    <div class="dropdown dropleft">
+                                                        <a class="" href="#" id="dropdownMenuButton" data-toggle="dropdown"
+                                                            aria-haspopup="true" aria-expanded="false">
+                                                            <i class="fa fa-ellipsis-h"></i>
+                                                        </a>
+                                                        <div class="dropdown-menu text-center"
+                                                            aria-labelledby="dropdownMenuButton">
+                                                            <a class="dropdown-item"
+                                                                href="{{route('jahit.show',[$item->id])}}"><i
+                                                                    class="ri-eye-fill"></i>
+                                                                Detail</a>
+                                                            <a class="dropdown-item btnprint" href="#"
+                                                                data-id="{{$item->id}}"><i class="ri-printer-fill"></i>
+                                                                Print</a>
+
+                                                            <a class="dropdown-item"
+                                                                href="{{route('jahit.edit',[$item->id])}}"><i
+                                                                    class="ri-edit-fill"></i>
+                                                                Edit</a>
+
+                                                            <a class="dropdown-item hapus" data-id="{{$item->id}}" href="#"><i
+                                                                    class="ri-delete-bin-fill"></i>
+                                                                Delete</a>
+
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            @empty
+
+                                            @endforelse
+
+                                        </tbody>
+                                    </table>
                                 </div>
                                 <div class="tab-pane fade" id="nav-keluar" role="tabpanel"
                                     aria-labelledby="nav-keluar-tab">
+                                    <table class="table table-hover" id="tabelkeluar">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">No</th>
+                                                <th scope="col">Kode Transaksi</th>
+                                                <th scope="col">SKU</th>
+                                                <th scope="col">Tanggal Jahit</th>
+                                                <th scope="col">Tanggal Selesai</th>
+                                                <th scope="col">Vendor Jahit</th>
+                                                <th scope="col">Jahit Sukses</th>
+                                                <th scope="col">Surat Jalan</th>
+                                                <th scope="col">Status</th>
+                                                <th scope="col">Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="">
 
+                                            @forelse ($jahitkeluar as $item)
+                                            <tr>
+                                                <td>{{$loop->iteration}}</td>
+                                                <td>{{$item->potong->bahan->kode_transaksi}}</td>
+                                                <td>{{$item->potong->bahan->sku}}</td>
+                                                <td>{{$item->tanggal_jahit}}</td>
+                                                <td>{{$item->tanggal_selesai}}</td>
+                                                <td>{{$item->vendor}}</td>
+                                                <td>{{$item->berhasil}} pcs</td>
+                                                <td>{{$item->no_surat}}</td>
+                                                <td>
+                                                    @php
+                                                    $status = strtoupper($item->status_jahit);
+                                                    @endphp
+                                                    @if ($item->status_jahit == 'belum jahit')
+                                                    <span class="badge badge-secondary text-dark">{{$status}}</span>
+                                                    @elseif ($item->status_jahit == 'selesai')
+                                                    <span class="badge badge-success text-dark">{{$status}}</span>
+                                                    @else
+                                                    <span class="badge badge-warning text-dark">{{$status}}</span>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    <div class="dropdown dropleft">
+                                                        <a class="" href="#" id="dropdownMenuButton" data-toggle="dropdown"
+                                                            aria-haspopup="true" aria-expanded="false">
+                                                            <i class="fa fa-ellipsis-h"></i>
+                                                        </a>
+                                                        <div class="dropdown-menu text-center"
+                                                            aria-labelledby="dropdownMenuButton">
+                                                            <a class="dropdown-item"
+                                                                href="{{route('jahit.show',[$item->id])}}"><i
+                                                                    class="ri-eye-fill"></i>
+                                                                Detail</a>
+                                                            <a class="dropdown-item btnprint" href="#"
+                                                                data-id="{{$item->id}}"><i class="ri-printer-fill"></i>
+                                                                Print</a>
+
+                                                            <a class="dropdown-item hapus" data-id="{{$item->id}}" href="#"><i
+                                                                    class="ri-delete-bin-fill"></i>
+                                                                Delete</a>
+
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            @empty
+
+                                            @endforelse
+
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
 
@@ -215,6 +351,8 @@
               }
 
               $('#tabelmasuk').DataTable()
+              $('#tabelselesai').DataTable()
+              $('#tabelkeluar').DataTable()
               $('#tabelbahankeluar').DataTable()
               $('#tabelbahanselesai').DataTable()
               $('#nav-masuk-tab').css('background-color','black')

@@ -23,8 +23,8 @@
 <div id="non-printable">
     <section class="section mt-4">
         <div class="btn-group">
-            <a type="button" href="#" class="btn btn-primary rounded" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false" aria-expanded="false">
+            <a type="button" href="#" class="btn btn-primary rounded" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false" aria-expanded="false">
                 Input Data <i class="fas fa-plus"></i>
             </a>
             <div class="dropdown-menu">
@@ -69,73 +69,55 @@
                                                 <th scope="col">No</th>
                                                 <th scope="col">Kode Transaksi</th>
                                                 <th scope="col">SKU</th>
-                                                <th scope="col">Jenis Kain</th>
-                                                <th scope="col">Warna Kain</th>
-                                                <th scope="col">Tanggal Cutting</th>
-                                                <th scope="col">Tanggal Selesai</th>
-                                                <th scope="col">Surat Jalan</th>
+                                                <th scope="col">Nama Produk</th>
+                                                <th scope="col">Vendor Jahit</th>
+                                                <th scope="col">Total Bayar</th>
+                                                <th scope="col">Sisa Bayar</th>
+
                                                 <th scope="col">Status</th>
                                                 <th scope="col">Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody id="">
-
-                                            {{-- @forelse ($masuk as $item)
+                                            @forelse ($jahit as $item)
                                             <tr>
                                                 <td>{{$loop->iteration}}</td>
-                                            <td>{{$item->bahan->kode_transaksi}}</td>
-                                            <td>{{$item->bahan->sku}}</td>
-                                            <td>{{$item->bahan->jenis_bahan}}</td>
-                                            <td>{{$item->bahan->warna}}</td>
-                                            <td>{{$item->tanggal_cutting}}</td>
-                                            <td>{{$item->tanggal_selesai}}</td>
+                                                <td>{{$item->potong->bahan->kode_transaksi}}</td>
+                                                <td>{{$item->potong->bahan->sku}}</td>
+                                                <td>{{$item->potong->bahan->nama_bahan}}</td>
+                                                <td>{{$item->nama_vendor}}</td>
+                                                <td>{{$item->total_bayar}}</td>
+                                                <td>{{$item->sisa_bayar}}</td>
+                                                <td> <span class="badge badge-success text-dark">{{$item->status_pembayaran}}</span></td>
+                                           
+                                                <td>
+                                                    <div class="dropdown dropleft">
+                                                        <a class="" href="#" id="dropdownMenuButton"
+                                                            data-toggle="dropdown" aria-haspopup="true"
+                                                            aria-expanded="false">
+                                                            <i class="fa fa-ellipsis-h"></i>
+                                                        </a>
+                                                        <div class="dropdown-menu text-center"
+                                                            aria-labelledby="dropdownMenuButton">
+                                                            <a class="dropdown-item"
+                                                                href="{{route('potong.show',[$item->id])}}"><i
+                                                                    class="ri-eye-fill"></i>
+                                                                Detail</a>
 
-                                            <td>{{$item->no_surat}}</td>
-                                            <td>
-                                                @php
-                                                $status = strtoupper($item->status_potong)
-                                                @endphp
-                                                @if ($item->status_potong == 'belum potong')
-                                                <span class="badge badge-secondary text-dark">{{$status}}</span>
-                                                @elseif ($item->status_potong == 'selesai')
-                                                <span class="badge badge-success text-dark">{{$status}}</span>
-                                                @else
-                                                <span class="badge badge-warning text-dark">{{$status}}</span>
-                                                @endif
-                                            </td>
-                                            <td>
-                                                <div class="dropdown dropleft">
-                                                    <a class="" href="#" id="dropdownMenuButton" data-toggle="dropdown"
-                                                        aria-haspopup="true" aria-expanded="false">
-                                                        <i class="fa fa-ellipsis-h"></i>
-                                                    </a>
-                                                    <div class="dropdown-menu text-center"
-                                                        aria-labelledby="dropdownMenuButton">
-                                                        <a class="dropdown-item"
-                                                            href="{{route('potong.show',[$item->id])}}"><i
-                                                                class="ri-eye-fill"></i>
-                                                            Detail</a>
 
-                                                        <a class="dropdown-item btnprint" href="#"
-                                                            data-id="{{$item->id}}"><i class="ri-printer-fill"></i>
-                                                            Print</a>
+                                                            <a class="dropdown-item"
+                                                                href="{{route('potong.edit',[$item->id])}}"><i
+                                                                    class="ri-edit-fill"></i>
+                                                                Edit</a>
 
-                                                        <a class="dropdown-item"
-                                                            href="{{route('potong.edit',[$item->id])}}"><i
-                                                                class="ri-edit-fill"></i>
-                                                            Edit</a>
 
-                                                        <a class="dropdown-item hapus" data-id="{{$item->id}}"
-                                                            href="#"><i class="ri-delete-bin-fill"></i>
-                                                            Delete</a>
-
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </td>
+                                                </td>
                                             </tr>
                                             @empty
 
-                                            @endforelse --}}
+                                            @endforelse
 
                                         </tbody>
                                     </table>

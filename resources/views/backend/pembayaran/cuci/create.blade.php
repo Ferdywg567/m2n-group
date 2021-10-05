@@ -17,42 +17,38 @@
             <a class="btn btn-primary" href="{{route('pembayaran.index')}}">
                 <i class="fas fa-arrow-left"></i>
             </a>
-            <h1 class="ml-2">Input Data | Pembayaran Cuci</h1>
+            <h1 class="ml-2">Input Data | Pembayaran Jahit</h1>
         </div>
         <div class="section-body">
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <form action="{{route('cuci.store')}}" method="POST">
+                        <form action="{{route('pembayaran.store')}}" method="POST" id="formPembayaran">
                             <div class="card-body">
                                 @include('backend.include.alert')
                                 @csrf
-                                <input type="hidden" name="status" value="cuci">
+                                <div class="alert alert-danger" role="alert" id="dataalert">
+
+                                </div>
+                                <input type="hidden" name="status" value="jahit">
                                 <input type="hidden" name="id" id="idmasuk">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="kode_transaksi">Kode Transaksi</label>
-
                                             <select class="form-control" id="kode_transaksiselect"
                                                 name="kode_transaksi">
                                                 <option value="">Pilih Kode Transaksi</option>
-                                                {{-- @forelse ($datakeluar as $item)
+                                                @forelse ($jahit as $item)
                                                 <option value="{{$item->id}}" @if($item->id ==
-                                                old('kode_transaksi')) selected
-                                                @endif>{{$item->bahan->kode_transaksi}} |
-                                                {{$item->bahan->nama_bahan}}
+                                                    old('kode_transaksi')) selected
+                                                    @endif>{{$item->potong->bahan->kode_transaksi}} |
+                                                    {{$item->potong->bahan->nama_bahan}}
                                                 </option>
                                                 @empty
-
-                                                @endforelse --}}
-
-
+                                                @endforelse
                                             </select>
-
-
                                         </div>
-
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -187,9 +183,9 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="nominal">Nominal</label>
-                                            <input type="number" min="1" class="form-control" required id="nominal"
-                                                value="{{old('nominal')}}" name="nominal">
+                                            <label for="nominal1">Nominal</label>
+                                            <input type="number" min="1" class="form-control" required id="nominal1"
+                                                value="{{old('nominal1')}}" name="nominal1">
                                         </div>
                                     </div>
                                 </div>
@@ -211,8 +207,8 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="nominal">Nominal</label>
-                                            <input type="number" min="1" class="form-control" required id="nominal"
-                                                value="{{old('nominal')}}" name="nominal">
+                                            <input type="number" min="1" class="form-control" id="nominal2"
+                                                value="{{old('nominal2')}}" name="nominal2">
                                         </div>
                                     </div>
                                 </div>
@@ -233,9 +229,9 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="nominal">Nominal</label>
-                                            <input type="number" min="1" class="form-control" required id="nominal"
-                                                value="{{old('nominal')}}" name="nominal">
+                                            <label for="nominal3">Nominal</label>
+                                            <input type="number" min="1" class="form-control" id="nominal3"
+                                                value="{{old('nominal3')}}" name="nominal3">
                                         </div>
                                     </div>
                                 </div>
@@ -278,6 +274,7 @@
               $('#ukuranl').hide()
               $('#ukuranxl').hide()
               $('#ukuranxxl').hide()
+              $('#dataalert').hide()
               $('#datapembayaran2').hide()
               $('#datapembayaran3').hide()
               $('#kdbahanselectmasuk').show()
@@ -299,6 +296,59 @@
                   $('#konversi').val(res)
               })
 
+              $('form[id=formPembayaran]').submit(function(){
+                var data = $('#pembayaran1').val();
+                var hasil = $('#total_harga').val()
+                if(data == 'Lunas'){
+                    var nominal = $('#nominal1').val()
+                    if(parseInt(hasil) != parseInt(nominal)){
+                    $('#dataalert').show()
+                    $('#dataalert').text('Nominal pembayaran harus sesuai dengan total harga')
+                     return false;
+                    }else{
+
+                        return true;
+                    }
+                }else if(data == 'Termin 1'){
+                    var nominal = $('#nominal1').val()
+                    var nominal2 = $('#nominal2').val()
+                    var nominal3 = $('#nominal3').val()
+                    if(nominal2 > 0 && nominal > 0 && nominal3 > 0){
+                        var total = parseInt(nominal) + parseInt(nominal2) + parseInt(nominal3)
+                        if(parseInt(hasil) != parseInt(total)){
+                            $('#dataalert').show()
+                            $('#dataalert').text('Nominal pembayaran harus sesuai dengan total harga')
+                            alert('nominal semua');
+                            return false;
+                        }else{
+
+                            return true;
+                        }
+                    }else if(nominal2 > 0 && nominal > 0){
+                        var total = parseInt(nominal) + parseInt(nominal2)
+                        if(parseInt(hasil) != parseInt(total)){
+                            $('#dataalert').show()
+                            $('#dataalert').text('Nominal pembayaran harus sesuai dengan total harga')
+                            alert('nominal 2');
+                            return false;
+                        }else{
+
+                            return true;
+                        }
+                    }else if(nominal > 0){
+
+                        if(parseInt(hasil) != parseInt(nominal)){
+                            $('#dataalert').show()
+                            $('#dataalert').text('Nominal pembayaran harus sesuai dengan total harga')
+                            alert('nominal 1');
+                            return false;
+                        }else{
+
+                            return true;
+                        }
+                    }
+                }
+            });
 
 
               $('#hasil_cutting').on('keyup', function(){
@@ -311,7 +361,7 @@
                   $('#konversi').val(res)
               })
 
-
+              $('.btntambah').hide()
               $('#pembayaran1').on('change', function () {
                   var data = $(this).val();
 
@@ -347,7 +397,7 @@
 
                     if(id != ''){
                         $.ajax({
-                            url:"{{route('potong.getdata')}}",
+                            url:"{{route('jahit.getdata')}}",
                             method:"GET",
                             data:{
                                 'id':id
@@ -357,20 +407,23 @@
                             if(response.status){
                                 console.log(response);
                                 var data = response.data;
-                                var bahan = data.bahan
-                                var detail_potong = data.detail_potong
+                                var bahan = data.potong.bahan
+                                var potong =data.potong
+                                var detail_jahit = data.detail_jahit
                                 var detail = bahan.detail_sub.nama_kategori;
                                 var subkategori = bahan.detail_sub.sub_kategori.nama_kategori;
                                 var kategori = bahan.detail_sub.sub_kategori.kategori.nama_kategori;
-
-
+                                var total_harga = data.harga_vendor * data.jumlah_bahan;
+                                $('#total_harga').val(total_harga)
                                 $('#nama_produk').val(bahan.nama_bahan)
+                                $('#nama_vendor').val(data.nama_vendor)
+                                $('#harga_vendor').val(data.harga_vendor)
                                 $('#no_surat').val(data.no_surat)
                                 $('#sku').val(bahan.sku)
                                 $('#kategori').val(kategori)
                                 $('#sub_kategori').val(subkategori)
                                 $('#detail_sub_kategori').val(detail)
-                                $('#jumlah_bahan_yang_dijahit').val(data.hasil_cutting)
+                                $('#jumlah_bahan_yang_dijahit').val(potong.hasil_cutting)
                                 $('#konversi').val(data.konversi)
                                 // var content="";
                                 // detail_potong.forEach((result, i) => {

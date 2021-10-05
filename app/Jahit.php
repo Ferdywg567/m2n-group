@@ -37,4 +37,9 @@ class Jahit extends Model
     {
         return $this->hasOne('App\Rekapitulasi');
     }
+
+    public function pembayaran_jahit()
+    {
+        return $this->hasOne('App\PembayaranJahit');
+    }
 }
