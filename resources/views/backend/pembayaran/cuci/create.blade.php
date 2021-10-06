@@ -30,7 +30,7 @@
                                 <div class="alert alert-danger" role="alert" id="dataalert">
 
                                 </div>
-                                <input type="hidden" name="status" value="jahit">
+                                <input type="hidden" name="status" value="cuci">
                                 <input type="hidden" name="id" id="idmasuk">
                                 <div class="row">
                                     <div class="col-md-6">
@@ -39,11 +39,11 @@
                                             <select class="form-control" id="kode_transaksiselect"
                                                 name="kode_transaksi">
                                                 <option value="">Pilih Kode Transaksi</option>
-                                                @forelse ($jahit as $item)
+                                                @forelse ($cuci as $item)
                                                 <option value="{{$item->id}}" @if($item->id ==
                                                     old('kode_transaksi')) selected
-                                                    @endif>{{$item->potong->bahan->kode_transaksi}} |
-                                                    {{$item->potong->bahan->nama_bahan}}
+                                                    @endif>{{$item->jahit->potong->bahan->kode_transaksi}} |
+                                                    {{$item->jahit->potong->bahan->nama_bahan}}
                                                 </option>
                                                 @empty
                                                 @endforelse
@@ -136,12 +136,12 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="jumlah_bahan_yang_dijahit">Jumlah Bahan Yang Dijahit</label>
+                                            <label for="jumlah_bahan_yang_dicuci">Jumlah Bahan Yang dicuci</label>
                                             <div class="input-group mb-2">
                                                 <input type="number" class="form-control" required
-                                                    value="{{old('jumlah_bahan_yang_dijahit')}}"
-                                                    id="jumlah_bahan_yang_dijahit" readonly
-                                                    name="jumlah_bahan_yang_dijahit">
+                                                    value="{{old('jumlah_bahan_yang_dicuci')}}"
+                                                    id="jumlah_bahan_yang_dicuci" readonly
+                                                    name="jumlah_bahan_yang_dicuci">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">pcs</div>
                                                 </div>
@@ -397,7 +397,7 @@
 
                     if(id != ''){
                         $.ajax({
-                            url:"{{route('jahit.getdata')}}",
+                            url:"{{route('cuci.getdata')}}",
                             method:"GET",
                             data:{
                                 'id':id
@@ -407,14 +407,15 @@
                             if(response.status){
                                 console.log(response);
                                 var data = response.data;
-                                var bahan = data.potong.bahan
-                                var potong =data.potong
-                                var detail_jahit = data.detail_jahit
+                                var jahit = data.jahit
+                                var bahan = data.jahit.potong.bahan
+                                var potong =data.jahit.potong
+                                var detail_cuci = data.detail_cuci
                                 var detail = bahan.detail_sub.nama_kategori;
                                 var subkategori = bahan.detail_sub.sub_kategori.nama_kategori;
                                 var kategori = bahan.detail_sub.sub_kategori.kategori.nama_kategori;
                                 var total_harga = data.harga_vendor * data.jumlah_bahan;
-                                $('#total_harga').val(total_harga)
+                                $('#total_harga').val(data.total_bayar)
                                 $('#nama_produk').val(bahan.nama_bahan)
                                 $('#nama_vendor').val(data.nama_vendor)
                                 $('#harga_vendor').val(data.harga_vendor)
@@ -423,31 +424,8 @@
                                 $('#kategori').val(kategori)
                                 $('#sub_kategori').val(subkategori)
                                 $('#detail_sub_kategori').val(detail)
-                                $('#jumlah_bahan_yang_dijahit').val(potong.hasil_cutting)
+                                $('#jumlah_bahan_yang_dicuci').val(potong.hasil_cutting)
                                 $('#konversi').val(data.konversi)
-                                // var content="";
-                                // detail_potong.forEach((result, i) => {
-                                //     if(i == 0){
-                                //         content+= '<div class="row">'
-                                //     }
-
-                                //     content += '<div class="col-md-2">'+
-                                //     '<input type="hidden" name="ukuran[]" value="'+result.size+'">'+
-                                //     '<div class="input-group mb-2">'+
-                                //         '<div class="input-group-prepend">'+
-                                //             '<div class="input-group-text">'+result.size+'</div>'+
-                                //         '</div>'+
-                                //         '<input type="number" class="form-control" required id="jumlah" name="jumlah[]" value="'+result.jumlah+'">'+
-                                //     '</div>'+
-                                //    '</div>';
-                                //     if(i!=0 && i%6 == 0){
-
-                                //         // add end of row ,and start new row on every 5 elements
-                                //         content += '</div><div class="row">'
-                                //     }
-                                // });
-                                // $('#title-ukuran').show()
-                                // $('#data-ukuran').html(content)
 
                             }
 

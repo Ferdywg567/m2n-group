@@ -7,7 +7,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Potong;
+use App\Cuci;
 use App\Jahit;
+use App\PembayaranCuci;
 use App\PembayaranJahit;
 
 class PembayaranController extends Controller
@@ -20,7 +22,8 @@ class PembayaranController extends Controller
     public function index()
     {
         $jahit = Jahit::where('vendor', 'eksternal')->orderBy('created_at', 'DESC')->get();
-        return view('backend.pembayaran.index', ['jahit' => $jahit]);
+        $cuci = Cuci::orderBy('created_at', 'DESC')->get();
+        return view('backend.pembayaran.index', ['jahit' => $jahit, 'cuci' => $cuci]);
     }
 
     /**
@@ -35,8 +38,8 @@ class PembayaranController extends Controller
             return view("backend.pembayaran.jahit.create", ['jahit' => $jahit]);
         } else {
             // $keluar = Jahit::all()->where('status', 'jahitan selesai')->where('status_jahit', 'selesai');
-            $keluar = Jahit::all()->where('status', 'jahitan selesai');
-            return view("backend.jahit.keluar.create", ['keluar' => $keluar]);
+            $cuci = Cuci::where('vendor', 'eksternal')->doesntHave('pembayaran_cuci')->get();
+            return view("backend.pembayaran.cuci.create", ['cuci' => $cuci]);
         }
     }
 
@@ -51,6 +54,11 @@ class PembayaranController extends Controller
         $status = $request->get('status');
 
         if ($status == 'jahit') {
+            $validator = Validator::make($request->all(), [
+                'kode_transaksi' =>  'required',
+                'pembayaran1' => 'required'
+            ]);
+        }else{
             $validator = Validator::make($request->all(), [
                 'kode_transaksi' =>  'required',
                 'pembayaran1' => 'required'
@@ -113,9 +121,9 @@ class PembayaranController extends Controller
                             }
                         } else  if ($nominal1 > 0 && $nominal2 > 0) {
                             $total = $nominal1 + $nominal2;
-                            if($total == $request->get('total_harga')){
+                            if ($total == $request->get('total_harga')) {
                                 $status = 'Lunas';
-                            }else{
+                            } else {
                                 $status = 'Termin 2';
                             }
                             $sisa =  $request->get('total_harga') - $total;
@@ -136,11 +144,11 @@ class PembayaranController extends Controller
                             $pembayaran->status = "Termin 2";
                             $pembayaran->nominal = $nominal2;
                             $pembayaran->save();
-                        } else  if ($nominal1 > 0 ) {
+                        } else  if ($nominal1 > 0) {
                             $total = $nominal1;
-                            if($total == $request->get('total_harga')){
+                            if ($total == $request->get('total_harga')) {
                                 $status = 'Lunas';
-                            }else{
+                            } else {
                                 $status = 'Termin 2';
                             }
                             $sisa =  $request->get('total_harga') - $total;
@@ -152,6 +160,99 @@ class PembayaranController extends Controller
 
                             $pembayaran = new PembayaranJahit();
                             $pembayaran->jahit_id = $jahit->id;
+                            $pembayaran->status = "Termin 1";
+                            $pembayaran->nominal = $nominal1;
+                            $pembayaran->save();
+                        }
+                    }
+                }else{
+                    $pembayaran1 = $request->get('pembayaran1');
+                    if ($pembayaran1 == 'Lunas') {
+                        $cuci = Cuci::findOrFail($request->get('kode_transaksi'));
+                        $cuci->total_bayar = $request->get('total_harga');
+                        $cuci->sisa_bayar = 0;
+                        $cuci->status_pembayaran = "Lunas";
+                        $cuci->save();
+
+                        $pembayaran = new PembayaranCuci();
+                        $pembayaran->cuci_id = $cuci->id;
+                        $pembayaran->status = "Lunas";
+                        $pembayaran->nominal = $request->get('nominal1');
+                        $pembayaran->save();
+                    } elseif ($pembayaran1 == 'Termin 1') {
+                        $nominal1 = $request->get('nominal1');
+                        $nominal2 = $request->get('nominal2');
+                        $nominal3 = $request->get('nominal3');
+
+                        if ($nominal1 > 0 && $nominal2 > 0 && $nominal3 > 0) {
+                            $total = $nominal1 + $nominal2 + $nominal3;
+                            if ($request->get('total_harga') == $total) {
+                                $status = 'Lunas';
+                                $cuci = Cuci::findOrFail($request->get('kode_transaksi'));
+                                $cuci->total_bayar = $total;
+                                $cuci->sisa_bayar = 0;
+                                $cuci->status_pembayaran = "Lunas";
+                                $cuci->save();
+
+                                $pembayaran = new PembayaranCuci();
+                                $pembayaran->cuci_id = $cuci->id;
+                                $pembayaran->status = "Termin 1";
+                                $pembayaran->nominal = $nominal1;
+                                $pembayaran->save();
+
+                                $pembayaran = new PembayaranCuci();
+                                $pembayaran->cuci_id = $cuci->id;
+                                $pembayaran->status = "Termin 2";
+                                $pembayaran->nominal = $nominal2;
+                                $pembayaran->save();
+
+                                $pembayaran = new PembayaranCuci();
+                                $pembayaran->cuci_id = $cuci->id;
+                                $pembayaran->status = "Termin 3";
+                                $pembayaran->nominal = $nominal3;
+                                $pembayaran->save();
+                            }
+                        } else  if ($nominal1 > 0 && $nominal2 > 0) {
+                            $total = $nominal1 + $nominal2;
+                            if ($total == $request->get('total_harga')) {
+                                $status = 'Lunas';
+                            } else {
+                                $status = 'Termin 2';
+                            }
+                            $sisa =  $request->get('total_harga') - $total;
+                            $cuci = Jahit::findOrFail($request->get('kode_transaksi'));
+                            $cuci->total_bayar = $total;
+                            $cuci->sisa_bayar = $sisa;
+                            $cuci->status_pembayaran = $status;
+                            $cuci->save();
+
+                            $pembayaran = new PembayaranCuci();
+                            $pembayaran->cuci_id = $cuci->id;
+                            $pembayaran->status = "Termin 1";
+                            $pembayaran->nominal = $nominal1;
+                            $pembayaran->save();
+
+                            $pembayaran = new PembayaranCuci();
+                            $pembayaran->cuci_id = $cuci->id;
+                            $pembayaran->status = "Termin 2";
+                            $pembayaran->nominal = $nominal2;
+                            $pembayaran->save();
+                        } else  if ($nominal1 > 0) {
+                            $total = $nominal1;
+                            if ($total == $request->get('total_harga')) {
+                                $status = 'Lunas';
+                            } else {
+                                $status = 'Termin 2';
+                            }
+                            $sisa =  $request->get('total_harga') - $total;
+                            $cuci = Jahit::findOrFail($request->get('kode_transaksi'));
+                            $cuci->total_bayar = $total;
+                            $cuci->sisa_bayar = $sisa;
+                            $cuci->status_pembayaran =  $status;
+                            $cuci->save();
+
+                            $pembayaran = new PembayaranCuci();
+                            $pembayaran->cuci_id = $cuci->id;
                             $pembayaran->status = "Termin 1";
                             $pembayaran->nominal = $nominal1;
                             $pembayaran->save();

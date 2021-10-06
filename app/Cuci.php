@@ -41,5 +41,8 @@ class Cuci extends Model
     {
         return $this->hasOne('App\Rekapitulasi');
     }
-    
+    public function pembayaran_cuci()
+    {
+        return $this->hasOne('App\PembayaranCuci');
+    }
 }
