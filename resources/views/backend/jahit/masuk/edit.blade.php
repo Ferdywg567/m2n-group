@@ -53,7 +53,7 @@
                                             <label for="sku">Nama Produk</label>
                                             <input type="text" class="form-control"
                                                 value="{{$jahit->potong->bahan->nama_bahan}}" readonly required
-                                                id="nama_produk" value="{{old('nama_produk')}}" name="nama_produk">
+                                                id="nama_produk"  name="nama_produk">
                                         </div>
                                     </div>
 
@@ -62,7 +62,7 @@
                                         <div class="form-group">
                                             <label for="sku">SKU</label>
                                             <input type="text" class="form-control" readonly required id="sku"
-                                                value="{{$jahit->potong->bahan->sku}}" value="{{old('sku')}}"
+                                                value="{{$jahit->potong->bahan->sku}}" 
                                                 name="sku">
                                         </div>
                                     </div>
@@ -73,7 +73,7 @@
                                             <label for="kategori">Kategori</label>
                                             <input type="text" class="form-control" required readonly id="kategori"
                                                 value="{{$jahit->potong->bahan->detail_sub->sub_kategori->kategori->nama_kategori}}"
-                                                value="{{old('kategori')}}" name="kategori">
+                                                name="kategori">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -81,7 +81,7 @@
                                             <label for="sub_kategori">Sub Kategori</label>
                                             <input type="text" class="form-control" required readonly id="sub_kategori"
                                                 value="{{$jahit->potong->bahan->detail_sub->sub_kategori->nama_kategori}}"
-                                                value="{{old('sub_kategori')}}" name="sub_kategori">
+                                                name="sub_kategori">
                                         </div>
                                     </div>
                                     <div class="col-md-5">

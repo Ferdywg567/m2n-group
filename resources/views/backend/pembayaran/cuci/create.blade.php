@@ -237,6 +237,15 @@
                                 </div>
                                 <button type="button" class="btn btn-outline-primary btn-block btntambah">Tambah
                                     Pembayaran Baru</button>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="sisa_bayar">Sisa Bayar</label>
+                                            <input type="text" class="form-control" readonly required id="sisa_bayar"
+                                                value="{{old('sisa_bayar')}}" name="sisa_bayar">
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="row mt-2">
                                     <div class="col-md-12 text-center">
                                         <a type="button" class="btn btn-secondary"
@@ -295,7 +304,36 @@
                   var res = hasil+' Lusin '+sisa+ ' pcs'
                   $('#konversi').val(res)
               })
+              $('#nominal1, #nominal2, #nominal3').on('keyup', function () {
+                  var nominal1 = $('#nominal1').val();
+                  var nominal2 = $('#nominal2').val();
+                  var nominal3 = $('#nominal3').val();
+                  var total_harga = $('#total_harga').val()
+                  var sisa_bayar = 0;
+                  if(nominal2 > 0 && nominal1 > 0 && nominal3 > 0){
+                        var total = parseInt(nominal1) + parseInt(nominal2) + parseInt(nominal3)
+                        if(total <= total_harga){
+                            sisa_bayar = total_harga - total;
+                        }
 
+
+                    }else if(nominal2 > 0 && nominal1 > 0){
+                        var total = parseInt(nominal1) + parseInt(nominal2)
+                        if(total <= total_harga){
+                            sisa_bayar = total_harga - total;
+                        }
+
+
+                    }else if(nominal1 > 0){
+                        if(parseInt(nominal1) <  parseInt(total_harga)){
+                            sisa_bayar = total_harga - nominal1;
+                        }
+
+
+                    }
+                    console.log(sisa_bayar);
+                    $('#sisa_bayar').val(sisa_bayar)
+               })
               $('form[id=formPembayaran]').submit(function(){
                 var data = $('#pembayaran1').val();
                 var hasil = $('#total_harga').val()
@@ -318,7 +356,7 @@
                         if(parseInt(hasil) != parseInt(total)){
                             $('#dataalert').show()
                             $('#dataalert').text('Nominal pembayaran harus sesuai dengan total harga')
-                            alert('nominal semua');
+
                             return false;
                         }else{
 
@@ -326,10 +364,10 @@
                         }
                     }else if(nominal2 > 0 && nominal > 0){
                         var total = parseInt(nominal) + parseInt(nominal2)
-                        if(parseInt(hasil) != parseInt(total)){
+                        if(parseInt(hasil) <= parseInt(total)){
                             $('#dataalert').show()
                             $('#dataalert').text('Nominal pembayaran harus sesuai dengan total harga')
-                            alert('nominal 2');
+
                             return false;
                         }else{
 
@@ -340,7 +378,7 @@
                         if(parseInt(hasil) != parseInt(nominal)){
                             $('#dataalert').show()
                             $('#dataalert').text('Nominal pembayaran harus sesuai dengan total harga')
-                            alert('nominal 1');
+
                             return false;
                         }else{
 

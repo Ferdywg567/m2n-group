@@ -50,7 +50,7 @@ class JahitController extends Controller
             $keluar = Jahit::all()->where('status_jahit', 'selesai')->where('status', 'jahitan masuk');
             return view("backend.jahit.selesai.create", ['keluar' => $keluar]);
         } else {
-            $keluar = Jahit::where('status', 'jahitan selesai')->where('status_pembayaran', 'Lunas')->orderBy('created_at', 'DESC')->get();;
+            $keluar = Jahit::where('status', 'jahitan selesai')->where('status_pembayaran', 'Lunas')->orWhere('vendor_jahit','internal')->orderBy('created_at', 'DESC')->get();;
             return view("backend.jahit.keluar.create", ['keluar' => $keluar]);
         }
     }
@@ -148,7 +148,7 @@ class JahitController extends Controller
                         $jahit->harga_vendor = $request->get('harga_vendor');
                         $jahit->status_pembayaran = "Belum Lunas";
                         $totalbayar = $jahit->harga_vendor * $request->get('jumlah_bahan_yang_dijahit');
-                        $jahit->total_bayar = $totalbayar;
+                        $jahit->total_bayar = 0;
                         $jahit->sisa_bayar = $totalbayar;
                     }
                     $detailpotong = DetailPotong::where('potong_id', $jahit->potong_id)->get();

@@ -40,6 +40,6 @@ class Jahit extends Model
 
     public function pembayaran_jahit()
     {
-        return $this->hasOne('App\PembayaranJahit');
+        return $this->hasMany('App\PembayaranJahit');
     }
 }

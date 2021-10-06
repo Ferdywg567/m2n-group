@@ -101,12 +101,13 @@
                                                         </a>
                                                         <div class="dropdown-menu text-center"
                                                             aria-labelledby="dropdownMenuButton">
-
-                                                            <a class="dropdown-item"
-                                                                href="{{route('pembayaran.show',[$item->id])}}"><i
-                                                                    class="ri-eye-fill"></i>
-                                                                Detail</a>
-
+                                                            <form action="{{route('pembayaran.show',[$item->id])}}"
+                                                                method="get">
+                                                                <input type="hidden" name="status" value="jahit">
+                                                                <button class="dropdown-item" style="font-size: 12px"><i
+                                                                    class="ri-eye-fill" ></i>Detail</button>
+                                                            </form>
+                                                           
                                                             @if ($item->status_pembayaran != "Lunas")
                                                             <form action="{{route('pembayaran.edit',[$item->id])}}"
                                                                 method="get">

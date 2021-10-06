@@ -20,8 +20,8 @@ class SampahController extends Controller
      */
     public function index()
     {
-        $cuci = Cuci::all()->where('status_cuci','selesai');
-        $jahit = Jahit::all()->where('status_jahit','selesai');
+        $cuci = Cuci::all()->where('status_cuci','selesai')->where('status','cucian keluar');
+        $jahit = Jahit::all()->where('status_jahit','selesai')->where('status','jahitan keluar');;
         DB::beginTransaction();
 
         try {

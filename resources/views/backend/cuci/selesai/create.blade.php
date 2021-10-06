@@ -33,11 +33,14 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <form action="{{route('cuci.store')}}"  method="post">
+                        <form action="{{route('cuci.store')}}"  method="post" id="formCuci">
 
                             <div class="card-body">
                                 @include('backend.include.alert')
                                 @csrf
+                                <div class="alert alert-danger" role="alert" id="dataalert">
+
+                                </div>
                                 <input type="hidden" name="status" value="cucian selesai">
                                 <input type="hidden" name="id" id="idkeluar">
                                 <div class="row">
@@ -196,7 +199,7 @@
                                 <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="keterangan_direpair">Keterangan Direpair</label>
+                                                <label for="keterangan_direpair">Keterangan Diperbaiki</label>
                                                 <textarea class="form-control" id="keterangan_direpair"
                                                     name="keterangan_direpair" rows="3"></textarea>
                                             </div>
@@ -350,6 +353,37 @@
                     $('#gagal_cuci').val(0)
                 }
               })
+              $('#dataalert').hide()
+              $('form[id=formCuci]').submit(function(){
+                var jumlahdirepair =0;
+                var jumlahdibuang =0;
+                var jumlah_bahan = $("#jumlah_bahan").val()
+                var berhasil_cuci = $('#berhasil_cuci').val()
+                var barang_dibuang = $('#barang_dibuang').val()
+                var hasil = $('#barang_direpair').val()
+                $('input[name^="jumlahdirepair"]').each(function() {
+                    jumlahdirepair = jumlahdirepair + parseInt($(this).val());
+                });
+                $('input[name^="jumlahdibuang"]').each(function() {
+                    jumlahdibuang = jumlahdibuang + parseInt($(this).val());
+                });
+                if(parseInt(jumlah_bahan) <= parseInt(berhasil_cuci)){
+                    $('#dataalert').show()
+                    $('#dataalert').text('Jumlah Berhasil Cuci tidak boleh melebihi Jumlah Bahan yang Dicuci')
+                    return false;
+                }else if(parseInt(jumlahdirepair) != parseInt(hasil)){
+                    $('#dataalert').show()
+                    $('#dataalert').text('Jumlah ukuran perbaikan harus sesuai dengan jumlah perbaikan')
+                    return false;
+                }else if(parseInt(jumlahdibuang) != parseInt(barang_dibuang)){
+                    $('#dataalert').show()
+                    $('#dataalert').text('Jumlah ukuran dibuang harus sesuai dengan jumlah dibuang')
+                    return false;
+                } else{
+                    $('#dataalert').hide()
+                   return true;
+                }
+            });
 
 
             //   $(document).on('click','#btnsize', function(){

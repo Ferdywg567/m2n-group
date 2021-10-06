@@ -17,20 +17,16 @@
             <a class="btn btn-primary" href="{{route('pembayaran.index')}}">
                 <i class="fas fa-arrow-left"></i>
             </a>
-            <h1 class="ml-2">Edit Data | Pembayaran Jahit</h1>
+            <h1 class="ml-2">Detail Data | Pembayaran Jahit</h1>
         </div>
         <div class="section-body">
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <form action="{{route('pembayaran.update',[$jahit->id])}}" method="POST" id="formPembayaran">
+                        <form action="#" method="POST" id="formPembayaran">
                             <div class="card-body">
                                 @include('backend.include.alert')
-                                @csrf
-                                @method('put')
-                                <div class="alert alert-danger" role="alert" id="dataalert">
 
-                                </div>
                                 <input type="hidden" name="status" value="jahit">
                                 <input type="hidden" name="id" id="idmasuk">
                                 <div class="row">
@@ -160,8 +156,8 @@
                                 </div>
                                 <hr>
                                 @php
-                                   $cek = false;
-                                   $status = '';
+                                $cek = false;
+                                $status = '';
                                 @endphp
                                 @foreach ($jahit->pembayaran_jahit as $item)
                                 @if ($item->status=='Lunas')
@@ -170,7 +166,7 @@
                                         <div class="form-group">
                                             <label for="tanggal">Tanggal</label>
                                             <input type="date" class="form-control" required readonly id="tanggal"
-                                            value="{{date('Y-m-d',strtotime($item->created_at))}}" name="tanggal">
+                                                value="{{date('Y-m-d',strtotime($item->created_at))}}" name="tanggal">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -190,15 +186,15 @@
                                 </div>
                                 @elseif($item->status == 'Termin 1')
                                 @php
-                                    $status = 'Termin 1';
-                                   $cek = true;
+                                $status = 'Termin 1';
+                                $cek = true;
                                 @endphp
                                 <div class="row" id="">
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="tanggal">Tanggal</label>
                                             <input type="date" class="form-control" required readonly id="tanggal"
-                                            value="{{date('Y-m-d',strtotime($item->created_at))}}" name="tanggal">
+                                                value="{{date('Y-m-d',strtotime($item->created_at))}}" name="tanggal">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -219,15 +215,15 @@
 
                                 @elseif($item->status == 'Termin 2')
                                 @php
-                                     $status = 'Termin 2';
-                                   $cek = true;
+                                $status = 'Termin 2';
+                                $cek = true;
                                 @endphp
                                 <div class="row" id="">
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="tanggal">Tanggal</label>
                                             <input type="date" class="form-control" required readonly id="tanggal"
-                                            value="{{date('Y-m-d',strtotime($item->created_at))}}" name="tanggal">
+                                                value="{{date('Y-m-d',strtotime($item->created_at))}}" name="tanggal">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -274,62 +270,12 @@
                                 @endif
                                 @endforeach
 
-                                <div class="row" id="datapembayaran2">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="tanggal">Tanggal</label>
-                                            <input type="date" class="form-control" required value="{{date('Y-m-d')}}"
-                                                readonly id="tanggal" value="{{old('tanggal')}}" name="tanggal">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="pembayaran">Pembayaran</label>
-                                            <input type="text" class="form-control" value="Termin 2" readonly
-                                                id="pembayaran2" name="pembayaran2">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="nominal">Nominal</label>
-                                            <input type="number" min="1" class="form-control" id="nominal2"
-                                                value="{{old('nominal2')}}" name="nominal2">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row" id="datapembayaran3">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="tanggal">Tanggal</label>
-                                            <input type="date" class="form-control" required value="{{date('Y-m-d')}}"
-                                                readonly id="tanggal" value="{{old('tanggal')}}" name="tanggal">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="pembayaran">Pembayaran</label>
-                                            <input type="text" class="form-control" value="Termin 3" readonly
-                                                id="pembayaran3" name="pembayaran3">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="nominal3">Nominal</label>
-                                            <input type="number" min="1" class="form-control" id="nominal3"
-                                                value="{{old('nominal3')}}" name="nominal3">
-                                        </div>
-                                    </div>
-                                </div>
-                                @if ($status)
-                                <button type="button" class="btn btn-outline-primary btn-block btntambah">Tambah
-                                    Pembayaran Baru</button>
-                                @endif
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="sisa_bayar">Sisa Bayar</label>
                                             <input type="text" class="form-control" readonly required id="sisa_bayar"
-                                            value="{{$jahit->sisa_bayar}}" name="sisa_bayar">
+                                                value="{{$jahit->sisa_bayar}}" name="sisa_bayar">
                                         </div>
                                     </div>
 
@@ -338,9 +284,9 @@
                                 <div class="row mt-2">
                                     <div class="col-md-12 text-center">
                                         <a type="button" class="btn btn-secondary"
-                                            href="{{route('pembayaran.index')}}">Batal</a>
+                                            href="{{route('pembayaran.index')}}">Close</a>
 
-                                        <button type="submit" class="btn btn-primary btnmasuk">Simpan</button>
+
 
                                     </div>
                                 </div>
@@ -357,185 +303,3 @@
 </div>
 
 @endsection
-@push('scripts')
-<script>
-    $(document).ready(function () {
-             function ajax() {
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-              }
-              $('#kdbahanreadonly').hide()
-              $('#ukuranm').hide()
-              $('#ukuranl').hide()
-              $('#ukuranxl').hide()
-              $('#ukuranxxl').hide()
-              $('#dataalert').hide()
-              $('#datapembayaran2').hide()
-              $('#datapembayaran3').hide()
-              $('#kdbahanselectmasuk').show()
-              $('#kdbahanmasuk').hide()
-              $('#kdbahanselectkeluar').show()
-              $('#kdbahankeluar').hide()
-              $('.btnkeluar').prop('id','btnsimpankeluar')
-              $('#tabelmasuk').DataTable()
-              $('#tabelbahankeluar').DataTable()
-              $('#kode_transaksiselect').select2()
-              $('#title-ukuran').hide()
-              $('#jumlah_bahan_yang_dijahit').on('keyup', function(){
-                  var data = $(this).val()
-                  var lusin = 12
-
-                  var sisa = data%lusin;
-                  var hasil = (data - sisa) / lusin;
-                  var res = hasil+' Lusin '+sisa+ ' pcs'
-                  $('#konversi').val(res)
-              })
-
-              $('#nominal1, #nominal2, #nominal3').on('keyup', function () {
-                  var nominal1 = $('#nominal1').val();
-                  var nominal2 = $('#nominal2').val();
-                  var nominal3 = $('#nominal3').val();
-                  var total_harga = $('#total_harga').val()
-                  var sisa_bayar = 0;
-                  if(nominal2 > 0 && nominal1 > 0 && nominal3 > 0){
-                        var total = parseInt(nominal1) + parseInt(nominal2) + parseInt(nominal3)
-                        if(total <= total_harga){
-                            sisa_bayar = total_harga - total;
-                        }
-
-
-                    }else if(nominal2 > 0 && nominal1 > 0){
-                        var total = parseInt(nominal1) + parseInt(nominal2)
-                        if(total <= total_harga){
-                            sisa_bayar = total_harga - total;
-                        }
-
-
-                    }else if(nominal1 > 0){
-                        if(parseInt(nominal1) <  parseInt(total_harga)){
-                            sisa_bayar = total_harga - nominal1;
-                        }
-
-
-                    }
-                    console.log(sisa_bayar);
-                    $('#sisa_bayar').val(sisa_bayar)
-               })
-
-              $('form[id=formPembayaran]').submit(function(){
-                var data = $('#pembayaran1').val();
-                var hasil = $('#total_harga').val()
-                if(data == 'Lunas'){
-                    var nominal = $('#nominal1').val()
-                    if(parseInt(hasil) != parseInt(nominal)){
-                    $('#dataalert').show()
-                    $('#dataalert').text('Nominal pembayaran harus sesuai dengan sisa bayar')
-                     return false;
-                    }else{
-
-                        return true;
-                    }
-                }else if(data == 'Termin 1'){
-                    var nominal = $('#nominal1').val()
-                    var nominal2 = $('#nominal2').val()
-                    var nominal3 = $('#nominal3').val()
-                    if(nominal2 > 0 && nominal > 0 && nominal3 > 0){
-                        var total = parseInt(nominal) + parseInt(nominal2) + parseInt(nominal3)
-                        if(parseInt(hasil) != parseInt(total)){
-                            $('#dataalert').show()
-                            $('#dataalert').text('Nominal pembayaran harus sesuai dengan sisa bayar')
-                            return false;
-                        }else{
-
-                            return true;
-                        }
-                    }else if(nominal2 > 0 && nominal > 0){
-                        var total = parseInt(nominal) + parseInt(nominal2)
-                        if(parseInt(hasil) <= parseInt(total)){
-                            $('#dataalert').show()
-                            $('#dataalert').text('Nominal pembayaran harus sesuai dengan sisa bayar')
-                            return false;
-                        }else{
-                            return true;
-                        }
-                    }else if(nominal > 0){
-
-                        if(parseInt(hasil) <= parseInt(nominal)){
-                            $('#dataalert').show()
-                            $('#dataalert').text('Nominal pembayaran tidak boleh melebihi sisa bayar')
-
-                            return false;
-                        }if(parseInt(nominal) <= 0){
-                            $('#dataalert').show()
-                            $('#dataalert').text('Nominal pembayaran tidak boleh melebihi sisa bayar')
-
-                            return false;
-                        }else{
-
-                            return true;
-                        }
-                    }
-                }
-            });
-
-
-              $('#hasil_cutting').on('keyup', function(){
-                  var data = $(this).val()
-                  var lusin = 12
-
-                  var sisa = data%lusin;
-                  var hasil = (data - sisa) / lusin;
-                  var res = hasil+' Lusin '+sisa+ ' pcs'
-                  $('#konversi').val(res)
-              })
-
-
-              $('#pembayaran1').on('change', function () {
-                  var data = $(this).val();
-
-                  if(data == 'Lunas'){
-                    $('#datapembayaran2').hide()
-                     $('#datapembayaran3').hide()
-                     $('.btntambah').hide()
-                  }else{
-                    $('.btntambah').show()
-                  }
-
-              })
-
-              $('.btntambah').on('click', function () {
-                  var status ='{{$status}}';
-                var data = $('#pembayaran1').val();
-                var datapembayaran2 = $('#datapembayaran2').is(':visible')
-                var datapembayaran3 = $('#datapembayaran3').is(':visible')
-                if(data != 'Lunas'){
-
-                    if(status == 'Termin 2'){
-                        $('#datapembayaran3').show()
-                        $('#datapembayaran2').remove()
-                        $('#nominal3').prop('required',true)
-                        $('.btntambah').hide()
-                    }else{
-                        if(!datapembayaran2){
-                             $('#datapembayaran2').show()
-                             $('#nominal2').prop('required',true)
-                        }else if(!datapembayaran3){
-                            $('#datapembayaran3').show()
-                            $('.btntambah').hide()
-                        }
-                    }
-
-                }
-
-            })
-
-
-
-
-
-     })
-</script>
-@endpush

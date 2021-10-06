@@ -16,7 +16,7 @@
         @if (auth()->user()->hasRole('production'))
         <li @yield('dashboard')>
             <a class="nav-link" href="{{ route('dashboard.index') }}">
-                <i class="ri-dashboard-fill"></i> <span>Dashboard</span>
+                <i class="ri-dashboard-fill"></i> <span>Beranda</span>
             </a>
         </li>
         <li @yield('kategori')>
@@ -88,7 +88,7 @@
         @if (auth()->user()->hasRole('warehouse'))
         <li @yield('dashboard')>
             <a class="nav-link" href="{{ route('warehouse.dashboard.index') }}">
-                <i class="ri-dashboard-fill"></i> <span>Dashboard</span>
+                <i class="ri-dashboard-fill"></i> <span>Beranda</span>
             </a>
         </li>
 

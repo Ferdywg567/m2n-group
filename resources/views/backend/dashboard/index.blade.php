@@ -1,7 +1,7 @@
 @extends('backend.master')
 
-@section('title', 'Dashboard')
-@section('title-nav', 'Dashboard')
+@section('title', 'Beranda')
+@section('title-nav', 'Beranda')
 
 @section('dashboard', 'class=active-sidebar')
 

@@ -25,7 +25,7 @@ class CuciController extends Controller
     public function index()
     {
         // Cuci::query()->update(['status_cuci' => 'selesai']);
-        $cuci = Cuci::orderBy('created_at', 'DESC')->get();
+        $cuci = Cuci::where('status', 'cucian masuk')->orderBy('created_at', 'DESC')->get();
         $selesai = Cuci::where('status', 'cucian selesai')->orderBy('created_at', 'DESC')->get();
         $keluar = Cuci::where('status', 'cucian keluar')->orderBy('created_at', 'DESC')->get();
         return view("backend.cuci.index", ['cuci' => $cuci, 'keluar' => $keluar, 'selesai' => $selesai]);
@@ -85,13 +85,7 @@ class CuciController extends Controller
         } else {
             $validator = Validator::make($request->all(), [
                 'kode_transaksi' =>  'required',
-                'no_surat' => 'required',
-                'vendor_cuci' => 'required',
-                'tanggal_selesai' => 'required|date_format:"Y-m-d"',
-                'tanggal_keluar' => 'required|date_format:"Y-m-d"|after_or_equal:tanggal_selesai',
-                'berhasil_cuci' => 'required|integer',
-                'kain_gagal_cuci' => 'required|integer',
-                'konversi' => 'required'
+
             ]);
         }
 
@@ -142,7 +136,6 @@ class CuciController extends Controller
 
                 if ($request->get('status') == 'cucian selesai') {
                     $cuci->berhasil_cuci = $request->get('berhasil_cuci');
-
                     $cuci->gagal_cuci = $request->get('gagal_cuci');
                     $cuci->barang_direpair = $request->get('barang_direpair');
                     $cuci->barang_dibuang = $request->get('barang_dibuang');
@@ -150,7 +143,28 @@ class CuciController extends Controller
                     $cuci->status = "cucian selesai";
                     $cuci->nama_vendor = $request->get('nama_vendor');
                     $cuci->harga_vendor = $request->get('harga_vendor');
-                    $cuci->status_pembayaran = '';
+                    $direpair = $request->get('jumlahdirepair');
+                    $dibuang = $request->get('jumlahdibuang');
+
+                    $detailcuci = DetailCuci::where('cuci_id', $cuci->id)->get();
+
+                    foreach ($detailcuci as $key => $value) {
+                        $cek = DetailCuci::where('cuci_id', $cuci->id)->where('size', $value->size)->first();
+                        if ($cek) {
+                            $jumdirepair = $direpair[$key];
+                            if ($jumdirepair < 0 || $jumdirepair == null) {
+                                $jumdirepair = 0;
+                            }
+
+                            $jumdibuang = $dibuang[$key];
+                            if ($jumdibuang < 0 || $jumdibuang == null) {
+                                $jumdibuang = 0;
+                            }
+
+                            $cek->jumlah = $cek->jumlah - $jumdibuang - $jumdirepair;
+                            $cek->save();
+                        }
+                    }
 
                     //direpair
                     unset($arr);
@@ -200,80 +214,9 @@ class CuciController extends Controller
                     $cuci->save();
                 }
                 if ($request->get('status') == 'cucian keluar') {
-                    $cuci->berhasil_cuci = $request->get('berhasil_cuci');
-                    $cuci->gagal_cuci = $request->get('kain_gagal_cuci');
-                    $cuci->barang_direpair = $request->get('barang_direpair');
-                    $cuci->barang_dibuang = $request->get('barang_dibuang');
-                    $cuci->tanggal_keluar = date('Y-m-d', strtotime($request->get('tanggal_keluar')));
+
                     $cuci->status = "cucian keluar";
-                    $jumlah = $request->get('jumlah');
-                    $dataukuran = $request->get('dataukuran');
-                    $iddetailukuran = $request->get('iddetailukuran');
-                    $arr = [];
-                    foreach ($dataukuran as $key => $value) {
-                        if (!empty($jumlah[$key])) {
-                            $x['id'] = $iddetailukuran[$key];
-                            $x['ukuran'] = $value;
-                            $x['jumlah'] = $jumlah[$key];
-                            array_push($arr, $x);
-                        }
-                    }
-                    DetailCuci::where('cuci_id', $cuci->id)->delete();
-                    foreach ($arr as $key => $value) {
-                        $detail = new DetailCuci();
-                        $detail->cuci_id = $cuci->id;
-                        $detail->size = $value['ukuran'];
-                        $detail->jumlah = $value['jumlah'];
-                        $detail->save();
-                    }
-
-                    //direpair
-                    unset($arr);
-                    $jumlah = $request->get('jumlahdirepair');
-                    $dataukuran = $request->get('dataukurandirepair');
-                    $arr = [];
-                    foreach ($dataukuran as $key => $value) {
-                        if (!empty($jumlah[$key])) {
-                            $x['ukuran'] = $value;
-                            $x['jumlah'] = $jumlah[$key];
-                            array_push($arr, $x);
-                        }
-                    }
-                    CuciDirepair::where('cuci_id', $cuci->id)->delete();
-                    foreach ($arr as $key => $value) {
-                        $detail = new CuciDirepair();
-                        $detail->cuci_id = $cuci->id;
-                        $detail->ukuran = $value['ukuran'];
-                        $detail->jumlah = $value['jumlah'];
-                        $detail->save();
-                    }
-
-
-                    //dibuang
-                    unset($arr);
-                    $jumlah = $request->get('jumlahdibuang');
-                    $dataukuran = $request->get('dataukurandibuang');
-                    $arr = [];
-                    foreach ($dataukuran as $key => $value) {
-                        if (!empty($jumlah[$key])) {
-                            $x['ukuran'] = $value;
-                            $x['jumlah'] = $jumlah[$key];
-                            array_push($arr, $x);
-                        }
-                    }
-                    CuciDibuang::where('cuci_id', $cuci->id)->delete();
-                    foreach ($arr as $key => $value) {
-                        $detail = new CuciDibuang();
-                        $detail->cuci_id = $cuci->id;
-                        $detail->ukuran = $value['ukuran'];
-                        $detail->jumlah = $value['jumlah'];
-                        $detail->save();
-                    }
-
-                    $cuci->keterangan_direpair = $request->get('keterangan_direpair');
-                    $cuci->keterangan_dibuang = $request->get('keterangan_dibuang');
                     $cuci->save();
-
                     $notif = new Notification();
                     $notif->description = "cuci keluar telah dikirim ke rekapitulasi, silahkan di cek";
                     $notif->url = route('rekapitulasi.index');
@@ -455,91 +398,6 @@ class CuciController extends Controller
                     $cuci->save();
                 }
 
-                if ($request->get('status') == 'cucian keluar') {
-                    $cuci->berhasil_cuci = $request->get('berhasil_cuci');
-
-                    $cuci->gagal_cuci = $request->get('kain_gagal_cuci');
-                    $cuci->barang_direpair = $request->get('barang_direpair');
-                    $cuci->barang_dibuang = $request->get('barang_dibuang');
-                    // $cuci->barang_akan_direpair = $request->get('barang_akan_direpair');
-                    // $cuci->barang_akan_dibuang = $request->get('barang_akan_dibuang');
-
-                    $cuci->status = "cucian keluar";
-
-                    $jumlah = $request->get('jumlah');
-                    $dataukuran = $request->get('dataukuran');
-                    $iddetailukuran = $request->get('iddetailukuran');
-                    $arr = [];
-                    foreach ($dataukuran as $key => $value) {
-                        if (!empty($jumlah[$key])) {
-
-                            $x['ukuran'] = $value;
-                            $x['jumlah'] = $jumlah[$key];
-                            array_push($arr, $x);
-                        }
-                    }
-
-                    DetailCuci::where('cuci_id', $cuci->id)->delete();
-
-                    foreach ($arr as $key => $value) {
-                        $detail = new DetailCuci;
-                        $detail->cuci_id = $cuci->id;
-                        $detail->size = $value['ukuran'];
-                        $detail->jumlah = $value['jumlah'];
-                        $detail->save();
-                    }
-
-                    //direpair
-                    unset($arr);
-                    $jumlah = $request->get('jumlahdirepair');
-                    $dataukuran = $request->get('dataukurandirepair');
-                    $iddetailukurandirepair = $request->get('iddetailukurandirepair');
-                    $arr = [];
-                    foreach ($dataukuran as $key => $value) {
-                        if (!empty($jumlah[$key])) {
-
-                            $x['ukuran'] = $value;
-                            $x['jumlah'] = $jumlah[$key];
-                            array_push($arr, $x);
-                        }
-                    }
-                    CuciDirepair::where('cuci_id', $cuci->id)->delete();
-
-                    foreach ($arr as $key => $value) {
-                        $detail = new CuciDirepair;
-                        $detail->cuci_id = $cuci->id;
-                        $detail->ukuran = $value['ukuran'];
-                        $detail->jumlah = $value['jumlah'];
-                        $detail->save();
-                    }
-
-
-                    //dibuang
-                    unset($arr);
-                    $jumlah = $request->get('jumlahdibuang');
-                    $dataukuran = $request->get('dataukurandibuang');
-                    $iddetailukurandibuang = $request->get('iddetailukurandibuang');
-                    $arr = [];
-                    foreach ($dataukuran as $key => $value) {
-                        if (!empty($jumlah[$key])) {
-
-                            $x['ukuran'] = $value;
-                            $x['jumlah'] = $jumlah[$key];
-                            array_push($arr, $x);
-                        }
-                    }
-                    CuciDibuang::where('cuci_id', $cuci->id)->delete();
-                    foreach ($arr as $key => $value) {
-                        $detail =  new CuciDibuang;
-                        $detail->cuci_id = $cuci->id;
-                        $detail->ukuran = $value['ukuran'];
-                        $detail->jumlah = $value['jumlah'];
-                        $detail->save();
-                    }
-                    $cuci->keterangan_direpair = $request->get('keterangan_direpair');
-                    $cuci->keterangan_dibuang = $request->get('keterangan_dibuang');
-                    $cuci->save();
-                }
 
                 DB::commit();
                 return redirect()->route('cuci.index')->with('success', $request->get('status') . ' berhasil diupdate');
@@ -575,7 +433,7 @@ class CuciController extends Controller
     public function getDataCuci(Request $request)
     {
         if ($request->ajax()) {
-            $cuci = Cuci::with(['detail_cuci', 'jahit' => function ($q) {
+            $cuci = Cuci::with(['detail_cuci', 'cuci_dibuang', 'cuci_direpair', 'jahit' => function ($q) {
                 $q->with(['potong' => function ($q) {
                     $q->with(['bahan'  => function ($q) {
                         $q->with(['detail_sub' => function ($q) {
