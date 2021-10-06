@@ -337,10 +337,15 @@
                         }
                     }else if(nominal > 0){
 
-                        if(parseInt(hasil) != parseInt(nominal)){
+                        if(parseInt(hasil) <= parseInt(nominal)){
                             $('#dataalert').show()
-                            $('#dataalert').text('Nominal pembayaran harus sesuai dengan total harga')
-                            alert('nominal 1');
+                            $('#dataalert').text('Nominal pembayaran tidak boleh melebihi total harga')
+                          
+                            return false;
+                        }if(parseInt(nominal) <= 0){
+                            $('#dataalert').show()
+                            $('#dataalert').text('Nominal pembayaran tidak boleh melebihi total harga')
+                          
                             return false;
                         }else{
 

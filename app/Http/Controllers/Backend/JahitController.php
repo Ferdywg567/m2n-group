@@ -147,6 +147,9 @@ class JahitController extends Controller
                         $jahit->nama_vendor = $request->get('nama_vendor');
                         $jahit->harga_vendor = $request->get('harga_vendor');
                         $jahit->status_pembayaran = "Belum Lunas";
+                        $totalbayar = $jahit->harga_vendor * $request->get('jumlah_bahan_yang_dijahit');
+                        $jahit->total_bayar = $totalbayar;
+                        $jahit->sisa_bayar = $totalbayar;
                     }
                     $detailpotong = DetailPotong::where('potong_id', $jahit->potong_id)->get();
                     $jahit->jumlah_bahan = $request->get('jumlah_bahan_yang_dijahit');
@@ -168,8 +171,8 @@ class JahitController extends Controller
                     $jahit->status = "jahitan selesai";
                     $jahit->status_jahit = "selesai";
                     //direpair
-                    $direpair = $request->get('dataukurandirepair');
-                    $dibuang = $request->get('dataukurandibuang');
+                    $direpair = $request->get('jumlahdirepair');
+                    $dibuang = $request->get('jumlahdibuang');
                     $detailjahit = DetailJahit::where('jahit_id', $jahit->id)->get();
 
                     foreach ($detailjahit as $key => $value) {

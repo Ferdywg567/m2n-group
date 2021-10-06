@@ -58,7 +58,7 @@ class PembayaranController extends Controller
                 'kode_transaksi' =>  'required',
                 'pembayaran1' => 'required'
             ]);
-        }else{
+        } else {
             $validator = Validator::make($request->all(), [
                 'kode_transaksi' =>  'required',
                 'pembayaran1' => 'required'
@@ -149,7 +149,7 @@ class PembayaranController extends Controller
                             if ($total == $request->get('total_harga')) {
                                 $status = 'Lunas';
                             } else {
-                                $status = 'Termin 2';
+                                $status = 'Termin 1';
                             }
                             $sisa =  $request->get('total_harga') - $total;
                             $jahit = Jahit::findOrFail($request->get('kode_transaksi'));
@@ -165,7 +165,7 @@ class PembayaranController extends Controller
                             $pembayaran->save();
                         }
                     }
-                }else{
+                } else {
                     $pembayaran1 = $request->get('pembayaran1');
                     if ($pembayaran1 == 'Lunas') {
                         $cuci = Cuci::findOrFail($request->get('kode_transaksi'));
@@ -285,9 +285,15 @@ class PembayaranController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        //
+        if ($request->get('status') == 'jahit') {
+            $jahit = Jahit::findOrFail($id);
+            return view("backend.pembayaran.jahit.edit", ['jahit' => $jahit]);
+        } else {
+            $cuci = Cuci::findOrFail($id);
+            return view("backend.pembayaran.cuci.edit", ['cuci' => $cuci]);
+        }
     }
 
     /**
