@@ -104,14 +104,8 @@
                                 </div>
 
                                 <div class="row" >
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="status_pembayaran">Status Pembayaran</label>
-                                            <input type="text" class="form-control" required readonly id="status_pembayaran" value="{{$cuci->status_pembayaran}}"
-                                                name="status_pembayaran">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
+
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="nama_vendor">Nama Vendor</label>
                                             <input type="text" class="form-control" readonly required id="nama_vendor" value="{{$cuci->nama_vendor}}"
@@ -160,35 +154,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row" id="title-ukuran">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="ukuran">Ukuran Yang Dijahit</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-
-                                    @forelse ($cuci->detail_cuci as $item)
-                                    <div class="col-md-2">
-                                        <input type="hidden" name="dataukuran[]" value="{{$item->size}}" readonly>
-                                        <div class="input-group mb-2">
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text">{{$item->size}}</div>
-                                            </div>
-                                            <input type="number" class="form-control" readonly required id="jumlah"
-                                                name="jumlah[]" value="{{$item->jumlah}}">
-                                        </div>
-                                    </div>
-
-                                    @if ($loop->iteration % 6 ==0)
-                                     </div><div class="row">
-                                    @endif
-                                    @empty
-
-                                    @endforelse
-
-                                </div>
                                 <div class="row mt-2">
                                     <div class="col-md-12 text-center">
                                         <a type="button" class="btn btn-secondary"
@@ -210,121 +175,3 @@
 </div>
 
 @endsection
-@push('scripts')
-<script>
-    $(document).ready(function () {
-             function ajax() {
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-              }
-              $('#kdbahanreadonly').hide()
-
-              var vendor = "{{$cuci->vendor}}"
-
-              if(vendor == 'internal'){
-                $('#datavendor').hide()
-              }
-
-              $('#idnamavendor').hide()
-
-              $('#kdbahanselectmasuk').show()
-              $('#kdbahanmasuk').hide()
-              $('#kdbahanselectkeluar').show()
-              $('#kdbahankeluar').hide()
-              $('.btnkeluar').prop('id','btnsimpankeluar')
-              $('#tabelmasuk').DataTable()
-              $('#tabelbahankeluar').DataTable()
-              $('#kode_bahanselect').select2()
-
-              $('#vendor_cuci').on('change', function () {
-                  var data = $(this).find(':selected').val()
-
-                  if(data == 'eksternal'){
-                    $('#idnamavendor').show()
-                    $('#datavendor').show()
-                    $('#nama_vendor').prop('required',true)
-                    $('#harga_vendor').prop('required',true)
-                  }else{
-                    $('#idnamavendor').hide()
-                    $('#datavendor').hide()
-                    $('#nama_vendor').prop('required',false)
-                    $('#harga_vendor').prop('required',false)
-                  }
-               })
-
-              $('#kain_siap_cuci').on('keyup', function(){
-                  var data = $(this).val()
-                  var lusin = 12
-
-                  var sisa = data%lusin;
-                  var hasil = (data - sisa) / lusin;
-                  var res = hasil+' Lusin '+sisa+ ' pcs'
-                  $('#konversi').val(res)
-              })
-
-
-
-              $(document).on('click','#btnsize', function(){
-                var ukuranm = $('#ukuranm').is(':visible')
-                var ukuranl = $('#ukuranl').is(':visible')
-                var ukuranxl = $('#ukuranxl').is(':visible')
-                var ukuranxxl = $('#ukuranxxl').is(':visible')
-
-                if(!ukuranm){
-                    $('#ukuranm').show()
-
-                    return false;
-                }else if(!ukuranl){
-                    $('#ukuranl').show()
-
-                    return false;
-                }else if(!ukuranxl){
-                    $('#ukuranxl').show()
-
-                    return false;
-                }else if(!ukuranxxl){
-                    $('#ukuranxxl').show()
-
-                    return false;
-                }
-            })
-
-
-             $('#kode_bahanselect').on('change', function () {
-                    var id = $(this).find(':selected').val()
-
-                    if(id != ''){
-                        $.ajax({
-                            url:"{{route('jahit.getdata')}}",
-                            method:"GET",
-                            data:{
-                                'id':id
-                            }
-                        }).done(function (response) {
-
-                            if(response.status){
-                                console.log(response);
-                                var data = response.data;
-                                var bahan = data.potong.bahan
-
-                                $('#sku').val(bahan.sku)
-                                // $('#nama_produk').val(data.nama_bahan)
-                                // $('#jenis_kain').val(data.jenis_bahan)
-                                // $('#warna').val(data.warna)
-                                // $('#vendor_keluar').val(data.vendor)
-
-                                // $('#panjang_kain').val(data.panjang_bahan)
-                            }
-
-                        })
-                    }
-            })
-
-
-
-     })
-</script>
-@endpush

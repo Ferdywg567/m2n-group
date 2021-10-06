@@ -6,15 +6,15 @@
 @section('cssnav', 'cssnav')
 @section('content')
 <style>
-    .cssnav{
-       margin-left:-25px;
+    .cssnav {
+        margin-left: -25px;
     }
 </style>
 
 <div id="non-printable">
     <section class="section">
         <div class="section-header ">
-            <a class="btn btn-primary" href="{{route('cuci.index')}}">
+            <a class="btn btn-primary" href="{{route('jahit.index')}}">
                 <i class="fas fa-arrow-left"></i>
             </a>
             <h1 class="ml-2">Input Data | Masuk</h1>
@@ -38,8 +38,10 @@
                                                 name="kode_transaksi">
                                                 <option value="">Pilih Kode Transaksi</option>
                                                 @forelse ($jahit as $item)
-                                                <option value="{{$item->id}}">{{$item->potong->bahan->kode_transaksi}}
-
+                                                <option value="{{$item->id}}" @if($item->id ==
+                                                    old('kode_transaksi')) selected
+                                                    @endif>{{$item->potong->bahan->kode_transaksi}} |
+                                                    {{$item->potong->bahan->nama_bahan}}
                                                 </option>
                                                 @empty
 
@@ -55,7 +57,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="no_surat">Nomor Surat Jalan</label>
-                                            <input type="text" class="form-control" required id="no_surat"
+                                            <input type="text" class="form-control" value="{{old('no_surat')}}" required id="no_surat" readonly
                                                 name="no_surat">
                                         </div>
                                     </div>
@@ -65,7 +67,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="sku">Nama Produk</label>
-                                            <input type="text" class="form-control" readonly required id="nama_produk"
+                                            <input type="text" class="form-control" readonly required id="nama_produk" value="{{old('nama_produk')}}"
                                                 name="nama_produk">
                                         </div>
                                     </div>
@@ -74,7 +76,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="sku">SKU</label>
-                                            <input type="text" class="form-control" readonly required id="sku"
+                                            <input type="text" class="form-control" readonly required id="sku" value="{{old('sku')}}"
                                                 name="sku">
                                         </div>
                                     </div>
@@ -83,21 +85,21 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="kategori">Kategori</label>
-                                            <input type="text" class="form-control" required readonly id="kategori"
+                                            <input type="text" class="form-control" required readonly id="kategori"  value="{{old('kategori')}}"
                                                 name="kategori">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="sub_kategori">Sub Kategori</label>
-                                            <input type="text" class="form-control" required readonly id="sub_kategori"
+                                            <input type="text" class="form-control" required readonly id="sub_kategori" value="{{old('sub_kategori')}}"
                                                 name="sub_kategori">
                                         </div>
                                     </div>
                                     <div class="col-md-5">
                                         <div class="form-group">
                                             <label for="detail_sub_kategori">Detail Sub Kategori</label>
-                                            <input type="text" class="form-control" required readonly
+                                            <input type="text" class="form-control" required readonly value="{{old('detail_sub_kategori')}}"
                                                 id="detail_sub_kategori" name="detail_sub_kategori">
                                         </div>
                                     </div>
@@ -107,36 +109,26 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="tanggal_cuci">Tanggal Cuci</label>
-                                            <input type="date" class="form-control" required id="tanggal_cuci"
+                                            <input type="date" class="form-control" required id="tanggal_cuci" value="{{old('tanggal_cuci')}}"
                                                 name="tanggal_cuci">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="estimasi_selesai_cuci">Estimasi Selesai Cuci</label>
-                                            <input type="date" class="form-control" required id="estimasi_selesai_cuci"
+                                            <input type="date" class="form-control" required id="estimasi_selesai_cuci" value="{{old('estimasi_selesai_cuci')}}"
                                                 name="estimasi_selesai_cuci">
                                         </div>
                                     </div>
 
                                 </div>
 
-                                <div class="row" >
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="status_pembayaran">Status Pembayaran</label>
-                                            <select class="form-control" id="status_pembayaran" name="status_pembayaran">
-                                              <option value="Lunas">Lunas</option>
-                                              <option value="Belum Lunas">Belum Lunas</option>
-                                              <option value="Termin">Termin</option>
-                                            </select>
-                                          </div>
-                                    </div>
-                                    <div class="col-md-3">
+                                <div class="row">
+
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="nama_vendor">Nama Vendor</label>
-                                            <input type="text" class="form-control" required id="nama_vendor"
-                                                name="nama_vendor">
+                                            <input type="text" class="form-control" id="nama_vendor" required name="nama_vendor" value="{{old('nama_vendor')}}">
                                         </div>
                                     </div>
 
@@ -146,13 +138,13 @@
                                             <label for="harga_vendor">Harga Vendor</label>
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <input type="text" class="form-control" required id="harga_vendor"
+                                                    <input type="text" class="form-control" required id="harga_vendor" value="{{old('harga_vendor')}}"
                                                         name="harga_vendor">
                                                 </div>
                                                 <div class="col-md-6">
 
                                                     <input type="text" class="form-control" value="/lusin" readonly
-                                                        required id="lusin" name="lusin">
+                                                        id="lusin" name="lusin">
                                                 </div>
                                             </div>
 
@@ -165,8 +157,9 @@
                                         <div class="form-group">
                                             <label for="jumlah_bahan_yang_dicuci">Jumlah Bahan Yang Dicuci</label>
                                             <div class="input-group mb-2">
-                                                <input type="number" class="form-control" required
-                                                    id="jumlah_bahan_yang_dicuci" name="jumlah_bahan_yang_dicuci">
+                                                <input type="number" class="form-control" required value="{{old('jumlah_bahan_yang_dicuci')}}"
+                                                    id="jumlah_bahan_yang_dicuci" readonly
+                                                    name="jumlah_bahan_yang_dicuci">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">pcs</div>
                                                 </div>
@@ -176,27 +169,18 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="konversi">Konversi Lusin</label>
-                                            <input type="text" class="form-control" required readonly id="konversi"
+                                            <input type="text" class="form-control" required readonly id="konversi" value="{{old('konversi')}}"
                                                 name="konversi">
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row" id="title-ukuran">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="ukuran">Ukuran Yang Dijahit</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="data-ukuran">
 
-                                </div>
-                                <div class="row">
+                                <div class="row mt-2">
                                     <div class="col-md-12 text-center">
                                         <a type="button" class="btn btn-secondary"
-                                            href="{{route('cuci.index')}}">Batal</a>
+                                            href="{{route('jahit.index')}}">Batal</a>
 
-                                        <button type="submit" class="btn btn-primary btnsimpan">Simpan</button>
+                                        <button type="submit" class="btn btn-primary btnmasuk">Simpan</button>
 
                                     </div>
                                 </div>
@@ -224,13 +208,11 @@
                 });
               }
               $('#kdbahanreadonly').hide()
+              $('#ukuranm').hide()
+              $('#ukuranl').hide()
+              $('#ukuranxl').hide()
+              $('#ukuranxxl').hide()
 
-              $('#idnamavendor').hide()
-              $('#dataukuranall').hide()
-              $('#labelukuran').hide()
-              $('#datavendor').hide()
-              $('#datahapus').hide()
-              $('#title-ukuran').hide()
               $('#kdbahanselectmasuk').show()
               $('#kdbahanmasuk').hide()
               $('#kdbahanselectkeluar').show()
@@ -239,69 +221,8 @@
               $('#tabelmasuk').DataTable()
               $('#tabelbahankeluar').DataTable()
               $('#kode_transaksiselect').select2()
+              $('#title-ukuran').hide()
 
-
-
-              $('#jumlah_bahan_yang_dicuci').on('keyup', function(){
-                  var data = $(this).val()
-                  var lusin = 12
-
-                  var sisa = data%lusin;
-                  var hasil = (data - sisa) / lusin;
-                  var res = hasil+' Lusin '+sisa+ ' pcs'
-                  $('#konversi').val(res)
-              })
-
-              $(document).on('click','.btnsimpan', function () {
-                    
-               })
-
-              $(document).on('click','#btnsize', function(){
-                var ukuranm = $('#ukuranm').is(':visible')
-                var ukuranl = $('#ukuranl').is(':visible')
-                var ukuranxl = $('#ukuranxl').is(':visible')
-                var ukuranxxl = $('#ukuranxxl').is(':visible')
-
-                if(!ukuranm){
-                    $('#ukuranm').show()
-                    $('#datahapus').show()
-                    return false;
-                }else if(!ukuranl){
-                    $('#ukuranl').show()
-
-                    return false;
-                }else if(!ukuranxl){
-                    $('#ukuranxl').show()
-
-                    return false;
-                }else if(!ukuranxxl){
-                    $('#ukuranxxl').show()
-
-                    return false;
-                }
-            })
-
-            $(document).on('click','#btnhapus', function(){
-                var ukuranm = $('#ukuranm').is(':visible')
-                var ukuranl = $('#ukuranl').is(':visible')
-                var ukuranxl = $('#ukuranxl').is(':visible')
-                var ukuranxxl = $('#ukuranxxl').is(':visible')
-
-                if(ukuranxxl){
-                    $('#ukuranxxl').hide()
-                    return false;
-                }else if(ukuranxl){
-                    $('#ukuranxl').hide()
-                    return false;
-                }else if(ukuranl){
-                    $('#ukuranl').hide()
-                    return false;
-                }else if(ukuranm){
-                    $('#ukuranm').hide()
-                    $('#datahapus').hide()
-                    return false;
-                }
-            })
 
              $('#kode_transaksiselect').on('change', function () {
                     var id = $(this).find(':selected').val()
@@ -318,45 +239,45 @@
                             if(response.status){
                                 console.log(response);
                                 var data = response.data;
-                                var bahan = data.potong.bahan
-                                var detail_jahit = data.detail_jahit
+                                var potong = data.potong
+                                var bahan = potong.bahan
                                 var detail = bahan.detail_sub.nama_kategori;
                                 var subkategori = bahan.detail_sub.sub_kategori.nama_kategori;
                                 var kategori = bahan.detail_sub.sub_kategori.kategori.nama_kategori;
+
+
+                                $('#nama_produk').val(bahan.nama_bahan)
+                                $('#no_surat').val(data.no_surat)
+                                $('#sku').val(bahan.sku)
                                 $('#kategori').val(kategori)
                                 $('#sub_kategori').val(subkategori)
                                 $('#detail_sub_kategori').val(detail)
-                                $('#sku').val(bahan.sku)
-                                $('#nama_produk').val(bahan.nama_bahan)
-                                // $('#jenis_kain').val(data.jenis_bahan)
-                                // $('#warna').val(data.warna)
-                                // $('#vendor_keluar').val(data.vendor)
+                                $('#jumlah_bahan_yang_dicuci').val(data.berhasil)
+                                $('#konversi').val(data.konversi)
+                                // var content="";
+                                // detail_potong.forEach((result, i) => {
+                                //     if(i == 0){
+                                //         content+= '<div class="row">'
+                                //     }
 
-                                // $('#panjang_kain').val(data.panjang_bahan)
-                                $('#jumlah_bahan_yang_dicuci').prop('max',data.berhasil)
-                                var content="";
-                                detail_jahit.forEach((result, i) => {
-                                    if(i == 0){
-                                        content+= '<div class="row">'
-                                    }
+                                //     content += '<div class="col-md-2">'+
+                                //     '<input type="hidden" name="ukuran[]" value="'+result.size+'">'+
+                                //     '<div class="input-group mb-2">'+
+                                //         '<div class="input-group-prepend">'+
+                                //             '<div class="input-group-text">'+result.size+'</div>'+
+                                //         '</div>'+
+                                //         '<input type="number" class="form-control" required id="jumlah" name="jumlah[]" value="'+result.jumlah+'">'+
+                                //     '</div>'+
+                                //    '</div>';
+                                //     if(i!=0 && i%6 == 0){
 
-                                    content += '<div class="col-md-2">'+
-                                    '<input type="hidden" name="ukuran[]" value="'+result.size+'">'+
-                                    '<div class="input-group mb-2">'+
-                                        '<div class="input-group-prepend">'+
-                                            '<div class="input-group-text">'+result.size+'</div>'+
-                                        '</div>'+
-                                        '<input type="number" class="form-control" required id="jumlah" name="jumlah[]" >'+
-                                    '</div>'+
-                                   '</div>';
-                                    if(i!=0 && i%6 == 0){
+                                //         // add end of row ,and start new row on every 5 elements
+                                //         content += '</div><div class="row">'
+                                //     }
+                                // });
+                                // $('#title-ukuran').show()
+                                // $('#data-ukuran').html(content)
 
-                                        // add end of row ,and start new row on every 5 elements
-                                        content += '</div><div class="row">'
-                                    }
-                                });
-                                $('#title-ukuran').show()
-                                $('#data-ukuran').html(content)
                             }
 
                         })

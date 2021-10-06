@@ -43,7 +43,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="no_surat">Nomor Surat Jalan</label>
-                                            <input type="text" class="form-control" value="{{$cuci->no_surat}}" required
+                                            <input type="text" class="form-control" value="{{$cuci->no_surat}}" readonly required
                                                 id="no_surat" name="no_surat">
                                         </div>
                                     </div>
@@ -113,21 +113,8 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="status_pembayaran">Status Pembayaran</label>
-                                            <select class="form-control" id="status_pembayaran"
-                                                name="status_pembayaran">
-                                                <option value="Lunas" @if($cuci->status_pembayaran == 'Lunas') selected
-                                                    @endif>Lunas</option>
-                                                <option value="Belum Lunas" @if($cuci->status_pembayaran == 'Belum
-                                                    Lunas') selected @endif>Belum Lunas</option>
-                                                <option value="Termin" @if($cuci->status_pembayaran == 'Termin')
-                                                    selected @endif>Termin</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
+
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="nama_vendor">Nama Vendor</label>
                                             <input type="text" class="form-control" required id="nama_vendor"
@@ -142,7 +129,7 @@
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <input type="text" class="form-control" required id="harga_vendor"
-                                                        value="{{$cuci->harga_vendor}}" name="harga_vendor">
+                                                        value="{{$cuci->harga_vendor}}" readonly name="harga_vendor">
                                                 </div>
                                                 <div class="col-md-6">
 
@@ -160,7 +147,7 @@
                                         <div class="form-group">
                                             <label for="jumlah_bahan_yang_dicuci">Jumlah Bahan Yang Dicuci</label>
                                             <div class="input-group mb-2">
-                                                <input type="number" class="form-control" required
+                                                <input type="number" class="form-control" required readonly
                                                     value="{{$cuci->kain_siap_cuci}}" id="jumlah_bahan_yang_dicuci"
                                                     name="jumlah_bahan_yang_dicuci" max="{{$cuci->kain_siap_cuci}}">
                                                 <div class="input-group-prepend">
@@ -177,36 +164,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row" id="title-ukuran">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="ukuran">Ukuran Yang Dijahit</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
 
-                                    @forelse ($cuci->detail_cuci as $item)
-                                    <div class="col-md-2">
-                                        <input type="hidden" name="dataukuran[]" value="{{$item->size}}" readonly>
-                                        <div class="input-group mb-2">
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text">{{$item->size}}</div>
-                                            </div>
-                                            <input type="number" class="form-control" required id="jumlah"
-                                                name="jumlah[]" value="{{$item->jumlah}}">
-                                        </div>
-                                    </div>
-
-                                    @if ($loop->iteration % 6 ==0)
-                                </div>
-                                <div class="row">
-                                    @endif
-                                    @empty
-
-                                    @endforelse
-
-                                </div>
                                 <div class="row mt-2">
                                     <div class="col-md-12 text-center">
                                         <a type="button" class="btn btn-secondary"
