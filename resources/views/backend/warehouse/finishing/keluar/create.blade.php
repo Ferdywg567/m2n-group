@@ -6,11 +6,9 @@
 @section('cssnav', 'cssnav')
 @section('content')
 <style>
-    .cssnav {
-        margin-left: -25px;
-    }
-
-    .dropdown-menu {
+   .cssnav {
+        margin-left: -15px;
+    }    .dropdown-menu {
         left: 50% !important;
         transform: translateX(-50%) !important;
         top: 100% !important;

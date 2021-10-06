@@ -168,6 +168,33 @@ class JahitController extends Controller
                     $jahit->status = "jahitan selesai";
                     $jahit->status_jahit = "selesai";
                     //direpair
+                    $direpair = $request->get('dataukurandirepair');
+                    $dibuang = $request->get('dataukurandibuang');
+                    $detailjahit = DetailJahit::where('jahit_id', $jahit->id)->get();
+
+                    foreach ($detailjahit as $key => $value) {
+                        $jumdirepair = $direpair[$key];
+                        if($jumdirepair < 0 || $jumdirepair == null){
+                            $jumdirepair = 0;
+                        }
+
+                        $jumdibuang = $dibuang[$key];
+                        if($jumdibuang < 0 || $jumdibuang == null){
+                            $jumdibuang = 0;
+                        }
+
+                        $cek = DetailJahit::where('id',$value->id)->where('size',$value->size)->first();
+
+                        if($cek){
+
+                            $cek->jahit_id = $jahit->id;
+                            $cek->size = $cek->size;
+                            $cek->jumlah = $cek->jumlah - $jumdibuang - $jumdirepair;
+                            $cek->save();
+                        }
+
+
+                    }
 
                     $jumlah = $request->get('jumlahdirepair');
                     $dataukuran = $request->get('dataukurandirepair');
