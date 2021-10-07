@@ -393,19 +393,11 @@ class PembayaranController extends Controller
                     }
                 } else {
                     $pembayaran1 = $request->get('pembayaran1');
-                    if ($pembayaran1 == 'Lunas') {
-                        $cuci = Cuci::findOrFail($request->get('kode_transaksi'));
-                        $cuci->total_bayar = $request->get('total_harga');
-                        $cuci->sisa_bayar = 0;
-                        $cuci->status_pembayaran = "Lunas";
-                        $cuci->save();
+                    $cuci = Cuci::findOrFail($id);
+                    $lastbayar = PembayaranCuci::where('cuci_id', $id)->latest()->first();
 
-                        $pembayaran = new PembayaranCuci();
-                        $pembayaran->cuci_id = $cuci->id;
-                        $pembayaran->status = "Lunas";
-                        $pembayaran->nominal = $request->get('nominal1');
-                        $pembayaran->save();
-                    } elseif ($pembayaran1 == 'Termin 1') {
+                    if ($pembayaran1 == 'Termin 1') {
+
                         $nominal1 = $request->get('nominal1');
                         $nominal2 = $request->get('nominal2');
                         $nominal3 = $request->get('nominal3');
@@ -413,30 +405,30 @@ class PembayaranController extends Controller
                         if ($nominal1 > 0 && $nominal2 > 0 && $nominal3 > 0) {
                             $total = $nominal1 + $nominal2 + $nominal3;
                             if ($request->get('total_harga') == $total) {
+                                if ($cuci->status_pembayaran == 'Termin 1') {
+                                    $pembayaran = new PembayaranCuci();
+                                    $pembayaran->cuci_id = $cuci->id;
+                                    $pembayaran->status = "Termin 2";
+                                    $pembayaran->nominal = $nominal2;
+                                    $pembayaran->save();
+
+                                    $pembayaran = new PembayaranCuci();
+                                    $pembayaran->cuci_id = $cuci->id;
+                                    $pembayaran->status = "Termin 3";
+                                    $pembayaran->nominal = $nominal3;
+                                    $pembayaran->save();
+                                } elseif ($cuci->status_pembayaran == 'Termin 2') {
+                                    $pembayaran = new PembayaranCuci();
+                                    $pembayaran->cuci_id = $cuci->id;
+                                    $pembayaran->status = "Termin 3";
+                                    $pembayaran->nominal = $nominal3;
+                                    $pembayaran->save();
+                                }
                                 $status = 'Lunas';
-                                $cuci = Cuci::findOrFail($request->get('kode_transaksi'));
                                 $cuci->total_bayar = $total;
                                 $cuci->sisa_bayar = 0;
                                 $cuci->status_pembayaran = "Lunas";
                                 $cuci->save();
-
-                                $pembayaran = new PembayaranCuci();
-                                $pembayaran->cuci_id = $cuci->id;
-                                $pembayaran->status = "Termin 1";
-                                $pembayaran->nominal = $nominal1;
-                                $pembayaran->save();
-
-                                $pembayaran = new PembayaranCuci();
-                                $pembayaran->cuci_id = $cuci->id;
-                                $pembayaran->status = "Termin 2";
-                                $pembayaran->nominal = $nominal2;
-                                $pembayaran->save();
-
-                                $pembayaran = new PembayaranCuci();
-                                $pembayaran->cuci_id = $cuci->id;
-                                $pembayaran->status = "Termin 3";
-                                $pembayaran->nominal = $nominal3;
-                                $pembayaran->save();
                             }
                         } else  if ($nominal1 > 0 && $nominal2 > 0) {
                             $total = $nominal1 + $nominal2;
@@ -446,7 +438,6 @@ class PembayaranController extends Controller
                                 $status = 'Termin 2';
                             }
                             $sisa =  $request->get('total_harga') - $total;
-                            $cuci = Jahit::findOrFail($request->get('kode_transaksi'));
                             $cuci->total_bayar = $total;
                             $cuci->sisa_bayar = $sisa;
                             $cuci->status_pembayaran = $status;
@@ -454,39 +445,14 @@ class PembayaranController extends Controller
 
                             $pembayaran = new PembayaranCuci();
                             $pembayaran->cuci_id = $cuci->id;
-                            $pembayaran->status = "Termin 1";
-                            $pembayaran->nominal = $nominal1;
-                            $pembayaran->save();
-
-                            $pembayaran = new PembayaranCuci();
-                            $pembayaran->cuci_id = $cuci->id;
                             $pembayaran->status = "Termin 2";
                             $pembayaran->nominal = $nominal2;
-                            $pembayaran->save();
-                        } else  if ($nominal1 > 0) {
-                            $total = $nominal1;
-                            if ($total == $request->get('total_harga')) {
-                                $status = 'Lunas';
-                            } else {
-                                $status = 'Termin 2';
-                            }
-                            $sisa =  $request->get('total_harga') - $total;
-                            $cuci = Jahit::findOrFail($request->get('kode_transaksi'));
-                            $cuci->total_bayar = $total;
-                            $cuci->sisa_bayar = $sisa;
-                            $cuci->status_pembayaran =  $status;
-                            $cuci->save();
-
-                            $pembayaran = new PembayaranCuci();
-                            $pembayaran->cuci_id = $cuci->id;
-                            $pembayaran->status = "Termin 1";
-                            $pembayaran->nominal = $nominal1;
                             $pembayaran->save();
                         }
                     }
                 }
                 DB::commit();
-                return redirect()->route('pembayaran.index')->with('success', 'Data pembayaran berhasil disimpan');
+                return redirect()->route('pembayaran.index')->with('success', 'Data pembayaran berhasil diupdate');
             } catch (\Exception $th) {
                 //throw $th;
                 dd($th);
