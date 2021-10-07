@@ -1,10 +1,17 @@
 @extends('backend.master')
 
-@section('title', 'Potong')
-@section('title-nav', 'Potong')
+@section('title', 'Pemotongan')
+@section('title-nav', 'Pemotongan')
 @section('potong', 'class=active-sidebar')
 
+@section('cssnav', 'cssnav')
 @section('content')
+<style>
+    .cssnav {
+        margin-left: 10px;
+    }
+
+</style>
 <div id="non-printable">
     <section class="section">
         <div class="section-header ">

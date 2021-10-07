@@ -39,11 +39,14 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <form action="{{route('warehouse.finishing.store')}}"  method="post">
+                        <form action="{{route('warehouse.finishing.store')}}" id="formProduk"  method="post">
 
                             <div class="card-body">
                                 @include('backend.include.alert')
                                 @csrf
+                                <div class="alert alert-danger" role="alert" id="dataalert">
+
+                                </div>
                                 <input type="hidden" name="status" value="finishing masuk">
 
                                 <div class="row">
@@ -143,7 +146,7 @@
                                 <div class="row" id="title-ukuran">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="ukuran">Ukuran Yang Dijahit</label>
+                                            <label for="ukuran">Ukuran </label>
                                         </div>
                                     </div>
                                 </div>
@@ -184,19 +187,9 @@
                 });
               }
               $('#kdbahanreadonly').hide()
-            //   $('#ukuranm').hide()
-            //   $('#ukuranl').hide()
-            //   $('#ukuranxl').hide()
-            //   $('#ukuranxxl').hide()
-            //   $('#ukurandireturm').hide()
-            //   $('#ukurandireturl').hide()
-            //   $('#ukurandireturxl').hide()
-            //   $('#ukurandireturxxl').hide()
-            //   $('#ukurandibuangm').hide()
-            //   $('#ukurandibuangl').hide()
-            //   $('#ukurandibuangxl').hide()
-            //   $('#ukurandibuangxxl').hide()
+
               $('#iddatavendor').hide()
+              $('#dataalert').hide()
               $('#idhargavendor').hide()
               $('#datavendor').hide()
               $('#kdbahanselectmasuk').show()
@@ -257,78 +250,7 @@
                   $('#konversi').val(res)
               })
 
-            // $(document).on('click','#btnsize', function(){
-            //     var ukuranm = $('#ukuranm').is(':visible')
-            //     var ukuranl = $('#ukuranl').is(':visible')
-            //     var ukuranxl = $('#ukuranxl').is(':visible')
-            //     var ukuranxxl = $('#ukuranxxl').is(':visible')
 
-            //     if(!ukuranm){
-            //         $('#ukuranm').show()
-            //         $('#ukurandireturm').show()
-            //         $('#ukurandibuangm').show()
-            //         return false;
-            //     }else if(!ukuranl){
-            //         $('#ukuranl').show()
-            //         $('#ukurandireturl').show()
-            //         $('#ukurandibuangl').show()
-            //         return false;
-            //     }else if(!ukuranxl){
-            //         $('#ukuranxl').show()
-            //         $('#ukurandireturxl').show()
-            //         $('#ukurandibuangxl').show()
-            //         return false;
-            //     }else if(!ukuranxxl){
-            //         $('#ukuranxxl').show()
-            //         $('#ukurandireturxxl').show()
-            //         $('#ukurandibuangxxl').show()
-            //         return false;
-            //     }
-            // })
-
-
-            // $(document).on('click','#btnhapus', function(){
-            //     var ukuranm = $('#ukuranm').is(':visible')
-            //     var ukuranl = $('#ukuranl').is(':visible')
-            //     var ukuranxl = $('#ukuranxl').is(':visible')
-            //     var ukuranxxl = $('#ukuranxxl').is(':visible')
-
-            //     if(ukuranxxl){
-            //         $('#ukuranxxl').hide()
-            //         $('#ukurandirepairxxl').hide()
-            //         $('#ukurandibuangxxl').hide()
-            //         $('#jumlahxxl').val('')
-            //         $('#jumlahdirepairxxl').val('')
-            //         $('#jumlahdibuangxxl').val('')
-
-            //         return false;
-            //     }else if(ukuranxl){
-            //         $('#ukuranxl').hide()
-            //         $('#ukurandirepairxl').hide()
-            //         $('#ukurandibuangxl').hide()
-            //         $('#jumlahxl').val('')
-            //         $('#jumlahdirepairxl').val('')
-            //         $('#jumlahdibuangxl').val('')
-            //         return false;
-            //     }else if(ukuranl){
-            //         $('#ukuranl').hide()
-            //         $('#ukurandirepairl').hide()
-            //         $('#ukurandibuangl').hide()
-            //         $('#jumlahl').val('')
-            //         $('#jumlahdirepairl').val('')
-            //         $('#jumlahdibuangl').val('')
-            //         return false;
-            //     }else if(ukuranm){
-            //         $('#ukuranm').hide()
-            //         $('#ukurandirepairm').hide()
-            //         $('#ukurandibuangm').hide()
-            //         $('#datahapus').hide()
-            //         $('#jumlahm').val('')
-            //         $('#jumlahdirepairm').val('')
-            //         $('#jumlahdibuangm').val('')
-            //         return false;
-            //     }
-            // })
 
             $('#kode_transaksiselectkeluar').on('change', function () {
                     var id = $(this).find(':selected').val()
@@ -384,7 +306,18 @@
                     }
             })
 
-
+            $('form[id=formProduk]').submit(function(){
+                var jumlah =0;
+                var barang_siap_qc = $("#barang_siap_qc").val()
+                $('input[name^="jumlah"]').each(function() {
+                    jumlah = jumlah + parseInt($(this).val());
+                });
+                if(parseInt(barang_siap_qc) != parseInt(jumlah)){
+                    $('#dataalert').show()
+                    $('#dataalert').text('Jumlah ukuran harus sesuai dengan stok siap sortir')
+                    return false;
+                }
+            });
      })
 </script>
 @endpush

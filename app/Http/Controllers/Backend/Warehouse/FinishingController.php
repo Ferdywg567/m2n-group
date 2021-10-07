@@ -63,7 +63,7 @@ class FinishingController extends Controller
 
             $validasi = [
                 'kode_transaksi' =>  'required',
-                'no_surat' => 'required|unique:potongs,no_surat',
+                'no_surat' => 'required',
                 'tanggal_masuk' => 'required|date_format:"Y-m-d"',
                 'tanggal_mulai_sortir' => 'required|date_format:"Y-m-d"|after_or_equal:tanggal_masuk',
             ];
@@ -132,7 +132,7 @@ class FinishingController extends Controller
                     $finish->tanggal_selesai = date('Y-m-d', strtotime($request->get('tanggal_selesai')));
                     $finish->save();
 
-                    $jumlah = $request->get('jumlah');
+                    $jumlah = $request->get('jumlahutama');
                     $dataukuran = $request->get('dataukuran');
                     $sum = array_sum($jumlah);
 
@@ -335,7 +335,7 @@ class FinishingController extends Controller
                     $finish->tanggal_selesai = date('Y-m-d', strtotime($request->get('tanggal_selesai')));
                     $finish->save();
 
-                    $jumlah = $request->get('jumlah');
+                    $jumlah = $request->get('jumlahutama');
                     $dataukuran = $request->get('dataukuran');
                     $arr = [];
                     foreach ($dataukuran as $key => $value) {

@@ -372,4 +372,13 @@ class DashboardController extends Controller
             return response()->json(['status' => true]);
         }
     }
+
+    public function readklik(Request $request)
+    {
+        if ($request->ajax()) {
+            $id = $request->get('id');
+            $notif = Notification::where('id', $id)->update(['read' => '1']);
+            return response()->json(['status' => true]);
+        }
+    }
 }

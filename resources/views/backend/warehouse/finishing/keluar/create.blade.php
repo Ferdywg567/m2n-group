@@ -37,9 +37,12 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <form action="{{route('warehouse.finishing.store')}}"  method="post">
+                        <form action="{{route('warehouse.finishing.store')}}" id="formProduk" method="post">
                             <div class="card-body">
                                 @include('backend.include.alert')
+                                <div class="alert alert-danger" role="alert" id="dataalert">
+
+                                </div>
                                 @csrf
                                 <input type="hidden" name="status" value="kirim warehouse">
                                 <div class="row">
@@ -298,7 +301,7 @@
                                 $('#keterangan_dibuang').val(data.keterangan_dibuang)
                                 // $('#barang_siap_qc').val(total_barang)
                                 $('#barang_siap_qc').val(data.cuci.berhasil_cuci)
-                                $('#stok_lolos_sortir').prop('max',data.cuci.berhasil_cuci)
+                                // $('#stok_lolos_sortir').prop('max',data.cuci.berhasil_cuci)
                                 $('#ukuran').show()
                                 $('#idukuran').show()
 
@@ -315,7 +318,7 @@
                                         '<div class="input-group-prepend">'+
                                             '<div class="input-group-text">'+result.ukuran+'</div>'+
                                         '</div>'+
-                                        '<input type="number" class="form-control" required id="jumlah" name="jumlah[]" >'+
+                                        '<input type="number" class="form-control" required id="jumlahutama" name="jumlahutama[]" >'+
                                     '</div>'+
                                    '</div>';
                                     if(i!=0 && i%6 == 0){
@@ -384,8 +387,51 @@
                         })
                     }
             })
-
-
+            $('#dataalert').hide()
+            $('form[id=formProduk]').submit(function(){
+                var jumlahdiretur =0;
+                var jumlahutama =0;
+                var jumlahdibuang =0;
+                var barang_siap_qc = $("#barang_siap_qc").val()
+                var gagal_qc = $("#gagal_qc").val()
+                var stok_lolos_sortir = $('#stok_lolos_sortir').val()
+                var barang_dibuang = $('#barang_dibuang').val()
+                var barang_diretur = $('#barang_diretur').val()
+                $('input[name^="jumlahdiretur"]').each(function() {
+                    jumlahdiretur = jumlahdiretur + parseInt($(this).val());
+                });
+                $('input[name^="jumlahutama"]').each(function() {
+                    jumlahutama = jumlahutama + parseInt($(this).val());
+                });
+                $('input[name^="jumlahdibuang"]').each(function() {
+                    jumlahdibuang = jumlahdibuang + parseInt($(this).val());
+                });
+                if(parseInt(barang_siap_qc) <= parseInt(stok_lolos_sortir)){
+                    $('#dataalert').show()
+                    $('#dataalert').text('Jumlah Stok Lolos Sortir tidak boleh melebihi Jumlah Stok Siap Sortir')
+                    return false;
+                }else if(parseInt(gagal_qc) <= parseInt(barang_diretur)){
+                    $('#dataalert').show()
+                    $('#dataalert').text('Jumlah produk diretur tidak boleh melebihi Jumlah produk gagal qc')
+                    return false;
+                }else if(parseInt(jumlahutama) != parseInt(stok_lolos_sortir)){
+                    alert(jumlahutama)
+                    $('#dataalert').show()
+                    $('#dataalert').text('Jumlah ukuran harus sesuai dengan jumlah Stok lolos Sortir')
+                    return false;
+                }else if(parseInt(jumlahdiretur) != parseInt(barang_diretur)){
+                    $('#dataalert').show()
+                    $('#dataalert').text('Jumlah ukuran retur harus sesuai dengan jumlah produk diretur')
+                    return false;
+                }else if(parseInt(jumlahdibuang) != parseInt(barang_dibuang)){
+                    $('#dataalert').show()
+                    $('#dataalert').text('Jumlah ukuran dibuang harus sesuai dengan jumlah dibuang')
+                    return false;
+                } else{
+                    $('#dataalert').hide()
+                   return true;
+                }
+            });
      })
 </script>
 @endpush

@@ -1,11 +1,16 @@
 @extends('backend.master')
 
-@section('title', 'Potong')
-@section('title-nav', 'Potong')
+@section('title', 'Pemotongan')
+@section('title-nav', 'Pemotongan')
 @section('potong', 'class=active-sidebar')
-
+@section('cssnav', 'cssnav')
 @section('content')
+<style>
+    .cssnav {
+        margin-left: 10px;
+    }
 
+</style>
 <div id="non-printable">
     <section class="section">
         <div class="section-header ">
@@ -58,7 +63,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="estimasi_selesai_potong">Estimasi Selesai Potong</label>
-                                            <input type="date" class="form-control" required 
+                                            <input type="date" class="form-control" required
                                                 id="estimasi_selesai_potong" name="estimasi_selesai_potong" value="{{$potong->tanggal_selesai}}">
                                         </div>
                                     </div>

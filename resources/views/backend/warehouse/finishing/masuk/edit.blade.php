@@ -40,8 +40,12 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <form action="{{route('warehouse.finishing.update',[$finish->id])}}" method="post">
+                        <form action="{{route('warehouse.finishing.update',[$finish->id])}}" id="formProduk"  method="post">
                             @csrf
+                            @include('backend.include.alert')
+                            <div class="alert alert-danger" role="alert" id="dataalert">
+
+                            </div>
                             @method('put')
                             <input type="hidden" name="id" id="idbahan" value="{{$finish->id}}">
                             <div class="card-body">
@@ -191,3 +195,48 @@
 </div>
 
 @endsection
+@push('scripts')
+<script>
+    $(document).ready(function () {
+             function ajax() {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+              }
+              $('#kdbahanreadonly').hide()
+
+              $('#iddatavendor').hide()
+              $('#dataalert').hide()
+              $('#idhargavendor').hide()
+              $('#datavendor').hide()
+              $('#kdbahanselectmasuk').show()
+              $('#kdbahanmasuk').hide()
+              $('#kdbahanselectkeluar').show()
+              $('#kdbahankeluar').hide()
+              $('.btnkeluar').prop('id','btnsimpankeluar')
+              $('#tabelmasuk').DataTable()
+              $('#tabelbahankeluar').DataTable()
+              $('#kode_transaksiselect').select2()
+              $('#kode_transaksiselectkeluar').select2()
+              $('.btnmasuk').prop('id','btnsimpanmasuk')
+              $('#title-ukuran').hide()
+
+      
+
+            $('form[id=formProduk]').submit(function(){
+                var jumlah =0;
+                var barang_siap_qc = $("#barang_siap_qc").val()
+                $('input[name^="jumlah"]').each(function() {
+                    jumlah = jumlah + parseInt($(this).val());
+                });
+                if(parseInt(barang_siap_qc) != parseInt(jumlah)){
+                    $('#dataalert').show()
+                    $('#dataalert').text('Jumlah ukuran harus sesuai dengan stok siap sortir')
+                    return false;
+                }
+            });
+     })
+</script>
+@endpush

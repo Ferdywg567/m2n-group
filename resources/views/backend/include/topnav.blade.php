@@ -1,3 +1,9 @@
+<style>
+    .dropdown-item-unread{
+        background-color: #d1d1d1 !important
+    }
+</style>
+
 <form class="form-inline mr-auto" action="">
     <ul class="navbar-nav mr-3">
         <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg text-dark"><i class="fas fa-bars"></i></a>
@@ -47,7 +53,7 @@
 
                 @endphp
                 @forelse ($notif as $item)
-                <a href="{{$item->url}}" class="dropdown-item">
+                <a href="{{$item->url}}" data-id="{{$item->id}}" class="dropdown-item @if($item->read == 0) dropdown-item-unread @endif">
                     <div class="dropdown-item-icon bg-success text-white">
                         <i class="fas fa-check"></i>
                     </div>

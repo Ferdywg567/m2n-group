@@ -28,6 +28,11 @@
         color: #AEAEB2;
     }
 
+    .size15 {
+        font-size: 15px !important;
+        color: #AEAEB2;
+    }
+
     th {
         font-size: 8px;
         text-align: center;
@@ -40,7 +45,7 @@
 
 
     .label-data {
-        font-size: 14px !important;
+        font-size: 16px !important;
     }
 
     .badge {
@@ -140,9 +145,12 @@
                                 <h4 class="size10">Jenis Bahan</h4>
                             </div>
                             <div class="card-body">
-                                <h4 id="jenis_bahan" class="label-data">
-                                    0 <span class="size12">Jenis Bahan</span>
-                                </h4>
+                                <span id="jenis_bahan" class="label-data">
+                                    0
+                                </span>
+                                <div style="margin-top: -10px !important">
+                                    <span class="size15">Jenis Bahan</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -160,10 +168,12 @@
                                 <h4 class="size10">Berhasil Cuci</h4>
                             </div>
                             <div class="card-body">
-
-                                <h4 id="berhasil_cuci" class="label-data">
+                                <h4 id="berhasil_cuci" class="label-data" style="margin-top: 6px !important">
                                     0
                                 </h4>
+                                <div style="margin-top: -10px !important">
+                                    <span class="size15" >pcs</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -183,9 +193,10 @@
                                 <h4 class="size10">Hasil Potong</h4>
                             </div>
                             <div class="card-body">
-
-
-                                <h4 id="hasil_potong" class="label-data">0</h4>
+                                <h4 id="hasil_potong" class="label-data" style="margin-top: 6px !important">0</h4>
+                                <div style="margin-top: -10px !important">
+                                    <span class="size15">pcs</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -204,7 +215,10 @@
                             </div>
                             <div class="card-body">
 
-                                <h4 id="siap_qc" class="label-data"> 0</h4>
+                                <h4 id="siap_qc" class="label-data"  style="margin-top: 6px !important"> 0</h4>
+                                <div style="margin-top: -10px !important">
+                                    <span class="size15">pcs</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -224,9 +238,10 @@
                                 <h4 class="size10">Berhasil Jahit</h4>
                             </div>
                             <div class="card-body">
-
-
-                                <h4 id="berhasil_jahit" class="label-data"> 0</h4>
+                                <h4 id="berhasil_jahit" class="label-data" style="margin-top: 6px !important"> 0</h4>
+                                <div style="margin-top: -10px !important">
+                                    <span class="size15">pcs</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -244,8 +259,10 @@
                                 <h4 class="size10">Baju Rusak / Buang</h4>
                             </div>
                             <div class="card-body">
-
-                                <h4 id="baju_rusak" class="label-data">0</h4>
+                                <h4 id="baju_rusak" class="label-data" style="margin-top: 6px !important">0</h4>
+                                <div style="margin-top: -10px !important">
+                                    <span class="size15">pcs</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -628,12 +645,14 @@
 
                         $('#jumlah_kain').text(data.jumlah_kain)
                         $('#labelarrow').html('<i class="ri-arrow-right-up-line"></i> Lebih banyak '+data.jumlah_kain_lalu+' yard dari bulan lalu')
-                        $('#jenis_bahan').html(data.jenis_bahan+'  <span class="size12">Jenis Bahan</span>')
-                        $('#berhasil_cuci').html(data.berhasil_cuci+'  <span class="size12">dari '+data.berhasil_jahit+' pcs</span>')
-                        $('#siap_qc').html(data.berhasil_cuci+'  <span class="size12">pcs</span>')
-                        $('#hasil_potong').html(data.hasil_cutting+'  <span class="size12">pcs</span>')
-                        $('#berhasil_jahit').html(data.berhasil_jahit+'  <span class="size12">dari '+data.hasil_cutting+' pcs</span>')
-                        $('#baju_rusak').html(data.baju_rusak+'  <span class="size12">pcs</span>')
+                        $('#jenis_bahan').html(data.jenis_bahan)
+                        $('#berhasil_cuci').text(data.berhasil_cuci)
+                        $('#berhasil_dari_cuci').text(data.berhasil_jahit+' pcs')
+                        $('#siap_qc').text(data.berhasil_cuci)
+                        $('#hasil_potong').text(data.hasil_cutting)
+                        $('#berhasil_jahit').html(data.berhasil_jahit)
+                        // $('#berhasil_jahit').html(data.berhasil_jahit+'  <span class="size12">dari '+data.hasil_cutting+' pcs</span>')
+                        $('#baju_rusak').text(data.baju_rusak)
                         $('#bulan').val(data.bulan).attr('selected','selected')
                         $('#tahun').val(data.tahun).attr('selected','selected')
                     }
@@ -689,13 +708,16 @@
                         table_cuci.rows.add(data.cuci).draw();
                         $('#jumlah_kain').text(data.jumlah_kain)
                         $('#labelarrow').html('<i class="ri-arrow-right-up-line"></i> Lebih banyak '+data.jumlah_kain_lalu+' yard dari bulan lalu')
-                        $('#jenis_bahan').html(data.jenis_bahan+'  <span class="size12">Jenis Bahan</span>')
-                        $('#berhasil_cuci').html(data.berhasil_cuci+'  <span class="size12">dari '+data.berhasil_jahit+' pcs</span>')
+                        $('#jenis_bahan').html(data.jenis_bahan)
+                        $('#berhasil_cuci').text(data.berhasil_cuci)
+                        // $('#berhasil_cuci').html(data.berhasil_cuci+'  <span class="size12">dari '+data.berhasil_jahit+' pcs</span>')
+                        $('#berhasil_dari_cuci').text(data.berhasil_jahit+' pcs')
 
                         $('#siap_qc').html(data.berhasil_cuci+'  <span class="size12">pcs</span>')
                         $('#hasil_potong').html(data.hasil_cutting+'  <span class="size12">pcs</span>')
-                        $('#berhasil_jahit').html(data.berhasil_jahit+'  <span class="size12">dari '+data.hasil_cutting+' pcs</span>')
-                        $('#baju_rusak').html(data.baju_rusak+'  <span class="size12">pcs</span>')
+                        $('#berhasil_jahit').text(data.berhasil_jahit)
+                        // $('#berhasil_jahit').html(data.berhasil_jahit+'  <span class="size12">dari '+data.hasil_cutting+' pcs</span>')
+                        $('#baju_rusak').text(data.baju_rusak)
                     }
                 }
             })
@@ -737,10 +759,13 @@
         text-align: center;
         font-size: 10px;
     }
-
+    .size15 {
+        font-size: 15px !important;
+        color: #AEAEB2;
+    }
 
     .label-data {
-        font-size: 14px !important;
+        font-size: 16px !important;
     }
 
     .badge {
@@ -797,9 +822,12 @@
                     </div>
                     <div class="card-body">
 
-                        <h2 id="rekap" class="label-data">
+                        <h2 id="rekap" class="label-data" style="margin-top: 6px !important">
                             0
                         </h2>
+                        <div style="margin-top: -10px !important">
+                            <span class="size15" >pcs</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -816,9 +844,12 @@
                     </div>
                     <div class="card-body">
 
-                        <h2 id="retur" class="label-data">
+                        <h2 id="retur" class="label-data" style="margin-top: 6px !important">
                             0
                         </h2>
+                        <div style="margin-top: -10px !important">
+                            <span class="size15" >pcs</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -835,9 +866,12 @@
                     </div>
                     <div class="card-body">
 
-                        <h2 id="buang" class="label-data">
+                        <h2 id="buang" class="label-data" style="margin-top: 6px !important">
                             0
                         </h2>
+                        <div style="margin-top: -10px !important">
+                            <span class="size15" >pcs</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -854,7 +888,7 @@
                     </div>
                     <div class="card-body">
 
-                        <h2 id="avg" class="label-data">
+                        <h2 id="avg" class="label-data" style="margin-top: 6px !important">
                             0
                         </h2>
                     </div>
@@ -1192,9 +1226,9 @@
                         table_finish.rows.add(data.finish).draw();
                         table_warehouse.rows.add(data.warehouse).draw();
                         table_retur.rows.add(data.dataretur).draw();
-                        $('#rekap').html(data.rekap+'  <span class="size12">pcs</span>')
-                        $('#retur').html(data.retur+'  <span class="size12">pcs</span>')
-                        $('#buang').html(data.buang+'  <span class="size12">pcs</span>')
+                        $('#rekap').text(data.rekap)
+                        $('#retur').text(data.retur)
+                        $('#buang').text(data.buang)
                         $('#avg').html('<span class="size12">Rp.</span> '+data.avg)
                         $('#bulan').val(data.bulan).attr('selected','selected')
                         $('#tahun').val(data.tahun).attr('selected','selected')
@@ -1251,9 +1285,9 @@
                         table_finish.rows.add(data.finish).draw();
                         table_warehouse.rows.add(data.warehouse).draw();
                         table_retur.rows.add(data.dataretur).draw();
-                        $('#rekap').html(data.rekap+'  <span class="size12">pcs</span>')
-                        $('#retur').html(data.retur+'  <span class="size12">pcs</span>')
-                        $('#buang').html(data.buang+'  <span class="size12">pcs</span>')
+                        $('#rekap').text(data.rekap)
+                        $('#retur').text(data.retur)
+                        $('#buang').text(data.buang)
                         $('#avg').html('<span class="size12">Rp.</span> '+data.avg)
 
                     }

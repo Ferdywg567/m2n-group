@@ -126,6 +126,17 @@
                     }
                 })
             })
+
+            $('.dropdown-item-unread').on('click', function () {
+                var id = $(this).data('id')
+                $.ajax({
+                    url:"{{route('notification.readklik')}}",
+                    method:"GET",
+                    data:{
+                        'id':id
+                    }
+                })
+             })
         })
     </script>
 </body>

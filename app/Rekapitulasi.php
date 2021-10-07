@@ -27,8 +27,8 @@ class Rekapitulasi extends Model
 
     public static function generateRekap()
     {
-        $cuci = Cuci::all()->where('status_cuci','selesai');
-        $jahit = Jahit::all()->where('status_jahit','selesai');
+        $cuci = Cuci::all()->where('status','cucian keluar');
+        $jahit = Jahit::all()->where('status','jahitan keluar');
         DB::beginTransaction();
         try {
             if($cuci->isNotEmpty()){

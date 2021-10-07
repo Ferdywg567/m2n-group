@@ -352,15 +352,27 @@ class BahanController extends Controller
 
     public function getKode()
     {
-        $kode_transaksi = Bahan::select('kode_transaksi')->whereNotNull('kode_transaksi')->orderBy('created_at', 'DESC')->first();
-        if (!$kode_transaksi) {
-            $datakode = "TR-" . date('Ymd') . "1";
+        $day = date('d');
+        $month = date('m');
+        $year = date('Y');
+        $data = Bahan::select('kode_transaksi')->whereNotNull('kode_transaksi')->whereYear('created_at', $year)->whereMonth('created_at', $month)->whereDay('created_at', $day)->OrderBy('created_at', 'DESC')->first();
+        if ($data) {
+            $nomor = (int) substr($data->kode_transaksi, 14);
+            if ($nomor != 0) {
+                if ($nomor >= 9999) {
+                    $nomor = $nomor + 1;
+                    $formatNomor = "TR-" . date('Y-m-d') . "-" . $nomor;
+                } else {
+                    $nomor = $nomor + 1;
+                    $addzero = str_pad($nomor, 4, '0', STR_PAD_LEFT);
+                    $formatNomor = "TR-" . date('Y-m-d') . "-" . $addzero;
+                }
+            }
         } else {
-            $last = substr($kode_transaksi->kode_transaksi, -1);
-            $jumlah = $last + 1;
-            $datakode = "TR-" . date('Ymd') . $jumlah;
+            $nomor = 1;
+            $addzero = str_pad($nomor, 4, '0', STR_PAD_LEFT);
+            $formatNomor = "TR-" . date('Y-m-d') . "-" . $addzero;
         }
-
-        return $datakode;
+        return $formatNomor;
     }
 }

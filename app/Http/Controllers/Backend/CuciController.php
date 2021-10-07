@@ -46,7 +46,7 @@ class CuciController extends Controller
             $cuci = Cuci::where('status', 'cucian masuk')->get();
             return view("backend.cuci.selesai.create", ['cuci' => $cuci]);
         } else {
-            $cuci = Cuci::where('status', 'cucian selesai')->get();
+            $cuci = Cuci::where('status', 'cucian selesai')->where('status_pembayaran','Lunas')->get();
             return view("backend.cuci.keluar.create", ['cuci' => $cuci]);
         }
     }
@@ -218,8 +218,8 @@ class CuciController extends Controller
                     $cuci->status = "cucian keluar";
                     $cuci->save();
                     $notif = new Notification();
-                    $notif->description = "cuci keluar telah dikirim ke rekapitulasi, silahkan di cek";
-                    $notif->url = route('rekapitulasi.index');
+                    $notif->description = "cuci keluar telah dikirim ke gudang, silahkan di cek";
+                    $notif->url = '#';
                     $notif->aktif = 0;
                     $notif->save();
 

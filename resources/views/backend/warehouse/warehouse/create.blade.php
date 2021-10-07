@@ -157,6 +157,7 @@
                     }
                 });
               }
+              $('#dataalert').hide()
               $('#kdbahanreadonly').hide()
               $('#ukuranm').hide()
               $('#ukuran').hide()
