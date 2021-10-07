@@ -107,7 +107,7 @@
                                                                 <button class="dropdown-item" style="font-size: 12px"><i
                                                                     class="ri-eye-fill" ></i>Detail</button>
                                                             </form>
-                                                           
+
                                                             @if ($item->status_pembayaran != "Lunas")
                                                             <form action="{{route('pembayaran.edit',[$item->id])}}"
                                                                 method="get">
@@ -169,13 +169,13 @@
                                                         <div class="dropdown-menu text-center"
                                                             aria-labelledby="dropdownMenuButton">
                                                             <a class="dropdown-item"
-                                                                href="{{route('potong.show',[$item->id])}}"><i
+                                                                href="{{route('pembayaran.show',[$item->id])}}"><i
                                                                     class="ri-eye-fill"></i>
                                                                 Detail</a>
 
 
                                                             <a class="dropdown-item"
-                                                                href="{{route('potong.edit',[$item->id])}}"><i
+                                                                href="{{route('pembayaran.edit',[$item->id])}}"><i
                                                                     class="ri-edit-fill"></i>
                                                                 Edit</a>
 

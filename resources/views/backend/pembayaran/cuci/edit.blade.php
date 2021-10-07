@@ -17,7 +17,7 @@
             <a class="btn btn-primary" href="{{route('pembayaran.index')}}">
                 <i class="fas fa-arrow-left"></i>
             </a>
-            <h1 class="ml-2">Input Data | Pembayaran Cuci</h1>
+            <h1 class="ml-2">Edit Data | Pembayaran Cuci</h1>
         </div>
         <div class="section-body">
             <div class="row">
@@ -36,25 +36,16 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="kode_transaksi">Kode Transaksi</label>
-                                            <select class="form-control" id="kode_transaksiselect"
-                                                name="kode_transaksi">
-                                                <option value="">Pilih Kode Transaksi</option>
-                                                @forelse ($cuci as $item)
-                                                <option value="{{$item->id}}" @if($item->id ==
-                                                    old('kode_transaksi')) selected
-                                                    @endif>{{$item->jahit->potong->bahan->kode_transaksi}} |
-                                                    {{$item->jahit->potong->bahan->nama_bahan}}
-                                                </option>
-                                                @empty
-                                                @endforelse
-                                            </select>
+                                            <input type="text" class="form-control"
+                                                value="{{$cuci->jahit->potong->bahan->kode_transaksi}}" required
+                                                id="kode_transaksi" readonly name="kode_transaksi">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="no_surat">Nomor Surat Jalan</label>
-                                            <input type="text" class="form-control" value="{{old('no_surat')}}" required
-                                                id="no_surat" readonly name="no_surat">
+                                            <input type="text" class="form-control" value="{{$cuci->jahit->no_surat}}"
+                                                required id="no_surat" readonly name="no_surat">
                                         </div>
                                     </div>
 
@@ -64,7 +55,7 @@
                                         <div class="form-group">
                                             <label for="sku">Nama Produk</label>
                                             <input type="text" class="form-control" readonly required id="nama_produk"
-                                                value="{{old('nama_produk')}}" name="nama_produk">
+                                                value="{{$cuci->jahit->potong->bahan->nama_bahan}}" name="nama_produk">
                                         </div>
                                     </div>
 
@@ -73,7 +64,7 @@
                                         <div class="form-group">
                                             <label for="sku">SKU</label>
                                             <input type="text" class="form-control" readonly required id="sku"
-                                                value="{{old('sku')}}" name="sku">
+                                                value="{{$cuci->jahit->potong->bahan->sku}}" name="sku">
                                         </div>
                                     </div>
                                 </div>
@@ -82,20 +73,23 @@
                                         <div class="form-group">
                                             <label for="kategori">Kategori</label>
                                             <input type="text" class="form-control" required readonly id="kategori"
-                                                value="{{old('kategori')}}" name="kategori">
+                                                value="{{$cuci->jahit->potong->bahan->detail_sub->sub_kategori->kategori->nama_kategori}}"
+                                                name="kategori">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="sub_kategori">Sub Kategori</label>
                                             <input type="text" class="form-control" required readonly id="sub_kategori"
-                                                value="{{old('sub_kategori')}}" name="sub_kategori">
+                                                value="{{$cuci->jahit->potong->bahan->detail_sub->sub_kategori->nama_kategori}}"
+                                                name="sub_kategori">
                                         </div>
                                     </div>
                                     <div class="col-md-5">
                                         <div class="form-group">
                                             <label for="detail_sub_kategori">Detail Sub Kategori</label>
                                             <input type="text" class="form-control" required readonly
+                                                value="{{$cuci->jahit->potong->bahan->detail_sub->nama_kategori}}"
                                                 value="{{old('detail_sub_kategori')}}" id="detail_sub_kategori"
                                                 name="detail_sub_kategori">
                                         </div>
@@ -109,7 +103,7 @@
                                         <div class="form-group">
                                             <label for="nama_vendor">Nama Vendor</label>
                                             <input type="text" class="form-control" readonly id="nama_vendor"
-                                                name="nama_vendor" value="{{old('nama_vendor')}}">
+                                                name="nama_vendor" value="{{$cuci->jahit->nama_vendor}}">
                                         </div>
                                     </div>
 
@@ -120,7 +114,7 @@
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <input type="text" class="form-control" readonly id="harga_vendor"
-                                                        value="{{old('harga_vendor')}}" name="harga_vendor">
+                                                        value="{{$cuci->jahit->harga_vendor}}" name="harga_vendor">
                                                 </div>
                                                 <div class="col-md-6">
 
@@ -136,12 +130,12 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="jumlah_bahan_yang_dicuci">Jumlah Bahan Yang dicuci</label>
+                                            <label for="jumlah_bahan_yang_dijahit">Jumlah Bahan Yang Dijahit</label>
                                             <div class="input-group mb-2">
                                                 <input type="number" class="form-control" required
-                                                    value="{{old('jumlah_bahan_yang_dicuci')}}"
-                                                    id="jumlah_bahan_yang_dicuci" readonly
-                                                    name="jumlah_bahan_yang_dicuci">
+                                                    value="{{$cuci->jahit->jumlah_bahan}}"
+                                                    id="jumlah_bahan_yang_dijahit" readonly
+                                                    name="jumlah_bahan_yang_dijahit">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">pcs</div>
                                                 </div>
@@ -152,43 +146,134 @@
                                         <div class="form-group">
                                             <label for="konversi">Konversi Lusin</label>
                                             <input type="text" class="form-control" required readonly id="konversi"
-                                                value="{{old('konversi')}}" name="konversi">
+                                                value="{{$cuci->jahit->konversi}}" name="konversi">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="total_harga">Total Harga</label>
                                             <input type="text" class="form-control" required readonly id="total_harga"
-                                                value="{{old('total_harga')}}" name="total_harga">
+                                                value="{{$cuci->jahit->harga_vendor * $cuci->jahit->jumlah_bahan}}"
+                                                name="total_harga">
                                         </div>
                                     </div>
                                 </div>
                                 <hr>
-                                <div class="row" id="datapembayaran">
+                                @php
+                                $cek = false;
+                                $status = '';
+                                @endphp
+                                @foreach ($cuci->pembayaran_cuci as $item)
+                                @if ($item->status=='Lunas')
+                                <div class="row" id="">
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="tanggal">Tanggal</label>
-                                            <input type="date" class="form-control" required value="{{date('Y-m-d')}}"
-                                                readonly id="tanggal" value="{{old('tanggal')}}" name="tanggal">
+                                            <input type="date" class="form-control" required readonly id="tanggal"
+                                                value="{{date('Y-m-d',strtotime($item->created_at))}}" name="tanggal">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="pembayaran1">Pembayaran</label>
-                                            <select class="form-control" id="pembayaran1" name="pembayaran1">
-                                                <option value="Lunas">Lunas</option>
-                                                <option value="Termin 1">Termin 1</option>
-                                            </select>
+                                            <input type="text" class="form-control" value="{{$item->status}}" readonly
+                                                id="pembayaran1" name="pembayaran1">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="nominal1">Nominal</label>
                                             <input type="number" min="1" class="form-control" required id="nominal1"
-                                                value="{{old('nominal1')}}" name="nominal1">
+                                                readonly value="{{$item->nominal}}" name="nominal1">
                                         </div>
                                     </div>
                                 </div>
+                                @elseif($item->status == 'Termin 1')
+                                @php
+                                $status = 'Termin 1';
+                                $cek = true;
+                                @endphp
+                                <div class="row" id="">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="tanggal">Tanggal</label>
+                                            <input type="date" class="form-control" required readonly id="tanggal"
+                                                value="{{date('Y-m-d',strtotime($item->created_at))}}" name="tanggal">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="pembayaran1">Pembayaran</label>
+                                            <input type="text" class="form-control" value="{{$item->status}}" readonly
+                                                id="pembayaran1" name="pembayaran1">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="nominal1">Nominal</label>
+                                            <input type="number" min="1" class="form-control" required id="nominal1"
+                                                readonly value="{{$item->nominal}}" name="nominal1">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                @elseif($item->status == 'Termin 2')
+                                @php
+                                $status = 'Termin 2';
+                                $cek = true;
+                                @endphp
+                                <div class="row" id="">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="tanggal">Tanggal</label>
+                                            <input type="date" class="form-control" required readonly id="tanggal"
+                                                value="{{date('Y-m-d',strtotime($item->created_at))}}" name="tanggal">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="pembayaran2">Pembayaran</label>
+                                            <input type="text" class="form-control" value="{{$item->status}}" readonly
+                                                id="pembayaran2" name="pembayaran2">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="nominal2">Nominal</label>
+                                            <input type="number" min="1" class="form-control" required id="nominal2"
+                                                readonly value="{{$item->nominal}}" name="nominal2">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                @elseif($item->status == 'Termin 3')
+
+                                <div class="row" id="">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="tanggal">Tanggal</label>
+                                            <input type="date" class="form-control" required readonly id="tanggal"
+                                                value="{{date('Y-m-d',strtotime($item->created_at))}}" name="tanggal">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="pembayaran3">Pembayaran</label>
+                                            <input type="text" class="form-control" value="{{$item->status}}" readonly
+                                                id="pembayaran3" name="pembayaran3">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="nominal3">Nominal</label>
+                                            <input type="number" min="1" class="form-control" required id="nominal3"
+                                                readonly value="{{$item->nominal}}" name="nominal3">
+                                        </div>
+                                    </div>
+                                </div>
+                                @endif
+                                @endforeach
+
                                 <div class="row" id="datapembayaran2">
                                     <div class="col-md-4">
                                         <div class="form-group">
@@ -235,6 +320,10 @@
                                         </div>
                                     </div>
                                 </div>
+                                @if ($status)
+                                <button type="button" class="btn btn-outline-primary btn-block btntambah">Tambah
+                                    Pembayaran Baru</button>
+                                @endif
                                 <button type="button" class="btn btn-outline-primary btn-block btntambah">Tambah
                                     Pembayaran Baru</button>
                                 <div class="row">
@@ -242,7 +331,7 @@
                                         <div class="form-group">
                                             <label for="sisa_bayar">Sisa Bayar</label>
                                             <input type="text" class="form-control" readonly required id="sisa_bayar"
-                                                value="{{old('sisa_bayar')}}" name="sisa_bayar">
+                                                value="{{$cuci->sisa_bayar}}" name="sisa_bayar">
                                         </div>
                                     </div>
                                 </div>
@@ -278,6 +367,7 @@
                     }
                 });
               }
+
               $('#kdbahanreadonly').hide()
               $('#ukuranm').hide()
               $('#ukuranl').hide()
@@ -304,6 +394,7 @@
                   var res = hasil+' Lusin '+sisa+ ' pcs'
                   $('#konversi').val(res)
               })
+
               $('#nominal1, #nominal2, #nominal3').on('keyup', function () {
                   var nominal1 = $('#nominal1').val();
                   var nominal2 = $('#nominal2').val();
@@ -315,25 +406,19 @@
                         if(total <= total_harga){
                             sisa_bayar = total_harga - total;
                         }
-
-
                     }else if(nominal2 > 0 && nominal1 > 0){
                         var total = parseInt(nominal1) + parseInt(nominal2)
                         if(total <= total_harga){
                             sisa_bayar = total_harga - total;
                         }
-
-
                     }else if(nominal1 > 0){
                         if(parseInt(nominal1) <  parseInt(total_harga)){
                             sisa_bayar = total_harga - nominal1;
                         }
-
-
                     }
-                    console.log(sisa_bayar);
                     $('#sisa_bayar').val(sisa_bayar)
                })
+
               $('form[id=formPembayaran]').submit(function(){
                 var data = $('#pembayaran1').val();
                 var hasil = $('#total_harga').val()
@@ -341,7 +426,7 @@
                     var nominal = $('#nominal1').val()
                     if(parseInt(hasil) != parseInt(nominal)){
                     $('#dataalert').show()
-                    $('#dataalert').text('Nominal pembayaran harus sesuai dengan total harga')
+                    $('#dataalert').text('Nominal pembayaran harus sesuai dengan sisa bayar')
                      return false;
                     }else{
 
@@ -355,8 +440,7 @@
                         var total = parseInt(nominal) + parseInt(nominal2) + parseInt(nominal3)
                         if(parseInt(hasil) != parseInt(total)){
                             $('#dataalert').show()
-                            $('#dataalert').text('Nominal pembayaran harus sesuai dengan total harga')
-
+                            $('#dataalert').text('Nominal pembayaran harus sesuai dengan sisa bayar')
                             return false;
                         }else{
 
@@ -366,18 +450,21 @@
                         var total = parseInt(nominal) + parseInt(nominal2)
                         if(parseInt(hasil) <= parseInt(total)){
                             $('#dataalert').show()
-                            $('#dataalert').text('Nominal pembayaran harus sesuai dengan total harga')
-
+                            $('#dataalert').text('Nominal pembayaran harus sesuai dengan sisa bayar')
                             return false;
                         }else{
-
                             return true;
                         }
                     }else if(nominal > 0){
 
-                        if(parseInt(hasil) != parseInt(nominal)){
+                        if(parseInt(hasil) <= parseInt(nominal)){
                             $('#dataalert').show()
-                            $('#dataalert').text('Nominal pembayaran harus sesuai dengan total harga')
+                            $('#dataalert').text('Nominal pembayaran tidak boleh melebihi sisa bayar')
+
+                            return false;
+                        }if(parseInt(nominal) <= 0){
+                            $('#dataalert').show()
+                            $('#dataalert').text('Nominal pembayaran tidak boleh melebihi sisa bayar')
 
                             return false;
                         }else{
@@ -388,89 +475,31 @@
                 }
             });
 
-
-              $('#hasil_cutting').on('keyup', function(){
-                  var data = $(this).val()
-                  var lusin = 12
-
-                  var sisa = data%lusin;
-                  var hasil = (data - sisa) / lusin;
-                  var res = hasil+' Lusin '+sisa+ ' pcs'
-                  $('#konversi').val(res)
-              })
-
-              $('.btntambah').hide()
-              $('#pembayaran1').on('change', function () {
-                  var data = $(this).val();
-
-                  if(data == 'Lunas'){
-                    $('#datapembayaran2').hide()
-                     $('#datapembayaran3').hide()
-                     $('.btntambah').hide()
-                  }else{
-                    $('.btntambah').show()
-                  }
-
-              })
-
-              $('.btntambah').on('click', function () {
+            $('.btntambah').on('click', function () {
+                  var status ='{{$status}}';
                 var data = $('#pembayaran1').val();
                 var datapembayaran2 = $('#datapembayaran2').is(':visible')
                 var datapembayaran3 = $('#datapembayaran3').is(':visible')
                 if(data != 'Lunas'){
-                    if(!datapembayaran2){
-                        $('#datapembayaran2').show()
-                    }else if(!datapembayaran3){
+
+                    if(status == 'Termin 2'){
                         $('#datapembayaran3').show()
+                        $('#datapembayaran2').remove()
+                        $('#nominal3').prop('required',true)
                         $('.btntambah').hide()
+                    }else{
+                        if(!datapembayaran2){
+                             $('#datapembayaran2').show()
+                             $('#nominal2').prop('required',true)
+                        }else if(!datapembayaran3){
+                            $('#datapembayaran3').show()
+                            $('.btntambah').hide()
+                        }
                     }
+
                 }
 
             })
-
-
-
-             $('#kode_transaksiselect').on('change', function () {
-                    var id = $(this).find(':selected').val()
-
-                    if(id != ''){
-                        $.ajax({
-                            url:"{{route('cuci.getdata')}}",
-                            method:"GET",
-                            data:{
-                                'id':id
-                            }
-                        }).done(function (response) {
-
-                            if(response.status){
-                                console.log(response);
-                                var data = response.data;
-                                var jahit = data.jahit
-                                var bahan = data.jahit.potong.bahan
-                                var potong =data.jahit.potong
-                                var detail_cuci = data.detail_cuci
-                                var detail = bahan.detail_sub.nama_kategori;
-                                var subkategori = bahan.detail_sub.sub_kategori.nama_kategori;
-                                var kategori = bahan.detail_sub.sub_kategori.kategori.nama_kategori;
-                                var total_harga = data.harga_vendor * data.jumlah_bahan;
-                                $('#total_harga').val(data.total_bayar)
-                                $('#nama_produk').val(bahan.nama_bahan)
-                                $('#nama_vendor').val(data.nama_vendor)
-                                $('#harga_vendor').val(data.harga_vendor)
-                                $('#no_surat').val(data.no_surat)
-                                $('#sku').val(bahan.sku)
-                                $('#kategori').val(kategori)
-                                $('#sub_kategori').val(subkategori)
-                                $('#detail_sub_kategori').val(detail)
-                                $('#jumlah_bahan_yang_dicuci').val(potong.hasil_cutting)
-                                $('#konversi').val(data.konversi)
-
-                            }
-
-                        })
-                    }
-            })
-
 
 
      })
