@@ -454,9 +454,10 @@
                         }
                     }else if(nominal2 > 0 && nominal > 0){
                         var total = parseInt(nominal) + parseInt(nominal2)
+                        total = total.trim()
                         console.log("total " +total)
                         console.log("Hasil "+hasil)
-                        if(total <= parseInt(hasil) ){
+                        if(parseInt(total) <= parseInt(hasil.trim()) ){
                             $('#dataalert').show()
                             $('#dataalert').text('Nominal pembayaran harus kurang dari sama dengan sisa bayar')
                             return false;
