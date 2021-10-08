@@ -509,7 +509,7 @@
 
                                 var content="";
                                 content += ' <label for="ukurandirepair" class="text-dark">Ukuran yang Direpair</label>'
-                                cuci_dibuang.forEach((result, i) => {
+                                cuci_direpair.forEach((result, i) => {
                                     if(i == 0){
                                         content+= '<div class="row">'
                                     }
@@ -533,7 +533,7 @@
                                 $('#data-ukuran-direpair').html(content)
                                 var content="";
                                 content += ' <label for="ukurangdibuang" class="text-dark">Ukuran yang Dibuang</label>'
-                                cuci_direpair.forEach((result, i) => {
+                                cuci_dibuang.forEach((result, i) => {
                                     if(i == 0){
                                         content+= '<div class="row">'
                                     }
