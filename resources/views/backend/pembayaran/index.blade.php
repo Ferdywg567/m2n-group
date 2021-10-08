@@ -105,7 +105,7 @@
                                                                 method="get">
                                                                 <input type="hidden" name="status" value="jahit">
                                                                 <button class="dropdown-item" style="font-size: 12px"><i
-                                                                    class="ri-eye-fill" ></i>Detail</button>
+                                                                        class="ri-eye-fill"></i>Detail</button>
                                                             </form>
 
                                                             @if ($item->status_pembayaran != "Lunas")
@@ -113,7 +113,8 @@
                                                                 method="get">
                                                                 <input type="hidden" name="status" value="jahit">
                                                                 <button class="dropdown-item" style="font-size: 12px"><i
-                                                                    class="ri-edit-fill" ></i>Edit</button>
+                                                                        class="ri-edit-fill"></i>Pembayaran
+                                                                    Baru</button>
                                                             </form>
                                                             @endif
 
@@ -173,13 +174,13 @@
                                                                     class="ri-eye-fill"></i>
                                                                 Detail</a>
 
-
+                                                            @if ($item->status_pembayaran != "Lunas")
                                                             <a class="dropdown-item"
                                                                 href="{{route('pembayaran.edit',[$item->id])}}"><i
                                                                     class="ri-edit-fill"></i>
-                                                                Edit</a>
+                                                                Pembayaran Baru</a>
 
-
+                                                            @endif
                                                         </div>
                                                     </div>
                                                 </td>
