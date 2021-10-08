@@ -391,10 +391,16 @@
                    var gagal = $('#gagal_jahit').val()
                    nilai = parseInt(nilai)
                    gagal = parseInt(gagal)
-                   if(nilai > 0 && gagal > 0 && gagal >= nilai){
+                   if(nilai == 0){
+                    $('#barang_dibuang').val(gagal)
+                   }else{
+                    if(nilai > 0 && gagal > 0 && gagal >= nilai){
                         var res =gagal-nilai;
                         console.log(res);
                         $('#barang_dibuang').val(res)
+                    }else{
+                        $('#barang_dibuang').val(0)
+                    }
                    }
                })
 
