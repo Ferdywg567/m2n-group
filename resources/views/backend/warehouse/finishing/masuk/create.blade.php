@@ -294,7 +294,7 @@
                                         '<div class="input-group-prepend">'+
                                             '<div class="input-group-text">'+result.size+'</div>'+
                                         '</div>'+
-                                        '<input type="number" class="form-control" required id="jumlah" name="jumlah[]" >'+
+                                        '<input type="number" class="form-control" readonly value="'+result.jumlah+'" required id="jumlah" name="jumlah[]" >'+
                                     '</div>'+
                                    '</div>';
                                     if(i!=0 && i%6 == 0){
