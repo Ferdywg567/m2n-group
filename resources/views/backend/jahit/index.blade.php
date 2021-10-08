@@ -81,6 +81,7 @@
                                                 <th scope="col">Jahit Sukses</th>
                                                 <th scope="col">Surat Jalan</th>
                                                 <th scope="col">Status</th>
+                                                <th scope="col">Pembayaran</th>
                                                 <th scope="col">Aksi</th>
                                             </tr>
                                         </thead>
@@ -110,9 +111,29 @@
                                                     @endif
                                                 </td>
                                                 <td>
+                                                    @if ($item->vendor == 'eksternal')
+                                                    @if ($item->status_pembayaran == 'Lunas')
+                                                    <a href="{{route('pembayaran.index')}}">
+                                                        <span
+                                                            class="badge badge-success text-dark">{{ $item->status_pembayaran}}</span>
+                                                    </a>
+                                                    @elseif($item->status_pembayaran == 'Belum Lunas' ||
+                                                    $item->status_pembayaran == 'Termin 1' || $item->status_pembayaran
+                                                    == 'Termin 2' || $item->status_pembayaran == 'Termin 3' )
+                                                    <a href="{{route('pembayaran.index')}}">
+                                                        <span
+                                                            class="badge badge-secondary text-dark">{{$item->status_pembayaran}}</span>
+                                                    </a>
+                                                    @endif
+                                                    @else
+                                                    -
+                                                    @endif
+                                                </td>
+                                                <td>
                                                     <div class="dropdown dropleft">
-                                                        <a class="" href="#" id="dropdownMenuButton" data-toggle="dropdown"
-                                                            aria-haspopup="true" aria-expanded="false">
+                                                        <a class="" href="#" id="dropdownMenuButton"
+                                                            data-toggle="dropdown" aria-haspopup="true"
+                                                            aria-expanded="false">
                                                             <i class="fa fa-ellipsis-h"></i>
                                                         </a>
                                                         <div class="dropdown-menu text-center"
@@ -130,8 +151,8 @@
                                                                     class="ri-edit-fill"></i>
                                                                 Edit</a>
 
-                                                            <a class="dropdown-item hapus" data-id="{{$item->id}}" href="#"><i
-                                                                    class="ri-delete-bin-fill"></i>
+                                                            <a class="dropdown-item hapus" data-id="{{$item->id}}"
+                                                                href="#"><i class="ri-delete-bin-fill"></i>
                                                                 Delete</a>
 
                                                         </div>
@@ -160,6 +181,7 @@
                                                 <th scope="col">Jahit Sukses</th>
                                                 <th scope="col">Surat Jalan</th>
                                                 <th scope="col">Status</th>
+                                                <th scope="col">Pembayaran</th>
                                                 <th scope="col">Aksi</th>
                                             </tr>
                                         </thead>
@@ -188,9 +210,29 @@
                                                     @endif
                                                 </td>
                                                 <td>
+                                                    @if ($item->vendor == 'eksternal')
+                                                    @if ($item->status_pembayaran == 'Lunas')
+                                                    <a href="{{route('pembayaran.index')}}">
+                                                        <span
+                                                            class="badge badge-success text-dark">{{ $item->status_pembayaran}}</span>
+                                                    </a>
+                                                    @elseif($item->status_pembayaran == 'Belum Lunas' ||
+                                                    $item->status_pembayaran == 'Termin 1' || $item->status_pembayaran
+                                                    == 'Termin 2' || $item->status_pembayaran == 'Termin 3' )
+                                                    <a href="{{route('pembayaran.index')}}">
+                                                        <span
+                                                            class="badge badge-secondary text-dark">{{$item->status_pembayaran}}</span>
+                                                    </a>
+                                                    @endif
+                                                    @else
+                                                    -
+                                                    @endif
+                                                </td>
+                                                <td>
                                                     <div class="dropdown dropleft">
-                                                        <a class="" href="#" id="dropdownMenuButton" data-toggle="dropdown"
-                                                            aria-haspopup="true" aria-expanded="false">
+                                                        <a class="" href="#" id="dropdownMenuButton"
+                                                            data-toggle="dropdown" aria-haspopup="true"
+                                                            aria-expanded="false">
                                                             <i class="fa fa-ellipsis-h"></i>
                                                         </a>
                                                         <div class="dropdown-menu text-center"
@@ -208,8 +250,8 @@
                                                                     class="ri-edit-fill"></i>
                                                                 Edit</a>
 
-                                                            <a class="dropdown-item hapus" data-id="{{$item->id}}" href="#"><i
-                                                                    class="ri-delete-bin-fill"></i>
+                                                            <a class="dropdown-item hapus" data-id="{{$item->id}}"
+                                                                href="#"><i class="ri-delete-bin-fill"></i>
                                                                 Delete</a>
 
                                                         </div>
@@ -237,6 +279,7 @@
                                                 <th scope="col">Jahit Sukses</th>
                                                 <th scope="col">Surat Jalan</th>
                                                 <th scope="col">Status</th>
+                                                <th scope="col">Pembayaran</th>
                                                 <th scope="col">Aksi</th>
                                             </tr>
                                         </thead>
@@ -265,9 +308,29 @@
                                                     @endif
                                                 </td>
                                                 <td>
+                                                    @if ($item->vendor == 'eksternal')
+                                                    @if ($item->status_pembayaran == 'Lunas')
+                                                    <a href="{{route('pembayaran.index')}}">
+                                                        <span
+                                                            class="badge badge-success text-dark">{{ $item->status_pembayaran}}</span>
+                                                    </a>
+                                                    @elseif($item->status_pembayaran == 'Belum Lunas' ||
+                                                    $item->status_pembayaran == 'Termin 1' || $item->status_pembayaran
+                                                    == 'Termin 2' || $item->status_pembayaran == 'Termin 3' )
+                                                    <a href="{{route('pembayaran.index')}}">
+                                                        <span
+                                                            class="badge badge-secondary text-dark">{{$item->status_pembayaran}}</span>
+                                                    </a>
+                                                    @endif
+                                                    @else
+                                                    -
+                                                    @endif
+                                                </td>
+                                                <td>
                                                     <div class="dropdown dropleft">
-                                                        <a class="" href="#" id="dropdownMenuButton" data-toggle="dropdown"
-                                                            aria-haspopup="true" aria-expanded="false">
+                                                        <a class="" href="#" id="dropdownMenuButton"
+                                                            data-toggle="dropdown" aria-haspopup="true"
+                                                            aria-expanded="false">
                                                             <i class="fa fa-ellipsis-h"></i>
                                                         </a>
                                                         <div class="dropdown-menu text-center"
@@ -280,8 +343,8 @@
                                                                 data-id="{{$item->id}}"><i class="ri-printer-fill"></i>
                                                                 Print</a>
 
-                                                            <a class="dropdown-item hapus" data-id="{{$item->id}}" href="#"><i
-                                                                    class="ri-delete-bin-fill"></i>
+                                                            <a class="dropdown-item hapus" data-id="{{$item->id}}"
+                                                                href="#"><i class="ri-delete-bin-fill"></i>
                                                                 Delete</a>
 
                                                         </div>

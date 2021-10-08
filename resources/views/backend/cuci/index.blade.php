@@ -82,6 +82,7 @@
                                                 <th scope="col">Cuci Sukses</th>
                                                 <th scope="col">Surat Jalan</th>
                                                 <th scope="col">Status</th>
+                                                <th scope="col">Pembayaran</th>
                                                 <th scope="col">Aksi</th>
                                             </tr>
                                         </thead>
@@ -105,6 +106,25 @@
                                                     <span class="badge badge-success text-dark">{{$status}}</span>
                                                     @else
                                                     <span class="badge badge-warning text-dark">{{$status}}</span>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($item->vendor == 'eksternal')
+                                                    @if ($item->status_pembayaran == 'Lunas')
+                                                    <a href="{{route('pembayaran.index')}}">
+                                                        <span
+                                                            class="badge badge-success text-dark">{{ $item->status_pembayaran}}</span>
+                                                    </a>
+                                                    @elseif($item->status_pembayaran == 'Belum Lunas' ||
+                                                    $item->status_pembayaran == 'Termin 1' || $item->status_pembayaran
+                                                    == 'Termin 2' || $item->status_pembayaran == 'Termin 3' )
+                                                    <a href="{{route('pembayaran.index')}}">
+                                                        <span
+                                                            class="badge badge-secondary text-dark">{{$item->status_pembayaran}}</span>
+                                                    </a>
+                                                    @endif
+                                                    @else
+                                                    -
                                                     @endif
                                                 </td>
                                                 <td>
@@ -159,6 +179,7 @@
                                                 <th scope="col">Cuci Sukses</th>
                                                 <th scope="col">Surat Jalan</th>
                                                 <th scope="col">Status</th>
+                                                <th scope="col">Pembayaran</th>
                                                 <th scope="col">Aksi</th>
                                             </tr>
                                         </thead>
@@ -182,6 +203,25 @@
                                                     <span class="badge badge-success text-dark">{{$status}}</span>
                                                     @else
                                                     <span class="badge badge-warning text-dark">{{$status}}</span>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($item->vendor == 'eksternal')
+                                                    @if ($item->status_pembayaran == 'Lunas')
+                                                    <a href="{{route('pembayaran.index')}}">
+                                                        <span
+                                                            class="badge badge-success text-dark">{{ $item->status_pembayaran}}</span>
+                                                    </a>
+                                                    @elseif($item->status_pembayaran == 'Belum Lunas' ||
+                                                    $item->status_pembayaran == 'Termin 1' || $item->status_pembayaran
+                                                    == 'Termin 2' || $item->status_pembayaran == 'Termin 3' )
+                                                    <a href="{{route('pembayaran.index')}}">
+                                                        <span
+                                                            class="badge badge-secondary text-dark">{{$item->status_pembayaran}}</span>
+                                                    </a>
+                                                    @endif
+                                                    @else
+                                                    -
                                                     @endif
                                                 </td>
                                                 <td>
@@ -236,6 +276,7 @@
                                                 <th scope="col">Cuci Sukses</th>
                                                 <th scope="col">Surat Jalan</th>
                                                 <th scope="col">Status</th>
+                                                <th scope="col">Pembayaran</th>
                                                 <th scope="col">Aksi</th>
                                             </tr>
                                         </thead>
@@ -259,6 +300,25 @@
                                                     <span class="badge badge-success text-dark">{{$status}}</span>
                                                     @else
                                                     <span class="badge badge-warning text-dark">{{$status}}</span>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($item->vendor == 'eksternal')
+                                                    @if ($item->status_pembayaran == 'Lunas')
+                                                    <a href="{{route('pembayaran.index')}}">
+                                                        <span
+                                                            class="badge badge-success text-dark">{{ $item->status_pembayaran}}</span>
+                                                    </a>
+                                                    @elseif($item->status_pembayaran == 'Belum Lunas' ||
+                                                    $item->status_pembayaran == 'Termin 1' || $item->status_pembayaran
+                                                    == 'Termin 2' || $item->status_pembayaran == 'Termin 3' )
+                                                    <a href="{{route('pembayaran.index')}}">
+                                                        <span
+                                                            class="badge badge-secondary text-dark">{{$item->status_pembayaran}}</span>
+                                                    </a>
+                                                    @endif
+                                                    @else
+                                                    -
                                                     @endif
                                                 </td>
                                                 <td>
