@@ -310,18 +310,20 @@
                     $('#gagal_qc').val(0)
                 }
               })
-
               $('#barang_diretur').on('keyup', function(){
                    var nilai = $(this).val()
                    var dibuang = $('#gagal_qc').val()
                    nilai = parseInt(nilai)
                    dibuang = parseInt(dibuang)
-                   if(nilai > 0 && dibuang > 0 && dibuang >= nilai){
-                        var res =dibuang-nilai;
-
-                        $('#barang_dibuang').val(res)
+                   if(nilai == 0){
+                    $('#barang_dibuang').val(dibuang)
                    }else{
-                    $('#barang_dibuang').val(0)
+                        if(nilai > 0 && dibuang > 0 && dibuang >= nilai){
+                            var res =dibuang-nilai;
+                            $('#barang_dibuang').val(res)
+                        }else{
+                            $('#barang_dibuang').val(0)
+                        }
                    }
                })
 

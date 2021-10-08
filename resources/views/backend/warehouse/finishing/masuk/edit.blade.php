@@ -223,7 +223,23 @@
               $('.btnmasuk').prop('id','btnsimpanmasuk')
               $('#title-ukuran').hide()
 
-      
+              $('#barang_diretur').on('keyup', function(){
+                   var nilai = $(this).val()
+                   var dibuang = $('#gagal_qc').val()
+                   nilai = parseInt(nilai)
+                   dibuang = parseInt(dibuang)
+                   if(nilai == 0){
+                    $('#barang_dibuang').val(dibuang)
+                   }else{
+                        if(nilai > 0 && dibuang > 0 && dibuang >= nilai){
+                            var res =dibuang-nilai;
+                            $('#barang_dibuang').val(res)
+                        }else{
+                            $('#barang_dibuang').val(0)
+                        }
+                   }
+               })
+
 
             $('form[id=formProduk]').submit(function(){
                 var jumlah =0;
