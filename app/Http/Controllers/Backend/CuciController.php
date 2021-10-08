@@ -103,13 +103,13 @@ class CuciController extends Controller
                 }
                 $cuci->no_surat = $request->get('no_surat');
                 $cuci->vendor = 'eksternal';
-                $cuci->konversi = $request->get('konversi');
+               
                 if ($request->get('status') == 'cucian masuk') {
                     $cuci->tanggal_cuci = date('Y-m-d', strtotime($request->get('tanggal_cuci')));
                     $cuci->tanggal_selesai = date('Y-m-d', strtotime($request->get('estimasi_selesai_cuci')));
                     $cuci->status = "cucian masuk";
                     $cuci->kain_siap_cuci = $request->get('jumlah_bahan_yang_dicuci');
-
+                    $cuci->konversi = $request->get('konversi');
                     // if ($cuci->tanggal_cuci == date('Y-m-d')) {
                     //     $cuci->status_cuci = "proses cuci";
                     // } else {
@@ -145,7 +145,7 @@ class CuciController extends Controller
                     $cuci->harga_vendor = $request->get('harga_vendor');
                     $direpair = $request->get('jumlahdirepair');
                     $dibuang = $request->get('jumlahdibuang');
-
+                    $cuci->konversi = $request->get('konversi');
                     $detailcuci = DetailCuci::where('cuci_id', $cuci->id)->get();
 
                     foreach ($detailcuci as $key => $value) {

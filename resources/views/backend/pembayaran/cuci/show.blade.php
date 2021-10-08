@@ -127,10 +127,10 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="jumlah_bahan_yang_dijahit">Jumlah Bahan Yang Dijahit</label>
+                                            <label for="jumlah_bahan_yang_dijahit">Jumlah Bahan Yang Dicuci</label>
                                             <div class="input-group mb-2">
                                                 <input type="number" class="form-control" required
-                                                    value="{{$cuci->jumlah_bahan}}" id="jumlah_bahan_yang_dijahit"
+                                                    value="{{$cuci->kain_siap_cuci}}" id="jumlah_bahan_yang_dijahit"
                                                     readonly name="jumlah_bahan_yang_dijahit">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">pcs</div>
