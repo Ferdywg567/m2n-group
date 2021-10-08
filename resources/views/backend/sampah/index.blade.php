@@ -6,9 +6,7 @@
 @section('cssnav', 'cssnav')
 @section('content')
 <style>
-    .cssnav {
-        margin-left: -20px;
-    }
+  
 
     .dropdown-menu {
         left: 50% !important;
