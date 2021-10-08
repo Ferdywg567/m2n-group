@@ -454,6 +454,7 @@
                         }
                     }else if(nominal2 > 0 && nominal > 0){
                         var total = parseInt(nominal) + parseInt(nominal2)
+                        hasil = $('#sisa_bayar').val()
                         if(parseInt(hasil) <= parseInt(total)){
                             $('#dataalert').show()
                             $('#dataalert').text('Nominal pembayaran harus sesuai dengan sisa bayar')
@@ -470,7 +471,7 @@
                             return false;
                         }if(parseInt(nominal) <= 0){
                             $('#dataalert').show()
-                            $('#dataalert').text('Nominal pembayaran tidak boleh melebihi sisa bayar')
+                            $('#dataalert').text('Nominal pembayaran harus lebih dari 0')
 
                             return false;
                         }else{
