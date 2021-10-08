@@ -147,13 +147,24 @@ class FinishingController extends Controller
                             array_push($arr, $x);
                         }
                     }
-                    DetailFinishing::where('finishing_id', $finish->id)->delete();
+                    $diretur = $request->get('jumlahdiretur');
+                    $dibuang = $request->get('jumlahdibuang');
+                    // DetailFinishing::where('finishing_id', $finish->id)->delete();
                     foreach ($arr as $key => $value) {
-                        $detail = new DetailFinishing();
-                        $detail->finishing_id = $finish->id;
-                        $detail->ukuran = $value['ukuran'];
-                        $detail->jumlah = $value['jumlah'];
-                        $detail->save();
+                        $cek = DetailFinishing::where('finishing_id', $finish->id)->where('ukuran', $value['ukuran'])->first();
+                        if ($cek) {
+                            $jumdiretur = $diretur[$key];
+                            if ($jumdiretur < 0 || $jumdiretur == null) {
+                                $jumdiretur = 0;
+                            }
+
+                            $jumdibuang = $dibuang[$key];
+                            if ($jumdibuang < 0 || $jumdibuang == null) {
+                                $jumdibuang = 0;
+                            }
+                            $cek->jumlah = $cek->jumlah - $jumdibuang - $jumdiretur;
+                            $cek->save();
+                        }
                     }
 
                     $jumlah = $request->get('jumlahdiretur');
