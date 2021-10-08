@@ -88,8 +88,15 @@
                                                 <td>{{$item->nama_vendor}}</td>
                                                 <td>{{$item->total_bayar}}</td>
                                                 <td>{{$item->sisa_bayar}}</td>
-                                                <td> <span
+                                                <td>
+                                                    @if ($item->status_pembayaran == 'Belum Lunas')
+                                                    <span
+                                                        class="badge badge-warning">{{$item->status_pembayaran}}</span>
+                                                    @else
+                                                    <span
                                                         class="badge badge-success text-dark">{{$item->status_pembayaran}}</span>
+                                                    @endif
+
                                                 </td>
 
                                                 <td>
@@ -156,8 +163,15 @@
                                                 <td>{{$item->nama_vendor}}</td>
                                                 <td>{{$item->total_bayar}}</td>
                                                 <td>{{$item->sisa_bayar}}</td>
-                                                <td> <span
+                                                <td>
+                                                    @if ($item->status_pembayaran == 'Belum Lunas')
+                                                    <span
+                                                        class="badge badge-warning">{{$item->status_pembayaran}}</span>
+                                                    @else
+                                                    <span
                                                         class="badge badge-success text-dark">{{$item->status_pembayaran}}</span>
+                                                    @endif
+
                                                 </td>
 
                                                 <td>
