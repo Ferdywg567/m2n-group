@@ -443,12 +443,12 @@
                             $('#dataalert').text('Nominal pembayaran harus sesuai dengan sisa bayar')
                             return false;
                         }else{
-
                             return true;
                         }
                     }else if(nominal2 > 0 && nominal > 0){
                         var total = parseInt(nominal) + parseInt(nominal2)
-                        if(parseInt(total) <= parseInt(hasil) ){
+                        total = total.trim()
+                        if(parseInt(total) <= parseInt(hasil.trim()) ){
                             $('#dataalert').show()
                             $('#dataalert').text('Nominal pembayaran harus kurang dari sama dengan sisa bayar')
                             return false;
@@ -456,19 +456,15 @@
                             return true;
                         }
                     }else if(nominal > 0){
-
-                        if(parseInt(nominal) <= parseInt(hasil) ){
+                        if(parseInt(nominal.trim()) <= parseInt(hasil.trim()) ){
                             $('#dataalert').show()
                             $('#dataalert').text('Nominal pembayaran tidak boleh melebihi sisa bayar')
-
                             return false;
                         }if(parseInt(nominal) <= 0){
                             $('#dataalert').show()
                             $('#dataalert').text('Nominal pembayaran harus lebih dari 0')
-
                             return false;
                         }else{
-
                             return true;
                         }
                     }
