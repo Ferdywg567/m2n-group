@@ -106,18 +106,32 @@
                                                 id="detail_sub_kategori" name="detail_sub_kategori">
                                         </div>
                                     </div>
-
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="asal">Asal</label>
                                             <input type="text" class="form-control" readonly required id="asal_keluar"
                                                 name="asal" value="Cuci">
                                         </div>
-
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="berhasil_cuci">Jumlah Berhasil</label>
+                                            <div class="input-group mb-2">
+                                                <input type="number" class="form-control" required readonly
+                                                    value="{{$rekap->cuci->berhasil_cuci}}" id="berhasil_cuci"
+                                                    name="berhasil_cuci">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">pcs</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="barang_direpair">Jumlah Diperbaiki</label>
                                             <div class="input-group mb-2">
@@ -130,7 +144,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="barang_direpair">Jumlah Dibuang</label>
                                             <div class="input-group mb-2">
@@ -287,7 +301,7 @@
 
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="asal">Asal</label>
                                             <input type="text" class="form-control" readonly required id="asal_keluar"
@@ -295,7 +309,23 @@
                                         </div>
 
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="berhasil_jahit">Jumlah Berhasil</label>
+                                            <div class="input-group mb-2">
+                                                <input type="number" class="form-control" required readonly
+                                                    value="{{$rekap->jahit->berhasil}}" id="berhasil_jahit"
+                                                    name="berhasil_jahit">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">pcs</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="barang_direpair">Jumlah Diperbaiki</label>
                                             <div class="input-group mb-2">
@@ -308,7 +338,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="barang_direpair">Jumlah Dibuang</label>
                                             <div class="input-group mb-2">
