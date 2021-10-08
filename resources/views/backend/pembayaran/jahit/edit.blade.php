@@ -160,8 +160,8 @@
                                 </div>
                                 <hr>
                                 @php
-                                   $cek = false;
-                                   $status = '';
+                                $cek = false;
+                                $status = '';
                                 @endphp
                                 @foreach ($jahit->pembayaran_jahit as $item)
                                 @if ($item->status=='Lunas')
@@ -170,7 +170,7 @@
                                         <div class="form-group">
                                             <label for="tanggal">Tanggal</label>
                                             <input type="date" class="form-control" required readonly id="tanggal"
-                                            value="{{date('Y-m-d',strtotime($item->created_at))}}" name="tanggal">
+                                                value="{{date('Y-m-d',strtotime($item->created_at))}}" name="tanggal">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -190,15 +190,15 @@
                                 </div>
                                 @elseif($item->status == 'Termin 1')
                                 @php
-                                    $status = 'Termin 1';
-                                   $cek = true;
+                                $status = 'Termin 1';
+                                $cek = true;
                                 @endphp
                                 <div class="row" id="">
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="tanggal">Tanggal</label>
                                             <input type="date" class="form-control" required readonly id="tanggal"
-                                            value="{{date('Y-m-d',strtotime($item->created_at))}}" name="tanggal">
+                                                value="{{date('Y-m-d',strtotime($item->created_at))}}" name="tanggal">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -219,15 +219,15 @@
 
                                 @elseif($item->status == 'Termin 2')
                                 @php
-                                     $status = 'Termin 2';
-                                   $cek = true;
+                                $status = 'Termin 2';
+                                $cek = true;
                                 @endphp
                                 <div class="row" id="">
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="tanggal">Tanggal</label>
                                             <input type="date" class="form-control" required readonly id="tanggal"
-                                            value="{{date('Y-m-d',strtotime($item->created_at))}}" name="tanggal">
+                                                value="{{date('Y-m-d',strtotime($item->created_at))}}" name="tanggal">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -329,7 +329,7 @@
                                         <div class="form-group">
                                             <label for="sisa_bayar">Sisa Bayar</label>
                                             <input type="text" class="form-control" readonly required id="sisa_bayar"
-                                            value="{{$jahit->sisa_bayar}}" name="sisa_bayar">
+                                                value="{{$jahit->sisa_bayar}}" name="sisa_bayar">
                                         </div>
                                     </div>
 
@@ -454,7 +454,7 @@
                         }
                     }else if(nominal2 > 0 && nominal > 0){
                         var total = parseInt(nominal) + parseInt(nominal2)
-                        if(parseInt(hasil) <= parseInt(total)){
+                        if(parseInt(total) <= parseInt(hasil) ){
                             $('#dataalert').show()
                             $('#dataalert').text('Nominal pembayaran harus kurang dari sama dengan sisa bayar')
                             return false;
@@ -463,7 +463,7 @@
                         }
                     }else if(nominal > 0){
 
-                        if(parseInt(hasil) <= parseInt(nominal)){
+                        if(parseInt(nominal) <= parseInt(hasil) ){
                             $('#dataalert').show()
                             $('#dataalert').text('Nominal pembayaran tidak boleh melebihi sisa bayar')
 
