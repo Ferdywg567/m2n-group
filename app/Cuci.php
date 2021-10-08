@@ -43,6 +43,6 @@ class Cuci extends Model
     }
     public function pembayaran_cuci()
     {
-        return $this->hasOne('App\PembayaranCuci');
+        return $this->hasMany('App\PembayaranCuci');
     }
 }
