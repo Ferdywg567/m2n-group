@@ -51,7 +51,7 @@ class JahitController extends Controller
             return view("backend.jahit.selesai.create", ['keluar' => $keluar]);
         } else {
             $keluar = Jahit::where('status', 'jahitan selesai')->where(function($q){
-                $q->orWhere('status_pembayaran','Lunas')->orWhere('vendor','internal');
+                $q->where('status_pembayaran','Lunas')->orWhere('vendor','internal');
             })->orderBy('created_at', 'DESC')->get();
             return view("backend.jahit.keluar.create", ['keluar' => $keluar]);
         }
