@@ -132,7 +132,7 @@
 
                                                             <a class="dropdown-item hapus" data-id="{{$item->id}}"
                                                                 href="#"><i class="ri-delete-bin-fill"></i>
-                                                                Delete</a>
+                                                                Hapus</a>
 
                                                         </div>
                                                     </div>
@@ -206,7 +206,7 @@
 
                                                             <a class="dropdown-item hapus" data-id="{{$item->id}}"
                                                                 href="#"><i class="ri-delete-bin-fill"></i>
-                                                                Delete</a>
+                                                                Hapus</a>
 
                                                         </div>
                                                     </div>
@@ -275,7 +275,7 @@
 
                                                             <a class="dropdown-item hapus" data-id="{{$item->id}}"
                                                                 href="#"><i class="ri-delete-bin-fill"></i>
-                                                                Delete</a>
+                                                                Hapus</a>
 
                                                         </div>
                                                     </div>
