@@ -218,9 +218,10 @@ class FinishingController extends Controller
                     }
 
                     $notif = new Notification();
-                    $notif->description = "sortir telah dikirim ke warehouse, silahkan di cek";
+                    $notif->description = "sortir telah dikirim ke gudang, silahkan di cek";
                     $notif->url = route('warehouse.warehouse.index');
                     $notif->aktif = 0;
+                    $notif->role = 'warehouse';
                     $notif->save();
 
                     session(['notification' => 1]);

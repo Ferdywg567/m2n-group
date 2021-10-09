@@ -116,7 +116,7 @@
                                                 <input type="number" class="form-control" required id="harga_produk"
                                                     name="harga_produk">
                                                 <div class="input-group-prepend">
-                                                    <div class="input-group-text">/pcs</div>
+                                                    <div class="input-group-text">/seri</div>
                                                 </div>
                                             </div>
                                         </div>

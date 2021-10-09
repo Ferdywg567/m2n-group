@@ -101,9 +101,10 @@ class BahanController extends Controller
                 $bahan->kode_bahan = $cekbahan->kode_bahan;
                 $bahan->tanggal_masuk = $cekbahan->tanggal_masuk;
                 $notif = new Notification();
-                $notif->description = "bahan keluar telah dikirim ke potong, silahkan di cekbahan";
+                $notif->description = "bahan keluar telah dikirim ke potong, silahkan di cek bahan";
                 $notif->url = route('potong.index');
                 $notif->aktif = 0;
+                $notif->role = 'production';
                 $notif->save();
 
                 session(['notification' => 1]);

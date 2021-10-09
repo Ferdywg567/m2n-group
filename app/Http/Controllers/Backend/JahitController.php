@@ -263,6 +263,7 @@ class JahitController extends Controller
                     $notif->description = "jahit keluar telah dikirim ke cuci, silahkan di cek";
                     $notif->url = route('cuci.index');
                     $notif->aktif = 0;
+                    $notif->role = 'production';
                     $notif->save();
 
                     session(['notification' => 1]);

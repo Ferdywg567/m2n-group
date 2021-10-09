@@ -1,9 +1,28 @@
 <style>
-    .dropdown-item-unread{
+    .dropdown-item-unread {
         background-color: #eeeeee !important
     }
-</style>
 
+    .notification .badge {
+        position: absolute;
+        top: -10px;
+        right: 8px;
+        padding: 5px 8px;
+        border-radius: 50%;
+        background-color: red;
+        font-size: 10px;
+        color: white;
+    }
+</style>
+@php
+if(auth()->user()->hasRole('production')){
+$jumlah = \App\Notification::where('role','production')->where('read',0)->count();
+$notif = \App\Notification::where('role','production')->orderBy('created_at','DESC')->get();
+}else{
+$jumlah = \App\Notification::where('role','warehouse')->where('read',0)->count();
+$notif = \App\Notification::where('role','warehouse')->orderBy('created_at','DESC')->get();
+}
+@endphp
 <form class="form-inline mr-auto" action="">
     <ul class="navbar-nav mr-3">
         <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg text-dark"><i class="fas fa-bars"></i></a>
@@ -36,24 +55,19 @@
 </form>
 <ul class="navbar-nav navbar-right mr-3">
     <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown"
-            class="nav-link notification-toggle  nav-link-lg @if(session()->has('notification')) beep @endif"
-            aria-expanded="true" id="btnnotif"><img src="{{asset('assets/icon/notification-fill.png')}}" alt="" srcset=""></a>
+            class="nav-link notification notification-toggle mr-2  nav-link-lg @if(session()->has('notification'))  @endif"
+            aria-expanded="true" id="btnnotif"><img src="{{asset('assets/icon/notification-fill.png')}}" alt=""
+                srcset=""><span class="badge">{{$jumlah}}</span></a>
         <div class="dropdown-menu dropdown-list dropdown-menu-right ">
             <div class="dropdown-header">Notifikasi
 
             </div>
             <div class="dropdown-list-content dropdown-list-icons" tabindex="3"
                 style="overflow: hidden; outline: none; touch-action: none;">
-                @php
-                    if(auth()->user()->hasRole('production')){
-                        $notif = \App\Notification::where('url','LIKE','%production%')->orderBy('created_at','DESC')->get();
-                    }else{
-                        $notif = \App\Notification::where('url','LIKE','%warehouse%')->orderBy('created_at','DESC')->get();
-                    }
 
-                @endphp
                 @forelse ($notif as $item)
-                <a href="{{$item->url}}" data-id="{{$item->id}}" class="dropdown-item notif-item @if($item->read == 1) dropdown-item-unread @endif">
+                <a href="{{$item->url}}" data-id="{{$item->id}}"
+                    class="dropdown-item notif-item @if($item->read == 1) dropdown-item-unread @endif">
                     <div class="dropdown-item-icon bg-success text-white">
                         <i class="fas fa-check"></i>
                     </div>
@@ -63,13 +77,8 @@
                     </div>
                 </a>
                 @empty
-
                 @endforelse
-
-
             </div>
-
-
         </div>
     </li>
     <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">

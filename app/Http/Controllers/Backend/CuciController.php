@@ -103,7 +103,7 @@ class CuciController extends Controller
                 }
                 $cuci->no_surat = $request->get('no_surat');
                 $cuci->vendor = 'eksternal';
-               
+
                 if ($request->get('status') == 'cucian masuk') {
                     $cuci->tanggal_cuci = date('Y-m-d', strtotime($request->get('tanggal_cuci')));
                     $cuci->tanggal_selesai = date('Y-m-d', strtotime($request->get('estimasi_selesai_cuci')));
@@ -219,8 +219,16 @@ class CuciController extends Controller
                     $cuci->save();
                     $notif = new Notification();
                     $notif->description = "cuci keluar telah dikirim ke gudang, silahkan di cek";
-                    $notif->url = '#';
+                    $notif->url = route('cuci.index');
                     $notif->aktif = 0;
+                    $notif->role = 'production';
+                    $notif->save();
+
+                    $notif = new Notification();
+                    $notif->description = "cuci keluar telah dikirim ke gudang, silahkan di cek";
+                    $notif->url = route('warehouse.finishing.index');
+                    $notif->aktif = 0;
+                    $notif->role = 'warehouse';
                     $notif->save();
 
                     session(['notification' => 1]);

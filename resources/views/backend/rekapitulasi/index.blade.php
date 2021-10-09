@@ -42,7 +42,7 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">No</th>
-                                        <th scope="col">Kode Bahan</th>
+                                        <th scope="col">Kode Transaksi</th>
                                         <th scope="col">SKU</th>
                                         <th scope="col">Nama Produk</th>
                                         <th scope="col">Warna</th>

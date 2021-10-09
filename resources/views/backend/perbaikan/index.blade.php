@@ -36,6 +36,7 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">No</th>
+                                        <th scope="col">Kode Transaksi</th>
                                         <th scope="col">Kode Bahan</th>
                                         <th scope="col">SKU</th>
                                         <th scope="col">Tgl Masuk</th>
@@ -50,6 +51,7 @@
                                     @forelse ($repair as $item)
                                     <tr>
                                         <td>{{$loop->iteration}}</td>
+                                        <td>{{$item->bahan->kode_transaksi}}</td>
                                         <td>{{$item->bahan->kode_bahan}}</td>
                                         <td>{{$item->bahan->sku}}</td>
                                         <td>{{$item->tanggal_masuk}}</td>
