@@ -87,7 +87,7 @@
                                                         Detail</a>
                                                     <a class="dropdown-item btnprint" href="#"
                                                         data-id="{{$item->id}}"><i class="ri-printer-fill"></i>
-                                                        Print</a>
+                                                        Cetak</a>
                                                 </div>
                                             </div>
                                         </td>

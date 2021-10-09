@@ -123,7 +123,7 @@
 
                                                             <a class="dropdown-item btnprint" href="#"
                                                                 data-id="{{$item->id}}"><i class="ri-printer-fill"></i>
-                                                                Print</a>
+                                                                Cetak</a>
 
                                                             <a class="dropdown-item"
                                                                 href="{{route('potong.edit',[$item->id])}}"><i
@@ -197,7 +197,7 @@
 
                                                             <a class="dropdown-item btnprint" href="#"
                                                                 data-id="{{$item->id}}"><i class="ri-printer-fill"></i>
-                                                                Print</a>
+                                                                Cetak</a>
 
                                                             <a class="dropdown-item"
                                                                 href="{{route('potong.edit',[$item->id])}}"><i
@@ -271,7 +271,7 @@
 
                                                             <a class="dropdown-item btnprint" href="#"
                                                                 data-id="{{$item->id}}"><i class="ri-printer-fill"></i>
-                                                                Print</a>
+                                                                Cetak</a>
 
                                                             <a class="dropdown-item hapus" data-id="{{$item->id}}"
                                                                 href="#"><i class="ri-delete-bin-fill"></i>

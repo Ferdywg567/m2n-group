@@ -70,7 +70,7 @@
                                                     Detail</a>
                                                 <a class="dropdown-item btnprint" href="#"
                                                     data-id="{{$item->id}}"><i class="fas fa-print"></i>
-                                                    Print</a>
+                                                    Cetak</a>
                                             </div>
                                         </div>
                                     </td>
