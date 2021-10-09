@@ -32,6 +32,7 @@
                                 </div>
                                 <input type="hidden" name="status" value="jahit">
                                 <input type="hidden" name="id" id="idmasuk">
+                                <input type="hidden" name="total_bayar" id="total_bayar">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -341,11 +342,12 @@
                $('form[id=formPembayaran]').submit(function(){
                 var data = $('#pembayaran1').val();
                 var hasil = $('#total_harga').val()
+                var total_bayar = $('#total_bayar').val()
                 if(data == 'Lunas'){
                     var nominal = $('#nominal1').val()
                     if(parseInt(hasil) != parseInt(nominal)){
                     $('#dataalert').show()
-                    $('#dataalert').text('Nominal pembayaran harus sesuai dengan total harga')
+                    $('#dataalert').text('Nominal pembayaran harus sesuai dengan sisa bayar')
                      return false;
                     }else{
 
@@ -359,39 +361,35 @@
                         var total = parseInt(nominal) + parseInt(nominal2) + parseInt(nominal3)
                         if(parseInt(hasil) != parseInt(total)){
                             $('#dataalert').show()
-                            $('#dataalert').text('Nominal pembayaran harus sesuai dengan total harga')
-
+                            $('#dataalert').text('Nominal pembayaran harus sesuai dengan total pembayaran')
                             return false;
                         }else{
-
                             return true;
                         }
                     }else if(nominal2 > 0 && nominal > 0){
                         var total = parseInt(nominal) + parseInt(nominal2)
-                        if(parseInt(hasil) <= parseInt(total)){
+                        if(parseInt(total) > parseInt(total_bayar) ){
                             $('#dataalert').show()
-                            $('#dataalert').text('Nominal pembayaran harus sesuai dengan total harga')
-
+                            $('#dataalert').text('Nominal pembayaran harus kurang dari sama dengan total pembayaran')
                             return false;
                         }else{
-
                             return true;
                         }
                     }else if(nominal > 0){
-
-                        if(parseInt(nominal) > parseInt(hasil)){
+                        if(parseInt(nominal) > parseInt(total_bayar) ){
                             $('#dataalert').show()
                             $('#dataalert').text('Nominal pembayaran tidak boleh melebihi total pembayaran')
-
+                            return false;
+                        }if(parseInt(nominal) <= 0){
+                            $('#dataalert').show()
+                            $('#dataalert').text('Nominal pembayaran harus lebih dari 0')
                             return false;
                         }else{
-
                             return true;
                         }
                     }
                 }
             });
-
 
 
               $('#hasil_cutting').on('keyup', function(){
@@ -459,6 +457,7 @@
                                 var total_harga = data.harga_vendor * data.jumlah_bahan;
                                 $('#total_harga').val(total_harga)
                                 $('#sisa_bayar').val(total_harga)
+                                $('#total_bayar').val(total_harga)
                                 $('#nama_produk').val(bahan.nama_bahan)
                                 $('#nama_vendor').val(data.nama_vendor)
                                 $('#harga_vendor').val(data.harga_vendor)

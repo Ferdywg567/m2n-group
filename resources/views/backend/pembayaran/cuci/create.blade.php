@@ -30,6 +30,7 @@
                                 <div class="alert alert-danger" role="alert" id="dataalert">
 
                                 </div>
+                                <input type="hidden" name="total_bayar" id="total_bayar" >
                                 <input type="hidden" name="status" value="cuci">
                                 <input type="hidden" name="id" id="idmasuk">
                                 <div class="row">
@@ -334,14 +335,15 @@
                     console.log(sisa_bayar);
                     $('#sisa_bayar').val(sisa_bayar)
                })
-              $('form[id=formPembayaran]').submit(function(){
+               $('form[id=formPembayaran]').submit(function(){
                 var data = $('#pembayaran1').val();
                 var hasil = $('#total_harga').val()
+                var total_bayar = $('#total_bayar').val()
                 if(data == 'Lunas'){
                     var nominal = $('#nominal1').val()
                     if(parseInt(hasil) != parseInt(nominal)){
                     $('#dataalert').show()
-                    $('#dataalert').text('Nominal pembayaran harus sesuai dengan total harga')
+                    $('#dataalert').text('Nominal pembayaran harus sesuai dengan sisa bayar')
                      return false;
                     }else{
 
@@ -355,33 +357,30 @@
                         var total = parseInt(nominal) + parseInt(nominal2) + parseInt(nominal3)
                         if(parseInt(hasil) != parseInt(total)){
                             $('#dataalert').show()
-                            $('#dataalert').text('Nominal pembayaran harus sesuai dengan total harga')
-
+                            $('#dataalert').text('Nominal pembayaran harus sesuai dengan total pembayaran')
                             return false;
                         }else{
-
                             return true;
                         }
                     }else if(nominal2 > 0 && nominal > 0){
                         var total = parseInt(nominal) + parseInt(nominal2)
-                        if(parseInt(hasil) <= parseInt(total)){
+                        if(parseInt(total) > parseInt(total_bayar) ){
                             $('#dataalert').show()
-                            $('#dataalert').text('Nominal pembayaran harus sesuai dengan total harga')
-
+                            $('#dataalert').text('Nominal pembayaran harus kurang dari sama dengan total pembayaran')
                             return false;
                         }else{
-
                             return true;
                         }
                     }else if(nominal > 0){
-
-                        if(parseInt(nominal) > parseInt(hasil)){
+                        if(parseInt(nominal) > parseInt(total_bayar) ){
                             $('#dataalert').show()
                             $('#dataalert').text('Nominal pembayaran tidak boleh melebihi total pembayaran')
-
+                            return false;
+                        }if(parseInt(nominal) <= 0){
+                            $('#dataalert').show()
+                            $('#dataalert').text('Nominal pembayaran harus lebih dari 0')
                             return false;
                         }else{
-
                             return true;
                         }
                     }
@@ -458,6 +457,7 @@
                                 $('#nama_vendor').val(data.nama_vendor)
                                 $('#harga_vendor').val(data.harga_vendor)
                                 $('#sisa_bayar').val(data.sisa_bayar)
+                                $('#total_bayar').val(data.sisa_bayar)
                                 $('#no_surat').val(data.no_surat)
                                 $('#sku').val(bahan.sku)
                                 $('#kategori').val(kategori)

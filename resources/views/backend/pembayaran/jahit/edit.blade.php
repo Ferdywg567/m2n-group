@@ -33,6 +33,7 @@
                                 </div>
                                 <input type="hidden" name="status" value="jahit">
                                 <input type="hidden" name="id" id="idmasuk">
+                                <input type="hidden" name="total_bayar" id="total_bayar" value="{{$jahit->sisa_bayar}}">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -462,7 +463,7 @@
                             return true;
                         }
                     }else if(nominal > 0){
-                        if(parseInt(nominal) > parseInt(hasil) ){
+                        if(parseInt(nominal) > parseInt(total_bayar) ){
                             $('#dataalert').show()
                             $('#dataalert').text('Nominal pembayaran tidak boleh melebihi total pembayaran')
                             return false;

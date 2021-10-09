@@ -456,7 +456,7 @@
                             return true;
                         }
                     }else if(nominal > 0){
-                        if(parseInt(nominal) > parseInt(hasil) ){
+                        if(parseInt(nominal) > parseInt(total_bayar) ){
                             $('#dataalert').show()
                             $('#dataalert').text('Nominal pembayaran tidak boleh melebihi total pembayaran')
                             return false;
