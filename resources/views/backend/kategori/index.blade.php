@@ -316,8 +316,8 @@
                   var status = $(this).data('status')
                   console.log(status);
                     swal({
-                    title: "Are you sure?",
-                    text: "Once deleted, you will not be able to recover this imaginary file!",
+                    title: "Apa kamu yakin?",
+                    text: "Ketika dihapus, data tidak bisa dikembalikan!",
                     icon: "warning",
                     buttons: true,
                     dangerMode: true,
@@ -331,13 +331,14 @@
                             data:{'status':status},
                             success:function(data){
                                 if(data.status){
-                                    swal("Success! Your imaginary file has been deleted!", {
+                                    swal("Success! data berhasil dihapus!", {
                                     icon: "success",
                                     });
-                                    console.log(data);
+
                                     setTimeout(function () {  location.reload(true) },1500)
                                 }else{
-                                    swal("Sorry, cant delete this file!");
+                                    swal("Maaf, data tidak bisa dihapus!");
+
                                 }
                             }
                        })

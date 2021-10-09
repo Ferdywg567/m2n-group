@@ -363,10 +363,10 @@
                             success:function(data){
 
                                 if(data.status){
-                                    swal("Sorry, cant delete this file!");
+                                    swal("Maaf, data tidak bisa dihapus!");
 
                                 }else{
-                                    swal("Success! Your imaginary file has been deleted!", {
+                                    swal("Success! data berhasil dihapus!", {
                                     icon: "success",
                                     });
 

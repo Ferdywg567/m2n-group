@@ -429,8 +429,8 @@
               $(document).on('click','.hapus', function () {
                   var id = $(this).data('id')
                     swal({
-                    title: "Are you sure?",
-                    text: "Once deleted, you will not be able to recover this imaginary file!",
+                    title: "Apa kamu yakin?",
+                    text: "Ketika dihapus, data tidak bisa dikembalikan!",
                     icon: "warning",
                     buttons: true,
                     dangerMode: true,
@@ -444,10 +444,10 @@
                             success:function(data){
 
                                 if(data.status){
-                                    swal("Sorry, cant delete this file!");
+                                    swal("Maaf, data tidak bisa dihapus!");
 
                                 }else{
-                                    swal("Success! Your imaginary file has been deleted!", {
+                                    swal("Success! data berhasil dihapus!", {
                                     icon: "success",
                                     });
 
