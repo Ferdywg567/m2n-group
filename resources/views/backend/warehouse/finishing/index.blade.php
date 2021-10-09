@@ -39,7 +39,7 @@
             </form>
 
         </div>
-        <a href="{{route('warehouse.print.index')}}" class="btn btn-outline-primary rounded ml-1">Print Semua <i
+        <a href="{{route('warehouse.print.index')}}" class="btn btn-outline-primary rounded ml-1">Cetak Semua <i
                 class="ri-printer-fill"></i>
         </a>
     </div>
@@ -123,14 +123,14 @@
                                                             Detail</a>
                                                         <a class="dropdown-item btnprint" href="#"
                                                             data-id="{{$item->id}}"><i class="ri-printer-fill"></i>
-                                                            Print</a>
+                                                            Cetak</a>
                                                         <a class="dropdown-item"
                                                             href="{{route('warehouse.finishing.edit',[$item->id])}}"><i
                                                                 class="ri-edit-fill"></i>
                                                             Edit</a>
                                                         <a class="dropdown-item hapus" data-id="{{$item->id}}"
                                                             href="#"><i class="ri-delete-bin-fill"></i>
-                                                            Delete</a>
+                                                            Hapus</a>
 
                                                     </div>
                                                 </div>
@@ -149,6 +149,7 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">No</th>
+                                            <th scope="col">Kode Transaksi</th>
                                             <th scope="col">Kode Bahan</th>
                                             <th scope="col">SKU</th>
                                             <th scope="col">Jenis Kain</th>
@@ -164,6 +165,7 @@
                                         @forelse ($kirim as $item)
                                         <tr>
                                             <td>{{$loop->iteration}}</td>
+                                            <td>{{$item->cuci->jahit->potong->bahan->kode_transaksi}}</td>
                                             <td>{{$item->cuci->jahit->potong->bahan->kode_bahan}}</td>
                                             <td>{{$item->cuci->jahit->potong->bahan->sku}}</td>
                                             <td>{{$item->cuci->jahit->potong->bahan->jenis_bahan}}
@@ -202,14 +204,14 @@
                                                             Detail</a>
                                                         <a class="dropdown-item btnprint" href="#"
                                                             data-id="{{$item->id}}"><i class="ri-printer-fill"></i>
-                                                            Print</a>
+                                                            Cetak</a>
                                                         <a class="dropdown-item"
                                                             href="{{route('warehouse.finishing.edit',[$item->id])}}"><i
                                                                 class="ri-edit-fill"></i>
                                                             Edit</a>
                                                         <a class="dropdown-item hapus" data-id="{{$item->id}}"
                                                             href="#"><i class="ri-delete-bin-fill"></i>
-                                                            Delete</a>
+                                                            Hapus</a>
 
 
                                                     </div>
@@ -257,8 +259,8 @@
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary"><i class="ri-printer-fill"></i> Print</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    <button type="submit" class="btn btn-primary"><i class="ri-printer-fill"></i> Cetak</button>
                 </div>
             </form>
         </div>
@@ -296,8 +298,16 @@
                })
 
 
-              $('#tabelmasuk').DataTable()
-              $('#tabelbahankeluar').DataTable()
+              $('#tabelmasuk').DataTable({
+                    language: {
+                        url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'
+                },
+              })
+              $('#tabelbahankeluar').DataTable({
+                    language: {
+                        url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'
+                },
+              })
 
               $(document).on('click','.btnprint' ,function () {
                   var id = $(this).data('id')
@@ -338,8 +348,8 @@
                $(document).on('click','.hapus', function () {
                   var id = $(this).data('id')
                     swal({
-                    title: "Are you sure?",
-                    text: "Once deleted, you will not be able to recover this imaginary file!",
+                    title: "Apa kamu yakin?",
+                    text: "Ketika dihapus, data tidak bisa dikembalikan!",
                     icon: "warning",
                     buttons: true,
                     dangerMode: true,

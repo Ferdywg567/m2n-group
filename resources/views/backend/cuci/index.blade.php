@@ -120,7 +120,7 @@
                                                     == 'Termin 2' || $item->status_pembayaran == 'Termin 3' )
                                                     <a href="{{route('pembayaran.index')}}">
                                                         <span
-                                                            class="badge badge-secondary text-dark">{{$item->status_pembayaran}}</span>
+                                                            class="badge badge-warning text-dark">{{$item->status_pembayaran}}</span>
                                                     </a>
                                                     @endif
                                                     @else
@@ -217,7 +217,7 @@
                                                     == 'Termin 2' || $item->status_pembayaran == 'Termin 3' )
                                                     <a href="{{route('pembayaran.index')}}">
                                                         <span
-                                                            class="badge badge-secondary text-dark">{{$item->status_pembayaran}}</span>
+                                                            class="badge badge-warning text-dark">{{$item->status_pembayaran}}</span>
                                                     </a>
                                                     @endif
                                                     @else
@@ -314,7 +314,7 @@
                                                     == 'Termin 2' || $item->status_pembayaran == 'Termin 3' )
                                                     <a href="{{route('pembayaran.index')}}">
                                                         <span
-                                                            class="badge badge-secondary text-dark">{{$item->status_pembayaran}}</span>
+                                                            class="badge badge-warning text-dark">{{$item->status_pembayaran}}</span>
                                                     </a>
                                                     @endif
                                                     @else
@@ -389,8 +389,8 @@
                         </table>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary"><i class="fas fa-print"></i> Print</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    <button type="submit" class="btn btn-primary"><i class="ri-printer-fill"></i> Cetak</button>
                     </div>
                 </form>
             </div>

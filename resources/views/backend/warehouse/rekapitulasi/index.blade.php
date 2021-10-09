@@ -3,10 +3,14 @@
 @section('title', 'Rekapitulasi')
 @section('title-nav', 'Rekapitulasi')
 @section('rekapitulasi', 'class=active-sidebar')
-
+@section('cssnav', 'cssnav')
 @section('content')
 <style>
-       .dropdown-menu {
+    .cssnav {
+        margin-left: 10px;
+    }
+
+    .dropdown-menu {
         left: 50% !important;
         transform: translateX(-50%) !important;
         top: 100% !important;
@@ -21,9 +25,10 @@
     <section class="section mt-4">
         <div class="btn-group">
             {{-- <a href="{{route('warehouse.rekapitulasi.create')}}" class="btn btn-primary rounded">
-                Input Data <i class="fas fa-plus"></i>
+            Input Data <i class="fas fa-plus"></i>
             </a> --}}
-            <a href="{{route('warehouse.print.index')}}" class="btn btn-outline-primary rounded ml-1">Print Semua  <i class="ri-printer-fill"></i>
+            <a href="{{route('warehouse.print.index')}}" class="btn btn-outline-primary rounded ml-1">Cetak Semua <i
+                    class="ri-printer-fill"></i>
             </a>
         </div>
         <div class="section-body mt-4">
@@ -74,7 +79,8 @@
                                                     aria-haspopup="true" aria-expanded="false">
                                                     <i class="fa fa-ellipsis-h"></i>
                                                 </a>
-                                                <div class="dropdown-menu text-center" aria-labelledby="dropdownMenuButton">
+                                                <div class="dropdown-menu text-center"
+                                                    aria-labelledby="dropdownMenuButton">
                                                     <a class="dropdown-item"
                                                         href="{{route('warehouse.rekapitulasi.show',[$item->id])}}"><i
                                                             class="ri-eye-fill"></i>
@@ -121,8 +127,8 @@
                         </table>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary"><i class="ri-printer-fill"></i> Print</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary"><i class="ri-printer-fill"></i> Cetak</button>
                     </div>
                 </form>
             </div>
@@ -134,8 +140,16 @@
 @push('scripts')
 <script>
     $(document).ready(function () {
-              $('#tabelbahanmasuk').DataTable()
-              $('#tabelbahankeluar').DataTable()
+              $('#tabelbahanmasuk').DataTable({
+                    language: {
+                        url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'
+                },
+              })
+              $('#tabelbahankeluar').DataTable({
+                    language: {
+                        url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'
+                },
+              })
 
               $(document).on('click','.btnprint' ,function () {
                   var id = $(this).data('id')

@@ -7,7 +7,7 @@
 @section('content')
 <style>
     .cssnav {
-        margin-left: -25px;
+        margin-left: -20px;
     }
 
     .dropdown-menu {
@@ -22,7 +22,7 @@
     }
 </style>
 <section class="section mt-4">
-    <a href="{{route('warehouse.print.index')}}" class="btn btn-outline-primary rounded ml-1">Print Semua <i
+    <a href="{{route('warehouse.print.index')}}" class="btn btn-outline-primary rounded ml-1">Cetak Semua <i
             class="ri-printer-fill"></i>
     </a>
     <div class="section-body mt-4">
@@ -55,7 +55,7 @@
                                     <td>{{$item->finishing->cuci->jahit->potong->bahan->sku}}</td>
                                     <td>{{$item->finishing->cuci->jahit->potong->bahan->tanggal_masuk}}
                                     </td>
-                                 
+
                                     <td>{{$item->finishing->cuci->jahit->potong->bahan->warna}}</td>
 
                                     <td>{{$item->total_barang}} pcs</td>
@@ -72,7 +72,7 @@
                                                     Detail</a>
                                                 <a class="dropdown-item btnprint" href="#" data-id="{{$item->id}}"><i
                                                         class="ri-printer-fill"></i>
-                                                    Print</a>
+                                                    Cetak</a>
                                             </div>
                                         </div>
                                     </td>
@@ -112,8 +112,8 @@
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary"><i class="ri-printer-fill"></i> Print</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    <button type="submit" class="btn btn-primary"><i class="ri-printer-fill"></i> Cetak</button>
                 </div>
             </form>
         </div>
@@ -131,7 +131,11 @@
                 });
               }
 
-              $('#tableretur').DataTable()
+              $('#tableretur').DataTable({
+                    language: {
+                        url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'
+                },
+              })
 
               $(document).on('click','.btnprint' ,function () {
                   var id = $(this).data('id')

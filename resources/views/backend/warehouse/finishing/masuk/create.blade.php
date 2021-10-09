@@ -6,7 +6,7 @@
 @section('cssnav', 'cssnav')
 @section('content')
 <style>
- .cssnav {
+    .cssnav {
         margin-left: -15px;
     }
 
@@ -39,7 +39,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <form action="{{route('warehouse.finishing.store')}}" id="formProduk"  method="post">
+                        <form action="{{route('warehouse.finishing.store')}}" id="formProduk" method="post">
 
                             <div class="card-body">
                                 @include('backend.include.alert')
@@ -58,7 +58,11 @@
                                                     name="kode_transaksi">
                                                     <option value="">Pilih Kode Transaksi</option>
                                                     @forelse ($rekap as $item)
-                                                        <option value="{{$item->id}}">{{$item->jahit->potong->bahan->kode_transaksi}}</option>
+                                                    <option value="{{$item->id}}">
+                                                        {{$item->jahit->potong->bahan->kode_transaksi}} |
+                                                        {{$item->jahit->potong->bahan->nama_bahan}} |
+                                                        {{$item->jahit->potong->bahan->detail_sub->nama_kategori}}
+                                                    </option>
                                                     @empty
 
                                                     @endforelse

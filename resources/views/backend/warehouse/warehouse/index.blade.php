@@ -24,7 +24,7 @@
         <a href="{{route('warehouse.warehouse.create')}}" class="btn btn-primary ">
             Input Data <i class="fas fa-plus"></i>
         </a>
-        <a href="{{route('warehouse.print.index')}}" class="btn btn-outline-primary rounded ml-1">Print Semua  <i class="ri-printer-fill"></i>
+        <a href="{{route('warehouse.print.index')}}" class="btn btn-outline-primary rounded ml-1">Cetak Semua  <i class="ri-printer-fill"></i>
         </a>
     </div>
     <div class="section-body mt-4">
@@ -76,14 +76,14 @@
                                                     Detail</a>
                                                 <a class="dropdown-item btnprint" href="#"
                                                     data-id="{{$item->id}}"><i class="ri-printer-fill"></i>
-                                                    Print</a>
+                                                    Cetak</a>
                                                 <a class="dropdown-item"
                                                     href="{{route('warehouse.warehouse.edit',[$item->id])}}"><i
                                                         class="ri-edit-fill"></i>
                                                     Edit</a>
                                                 <a class="dropdown-item hapus" data-id="{{$item->id}}" href="#"><i
                                                         class="ri-delete-bin-fill"></i>
-                                                    Delete</a>
+                                                    Hapus</a>
                                             </div>
                                         </div>
                                     </td>
@@ -124,8 +124,8 @@
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary"><i class="ri-printer-fill"></i> Print</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    <button type="submit" class="btn btn-primary"><i class="ri-printer-fill"></i> Cetak</button>
                 </div>
             </form>
         </div>
@@ -143,7 +143,11 @@
                     }
                 });
               }
-              $('#tabelmasuk').DataTable()
+              $('#tabelmasuk').DataTable({
+                    language: {
+                        url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'
+                },
+              })
               $('#tabelbahankeluar').DataTable()
 
               $(document).on('click','.btnprint' ,function () {
@@ -185,8 +189,8 @@
                $(document).on('click','.hapus', function () {
                   var id = $(this).data('id')
                     swal({
-                    title: "Are you sure?",
-                    text: "Once deleted, you will not be able to recover this imaginary file!",
+                    title: "Apa kamu yakin?",
+                    text: "Ketika dihapus, data tidak bisa dikembalikan!",
                     icon: "warning",
                     buttons: true,
                     dangerMode: true,
