@@ -27,7 +27,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <form action="{{route('jahit.store')}}"  method="post" id="formJahit">
+                        <form action="{{route('jahit.store')}}" method="post" id="formJahit">
 
                             <div class="card-body">
                                 @include('backend.include.alert')
@@ -47,7 +47,9 @@
                                                     <option value="">Pilih Kode Transaksi</option>
                                                     @forelse ($keluar as $item)
                                                     <option value="{{$item->id}}">
-                                                        {{$item->potong->bahan->kode_transaksi}}
+                                                        {{$item->potong->bahan->kode_transaksi}} |
+                                                        {{$item->potong->bahan->nama_bahan}} |
+                                                        {{$item->potong->bahan->detail_sub->nama_kategori}}
                                                     </option>
                                                     @empty
 
@@ -65,8 +67,8 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="no_surat_keluar">Nomor Surat Jalan</label>
-                                            <input type="text" class="form-control" readonly required id="no_surat_keluar"
-                                                name="no_surat">
+                                            <input type="text" class="form-control" readonly required
+                                                id="no_surat_keluar" name="no_surat">
                                         </div>
                                     </div>
                                 </div>
@@ -118,7 +120,7 @@
                                         <div class="form-group">
                                             <label for="vendor_jahit">Vendor Jahit</label>
                                             <input type="text" class="form-control" required readonly id="vendor_jahit"
-                                            name="vendor_jahit">
+                                                name="vendor_jahit">
 
                                         </div>
                                     </div>
@@ -128,7 +130,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="nama_vendor">Nama Vendor</label>
-                                            <input type="text" class="form-control"  id="nama_vendor" readonly
+                                            <input type="text" class="form-control" id="nama_vendor" readonly
                                                 name="nama_vendor">
                                         </div>
                                     </div>
@@ -137,8 +139,8 @@
                                             <label for="harga_vendor">Harga Vendor</label>
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <input type="text" class="form-control" readonly
-                                                        id="harga_vendor" name="harga_vendor">
+                                                    <input type="text" class="form-control" readonly id="harga_vendor"
+                                                        name="harga_vendor">
                                                 </div>
                                                 <div class="col-md-6">
                                                     <input type="text" value="/ lusin" readonly class="form-control"
@@ -165,8 +167,8 @@
                                         <div class="form-group">
                                             <label for="berhasil_jahit">Jumlah Berhasil Jahit</label>
                                             <div class="input-group mb-2">
-                                                <input type="number" class="form-control" required
-                                                    id="berhasil_jahit" name="berhasil_jahit">
+                                                <input type="number" class="form-control" required id="berhasil_jahit"
+                                                    name="berhasil_jahit">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">pcs</div>
                                                 </div>
@@ -191,8 +193,8 @@
                                         <div class="form-group">
                                             <label for="barang_direpair">Jumlah Perbaikan</label>
                                             <div class="input-group mb-2">
-                                                <input type="number" class="form-control" required
-                                                    id="barang_direpair" name="barang_direpair">
+                                                <input type="number" class="form-control" required id="barang_direpair"
+                                                    name="barang_direpair">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">pcs</div>
                                                 </div>
@@ -204,13 +206,13 @@
 
                                 </div>
                                 <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="keterangan_direpair">Keterangan Direpair</label>
-                                                <textarea class="form-control" id="keterangan_direpair"
-                                                    name="keterangan_direpair" rows="3"></textarea>
-                                            </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="keterangan_direpair">Keterangan Direpair</label>
+                                            <textarea class="form-control" id="keterangan_direpair"
+                                                name="keterangan_direpair" rows="3"></textarea>
                                         </div>
+                                    </div>
 
                                 </div>
                                 <div class="row">
@@ -234,7 +236,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="keterangan_dibuang">Keterangan  Dibuang</label>
+                                            <label for="keterangan_dibuang">Keterangan Dibuang</label>
                                             <textarea class="form-control" id="keterangan_dibuang"
                                                 name="keterangan_dibuang" rows="6"></textarea>
                                         </div>
@@ -361,7 +363,7 @@
                         $('#barang_dibuang').val(0)
                     }
                    }
-               
+
                })
 
               $('#berhasil_jahit').on('keyup', function(){

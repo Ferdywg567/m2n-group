@@ -127,7 +127,7 @@
                 })
             })
 
-            $('.dropdown-item-unread').on('click', function () {
+            $('.notif-item').on('click', function () {
                 var id = $(this).data('id')
                 $.ajax({
                     url:"{{route('notification.readklik')}}",

@@ -3,13 +3,8 @@
 @section('title', 'Kategori')
 @section('title-nav', 'Kategori')
 @section('kategori', 'class=active-sidebar')
-@section('cssnav', 'cssnav')
 @section('content')
 <style>
-    .cssnav {
-        margin-left: -20px;
-    }
-
     .dropdown-menu {
         left: 50% !important;
         transform: translateX(-50%) !important;

@@ -27,7 +27,7 @@ class PotongController extends Controller
         $bahan = Bahan::doesntHave('potong')->where('status', 'bahan keluar')->get();
         $masuk = Potong::where('status', 'potong masuk')->orderBy('created_at', 'DESC')->get();
         $selesai = Potong::where('status', 'potong selesai')->orderBy('created_at', 'DESC')->get();
-        $keluar = Potong::all()->where('status', 'potong keluar')->where('status_potong', 'selesai');
+        $keluar = Potong::where('status', 'potong keluar')->where('status_potong', 'selesai')->orderBy('created_at','DESC')->get();;
         $datakeluar = Potong::where('status', 'potong keluar')->where('status_potong', 'selesai')->orderBy('created_at', 'DESC')->get();
         return view("backend.potong.index", ['bahan' => $bahan, 'masuk' => $masuk, 'keluar' => $keluar, 'datakeluar' => $datakeluar, 'selesai' => $selesai]);
     }

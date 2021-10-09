@@ -6,7 +6,7 @@
 @section('cssnav', 'cssnav')
 @section('content')
 <style>
-  
+
 
     .dropdown-menu {
         left: 50% !important;
@@ -21,7 +21,7 @@
 </style>
 <div id="non-printable">
     <section class="section mt-4">
-        <a href="{{route('print.index')}}" class="btn btn-outline-primary rounded ml-1">Print Semua <i
+        <a href="{{route('print.index')}}" class="btn btn-outline-primary rounded ml-1">Cetak Semua <i
                 class="ri-printer-fill"></i>
         </a>
         <div class="section-body mt-4">
@@ -30,7 +30,7 @@
                     <div class="card">
 
                         <div class="card-body">
-                            <table class="table table-hover" id="tabelbahanmasuk">
+                            <table class="table table-hover" id="tabelsampah">
                                 <thead>
                                     <tr>
                                         <th scope="col">No</th>
@@ -98,7 +98,11 @@
                 });
               }
 
-              $('#tabelbahanmasuk').DataTable()
+              $('#tabelsampah').DataTable({
+                    language: {
+                        url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'
+                },
+              })
               $('#tabelbahankeluar').DataTable()
 
      })

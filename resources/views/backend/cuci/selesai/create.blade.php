@@ -52,8 +52,10 @@
                                                     name="kode_transaksi">
                                                     <option value="">Pilih Kode Transaksi</option>
                                                     @forelse ($cuci as $item)
-                                                    <option value="{{$item->id}}">{{$item->jahit->potong->bahan->kode_transaksi}}
-
+                                                    <option value="{{$item->id}}">
+                                                        {{$item->jahit->potong->bahan->kode_transaksi}} |
+                                                        {{$item->jahit->potong->bahan->nama_bahan}} |
+                                                        {{$item->jahit->potong->bahan->detail_sub->nama_kategori}}
                                                     </option>
                                                     @empty
 
@@ -324,7 +326,7 @@
                             $('#barang_dibuang').val(0)
                         }
                    }
-                  
+
                })
 
               $('#berhasil_cuci').on('keyup', function(){

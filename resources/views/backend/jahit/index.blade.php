@@ -42,7 +42,7 @@
                     <button class="dropdown-item">Jahitan Keluar</button>
                 </form>
             </div>
-            <a href="{{route('print.index')}}" class="btn btn-outline-primary rounded ml-1">Print Semua <i
+            <a href="{{route('print.index')}}" class="btn btn-outline-primary rounded ml-1">Cetak Semua <i
                     class="ri-printer-fill"></i>
             </a>
         </div>
@@ -319,7 +319,7 @@
                                                     == 'Termin 2' || $item->status_pembayaran == 'Termin 3' )
                                                     <a href="{{route('pembayaran.index')}}">
                                                         <span
-                                                            class="badge badge-secondary text-dark">{{$item->status_pembayaran}}</span>
+                                                            class="badge badge-warning text-dark">{{$item->status_pembayaran}}</span>
                                                     </a>
                                                     @endif
                                                     @else
@@ -368,37 +368,7 @@
         </div>
     </section>
 
-    <!-- Modal -->
-    <div class="modal fade" id="printModal" tabindex="-1" role="dialog" aria-labelledby="printModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title col-md-12" id="exampleModalLabel">
-                        <span class="float left text-primary" id="title_kode"></span>
-                        <span id="test" class=" float-right text-dark"> <img src="{{asset('assets/img/logo.png')}}"
-                                alt="" class="mr-1" srcset="" width="30">GARMENT</span></h5>
-                </div>
-                <form action="{{route('jahit.cetak')}}" target="_blank" method="post">
-                    @csrf
-                    <div class="modal-body" style="margin-top: -30px; height:40rem">
-                        <hr>
-                        <input type="hidden" name="id" id="idjahit">
-                        <span class="badge badge-primary  rounded"><i class="fas fa-user-cog"></i> Tailoring</span>
-                        <table class="table">
-                            <tbody id="dataprint">
 
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary"><i class="fas fa-print"></i> Print</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
 </div>
 
 @endsection
@@ -413,11 +383,31 @@
                 });
               }
 
-              $('#tabelmasuk').DataTable()
-              $('#tabelselesai').DataTable()
-              $('#tabelkeluar').DataTable()
-              $('#tabelbahankeluar').DataTable()
-              $('#tabelbahanselesai').DataTable()
+              $('#tabelmasuk').DataTable({
+                    language: {
+                        url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'
+                },
+              })
+              $('#tabelselesai').DataTable({
+                    language: {
+                        url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'
+                },
+              })
+              $('#tabelkeluar').DataTable({
+                    language: {
+                        url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'
+                },
+              })
+              $('#tabelbahankeluar').DataTable({
+                    language: {
+                        url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'
+                },
+              })
+              $('#tabelbahanselesai').DataTable({
+                    language: {
+                        url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'
+                },
+              })
               $('#nav-masuk-tab').css('background-color','black')
                   $('#nav-masuk-tab').css('color','white')
                   $('#nav-keluar-tab').css('background-color','')

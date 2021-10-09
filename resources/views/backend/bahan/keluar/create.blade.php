@@ -28,7 +28,10 @@
 
                         <div class="card-body">
                             @include('backend.include.alert')
-                            <form id="formBahanMasuk" method="post" action="{{route('bahan.store')}}">
+                            <div class="alert alert-danger" role="alert" id="dataalert">
+
+                            </div>
+                            <form  method="post" action="{{route('bahan.store')}}" id="formBahan">
                                 @csrf
                                 <input type="hidden" name="status" value="bahan keluar">
                                 <input type="hidden" name="id" id="idkeluar">
@@ -232,10 +235,22 @@
               $('#sub_kategori').select2()
               $('#detail_sub_kategori').select2()
               $('#sku').select2()
+              $('#dataalert').hide()
+              $('form[id=formBahan]').submit(function(){
+                var bahan = $('#panjang_bahan').val();
+                var diambil = $('#panjang_bahan_diambil').val()
+                if(parseInt(diambil) > parseInt(bahan)){
+                    $('#dataalert').show()
+                    $('#dataalert').text('Jumlah bahan diambil harus sesuai dengan panjang bahan')
+                    return false;
+                }else{
+                   return true;
+                }
+                //add stuff here
+            });
 
               $('#kode_bahanselect').on('change', function () {
                     var id = $(this).find(':selected').val()
-
                     if(id != ''){
                         $.ajax({
                             url:"{{route('bahan.getdata')}}",
@@ -244,7 +259,6 @@
                                 'id':id
                             }
                         }).done(function (response) {
-
                             if(response.status){
                                 var data = response.data
                                 $('#vendor_keluar').val(data.vendor)
@@ -253,14 +267,11 @@
                                 }else{
                                     $('#panjang_bahan').val(data.panjang_bahan)
                                 }
-
                                 $('#tanggal_masuk').val(data.tanggal_masuk)
                                 $('#nama_bahan').val(data.nama_bahan)
                                 $('#jenis_bahan').val(data.jenis_bahan)
                                 $('#warna').val(data.warna)
-                                $('#panjang_bahan_diambil').prop('max', data.panjang_bahan)
                             }
-
                         })
                     }
             })
@@ -271,6 +282,8 @@
                     var panjang_bahan = $('#panjang_bahan').val()
                     var res = 0
                     if(parseInt(diambil) <= parseInt(panjang_bahan)){
+                        res = panjang_bahan - diambil
+                    }else{
                         res = panjang_bahan - diambil
                     }
                     $('#sisa_bahan').val(res)

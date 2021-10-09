@@ -18,9 +18,9 @@ class KategoriController extends Controller
      */
     public function index()
     {
-        $kategori = Kategori::all();
-        $sub = SubKategori::all();
-        $detail = DetailSubKategori::all();
+        $kategori = Kategori::orderBy('created_at','DESC')->get();
+        $sub = SubKategori::orderBy('created_at','DESC')->get();
+        $detail = DetailSubKategori::orderBy('created_at','DESC')->get();
         return view("backend.kategori.index", ['kategori' => $kategori, 'sub' => $sub, 'detail' => $detail]);
     }
 

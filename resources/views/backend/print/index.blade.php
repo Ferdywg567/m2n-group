@@ -1,7 +1,7 @@
 @extends('backend.master')
 
 @section('title', 'Print')
-@section('title-nav', 'Print')
+@section('title-nav', 'Cetak')
 @section('cssnav', 'cssnav')
 @section('content')
 <style>
@@ -67,12 +67,12 @@
                                             <select class="form-control" multiple id="menu" name="menu[]">
 
                                                 @if (auth('web')->user()->hasRole('production'))
-                                                <option value="CUTTING">CUTTING</option>
-                                                <option value="TAILORING">TAILORING</option>
-                                                <option value="REPAIR">REPAIR</option>
-                                                <option value="WASHING">WASHING</option>
-                                                <option value="TRASH">TRASH</option>
-                                                <option value="RECAPITULATION">RECAPITULATION</option>
+                                                <option value="CUTTING">POTONG</option>
+                                                <option value="TAILORING">JAHIT</option>
+                                                <option value="REPAIR">PERBAIKAN</option>
+                                                <option value="WASHING">CUCI</option>
+                                                <option value="TRASH">SAMPAH</option>
+                                                <option value="RECAPITULATION">REKAPITULASI</option>
                                                 @elseif(auth('web')->user()->hasRole('warehouse'))
                                                 <option value="FINISHING">FINISHING</option>
                                                 <option value="WAREHOUSE">WAREHOUSE</option>
@@ -86,7 +86,7 @@
 
                                     <div class="col-md-2">
                                         <button type="button" class="btn btn-primary btnfilter"
-                                            style="margin-top: 30px">Apply Filter</button>
+                                            style="margin-top: 30px">Terapkan Filter</button>
                                     </div>
                                 </div>
 
@@ -102,10 +102,10 @@
                 <div class="col-md-12 text-right">
 
                     <button type="button" class="btn btn-danger btndownload"><i class="ri-download-2-fill glyph"></i>
-                        Download</button>
+                        Unduh</button>
 
                     <button type="button" class="btn btn-primary btnprint"><i class="ri-printer-fill"></i>
-                        Print</button>
+                        Cetak</button>
 
                 </div>
         </section>

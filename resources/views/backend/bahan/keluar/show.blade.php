@@ -5,11 +5,10 @@
 @section('cssnav', 'cssnav')
 @section('bahan', 'class=active-sidebar')
 
-
 @section('content')
 <style>
-    .cssnav{
-       margin-left:-20px;
+    .cssnav {
+        margin-left: -20px;
     }
 </style>
 
@@ -57,8 +56,8 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="no_surat">Nomor Surat Jalan</label>
-                                            <input type="text" class="form-control" value="{{$bahan->no_surat}}" readonly
-                                                required id="no_surat_keluar" name="no_surat">
+                                            <input type="text" class="form-control" value="{{$bahan->no_surat}}"
+                                                readonly required id="no_surat_keluar" name="no_surat">
                                         </div>
                                     </div>
                                 </div>
@@ -105,8 +104,8 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="tanggal_keluar">Tanggal Bahan Keluar</label>
-                                            <input type="date" class="form-control" value="{{$bahan->tanggal_keluar}}" readonly
-                                                required id="tanggal_keluar" name="tanggal_keluar">
+                                            <input type="date" class="form-control" value="{{$bahan->tanggal_keluar}}"
+                                                readonly required id="tanggal_keluar" name="tanggal_keluar">
                                         </div>
                                     </div>
                                 </div>
@@ -155,22 +154,25 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="kategori">Kategori</label>
-                                            <input type="text" class="form-control" value="{{$bahan->detail_sub->sub_kategori->kategori->nama_kategori}}" required
-                                            readonly id="kategori" name="kategori">
+                                            <input type="text" class="form-control"
+                                                value="{{$bahan->detail_sub->sub_kategori->kategori->nama_kategori}}"
+                                                required readonly id="kategori" name="kategori">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="sub_kategori">Sub Kategori</label>
-                                            <input type="text" class="form-control" value="{{$bahan->detail_sub->sub_kategori->nama_kategori}}" required
-                                            readonly id="sub_kategori" name="sub_kategori">
+                                            <input type="text" class="form-control"
+                                                value="{{$bahan->detail_sub->sub_kategori->nama_kategori}}" required
+                                                readonly id="sub_kategori" name="sub_kategori">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="detail_sub_kategori">Detail Sub Kategori</label>
-                                            <input type="text" class="form-control" value="{{$bahan->detail_sub->nama_kategori}}" required
-                                            readonly id="detail_sub_kategori" name="detail_sub_kategori">
+                                            <input type="text" class="form-control"
+                                                value="{{$bahan->detail_sub->nama_kategori}}" required readonly
+                                                id="detail_sub_kategori" name="detail_sub_kategori">
                                         </div>
                                     </div>
 
@@ -187,8 +189,9 @@
                                 <div class="row">
                                     <div class="col-md-12 text-center">
                                         <a type="button" class="btn btn-secondary"
-                                        href="{{route('bahan.index')}}">Close</a>
-                                        <button type="submit" class="btn btn-primary"><i class="ri-printer-fill"></i> Print</button>
+                                            href="{{route('bahan.index')}}">Tutup</a>
+                                        <button type="submit" class="btn btn-primary"><i class="ri-printer-fill"></i>
+                                            Cetak</button>
                                     </div>
                                 </div>
 

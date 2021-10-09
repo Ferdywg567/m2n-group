@@ -41,7 +41,7 @@
                                                     <option value="">Pilih Kode Transaksi</option>
                                                     @forelse ($keluar as $item)
                                                     <option value="{{$item->id}}">{{$item->bahan->kode_transaksi}} |
-                                                        {{$item->bahan->nama_bahan}}
+                                                        {{$item->bahan->nama_bahan}} | {{$item->bahan->detail_sub->nama_kategori}}
                                                     </option>
                                                     @empty
 
@@ -156,7 +156,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="hasil_cutting">Hasil Cutting</label>
+                                            <label for="hasil_cutting">Hasil Potong</label>
                                             <div class="input-group mb-2">
                                                 <input type="number" class="form-control" required id="hasil_cutting"  readonly
                                                     name="hasil_cutting">

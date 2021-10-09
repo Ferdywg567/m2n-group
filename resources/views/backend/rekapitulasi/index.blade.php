@@ -27,7 +27,7 @@
             {{-- <a href="{{route('rekapitulasi.create')}}" class="btn btn-primary ">
             Input Data <i class="fas fa-plus"></i>
             </a> --}}
-            <a href="{{route('print.index')}}" class="btn btn-outline-primary rounded ml-1">Print Semua <i
+            <a href="{{route('print.index')}}" class="btn btn-outline-primary rounded ml-1">Cetak Semua <i
                     class="ri-printer-fill"></i>
             </a>
         </div>
@@ -38,7 +38,7 @@
 
                         <div class="card-body">
 
-                            <table class="table table-hover" id="tabelbahanmasuk">
+                            <table class="table table-hover" id="tablerekap">
                                 <thead>
                                     <tr>
                                         <th scope="col">No</th>
@@ -122,7 +122,11 @@
               $('#kdbahanselectkeluar').show()
               $('#kdbahankeluar').hide()
               $('.btnkeluar').prop('id','btnsimpankeluar')
-              $('#tabelbahanmasuk').DataTable()
+              $('#tablerekap').DataTable({
+                    language: {
+                        url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'
+                },
+              })
               $('#tabelbahankeluar').DataTable()
               $('#kode_bahanselect').select2()
               $('#kode_bahanselectkeluar').select2()

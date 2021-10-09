@@ -41,7 +41,7 @@
                     <button class="dropdown-item">Bahan Keluar</button>
                 </form>
             </div>
-            <a href="{{route('print.index')}}" class="btn btn-outline-primary rounded ml-1">Print Semua <i
+            <a href="{{route('print.index')}}" class="btn btn-outline-primary rounded ml-1">Cetak Semua <i
                     class="ri-printer-fill"></i>
             </a>
         </div>
@@ -111,7 +111,7 @@
 
                                                             <a class="dropdown-item btnprint" href="#"
                                                                 data-id="{{$item->id}}"><i class="ri-printer-fill"></i>
-                                                                Print</a>
+                                                                Cetak</a>
 
                                                             <a class="dropdown-item"
                                                                 href="{{route('bahan.edit',[$item->id])}}"><i
@@ -135,54 +135,54 @@
 
                                 </div>
                                 <div class="tab-pane fade show" id="nav-stokbahan" role="tabpanel"
-                                aria-labelledby="nav-stokbahan-tab">
-                                <table class="table table-hover" id="tabelstokbahan">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">No</th>
-                                            <th scope="col">Kode Bahan</th>
-                                            <th scope="col">Jenis Kain</th>
-                                            <th scope="col">Nama Bahan</th>
-                                            <th scope="col">Tanggal Masuk</th>
-                                            <th scope="col">Sisa Bahan</th>
-                                            <th scope="col">Surat Jalan</th>
+                                    aria-labelledby="nav-stokbahan-tab">
+                                    <table class="table table-hover" id="tabelstokbahan">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">No</th>
+                                                <th scope="col">Kode Bahan</th>
+                                                <th scope="col">Jenis Kain</th>
+                                                <th scope="col">Nama Bahan</th>
+                                                <th scope="col">Tanggal Masuk</th>
+                                                <th scope="col">Sisa Bahan</th>
+                                                <th scope="col">Surat Jalan</th>
 
-                                            {{-- <th scope="col">Aksi</th> --}}
-                                        </tr>
-                                    </thead>
-                                    <tbody id="">
+                                                {{-- <th scope="col">Aksi</th> --}}
+                                            </tr>
+                                        </thead>
+                                        <tbody id="">
 
-                                        @forelse ($bahan as $item)
-                                        @if ($item->status == 'bahan masuk')
-                                        <tr>
-                                            <td>{{$loop->iteration}}</td>
-                                            <td>{{$item->kode_bahan}}</td>
-                                            <td>{{$item->jenis_bahan}}</td>
-                                            <td>{{$item->nama_bahan}}</td>
-                                            <td>{{$item->tanggal_masuk}}</td>
-                                            <td>{{$item->panjang_bahan}} yard</td>
-                                            <td>{{$item->no_surat}}</td>
-                                        </tr>
-                                        @elseif ($item->status == 'bahan keluar' && $item->sisa_bahan != null)
-                                        <tr>
-                                            <td>{{$loop->iteration}}</td>
-                                            <td>{{$item->kode_bahan}}</td>
-                                            <td>{{$item->jenis_bahan}}</td>
-                                            <td>{{$item->nama_bahan}}</td>
-                                            <td>{{$item->tanggal_masuk}}</td>
-                                            <td>{{$item->sisa_bahan}} yard</td>
-                                            <td>{{$item->no_surat}}</td>
-                                        </tr>
-                                        @endif
+                                            @forelse ($bahan as $item)
+                                            @if ($item->status == 'bahan masuk')
+                                            <tr>
+                                                <td>{{$loop->iteration}}</td>
+                                                <td>{{$item->kode_bahan}}</td>
+                                                <td>{{$item->jenis_bahan}}</td>
+                                                <td>{{$item->nama_bahan}}</td>
+                                                <td>{{$item->tanggal_masuk}}</td>
+                                                <td>{{$item->panjang_bahan}} yard</td>
+                                                <td>{{$item->no_surat}}</td>
+                                            </tr>
+                                            @elseif ($item->status == 'bahan keluar' && $item->sisa_bahan != null)
+                                            <tr>
+                                                <td>{{$loop->iteration}}</td>
+                                                <td>{{$item->kode_bahan}}</td>
+                                                <td>{{$item->jenis_bahan}}</td>
+                                                <td>{{$item->nama_bahan}}</td>
+                                                <td>{{$item->tanggal_masuk}}</td>
+                                                <td>{{$item->sisa_bahan}} yard</td>
+                                                <td>{{$item->no_surat}}</td>
+                                            </tr>
+                                            @endif
 
-                                        @empty
+                                            @empty
 
-                                        @endforelse
+                                            @endforelse
 
-                                    </tbody>
-                                </table>
+                                        </tbody>
+                                    </table>
 
-                            </div>
+                                </div>
                                 <div class="tab-pane fade" id="nav-keluar" role="tabpanel"
                                     aria-labelledby="nav-keluar-tab">
                                     <table class="table table-hover" id="tabelbahankeluar">
@@ -202,7 +202,7 @@
                                         </thead>
                                         <tbody id="">
                                             @php
-                                                $no = 1;
+                                            $no = 1;
                                             @endphp
                                             @forelse ($keluar as $item)
                                             <tr>
@@ -231,7 +231,7 @@
 
                                                             <a class="dropdown-item btnprint" href="#"
                                                                 data-id="{{$item->id}}"><i class="ri-printer-fill"></i>
-                                                                Print</a>
+                                                                Cetak</a>
 
                                                             <a class="dropdown-item"
                                                                 href="{{route('bahan.edit',[$item->id])}}"><i
@@ -347,9 +347,21 @@
                })
 
 
-              $('#tabelbahanmasuk').DataTable()
-              $('#tabelstokbahan').DataTable()
-              $('#tabelbahankeluar').DataTable()
+              $('#tabelbahanmasuk').DataTable({
+                    language: {
+                        url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'
+                },
+              })
+              $('#tabelstokbahan').DataTable({
+                    language: {
+                        url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'
+                },
+              })
+              $('#tabelbahankeluar').DataTable({
+                    language: {
+                        url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'
+                },
+              })
               $('#kode_bahanselect').select2()
               $(document).on('click','.btnprint' ,function () {
                   var id = $(this).data('id')

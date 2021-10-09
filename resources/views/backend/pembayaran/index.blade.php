@@ -91,7 +91,7 @@
                                                 <td>
                                                     @if ($item->status_pembayaran == 'Belum Lunas')
                                                     <span
-                                                        class="badge badge-warning">{{$item->status_pembayaran}}</span>
+                                                        class="badge badge-warning text-dark">{{$item->status_pembayaran}}</span>
                                                     @else
                                                     <span
                                                         class="badge badge-success text-dark">{{$item->status_pembayaran}}</span>
@@ -166,7 +166,7 @@
                                                 <td>
                                                     @if ($item->status_pembayaran == 'Belum Lunas')
                                                     <span
-                                                        class="badge badge-warning">{{$item->status_pembayaran}}</span>
+                                                        class="badge badge-warning text-dark">{{$item->status_pembayaran}}</span>
                                                     @else
                                                     <span
                                                         class="badge badge-success text-dark">{{$item->status_pembayaran}}</span>
@@ -228,8 +228,16 @@
                 });
               }
 
-              $('#tabeljahit').DataTable()
-              $('#tabelcuci').DataTable()
+              $('#tabeljahit').DataTable({
+                    language: {
+                        url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'
+                },
+              })
+              $('#tabelcuci').DataTable({
+                    language: {
+                        url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'
+                },
+              })
               $('#tabelkeluar').DataTable()
               $('#nav-masuk-tab').css('background-color','black')
               $('#nav-masuk-tab').css('color','white')

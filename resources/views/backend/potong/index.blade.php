@@ -39,7 +39,7 @@
                     <button class="dropdown-item">Potongan Keluar</button>
                 </form>
             </div>
-            <a href="{{route('print.index')}}" class="btn btn-outline-primary rounded ml-1">Print Semua <i
+            <a href="{{route('print.index')}}" class="btn btn-outline-primary rounded ml-1">Cetak Semua <i
                     class="ri-printer-fill"></i>
             </a>
         </div>
@@ -341,9 +341,21 @@
                 });
               }
 
-              $('#tabelbahanmasuk').DataTable()
-              $('#tabelseleai').DataTable()
-              $('#tabelkeluar').DataTable()
+              $('#tabelbahanmasuk').DataTable({
+                    language: {
+                        url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'
+                },
+              })
+              $('#tabelseleai').DataTable({
+                    language: {
+                        url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'
+                },
+              })
+              $('#tabelkeluar').DataTable({
+                    language: {
+                        url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'
+                },
+              })
               $('#nav-masuk-tab').css('background-color','black')
               $('#nav-masuk-tab').css('color','white')
               $('#nav-keluar-tab').css('background-color','')

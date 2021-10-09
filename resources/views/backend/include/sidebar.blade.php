@@ -74,14 +74,14 @@
                 <i class="ri-refresh-fill"></i></i> <span>Perbaikan</span>
             </a>
         </li>
-        <li style="position: fixed">
+        {{-- <li style="position: fixed">
             <a class="nav-link" href="#">
                 <footer>
                     <i class="ri-copyright-fill"></i> <span style="font-size: 10px">Copyright ERP 2021 </span>
                 </footer>
             </a>
 
-        </li>
+        </li> --}}
         @endif
 
 
@@ -114,14 +114,14 @@
             </a>
         </li>
 
-        <li style="position: fixed; margin-top:20%">
+        {{-- <li style="position: fixed; margin-top:20%">
             <a class="nav-link" href="#">
                 <footer>
                     <i class="ri-copyright-fill"></i> <span style="font-size: 10px">Copyright ERP 2021 </span>
                 </footer>
             </a>
 
-        </li>
+        </li> --}}
         @endif
 
     </ul>

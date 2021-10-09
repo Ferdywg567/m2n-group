@@ -145,7 +145,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="hasil_cutting">Hasil Cutting</label>
+                                            <label for="hasil_cutting">Hasil Potong</label>
                                             <div class="input-group mb-2">
                                                 <input type="number" class="form-control" required id="hasil_cutting" readonly
                                                     value="{{$potong->hasil_cutting}}" name="hasil_cutting">
@@ -193,10 +193,9 @@
                                 <div class="row mt-2">
                                     <div class="col-md-12 text-center">
                                         <a type="button" class="btn btn-secondary"
-                                        href="{{route('potong.index')}}">Close</a>
+                                        href="{{route('potong.index')}}">Tutup</a>
                                     <button type="submit" class="btn btn-primary"><i class="ri-printer-fill"></i>
-                                        Print</button>
-
+                                        Cetak</button>
                                     </div>
                                 </div>
                             </form>

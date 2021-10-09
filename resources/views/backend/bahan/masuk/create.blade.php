@@ -25,9 +25,11 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-
                         <div class="card-body">
                             @include('backend.include.alert')
+                            <div class="alert alert-danger" role="alert" id="dataalert">
+
+                            </div>
                             <form id="formBahanMasuk" method="post" action="{{route('bahan.store')}}">
                                 @csrf
                                 <input type="hidden" name="status" value="bahan masuk">
@@ -77,7 +79,7 @@
                                             <input type="text" class="form-control" required id="vendor" name="vendor">
                                         </div>
                                     </div>
-                             
+
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
@@ -99,7 +101,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                 
+
                                 </div>
 
                                 <div class="row">
@@ -135,6 +137,7 @@
                 });
               }
               $('#kdbahanreadonly').hide()
+              $('#dataalert').hide()
               $('.btnkeluar').prop('id','btnsimpankeluar')
               $('#tabelbahanmasuk').DataTable()
               $('#tabelbahankeluar').DataTable()

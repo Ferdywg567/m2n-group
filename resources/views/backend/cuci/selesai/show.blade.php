@@ -282,11 +282,10 @@
                                 <div class="row">
                                     <div class="col-md-12 text-center">
                                         <a type="button" class="btn btn-secondary"
-                                            href="{{route('cuci.index')}}">Close</a>
+                                        href="{{route('cuci.index')}}">Tutup</a>
 
-                                            <button type="submit" class="btn btn-primary"><i class="ri-printer-fill"></i>
-                                                Print</button>
-
+                                        <button type="submit" class="btn btn-primary"><i class="ri-printer-fill"></i>
+                                            Cetak</button>
                                     </div>
                                 </div>
                             </div>

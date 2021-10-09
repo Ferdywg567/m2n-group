@@ -43,7 +43,7 @@
                 </form>
             </div>
 
-            <a href="{{route('print.index')}}" class="btn btn-outline-primary rounded ml-1">Print Semua <i
+            <a href="{{route('print.index')}}" class="btn btn-outline-primary rounded ml-1">Cetak Semua <i
                     class="ri-printer-fill"></i>
             </a>
         </div>
@@ -144,7 +144,7 @@
 
                                                             <a class="dropdown-item btnprint" href="#"
                                                                 data-id="{{$item->id}}"><i class="ri-printer-fill"></i>
-                                                                Print</a>
+                                                                Cetak</a>
 
                                                             <a class="dropdown-item"
                                                                 href="{{route('cuci.edit',[$item->id])}}"><i
@@ -241,7 +241,7 @@
 
                                                             <a class="dropdown-item btnprint" href="#"
                                                                 data-id="{{$item->id}}"><i class="ri-printer-fill"></i>
-                                                                Print</a>
+                                                                Cetak</a>
 
                                                             <a class="dropdown-item"
                                                                 href="{{route('cuci.edit',[$item->id])}}"><i
@@ -338,7 +338,7 @@
 
                                                             <a class="dropdown-item btnprint" href="#"
                                                                 data-id="{{$item->id}}"><i class="ri-printer-fill"></i>
-                                                                Print</a>
+                                                                Cetak</a>
 
                                                             <a class="dropdown-item hapus" data-id="{{$item->id}}"
                                                                 href="#"><i class="ri-delete-bin-fill"></i>
@@ -410,10 +410,26 @@
                     }
                 });
               }
-              $('#tabelbahanmasuk').DataTable()
-              $('#tabelselesai').DataTable()
-              $('#tabelmasuk').DataTable()
-              $('#tabelkeluar').DataTable()
+              $('#tabelbahanmasuk').DataTable({
+                    language: {
+                        url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'
+                },
+              })
+              $('#tabelselesai').DataTable({
+                    language: {
+                        url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'
+                },
+              })
+              $('#tabelmasuk').DataTable({
+                    language: {
+                        url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'
+                },
+              })
+              $('#tabelkeluar').DataTable({
+                    language: {
+                        url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'
+                },
+              })
               $('#nav-masuk-tab').css('background-color','black')
                   $('#nav-masuk-tab').css('color','white')
                   $('#nav-keluar-tab').css('background-color','')

@@ -6,8 +6,8 @@
 @section('cssnav', 'cssnav')
 @section('content')
 <style>
-    .cssnav{
-       margin-left:-25px;
+    .cssnav {
+        margin-left: -25px;
     }
 </style>
 <style>
@@ -33,7 +33,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <form action="{{route('cuci.store')}}"  method="post" id="formCuci">
+                        <form action="{{route('cuci.store')}}" method="post" id="formCuci">
 
                             <div class="card-body">
                                 @include('backend.include.alert')
@@ -50,8 +50,10 @@
                                                     name="kode_transaksi">
                                                     <option value="">Pilih Kode Transaksi</option>
                                                     @forelse ($cuci as $item)
-                                                    <option value="{{$item->id}}">{{$item->jahit->potong->bahan->kode_transaksi}}
-
+                                                    <option value="{{$item->id}}">
+                                                        {{$item->jahit->potong->bahan->kode_transaksi}} |
+                                                        {{$item->jahit->potong->bahan->nama_bahan}} |
+                                                        {{$item->jahit->potong->bahan->detail_sub->nama_kategori}}
                                                     </option>
                                                     @empty
 
@@ -65,8 +67,8 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="no_surat_keluar">Nomor Surat Jalan</label>
-                                            <input type="text" class="form-control" readonly required id="no_surat_keluar"
-                                                name="no_surat">
+                                            <input type="text" class="form-control" readonly required
+                                                id="no_surat_keluar" name="no_surat">
                                         </div>
                                     </div>
                                 </div>
@@ -119,7 +121,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="nama_vendor">Nama Vendor</label>
-                                            <input type="text" class="form-control"  id="nama_vendor" readonly
+                                            <input type="text" class="form-control" id="nama_vendor" readonly
                                                 name="nama_vendor">
                                         </div>
                                     </div>
@@ -128,8 +130,8 @@
                                             <label for="harga_vendor">Harga Vendor</label>
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <input type="text" class="form-control" readonly
-                                                        id="harga_vendor" name="harga_vendor">
+                                                    <input type="text" class="form-control" readonly id="harga_vendor"
+                                                        name="harga_vendor">
                                                 </div>
                                                 <div class="col-md-6">
                                                     <input type="text" value="/ lusin" readonly class="form-control"
@@ -195,13 +197,13 @@
 
                                 </div>
                                 <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="keterangan_direpair">Keterangan Diperbaiki</label>
-                                                <textarea class="form-control" id="keterangan_direpair" readonly
-                                                    name="keterangan_direpair" rows="3"></textarea>
-                                            </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="keterangan_direpair">Keterangan Diperbaiki</label>
+                                            <textarea class="form-control" id="keterangan_direpair" readonly
+                                                name="keterangan_direpair" rows="3"></textarea>
                                         </div>
+                                    </div>
 
                                 </div>
                                 <div class="row">
@@ -225,7 +227,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="keterangan_dibuang">Keterangan  Dibuang</label>
+                                            <label for="keterangan_dibuang">Keterangan Dibuang</label>
                                             <textarea class="form-control" id="keterangan_dibuang" readonly
                                                 name="keterangan_dibuang" rows="6"></textarea>
                                         </div>

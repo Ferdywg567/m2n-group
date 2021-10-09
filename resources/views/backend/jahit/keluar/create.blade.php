@@ -47,7 +47,9 @@
                                                     <option value="">Pilih Kode Transaksi</option>
                                                     @forelse ($keluar as $item)
                                                     <option value="{{$item->id}}">
-                                                        {{$item->potong->bahan->kode_transaksi}}
+                                                        {{$item->potong->bahan->kode_transaksi}} |
+                                                        {{$item->potong->bahan->nama_bahan}} |
+                                                        {{$item->potong->bahan->detail_sub->nama_kategori}}
                                                     </option>
                                                     @empty
 
@@ -275,18 +277,6 @@
                 });
               }
               $('#kdbahanreadonly').hide()
-            //   $('#ukuranm').hide()
-            //   $('#ukuranl').hide()
-            //   $('#ukuranxl').hide()
-            //   $('#ukuranxxl').hide()
-            //   $('#ukurandirepairm').hide()
-            //   $('#ukurandirepairl').hide()
-            //   $('#ukurandirepairxl').hide()
-            //   $('#ukurandirepairxxl').hide()
-            //   $('#ukurandibuangm').hide()
-            //   $('#ukurandibuangl').hide()
-            //   $('#ukurandibuangxl').hide()
-            //   $('#ukurandibuangxxl').hide()
               $('#iddatavendor').hide()
               $('#idhargavendor').hide()
               $('#datavendor').hide()

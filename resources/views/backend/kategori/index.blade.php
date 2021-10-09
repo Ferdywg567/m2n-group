@@ -6,7 +6,7 @@
 @section('cssnav', 'cssnav')
 @section('content')
 <style>
-  
+
 
     .dropdown-menu-custom {
         left: 50% !important;
@@ -261,9 +261,21 @@
                 });
               }
 
-              $('#tabelmasuk').DataTable()
-              $('#tabelbahankeluar').DataTable()
-              $('#tabelbahanselesai').DataTable()
+              $('#tabelmasuk').DataTable({
+                    language: {
+                        url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'
+                },
+              })
+              $('#tabelbahankeluar').DataTable({
+                    language: {
+                        url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'
+                },
+              })
+              $('#tabelbahanselesai').DataTable({
+                    language: {
+                        url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'
+                },
+              })
               $('#nav-masuk-tab').css('background-color','black')
                   $('#nav-masuk-tab').css('color','white')
                   $('#nav-keluar-tab').css('background-color','')

@@ -41,7 +41,7 @@
                                                 <option value="{{$item->id}}" @if($item->id ==
                                                     old('kode_transaksi')) selected
                                                     @endif>{{$item->bahan->kode_transaksi}} |
-                                                    {{$item->bahan->nama_bahan}}
+                                                    {{$item->bahan->nama_bahan}} | {{$item->bahan->detail_sub->nama_kategori}}
                                                 </option>
                                                 @empty
 

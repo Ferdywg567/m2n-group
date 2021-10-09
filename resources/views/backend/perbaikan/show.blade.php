@@ -175,9 +175,9 @@
                                 <div class="row">
                                     <div class="col-md-12 text-center">
                                         <a type="button" class="btn btn-secondary"
-                                            href="{{route('perbaikan.index')}}">Close</a>
+                                            href="{{route('perbaikan.index')}}">Tutup</a>
                                         <button type="submit" class="btn btn-primary"><i class="ri-printer-fill"></i>
-                                            Print</button>
+                                            Cetak</button>
                                     </div>
                                 </div>
                             </div>

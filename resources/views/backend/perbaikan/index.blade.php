@@ -15,7 +15,7 @@
         left: 50% !important;
         transform: translateX(-50%) !important;
         top: 100% !important;
-        
+
     }
 
     .left{
@@ -24,7 +24,7 @@
 </style>
 <div id="non-printable">
     <section class="section mt-4">
-        <a href="{{route('print.index')}}" class="btn btn-outline-primary rounded ml-1">Print Semua <i class="ri-printer-fill"></i>
+        <a href="{{route('print.index')}}" class="btn btn-outline-primary rounded ml-1">Cetak Semua <i class="ri-printer-fill"></i>
         </a>
         <div class="section-body mt-4">
             <div class="row">
@@ -32,7 +32,7 @@
                     <div class="card">
 
                         <div class="card-body">
-                            <table class="table table-hover" id="tabelbahanmasuk">
+                            <table class="table table-hover" id="tabelperbaikan">
                                 <thead>
                                     <tr>
                                         <th scope="col">No</th>
@@ -111,7 +111,11 @@
               $('#kdbahanselectkeluar').show()
               $('#kdbahankeluar').hide()
               $('.btnkeluar').prop('id','btnsimpankeluar')
-              $('#tabelbahanmasuk').DataTable()
+              $('#tabelperbaikan').DataTable({
+                    language: {
+                        url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'
+                },
+              })
               $('#tabelbahankeluar').DataTable()
               $('#kode_bahanselect').select2()
               $('#kode_bahanselectkeluar').select2()

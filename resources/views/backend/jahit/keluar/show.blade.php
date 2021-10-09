@@ -6,8 +6,8 @@
 @section('cssnav', 'cssnav')
 @section('content')
 <style>
-    .cssnav{
-       margin-left:-25px;
+    .cssnav {
+        margin-left: -25px;
     }
 </style>
 <style>
@@ -31,7 +31,7 @@
                         <form action="{{route('jahit.cetak')}}" target="_blank" method="post">
                             @csrf
 
-                                <input type="hidden" name="id" id="idjahit" value="{{$jahit->id}}">
+                            <input type="hidden" name="id" id="idjahit" value="{{$jahit->id}}">
                             <div class="card-body">
 
                                 <div class="row">
@@ -161,8 +161,8 @@
                                             <label for="berhasil_jahit">Jumlah Berhasil Jahit</label>
                                             <div class="input-group mb-2">
                                                 <input type="number" class="form-control" required readonly
-                                                    value="{{$jahit->berhasil}}" id="berhasil_jahit" max="{{$jahit->jumlah_bahan}}"
-                                                    name="berhasil_jahit">
+                                                    value="{{$jahit->berhasil}}" id="berhasil_jahit"
+                                                    max="{{$jahit->jumlah_bahan}}" name="berhasil_jahit">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">pcs</div>
                                                 </div>
@@ -202,13 +202,14 @@
 
                                     @forelse ($jahit->jahit_direpair as $item)
                                     <div class="col-md-2">
-                                        <input type="hidden" name="dataukurandirepair[]" value="{{$item->ukuran}}" readonly>
+                                        <input type="hidden" name="dataukurandirepair[]" value="{{$item->ukuran}}"
+                                            readonly>
                                         <div class="input-group mb-2">
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text">{{$item->ukuran}}</div>
                                             </div>
-                                            <input type="number" class="form-control" required id="jumlahdirepair" readonly
-                                                name="jumlahdirepair[]" value="{{$item->jumlah}}">
+                                            <input type="number" class="form-control" required id="jumlahdirepair"
+                                                readonly name="jumlahdirepair[]" value="{{$item->jumlah}}">
                                         </div>
                                     </div>
 
@@ -253,18 +254,20 @@
 
                                     @forelse ($jahit->jahit_dibuang as $item)
                                     <div class="col-md-2">
-                                        <input type="hidden" name="dataukurandibuang[]" value="{{$item->ukuran}}" readonly>
+                                        <input type="hidden" name="dataukurandibuang[]" value="{{$item->ukuran}}"
+                                            readonly>
                                         <div class="input-group mb-2">
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text">{{$item->ukuran}}</div>
                                             </div>
-                                            <input type="number" class="form-control" required id="jumlahdibuang" readonly
-                                                name="jumlahdibuang[]" value="{{$item->jumlah}}">
+                                            <input type="number" class="form-control" required id="jumlahdibuang"
+                                                readonly name="jumlahdibuang[]" value="{{$item->jumlah}}">
                                         </div>
                                     </div>
 
                                     @if ($loop->iteration % 6 ==0)
-                                </div><div class="row">
+                                </div>
+                                <div class="row">
                                     @endif
                                     @empty
 
@@ -285,8 +288,9 @@
                                 <div class="row">
                                     <div class="col-md-12 text-center">
                                         <a type="button" class="btn btn-secondary"
-                                            href="{{route('jahit.index')}}">Close</a>
-                                            <button type="submit" class="btn btn-primary"><i class="ri-printer-fill"></i> Print</button>
+                                            href="{{route('jahit.index')}}">Tutup</a>
+                                        <button type="submit" class="btn btn-primary"><i class="ri-printer-fill"></i>
+                                            Cetak</button>
                                     </div>
                                 </div>
                             </div>

@@ -1,3 +1,3 @@
-<div class="footer-right">
-  Copyright &copy; {{ date('Y') }} <div class="bullet"></div>Laravel
+<div class="footer-left">
+  Copyright &copy; ERP {{ date('Y') }}
 </div>

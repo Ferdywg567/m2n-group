@@ -153,7 +153,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="hasil_cutting">Hasil Cutting</label>
+                                            <label for="hasil_cutting">Hasil Potong</label>
                                             <div class="input-group mb-2">
                                                 <input type="number" class="form-control" required id="hasil_cutting"
                                                     value="{{$potong->hasil_cutting}}" name="hasil_cutting">
@@ -228,7 +228,7 @@
                 $('input[name^="jumlah"]').each(function() {
                     jumlah = jumlah + parseInt($(this).val());
                 });
-                console.log(jumlah);
+
                 if(parseInt(jumlah) != parseInt(hasil)){
                     $('#dataalert').show()
                     $('#dataalert').text('Jumlah ukuran harus sesuai dengan hasil potong')

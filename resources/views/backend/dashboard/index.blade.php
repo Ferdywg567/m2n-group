@@ -20,7 +20,7 @@
 
 
     .size10 {
-        font-size: 9px !important;
+        font-size: 11px !important;
     }
 
     .size12 {
@@ -34,7 +34,7 @@
     }
 
     th {
-        font-size: 8px;
+        font-size: 10px;
         text-align: center;
     }
 
@@ -142,14 +142,14 @@
 
                         <div class="card-wrap">
                             <div class="card-header">
-                                <h4 class="size10">Jenis Bahan</h4>
+                                <h4 class="size10" style="margin-top: -6px !important">Jenis Bahan</h4>
                             </div>
                             <div class="card-body">
                                 <span id="jenis_bahan" class="label-data">
                                     0
                                 </span>
                                 <div style="margin-top: -10px !important">
-                                    <span class="size15">Jenis Bahan</span>
+                                    <span class="size15">Jenis</span>
                                 </div>
                             </div>
                         </div>
@@ -165,7 +165,7 @@
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">
-                                <h4 class="size10">Berhasil Cuci</h4>
+                                <h4 class="size10" style="margin-top: -6px !important">Berhasil Cuci</h4>
                             </div>
                             <div class="card-body">
                                 <h4 id="berhasil_cuci" class="label-data" style="margin-top: 6px !important">
@@ -190,7 +190,7 @@
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">
-                                <h4 class="size10">Hasil Potong</h4>
+                                <h4 class="size10" style="margin-top: -6px !important">Hasil Potong</h4>
                             </div>
                             <div class="card-body">
                                 <h4 id="hasil_potong" class="label-data" style="margin-top: 6px !important">0</h4>
@@ -211,7 +211,7 @@
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">
-                                <h4 class="size10">Siap Quality Control</h4>
+                                <h4 class="size10" style="margin-top: -6px !important">Siap Quality Control</h4>
                             </div>
                             <div class="card-body">
 
@@ -235,7 +235,7 @@
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">
-                                <h4 class="size10">Berhasil Jahit</h4>
+                                <h4 class="size10" style="margin-top: -6px !important">Berhasil Jahit</h4>
                             </div>
                             <div class="card-body">
                                 <h4 id="berhasil_jahit" class="label-data" style="margin-top: 6px !important"> 0</h4>
@@ -256,7 +256,7 @@
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">
-                                <h4 class="size10">Baju Rusak / Buang</h4>
+                                <h4 class="size10" style="margin-top: -6px !important"> Rusak / Buang</h4>
                             </div>
                             <div class="card-body">
                                 <h4 id="baju_rusak" class="label-data" style="margin-top: 6px !important">0</h4>
@@ -713,8 +713,8 @@
                         // $('#berhasil_cuci').html(data.berhasil_cuci+'  <span class="size12">dari '+data.berhasil_jahit+' pcs</span>')
                         $('#berhasil_dari_cuci').text(data.berhasil_jahit+' pcs')
 
-                        $('#siap_qc').html(data.berhasil_cuci+'  <span class="size12">pcs</span>')
-                        $('#hasil_potong').html(data.hasil_cutting+'  <span class="size12">pcs</span>')
+                        $('#siap_qc').html(data.berhasil_cuci)
+                        $('#hasil_potong').html(data.hasil_cutting)
                         $('#berhasil_jahit').text(data.berhasil_jahit)
                         // $('#berhasil_jahit').html(data.berhasil_jahit+'  <span class="size12">dari '+data.hasil_cutting+' pcs</span>')
                         $('#baju_rusak').text(data.baju_rusak)
@@ -751,7 +751,7 @@
     }
 
     th {
-        font-size: 8px;
+        font-size: 10px;
         text-align: center;
     }
 

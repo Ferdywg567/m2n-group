@@ -40,8 +40,9 @@
                                                 @forelse ($jahit as $item)
                                                 <option value="{{$item->id}}" @if($item->id ==
                                                     old('kode_transaksi')) selected
-                                                    @endif>{{$item->potong->bahan->kode_transaksi}} |
-                                                    {{$item->potong->bahan->nama_bahan}}
+                                                    @endif> {{$item->potong->bahan->kode_transaksi}} |
+                                                    {{$item->potong->bahan->nama_bahan}} |
+                                                    {{$item->potong->bahan->detail_sub->nama_kategori}}
                                                 </option>
                                                 @empty
 
@@ -57,8 +58,8 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="no_surat">Nomor Surat Jalan</label>
-                                            <input type="text" class="form-control" value="{{old('no_surat')}}" required id="no_surat" readonly
-                                                name="no_surat">
+                                            <input type="text" class="form-control" value="{{old('no_surat')}}" required
+                                                id="no_surat" readonly name="no_surat">
                                         </div>
                                     </div>
 
@@ -67,8 +68,8 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="sku">Nama Produk</label>
-                                            <input type="text" class="form-control" readonly required id="nama_produk" value="{{old('nama_produk')}}"
-                                                name="nama_produk">
+                                            <input type="text" class="form-control" readonly required id="nama_produk"
+                                                value="{{old('nama_produk')}}" name="nama_produk">
                                         </div>
                                     </div>
 
@@ -76,8 +77,8 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="sku">SKU</label>
-                                            <input type="text" class="form-control" readonly required id="sku" value="{{old('sku')}}"
-                                                name="sku">
+                                            <input type="text" class="form-control" readonly required id="sku"
+                                                value="{{old('sku')}}" name="sku">
                                         </div>
                                     </div>
                                 </div>
@@ -85,22 +86,23 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="kategori">Kategori</label>
-                                            <input type="text" class="form-control" required readonly id="kategori"  value="{{old('kategori')}}"
-                                                name="kategori">
+                                            <input type="text" class="form-control" required readonly id="kategori"
+                                                value="{{old('kategori')}}" name="kategori">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="sub_kategori">Sub Kategori</label>
-                                            <input type="text" class="form-control" required readonly id="sub_kategori" value="{{old('sub_kategori')}}"
-                                                name="sub_kategori">
+                                            <input type="text" class="form-control" required readonly id="sub_kategori"
+                                                value="{{old('sub_kategori')}}" name="sub_kategori">
                                         </div>
                                     </div>
                                     <div class="col-md-5">
                                         <div class="form-group">
                                             <label for="detail_sub_kategori">Detail Sub Kategori</label>
-                                            <input type="text" class="form-control" required readonly value="{{old('detail_sub_kategori')}}"
-                                                id="detail_sub_kategori" name="detail_sub_kategori">
+                                            <input type="text" class="form-control" required readonly
+                                                value="{{old('detail_sub_kategori')}}" id="detail_sub_kategori"
+                                                name="detail_sub_kategori">
                                         </div>
                                     </div>
 
@@ -109,15 +111,15 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="tanggal_cuci">Tanggal Cuci</label>
-                                            <input type="date" class="form-control" required id="tanggal_cuci" value="{{old('tanggal_cuci')}}"
-                                                name="tanggal_cuci">
+                                            <input type="date" class="form-control" required id="tanggal_cuci"
+                                                value="{{old('tanggal_cuci')}}" name="tanggal_cuci">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="estimasi_selesai_cuci">Estimasi Selesai Cuci</label>
-                                            <input type="date" class="form-control" required id="estimasi_selesai_cuci" value="{{old('estimasi_selesai_cuci')}}"
-                                                name="estimasi_selesai_cuci">
+                                            <input type="date" class="form-control" required id="estimasi_selesai_cuci"
+                                                value="{{old('estimasi_selesai_cuci')}}" name="estimasi_selesai_cuci">
                                         </div>
                                     </div>
 
@@ -128,7 +130,8 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="nama_vendor">Nama Vendor</label>
-                                            <input type="text" class="form-control" id="nama_vendor" required name="nama_vendor" value="{{old('nama_vendor')}}">
+                                            <input type="text" class="form-control" id="nama_vendor" required
+                                                name="nama_vendor" value="{{old('nama_vendor')}}">
                                         </div>
                                     </div>
 
@@ -138,8 +141,8 @@
                                             <label for="harga_vendor">Harga Vendor</label>
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <input type="text" class="form-control" required id="harga_vendor" value="{{old('harga_vendor')}}"
-                                                        name="harga_vendor">
+                                                    <input type="text" class="form-control" required id="harga_vendor"
+                                                        value="{{old('harga_vendor')}}" name="harga_vendor">
                                                 </div>
                                                 <div class="col-md-6">
 
@@ -157,7 +160,8 @@
                                         <div class="form-group">
                                             <label for="jumlah_bahan_yang_dicuci">Jumlah Bahan Yang Dicuci</label>
                                             <div class="input-group mb-2">
-                                                <input type="number" class="form-control" required value="{{old('jumlah_bahan_yang_dicuci')}}"
+                                                <input type="number" class="form-control" required
+                                                    value="{{old('jumlah_bahan_yang_dicuci')}}"
                                                     id="jumlah_bahan_yang_dicuci" readonly
                                                     name="jumlah_bahan_yang_dicuci">
                                                 <div class="input-group-prepend">
@@ -169,8 +173,8 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="konversi">Konversi Lusin</label>
-                                            <input type="text" class="form-control" required readonly id="konversi" value="{{old('konversi')}}"
-                                                name="konversi">
+                                            <input type="text" class="form-control" required readonly id="konversi"
+                                                value="{{old('konversi')}}" name="konversi">
                                         </div>
                                     </div>
                                 </div>

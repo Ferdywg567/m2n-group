@@ -1,6 +1,6 @@
 <style>
     .dropdown-item-unread{
-        background-color: #d1d1d1 !important
+        background-color: #eeeeee !important
     }
 </style>
 
@@ -39,7 +39,7 @@
             class="nav-link notification-toggle  nav-link-lg @if(session()->has('notification')) beep @endif"
             aria-expanded="true" id="btnnotif"><img src="{{asset('assets/icon/notification-fill.png')}}" alt="" srcset=""></a>
         <div class="dropdown-menu dropdown-list dropdown-menu-right ">
-            <div class="dropdown-header">Notifications
+            <div class="dropdown-header">Notifikasi
 
             </div>
             <div class="dropdown-list-content dropdown-list-icons" tabindex="3"
@@ -53,7 +53,7 @@
 
                 @endphp
                 @forelse ($notif as $item)
-                <a href="{{$item->url}}" data-id="{{$item->id}}" class="dropdown-item @if($item->read == 0) dropdown-item-unread @endif">
+                <a href="{{$item->url}}" data-id="{{$item->id}}" class="dropdown-item notif-item @if($item->read == 1) dropdown-item-unread @endif">
                     <div class="dropdown-item-icon bg-success text-white">
                         <i class="fas fa-check"></i>
                     </div>
