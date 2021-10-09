@@ -742,7 +742,7 @@
     }
 
     .size10 {
-        font-size: 9px !important;
+        font-size: 11px !important;
     }
 
     .size12 {
@@ -818,7 +818,7 @@
                 </div>
                 <div class="card-wrap">
                     <div class="card-header">
-                        <h4 class="size10">Jumlah Produk Siap Jual</h4>
+                        <h4 class="size10" style="margin-top: -6px !important">Jumlah Produk Siap Jual</h4>
                     </div>
                     <div class="card-body">
 
@@ -840,7 +840,7 @@
                 </div>
                 <div class="card-wrap">
                     <div class="card-header">
-                        <h4 class="size10">Jumlah Baju Diretur</h4>
+                        <h4 class="size10" style="margin-top: -6px !important">Jumlah Baju Diretur</h4>
                     </div>
                     <div class="card-body">
 
@@ -862,7 +862,7 @@
                 </div>
                 <div class="card-wrap">
                     <div class="card-header">
-                        <h4 class="size10">Jumlah Produk Dibuang</h4>
+                        <h4 class="size10" style="margin-top: -6px !important">Jumlah Produk Dibuang</h4>
                     </div>
                     <div class="card-body">
 
@@ -884,7 +884,7 @@
                 </div>
                 <div class="card-wrap">
                     <div class="card-header">
-                        <h4 class="size10">Rata-rata Harga Produk /pcs</h4>
+                        <h4 class="size10" style="margin-top: -6px !important">Rata-rata Harga Produk /pcs</h4>
                     </div>
                     <div class="card-body">
 
@@ -901,7 +901,7 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="text-dark">Daftar Finishing</h4>
+                    <h4 class="text-dark">Daftar Sortir</h4>
                     <div class="card-header-action">
                         <a href="{{route('warehouse.finishing.index')}}">Lihat Semua <i
                                 class="fas fa-chevron-right"></i></a>
@@ -928,7 +928,7 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="text-dark">Daftar Warehouse</h4>
+                    <h4 class="text-dark">Daftar Gudang</h4>
                     <div class="card-header-action">
                         <a href="{{route('warehouse.warehouse.index')}}">Lihat Semua <i
                                 class="fas fa-chevron-right"></i></a>
