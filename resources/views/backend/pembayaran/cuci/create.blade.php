@@ -237,7 +237,7 @@
                                 </div>
                                 <button type="button" class="btn btn-outline-primary btn-block btntambah">Tambah
                                     Pembayaran Baru</button>
-                                <div class="row">
+                                <div class="row mt-2">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="sisa_bayar">Sisa Bayar</label>
@@ -375,9 +375,9 @@
                         }
                     }else if(nominal > 0){
 
-                        if(parseInt(hasil) != parseInt(nominal)){
+                        if(parseInt(nominal) > parseInt(hasil)){
                             $('#dataalert').show()
-                            $('#dataalert').text('Nominal pembayaran harus sesuai dengan total harga')
+                            $('#dataalert').text('Nominal pembayaran tidak boleh melebihi total pembayaran')
 
                             return false;
                         }else{
@@ -457,6 +457,7 @@
                                 $('#nama_produk').val(bahan.nama_bahan)
                                 $('#nama_vendor').val(data.nama_vendor)
                                 $('#harga_vendor').val(data.harga_vendor)
+                                $('#sisa_bayar').val(data.sisa_bayar)
                                 $('#no_surat').val(data.no_surat)
                                 $('#sku').val(bahan.sku)
                                 $('#kategori').val(kategori)

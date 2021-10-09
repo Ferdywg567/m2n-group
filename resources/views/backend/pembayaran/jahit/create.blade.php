@@ -338,7 +338,7 @@
                     $('#sisa_bayar').val(sisa_bayar)
                })
 
-              $('form[id=formPembayaran]').submit(function(){
+               $('form[id=formPembayaran]').submit(function(){
                 var data = $('#pembayaran1').val();
                 var hasil = $('#total_harga').val()
                 if(data == 'Lunas'){
@@ -368,7 +368,7 @@
                         }
                     }else if(nominal2 > 0 && nominal > 0){
                         var total = parseInt(nominal) + parseInt(nominal2)
-                        if(parseInt(hasil) != parseInt(total)){
+                        if(parseInt(hasil) <= parseInt(total)){
                             $('#dataalert').show()
                             $('#dataalert').text('Nominal pembayaran harus sesuai dengan total harga')
 
@@ -379,14 +379,9 @@
                         }
                     }else if(nominal > 0){
 
-                        if(parseInt(hasil) <= parseInt(nominal)){
+                        if(parseInt(nominal) > parseInt(hasil)){
                             $('#dataalert').show()
-                            $('#dataalert').text('Nominal pembayaran tidak boleh melebihi total harga')
-
-                            return false;
-                        }if(parseInt(nominal) <= 0){
-                            $('#dataalert').show()
-                            $('#dataalert').text('Nominal pembayaran tidak boleh melebihi total harga')
+                            $('#dataalert').text('Nominal pembayaran tidak boleh melebihi total pembayaran')
 
                             return false;
                         }else{
@@ -396,6 +391,7 @@
                     }
                 }
             });
+
 
 
               $('#hasil_cutting').on('keyup', function(){

@@ -425,9 +425,10 @@
                     $('#sisa_bayar').val(sisa_bayar)
                })
 
-              $('form[id=formPembayaran]').submit(function(){
+               $('form[id=formPembayaran]').submit(function(){
                 var data = $('#pembayaran1').val();
                 var hasil = $('#total_harga').val()
+                var total_bayar = $('#total_bayar').val()
                 if(data == 'Lunas'){
                     var nominal = $('#nominal1').val()
                     if(parseInt(hasil) != parseInt(nominal)){
@@ -446,43 +447,35 @@
                         var total = parseInt(nominal) + parseInt(nominal2) + parseInt(nominal3)
                         if(parseInt(hasil) != parseInt(total)){
                             $('#dataalert').show()
-                            $('#dataalert').text('Nominal pembayaran harus sesuai dengan sisa bayar')
+                            $('#dataalert').text('Nominal pembayaran harus sesuai dengan total pembayaran')
                             return false;
                         }else{
-
                             return true;
                         }
                     }else if(nominal2 > 0 && nominal > 0){
                         var total = parseInt(nominal) + parseInt(nominal2)
-                        total = total.trim()
-                        if(parseInt(total) <= parseInt(hasil.trim()) ){
+                        if(parseInt(total) > parseInt(total_bayar) ){
                             $('#dataalert').show()
-                            $('#dataalert').text('Nominal pembayaran harus kurang dari sama dengan sisa bayar')
+                            $('#dataalert').text('Nominal pembayaran harus kurang dari sama dengan total pembayaran')
                             return false;
                         }else{
                             return true;
                         }
                     }else if(nominal > 0){
-
-                        if(parseInt(nominal.trim()) <= parseInt(hasil.trim()) ){
+                        if(parseInt(nominal) > parseInt(hasil) ){
                             $('#dataalert').show()
-                            $('#dataalert').text('Nominal pembayaran tidak boleh melebihi sisa bayar')
-
+                            $('#dataalert').text('Nominal pembayaran tidak boleh melebihi total pembayaran')
                             return false;
                         }if(parseInt(nominal) <= 0){
                             $('#dataalert').show()
                             $('#dataalert').text('Nominal pembayaran harus lebih dari 0')
-
                             return false;
                         }else{
-
                             return true;
                         }
                     }
                 }
             });
-
-
               $('#hasil_cutting').on('keyup', function(){
                   var data = $(this).val()
                   var lusin = 12

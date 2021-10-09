@@ -23,13 +23,15 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <form action="{{route('pembayaran.store')}}" method="POST" id="formPembayaran">
+                        <form action="{{route('pembayaran.update',[$cuci->id])}}" method="POST" id="formPembayaran">
                             <div class="card-body">
                                 @include('backend.include.alert')
+                                @method('put')
                                 @csrf
                                 <div class="alert alert-danger" role="alert" id="dataalert">
 
                                 </div>
+                                <input type="hidden" name="total_bayar" id="total_bayar" value="{{$cuci->sisa_bayar}}">
                                 <input type="hidden" name="status" value="cuci">
                                 <input type="hidden" name="id" id="idmasuk">
                                 <div class="row">
@@ -103,7 +105,7 @@
                                         <div class="form-group">
                                             <label for="nama_vendor">Nama Vendor</label>
                                             <input type="text" class="form-control" readonly id="nama_vendor"
-                                                name="nama_vendor" value="{{$cuci->jahit->nama_vendor}}">
+                                                name="nama_vendor" value="{{$cuci->nama_vendor}}">
                                         </div>
                                     </div>
 
@@ -114,7 +116,7 @@
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <input type="text" class="form-control" readonly id="harga_vendor"
-                                                        value="{{$cuci->jahit->harga_vendor}}" name="harga_vendor">
+                                                        value="{{$cuci->harga_vendor}}" name="harga_vendor">
                                                 </div>
                                                 <div class="col-md-6">
 
@@ -130,10 +132,10 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="jumlah_bahan_yang_dijahit">Jumlah Bahan Yang Dijahit</label>
+                                            <label for="jumlah_bahan_yang_dijahit">Jumlah Bahan Yang Dicuci</label>
                                             <div class="input-group mb-2">
                                                 <input type="number" class="form-control" required
-                                                    value="{{$cuci->jahit->jumlah_bahan}}"
+                                                    value="{{$cuci->kain_siap_cuci}}"
                                                     id="jumlah_bahan_yang_dijahit" readonly
                                                     name="jumlah_bahan_yang_dijahit">
                                                 <div class="input-group-prepend">
@@ -146,14 +148,14 @@
                                         <div class="form-group">
                                             <label for="konversi">Konversi Lusin</label>
                                             <input type="text" class="form-control" required readonly id="konversi"
-                                                value="{{$cuci->jahit->konversi}}" name="konversi">
+                                                value="{{$cuci->konversi}}" name="konversi">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="total_harga">Total Harga</label>
                                             <input type="text" class="form-control" required readonly id="total_harga"
-                                                value="{{$cuci->jahit->harga_vendor * $cuci->jahit->jumlah_bahan}}"
+                                                value="{{$cuci->harga_vendor * $cuci->kain_siap_cuci}}"
                                                 name="total_harga">
                                         </div>
                                     </div>
@@ -324,9 +326,7 @@
                                 <button type="button" class="btn btn-outline-primary btn-block btntambah">Tambah
                                     Pembayaran Baru</button>
                                 @endif
-                                <button type="button" class="btn btn-outline-primary btn-block btntambah">Tambah
-                                    Pembayaran Baru</button>
-                                <div class="row">
+                                <div class="row mt-2">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="sisa_bayar">Sisa Bayar</label>
@@ -422,6 +422,7 @@
               $('form[id=formPembayaran]').submit(function(){
                 var data = $('#pembayaran1').val();
                 var hasil = $('#total_harga').val()
+                var total_bayar = $('#total_bayar').val()
                 if(data == 'Lunas'){
                     var nominal = $('#nominal1').val()
                     if(parseInt(hasil) != parseInt(nominal)){
@@ -440,25 +441,24 @@
                         var total = parseInt(nominal) + parseInt(nominal2) + parseInt(nominal3)
                         if(parseInt(hasil) != parseInt(total)){
                             $('#dataalert').show()
-                            $('#dataalert').text('Nominal pembayaran harus sesuai dengan sisa bayar')
+                            $('#dataalert').text('Nominal pembayaran harus sesuai dengan total pembayaran')
                             return false;
                         }else{
                             return true;
                         }
                     }else if(nominal2 > 0 && nominal > 0){
                         var total = parseInt(nominal) + parseInt(nominal2)
-                        total = total.trim()
-                        if(parseInt(total) <= parseInt(hasil.trim()) ){
+                        if(parseInt(total) > parseInt(total_bayar) ){
                             $('#dataalert').show()
-                            $('#dataalert').text('Nominal pembayaran harus kurang dari sama dengan sisa bayar')
+                            $('#dataalert').text('Nominal pembayaran harus kurang dari sama dengan total pembayaran')
                             return false;
                         }else{
                             return true;
                         }
                     }else if(nominal > 0){
-                        if(parseInt(nominal.trim()) <= parseInt(hasil.trim()) ){
+                        if(parseInt(nominal) > parseInt(hasil) ){
                             $('#dataalert').show()
-                            $('#dataalert').text('Nominal pembayaran tidak boleh melebihi sisa bayar')
+                            $('#dataalert').text('Nominal pembayaran tidak boleh melebihi total pembayaran')
                             return false;
                         }if(parseInt(nominal) <= 0){
                             $('#dataalert').show()

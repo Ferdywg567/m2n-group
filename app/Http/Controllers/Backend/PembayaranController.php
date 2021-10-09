@@ -220,7 +220,7 @@ class PembayaranController extends Controller
                                 $status = 'Termin 2';
                             }
                             $sisa =  $request->get('total_harga') - $total;
-                            $cuci = Jahit::findOrFail($request->get('kode_transaksi'));
+                            $cuci = Cuci::findOrFail($request->get('kode_transaksi'));
                             $cuci->total_bayar = $total;
                             $cuci->sisa_bayar = $sisa;
                             $cuci->status_pembayaran = $status;
@@ -242,10 +242,10 @@ class PembayaranController extends Controller
                             if ($total == $request->get('total_harga')) {
                                 $status = 'Lunas';
                             } else {
-                                $status = 'Termin 2';
+                                $status = 'Termin 1';
                             }
                             $sisa =  $request->get('total_harga') - $total;
-                            $cuci = Jahit::findOrFail($request->get('kode_transaksi'));
+                            $cuci = Cuci::findOrFail($request->get('kode_transaksi'));
                             $cuci->total_bayar = $total;
                             $cuci->sisa_bayar = $sisa;
                             $cuci->status_pembayaran =  $status;
@@ -261,8 +261,9 @@ class PembayaranController extends Controller
                 }
                 DB::commit();
                 return redirect()->route('pembayaran.index')->with('success', 'Data pembayaran berhasil disimpan');
-            } catch (\Throwable $th) {
+            } catch (\Exception $th) {
                 //throw $th;
+                dd($th);
                 DB::rollBack();
             }
         }
@@ -394,7 +395,7 @@ class PembayaranController extends Controller
                 } else {
                     $pembayaran1 = $request->get('pembayaran1');
                     $cuci = Cuci::findOrFail($id);
-                    $lastbayar = PembayaranCuci::where('cuci_id', $id)->latest()->first();
+
 
                     if ($pembayaran1 == 'Termin 1') {
 

@@ -284,7 +284,7 @@
                                 <div class="row mt-2">
                                     <div class="col-md-12 text-center">
                                         <a type="button" class="btn btn-secondary"
-                                            href="{{route('pembayaran.index')}}">Close</a>
+                                            href="{{route('pembayaran.index')}}">Tutup</a>
 
 
 
