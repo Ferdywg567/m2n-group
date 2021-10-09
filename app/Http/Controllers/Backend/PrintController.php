@@ -138,9 +138,9 @@ class PrintController extends Controller
                 ];
 
                 foreach ($menu as $key => $list) {
-                    if ($list == 'CUTTING') {
+                    if ($list == 'POTONG') {
                         foreach ($potong as $key => $value) {
-                            $x['menu'] = 'CUTTING';
+                            $x['menu'] = 'POTONG';
                             $x['icon'] = '<i class="fas fa-cut"></i>';
                             $x['title'] = $titlepotong;
                             $x['data'] = [
@@ -155,9 +155,9 @@ class PrintController extends Controller
                             ];
                             array_push($data, $x);
                         }
-                    } elseif ($list == 'TAILORING') {
+                    } elseif ($list == 'JAHIT') {
                         foreach ($jahit as $key => $value) {
-                            $x['menu'] = 'TAILORING';
+                            $x['menu'] = 'JAHIT';
                             $x['icon'] = '<i class="fas fa-user-cog"></i>';
                             $x['title'] = $titlejahit;
                             $x['data'] = [
@@ -173,9 +173,9 @@ class PrintController extends Controller
                             ];
                             array_push($data, $x);
                         }
-                    } elseif ($list == 'WASHING') {
+                    } elseif ($list == 'CUCI') {
                         foreach ($cuci as $key => $value) {
-                            $x['menu'] = 'WASHING';
+                            $x['menu'] = 'CUCI';
                             $x['icon'] = '<i class="ri-hand-coin-fill"></i>';
                             $x['title'] = $titlecuci;
                             $x['data'] = [
@@ -190,9 +190,9 @@ class PrintController extends Controller
                             ];
                             array_push($data, $x);
                         }
-                    } elseif ($list == 'REPAIR') {
+                    } elseif ($list == 'PERBAIKAN') {
                         foreach ($perbaikan as $key => $value) {
-                            $x['menu'] = 'REPAIR';
+                            $x['menu'] = 'PERBAIKAN';
                             $x['icon'] = '<i class="fa fa-tools"></i>';
                             $x['title'] = $titlerepair;
 
@@ -212,8 +212,8 @@ class PrintController extends Controller
                                 }
                             }
 
-                            $keterangan = 'Washing : ' . $keterangancuci . '<br>' . 'Tailoring : ' . $keteranganjahit;
-                            $asalbarang = 'Washing : ' . $jumlahcuci . '<br>' . 'Tailoring : ' . $jumlahjahit;
+                            $keterangan = 'Cuci : ' . $keterangancuci . '<br>' . 'Jahit : ' . $keteranganjahit;
+                            $asalbarang = 'Cuci : ' . $jumlahcuci . '<br>' . 'Jahit : ' . $jumlahjahit;
                             $x['data'] = [
                                 $value->bahan->sku,
                                 $value->bahan->jenis_bahan,
@@ -228,9 +228,9 @@ class PrintController extends Controller
                             ];
                             array_push($data, $x);
                         }
-                    } elseif ($list == 'TRASH') {
+                    } elseif ($list == 'SAMPAH') {
                         foreach ($sampah as $key => $value) {
-                            $x['menu'] = 'TRASH';
+                            $x['menu'] = 'SAMPAH';
                             $x['icon'] = '<i class="fas fa-trash"></i>';
                             $x['title'] = $titletrash;
 
@@ -250,8 +250,8 @@ class PrintController extends Controller
                                 }
                             }
 
-                            $keterangan = 'Washing : ' . $keterangancuci . '<br>' . 'Tailoring : ' . $keteranganjahit;
-                            $asalbarang = 'Washing : ' . $jumlahcuci . '<br>' . 'Tailoring : ' . $jumlahjahit;
+                            $keterangan = 'Cuci : ' . $keterangancuci . '<br>' . 'Jahit : ' . $keteranganjahit;
+                            $asalbarang = 'Cuci : ' . $jumlahcuci . '<br>' . 'Jahit : ' . $jumlahjahit;
                             $x['data'] = [
                                 $value->bahan->sku,
                                 $value->bahan->jenis_bahan,
@@ -264,9 +264,9 @@ class PrintController extends Controller
                             ];
                             array_push($data, $x);
                         }
-                    } elseif ($list == 'RECAPITULATION') {
+                    } elseif ($list == 'REKAPITULASI') {
                         foreach ($rekap as $key => $value) {
-                            $x['menu'] = 'RECAPITULATION';
+                            $x['menu'] = 'REKAPITULASI';
                             $x['icon'] = '<i class="ri-booklet-fill"></i>';
                             $x['title'] = $titlerekap;
                             $ukuran = '';
@@ -352,9 +352,9 @@ class PrintController extends Controller
                 ];
 
                 foreach ($menu as $key => $datamenu) {
-                    if ($datamenu == 'FINISHING') {
+                    if ($datamenu == 'SORTIR') {
                         foreach ($finish as $key => $value) {
-                            $x['menu'] = 'FINISHING';
+                            $x['menu'] = 'SORTIR';
                             $x['icon'] = '<i class="ri-check-double-line"></i>';
                             $x['title'] = $titlefinish;
                             $ukuran = '';
@@ -393,10 +393,10 @@ class PrintController extends Controller
                             ];
                             array_push($data, $x);
                         }
-                    } elseif ($datamenu == 'WAREHOUSE') {
+                    } elseif ($datamenu == 'GUDANG') {
 
                         foreach ($warehouse as $key => $value) {
-                            $x['menu'] = 'WAREHOUSE';
+                            $x['menu'] = 'GUDANG';
                             $x['icon'] = '<i class="ri-home-gear-fill"></i>';
                             $x['title'] = $titlewarehouse;
                             $ukuran = '';
@@ -444,10 +444,10 @@ class PrintController extends Controller
                             ];
                             array_push($data, $x);
                         }
-                    } elseif ($datamenu == 'RECAPITULATION') {
+                    } elseif ($datamenu == 'REKAPITULASI') {
 
                         foreach ($rekap as $key => $value) {
-                            $x['menu'] = 'RECAPITULATION';
+                            $x['menu'] = 'REKAPITULASI';
                             $x['icon'] = '<i class="ri-booklet-fill"></i>';
                             $x['title'] = $titlerekap;
                             $ukuran = '';
@@ -607,9 +607,9 @@ class PrintController extends Controller
         ];
 
         foreach ($menu as $key => $list) {
-            if ($list == 'CUTTING') {
+            if ($list == 'POTONG') {
                 foreach ($potong as $key => $value) {
-                    $x['menu'] = 'CUTTING';
+                    $x['menu'] = 'POTONG';
                     $x['icon'] = '<i class="fas fa-cut"></i>';
                     $x['title'] = $titlepotong;
                     $x['data'] = [
@@ -624,9 +624,9 @@ class PrintController extends Controller
                     ];
                     array_push($data, $x);
                 }
-            } elseif ($list == 'TAILORING') {
+            } elseif ($list == 'JAHIT') {
                 foreach ($jahit as $key => $value) {
-                    $x['menu'] = 'TAILORING';
+                    $x['menu'] = 'JAHIT';
                     $x['icon'] = '<i class="fas fa-user-cog"></i>';
                     $x['title'] = $titlejahit;
                     $x['data'] = [
@@ -642,9 +642,9 @@ class PrintController extends Controller
                     ];
                     array_push($data, $x);
                 }
-            } elseif ($list == 'WASHING') {
+            } elseif ($list == 'CUCI') {
                 foreach ($cuci as $key => $value) {
-                    $x['menu'] = 'WASHING';
+                    $x['menu'] = 'CUCI';
                     $x['icon'] = '<i class="ri-hand-coin-fill"></i>';
                     $x['title'] = $titlecuci;
                     $x['data'] = [
@@ -659,9 +659,9 @@ class PrintController extends Controller
                     ];
                     array_push($data, $x);
                 }
-            } elseif ($list == 'REPAIR') {
+            } elseif ($list == 'PERBAIKAN') {
                 foreach ($perbaikan as $key => $value) {
-                    $x['menu'] = 'REPAIR';
+                    $x['menu'] = 'PERBAIKAN';
                     $x['icon'] = '<i class="fa fa-tools"></i>';
                     $x['title'] = $titlerepair;
 
@@ -697,9 +697,9 @@ class PrintController extends Controller
                     ];
                     array_push($data, $x);
                 }
-            } elseif ($list == 'TRASH') {
+            } elseif ($list == 'SAMPAH') {
                 foreach ($sampah as $key => $value) {
-                    $x['menu'] = 'TRASH';
+                    $x['menu'] = 'SAMPAH';
                     $x['icon'] = '<i class="fas fa-trash"></i>';
                     $x['title'] = $titletrash;
 
@@ -733,9 +733,9 @@ class PrintController extends Controller
                     ];
                     array_push($data, $x);
                 }
-            } elseif ($list == 'RECAPITULATION') {
+            } elseif ($list == 'REKAPITULASI') {
                 foreach ($rekap as $key => $value) {
-                    $x['menu'] = 'RECAPITULATION';
+                    $x['menu'] = 'REKAPITULASI';
                     $x['icon'] = '<i class="ri-booklet-fill"></i>';
                     $x['title'] = $titlerekap;
                     $ukuran = '';
@@ -926,9 +926,9 @@ class PrintController extends Controller
             ];
 
             foreach ($menu as $key => $list) {
-                if ($list == 'CUTTING') {
+                if ($list == 'POTONG') {
                     foreach ($potong as $key => $value) {
-                        $x['menu'] = 'CUTTING';
+                        $x['menu'] = 'POTONG';
                         $x['icon'] = '<i class="fas fa-cut"></i>';
                         $x['title'] = $titlepotong;
                         $x['kode_bahan'] =  $value->bahan->kode_bahan;
@@ -945,9 +945,9 @@ class PrintController extends Controller
                         ];
                         array_push($data, $x);
                     }
-                } elseif ($list == 'TAILORING') {
+                } elseif ($list == 'JAHIT') {
                     foreach ($jahit as $key => $value) {
-                        $x['menu'] = 'TAILORING';
+                        $x['menu'] = 'JAHIT';
                         $x['icon'] = '<i class="fas fa-user-cog"></i>';
                         $x['title'] = $titlejahit;
                         $x['kode_bahan'] =  $value->potong->bahan->kode_bahan;
@@ -965,9 +965,9 @@ class PrintController extends Controller
                         ];
                         array_push($data, $x);
                     }
-                } elseif ($list == 'WASHING') {
+                } elseif ($list == 'CUCI') {
                     foreach ($cuci as $key => $value) {
-                        $x['menu'] = 'WASHING';
+                        $x['menu'] = 'CUCI';
                         $x['icon'] = '<i class="ri-hand-coin-fill"></i>';
                         $x['title'] = $titlecuci;
                         $x['icon'] = 'hand-coin-fill.png';
@@ -984,9 +984,9 @@ class PrintController extends Controller
                         ];
                         array_push($data, $x);
                     }
-                } elseif ($list == 'REPAIR') {
+                } elseif ($list == 'PERBAIKAN') {
                     foreach ($perbaikan as $key => $value) {
-                        $x['menu'] = 'REPAIR';
+                        $x['menu'] = 'PERBAIKAN';
                         $x['icon'] = '<i class="fa fa-tools"></i>';
                         $x['title'] = $titlerepair;
                         $x['icon'] = 'refresh-fill.png';
@@ -1023,9 +1023,9 @@ class PrintController extends Controller
                         ];
                         array_push($data, $x);
                     }
-                } elseif ($list == 'TRASH') {
+                } elseif ($list == 'SAMPAH') {
                     foreach ($sampah as $key => $value) {
-                        $x['menu'] = 'TRASH';
+                        $x['menu'] = 'SAMPAH';
                         $x['icon'] = '<i class="fas fa-trash"></i>';
                         $x['title'] = $titletrash;
                         $x['icon'] = 'delete-bin-2-fill.png';
@@ -1060,9 +1060,9 @@ class PrintController extends Controller
                         ];
                         array_push($data, $x);
                     }
-                } elseif ($list == 'RECAPITULATION') {
+                } elseif ($list == 'REKAPITULASI') {
                     foreach ($rekap as $key => $value) {
-                        $x['menu'] = 'RECAPITULATION';
+                        $x['menu'] = 'REKAPITULASI';
                         $x['icon'] = '<i class="ri-booklet-fill"></i>';
                         $x['title'] = $titlerekap;
                         $x['icon'] = 'booklet-fill.png';
@@ -1148,9 +1148,9 @@ class PrintController extends Controller
             ];
 
             foreach ($menu as $key => $datamenu) {
-                if ($datamenu == 'FINISHING') {
+                if ($datamenu == 'SORTIR') {
                     foreach ($finish as $key => $value) {
-                        $x['menu'] = 'FINISHING';
+                        $x['menu'] = 'SORTIR';
                         $x['icon'] = '<i class="ri-check-double-line"></i>';
                         $x['title'] = $titlefinish;
                         $x['icon'] = 'check-double-fill.png';
@@ -1190,10 +1190,10 @@ class PrintController extends Controller
                         ];
                         array_push($data, $x);
                     }
-                } elseif ($datamenu == 'WAREHOUSE') {
+                } elseif ($datamenu == 'GUDANG') {
 
                     foreach ($warehouse as $key => $value) {
-                        $x['menu'] = 'WAREHOUSE';
+                        $x['menu'] = 'GUDANG';
                         $x['icon'] = '<i class="ri-home-gear-fill"></i>';
                         $x['title'] = $titlewarehouse;
                         $x['icon'] = 'home-gear-fill.png';
@@ -1243,10 +1243,10 @@ class PrintController extends Controller
                         ];
                         array_push($data, $x);
                     }
-                } elseif ($datamenu == 'RECAPITULATION') {
+                } elseif ($datamenu == 'REKAPITULASI') {
 
                     foreach ($rekap as $key => $value) {
-                        $x['menu'] = 'RECAPITULATION';
+                        $x['menu'] = 'REKAPITULASI';
                         $x['icon'] = '<i class="ri-booklet-fill"></i>';
                         $x['title'] = $titlerekap;
                         $x['icon'] = 'booklet-fill.png';

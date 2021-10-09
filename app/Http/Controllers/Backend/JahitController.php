@@ -148,7 +148,7 @@ class JahitController extends Controller
                         $jahit->harga_vendor = $request->get('harga_vendor');
                         $jahit->status_pembayaran = "Belum Lunas";
                         $totalbayar = $jahit->harga_vendor * $request->get('jumlah_bahan_yang_dijahit');
-                        $jahit->total_bayar = 0;
+                        $jahit->total_harga = $totalbayar;
                         $jahit->sisa_bayar = $totalbayar;
                     }
                     $detailpotong = DetailPotong::where('potong_id', $jahit->potong_id)->get();

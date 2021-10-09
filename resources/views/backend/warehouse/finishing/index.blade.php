@@ -251,7 +251,7 @@
                 <div class="modal-body" style="margin-top: -30px; height:50rem">
                     <hr>
                     <input type="hidden" name="id" id="idbahan">
-                    <span class="badge badge-primary  rounded"><i class="ri-check-double-line"></i> Finishing</span>
+                    <span class="badge badge-primary  rounded"><i class="ri-check-double-line"></i> Sortir</span>
                     <table class="table">
                         <tbody id="dataprint">
 

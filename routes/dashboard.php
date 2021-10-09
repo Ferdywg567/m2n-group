@@ -122,7 +122,9 @@ Route::group(['prefix' => 'production', 'namespace' => 'Backend', 'middleware' =
     Route::group(['prefix' => 'sampah', 'as' => 'sampah.'], function () {
         Route::post('/cetak', 'SampahController@cetakPdf')->name('cetak');
     });
-
+    Route::group(['prefix' => 'pembayaran', 'as' => 'pembayaran.'], function () {
+        Route::get('/cetak', 'PembayaranController@cetakPdf')->name('cetak');
+    });
     Route::group(['prefix' => 'kategori', 'as' => 'kategori.'], function () {
         Route::get('/getkategori', 'KategoriController@getKategori')->name('getkategori');
         Route::get('/getsubkategori', 'KategoriController@getSubKategori')->name('getSubKategori');

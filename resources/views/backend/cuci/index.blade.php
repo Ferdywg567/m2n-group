@@ -381,7 +381,7 @@
                     <div class="modal-body" style="margin-top: -30px; height:38rem">
                         <hr>
                         <input type="hidden" name="id" id="idcuci">
-                        <span class="badge badge-primary  rounded"><i class="ri-hand-coin-fill"></i> Washing</span>
+                        <span class="badge badge-primary  rounded"><i class="ri-hand-coin-fill"></i> Cuci</span>
                         <table class="table">
                             <tbody id="dataprint">
 

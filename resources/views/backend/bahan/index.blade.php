@@ -282,7 +282,7 @@
                     <div class="modal-body" style="margin-top: -30px; height:35rem">
                         <hr>
                         <input type="hidden" name="id" id="idbahan">
-                        <span class="badge badge-primary  rounded"><i class="ri-t-shirt-fill"></i> Material</span>
+                        <span class="badge badge-primary  rounded"><i class="ri-t-shirt-fill"></i> Bahan</span>
                         <table class="table">
                             <tbody id="dataprint">
 

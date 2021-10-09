@@ -120,7 +120,7 @@ class CuciController extends Controller
                     $cuci->harga_vendor = $request->get('harga_vendor');
                     $cuci->status_pembayaran = "Belum Lunas";
                     $totalbayar = $cuci->kain_siap_cuci * $cuci->harga_vendor;
-                    $cuci->total_bayar = $totalbayar;
+                    $cuci->total_harga = $totalbayar;
                     $cuci->sisa_bayar = $totalbayar;
                     $cuci->save();
                     // $cuci->status_pembayaran = $request->get('status_pembayaran');

@@ -188,7 +188,6 @@
         </tr>
     </table>
     <hr>
-    <button class="btn"><i class="fa fa-home"> <img src="{{public_path('assets/icon/'.$item['icon'])}}" style="margin-top: 2px" alt=""></i>{{$item['menu']}}</button>
     <main>
         <table>
             <tbody>

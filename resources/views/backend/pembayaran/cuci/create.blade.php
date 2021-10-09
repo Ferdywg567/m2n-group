@@ -453,7 +453,7 @@
                                 var subkategori = bahan.detail_sub.sub_kategori.nama_kategori;
                                 var kategori = bahan.detail_sub.sub_kategori.kategori.nama_kategori;
                                 var total_harga = data.harga_vendor * data.jumlah_bahan;
-                                $('#total_harga').val(data.total_bayar)
+                                $('#total_harga').val(data.total_harga)
                                 $('#nama_produk').val(bahan.nama_bahan)
                                 $('#nama_vendor').val(data.nama_vendor)
                                 $('#harga_vendor').val(data.harga_vendor)

@@ -153,7 +153,7 @@
                                         <div class="form-group">
                                             <label for="total_harga">Total Harga</label>
                                             <input type="text" class="form-control" required readonly id="total_harga"
-                                                value="{{$jahit->harga_vendor * $jahit->jumlah_bahan}}"
+                                                value="{{$jahit->total_harga}}"
                                                 name="total_harga">
                                         </div>
                                     </div>

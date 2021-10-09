@@ -55,7 +55,7 @@ $notif = \App\Notification::where('role','warehouse')->orderBy('created_at','DES
 </form>
 <ul class="navbar-nav navbar-right mr-3">
     <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown"
-            class="nav-link notification notification-toggle mr-2  nav-link-lg @if(session()->has('notification'))  @endif"
+            class="nav-link notification notification-toggle mr-2  nav-link-lg"
             aria-expanded="true" id="btnnotif"><img src="{{asset('assets/icon/notification-fill.png')}}" alt=""
                 srcset=""><span class="badge">{{$jumlah}}</span></a>
         <div class="dropdown-menu dropdown-list dropdown-menu-right ">

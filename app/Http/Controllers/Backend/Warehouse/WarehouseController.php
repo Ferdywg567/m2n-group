@@ -69,8 +69,9 @@ class WarehouseController extends Controller
                 }
 
                 $notif = new Notification();
-                $notif->description = "warehouse telah dikirim ke ecommerce, silahkan di cek";
-                $notif->url = "#";
+                $notif->description = "gudang telah dikirim ke ecommerce, silahkan di cek";
+                $notif->url = route('warehouse.warehouse.index');
+                $notif->role = 'warehouse';
                 $notif->aktif = 0;
                 $notif->save();
 

@@ -37,8 +37,7 @@
                     <button class="dropdown-item">Pembayaran Cuci</button>
                 </form>
             </div>
-            <a href="{{route('print.index')}}" class="btn btn-outline-primary rounded ml-1">Print Semua <i
-                    class="ri-printer-fill"></i>
+            <a href="{{route('pembayaran.cetak')}}" target="_blank" class="btn btn-outline-primary rounded ml-1">Unduh Semua <i class="ri-download-2-fill"></i>
             </a>
         </div>
         <div class="section-body mt-4">
@@ -115,7 +114,7 @@
                                                                         class="ri-eye-fill"></i>Detail</button>
                                                             </form>
 
-                                                            @if ($item->status_pembayaran != "Lunas")
+                                                            @if ($item->status_pembayaran != "Lunas" )
                                                             <form action="{{route('pembayaran.edit',[$item->id])}}"
                                                                 method="get">
                                                                 <input type="hidden" name="status" value="jahit">

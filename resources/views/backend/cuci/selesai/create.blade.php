@@ -41,6 +41,7 @@
                                 <div class="alert alert-danger" role="alert" id="dataalert">
 
                                 </div>
+                                <input type="hidden" name="konversi" id="konversi">
                                 <input type="hidden" name="status" value="cucian selesai">
                                 <input type="hidden" name="id" id="idkeluar">
                                 <div class="row">

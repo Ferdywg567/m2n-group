@@ -99,7 +99,7 @@
                                             <div class="input-group mb-2">
                                                 <input type="hidden" name="jahit_direpair_id"
                                                     value="{{$jahit['jahit_direpair_id']}}">
-                                                <input type="number" class="form-control" value="{{$jahit['jumlah']}}"
+                                                <input type="number" class="form-control" readonly value="{{$jahit['jumlah']}}"
                                                     required id="tailoring" name="tailoring">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">pcs</div>
@@ -113,7 +113,7 @@
                                             <div class="input-group mb-2">
                                                 <input type="hidden" name="cuci_direpair_id"
                                                     value="{{$cuci['cuci_direpair_id']}}">
-                                                <input type="number" class="form-control" value="{{$cuci['jumlah']}}"
+                                                <input type="number" class="form-control" readonly value="{{$cuci['jumlah']}}"
                                                     required id="washing" name="washing">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">pcs</div>

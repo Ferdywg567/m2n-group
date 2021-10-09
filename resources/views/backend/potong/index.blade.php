@@ -312,7 +312,7 @@
                     <div class="modal-body" style="margin-top: -30px; height:35rem">
                         <hr>
                         <input type="hidden" name="id" id="idpotong">
-                        <span class="badge badge-primary  rounded"><i class="fas fa-cut"></i> Cutting</span>
+                        <span class="badge badge-primary  rounded"><i class="fas fa-cut"></i> Potong</span>
                         <table class="table">
                             <tbody id="dataprint">
 

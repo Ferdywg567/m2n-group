@@ -11,6 +11,7 @@ use App\Cuci;
 use App\Jahit;
 use App\PembayaranCuci;
 use App\PembayaranJahit;
+use PDF;
 
 class PembayaranController extends Controller
 {
@@ -21,8 +22,8 @@ class PembayaranController extends Controller
      */
     public function index()
     {
-        $jahit = Jahit::where('vendor', 'eksternal')->orderBy('created_at', 'DESC')->get();
-        $cuci = Cuci::orderBy('created_at', 'DESC')->get();
+        $jahit = Jahit::where('status_pembayaran','!=','Belum Lunas')->where('vendor', 'eksternal')->orderBy('created_at', 'DESC')->get();
+        $cuci = Cuci::where('status_pembayaran','!=','Belum Lunas')->orderBy('created_at', 'DESC')->get();
         return view('backend.pembayaran.index', ['jahit' => $jahit, 'cuci' => $cuci]);
     }
 
@@ -471,5 +472,95 @@ class PembayaranController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function cetakPdf(Request $request)
+    {
+
+        $cuci = Cuci::all();
+        $jahit = Jahit::all()->where('vendor','eksternal');
+        $arr = [];
+
+        // $cuci = Cuci::findOrFail($request->get('id'));
+        $titlecuci = [
+            'Asal' ,
+            'Kode Transaksi',
+            'Nama Produk',
+            'SKU',
+            'Kategori',
+            'Sub Kategori',
+            'Detail Sub Kategori',
+            'Nama Vendor',
+            'Harga Vendor',
+            'Jumlah Bahan di Cuci',
+            'Status Pembayaran',
+            'Total Harga',
+            'Sisa Bayar'
+        ];
+
+        $titlejahit = [
+            'Asal' ,
+            'Kode Transaksi',
+            'Nama Produk',
+            'SKU',
+            'Kategori',
+            'Sub Kategori',
+            'Detail Sub Kategori',
+            'Nama Vendor',
+            'Harga Vendor',
+            'Jumlah Bahan di Jahit',
+            'Status Pembayaran',
+            'Total Harga',
+            'Sisa Bayar'
+        ];
+
+
+
+        foreach ($cuci as $key => $value) {
+            $x['menu'] = 'CUCI';
+            $x['kode_bahan'] = $value->jahit->potong->bahan->kode_transaksi;
+            $x['title'] = $titlecuci;
+            $x['data'] = [
+                'Cuci',
+                $value->jahit->potong->bahan->kode_transaksi,
+                $value->jahit->potong->bahan->nama_bahan,
+                $value->jahit->potong->bahan->sku,
+                $value->jahit->potong->bahan->detail_sub->sub_kategori->kategori->nama_kategori,
+                $value->jahit->potong->bahan->detail_sub->sub_kategori->nama_kategori,
+                $value->jahit->potong->bahan->detail_sub->nama_kategori,
+                $value->nama_vendor,
+                $value->harga_vendor,
+                $value->kain_siap_cuci,
+                $value->status_pembayaran,
+                $value->total_bayar,
+                $value->sisa_bayar,
+            ];
+            array_push($arr, $x);
+        }
+
+
+        foreach ($jahit as $key => $value) {
+            $x['menu'] = 'JAHIT';
+            $x['kode_bahan'] = $value->potong->bahan->kode_transaksi;
+            $x['title'] = $titlejahit;
+            $x['data'] = [
+                'Jahit',
+                $value->potong->bahan->kode_transaksi,
+                $value->potong->bahan->nama_bahan,
+                $value->potong->bahan->sku,
+                $value->potong->bahan->detail_sub->sub_kategori->kategori->nama_kategori,
+                $value->potong->bahan->detail_sub->sub_kategori->nama_kategori,
+                $value->potong->bahan->detail_sub->nama_kategori,
+                $value->nama_vendor,
+                $value->harga_vendor,
+                $value->jumlah_bahan,
+                $value->status_pembayaran,
+                $value->total_bayar,
+                $value->sisa_bayar,
+            ];
+            array_push($arr, $x);
+        }
+        $pdf = PDF::loadView('backend.pembayaran.pdf', ['print' => $arr]);
+        return $pdf->stream('pembayaran.pdf');
     }
 }

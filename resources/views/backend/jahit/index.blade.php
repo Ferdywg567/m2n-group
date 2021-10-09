@@ -122,7 +122,7 @@
                                                     == 'Termin 2' || $item->status_pembayaran == 'Termin 3' )
                                                     <a href="{{route('pembayaran.index')}}">
                                                         <span
-                                                            class="badge badge-secondary text-dark">{{$item->status_pembayaran}}</span>
+                                                            class="badge badge-warning text-dark">{{$item->status_pembayaran}}</span>
                                                     </a>
                                                     @endif
                                                     @else
@@ -221,7 +221,7 @@
                                                     == 'Termin 2' || $item->status_pembayaran == 'Termin 3' )
                                                     <a href="{{route('pembayaran.index')}}">
                                                         <span
-                                                            class="badge badge-secondary text-dark">{{$item->status_pembayaran}}</span>
+                                                            class="badge badge-warning text-dark">{{$item->status_pembayaran}}</span>
                                                     </a>
                                                     @endif
                                                     @else
@@ -319,7 +319,7 @@
                                                     == 'Termin 2' || $item->status_pembayaran == 'Termin 3' )
                                                     <a href="{{route('pembayaran.index')}}">
                                                         <span
-                                                            class="badge badge-secondary text-dark">{{$item->status_pembayaran}}</span>
+                                                            class="badge badge-warning text-dark">{{$item->status_pembayaran}}</span>
                                                     </a>
                                                     @endif
                                                     @else
@@ -384,7 +384,7 @@
                     <div class="modal-body" style="margin-top: -30px; height:40rem">
                         <hr>
                         <input type="hidden" name="id" id="idjahit">
-                        <span class="badge badge-primary  rounded"><i class="fas fa-user-cog"></i> Tailoring</span>
+                        <span class="badge badge-primary  rounded"><i class="fas fa-user-cog"></i> Jahit</span>
                         <table class="table">
                             <tbody id="dataprint">
 

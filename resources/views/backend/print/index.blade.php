@@ -6,7 +6,7 @@
 @section('content')
 <style>
     .cssnav {
-        margin-left: -25px;
+        margin-left: -18px;
     }
 
 </style>
@@ -67,17 +67,17 @@
                                             <select class="form-control" multiple id="menu" name="menu[]">
 
                                                 @if (auth('web')->user()->hasRole('production'))
-                                                <option value="CUTTING">POTONG</option>
-                                                <option value="TAILORING">JAHIT</option>
-                                                <option value="REPAIR">PERBAIKAN</option>
-                                                <option value="WASHING">CUCI</option>
-                                                <option value="TRASH">SAMPAH</option>
-                                                <option value="RECAPITULATION">REKAPITULASI</option>
+                                                <option value="POTONG">POTONG</option>
+                                                <option value="JAHIT">JAHIT</option>
+                                                <option value="PERBAIKAN">PERBAIKAN</option>
+                                                <option value="CUCI">CUCI</option>
+                                                <option value="SAMPAH">SAMPAH</option>
+                                                <option value="REKAPITULASI">REKAPITULASI</option>
                                                 @elseif(auth('web')->user()->hasRole('warehouse'))
-                                                <option value="FINISHING">FINISHING</option>
-                                                <option value="WAREHOUSE">WAREHOUSE</option>
+                                                <option value="SORTIR">SORTIR</option>
+                                                <option value="GUDANG">GUDANG</option>
                                                 <option value="RETUR">RETUR</option>
-                                                <option value="RECAPITULATION">RECAPITULATION</option>
+                                                <option value="REKAPITULASI">REKAPITULASI</option>
                                                 @endif
 
                                             </select>
@@ -296,7 +296,7 @@
                                             htmldata += '<div class="col-md-6"><div class="card tinggi_card"><div class="card-body"><h5 class="card-title right mr-2">GARMENT</h5><hr><div class="row ml-2"><div class="col-md-3"><span  class="btn btn-primary">'+element.icon+' '+element.menu+'</span></div></div><table class="table" ><tbody>'
                                             data.forEach((value, index) => {
                                                     htmldata += '<tr>'
-                                                        htmldata += '<td>' +title[index]+ '</td>'
+                                                        htmldata += '<td style="text-align:left">' +title[index]+ '</td>'
                                                         htmldata += '<td class="right font-weight-bold">' +value+ '</td>'
                                                     htmldata += '</tr>'
                                             });
