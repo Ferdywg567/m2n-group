@@ -419,7 +419,7 @@
                     $('#dataalert').text('Jumlah produk diretur tidak boleh melebihi Jumlah produk gagal qc')
                     return false;
                 }else if(parseInt(jumlahutama) != parseInt(stok_lolos_sortir)){
-                    alert(jumlahutama)
+
                     $('#dataalert').show()
                     $('#dataalert').text('Jumlah ukuran harus sesuai dengan jumlah Stok lolos Sortir')
                     return false;
