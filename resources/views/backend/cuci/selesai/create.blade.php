@@ -376,7 +376,7 @@
                 $('input[name^="jumlahdibuang"]').each(function() {
                     jumlahdibuang = jumlahdibuang + parseInt($(this).val());
                 });
-                if(parseInt(jumlah_bahan) <= parseInt(berhasil_cuci)){
+                if(parseInt(berhasil_cuci)  > parseInt(jumlah_bahan) ){
                     $('#dataalert').show()
                     $('#dataalert').text('Jumlah Berhasil Cuci tidak boleh melebihi Jumlah Bahan yang Dicuci')
                     return false;
