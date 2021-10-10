@@ -194,7 +194,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <label for="ukurandirepair" class="text-dark">Ukuran yang Direpair</label>
+                                <label for="ukurandirepair" class="text-dark">Ukuran yang Diperbaiki</label>
                                 <div class="row">
 
                                     @forelse ($cuci->cuci_direpair as $item)

@@ -21,7 +21,7 @@
             <a class="btn btn-primary" href="{{route('jahit.index')}}">
                 <i class="fas fa-arrow-left"></i>
             </a>
-            <h1 class="ml-2">Input Data | Selesai</h1>
+            <h1 class="ml-2">Input Data | Keluar</h1>
         </div>
         <div class="section-body">
             <div class="row">
@@ -208,7 +208,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="keterangan_direpair">Keterangan Direpair</label>
+                                            <label for="keterangan_direpair">Keterangan Diperbaiki</label>
                                             <textarea class="form-control" id="keterangan_direpair"
                                                 name="keterangan_direpair" rows="3"></textarea>
                                         </div>
@@ -317,7 +317,7 @@
                 $('input[name^="jumlahdibuang"]').each(function() {
                     jumlahdibuang = jumlahdibuang + parseInt($(this).val());
                 });
-                if(parseInt(jumlah_bahan) <= parseInt(berhasil_jahit)){
+                if(parseInt(berhasil_jahit) > parseInt(jumlah_bahan)  ){
                     $('#dataalert').show()
                     $('#dataalert').text('Jumlah Berhasil Jahit tidak boleh melebihi Jumlah Bahan yang Dijahit')
                     return false;
@@ -497,7 +497,7 @@
                                 }
 
                                 var content="";
-                                content += ' <label for="ukurandirepair" class="text-dark">Ukuran yang Direpair</label>'
+                                content += ' <label for="ukurandirepair" class="text-dark">Ukuran yang Diperbaiki</label>'
                                 detail_jahit.forEach((result, i) => {
                                     if(i == 0){
                                         content+= '<div class="row">'

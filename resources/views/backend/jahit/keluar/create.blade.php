@@ -208,7 +208,7 @@
                                 <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="keterangan_direpair">Keterangan Direpair</label>
+                                                <label for="keterangan_direpair">Keterangan Diperbaiki</label>
                                                 <textarea class="form-control" id="keterangan_direpair" readonly
                                                     name="keterangan_direpair" rows="3"></textarea>
                                             </div>
@@ -415,7 +415,7 @@
                                 }
 
                                 var content="";
-                                content += ' <label for="ukurandirepair" class="text-dark">Ukuran yang Direpair</label>'
+                                content += ' <label for="ukurandirepair" class="text-dark">Ukuran yang Diperbaiki</label>'
                                 jahit_direpair.forEach((result, i) => {
                                     if(i == 0){
                                         content+= '<div class="row">'

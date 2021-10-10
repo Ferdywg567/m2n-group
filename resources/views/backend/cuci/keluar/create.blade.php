@@ -27,7 +27,7 @@
             <a class="btn btn-primary" href="{{route('cuci.index')}}">
                 <i class="fas fa-arrow-left"></i>
             </a>
-            <h1 class="ml-2">Input Data | Selesai</h1>
+            <h1 class="ml-2">Input Data | Keluar</h1>
         </div>
         <div class="section-body">
             <div class="row">
@@ -354,97 +354,9 @@
                 }
               })
               $('#dataalert').hide()
-              $('form[id=formCuci]').submit(function(){
-                var jumlahdirepair =0;
-                var jumlahdibuang =0;
-                var jumlah_bahan = $("#jumlah_bahan").val()
-                var berhasil_cuci = $('#berhasil_cuci').val()
-                var barang_dibuang = $('#barang_dibuang').val()
-                var hasil = $('#barang_direpair').val()
-                $('input[name^="jumlahdirepair"]').each(function() {
-                    jumlahdirepair = jumlahdirepair + parseInt($(this).val());
-                });
-                $('input[name^="jumlahdibuang"]').each(function() {
-                    jumlahdibuang = jumlahdibuang + parseInt($(this).val());
-                });
-                if(parseInt(jumlah_bahan) <= parseInt(berhasil_cuci)){
-                    $('#dataalert').show()
-                    $('#dataalert').text('Jumlah Berhasil Cuci tidak boleh melebihi Jumlah Bahan yang Dicuci')
-                    return false;
-                }else if(parseInt(jumlahdirepair) != parseInt(hasil)){
-                    $('#dataalert').show()
-                    $('#dataalert').text('Jumlah ukuran perbaikan harus sesuai dengan jumlah perbaikan')
-                    return false;
-                }else if(parseInt(jumlahdibuang) != parseInt(barang_dibuang)){
-                    $('#dataalert').show()
-                    $('#dataalert').text('Jumlah ukuran dibuang harus sesuai dengan jumlah dibuang')
-                    return false;
-                } else{
-                    $('#dataalert').hide()
-                   return true;
-                }
-            });
 
 
-            //   $(document).on('click','#btnsize', function(){
-            //     var ukuranm = $('#ukuranm').is(':visible')
-            //     var ukuranl = $('#ukuranl').is(':visible')
-            //     var ukuranxl = $('#ukuranxl').is(':visible')
-            //     var ukuranxxl = $('#ukuranxxl').is(':visible')
-
-            //     if(!ukuranm){
-            //         $('#datahapus').show()
-            //         $('#ukuranm').show()
-            //         $('#ukurandirepairm').show()
-            //         $('#ukurandibuangm').show()
-            //         return false;
-            //     }else if(!ukuranl){
-            //         $('#ukuranl').show()
-            //         $('#ukurandirepairl').show()
-            //         $('#ukurandibuangl').show()
-            //         return false;
-            //     }else if(!ukuranxl){
-            //         $('#ukuranxl').show()
-            //         $('#ukurandirepairxl').show()
-            //         $('#ukurandibuangxl').show()
-            //         return false;
-            //     }else if(!ukuranxxl){
-            //         $('#ukuranxxl').show()
-            //         $('#ukurandirepairxxl').show()
-            //         $('#ukurandibuangxxl').show()
-            //         return false;
-            //     }
-            // })
-            // $(document).on('click','#btnhapus', function(){
-            //     var ukuranm = $('#ukuranm').is(':visible')
-            //     var ukuranl = $('#ukuranl').is(':visible')
-            //     var ukuranxl = $('#ukuranxl').is(':visible')
-            //     var ukuranxxl = $('#ukuranxxl').is(':visible')
-
-            //     if(ukuranxxl){
-            //         $('#ukuranxxl').hide()
-            //         $('#ukurandirepairxxl').hide()
-            //         $('#ukurandibuangxxl').hide()
-            //         return false;
-            //     }else if(ukuranxl){
-            //         $('#ukuranxl').hide()
-            //         $('#ukurandirepairxl').hide()
-            //         $('#ukurandibuangxl').hide()
-            //         return false;
-            //     }else if(ukuranl){
-            //         $('#ukuranl').hide()
-            //         $('#ukurandirepairl').hide()
-            //         $('#ukurandibuangl').hide()
-            //         return false;
-            //     }else if(ukuranm){
-            //         $('#ukuranm').hide()
-            //         $('#ukurandirepairm').hide()
-            //         $('#ukurandibuangm').hide()
-            //         $('#datahapus').hide()
-            //         return false;
-            //     }
-            // })
-
+      
             function emptyUkuran()
             {
                 $('#iddetails').val('')
@@ -510,7 +422,7 @@
                                 $('#detail_sub_kategori').val(detail)
 
                                 var content="";
-                                content += ' <label for="ukurandirepair" class="text-dark">Ukuran yang Direpair</label>'
+                                content += ' <label for="ukurandirepair" class="text-dark">Ukuran yang Diperbaiki</label>'
                                 cuci_direpair.forEach((result, i) => {
                                     if(i == 0){
                                         content+= '<div class="row">'

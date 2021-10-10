@@ -511,7 +511,7 @@
                                 $('#detail_sub_kategori').val(detail)
 
                                 var content="";
-                                content += ' <label for="ukurandirepair" class="text-dark">Ukuran yang Direpair</label>'
+                                content += ' <label for="ukurandirepair" class="text-dark">Ukuran yang Diperbaiki</label>'
                                 detail_cuci.forEach((result, i) => {
                                     if(i == 0){
                                         content+= '<div class="row">'
