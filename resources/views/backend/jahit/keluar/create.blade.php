@@ -292,76 +292,7 @@
               $('#kode_bahanselect').select2()
               $('#kode_transaksiselectkeluar').select2()
               $('.btnmasuk').prop('id','btnsimpanmasuk')
-              $('form[id=formJahit]').submit(function(){
-                var jumlahdirepair =0;
-                var jumlahdibuang =0;
-                var jumlah_bahan = $("#jumlah_bahan").val()
-                var berhasil_jahit = $('#berhasil_jahit').val()
-                var barang_dibuang = $('#barang_dibuang').val()
-                var hasil = $('#barang_direpair').val()
-                $('input[name^="jumlahdirepair"]').each(function() {
-                    jumlahdirepair = jumlahdirepair + parseInt($(this).val());
-                });
-                $('input[name^="jumlahdibuang"]').each(function() {
-                    jumlahdibuang = jumlahdibuang + parseInt($(this).val());
-                });
-                if(parseInt(jumlah_bahan) <= parseInt(berhasil_jahit)){
-                    $('#dataalert').show()
-                    $('#dataalert').text('Jumlah Berhasil Jahit tidak boleh melebihi Jumlah Bahan yang Dijahit')
-                    return false;
-                }else if(parseInt(jumlahdirepair) != parseInt(hasil)){
-                    $('#dataalert').show()
-                    $('#dataalert').text('Jumlah ukuran perbaikan harus sesuai dengan jumlah perbaikan')
-                    return false;
-                }else if(parseInt(jumlahdibuang) != parseInt(barang_dibuang)){
-                    $('#dataalert').show()
-                    $('#dataalert').text('Jumlah ukuran dibuang harus sesuai dengan jumlah dibuang')
-                    return false;
-                } else{
-                    $('#dataalert').hide()
-                   return true;
-                }
-            });
-
-              $('#vendor_jahit').on('change', function () {
-                  var data = $(this).find(':selected').val()
-
-                  if(data == 'eksternal'){
-                    $('#iddatavendor').show()
-
-                  }else{
-                    $('#iddatavendor').hide()
-
-                  }
-               })
-
-               $('#barang_direpair').on('keyup', function(){
-                   var nilai = $(this).val()
-                   var gagal = $('#gagal_jahit').val()
-                   nilai = parseInt(nilai)
-                   gagal = parseInt(gagal)
-                   if(nilai > 0 && gagal > 0 && gagal >= nilai){
-                        var res =gagal-nilai;
-                        console.log(res);
-                        $('#barang_dibuang').val(res)
-                   }else{
-                    $('#barang_dibuang').val(0)
-                   }
-               })
-
-              $('#berhasil_jahit').on('keyup', function(){
-                  var data = $(this).val()
-                var jumlah_bahan = $('#jumlah_bahan').val()
-                data = parseInt(data)
-                jumlah_bahan = parseInt(jumlah_bahan)
-                if(data <= jumlah_bahan){
-                    var res = jumlah_bahan -  data;
-                    $('#gagal_jahit').val(res)
-                }else{
-                    $('#gagal_jahit').val(0)
-                }
-              })
-
+             
 
             $('#kode_transaksiselectkeluar').on('change', function () {
                     var id = $(this).find(':selected').val()

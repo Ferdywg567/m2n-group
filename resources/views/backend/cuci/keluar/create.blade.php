@@ -266,16 +266,6 @@
                 });
               }
               $('#kdbahanreadonly').hide()
-            //   $('#ukuranm').hide()
-            //   $('#ukuranl').hide()
-            //   $('#ukuranxl').hide()
-            //   $('#ukuranxxl').hide()
-            //   $('#ukurandirepairm').hide()
-            //   $('#ukurandirepairl').hide()
-            //   $('#ukurandirepairxl').hide()
-            //   $('#ukurandirepairxxl').hide()
-            //   $('#ukurandibuangm').hide()
-            //   $('#ukurandibuangl').hide()
               $('#datahapus').hide()
               $('#ukurandibuangxl').hide()
               $('#ukurandibuangxxl').hide()
@@ -356,28 +346,6 @@
               $('#dataalert').hide()
 
 
-      
-            function emptyUkuran()
-            {
-                $('#iddetails').val('')
-                $('#jumlahs').val(0)
-
-                $('#iddetailm').val('')
-                $('#jumlahm').val(0)
-                $('#ukuranm').hide()
-
-                $('#iddetaill').val('')
-                $('#jumlahl').val(0)
-                $('#ukuranl').hide()
-
-                $('#iddetailxl').val('')
-                $('#jumlahxl').val(0)
-                $('#ukuranxl').hide()
-
-                $('#iddetailxxl').val('')
-                $('#jumlahxxl').val(0)
-                $('#ukuranxxl').hide()
-            }
 
             $('#kode_transaksiselectkeluar').on('change', function () {
                     var id = $(this).find(':selected').val()
@@ -472,8 +440,6 @@
                             }
 
                         })
-                    }else{
-                        emptyUkuran()
                     }
             })
 
