@@ -163,7 +163,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <label for="ukurandirepair" class="text-dark">Ukuran yang Direpair</label>
+                                <label for="ukurandirepair" class="text-dark">Ukuran yang Diperbaiki</label>
                                 <div class="row">
 
                                     @forelse ($rekap->detail_rekap as $item)
@@ -357,7 +357,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <label for="ukurandirepair" class="text-dark">Ukuran yang Direpair</label>
+                                <label for="ukurandirepair" class="text-dark">Ukuran yang Diperbaiki</label>
                                 <div class="row">
 
                                     @forelse ($rekap->detail_rekap as $item)

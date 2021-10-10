@@ -221,7 +221,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="keterangan_direpair">Keterangan Direpair</label>
+                                            <label for="keterangan_direpair">Keterangan Diperbaiki</label>
                                             <textarea class="form-control" id="keterangan_direpair" readonly
                                                 name="keterangan_direpair"
                                                 rows="3">{{$cuci->keterangan_direpair}}</textarea>

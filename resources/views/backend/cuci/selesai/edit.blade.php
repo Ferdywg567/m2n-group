@@ -194,7 +194,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <label for="ukurandirepair" class="text-dark">Ukuran yang Direpair</label>
+                                <label for="ukurandirepair" class="text-dark">Ukuran yang Diperbaiki</label>
                                 <div class="row">
 
                                     @forelse ($cuci->cuci_direpair as $item)
@@ -221,7 +221,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="keterangan_direpair">Keterangan Direpair</label>
+                                            <label for="keterangan_direpair">Keterangan Diperbaiki</label>
                                             <textarea class="form-control" id="keterangan_direpair"
                                                 name="keterangan_direpair"
                                                 rows="3">{{$cuci->keterangan_direpair}}</textarea>
