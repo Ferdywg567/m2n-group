@@ -316,19 +316,6 @@
                 });
               }
               $('#kdbahanreadonly').hide()
-            //   $('#ukuranm').hide()
-            //   $('#ukuranl').hide()
-            //   $('#ukuranxl').hide()
-            //   $('#ukuranxxl').hide()
-            //   $('#ukurandirepairm').hide()
-            //   $('#ukurandirepairl').hide()
-            //   $('#ukurandirepairxl').hide()
-            //   $('#ukurandirepairxxl').hide()
-            //   $('#ukurandibuangm').hide()
-            //   $('#ukurandibuangl').hide()
-            //   $('#ukurandibuangxl').hide()
-            //   $('#ukurandibuangxxl').hide()
-            //   $('#iddatavendor').hide()
               $('#idhargavendor').hide()
               $('#datavendor').hide()
               $('#kdbahanselectmasuk').show()
@@ -415,80 +402,6 @@
                     $('#gagal_jahit').val(0)
                 }
               })
-
-            // $(document).on('click','#btnsize', function(){
-            //     var ukuranm = $('#ukuranm').is(':visible')
-            //     var ukuranl = $('#ukuranl').is(':visible')
-            //     var ukuranxl = $('#ukuranxl').is(':visible')
-            //     var ukuranxxl = $('#ukuranxxl').is(':visible')
-
-            //     if(!ukuranm){
-            //         $('#datahapus').show()
-            //         $('#ukuranm').show()
-            //         $('#ukurandirepairm').show()
-            //         $('#ukurandibuangm').show()
-            //         return false;
-            //     }else if(!ukuranl){
-            //         $('#ukuranl').show()
-            //         $('#ukurandirepairl').show()
-            //         $('#ukurandibuangl').show()
-            //         return false;
-            //     }else if(!ukuranxl){
-            //         $('#ukuranxl').show()
-            //         $('#ukurandirepairxl').show()
-            //         $('#ukurandibuangxl').show()
-            //         return false;
-            //     }else if(!ukuranxxl){
-            //         $('#ukuranxxl').show()
-            //         $('#ukurandirepairxxl').show()
-            //         $('#ukurandibuangxxl').show()
-            //         return false;
-            //     }
-            // })
-
-
-            // $(document).on('click','#btnhapus', function(){
-            //     var ukuranm = $('#ukuranm').is(':visible')
-            //     var ukuranl = $('#ukuranl').is(':visible')
-            //     var ukuranxl = $('#ukuranxl').is(':visible')
-            //     var ukuranxxl = $('#ukuranxxl').is(':visible')
-
-            //     if(ukuranxxl){
-            //         $('#ukuranxxl').hide()
-            //         $('#ukurandirepairxxl').hide()
-            //         $('#ukurandibuangxxl').hide()
-            //         $('#jumlahxxl').val('')
-            //         $('#jumlahdirepairxxl').val('')
-            //         $('#jumlahdibuangxxl').val('')
-
-            //         return false;
-            //     }else if(ukuranxl){
-            //         $('#ukuranxl').hide()
-            //         $('#ukurandirepairxl').hide()
-            //         $('#ukurandibuangxl').hide()
-            //         $('#jumlahxl').val('')
-            //         $('#jumlahdirepairxl').val('')
-            //         $('#jumlahdibuangxl').val('')
-            //         return false;
-            //     }else if(ukuranl){
-            //         $('#ukuranl').hide()
-            //         $('#ukurandirepairl').hide()
-            //         $('#ukurandibuangl').hide()
-            //         $('#jumlahl').val('')
-            //         $('#jumlahdirepairl').val('')
-            //         $('#jumlahdibuangl').val('')
-            //         return false;
-            //     }else if(ukuranm){
-            //         $('#ukuranm').hide()
-            //         $('#ukurandirepairm').hide()
-            //         $('#ukurandibuangm').hide()
-            //         $('#datahapus').hide()
-            //         $('#jumlahm').val('')
-            //         $('#jumlahdirepairm').val('')
-            //         $('#jumlahdibuangm').val('')
-            //         return false;
-            //     }
-            // })
 
 
 

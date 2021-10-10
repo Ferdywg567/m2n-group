@@ -410,11 +410,11 @@
                 $('input[name^="jumlahdibuang"]').each(function() {
                     jumlahdibuang = jumlahdibuang + parseInt($(this).val());
                 });
-                if(parseInt(barang_siap_qc) <= parseInt(stok_lolos_sortir)){
+                if(parseInt(stok_lolos_sortir) > parseInt(barang_siap_qc)  ){
                     $('#dataalert').show()
                     $('#dataalert').text('Jumlah Stok Lolos Sortir tidak boleh melebihi Jumlah Stok Siap Sortir')
                     return false;
-                }else if(parseInt(gagal_qc) <= parseInt(barang_diretur)){
+                }else if( parseInt(barang_diretur)  > parseInt(gagal_qc) ){
                     $('#dataalert').show()
                     $('#dataalert').text('Jumlah produk diretur tidak boleh melebihi Jumlah produk gagal qc')
                     return false;
