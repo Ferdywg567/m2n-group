@@ -21,6 +21,7 @@ class CreateCucisTable extends Migration
             $table->date('tanggal_masuk')->nullable();
             $table->date('tanggal_cuci')->nullable();
             $table->date('tanggal_selesai')->nullable();
+            $table->date('tanggal_keluar')->nullable();
             $table->integer('kain_siap_cuci');
             $table->string('vendor');
             $table->string('nama_vendor')->nullable();

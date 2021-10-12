@@ -116,7 +116,15 @@
 
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-12">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="tanggal_keluar">Tanggal Keluar</label>
+                                            <input type="text" class="form-control" required value="{{date('Y-m-d')}}" readonly id="tanggal_keluar"
+                                            name="tanggal_keluar">
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="vendor_jahit">Vendor Jahit</label>
                                             <input type="text" class="form-control" required readonly id="vendor_jahit"
@@ -292,7 +300,7 @@
               $('#kode_bahanselect').select2()
               $('#kode_transaksiselectkeluar').select2()
               $('.btnmasuk').prop('id','btnsimpanmasuk')
-             
+
 
             $('#kode_transaksiselectkeluar').on('change', function () {
                     var id = $(this).find(':selected').val()

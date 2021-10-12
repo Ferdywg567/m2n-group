@@ -258,7 +258,7 @@ class JahitController extends Controller
 
                 if ($request->get('status') == 'jahitan keluar') {
                     $jahit->status = "jahitan keluar";
-
+                    $jahit->tanggal_keluar = date('Y-m-d');
                     $notif = new Notification();
                     $notif->description = "jahit keluar telah dikirim ke cuci, silahkan di cek";
                     $notif->url = route('cuci.index');

@@ -6,8 +6,8 @@
 @section('cssnav', 'cssnav')
 @section('content')
 <style>
-    .cssnav{
-       margin-left:-25px;
+    .cssnav {
+        margin-left: -25px;
     }
 </style>
 <style>
@@ -58,8 +58,8 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="no_surat_keluar">Nomor Surat Jalan</label>
-                                            <input type="text" class="form-control" value="{{$cuci->no_surat}}"
-                                                readonly required id="no_surat_keluar" name="no_surat">
+                                            <input type="text" class="form-control" value="{{$cuci->no_surat}}" readonly
+                                                required id="no_surat_keluar" name="no_surat">
                                         </div>
                                     </div>
                                 </div>
@@ -112,8 +112,16 @@
 
 
                                 <div class="row" id="iddatavendor">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="tanggal_keluar">Tanggal Keluar</label>
+                                            <input type="text" class="form-control" required
+                                                value="{{$cuci->tanggal_keluar}}" readonly id="tanggal_keluar"
+                                                name="tanggal_keluar">
 
-                                    <div class="col-md-6">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="nama_vendor">Nama Vendor</label>
                                             <input type="text" class="form-control" id="nama_vendor" readonly
@@ -158,8 +166,8 @@
                                             <label for="berhasil_cuci">Jumlah Berhasil Cuci</label>
                                             <div class="input-group mb-2">
                                                 <input type="number" class="form-control" required readonly
-                                                    value="{{$cuci->berhasil_cuci}}" id="berhasil_cuci" max="{{$cuci->kain_siap_cuci}}"
-                                                    name="berhasil_cuci">
+                                                    value="{{$cuci->berhasil_cuci}}" id="berhasil_cuci"
+                                                    max="{{$cuci->kain_siap_cuci}}" name="berhasil_cuci">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">pcs</div>
                                                 </div>
@@ -204,8 +212,8 @@
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text">{{$item->ukuran}}</div>
                                             </div>
-                                            <input type="number" class="form-control" readonly required id="jumlahdirepair"
-                                                name="jumlahdirepair[]" value="{{$item->jumlah}}">
+                                            <input type="number" class="form-control" readonly required
+                                                id="jumlahdirepair" name="jumlahdirepair[]" value="{{$item->jumlah}}">
                                         </div>
                                     </div>
 
@@ -255,13 +263,14 @@
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text">{{$item->ukuran}}</div>
                                             </div>
-                                            <input type="number" class="form-control" required id="jumlahdibuang" readonly
-                                                name="jumlahdibuang[]" value="{{$item->jumlah}}">
+                                            <input type="number" class="form-control" required id="jumlahdibuang"
+                                                readonly name="jumlahdibuang[]" value="{{$item->jumlah}}">
                                         </div>
                                     </div>
 
                                     @if ($loop->iteration % 6 ==0)
-                                </div><div class="row">
+                                </div>
+                                <div class="row">
                                     @endif
                                     @empty
 
@@ -284,8 +293,8 @@
                                         <a type="button" class="btn btn-secondary"
                                             href="{{route('cuci.index')}}">Tutup</a>
 
-                                            <button type="submit" class="btn btn-primary"><i class="ri-printer-fill"></i>
-                                                Cetak</button>
+                                        <button type="submit" class="btn btn-primary"><i class="ri-printer-fill"></i>
+                                            Cetak</button>
 
                                     </div>
                                 </div>

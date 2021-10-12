@@ -115,10 +115,17 @@
                                     </div>
 
                                 </div>
-
+                             
                                 <div class="row" id="iddatavendor">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="tanggal_keluar">Tanggal Keluar</label>
+                                            <input type="text" class="form-control" required value="{{date('Y-m-d')}}" readonly id="tanggal_keluar"
+                                            name="tanggal_keluar">
 
-                                    <div class="col-md-6">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="nama_vendor">Nama Vendor</label>
                                             <input type="text" class="form-control" id="nama_vendor" readonly

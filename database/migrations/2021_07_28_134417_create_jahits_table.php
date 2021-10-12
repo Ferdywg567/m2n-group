@@ -20,6 +20,7 @@ class CreateJahitsTable extends Migration
             $table->string('no_surat');
             $table->date('tanggal_jahit');
             $table->date('tanggal_selesai');
+            $table->date('tanggal_keluar')->nullable();
             $table->string('vendor');
             $table->string('nama_vendor')->nullable();
             $table->float('harga_vendor')->nullable();

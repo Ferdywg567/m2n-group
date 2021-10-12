@@ -104,7 +104,15 @@
 
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-12">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="tanggal_keluar">Tanggal Keluar</label>
+                                            <input type="text" class="form-control" required   value="{{$jahit->tanggal_keluar}}" readonly id="tanggal_keluar"
+                                            name="tanggal_keluar">
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="vendor_jahit">Vendor Jahit</label>
                                             <input type="text" class="form-control" required readonly id="vendor_jahit"

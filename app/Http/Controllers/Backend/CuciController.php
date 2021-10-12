@@ -214,7 +214,7 @@ class CuciController extends Controller
                     $cuci->save();
                 }
                 if ($request->get('status') == 'cucian keluar') {
-
+                    $cuci->tanggal_keluar = date('Y-m-d');
                     $cuci->status = "cucian keluar";
                     $cuci->save();
                     $notif = new Notification();
