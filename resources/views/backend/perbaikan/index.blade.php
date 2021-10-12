@@ -40,7 +40,7 @@
                                         <th scope="col">Kode Bahan</th>
                                         <th scope="col">SKU</th>
                                         <th scope="col">Tgl Masuk</th>
-                                        <th scope="col">Barang Repair</th>
+                                        <th scope="col">Jumlah Perbaikan</th>
                                         <th scope="col">Surat Jalan</th>
                                         <th scope="col">Status</th>
                                         <th scope="col">Aksi</th>

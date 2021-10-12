@@ -217,8 +217,7 @@ class PerbaikanController extends Controller
             'washing' => 'required|integer',
             'keterangan_tailoring' => 'required',
             'keterangan_washing' => 'required',
-            'tanggal_selesai' => 'required|date_format:"Y-m-d"|after_or_equal:' . date('Y-m-d'),
-            'tanggal_kirim' => 'required|date_format:"Y-m-d"|after:tanggal_selesai',
+            'tanggal_selesai' => 'required|date_format:"Y-m-d"',
         ]);
 
         if ($validator->fails()) {
@@ -230,7 +229,6 @@ class PerbaikanController extends Controller
                 $repair = Perbaikan::findOrFail($id);
                 $repair->status = "proses repair";
                 $repair->tanggal_selesai = date('Y-m-d', strtotime($request->get('tanggal_selesai')));
-                $repair->tanggal_kirim = date('Y-m-d', strtotime($request->get('tanggal_kirim')));
                 $repair->save();
 
                 $jahit = DetailPerbaikan::find($request->get('jahit_direpair_id'));

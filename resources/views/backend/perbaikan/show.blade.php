@@ -155,22 +155,15 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="tanggal_selesai">Tanggal Selesai Repairing </label>
+                                            <label for="tanggal_selesai">Tanggal Selesai Perbaikan </label>
                                             <input type="date" class="form-control" readonly
                                                 value="{{$repair->tanggal_selesai}}" required id="tanggal_selesai"
                                                 name="tanggal_selesai">
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="tanggal_kirim">Tanggal Kirim Barang</label>
-                                            <input type="date" class="form-control" readonly
-                                                value="{{$repair->tanggal_kirim}}" required id="tanggal_kirim"
-                                                name="tanggal_kirim">
-                                        </div>
-                                    </div>
+
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12 text-center">
