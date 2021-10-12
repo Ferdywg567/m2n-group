@@ -177,14 +177,14 @@
                                     <div class="row">
                                         <input type="hidden" name="nilai" id="nilai" value="1">
                                         <input type="hidden" name="idukuran" id="idukuran" value="{{$item->id}}">
-                                        <div class="col-md-6">
+                                        <div class="col-md-5">
                                             <div class="form-group">
                                                 <label for="ukuran">Ukuran</label>
                                                 <input type="text" class="form-control" value="{{$item->size}}" required
                                                     id="ukuran" name="ukuran[]">
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-5">
                                             <div class="form-group">
                                                 <label for="jumlah">Jumlah</label>
                                                 <input type="number" class="form-control" value="{{$item->jumlah}}" min="0"
@@ -258,22 +258,30 @@
                 var tambah = parseInt(nilai);
                 var datahtml = '<div class="row">' +
                     '<input type="hidden" name="nilai" id="nilai" value="'+tambah+'">'+
-                                            '<div class="col-md-6">'+
+                                            '<div class="col-md-5">'+
                                                 '<div class="form-group">'+
                                                     '<label for="ukuran">Ukuran</label>'+
                                                     '<input type="text" class="form-control" required id="ukuran" name="ukuran[]">'+
                                                 '</div>'+
                                             '</div>'+
-                                            '<div class="col-md-6">'+
+                                            '<div class="col-md-5">'+
                                                 '<div class="form-group">'+
                                                     '<label for="jumlah">Jumlah</label>'+
                                                     '<input type="number" class="form-control"  required id="jumlah" name="jumlah[]" >'+
                                         '</div>'+
-                            '</div>'+
+
+                                    '</div>'+
+                                        '<div class="col-md-2" style="margin-top:30px" >'+
+                                                '<button type="button" class="btn btn-danger btnHapus btn-block"><i class="ri-delete-bin-fill"></button>'+
+                                        '</div>'+
                     '</div>'
                 $('#datasub').append(datahtml)
             })
 
+
+            $(document).on('click', '.btnHapus',function () {
+                $(this).closest('.row').remove();
+             })
      })
 </script>
 @endpush
