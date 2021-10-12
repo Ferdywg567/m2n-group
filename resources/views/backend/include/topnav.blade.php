@@ -67,7 +67,7 @@ $notif = \App\Notification::where('role','warehouse')->orderBy('created_at','DES
 
                 @forelse ($notif as $item)
                 <a href="{{$item->url}}" data-id="{{$item->id}}"
-                    class="dropdown-item notif-item @if($item->read == 1) dropdown-item-unread @endif">
+                    class="dropdown-item notif-item @if($item->read != 1) dropdown-item-unread @endif">
                     <div class="dropdown-item-icon bg-success text-white">
                         <i class="fas fa-check"></i>
                     </div>
