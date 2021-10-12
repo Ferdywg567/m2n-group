@@ -47,11 +47,13 @@ class PerbaikanController extends Controller
                     $detail = DetailPerbaikan::where('perbaikan_id', $repair->id)->where('cuci_direpair_id', $row->id)->first();
                     if ($detail) {
                         $detail->jumlah = $row->jumlah;
+                        $detail->keterangan = $value->keterangan_direpair;
                     } else {
                         $detail = new DetailPerbaikan();
                         $detail->perbaikan_id = $repair->id;
                         $detail->cuci_direpair_id = $row->id;
                         $detail->jumlah = $row->jumlah;
+                        $detail->keterangan = $value->keterangan_direpair;
                     }
 
                     $detail->save();
@@ -76,11 +78,13 @@ class PerbaikanController extends Controller
                     $detail = DetailPerbaikan::where('perbaikan_id', $repair->id)->where('jahit_direpair_id', $row->id)->first();
                     if ($detail) {
                         $detail->jumlah = $row->jumlah;
+                        $detail->keterangan = $value->keterangan_direpair;
                     } else {
                         $detail = new DetailPerbaikan();
                         $detail->perbaikan_id = $repair->id;
                         $detail->jahit_direpair_id = $row->id;
                         $detail->jumlah = $row->jumlah;
+                        $detail->keterangan = $value->jahit->keterangan_direpair;
                     }
 
                     $detail->save();
