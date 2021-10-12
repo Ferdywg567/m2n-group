@@ -17,7 +17,7 @@
             <a class="btn btn-primary" href="{{route('perbaikan.index')}}">
                 <i class="fas fa-arrow-left"></i>
             </a>
-            <h1 class="ml-2">Detail Repairing</h1>
+            <h1 class="ml-2">Detail Perbaikan</h1>
         </div>
         <div class="section-body">
             <div class="row">
@@ -91,7 +91,7 @@
 
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="tailoring">Tailoring</label>
+                                            <label for="tailoring">Jahit</label>
                                             <div class="input-group mb-2">
                                                 <input type="hidden" name="jahit_direpair_id"
                                                     value="{{$jahit['jahit_direpair_id']}}">
@@ -106,7 +106,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="washing">Washing</label>
+                                            <label for="washing">Cuci</label>
                                             <div class="input-group mb-2">
                                                 <input type="hidden" name="cuci_direpair_id"
                                                     value="{{$cuci['cuci_direpair_id']}}">
