@@ -160,6 +160,15 @@ class FinishingController extends Controller
                     $dataukuran = $request->get('dataukurandiretur');
                     $sum = array_sum($jumlah);
 
+                    if($jumlah > 0){
+                        $notif = new Notification();
+                        $notif->description = "ada barang yang diretur, silahkan di cek";
+                        $notif->url = route('retur.index');
+                        $notif->aktif = 0;
+                        $notif->role = 'production';
+                        $notif->save();
+                    }
+
                     if ($sum != intval($request->get('produk_diretur'))) {
                         return redirect()->back()->withErrors('Jumlah di retur yang harus dimasukkan sebanyak ' . $request->get('produk_diretur'));
                     }
