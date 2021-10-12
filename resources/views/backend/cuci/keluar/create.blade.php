@@ -351,7 +351,6 @@
                     var id = $(this).find(':selected').val()
 
                     if(id != ''){
-                        emptyUkuran()
                         $.ajax({
                             url:"{{route('cuci.getdata')}}",
                             method:"GET",
