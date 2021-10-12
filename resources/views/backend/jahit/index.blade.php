@@ -75,8 +75,8 @@
                                                 <th scope="col">No</th>
                                                 <th scope="col">Kode Transaksi</th>
                                                 <th scope="col">SKU</th>
-                                                <th scope="col">Tanggal Jahit</th>
-                                                <th scope="col">Tanggal Selesai</th>
+                                                <th scope="col">Tgl Jahit</th>
+                                                <th scope="col">Tgl Selesai</th>
                                                 <th scope="col">Vendor Jahit</th>
                                                 <th scope="col">Jahit Sukses</th>
                                                 <th scope="col">Surat Jalan</th>
@@ -175,8 +175,8 @@
                                                 <th scope="col">No</th>
                                                 <th scope="col">Kode Transaksi</th>
                                                 <th scope="col">SKU</th>
-                                                <th scope="col">Tanggal Jahit</th>
-                                                <th scope="col">Tanggal Selesai</th>
+                                                <th scope="col">Tgl Jahit</th>
+                                                <th scope="col">Tgl Selesai</th>
                                                 <th scope="col">Vendor Jahit</th>
                                                 <th scope="col">Jahit Sukses</th>
                                                 <th scope="col">Surat Jalan</th>
@@ -273,8 +273,8 @@
                                                 <th scope="col">No</th>
                                                 <th scope="col">Kode Transaksi</th>
                                                 <th scope="col">SKU</th>
-                                                <th scope="col">Tanggal Jahit</th>
-                                                <th scope="col">Tanggal Selesai</th>
+                                                <th scope="col">Tgl Selesai</th>
+                                                <th scope="col">Tgl Keluar</th>
                                                 <th scope="col">Vendor Jahit</th>
                                                 <th scope="col">Jahit Sukses</th>
                                                 <th scope="col">Surat Jalan</th>
@@ -290,8 +290,8 @@
                                                 <td>{{$loop->iteration}}</td>
                                                 <td>{{$item->potong->bahan->kode_transaksi}}</td>
                                                 <td>{{$item->potong->bahan->sku}}</td>
-                                                <td>{{$item->tanggal_jahit}}</td>
                                                 <td>{{$item->tanggal_selesai}}</td>
+                                                <td>{{$item->tanggal_keluar}}</td>
                                                 <td>{{$item->vendor}}</td>
                                                 <td>{{$item->berhasil}} pcs</td>
                                                 <td>{{$item->no_surat}}</td>

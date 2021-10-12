@@ -271,7 +271,7 @@
                                                 <th scope="col">No</th>
                                                 <th scope="col">Kode Transaksi</th>
                                                 <th scope="col">SKU</th>
-                                                <th scope="col">Tgl Cuci</th>
+                                                <th scope="col">Tgl Keluar</th>
                                                 <th scope="col">Vendor Cuci</th>
                                                 <th scope="col">Cuci Sukses</th>
                                                 <th scope="col">Surat Jalan</th>
@@ -286,7 +286,7 @@
                                                 <td>{{$loop->iteration}}</td>
                                                 <td>{{$item->jahit->potong->bahan->kode_transaksi}}</td>
                                                 <td>{{$item->jahit->potong->bahan->sku}}</td>
-                                                <td>{{$item->tanggal_cuci}}</td>
+                                                <td>{{$item->tanggal_keluar}}</td>
                                                 <td>{{$item->vendor}}</td>
                                                 <td>{{$item->berhasil_cuci}}</td>
                                                 <td>{{$item->no_surat}}</td>
