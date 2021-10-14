@@ -43,7 +43,7 @@ class CuciController extends Controller
             $jahit = Jahit::where('status', 'jahitan keluar')->where('status_jahit', 'selesai')->doesntHave('cuci')->orderBy('created_at', 'DESC')->get();
             return view("backend.cuci.masuk.create", ['jahit' => $jahit]);
         } else  if ($status == 'selesai') {
-            $cuci = Cuci::where('status', 'cucian masuk')->get();
+            $cuci = Cuci::where('status', 'cucian masuk')->whereNotNull('tanggal_cuci')->whereNotNull('tanggal_selesai')->get();
             return view("backend.cuci.selesai.create", ['cuci' => $cuci]);
         } else {
             $cuci = Cuci::where('status', 'cucian selesai')->get();
