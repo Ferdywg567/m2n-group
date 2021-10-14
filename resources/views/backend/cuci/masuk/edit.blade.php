@@ -43,8 +43,8 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="no_surat">Nomor Surat Jalan</label>
-                                            <input type="text" class="form-control" value="{{$cuci->no_surat}}" readonly required
-                                                id="no_surat" name="no_surat">
+                                            <input type="text" class="form-control" value="{{$cuci->no_surat}}" readonly
+                                                required id="no_surat" name="no_surat">
                                         </div>
                                     </div>
                                 </div>
@@ -91,45 +91,40 @@
                                                 id="detail_sub_kategori" name="detail_sub_kategori">
                                         </div>
                                     </div>
-
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="tanggal_cuci">Tanggal Cuci</label>
-                                            <input type="date" class="form-control" readonly required id="tanggal_cuci"
+                                            <input type="date" class="form-control" required id="tanggal_cuci"
                                                 value="{{$cuci->tanggal_cuci}}" name="tanggal_cuci">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="estimasi_selesai_cuci">Estimasi Selesai Cuci</label>
-                                            <input type="date" class="form-control" readonly required
-                                                id="estimasi_selesai_cuci" value="{{$cuci->tanggal_selesai}}"
-                                                name="estimasi_selesai_cuci">
+                                            <input type="date" class="form-control" required id="estimasi_selesai_cuci"
+                                                value="{{$cuci->tanggal_selesai}}" name="estimasi_selesai_cuci">
                                         </div>
                                     </div>
-
                                 </div>
-
                                 <div class="row">
-
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="nama_vendor">Nama Vendor</label>
-                                            <input type="text" class="form-control" required id="nama_vendor"
-                                                value="{{$cuci->nama_vendor}}" name="nama_vendor">
+                                            <input type="text" class="form-control" @if($cuci->nama_vendor != null)
+                                            readonly @endif required id="nama_vendor"
+                                            value="{{$cuci->nama_vendor}}" name="nama_vendor">
                                         </div>
                                     </div>
-
-
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="harga_vendor">Harga Vendor</label>
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <input type="text" class="form-control" required id="harga_vendor"
-                                                        value="{{$cuci->harga_vendor}}" readonly name="harga_vendor">
+                                                        value="{{$cuci->harga_vendor}}" @if($cuci->harga_vendor != null)
+                                                    readonly @endif name="harga_vendor">
                                                 </div>
                                                 <div class="col-md-6">
 

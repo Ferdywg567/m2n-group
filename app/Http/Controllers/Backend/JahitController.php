@@ -6,12 +6,14 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\DetailCuci;
 use App\DetailJahit;
 use App\DetailPotong;
 use App\Notification;
 use App\JahitDirepair;
 use App\JahitDibuang;
 use App\Potong;
+use App\Cuci;
 use App\Jahit;
 use PDF;
 
@@ -264,6 +266,25 @@ class JahitController extends Controller
                     $notif->role = 'production';
                     $notif->save();
 
+
+                    $cuci = new Cuci();
+                    $cuci->jahit_id = $jahit->id;
+                    $cuci->no_surat = $jahit->no_surat;
+                    $cuci->vendor = 'eksternal';
+                    $cuci->status = "cucian masuk";
+                    $cuci->kain_siap_cuci = $jahit->berhasil;
+                    $cuci->konversi = $this->konversi($cuci->kain_siap_cuci);
+                    $cuci->status_cuci = "belum cuci";
+                    $cuci->save();
+                    $detail = DetailJahit::where('jahit_id',  $cuci->jahit_id)->get();
+                    foreach ($detail as $key => $value) {
+                        $detail = new DetailCuci();
+                        $detail->cuci_id = $cuci->id;
+                        $detail->size = $value->size;
+                        $detail->jumlah = $value->jumlah;
+                        $detail->save();
+                    }
+
                     session(['notification' => 1]);
                 }
                 $jahit->save();
@@ -373,7 +394,7 @@ class JahitController extends Controller
                         // $jahit->status_jahit = "belum jahit";
                         $jahit->status_jahit = "selesai";
                     }
-                    if ($request->get('vendor_jahit') == 'eksternal') {
+                    if ($request->get('vendor_jahit') == 'eksternal' &&  $jahit->harga_vendor == null) {
                         $jahit->nama_vendor = $request->get('nama_vendor');
                         $jahit->harga_vendor = $request->get('harga_vendor');
                         $jahit->status_pembayaran = "Belum Lunas";
@@ -617,5 +638,15 @@ class JahitController extends Controller
             $jahit->save();
             return redirect()->route('jahit.index')->with('success',  'Pembayaran berhasil diupdate');
         }
+    }
+
+
+    public function konversi($data)
+    {
+        $lusin = 12;
+        $sisa = $data % $lusin;
+        $hasil = ($data - $sisa) / $lusin;
+        $res = $hasil . ' Lusin ' . $sisa . ' pcs';
+        return $res;
     }
 }

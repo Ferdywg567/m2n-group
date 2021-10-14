@@ -24,7 +24,7 @@ class CuciController extends Controller
      */
     public function index()
     {
-        // Cuci::query()->update(['status_cuci' => 'selesai']);
+        Cuci::whereNotNull('tanggal_cuci')->whereNotNull('tanggal_selesai')->update(['status_cuci' => 'selesai']);
         $cuci = Cuci::where('status', 'cucian masuk')->orderBy('created_at', 'DESC')->get();
         $selesai = Cuci::where('status', 'cucian selesai')->orderBy('created_at', 'DESC')->get();
         $keluar = Cuci::where('status', 'cucian keluar')->orderBy('created_at', 'DESC')->get();
@@ -326,21 +326,25 @@ class CuciController extends Controller
         } else {
             DB::beginTransaction();
             try {
-
                 $cuci = Cuci::findOrFail($id);
                 $cuci->no_surat = $request->get('no_surat');
                 $cuci->konversi = $request->get('konversi');
                 if ($request->get('status') == 'cucian masuk') {
-                    // $cuci->tanggal_cuci = date('Y-m-d', strtotime($request->get('tanggal_mulai_cuci')));
-                    // $cuci->tanggal_selesai = date('Y-m-d', strtotime($request->get('tanggal_selesai_cuci')));
-
-                    // if ($cuci->tanggal_cuci == date('Y-m-d')) {
-                    //     $cuci->status_cuci = "proses cuci";
-                    // } else {
-                    //     $cuci->status_cuci = "belum cuci";
-                    // }
+                    $cuci->tanggal_cuci = date('Y-m-d', strtotime($request->get('tanggal_mulai_cuci')));
+                    $cuci->tanggal_selesai = date('Y-m-d', strtotime($request->get('tanggal_selesai_cuci')));
+                    if ($cuci->tanggal_cuci == date('Y-m-d')) {
+                        $cuci->status_cuci = "proses cuci";
+                    } else {
+                        $cuci->status_cuci = "belum cuci";
+                    }
                     $cuci->nama_vendor = $request->get('nama_vendor');
-                    $cuci->harga_vendor = $request->get('harga_vendor');
+                    if($cuci->harga_vendor == null){
+                        $cuci->harga_vendor = $request->get('harga_vendor');
+                        $cuci->status_pembayaran = "Belum Lunas";
+                        $totalbayar = $cuci->kain_siap_cuci * $cuci->harga_vendor;
+                        $cuci->total_harga = $totalbayar;
+                        $cuci->sisa_bayar = $totalbayar;
+                    }
                     $cuci->save();
                 }
 
