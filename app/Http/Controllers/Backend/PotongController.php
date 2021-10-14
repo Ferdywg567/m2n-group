@@ -27,7 +27,7 @@ class PotongController extends Controller
         $bahan = Bahan::doesntHave('potong')->where('status', 'bahan keluar')->get();
         $masuk = Potong::where('status', 'potong masuk')->orderBy('created_at', 'DESC')->get();
         $selesai = Potong::where('status', 'potong selesai')->orderBy('created_at', 'DESC')->get();
-        $keluar = Potong::where('status', 'potong keluar')->where('status_potong', 'selesai')->orderBy('created_at','DESC')->get();;
+        $keluar = Potong::where('status', 'potong keluar')->where('status_potong', 'selesai')->orderBy('created_at', 'DESC')->get();;
         $datakeluar = Potong::where('status', 'potong keluar')->where('status_potong', 'selesai')->orderBy('created_at', 'DESC')->get();
         return view("backend.potong.index", ['bahan' => $bahan, 'masuk' => $masuk, 'keluar' => $keluar, 'datakeluar' => $datakeluar, 'selesai' => $selesai]);
     }
@@ -44,7 +44,7 @@ class PotongController extends Controller
             $bahan = Bahan::doesntHave('potong')->where('status', 'bahan keluar')->whereNotNull('kode_transaksi')->get();
             return view("backend.potong.masuk.create", ['bahan' => $bahan]);
         } elseif ($status == 'selesai') {
-            $selesai = Potong::all()->where('status', 'potong masuk')->where('status_potong', 'selesai');
+            $selesai = Potong::where('status', 'potong masuk')->where('status_potong', 'selesai')->whereNotNull('tanggal_cutting')->whereNotNull('tanggal_selesai')->get();
             return view("backend.potong.selesai.create", ['selesai' => $selesai]);
         } else {
             $keluar = Potong::all()->where('status', 'potong selesai')->where('status_potong', 'selesai');
@@ -202,8 +202,6 @@ class PotongController extends Controller
         if ($request->get('status') == 'potong masuk') {
             $potong = Potong::findOrFail($id);
             $validator = Validator::make($request->all(), [
-                'kode_transaksi' =>  'required',
-                'no_surat' => 'required',
                 'tanggal_potong' => 'required|date_format:"Y-m-d"',
                 'estimasi_selesai_potong' => 'required|date_format:"Y-m-d"',
             ]);

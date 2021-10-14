@@ -75,7 +75,7 @@
                                                 <th scope="col">SKU</th>
                                                 <th scope="col">Jenis Kain</th>
                                                 <th scope="col">Warna Kain</th>
-                                                <th scope="col">Tanggal Cutting</th>
+                                                <th scope="col">Tanggal Potong</th>
                                                 <th scope="col">Tanggal Selesai</th>
                                                 <th scope="col">Surat Jalan</th>
                                                 <th scope="col">Status</th>
@@ -155,7 +155,7 @@
                                                 <th scope="col">SKU</th>
                                                 <th scope="col">Jenis Kain</th>
                                                 <th scope="col">Warna Kain</th>
-                                                <th scope="col">Tanggal Cutting</th>
+                                                <th scope="col">Tanggal Potong</th>
                                                 <th scope="col">Tanggal Selesai</th>
                                                 <th scope="col">Surat Jalan</th>
                                                 <th scope="col">Status</th>
@@ -229,7 +229,7 @@
                                                 <th scope="col">SKU</th>
                                                 <th scope="col">Jenis Kain</th>
                                                 <th scope="col">Warna Kain</th>
-                                                <th scope="col">Tanggal Cutting</th>
+                                                <th scope="col">Tanggal Potong</th>
                                                 <th scope="col">Tanggal Selesai</th>
                                                 <th scope="col">Surat Jalan</th>
                                                 <th scope="col">Status</th>

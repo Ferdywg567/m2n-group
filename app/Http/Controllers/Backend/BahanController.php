@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -11,6 +12,7 @@ use App\Bahan;
 use App\DetailSubKategori;
 use App\Sku;
 use App\SubKategori;
+use App\Potong;
 use PDF;
 
 class BahanController extends Controller
@@ -87,49 +89,79 @@ class BahanController extends Controller
             return redirect()->back()->withErrors($validator->errors());
         } else {
 
-            if ($request->get('status') == 'bahan masuk') {
-                $bahan = new Bahan();
-                $bahan->sisa_bahan = -1;
-                $bahan->kode_bahan = $request->get('kode_bahan');
-            } else {
-                $cekbahan = Bahan::find($request->get('kode_bahan'));
-                $cekbahan->status = "bahan keluar";
-                $cekbahan->sisa_bahan = null;
-                $cekbahan->save();
-                // dd($cekbahan);
-                $bahan = new Bahan();
-                $bahan->kode_bahan = $cekbahan->kode_bahan;
-                $bahan->tanggal_masuk = $cekbahan->tanggal_masuk;
-                $notif = new Notification();
-                $notif->description = "bahan keluar telah dikirim ke potong, silahkan di cek bahan";
-                $notif->url = route('potong.index');
-                $notif->aktif = 0;
-                $notif->role = 'production';
-                $notif->save();
 
-                session(['notification' => 1]);
+            DB::beginTransaction();
+            try {
+                if ($request->get('status') == 'bahan masuk') {
+                    $bahan = new Bahan();
+                    $bahan->sisa_bahan = -1;
+                    $bahan->kode_bahan = $request->get('kode_bahan');
+                    $bahan->tanggal_masuk = $request->get('tanggal');
+                    $bahan->status = "bahan masuk";
+                    $bahan->no_surat = $request->get('no_surat');
+                    $bahan->nama_bahan = $request->get('nama_bahan');
+                    $bahan->jenis_bahan = $request->get('jenis_bahan');
+                    $bahan->warna = $request->get('warna');
+                    $bahan->vendor = $request->get('vendor');
+                    $bahan->panjang_bahan = $request->get('panjang_bahan');
+                    $bahan->save();
+
+                } else {
+                    $cekbahan = Bahan::find($request->get('kode_bahan'));
+                    $cekbahan->status = "bahan keluar";
+                    $cekbahan->sisa_bahan = null;
+                    $cekbahan->save();
+                    // dd($cekbahan);
+                    $bahan = new Bahan();
+                    $bahan->kode_bahan = $cekbahan->kode_bahan;
+                    $bahan->tanggal_masuk = $cekbahan->tanggal_masuk;
+                    $kode_transaksi = $this->getKode();
+                    $bahan->kode_transaksi = $kode_transaksi;
+                    $bahan->sku = $request->get('sku_bahan');
+                    $bahan->detail_sub_kategori_id = $request->get('detail_sub_kategori');
+                    $bahan->sisa_bahan = $request->get('sisa_bahan');
+                    $bahan->panjang_bahan_diambil = $request->get('panjang_bahan_diambil');
+                    $bahan->status = "bahan keluar";
+                    $bahan->tanggal_keluar = $request->get('tanggal_keluar');
+                    $bahan->no_surat = $request->get('no_surat');
+                    $bahan->nama_bahan = $request->get('nama_bahan');
+                    $bahan->jenis_bahan = $request->get('jenis_bahan');
+                    $bahan->warna = $request->get('warna');
+                    $bahan->vendor = $request->get('vendor');
+                    $bahan->panjang_bahan = $request->get('panjang_bahan');
+                    $bahan->save();
+
+
+                    $notif = new Notification();
+                    $notif->description = "bahan keluar telah dikirim ke potong, silahkan di cek bahan";
+                    $notif->url = route('potong.index');
+                    $notif->aktif = 0;
+                    $notif->role = 'production';
+                    $notif->save();
+
+                    $potong = new Potong();
+                    $potong->bahan_id = $bahan->id;
+                    $potong->no_surat = $request->get('no_surat');
+                    $potong->status = "potong masuk";
+                    if ($potong->tanggal_cutting == date('Y-m-d')) {
+                        $potong->status_potong = "proses potong";
+                    } else {
+                        $potong->status_potong = "belum potong";
+                    }
+                    $potong->save();
+
+                    session(['notification' => 1]);
+                }
+
+                DB::commit();
+                return redirect()->route('bahan.index')->with('success', $request->get('status') . ' berhasil disimpan');
+            } catch (\Exception $th) {
+                //throw $th;
+                DB::rollback();
+                dd($th);
             }
-            $bahan->no_surat = $request->get('no_surat');
-            $bahan->nama_bahan = $request->get('nama_bahan');
-            $bahan->jenis_bahan = $request->get('jenis_bahan');
-            $bahan->warna = $request->get('warna');
-            $bahan->vendor = $request->get('vendor');
-            if ($request->get('status') == 'bahan masuk') {
-                $bahan->tanggal_masuk = $request->get('tanggal');
-                $bahan->status = "bahan masuk";
-            } else {
-                $kode_transaksi = $this->getKode();
-                $bahan->kode_transaksi = $kode_transaksi;
-                $bahan->sku = $request->get('sku_bahan');
-                $bahan->detail_sub_kategori_id = $request->get('detail_sub_kategori');
-                $bahan->sisa_bahan = $request->get('sisa_bahan');
-                $bahan->panjang_bahan_diambil = $request->get('panjang_bahan_diambil');
-                $bahan->status = "bahan keluar";
-                $bahan->tanggal_keluar = $request->get('tanggal_keluar');
-            }
-            $bahan->panjang_bahan = $request->get('panjang_bahan');
-            $bahan->save();
-            return redirect()->route('bahan.index')->with('success', $request->get('status') . ' berhasil disimpan');
+
+
         }
     }
 

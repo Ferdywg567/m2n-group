@@ -10,7 +10,6 @@
     .cssnav {
         margin-left: 10px;
     }
-
 </style>
 <div id="non-printable">
     <section class="section">
@@ -40,7 +39,8 @@
                                                     @forelse ($bahan as $item)
                                                     <option value="{{$item->id}}" @if($item->id ==
                                                         old('kode_transaksi')) selected @endif>
-                                                        {{$item->kode_transaksi}} | {{$item->nama_bahan}} | {{$item->detail_sub->nama_kategori}}
+                                                        {{$item->kode_transaksi}} | {{$item->nama_bahan}} |
+                                                        {{$item->detail_sub->nama_kategori}}
                                                     </option>
                                                     @empty
                                                     @endforelse
