@@ -188,7 +188,7 @@
         </tr>
     </table>
     <hr style="margin-top: -20px">
-    <button class="btn"><i class="fa fa-home"> <img src="{{public_path('assets/icon/scissors-line.png')}}" width="20" style="margin-top: 2px" alt=""></i>Cutting</button>
+    <button class="btn"><i class="fa fa-home"> <img src="{{public_path('assets/icon/scissors-line.png')}}" width="20" style="margin-top: 2px" alt=""></i>Potong</button>
     <main>
         <table>
             <tbody>

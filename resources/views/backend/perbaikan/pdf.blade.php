@@ -187,7 +187,7 @@
         </tr>
     </table>
     <hr>
-    <button class="btn"><i class="fa fa-home"> <img src="{{public_path('assets/icon/refresh-fill.png')}}" style="margin-top: 2px" alt=""></i>Repair</button>
+    <button class="btn"><i class="fa fa-home"> <img src="{{public_path('assets/icon/refresh-fill.png')}}" style="margin-top: 2px" alt=""></i>Perbaikan</button>
     <main>
         <table>
             <tbody>

@@ -25,9 +25,7 @@
 
                         <div class="card-body">
                             @include('backend.include.alert')
-                            <div class="alert alert-danger" role="alert" id="dataalert">
-
-                            </div>
+                         
                             <form action="{{route('potong.store')}}" method="post" id="formPotong">
                                 @csrf
                                 <input type="hidden" name="status" value="potong keluar">

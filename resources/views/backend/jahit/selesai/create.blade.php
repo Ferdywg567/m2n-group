@@ -31,7 +31,7 @@
 
                             <div class="card-body">
                                 @include('backend.include.alert')
-                                <div class="alert alert-danger" role="alert" id="dataalert">
+                                <div class="alert" role="alert" id="dataalert">
 
                                 </div>
                                 @csrf
@@ -318,14 +318,17 @@
                     jumlahdibuang = jumlahdibuang + parseInt($(this).val());
                 });
                 if(parseInt(berhasil_jahit) > parseInt(jumlah_bahan)  ){
+                    $('#dataalert').addClass('alert-danger')
                     $('#dataalert').show()
                     $('#dataalert').text('Jumlah Berhasil Jahit tidak boleh melebihi Jumlah Bahan yang Dijahit')
                     return false;
                 }else if(parseInt(jumlahdirepair) != parseInt(hasil)){
+                    $('#dataalert').addClass('alert-danger')
                     $('#dataalert').show()
                     $('#dataalert').text('Jumlah ukuran perbaikan harus sesuai dengan jumlah perbaikan')
                     return false;
                 }else if(parseInt(jumlahdibuang) != parseInt(barang_dibuang)){
+                    $('#dataalert').addClass('alert-danger')
                     $('#dataalert').show()
                     $('#dataalert').text('Jumlah ukuran dibuang harus sesuai dengan jumlah dibuang')
                     return false;

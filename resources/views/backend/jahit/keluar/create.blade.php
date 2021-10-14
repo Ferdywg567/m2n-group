@@ -31,9 +31,7 @@
 
                             <div class="card-body">
                                 @include('backend.include.alert')
-                                <div class="alert alert-danger" role="alert" id="dataalert">
-
-                                </div>
+                              
                                 @csrf
                                 <input type="hidden" name="status" value="jahitan keluar">
                                 <input type="hidden" name="id" id="idkeluar">

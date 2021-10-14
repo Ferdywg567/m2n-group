@@ -38,7 +38,7 @@
                             <div class="card-body">
                                 @include('backend.include.alert')
                                 @csrf
-                                <div class="alert alert-danger" role="alert" id="dataalert">
+                                <div class="alert" role="alert" id="dataalert">
 
                                 </div>
                                 <input type="hidden" name="konversi" id="konversi">
@@ -377,14 +377,17 @@
                     jumlahdibuang = jumlahdibuang + parseInt($(this).val());
                 });
                 if(parseInt(berhasil_cuci)  > parseInt(jumlah_bahan) ){
+                    $('#dataalert').addClass('alert-danger')
                     $('#dataalert').show()
                     $('#dataalert').text('Jumlah Berhasil Cuci tidak boleh melebihi Jumlah Bahan yang Dicuci')
                     return false;
                 }else if(parseInt(jumlahdirepair) != parseInt(hasil)){
+                    $('#dataalert').addClass('alert-danger')
                     $('#dataalert').show()
                     $('#dataalert').text('Jumlah ukuran perbaikan harus sesuai dengan jumlah perbaikan')
                     return false;
                 }else if(parseInt(jumlahdibuang) != parseInt(barang_dibuang)){
+                    $('#dataalert').addClass('alert-danger')
                     $('#dataalert').show()
                     $('#dataalert').text('Jumlah ukuran dibuang harus sesuai dengan jumlah dibuang')
                     return false;

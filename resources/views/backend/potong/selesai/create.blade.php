@@ -26,7 +26,7 @@
 
                         <div class="card-body">
                             @include('backend.include.alert')
-                            <div class="alert alert-danger" role="alert" id="dataalert">
+                            <div class="alert " role="alert" id="dataalert">
 
                             </div>
                             <form action="{{route('potong.store')}}" method="post" id="formPotong">
@@ -233,6 +233,7 @@
                 });
 
                 if(parseInt(jumlah) != parseInt(hasil)){
+                    $('#dataalert').addClass('alert-danger')
                     $('#dataalert').show()
                     $('#dataalert').text('Jumlah ukuran harus sesuai dengan hasil potong')
                     return false;

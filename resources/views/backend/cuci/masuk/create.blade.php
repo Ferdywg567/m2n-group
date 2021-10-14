@@ -14,7 +14,7 @@
 <div id="non-printable">
     <section class="section">
         <div class="section-header ">
-            <a class="btn btn-primary" href="{{route('jahit.index')}}">
+            <a class="btn btn-primary" href="{{route('cuci.index')}}">
                 <i class="fas fa-arrow-left"></i>
             </a>
             <h1 class="ml-2">Input Data | Masuk</h1>

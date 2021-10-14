@@ -361,14 +361,14 @@ class PotongController extends Controller
         $potong = Potong::findOrFail($request->get('id'));
         $titlepotong = [
             'Kode SKU',
-            'Tanggal Cutting',
+            'Tanggal Potong',
             'Tanggal Selesai',
-            'Hasil Cutting',
+            'Hasil Potong',
             'Jenis Kain',
             'Warna Kain',
             'Nama Produk'
         ];
-        $x['kode_bahan'] =  $potong->bahan->kode_bahan;
+        $x['kode_bahan'] =  $potong->bahan->kode_transaksi;
         $x['title'] = $titlepotong;
         $x['data'] = [
             $potong->bahan->sku,

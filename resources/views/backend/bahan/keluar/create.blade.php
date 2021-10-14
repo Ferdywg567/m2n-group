@@ -28,7 +28,7 @@
 
                         <div class="card-body">
                             @include('backend.include.alert')
-                            <div class="alert alert-danger" role="alert" id="dataalert">
+                            <div class="alert " role="alert" id="dataalert">
 
                             </div>
                             <form  method="post" action="{{route('bahan.store')}}" id="formBahan">
@@ -240,6 +240,7 @@
                 var bahan = $('#panjang_bahan').val();
                 var diambil = $('#panjang_bahan_diambil').val()
                 if(parseInt(diambil) > parseInt(bahan)){
+                    $('#dataalert').addClass('alert-danger')
                     $('#dataalert').show()
                     $('#dataalert').text('Jumlah bahan diambil harus sesuai dengan panjang bahan')
                     return false;

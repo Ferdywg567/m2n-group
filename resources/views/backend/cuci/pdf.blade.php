@@ -188,7 +188,7 @@
     </table>
     <hr style="margin-top: -20px">
     <button class="btn"><i class="fa fa-home"> <img src="{{public_path('assets/icon/hand-coin-fill.png')}}"
-                style="margin-top: 2px" alt=""></i> Washing</button>
+                style="margin-top: 2px" alt=""></i> Cuci</button>
     <main>
         <table>
             <tbody>

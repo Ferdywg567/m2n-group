@@ -176,22 +176,50 @@ class RekapitulasiController extends Controller
 
         $x['title'] = $titlerekap;
         $ukuran = '';
-        $x['kode_bahan'] =      $rekap->cuci->jahit->potong->bahan->kode_transaksi;
-        foreach ($rekap->detail_rekap as $key => $row) {
-            $ukuran .= $row->ukuran . ',';
+        if (empty($rekap->cuci_id)) {
+            $x['kode_bahan'] = $rekap->jahit->potong->bahan->kode_transaksi;
+        } else {
+            $x['kode_bahan'] = $rekap->cuci->jahit->potong->bahan->kode_transaksi;
         }
 
-        $x['data'] = [
-            $rekap->cuci->jahit->potong->bahan->sku,
-            $rekap->cuci->tanggal_selesai,
-            $rekap->cuci->jahit->potong->bahan->jenis_bahan,
-            $rekap->cuci->jahit->potong->bahan->nama_bahan,
-            $ukuran,
-            $rekap->cuci->jahit->potong->bahan->warna,
-            $rekap->cuci->jahit->potong->bahan->tanggal_masuk,
-            $rekap->tanggal_kirim,
-            $rekap->total_barang,
-        ];
+        $arr= [];
+        foreach ($rekap->detail_rekap as $key => $row) {
+
+            array_push($arr, $row->ukuran);
+        }
+
+        $arr = array_unique($arr);
+        foreach ($arr as $key => $value) {
+            $ukuran .= $value . ',';
+        }
+
+
+        if (empty($rekap->cuci_id)) {
+            $x['data'] = [
+                $rekap->jahit->potong->bahan->sku,
+                $rekap->tanggal_selesai,
+                $rekap->jahit->potong->bahan->jenis_bahan,
+                $rekap->jahit->potong->bahan->nama_bahan,
+                $ukuran,
+                $rekap->jahit->potong->bahan->warna,
+                $rekap->jahit->potong->bahan->tanggal_masuk,
+                $rekap->tanggal_kirim,
+                $rekap->total_barang,
+            ];
+        } else {
+            $x['data'] = [
+                $rekap->cuci->jahit->potong->bahan->sku,
+                $rekap->cuci->tanggal_selesai,
+                $rekap->cuci->jahit->potong->bahan->jenis_bahan,
+                $rekap->cuci->jahit->potong->bahan->nama_bahan,
+                $ukuran,
+                $rekap->cuci->jahit->potong->bahan->warna,
+                $rekap->cuci->jahit->potong->bahan->tanggal_masuk,
+                $rekap->tanggal_kirim,
+                $rekap->total_barang,
+            ];
+        }
+
 
         $pdf = PDF::loadView('backend.rekapitulasi.pdf', ['data' => $x]);
         return $pdf->stream('rekapitulasi.pdf');

@@ -31,7 +31,7 @@
                             <form action="{{route('potong.update',[$potong->id])}}" method="post" id="formPotong">
                                 @csrf
                                 @method('put')
-                                <div class="alert alert-danger" role="alert" id="dataalert">
+                                <div class="alert " role="alert" id="dataalert">
 
                                 </div>
                                 <input type="hidden" name="status" value="potong selesai">
@@ -230,6 +230,7 @@
                 });
 
                 if(parseInt(jumlah) != parseInt(hasil)){
+                    $('#dataalert').addClass('alert-danger')
                     $('#dataalert').show()
                     $('#dataalert').text('Jumlah ukuran harus sesuai dengan hasil potong')
                     return false;

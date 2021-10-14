@@ -187,7 +187,7 @@
         </tr>
     </table>
     <hr style="margin-top: -20px">
-    <button class="btn"><i class="fa fa-home"> <img src="{{public_path('assets/icon/user-settings-fill.png')}}" style="margin-top: 2px" alt=""></i> Tailoring</button>
+    <button class="btn"><i class="fa fa-home"> <img src="{{public_path('assets/icon/user-settings-fill.png')}}" style="margin-top: 2px" alt=""></i> Jahit</button>
     <main>
         <table>
             <tbody>
