@@ -27,7 +27,7 @@
                             <div class="card-body">
                                 @include('backend.include.alert')
                                 @csrf
-                                <div class="alert alert-danger" role="alert" id="dataalert">
+                                <div class="alert" role="alert" id="dataalert">
 
                                 </div>
                                 <input type="hidden" name="status" value="jahit">
@@ -343,6 +343,7 @@
                 var data = $('#pembayaran1').val();
                 var hasil = $('#total_harga').val()
                 var total_bayar = $('#total_bayar').val()
+                $('#dataalert').addClass('alert-danger')
                 if(data == 'Lunas'){
                     var nominal = $('#nominal1').val()
                     if(parseInt(hasil) != parseInt(nominal)){

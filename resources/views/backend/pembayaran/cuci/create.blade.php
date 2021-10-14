@@ -27,7 +27,7 @@
                             <div class="card-body">
                                 @include('backend.include.alert')
                                 @csrf
-                                <div class="alert alert-danger" role="alert" id="dataalert">
+                                <div class="alert" role="alert" id="dataalert">
 
                                 </div>
                                 <input type="hidden" name="total_bayar" id="total_bayar" >
@@ -342,6 +342,7 @@
                 if(data == 'Lunas'){
                     var nominal = $('#nominal1').val()
                     if(parseInt(hasil) != parseInt(nominal)){
+                        $('#dataalert').addClass('alert-danger')
                     $('#dataalert').show()
                     $('#dataalert').text('Nominal pembayaran harus sesuai dengan sisa bayar')
                      return false;
@@ -356,6 +357,7 @@
                     if(nominal2 > 0 && nominal > 0 && nominal3 > 0){
                         var total = parseInt(nominal) + parseInt(nominal2) + parseInt(nominal3)
                         if(parseInt(hasil) != parseInt(total)){
+                            $('#dataalert').addClass('alert-danger')
                             $('#dataalert').show()
                             $('#dataalert').text('Nominal pembayaran harus sesuai dengan total pembayaran')
                             return false;
@@ -365,6 +367,7 @@
                     }else if(nominal2 > 0 && nominal > 0){
                         var total = parseInt(nominal) + parseInt(nominal2)
                         if(parseInt(total) > parseInt(total_bayar) ){
+                            $('#dataalert').addClass('alert-danger')
                             $('#dataalert').show()
                             $('#dataalert').text('Nominal pembayaran harus kurang dari sama dengan total pembayaran')
                             return false;
@@ -373,10 +376,12 @@
                         }
                     }else if(nominal > 0){
                         if(parseInt(nominal) > parseInt(total_bayar) ){
+                            $('#dataalert').addClass('alert-danger')
                             $('#dataalert').show()
                             $('#dataalert').text('Nominal pembayaran tidak boleh melebihi total pembayaran')
                             return false;
                         }if(parseInt(nominal) <= 0){
+                            $('#dataalert').addClass('alert-danger')
                             $('#dataalert').show()
                             $('#dataalert').text('Nominal pembayaran harus lebih dari 0')
                             return false;
