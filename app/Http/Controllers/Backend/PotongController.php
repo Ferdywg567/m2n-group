@@ -6,9 +6,11 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\DetailJahit;
 use App\DetailPotong;
 use App\Notification;
 use App\Potong;
+use App\Jahit;
 use App\Bahan;
 use PDF;
 
@@ -23,7 +25,7 @@ class PotongController extends Controller
     {
         // $proses = Potong::whereDate('tanggal_cutting', date('Y-m-d'))->where('status', 'potong masuk')->update(['status_potong' => 'proses potong']);
         // $selesai = Potong::whereDate('tanggal_selesai', date('Y-m-d'))->where('status', 'potong masuk')->update(['status_potong' => 'selesai']);
-        $selesai = Potong::query()->update(['status_potong' => 'selesai']);
+        $selesai = Potong::whereNotNull('tanggal_cutting')->whereNotNull('tanggal_selesai')->update(['status_potong' => 'selesai']);
         $bahan = Bahan::doesntHave('potong')->where('status', 'bahan keluar')->get();
         $masuk = Potong::where('status', 'potong masuk')->orderBy('created_at', 'DESC')->get();
         $selesai = Potong::where('status', 'potong selesai')->orderBy('created_at', 'DESC')->get();
@@ -134,6 +136,23 @@ class PotongController extends Controller
                     $potong = Potong::findOrFail($request->get('kode_transaksi'));
                     $potong->status = "potong keluar";
                     $potong->save();
+
+                    $jahit = new Jahit();
+                    $jahit->potong_id = $potong->id;
+                    $jahit->no_surat = $potong->no_surat;
+                    $jahit->status = "jahitan masuk";
+                    $jahit->status_jahit = "belum jahit";
+                    $jahit->jumlah_bahan = $potong->hasil_cutting;
+                    $jahit->konversi = $this->konversi($jahit->jumlah_bahan);
+                    $detailpotong = DetailPotong::where('potong_id', $jahit->potong_id)->get();
+                    $jahit->save();
+                    foreach ($detailpotong as $key => $value) {
+                        $detail = new DetailJahit();
+                        $detail->jahit_id = $jahit->id;
+                        $detail->size = $value->size;
+                        $detail->jumlah = $value->jumlah;
+                        $detail->save();
+                    }
                 }
 
                 if ($request->get('status') == 'potong keluar') {
@@ -363,5 +382,15 @@ class PotongController extends Controller
 
         $pdf = PDF::loadView('backend.potong.pdf', ['data' => $x]);
         return $pdf->stream('potong.pdf');
+    }
+
+
+    public function konversi($data)
+    {
+        $lusin = 12;
+        $sisa = $data % $lusin;
+        $hasil = ($data - $sisa) / $lusin;
+        $res = $hasil . ' Lusin ' . $sisa . ' pcs';
+        return $res;
     }
 }

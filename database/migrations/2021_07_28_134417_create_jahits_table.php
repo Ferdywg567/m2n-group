@@ -18,10 +18,10 @@ class CreateJahitsTable extends Migration
             $table->bigInteger('potong_id')->unsigned()->index()->nullable();
             $table->foreign('potong_id')->references('id')->on('potongs')->onDelete('cascade');
             $table->string('no_surat');
-            $table->date('tanggal_jahit');
-            $table->date('tanggal_selesai');
+            $table->date('tanggal_jahit')->nullable();
+            $table->date('tanggal_selesai')->nullable();
             $table->date('tanggal_keluar')->nullable();
-            $table->string('vendor');
+            $table->string('vendor')->nullable();
             $table->string('nama_vendor')->nullable();
             $table->float('harga_vendor')->nullable();
             $table->integer('berhasil')->nullable();

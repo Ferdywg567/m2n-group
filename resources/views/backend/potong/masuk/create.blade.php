@@ -54,7 +54,7 @@
 
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="form-group">
+                                       a <div class="form-group">
                                             <label for="no_surat">Nomor Surat Jalan</label>
                                             <input type="text" class="form-control" required id="no_surat" readonly
                                                 value="{{old('no_surat')}}" name="no_surat">

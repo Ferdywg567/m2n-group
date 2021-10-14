@@ -143,11 +143,7 @@ class BahanController extends Controller
                     $potong->bahan_id = $bahan->id;
                     $potong->no_surat = $request->get('no_surat');
                     $potong->status = "potong masuk";
-                    if ($potong->tanggal_cutting == date('Y-m-d')) {
-                        $potong->status_potong = "proses potong";
-                    } else {
-                        $potong->status_potong = "belum potong";
-                    }
+                    $potong->status_potong = "belum potong";
                     $potong->save();
 
                     session(['notification' => 1]);

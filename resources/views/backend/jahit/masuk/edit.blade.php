@@ -23,10 +23,11 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <form action="{{route('jahit.store')}}" method="POST">
+                        <form action="{{route('jahit.update',[$jahit->id])}}" method="POST">
                             <div class="card-body">
                                 @include('backend.include.alert')
                                 @csrf
+                                @method('put')
                                 <input type="hidden" name="status" value="jahitan masuk">
                                 <input type="hidden" name="id" id="idmasuk">
                                 <div class="row">
@@ -53,7 +54,7 @@
                                             <label for="sku">Nama Produk</label>
                                             <input type="text" class="form-control"
                                                 value="{{$jahit->potong->bahan->nama_bahan}}" readonly required
-                                                id="nama_produk"  name="nama_produk">
+                                                id="nama_produk" name="nama_produk">
                                         </div>
                                     </div>
 
@@ -62,8 +63,7 @@
                                         <div class="form-group">
                                             <label for="sku">SKU</label>
                                             <input type="text" class="form-control" readonly required id="sku"
-                                                value="{{$jahit->potong->bahan->sku}}" 
-                                                name="sku">
+                                                value="{{$jahit->potong->bahan->sku}}" name="sku">
                                         </div>
                                     </div>
                                 </div>
@@ -99,7 +99,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="tanggal_jahit">Tanggal Jahit</label>
-                                            <input type="date" class="form-control" required id="tanggal_jahit" readonly
+                                            <input type="date" class="form-control" required id="tanggal_jahit"
                                                 value="{{$jahit->tanggal_jahit}}" name="tanggal_jahit">
                                         </div>
                                     </div>
@@ -112,6 +112,55 @@
                                     </div>
 
                                 </div>
+
+                                @if ($jahit->vendor == null)
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="vendor_jahit">Vendor Jahit</label>
+                                            <select class="form-control" id="vendor_jahit" name="vendor_jahit">
+                                                <option value="internal" @if('internal'==old('vendor_jahit')) selected
+                                                    @endif>Internal</option>
+                                                <option value="eksternal" @if('eksternal'==old('vendor_jahit')) selected
+                                                    @endif>Eksternal</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row" id="datavendor">
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="nama_vendor">Nama Vendor</label>
+                                            <input type="text" class="form-control" id="nama_vendor" name="nama_vendor"
+                                                value="{{old('nama_vendor')}}">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="harga_vendor">Harga Vendor</label>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <input type="text" class="form-control" id="harga_vendor"
+                                                        value="{{old('harga_vendor')}}" name="harga_vendor">
+                                                </div>
+                                                <div class="col-md-6">
+
+                                                    <input type="text" class="form-control" value="/lusin" readonly
+                                                        id="lusin" name="lusin">
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                                @else
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
@@ -121,12 +170,16 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                @endif
+
+                                @if ($jahit->vendor == 'eksternal')
                                 <div class="row" id="datavendor">
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="nama_vendor">Nama Vendor</label>
                                             <input type="text" class="form-control" id="nama_vendor" name="nama_vendor"
-                                            value="{{$jahit->nama_vendor}}" >
+                                                value="{{$jahit->nama_vendor}}">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -135,7 +188,7 @@
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <input type="text" class="form-control" id="harga_vendor"
-                                                    value="{{$jahit->harga_vendor}}" readonly name="harga_vendor">
+                                                        value="{{$jahit->harga_vendor}}" readonly name="harga_vendor">
                                                 </div>
                                                 <div class="col-md-6">
                                                     <input type="text" class="form-control" value="/lusin" readonly
@@ -146,15 +199,16 @@
                                         </div>
                                     </div>
                                 </div>
+                                @endif
+
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="jumlah_bahan_yang_dijahit">Jumlah Bahan Yang Dijahit</label>
                                             <div class="input-group mb-2">
                                                 <input type="number" class="form-control" required
-                                                    value="{{$jahit->jumlah_bahan}}"
-                                                    id="jumlah_bahan_yang_dijahit" readonly
-                                                    name="jumlah_bahan_yang_dijahit">
+                                                    value="{{$jahit->jumlah_bahan}}" id="jumlah_bahan_yang_dijahit"
+                                                    readonly name="jumlah_bahan_yang_dijahit">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">pcs</div>
                                                 </div>
@@ -165,7 +219,7 @@
                                         <div class="form-group">
                                             <label for="konversi">Konversi Lusin</label>
                                             <input type="text" class="form-control" required readonly id="konversi"
-                                            value="{{$jahit->konversi}}"  name="konversi">
+                                                value="{{$jahit->konversi}}" name="konversi">
                                         </div>
                                     </div>
                                 </div>
@@ -226,6 +280,13 @@
                   var res = hasil+' Lusin '+sisa+ ' pcs'
                   $('#konversi').val(res)
               })
+
+
+              var vendor = "{{$jahit->vendor}}";
+              console.log(vendor);
+              if(vendor == null || vendor == ''){
+                $('#datavendor').hide()
+              }
 
 
               $('#vendor_jahit').on('change', function () {
