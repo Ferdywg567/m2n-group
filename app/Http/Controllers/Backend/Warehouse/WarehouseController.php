@@ -130,6 +130,14 @@ class WarehouseController extends Controller
                 $warehouse =  Warehouse::findOrFail($id);
                 $warehouse->harga_produk = $request->get('harga_produk');
                 $warehouse->save();
+
+                $notif = new Notification();
+                $notif->description = "gudang telah dikirim ke ecommerce, silahkan di cek";
+                $notif->url = route('warehouse.warehouse.index');
+                $notif->role = 'warehouse';
+                $notif->aktif = 0;
+                $notif->save();
+
                 DB::commit();
                 return redirect()->route('warehouse.warehouse.index')->with('success', 'Data gudang berhasil diupdate');
             } catch (\Exception $th) {

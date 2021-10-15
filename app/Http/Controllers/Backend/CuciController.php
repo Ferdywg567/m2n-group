@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\DetailFinishing;
 use App\Notification;
+use App\Finishing;
 use App\Jahit;
 use App\Cuci;
 use App\DetailCuci;
@@ -231,6 +233,25 @@ class CuciController extends Controller
                     $notif->role = 'warehouse';
                     $notif->save();
 
+
+                    $finish = new Finishing();
+                    $finish->cuci_id = $cuci->id;
+                    $finish->tanggal_masuk = date('Y-m-d');
+                    $finish->barang_lolos_qc = 0;
+                    $finish->no_surat = $cuci->no_surat;
+                    $finish->status = "finishing masuk";
+                    $finish->save();
+
+                    $detailcuci = DetailCuci::where('cuci_id', $cuci->id)->get();
+
+                    foreach ($detailcuci as $key => $value) {
+                        $detail = new DetailFinishing();
+                        $detail->finishing_id = $finish->id;
+                        $detail->ukuran = $value->size;
+                        $detail->jumlah = $value->jumlah;
+                        $detail->save();
+                    }
+
                     session(['notification' => 1]);
                 }
 
@@ -338,7 +359,7 @@ class CuciController extends Controller
                         $cuci->status_cuci = "belum cuci";
                     }
                     $cuci->nama_vendor = $request->get('nama_vendor');
-                    if($cuci->harga_vendor == null){
+                    if ($cuci->harga_vendor == null) {
                         $cuci->harga_vendor = $request->get('harga_vendor');
                         $cuci->status_pembayaran = "Belum Lunas";
                         $totalbayar = $cuci->kain_siap_cuci * $cuci->harga_vendor;

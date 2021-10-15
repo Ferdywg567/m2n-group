@@ -43,9 +43,7 @@
                         <form action="{{route('warehouse.finishing.update',[$finish->id])}}" id="formProduk"  method="post">
                             @csrf
                             @include('backend.include.alert')
-                            <div class="alert alert-danger" role="alert" id="dataalert">
 
-                            </div>
                             @method('put')
                             <input type="hidden" name="id" id="idbahan" value="{{$finish->id}}">
                             <div class="card-body">
@@ -162,7 +160,7 @@
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text">{{$item->ukuran}}</div>
                                             </div>
-                                            <input type="number" class="form-control" required id="jumlah"
+                                            <input type="number" class="form-control" required id="jumlah" readonly
                                                 name="jumlah[]" value="{{$item->jumlah}}">
                                         </div>
                                     </div>

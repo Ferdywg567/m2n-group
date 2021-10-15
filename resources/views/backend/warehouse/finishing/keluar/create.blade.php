@@ -40,7 +40,7 @@
                         <form action="{{route('warehouse.finishing.store')}}" id="formProduk" method="post">
                             <div class="card-body">
                                 @include('backend.include.alert')
-                                <div class="alert alert-danger" role="alert" id="dataalert">
+                                <div class="alert" role="alert" id="dataalert">
 
                                 </div>
                                 @csrf
@@ -401,6 +401,7 @@
                 var stok_lolos_sortir = $('#stok_lolos_sortir').val()
                 var barang_dibuang = $('#barang_dibuang').val()
                 var barang_diretur = $('#barang_diretur').val()
+                $('#dataalert').addClass('alert-danger')
                 $('input[name^="jumlahdiretur"]').each(function() {
                     jumlahdiretur = jumlahdiretur + parseInt($(this).val());
                 });
