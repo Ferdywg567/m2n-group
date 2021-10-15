@@ -47,7 +47,7 @@ class FinishingController extends Controller
             $rekap = Cuci::doesntHave('finishing')->get();
             return view("backend.warehouse.finishing.masuk.create", ['rekap' => $rekap]);
         } else {
-            $finish = Finishing::all()->where('status', 'finishing masuk');
+            $finish = Finishing::where('status', 'finishing masuk')->whereNotNull('tanggal_qc')->get();
             return view("backend.warehouse.finishing.keluar.create", ['finish' => $finish]);
         }
     }
