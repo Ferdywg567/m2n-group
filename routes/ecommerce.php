@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+require 'admin.php';
+
 Route::group(['namespace' => 'Ecommerce\Frontend'],function () {
     Route::resource('/', 'LandingPageController');
     Route::resource('product', 'ProductController');

@@ -66,17 +66,11 @@ class LoginController extends Controller
     protected function authenticated(Request $request, $user)
     {
         if ($user->hasRole('production')) {
-            $notif = Notification::where('url','LIKE','%production%')->where('aktif',0)->first();
-            if($notif){
-                session(['notification' => 1]);
-            }
             return redirect()->route('dashboard.index');
         }elseif($user->hasRole('warehouse')){
-            $notif = Notification::where('url','LIKE','%warehouse%')->where('aktif',0)->first();
-            if($notif){
-                session(['notification' => 1]);
-            }
             return redirect()->route('warehouse.dashboard.index');
+        }elseif($user->hasRole('admin')){
+            return redirect()->route('ecommerce.dashboard.index');
         }
     }
 }

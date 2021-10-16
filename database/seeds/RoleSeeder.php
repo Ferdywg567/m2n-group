@@ -21,5 +21,10 @@ class RoleSeeder extends Seeder
             'name' => 'warehouse',
             'guard_name' => 'web'
         ]);
+
+        Role::create([
+            'name' => 'admin',
+            'guard_name' => 'web'
+        ]);
     }
 }
