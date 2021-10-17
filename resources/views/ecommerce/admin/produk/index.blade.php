@@ -5,10 +5,9 @@
 @section('content')
 <section class="section mt-4">
     <div class="btn-group">
-        <button type="button" class="btn btn-primary rounded" data-toggle="dropdown" aria-haspopup="true"
-            aria-expanded="false">
+        <a href="{{route('ecommerce.produk.create')}}" class="btn btn-primary rounded">
             Input Data <i class="fas fa-plus"></i>
-        </button>
+        </a>
     </div>
     <div class="section-body mt-4">
         <div class="row">

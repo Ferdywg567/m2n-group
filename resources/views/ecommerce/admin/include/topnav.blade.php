@@ -15,13 +15,8 @@
     }
 </style>
 @php
-if(auth()->user()->hasRole('production')){
-$jumlah = \App\Notification::where('role','production')->where('read',0)->count();
-$notif = \App\Notification::where('role','production')->orderBy('created_at','DESC')->get();
-}else{
-$jumlah = \App\Notification::where('role','warehouse')->where('read',0)->count();
-$notif = \App\Notification::where('role','warehouse')->orderBy('created_at','DESC')->get();
-}
+$jumlah = \App\Notification::where('role','admin')->where('read',0)->count();
+$notif = \App\Notification::where('role','admin')->orderBy('created_at','DESC')->get();
 @endphp
 <form class="form-inline mr-auto" action="">
     <ul class="navbar-nav mr-3">

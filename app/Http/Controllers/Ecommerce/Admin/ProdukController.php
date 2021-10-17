@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Ecommerce\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Warehouse;
 
 class ProdukController extends Controller
 {
@@ -24,7 +25,8 @@ class ProdukController extends Controller
      */
     public function create()
     {
-        //
+        $produk = Warehouse::where('harga_produk', '>', 0)->get();
+        return view("ecommerce.admin.produk.create", ['produk' => $produk]);
     }
 
     /**
