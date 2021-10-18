@@ -348,7 +348,7 @@
                $(document).on('click','.hapus', function () {
                   var id = $(this).data('id')
                     swal({
-                    title: "Apa kamu yakin?",
+                    title: "Apa anda yakin?",
                     text: "Ketika dihapus, data tidak bisa dikembalikan!",
                     icon: "warning",
                     buttons: true,

@@ -50,7 +50,7 @@
                                                 <select class="form-control" id="kode_bahanselect" name="kode_bahan">
                                                     <option value="">Pilih Kode Bahan</option>
                                                     @forelse ($masuk as $item)
-                                                    <option value="{{$item->id}}">{{$item->kode_bahan}}</option>
+                                                    <option value="{{$item->id}}">{{$item->kode_bahan}} | {{$item->nama_bahan}}</option>
                                                     @empty
 
                                                     @endforelse

@@ -316,7 +316,7 @@
                   var status = $(this).data('status')
                   console.log(status);
                     swal({
-                    title: "Apa kamu yakin?",
+                    title: "Apa anda yakin?",
                     text: "Ketika dihapus, data tidak bisa dikembalikan!",
                     icon: "warning",
                     buttons: true,

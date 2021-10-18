@@ -436,7 +436,7 @@
                $(document).on('click','.update_status', function () {
                  var id = $(this).data('id')
                     swal({
-                        text: "Apa kamu yakin ingin memindahkan data ini keluar ?",
+                        text: "Apa anda yakin ingin memindahkan data ini keluar ?",
                         icon: "warning",
                         buttons: true,
                         dangerMode: true,
@@ -467,7 +467,7 @@
               $(document).on('click','.hapus', function () {
                   var id = $(this).data('id')
                     swal({
-                    title: "Apa kamu yakin?",
+                    title: "Apa anda yakin?",
                     text: "Ketika dihapus, data tidak bisa dikembalikan!",
                     icon: "warning",
                     buttons: true,
