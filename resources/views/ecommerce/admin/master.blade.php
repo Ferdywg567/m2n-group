@@ -29,6 +29,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Heebo&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('css/basic.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/dropzone.min.css')}}">
     <style>
         .btn-primary {
             background-color: #007AFF;
@@ -107,11 +109,14 @@
     <script src="{{ asset('assets/modules/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
     <script src="{{ asset('assets/modules/sweetalert/sweetalert.min.js')}}"></script>
     <script src="{{ asset('assets/modules/select2/dist/js/select2.min.js')}}"></script>
+    {{-- <script src="{{asset('js/dropzone-amd-module.min.js')}}"></script> --}}
+    <script src="{{asset('js/dropzone.min.js')}}"></script>
     @include('backend.include.toastr')
 
     @stack('scripts')
 
     <script>
+
         $(document).ready(function () {
             $('.nicescroll-rails.nicescroll-rails-vr').remove();
             $(".do-nicescrol").niceScroll("{horizrailenabled:false}");
@@ -137,6 +142,8 @@
             //         }
             //     })
             //  })
+
+
         })
     </script>
 </body>

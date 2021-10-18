@@ -20,4 +20,8 @@ class Warehouse extends Model
     {
         return $this->hasOne('App\RekapitulasiWarehouse');
     }
+
+    public function getJumlahUkuranAttribute(){
+        return $this->detail_warehouse()->sum('jumlah');
+    }
 }

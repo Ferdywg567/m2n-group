@@ -2,7 +2,14 @@
 @section('title', 'Produk')
 @section('title-nav', 'Produk')
 @section('produk', 'class=active-sidebar')
+@section('cssnav', 'cssnav')
 @section('content')
+<style>
+    .cssnav{
+       margin-left:-20px;
+    }
+</style>
+
 <section class="section mt-4">
     <div class="btn-group">
         <a href="{{route('ecommerce.produk.create')}}" class="btn btn-primary rounded">
