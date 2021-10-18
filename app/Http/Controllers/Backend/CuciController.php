@@ -610,4 +610,51 @@ class CuciController extends Controller
             return redirect()->route('cuci.index')->with('success',  'Pembayaran berhasil diupdate');
         }
     }
+
+    public function update_status(Request $request)
+    {
+        if ($request->ajax()) {
+            $cuci = Cuci::findOrFail($request->get('id'));
+            $cuci->tanggal_keluar = date('Y-m-d');
+            $cuci->status = "cucian keluar";
+            $cuci->save();
+
+            $finish = new Finishing();
+            $finish->cuci_id = $cuci->id;
+            $finish->tanggal_masuk = date('Y-m-d');
+            $finish->barang_lolos_qc = 0;
+            $finish->no_surat = $cuci->no_surat;
+            $finish->status = "finishing masuk";
+            $finish->save();
+
+            $detailcuci = DetailCuci::where('cuci_id', $cuci->id)->get();
+
+            foreach ($detailcuci as $key => $value) {
+                $detail = new DetailFinishing();
+                $detail->finishing_id = $finish->id;
+                $detail->ukuran = $value->size;
+                $detail->jumlah = $value->jumlah;
+                $detail->save();
+            }
+            
+            $notif = new Notification();
+            $notif->description = "cuci keluar telah dikirim ke gudang, silahkan di cek";
+            $notif->url = route('cuci.index');
+            $notif->aktif = 0;
+            $notif->role = 'production';
+            $notif->save();
+
+            $notif = new Notification();
+            $notif->description = "cuci keluar telah dikirim ke gudang, silahkan di cek";
+            $notif->url = route('warehouse.finishing.index');
+            $notif->aktif = 0;
+            $notif->role = 'warehouse';
+            $notif->save();
+            $request->session()->flash('success', 'cuci selesai berhasil dipindah ke cuci keluar!');
+
+            return response()->json([
+                'status' => true
+            ]);
+        }
+    }
 }

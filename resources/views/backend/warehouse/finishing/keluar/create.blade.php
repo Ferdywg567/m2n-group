@@ -6,9 +6,11 @@
 @section('cssnav', 'cssnav')
 @section('content')
 <style>
-   .cssnav {
+    .cssnav {
         margin-left: -15px;
-    }    .dropdown-menu {
+    }
+
+    .dropdown-menu {
         left: 50% !important;
         transform: translateX(-50%) !important;
         top: 100% !important;
@@ -54,7 +56,11 @@
                                                     name="kode_transaksi">
                                                     <option value="">Pilih Kode Transaksi</option>
                                                     @forelse ($finish as $item)
-                                                        <option value="{{$item->id}}">{{$item->cuci->jahit->potong->bahan->kode_transaksi}} </option>
+                                                    <option value="{{$item->id}}">
+                                                        {{$item->cuci->jahit->potong->bahan->kode_transaksi}} |
+                                                        {{$item->cuci->jahit->potong->bahan->nama_bahan}} |
+                                                        {{$item->cuci->jahit->potong->bahan->detail_sub->nama_kategori}}
+                                                    </option>
                                                     @empty
 
                                                     @endforelse
@@ -75,7 +81,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="tanggal_selesai">Tanggal Selesai Sortir</label>
-                                            <input type="date" class="form-control"  required id="tanggal_selesai"
+                                            <input type="date" class="form-control" required id="tanggal_selesai"
                                                 name="tanggal_selesai">
                                         </div>
                                     </div>
@@ -106,8 +112,8 @@
                                         <div class="form-group">
                                             <label for="stok_lolos_sortir">Stok Lolos Sortir</label>
                                             <div class="input-group mb-2">
-                                                <input type="number" class="form-control"  required
-                                                    id="stok_lolos_sortir"  name="stok_lolos_sortir">
+                                                <input type="number" class="form-control" required
+                                                    id="stok_lolos_sortir" name="stok_lolos_sortir">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">pcs</div>
                                                 </div>
@@ -119,7 +125,7 @@
                                         <div class="form-group">
                                             <label for="gagal_qc">Produk Gagal QC</label>
                                             <div class="input-group mb-2">
-                                                <input type="number" class="form-control"  required readonly
+                                                <input type="number" class="form-control" required readonly
                                                     id="gagal_qc" name="gagal_qc">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">pcs</div>
@@ -133,7 +139,7 @@
 
 
 
-                                <div  id="ukuran-utama">
+                                <div id="ukuran-utama">
 
 
                                 </div>
@@ -143,8 +149,8 @@
                                         <div class="form-group">
                                             <label for="barang_diretur">Produk Diretur</label>
                                             <div class="input-group mb-2">
-                                                <input type="number" class="form-control" required
-                                                    id="barang_diretur"  name="produk_diretur">
+                                                <input type="number" class="form-control" required id="barang_diretur"
+                                                    name="produk_diretur">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">pcs</div>
                                                 </div>
@@ -162,8 +168,8 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="keterangan_diretur">Keterangan Produk Diretur</label>
-                                            <textarea class="form-control"   id="keterangan_diretur"
-                                                name="keterangan_diretur"  rows="3"></textarea>
+                                            <textarea class="form-control" id="keterangan_diretur"
+                                                name="keterangan_diretur" rows="3"></textarea>
                                         </div>
 
                                     </div>
@@ -174,7 +180,7 @@
                                             <label for="barang_dibuang">Produk Dibuang</label>
                                             <div class="input-group mb-2">
                                                 <input type="number" class="form-control" readonly required
-                                                    id="barang_dibuang"  name="produk_dibuang">
+                                                    id="barang_dibuang" name="produk_dibuang">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">pcs</div>
                                                 </div>
@@ -188,7 +194,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="keterangan_dibuang">Keterangan Produk Dibuang</label>
-                                            <textarea class="form-control"   id="keterangan_dibuang"
+                                            <textarea class="form-control" id="keterangan_dibuang"
                                                 name="keterangan_dibuang" rows="6"></textarea>
                                         </div>
                                     </div>

@@ -112,8 +112,8 @@
                                                     @if ($item->vendor == 'eksternal')
                                                     @if ($item->status_pembayaran == 'Lunas')
                                                     <a href="{{route('pembayaran.index')}}">
-                                                        <span
-                                                            class="badge badge-success text-dark">{{ $item->status_pembayaran}}</span>
+                                                        <span class="badge badge-success text-dark">{{
+                                                            $item->status_pembayaran}}</span>
                                                     </a>
                                                     @elseif($item->status_pembayaran == 'Belum Lunas' ||
                                                     $item->status_pembayaran == 'Termin 1' || $item->status_pembayaran
@@ -209,8 +209,8 @@
                                                     @if ($item->vendor == 'eksternal')
                                                     @if ($item->status_pembayaran == 'Lunas')
                                                     <a href="{{route('pembayaran.index')}}">
-                                                        <span
-                                                            class="badge badge-success text-dark">{{ $item->status_pembayaran}}</span>
+                                                        <span class="badge badge-success text-dark">{{
+                                                            $item->status_pembayaran}}</span>
                                                     </a>
                                                     @elseif($item->status_pembayaran == 'Belum Lunas' ||
                                                     $item->status_pembayaran == 'Termin 1' || $item->status_pembayaran
@@ -251,7 +251,10 @@
                                                             <a class="dropdown-item hapus" data-id="{{$item->id}}"
                                                                 href="#"><i class="ri-delete-bin-fill"></i>
                                                                 Hapus</a>
-
+                                                            <a class="dropdown-item update_status"
+                                                                data-id="{{$item->id}}" href="#"><i
+                                                                    class="ri-arrow-right-circle-line"></i>
+                                                                Keluar</a>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -306,8 +309,8 @@
                                                     @if ($item->vendor == 'eksternal')
                                                     @if ($item->status_pembayaran == 'Lunas')
                                                     <a href="{{route('pembayaran.index')}}">
-                                                        <span
-                                                            class="badge badge-success text-dark">{{ $item->status_pembayaran}}</span>
+                                                        <span class="badge badge-success text-dark">{{
+                                                            $item->status_pembayaran}}</span>
                                                     </a>
                                                     @elseif($item->status_pembayaran == 'Belum Lunas' ||
                                                     $item->status_pembayaran == 'Termin 1' || $item->status_pembayaran
@@ -374,7 +377,8 @@
                     <h5 class="modal-title col-md-12" id="exampleModalLabel">
                         <span class="float left text-primary" id="title_kode"></span>
                         <span id="test" class=" float-right text-dark"> <img src="{{asset('assets/img/logo.png')}}"
-                                alt="" class="mr-1" srcset="" width="30">GARMENT</span></h5>
+                                alt="" class="mr-1" srcset="" width="30">GARMENT</span>
+                    </h5>
                 </div>
                 <form action="{{route('cuci.cetak')}}" target="_blank" method="post">
                     @csrf
@@ -390,7 +394,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                    <button type="submit" class="btn btn-primary"><i class="ri-printer-fill"></i> Cetak</button>
+                        <button type="submit" class="btn btn-primary"><i class="ri-printer-fill"></i> Cetak</button>
                     </div>
                 </form>
             </div>
@@ -532,6 +536,34 @@
                     });
 
                })
+
+               $(document).on('click','.update_status', function () {
+                 var id = $(this).data('id')
+                    swal({
+                        text: "Apa kamu yakin ingin memindahkan data ini keluar ?",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    })
+                    .then((willUpdate) => {
+                    if (willUpdate) {
+                        ajax()
+                        $.ajax({
+                            url:"{{route('cuci.update_status')}}",
+                            method:"GET",
+                            data:{
+                                'id':id
+                            },
+                            success:function(data){
+                                if(data.status){
+                                    location.reload(true)
+                                }
+                            }
+                       })
+
+                    }
+                    });
+                })
      })
 </script>
 @endpush

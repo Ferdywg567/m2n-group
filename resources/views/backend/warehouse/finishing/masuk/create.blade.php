@@ -44,7 +44,7 @@
                             <div class="card-body">
                                 @include('backend.include.alert')
                                 @csrf
-                                <div class="alert alert-danger" role="alert" id="dataalert">
+                                <div class="alert" role="alert" id="dataalert">
 
                                 </div>
                                 <input type="hidden" name="status" value="finishing masuk">

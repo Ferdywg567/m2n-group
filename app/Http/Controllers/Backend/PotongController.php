@@ -393,4 +393,41 @@ class PotongController extends Controller
         $res = $hasil . ' Lusin ' . $sisa . ' pcs';
         return $res;
     }
+
+    public function update_status(Request $request)
+    {
+        if ($request->ajax()) {
+            $potong = Potong::findOrFail($request->get('id'));
+            $potong->status = "potong keluar";
+            $potong->save();
+
+            $jahit = new Jahit();
+            $jahit->potong_id = $potong->id;
+            $jahit->no_surat = $potong->no_surat;
+            $jahit->status = "jahitan masuk";
+            $jahit->status_jahit = "belum jahit";
+            $jahit->jumlah_bahan = $potong->hasil_cutting;
+            $jahit->konversi = $this->konversi($jahit->jumlah_bahan);
+            $detailpotong = DetailPotong::where('potong_id', $jahit->potong_id)->get();
+            $jahit->save();
+            foreach ($detailpotong as $key => $value) {
+                $detail = new DetailJahit();
+                $detail->jahit_id = $jahit->id;
+                $detail->size = $value->size;
+                $detail->jumlah = $value->jumlah;
+                $detail->save();
+            }
+            $notif = new Notification();
+            $notif->description = "potong keluar telah dikirim ke jahit, silahkan di cek";
+            $notif->url = route('jahit.index');
+            $notif->aktif = 0;
+            $notif->role = 'production';
+            $notif->save();
+            $request->session()->flash('success', 'Potong selesai berhasil dipindah ke potong keluar!');
+
+            return response()->json([
+                'status' => true
+            ]);
+        }
+    }
 }

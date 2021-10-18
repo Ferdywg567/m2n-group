@@ -78,6 +78,7 @@ Route::group(['prefix' => 'production', 'namespace' => 'Backend', 'middleware' =
         Route::post('/cetak', 'PotongController@cetakPdf')->name('cetak');
         Route::get('/getdatapotong', 'PotongController@getDataPotong')->name('getdata');
         Route::get('/getdataprint', 'PotongController@getDataPrint')->name('getdataprint');
+        Route::get('/update_status', 'PotongController@update_status')->name('update_status');
     });
     Route::resource('potong', 'PotongController');
 
@@ -87,6 +88,7 @@ Route::group(['prefix' => 'production', 'namespace' => 'Backend', 'middleware' =
         Route::get('/getdataprint', 'JahitController@getDataPrint')->name('getdataprint');
         Route::get('/getdatajahit', 'JahitController@getDataJahit')->name('getdata');
         Route::get('/pembayaran/{id}','JahitController@pembayaranVendor')->name('pembayaran');
+        Route::get('/update_status', 'JahitController@update_status')->name('update_status');
         Route::put('/pembayaran/update/{id}','JahitController@pembayaranVendorUpdate')->name('pembayaran.update');
     });
     Route::resource('jahit', 'JahitController');
@@ -95,6 +97,7 @@ Route::group(['prefix' => 'production', 'namespace' => 'Backend', 'middleware' =
         Route::post('/cetak', 'CuciController@cetakPdf')->name('cetak');
         Route::get('/getdataprint', 'CuciController@getDataPrint')->name('getdataprint');
         Route::get('/getdatacuci', 'CuciController@getDataCuci')->name('getdata');
+        Route::get('/update_status', 'CuciController@update_status')->name('update_status');
         Route::get('/pembayaran/{id}','CuciController@pembayaranVendor')->name('pembayaran');
         Route::put('/pembayaran/update/{id}','CuciController@pembayaranVendorUpdate')->name('pembayaran.update');
     });

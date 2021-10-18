@@ -11,9 +11,11 @@
         transform: translateX(-50%) !important;
         top: 100% !important;
     }
+
     .cssnav {
         margin-left: 10px;
     }
+
     .left {
         text-align: left;
     }
@@ -207,6 +209,10 @@
                                                             <a class="dropdown-item hapus" data-id="{{$item->id}}"
                                                                 href="#"><i class="ri-delete-bin-fill"></i>
                                                                 Hapus</a>
+                                                            <a class="dropdown-item update_status"
+                                                                data-id="{{$item->id}}" href="#"><i
+                                                                    class="ri-arrow-right-circle-line"></i>
+                                                                Keluar</a>
 
                                                         </div>
                                                     </div>
@@ -305,7 +311,8 @@
                     <h5 class="modal-title col-md-12" id="exampleModalLabel">
                         <span class="float left text-primary" id="title_kode"></span>
                         <span id="test" class=" float-right text-dark"> <img src="{{asset('assets/img/logo.png')}}"
-                                alt="" class="mr-1" srcset="" width="30">GARMENT</span></h5>
+                                alt="" class="mr-1" srcset="" width="30">GARMENT</span>
+                    </h5>
                 </div>
                 <form action="{{route('potong.cetak')}}" target="_blank" method="post">
                     @csrf
@@ -321,7 +328,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                    <button type="submit" class="btn btn-primary"><i class="ri-printer-fill"></i> Cetak</button>
+                        <button type="submit" class="btn btn-primary"><i class="ri-printer-fill"></i> Cetak</button>
                     </div>
                 </form>
             </div>
@@ -425,6 +432,37 @@
                       }
                   })
                })
+
+               $(document).on('click','.update_status', function () {
+                 var id = $(this).data('id')
+                    swal({
+                        text: "Apa kamu yakin ingin memindahkan data ini keluar ?",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    })
+                    .then((willUpdate) => {
+                    if (willUpdate) {
+                        ajax()
+                        $.ajax({
+                            url:"{{route('potong.update_status')}}",
+                            method:"GET",
+                            data:{
+                                'id':id
+                            },
+                            success:function(data){
+
+                                if(data.status){
+                                    location.reload(true)
+                                }
+                            }
+                       })
+
+                    } else {
+
+                    }
+                    });
+                })
 
               $(document).on('click','.hapus', function () {
                   var id = $(this).data('id')

@@ -649,4 +649,43 @@ class JahitController extends Controller
         $res = $hasil . ' Lusin ' . $sisa . ' pcs';
         return $res;
     }
+
+    public function update_status(Request $request){
+        if($request->ajax()){
+            $jahit = Jahit::findOrFail($request->get('id'));
+            $jahit->status = "jahitan keluar";
+            $jahit->tanggal_keluar = date('Y-m-d');
+            $jahit->save();
+
+            $cuci = new Cuci();
+            $cuci->jahit_id = $jahit->id;
+            $cuci->no_surat = $jahit->no_surat;
+            $cuci->vendor = 'eksternal';
+            $cuci->status = "cucian masuk";
+            $cuci->kain_siap_cuci = $jahit->berhasil;
+            $cuci->konversi = $this->konversi($cuci->kain_siap_cuci);
+            $cuci->status_cuci = "belum cuci";
+            $cuci->save();
+            $detail = DetailJahit::where('jahit_id',  $cuci->jahit_id)->get();
+            foreach ($detail as $key => $value) {
+                $detail = new DetailCuci();
+                $detail->cuci_id = $cuci->id;
+                $detail->size = $value->size;
+                $detail->jumlah = $value->jumlah;
+                $detail->save();
+            }
+
+            $notif = new Notification();
+            $notif->description = "jahit keluar telah dikirim ke cuci, silahkan di cek";
+            $notif->url = route('cuci.index');
+            $notif->aktif = 0;
+            $notif->role = 'production';
+            $notif->save();
+            $request->session()->flash('success', 'jahit selesai berhasil dipindah ke jahit keluar!');
+
+            return response()->json([
+                'status' => true
+            ]);
+        }
+    }
 }
