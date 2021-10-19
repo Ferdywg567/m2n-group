@@ -8,6 +8,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Ecommerce\Admin', 'middleware
     //produk
     Route::group(['prefix' => 'produk', 'as' => 'produk.'], function () {
         Route::get('getdetailproduk', 'ProdukController@getDetailProduk')->name('getdetail');
+        Route::get('getdetailimage', 'ProdukController@getDetailImage')->name('getdetailimage');
     });
 
 

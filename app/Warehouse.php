@@ -24,4 +24,9 @@ class Warehouse extends Model
     public function getJumlahUkuranAttribute(){
         return $this->detail_warehouse()->sum('jumlah');
     }
+
+    public function produk()
+    {
+        return $this->hasOne('App\Produk');
+    }
 }

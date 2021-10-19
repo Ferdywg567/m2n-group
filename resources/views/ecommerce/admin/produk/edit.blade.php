@@ -34,7 +34,7 @@
             <a class="btn btn-primary" href="{{route('ecommerce.produk.index')}}">
                 <i class="fas fa-arrow-left"></i>
             </a>
-            <h1 class="ml-2">Input Data | Produk</h1>
+            <h1 class="ml-2">Edit Data | Produk</h1>
         </div>
         <div class="section-body">
             <div class="row">
@@ -53,24 +53,14 @@
                                         <div class="form-group">
                                             <label for="kode_produk">Kode Produk</label>
                                             <input type="text" class="form-control" readonly required id="kode_produk"
-                                                name="kode_produk" value="{{$kode}}">
+                                                name="kode_produk" value="{{$produk->kode_produk}}">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="barang">Plih Barang</label>
-                                            <select class="form-control" id="barang" name="barang">
-                                                <option value="">Pilih Barang</option>
-                                                @forelse ($produk as $item)
-                                                <option value="{{$item->id}}">
-                                                    {{$item->finishing->cuci->jahit->potong->bahan->kode_transaksi}} |
-                                                    {{$item->finishing->cuci->jahit->potong->bahan->nama_bahan}}
-                                                </option>
-                                                @empty
-
-                                                @endforelse
-
-                                            </select>
+                                            <label for="barang">Nama Bahan</label>
+                                            <input type="text" class="form-control" readonly required id="kode_produk"
+                                                name="kode_produk" value="{{$produk->kode_produk}}">
                                         </div>
                                     </div>
 
@@ -145,10 +135,12 @@
                                         <div class="form-group">
                                             <label for="promo">Promo Terpasang</label>
                                             <select class="form-control" id="promo" name="promo">
-                                                <option value="0" data-promo="0">Tidak Ada Promo</option>
+                                                <option value="0" data-promo="0" @if($produk->promo_id==null) selected
+                                                    @endif >Tidak Ada Promo</option>
 
                                                 @forelse ($promo as $item)
-                                                <option value="{{$item->id}}" data-promo="{{$item->potongan}}">
+                                                <option value="{{$item->id}}" data-promo="{{$item->potongan}}"
+                                                    @if($produk->promo_id==$item->id) selected @endif>
                                                     {{$item->nama}}</option>
                                                 @empty
 
@@ -187,7 +179,7 @@
                                         <a type="button" class="btn btn-secondary"
                                             href="{{route('ecommerce.produk.index')}}">Batal</a>
                                         <button type="submit" class="btn btn-primary btnmasuk"
-                                            id="submit-all">Simpan</button>
+                                            id="submit-all">Update</button>
                                     </div>
                                 </div>
 
@@ -237,6 +229,25 @@
             init: function() {
                 var myDropzone = this;
                 var formUpload = new FormData();
+
+
+                //get detail
+                $.ajax({
+                    url:"{{route('ecommerce.produk.getdetailimage')}}",
+                    method:"GET",
+                    data:{
+                        'id':"{{$produk->id}}"
+                    },
+                    success:function(response){
+                        if(response.status){
+                            $.each(response.data, function (key, value) {
+                                var mockfile = {name:value.filename, size:1024}
+                                myDropzone.displayExistingFile(mockfile, "{{asset('uploads/images/produk/')}}/"+value.filename)
+                             })
+                        }
+                    }
+                })
+
                 //form submission code goes here
                 document.getElementById("submit-all").addEventListener("click", function(e) {
                     // Make sure that the form isn't actually being sent.
@@ -303,64 +314,7 @@
 	        });
 
 
-            $('#barang').on('change', function () {
-                    var id = $(this).find(':selected').val()
 
-                    if(id != ''){
-                        $.ajax({
-                            url:"{{route('ecommerce.produk.getdetail')}}",
-                            method:"GET",
-                            data:{
-                                'id':id
-                            }
-                        }).done(function (response) {
-
-                            if(response.status){
-                                console.log(response);
-
-                                var data = response.data;
-                                var bahan = data.finishing.cuci.jahit.potong.bahan
-                                // var cuci = data.cuci
-                                // var detail_finish = data.detail_finish
-                                // var finish_retur = data.finish_retur
-                                // var finish_dibuang = data.finish_dibuang
-                                var kategori = bahan.detail_sub.sub_kategori.kategori.nama_kategori;
-                                var sub_kategori = bahan.detail_sub.sub_kategori.nama_kategori
-                                var detail_sub_kategori = bahan.detail_sub.nama_kategori
-                                var detail = data.detail_warehouse;
-                                var jumlah = 0;
-                                var ukuran = "";
-                                for (let index = 0; index < detail.length; index++) {
-                                    const element = detail[index];
-                                    jumlah = jumlah + parseInt(element.jumlah)
-                                    ukuran += element.ukuran + ", ";
-
-                                }
-
-                                ukuran =  ukuran.replace(/,\s*$/, "");
-                                $('#kode_sku').val(bahan.sku)
-                                $('#warna').val(bahan.warna)
-                                $('#harga').val(data.harga_produk)
-                                $('#harga_promo').val(data.harga_produk)
-                                $('#stok').val(jumlah)
-                                $('#ukuran').val(ukuran)
-                                $('#kategori').val(kategori)
-                                $('#sub_kategori').val(sub_kategori)
-                                $('#detail_sub_kategori').val(detail_sub_kategori)
-                                // $('#no_surat').val(data.no_surat)
-                                // $('#nama_bahan').val(bahan.nama_bahan)
-                                // $('#jenis_bahan').val(bahan.jenis_bahan)
-                                // $('#warna_baju_keluar').val(bahan.warna)
-                                // $('#siap_jual').val(data.barang_lolos_qc)
-
-
-
-
-                            }
-
-                        })
-                    }
-            })
 
             function hitung_promo(harga, promo){
                 var hitung = harga*(promo/100);
