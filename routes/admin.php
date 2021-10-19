@@ -9,6 +9,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Ecommerce\Admin', 'middleware
     Route::group(['prefix' => 'produk', 'as' => 'produk.'], function () {
         Route::get('getdetailproduk', 'ProdukController@getDetailProduk')->name('getdetail');
         Route::get('getdetailimage', 'ProdukController@getDetailImage')->name('getdetailimage');
+        Route::post('/update','ProdukController@update_data')->name('updatedata');
     });
 
 

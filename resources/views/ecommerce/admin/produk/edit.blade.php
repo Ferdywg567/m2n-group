@@ -58,9 +58,9 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="barang">Nama Bahan</label>
-                                            <input type="text" class="form-control" readonly required id="kode_produk"
-                                                name="kode_produk" value="{{$produk->kode_produk}}">
+                                            <label for="nama_bahan">Nama Bahan</label>
+                                            <input type="text" class="form-control" readonly required id="nama_bahan"
+                                                name="nama_bahan" value="{{$produk->warehouse->finishing->cuci->jahit->potong->bahan->nama_bahan}}">
                                         </div>
                                     </div>
 
@@ -70,14 +70,14 @@
                                         <div class="form-group">
                                             <label for="kode_sku">Kode Sku</label>
                                             <input type="text" class="form-control" readonly required id="kode_sku"
-                                                name="kode_sku" value="{{old('kode_sku')}}">
+                                                name="kode_sku" value="{{$produk->warehouse->finishing->cuci->jahit->potong->bahan->sku}}">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="warna">Warna</label>
                                             <input type="text" class="form-control" readonly required id="warna"
-                                                name="warna" value="{{old('warna')}}">
+                                                name="warna" value="{{$produk->warehouse->finishing->cuci->jahit->potong->bahan->warna}}">
                                         </div>
                                     </div>
                                 </div>
@@ -87,14 +87,14 @@
                                         <div class="form-group">
                                             <label for="kategori">Kategori</label>
                                             <input type="text" class="form-control" required readonly id="kategori"
-                                                name="kategori">
+                                                name="kategori" value="{{$produk->warehouse->finishing->cuci->jahit->potong->bahan->detail_sub->sub_kategori->kategori->nama_kategori}}">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="sub_kategori">Sub Kategori</label>
                                             <input type="text" class="form-control" required readonly id="sub_kategori"
-                                                name="sub_kategori">
+                                                name="sub_kategori" value="{{$produk->warehouse->finishing->cuci->jahit->potong->bahan->detail_sub->sub_kategori->nama_kategori}}">
                                         </div>
                                     </div>
                                     <div class="col-md-5">
@@ -102,7 +102,7 @@
                                             <label for="detail_sub_kategori">Detail Sub Kategori</label>
 
                                             <input type="text" class="form-control" required readonly
-                                                id="detail_sub_kategori" name="detail_sub_kategori">
+                                                id="detail_sub_kategori" name="detail_sub_kategori" value="{{$produk->warehouse->finishing->cuci->jahit->potong->bahan->detail_sub->nama_kategori}}">
                                         </div>
                                     </div>
 
@@ -112,14 +112,14 @@
                                         <div class="form-group">
                                             <label for="stok">Stok</label>
                                             <input type="text" class="form-control" readonly required id="stok"
-                                                name="stok" value="{{old('stok')}}">
+                                                name="stok" value="{{$produk->stok}}">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="ukuran">Ukuran</label>
                                             <input type="text" class="form-control" readonly required id="ukuran"
-                                                name="ukuran" value="{{old('ukuran')}}">
+                                                name="ukuran" value="{{$ukuran}}">
                                         </div>
                                     </div>
                                 </div>
@@ -128,7 +128,7 @@
                                         <div class="form-group">
                                             <label for="harga">Harga / Seri</label>
                                             <input type="text" class="form-control" required readonly id="harga"
-                                                name="harga">
+                                                name="harga" value="{{$produk->harga}}">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -152,7 +152,7 @@
                                         <div class="form-group">
                                             <label for="harga_promo">Harga Setelah Promo</label>
                                             <input type="text" class="form-control" required readonly id="harga_promo"
-                                                name="harga_promo">
+                                                name="harga_promo" value="{{$produk->harga_promo}}">
                                         </div>
                                     </div>
                                 </div>
@@ -169,7 +169,7 @@
                                         <div class="form-group">
                                             <label for="deskripsi_produk">Deskripsi Produk</label>
                                             <textarea class="form-control" id="deskripsi_produk" name="deskripsi_produk"
-                                                rows="3"></textarea>
+                                                rows="3">{{$produk->deskripsi_produk}}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -210,10 +210,10 @@
             $('#promo').select2()
             var CSRF_TOKEN = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
             let token = $('meta[name="csrf-token"]').attr('content');
-
+            var id = "{{$produk->id}}"
             var myDropzone = new Dropzone("div#dropzoneDragArea", {
             paramName: "file",
-            url: "{{ route('ecommerce.produk.store')}}",
+            url: "{{route('ecommerce.produk.updatedata')}}",
             previewsContainer: 'div.dropzone-previews',
             addRemoveLinks: true,
             autoProcessQueue: false,
@@ -222,19 +222,25 @@
             parallelUploads: 10,
             maxFiles: 10,
             dictRemoveFile:"Hapus Gambar",
+            headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             params: {
-                _token: token
+                _token: token,
+                id:id
             },
             // The setting up of the dropzone
             init: function() {
                 var myDropzone = this;
                 var formUpload = new FormData();
-
+                var oldimage = []
 
                 //get detail
+                var jumlahfile= [];
                 $.ajax({
                     url:"{{route('ecommerce.produk.getdetailimage')}}",
                     method:"GET",
+                    async:false,
                     data:{
                         'id':"{{$produk->id}}"
                     },
@@ -243,6 +249,9 @@
                             $.each(response.data, function (key, value) {
                                 var mockfile = {name:value.filename, size:1024}
                                 myDropzone.displayExistingFile(mockfile, "{{asset('uploads/images/produk/')}}/"+value.filename)
+                                mockfile.previewElement.classList.add('dz-success');
+                                mockfile.previewElement.classList.add('dz-complete');
+                                jumlahfile.push(key)
                              })
                         }
                     }
@@ -253,7 +262,6 @@
                     // Make sure that the form isn't actually being sent.
                     e.preventDefault();
                     e.stopPropagation();
-                    console.log(myDropzone.files);
 
                     for (let index = 0; index < myDropzone.files.length; index++) {
                         const element = myDropzone.files[index];
@@ -264,7 +272,33 @@
                             return false;
                         }
                     }
-                    if(myDropzone.files.length){
+                    if(myDropzone.files.length && jumlahfile.length > 0){
+                        myDropzone.processQueue();
+                    }else if(jumlahfile.length > 0){
+                        var data = $('#formProduk').serializeArray();
+                            $.each(data, function(key, el) {
+                                formUpload.append(el.name, el.value)
+                            });
+                        formUpload.append("oldimage",oldimage)
+                        formUpload.append("id",id)
+                            $.ajax({
+                                url: "{{route('ecommerce.produk.updatedata')}}",
+                                method:"POST",
+                                data:formUpload,
+                                processData: false,
+                                contentType: false,
+                                headers: {
+                                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                },
+                                success:function(response){
+                                    if(response.status){
+                                        window.location.href="{{route('ecommerce.produk.index')}}"
+                                    }else{
+                                        $('#data-alert').html(response.data)
+                                    }
+                                }
+                            })
+                    }else if(myDropzone.files.length){
                         myDropzone.processQueue();
                     }else{
                         var dataalert = '<div class="alert alert-danger" role="alert"> Gambar wajib diisi</div>'
@@ -277,10 +311,16 @@
                     var data = $('#formProduk').serializeArray();
                     $.each(data, function(key, el) {
                         formData.append(el.name, el.value);
+
                     });
+                    formData.append("oldimage",oldimage)
                 });
                 this.on("queuecomplete", function () {
 
+                });
+
+                this.on("removedfile", function (file) {
+                    oldimage.push(file.name)
                 });
 
                 // Listen to the sendingmultiple event. In this case, it's the sendingmultiple event instead
@@ -292,8 +332,22 @@
                 //      formUpload.append("promo", "assssae");
                 // });
 
+                this.on("success", function(files, response) {
+                    // console.log(response);
+
+                    if(response.status){
+                        window.location.href="{{route('ecommerce.produk.index')}}"
+                    }else{
+                        $('#data-alert').html(response.data)
+                    }
+                    // location.href = "{{route('ecommerce.produk.index')}}"
+                // Gets triggered when the files have successfully been sent.
+                // Redirect user or notify of success.
+                });
+
+
                 this.on("successmultiple", function(files, response) {
-                    console.log(response);
+                    // console.log(response);
 
                     if(response.status){
                         window.location.href="{{route('ecommerce.produk.index')}}"
@@ -308,7 +362,7 @@
                 this.on("errormultiple", function(files, response) {
                 // Gets triggered when there was an error sending the files.
                 // Maybe show form again, and notify user of error
-
+                console.log(response);
                 });
             }
 	        });

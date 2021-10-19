@@ -134,7 +134,14 @@ class ProdukController extends Controller
         $produk = Produk::findOrFail($id);
         $today = date('Y-m-d');
         $promo = Promo::whereDate('promo_mulai', '<=', $today)->whereDate('promo_berakhir', '>=', $today)->get();
-        return view("ecommerce.admin.produk.edit", ['produk' => $produk, 'promo' => $promo]);
+        $detail = DetailProduk::where('produk_id', $id)->get();
+        $ukuran = '';
+        foreach ($detail as $key => $value) {
+            $ukuran .= $value->ukuran . ', ';
+        }
+
+        $ukuran = rtrim($ukuran, ', ');
+        return view("ecommerce.admin.produk.edit", ['produk' => $produk, 'promo' => $promo, 'ukuran' => $ukuran]);
     }
 
     /**
@@ -146,7 +153,7 @@ class ProdukController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return response()->json($request->get('oldimage'));
     }
 
     /**
@@ -205,6 +212,62 @@ class ProdukController extends Controller
             return response()->json([
                 'status' => true,
                 'data' => $detail
+            ]);
+        }
+    }
+
+    public function update_data(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'deskripsi_produk' => 'required',
+            'stok' => 'required|min:1',
+        ]);
+
+        if ($validator->fails()) {
+            $html = '<div class="alert alert-danger" role="alert">' . $validator->errors()->first() . '</div>';
+            return response()->json([
+                'status' => false,
+                'data' => $html
+            ]);
+        } else {
+            $oldimage = explode(',', $request->get('oldimage'));
+            $id = $request->get('id');
+            $produk = Produk::findOrFail($id);
+            $produk->deskripsi_produk = $request->get('deskripsi_produk');
+            $hargapromo = 0;
+            if ($request->get('promo') != 0) {
+                $promo = Promo::findOrFail($request->get('promo'));
+                $produk->promo_id = $request->get('promo');
+                $hargapromo = $request->get('harga') - ($request->get('harga') * ($promo->potongan / 100));
+            } else {
+                $hargapromo = $request->get('harga');
+            }
+            $produk->harga_promo = $hargapromo;
+            $produk->save();
+            if (!empty($oldimage)) {
+                foreach ($oldimage as $key => $value) {
+                    $detail = DetailProdukImage::where('filename', $value)->where('produk_id', $id)->first();
+                    if ($detail) {
+                        unlink(public_path('uploads/images/produk/' . $value));
+                        DetailProdukImage::where('filename', $value)->where('produk_id', $id)->delete();
+                    }
+                }
+            }
+            if ($request->has('file')) {
+                $file = $request->file('file');
+                foreach ($file as $key => $value) {
+                    $imageName = strtotime(now()) . rand(11111, 99999) . '.' . $value->getClientOriginalExtension();
+                    $value->move(public_path() . '/uploads/images/produk/', $imageName);
+                    $detailimage = new DetailProdukImage();
+                    $detailimage->produk_id = $produk->id;
+                    $detailimage->filename = $imageName;
+                    $detailimage->save();
+                }
+            }
+            $request->session()->flash('success', 'Produk berhasil diupdate!');
+            return response()->json([
+                'status' => true,
+                'message' => 'saved'
             ]);
         }
     }
