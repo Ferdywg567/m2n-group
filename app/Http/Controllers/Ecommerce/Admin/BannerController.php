@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Ecommerce\Admin;
 
+use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Banner;
 
 class BannerController extends Controller
 {
@@ -14,7 +16,9 @@ class BannerController extends Controller
      */
     public function index()
     {
-        return view('ecommerce.admin.banner.index');
+        $slider = Banner::where('status_banner', 'Slider Utama')->get();
+        
+        return view('ecommerce.admin.banner.index', ['slider' => $slider]);
     }
 
     /**
@@ -22,9 +26,14 @@ class BannerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $status = $request->get('status');
+        if ($status == 'Slider Utama') {
+            return view('ecommerce.admin.banner.slider_utama.create');
+        } else {
+            return view('ecommerce.admin.banner.promo_tambahan.create');
+        }
     }
 
     /**
@@ -35,7 +44,39 @@ class BannerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'nama_promo' => 'required',
+            'promo_mulai' => 'required|date_format:"Y-m-d"',
+            'promo_berakhir' => 'required|date_format:"Y-m-d"',
+            'file' => 'required',
+            'syarat' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            $html = '<div class="alert alert-danger" role="alert">' . $validator->errors()->first() . '</div>';
+            return response()->json([
+                'status' => false,
+                'data' => $html
+            ]);
+        } else {
+            $file = $request->file('file');
+            $banner = new Banner();
+            $banner->nama = $request->get('nama_promo');
+            $banner->status = $request->get('status');
+            $banner->status_banner = $request->get('status_banner');
+            $banner->promo_mulai = $request->get('promo_mulai');
+            $banner->promo_berakhir = $request->get('promo_berakhir');
+            $banner->syarat = $request->get('syarat');
+            $imageName = strtotime(now()) . rand(11111, 99999) . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path() . '/uploads/images/banner/', $imageName);
+            $banner->gambar = $imageName;
+            $banner->save();
+            $request->session()->flash('success', 'Promo tambahan berhasil disimpan!');
+            return response()->json([
+                'status' => true,
+                'message' => 'saved'
+            ]);
+        }
     }
 
     /**
