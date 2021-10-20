@@ -16,8 +16,14 @@ class BannerController extends Controller
      */
     public function index()
     {
+        Banner::whereDate('promo_berakhir','>=' ,date('Y-m-d'))->update([
+            'status' => 'Aktif'
+        ]);
+        Banner::whereDate('promo_berakhir', '<', date('Y-m-d'))->update([
+            'status' => 'Tidak Aktif'
+        ]);
         $slider = Banner::where('status_banner', 'Slider Utama')->get();
-        
+
         return view('ecommerce.admin.banner.index', ['slider' => $slider]);
     }
 
@@ -62,7 +68,7 @@ class BannerController extends Controller
             $file = $request->file('file');
             $banner = new Banner();
             $banner->nama = $request->get('nama_promo');
-            $banner->status = $request->get('status');
+            $banner->status = "Aktif";
             $banner->status_banner = $request->get('status_banner');
             $banner->promo_mulai = $request->get('promo_mulai');
             $banner->promo_berakhir = $request->get('promo_berakhir');
