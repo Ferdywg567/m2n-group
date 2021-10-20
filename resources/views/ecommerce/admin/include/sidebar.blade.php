@@ -20,27 +20,27 @@
         </li>
         <li @yield('produk')>
             <a class="nav-link" href="{{route('ecommerce.produk.index')}}">
-                <i class="ri-list-settings-fill"></i> <span>Produk</span>
+                <i class="ri-t-shirt-fill"></i><span>Produk</span>
             </a>
         </li>
         <li @yield('transaksi')>
             <a class="nav-link" href="{{route('ecommerce.transaksi.index')}}">
-                <i class="ri-t-shirt-fill"></i> <span>Transaksi</span>
+                <i class="ri-arrow-left-right-fill"></i> <span>Transaksi</span>
             </a>
         </li>
         <li @yield('promo')>
             <a class="nav-link" href="{{route('ecommerce.promo.index')}}">
-                <i class="ri-scissors-line"></i><span>Promo</span>
+                <i class="ri-percent-line"></i><span>Promo</span>
             </a>
         </li>
         <li @yield('banner')>
             <a class="nav-link" href="{{route('ecommerce.banner.index')}}">
-                <i class="ri-user-settings-fill"></i> <span>Banner</span>
+                <i class="ri-artboard-fill"></i> <span>Banner</span>
             </a>
         </li>
         <li @yield('layout')>
             <a class="nav-link" href="{{route('ecommerce.layout.index')}}">
-                <i class="ri-hand-coin-fill"></i> <span>Layout</span>
+                <i class="ri-layout-fill"></i><span>Layout</span>
             </a>
         </li>
 
