@@ -43,6 +43,11 @@
                 <i class="ri-layout-fill"></i><span>Layout</span>
             </a>
         </li>
+        <li @yield('rekapitulasi')>
+            <a class="nav-link" href="{{route('ecommerce.rekapitulasi.index')}}">
+                <i class="ri-booklet-fill"></i><span>Rekapitulasi</span>
+            </a>
+        </li>
 
     </ul>
 </aside>

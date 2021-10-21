@@ -12,6 +12,10 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Ecommerce\Admin', 'middleware
         Route::post('/update','ProdukController@update_data')->name('updatedata');
     });
 
+    Route::group(['prefix' => 'banner', 'as' => 'banner.'], function () {
+        Route::post('/update','BannerController@update_data')->name('updatedata');
+    });
+
 
     Route::resource('dashboard', 'DashboardController');
     Route::resource('produk', 'ProdukController');
@@ -19,4 +23,5 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Ecommerce\Admin', 'middleware
     Route::resource('promo', 'PromoController');
     Route::resource('banner', 'BannerController');
     Route::resource('layout', 'LayoutController');
+    Route::resource('rekapitulasi', 'RekapitulasiController');
 });

@@ -39,7 +39,7 @@
             <a class="btn btn-primary" href="{{route('ecommerce.banner.index')}}">
                 <i class="fas fa-arrow-left"></i>
             </a>
-            <h1 class="ml-2">Input Data | Slider Utama</h1>
+            <h1 class="ml-2">Edit Data | Slider Utama</h1>
         </div>
         <div class="section-body">
             <div class="row">
@@ -47,7 +47,7 @@
                     <div class="card">
                         <div class="card-body">
                             @include('ecommerce.admin.include.alert')
-                            <form id="formbanner" method="post" action="{{route('ecommerce.banner.store')}}"
+                            <form id="formbanner" method="post" action="#"
                                 enctype="multipart/form-data">
                                 @csrf
                                 <div id="data-alert">
@@ -59,7 +59,7 @@
                                         <div class="form-group">
                                             <label for="nama_promo">Nama Promo</label>
                                             <input type="text" class="form-control" required id="nama_promo"
-                                                name="nama_promo" value="">
+                                                name="nama_promo" value="{{$banner->nama}}">
                                         </div>
                                     </div>
 
@@ -69,14 +69,14 @@
                                         <div class="form-group">
                                             <label for="promo_mulai">Promo Mulai</label>
                                             <input type="date" class="form-control" required id="promo_mulai"
-                                                name="promo_mulai" value="{{old('promo_mulai')}}">
+                                                name="promo_mulai" value="{{$banner->promo_mulai}}">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="promo_berakhir">Promo Berakhir</label>
                                             <input type="date" class="form-control" required id="promo_berakhir"
-                                                name="promo_berakhir" value="{{old('promo_berakhir')}}">
+                                                name="promo_berakhir" value="{{$banner->promo_berakhir}}">
                                         </div>
                                     </div>
                                 </div>
@@ -117,7 +117,7 @@
                                         <div class="form-group">
                                             <label for="syarat">Syarat dan Ketentuan</label>
                                             <textarea class="form-control" id="syarat" name="syarat"
-                                                rows="3"></textarea>
+                                                rows="3">{{$banner->syarat}}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -127,7 +127,7 @@
                                         <a type="button" class="btn btn-secondary"
                                             href="{{route('ecommerce.banner.index')}}">Batal</a>
                                         <button type="submit" class="btn btn-primary btnmasuk"
-                                            id="submit-all">Simpan</button>
+                                            id="submit-all">Update</button>
                                     </div>
                                 </div>
 
@@ -158,10 +158,11 @@
             $('#promo').select2()
             var CSRF_TOKEN = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
             let token = $('meta[name="csrf-token"]').attr('content');
+            var id = "{{$banner->id}}";
             var maxImageWidth = 1200, maxImageHeight = 500;
             var myDropzone = new Dropzone("div#dropzoneDragArea", {
             paramName: "file",
-            url: "{{ route('ecommerce.banner.store')}}",
+            url: "{{ route('ecommerce.banner.updatedata')}}",
             previewsContainer: 'div.dropzone-previews',
             addRemoveLinks: true,
             autoProcessQueue: false,
@@ -171,7 +172,8 @@
             maxFiles: 1,
             dictRemoveFile:"Hapus Gambar",
             params: {
-                _token: token
+                _token: token,
+                id:id
             },
             // The setting up of the dropzone
             init: function() {

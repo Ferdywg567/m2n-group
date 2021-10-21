@@ -16,15 +16,16 @@ class BannerController extends Controller
      */
     public function index()
     {
-        Banner::whereDate('promo_berakhir','>=' ,date('Y-m-d'))->update([
+        Banner::whereDate('promo_berakhir', '>=', date('Y-m-d'))->update([
             'status' => 'Aktif'
         ]);
         Banner::whereDate('promo_berakhir', '<', date('Y-m-d'))->update([
             'status' => 'Tidak Aktif'
         ]);
         $slider = Banner::where('status_banner', 'Slider Utama')->get();
+        $tambahan = Banner::where('status_banner', 'Promo Tambahan')->get();
 
-        return view('ecommerce.admin.banner.index', ['slider' => $slider]);
+        return view('ecommerce.admin.banner.index', ['slider' => $slider, 'tambahan' => $tambahan]);
     }
 
     /**
@@ -93,7 +94,12 @@ class BannerController extends Controller
      */
     public function show($id)
     {
-        //
+        $banner = Banner::findOrFail($id);
+        if ($banner->status_banner == 'Slider Utama') {
+            return view('ecommerce.admin.banner.slider_utama.show', ['banner' => $banner]);
+        } else {
+            return view('ecommerce.admin.banner.promo_tambahan.show', ['banner' => $banner]);
+        }
     }
 
     /**
@@ -104,7 +110,12 @@ class BannerController extends Controller
      */
     public function edit($id)
     {
-        //
+        $banner = Banner::findOrFail($id);
+        if ($banner->status_banner == 'Slider Utama') {
+            return view('ecommerce.admin.banner.slider_utama.edit', ['banner' => $banner]);
+        } else {
+            return view('ecommerce.admin.banner.promo_tambahan.edit', ['banner' => $banner]);
+        }
     }
 
     /**
@@ -128,5 +139,45 @@ class BannerController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function update_data(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'nama_promo' => 'required',
+            'promo_mulai' => 'required|date_format:"Y-m-d"',
+            'promo_berakhir' => 'required|date_format:"Y-m-d"',
+            'syarat' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            $html = '<div class="alert alert-danger" role="alert">' . $validator->errors()->first() . '</div>';
+            return response()->json([
+                'status' => false,
+                'data' => $html
+            ]);
+        } else {
+            $file = $request->file('file');
+            $id = $request->get('id');
+            $banner = Banner::findOrFail($id);
+            $banner->nama = $request->get('nama_promo');
+            $banner->status = "Aktif";
+            $banner->promo_mulai = $request->get('promo_mulai');
+            $banner->promo_berakhir = $request->get('promo_berakhir');
+            $banner->syarat = $request->get('syarat');
+            if ($request->has('file')) {
+                unlink(public_path('uploads/images/banner/' . $banner->gambar));
+                $imageName = strtotime(now()) . rand(11111, 99999) . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path() . '/uploads/images/banner/', $imageName);
+                $banner->gambar = $imageName;
+            }
+
+            $banner->save();
+            $request->session()->flash('success', 'Promo tambahan berhasil diupdate!');
+            return response()->json([
+                'status' => true,
+                'message' => 'saved'
+            ]);
+        }
     }
 }

@@ -139,7 +139,62 @@
 
                             </div>
                             <div class="tab-pane fade" id="nav-keluar" role="tabpanel" aria-labelledby="nav-keluar-tab">
+                                <div class="row">
+                                    @foreach ($tambahan as $item)
+                                    <div class="col-md-4">
+                                        <div class="card">
+                                            <div class="card-body" style="position: relative; ">
+                                                <img src="{{asset('uploads/images/banner/'.$item->gambar)}}" alt=""
+                                                    class="rounded" style="width: 100%; ">
+                                                @if ($item->status == 'Aktif')
+                                                <div class="top-left rounded" style="background-color: white">
+                                                    {{$item->status}}
+                                                </div>
+                                                @else
+                                                <div class="overlay-div rounded"></div>
+                                                <div class="top-left rounded"
+                                                    style="background-color: rgb(163, 163, 163); color:white">
+                                                    {{$item->status}}
+                                                </div>
+                                                @endif
 
+                                                <div class="top-right">
+                                                    <div class="dropdown dropleft rounded "
+                                                        style=" background-color: white;">
+                                                        <a class="" href="#" id="dropdownMenuButton"
+                                                            data-toggle="dropdown" aria-haspopup="true"
+                                                            aria-expanded="false">
+                                                            <i class="fa fa-ellipsis-h"></i>
+                                                        </a>
+                                                        <div class="dropdown-menu text-center"
+                                                            aria-labelledby="dropdownMenuButton">
+                                                            <a class="dropdown-item"
+                                                                href="{{route('ecommerce.banner.show',[$item->id])}}"><i
+                                                                    class="ri-eye-fill"></i>
+                                                                Detail</a>
+
+                                                            <a class="dropdown-item"
+                                                                href="{{route('ecommerce.banner.edit',[$item->id])}}"><i
+                                                                    class="ri-edit-fill"></i>
+                                                                Edit</a>
+
+                                                            {{-- <a class="dropdown-item hapus" data-id="{{$item->id}}"
+                                                                href="#"><i class="ri-delete-bin-fill"></i>
+                                                                Hapus</a> --}}
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    @if ($loop->iteration % 3 == 0)
+                                </div>
+                                <div class="row">
+                                    @endif
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
 

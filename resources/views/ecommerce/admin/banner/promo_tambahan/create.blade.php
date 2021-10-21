@@ -24,14 +24,19 @@
         color: rgba(0, 0, 0, .54);
         font-weight: 500;
         font-size: initial;
-        text-transform: uppercase;
+        /* text-transform: uppercase; */
+    }
+
+    textarea {
+        width: 300px;
+        height: 150px !important;
     }
 </style>
 
 <div id="non-printable">
     <section class="section">
         <div class="section-header ">
-            <a class="btn btn-primary" href="{{route('ecommerce.produk.index')}}">
+            <a class="btn btn-primary" href="{{route('ecommerce.banner.index')}}">
                 <i class="fas fa-arrow-left"></i>
             </a>
             <h1 class="ml-2">Input Data | Promo Tambahan</h1>
@@ -42,110 +47,65 @@
                     <div class="card">
                         <div class="card-body">
                             @include('ecommerce.admin.include.alert')
-                            <form id="formProduk" method="post" action="{{route('ecommerce.produk.store')}}"
+                            <form id="formbanner" method="post" action="{{route('ecommerce.banner.store')}}"
                                 enctype="multipart/form-data">
                                 @csrf
                                 <div id="data-alert">
 
                                 </div>
+                                <input type="hidden" name="status_banner" value="Promo Tambahan">
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="kode_produk">Kode Produk</label>
-                                            <input type="text" class="form-control" readonly required id="kode_produk"
-                                                name="kode_produk" value="{{$kode}}">
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="kode_sku">Kode Sku</label>
-                                            <input type="text" class="form-control" readonly required id="kode_sku"
-                                                name="kode_sku" value="{{old('kode_sku')}}">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="warna">Warna</label>
-                                            <input type="text" class="form-control" readonly required id="warna"
-                                                name="warna" value="{{old('warna')}}">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="kategori">Kategori</label>
-                                            <input type="text" class="form-control" required readonly id="kategori"
-                                                name="kategori">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="sub_kategori">Sub Kategori</label>
-                                            <input type="text" class="form-control" required readonly id="sub_kategori"
-                                                name="sub_kategori">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <div class="form-group">
-                                            <label for="detail_sub_kategori">Detail Sub Kategori</label>
-
-                                            <input type="text" class="form-control" required readonly
-                                                id="detail_sub_kategori" name="detail_sub_kategori">
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="stok">Stok</label>
-                                            <input type="text" class="form-control" readonly required id="stok"
-                                                name="stok" value="{{old('stok')}}">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="ukuran">Ukuran</label>
-                                            <input type="text" class="form-control" readonly required id="ukuran"
-                                                name="ukuran" value="{{old('ukuran')}}">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="harga">Harga / Seri</label>
-                                            <input type="text" class="form-control" required readonly id="harga"
-                                                name="harga">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="harga_promo">Harga Setelah Promo</label>
-                                            <input type="text" class="form-control" required readonly id="harga_promo"
-                                                name="harga_promo">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="dropzoneDragArea" class="dropzone">
-                                    <div class="dz-message d-flex flex-column">
-                                        <i class="ri-file-upload-line"></i>
-                                        Drag &amp; Drop here or click
-                                        <div class="dropzone-previews"></div>
-                                    </div>
-
-                                </div>
-                                <div class="row mt-2">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="deskripsi_produk">Deskripsi Produk</label>
-                                            <textarea class="form-control" id="deskripsi_produk" name="deskripsi_produk"
+                                            <label for="nama_promo">Nama Promo</label>
+                                            <input type="text" class="form-control" required id="nama_promo"
+                                                name="nama_promo" value="">
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="promo_mulai">Promo Mulai</label>
+                                            <input type="date" class="form-control" required id="promo_mulai"
+                                                name="promo_mulai" value="{{old('promo_mulai')}}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="promo_berakhir">Promo Berakhir</label>
+                                            <input type="date" class="form-control" required id="promo_berakhir"
+                                                name="promo_berakhir" value="{{old('promo_berakhir')}}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="file">File Gambar Promo</label>
+
+                                        </div>
+                                        <div id="dropzoneDragArea" class="dropzone" style="margin-top: -20px">
+                                            <div class="dz-message d-flex flex-column">
+                                                <i class="ri-file-upload-line"></i>
+                                                Seret Gambar disini
+                                                <br>
+                                                Maksimal Ukuran File 5 MB dan berekstensi .jpeg/ .jpg/ .png
+                                                <br>
+                                                Resolusi 1200 x 500 pixel
+                                                <div class="dropzone-previews"></div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-4">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="syarat">Syarat dan Ketentuan</label>
+                                            <textarea class="form-control" id="syarat" name="syarat"
                                                 rows="3"></textarea>
                                         </div>
                                     </div>
@@ -154,7 +114,7 @@
                                 <div class="row">
                                     <div class="col-md-12 text-center">
                                         <a type="button" class="btn btn-secondary"
-                                            href="{{route('ecommerce.produk.index')}}">Batal</a>
+                                            href="{{route('ecommerce.banner.index')}}">Batal</a>
                                         <button type="submit" class="btn btn-primary btnmasuk"
                                             id="submit-all">Simpan</button>
                                     </div>
@@ -187,17 +147,17 @@
             $('#promo').select2()
             var CSRF_TOKEN = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
             let token = $('meta[name="csrf-token"]').attr('content');
-
+            var maxImageWidth = 1200, maxImageHeight = 500;
             var myDropzone = new Dropzone("div#dropzoneDragArea", {
             paramName: "file",
-            url: "{{ route('ecommerce.produk.store')}}",
+            url: "{{ route('ecommerce.banner.store')}}",
             previewsContainer: 'div.dropzone-previews',
             addRemoveLinks: true,
             autoProcessQueue: false,
             acceptedFiles: 'image/*',
-            uploadMultiple: true,
-            parallelUploads: 10,
-            maxFiles: 10,
+            uploadMultiple: false,
+            parallelUploads: 1,
+            maxFiles: 1,
             dictRemoveFile:"Hapus Gambar",
             params: {
                 _token: token
@@ -211,7 +171,7 @@
                     // Make sure that the form isn't actually being sent.
                     e.preventDefault();
                     e.stopPropagation();
-                    console.log(myDropzone.files);
+                    // console.log(myDropzone.files);
 
                     for (let index = 0; index < myDropzone.files.length; index++) {
                         const element = myDropzone.files[index];
@@ -221,7 +181,20 @@
                             $('#data-alert').html(dataalert)
                             return false;
                         }
+
+                        if(element.width != maxImageWidth || element.height != maxImageHeight){
+                            var dataalert = '<div class="alert alert-danger" role="alert">Resolusi gambar wajib 1200 x 500 pixel</div>'
+                            $('#data-alert').html(dataalert)
+                            return false;
+                        }
                     }
+
+                    if(myDropzone.files.length > 1){
+                        var dataalert = '<div class="alert alert-danger" role="alert"> Gambar maksimal 1</div>'
+                        $('#data-alert').html(dataalert)
+                        return false;
+                    }
+
                     if(myDropzone.files.length){
                         myDropzone.processQueue();
                     }else{
@@ -232,7 +205,7 @@
                 });
                 this.on('sending', function(file, xhr, formData) {
                     // Append all form inputs to the formData Dropzone will POST
-                    var data = $('#formProduk').serializeArray();
+                    var data = $('#formbanner').serializeArray();
                     $.each(data, function(key, el) {
                         formData.append(el.name, el.value);
                     });
@@ -250,15 +223,27 @@
                 //      formUpload.append("promo", "assssae");
                 // });
 
+                this.on("success", function(files, response) {
+
+                    if(response.status){
+                        window.location.href="{{route('ecommerce.banner.index')}}"
+                    }else{
+                        $('#data-alert').html(response.data)
+                    }
+                    // location.href = "{{route('ecommerce.banner.index')}}"
+                // Gets triggered when the files have successfully been sent.
+                // Redirect user or notify of success.
+                });
+
                 this.on("successmultiple", function(files, response) {
                     console.log(response);
 
                     if(response.status){
-                        window.location.href="{{route('ecommerce.produk.index')}}"
+                        window.location.href="{{route('ecommerce.banner.index')}}"
                     }else{
                         $('#data-alert').html(response.data)
                     }
-                    // location.href = "{{route('ecommerce.produk.index')}}"
+                    // location.href = "{{route('ecommerce.banner.index')}}"
                 // Gets triggered when the files have successfully been sent.
                 // Redirect user or notify of success.
                 });
