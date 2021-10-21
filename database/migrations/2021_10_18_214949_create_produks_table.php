@@ -24,6 +24,7 @@ class CreateProduksTable extends Migration
             $table->integer('stok');
             $table->integer('harga')->default(0);
             $table->integer('harga_promo')->default(0);
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }

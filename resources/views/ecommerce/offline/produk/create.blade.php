@@ -1,4 +1,4 @@
-@extends('ecommerce.admin.master')
+@extends('ecommerce.offline.master')
 @section('title', 'Produk')
 @section('title-nav', 'Produk')
 @section('produk', 'class=active-sidebar')
@@ -24,7 +24,7 @@
         color: rgba(0, 0, 0, .54);
         font-weight: 500;
         font-size: initial;
-        
+
     }
 </style>
 
@@ -34,7 +34,7 @@
             <a class="btn btn-primary" href="{{route('ecommerce.produk.index')}}">
                 <i class="fas fa-arrow-left"></i>
             </a>
-            <h1 class="ml-2">Edit Data | Produk</h1>
+            <h1 class="ml-2">Input Data | Produk</h1>
         </div>
         <div class="section-body">
             <div class="row">
@@ -53,14 +53,24 @@
                                         <div class="form-group">
                                             <label for="kode_produk">Kode Produk</label>
                                             <input type="text" class="form-control" readonly required id="kode_produk"
-                                                name="kode_produk" value="{{$produk->kode_produk}}">
+                                                name="kode_produk" value="{{$kode}}">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="nama_bahan">Nama Bahan</label>
-                                            <input type="text" class="form-control" readonly required id="nama_bahan"
-                                                name="nama_bahan" value="{{$produk->warehouse->finishing->cuci->jahit->potong->bahan->nama_bahan}}">
+                                            <label for="barang">Plih Barang</label>
+                                            <select class="form-control" id="barang" name="barang">
+                                                <option value="">Pilih Barang</option>
+                                                @forelse ($produk as $item)
+                                                <option value="{{$item->id}}">
+                                                    {{$item->finishing->cuci->jahit->potong->bahan->kode_transaksi}} |
+                                                    {{$item->finishing->cuci->jahit->potong->bahan->nama_bahan}}
+                                                </option>
+                                                @empty
+
+                                                @endforelse
+
+                                            </select>
                                         </div>
                                     </div>
 
@@ -70,14 +80,14 @@
                                         <div class="form-group">
                                             <label for="kode_sku">Kode Sku</label>
                                             <input type="text" class="form-control" readonly required id="kode_sku"
-                                                name="kode_sku" value="{{$produk->warehouse->finishing->cuci->jahit->potong->bahan->sku}}">
+                                                name="kode_sku" value="{{old('kode_sku')}}">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="warna">Warna</label>
                                             <input type="text" class="form-control" readonly required id="warna"
-                                                name="warna" value="{{$produk->warehouse->finishing->cuci->jahit->potong->bahan->warna}}">
+                                                name="warna" value="{{old('warna')}}">
                                         </div>
                                     </div>
                                 </div>
@@ -87,14 +97,14 @@
                                         <div class="form-group">
                                             <label for="kategori">Kategori</label>
                                             <input type="text" class="form-control" required readonly id="kategori"
-                                                name="kategori" value="{{$produk->warehouse->finishing->cuci->jahit->potong->bahan->detail_sub->sub_kategori->kategori->nama_kategori}}">
+                                                name="kategori">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="sub_kategori">Sub Kategori</label>
                                             <input type="text" class="form-control" required readonly id="sub_kategori"
-                                                name="sub_kategori" value="{{$produk->warehouse->finishing->cuci->jahit->potong->bahan->detail_sub->sub_kategori->nama_kategori}}">
+                                                name="sub_kategori">
                                         </div>
                                     </div>
                                     <div class="col-md-5">
@@ -102,7 +112,7 @@
                                             <label for="detail_sub_kategori">Detail Sub Kategori</label>
 
                                             <input type="text" class="form-control" required readonly
-                                                id="detail_sub_kategori" name="detail_sub_kategori" value="{{$produk->warehouse->finishing->cuci->jahit->potong->bahan->detail_sub->nama_kategori}}">
+                                                id="detail_sub_kategori" name="detail_sub_kategori">
                                         </div>
                                     </div>
 
@@ -112,14 +122,14 @@
                                         <div class="form-group">
                                             <label for="stok">Stok</label>
                                             <input type="text" class="form-control" readonly required id="stok"
-                                                name="stok" value="{{$produk->stok}}">
+                                                name="stok" value="{{old('stok')}}">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="ukuran">Ukuran</label>
                                             <input type="text" class="form-control" readonly required id="ukuran"
-                                                name="ukuran" value="{{$ukuran}}">
+                                                name="ukuran" value="{{old('ukuran')}}">
                                         </div>
                                     </div>
                                 </div>
@@ -128,19 +138,17 @@
                                         <div class="form-group">
                                             <label for="harga">Harga / Seri</label>
                                             <input type="text" class="form-control" required readonly id="harga"
-                                                name="harga" value="{{$produk->harga}}">
+                                                name="harga">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="promo">Promo Terpasang</label>
                                             <select class="form-control" id="promo" name="promo">
-                                                <option value="0" data-promo="0" @if($produk->promo_id==null) selected
-                                                    @endif >Tidak Ada Promo</option>
+                                                <option value="0" data-promo="0">Tidak Ada Promo</option>
 
                                                 @forelse ($promo as $item)
-                                                <option value="{{$item->id}}" data-promo="{{$item->potongan}}"
-                                                    @if($produk->promo_id==$item->id) selected @endif>
+                                                <option value="{{$item->id}}" data-promo="{{$item->potongan}}">
                                                     {{$item->nama}}</option>
                                                 @empty
 
@@ -152,7 +160,7 @@
                                         <div class="form-group">
                                             <label for="harga_promo">Harga Setelah Promo</label>
                                             <input type="text" class="form-control" required readonly id="harga_promo"
-                                                name="harga_promo" value="{{$produk->harga_promo}}">
+                                                name="harga_promo">
                                         </div>
                                     </div>
                                 </div>
@@ -170,7 +178,7 @@
                                         <div class="form-group">
                                             <label for="deskripsi_produk">Deskripsi Produk</label>
                                             <textarea class="form-control" id="deskripsi_produk" name="deskripsi_produk"
-                                                rows="3">{{$produk->deskripsi_produk}}</textarea>
+                                                rows="3"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -180,7 +188,7 @@
                                         <a type="button" class="btn btn-secondary"
                                             href="{{route('ecommerce.produk.index')}}">Batal</a>
                                         <button type="submit" class="btn btn-primary btnmasuk"
-                                            id="submit-all">Update</button>
+                                            id="submit-all">Simpan</button>
                                     </div>
                                 </div>
 
@@ -211,10 +219,10 @@
             $('#promo').select2()
             var CSRF_TOKEN = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
             let token = $('meta[name="csrf-token"]').attr('content');
-            var id = "{{$produk->id}}"
+
             var myDropzone = new Dropzone("div#dropzoneDragArea", {
             paramName: "file",
-            url: "{{route('ecommerce.produk.updatedata')}}",
+            url: "{{ route('ecommerce.produk.store')}}",
             previewsContainer: 'div.dropzone-previews',
             addRemoveLinks: true,
             autoProcessQueue: false,
@@ -223,46 +231,19 @@
             parallelUploads: 10,
             maxFiles: 10,
             dictRemoveFile:"Hapus Gambar",
-            headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
             params: {
-                _token: token,
-                id:id
+                _token: token
             },
             // The setting up of the dropzone
             init: function() {
                 var myDropzone = this;
                 var formUpload = new FormData();
-                var oldimage = []
-
-                //get detail
-                var jumlahfile= [];
-                $.ajax({
-                    url:"{{route('ecommerce.produk.getdetailimage')}}",
-                    method:"GET",
-                    async:false,
-                    data:{
-                        'id':"{{$produk->id}}"
-                    },
-                    success:function(response){
-                        if(response.status){
-                            $.each(response.data, function (key, value) {
-                                var mockfile = {name:value.filename, size:1024}
-                                myDropzone.displayExistingFile(mockfile, "{{asset('uploads/images/produk/')}}/"+value.filename)
-                                mockfile.previewElement.classList.add('dz-success');
-                                mockfile.previewElement.classList.add('dz-complete');
-                                jumlahfile.push(key)
-                             })
-                        }
-                    }
-                })
-
                 //form submission code goes here
                 document.getElementById("submit-all").addEventListener("click", function(e) {
                     // Make sure that the form isn't actually being sent.
                     e.preventDefault();
                     e.stopPropagation();
+                    console.log(myDropzone.files);
 
                     for (let index = 0; index < myDropzone.files.length; index++) {
                         const element = myDropzone.files[index];
@@ -273,33 +254,7 @@
                             return false;
                         }
                     }
-                    if(myDropzone.files.length && jumlahfile.length > 0){
-                        myDropzone.processQueue();
-                    }else if(jumlahfile.length > 0){
-                        var data = $('#formProduk').serializeArray();
-                            $.each(data, function(key, el) {
-                                formUpload.append(el.name, el.value)
-                            });
-                        formUpload.append("oldimage",oldimage)
-                        formUpload.append("id",id)
-                            $.ajax({
-                                url: "{{route('ecommerce.produk.updatedata')}}",
-                                method:"POST",
-                                data:formUpload,
-                                processData: false,
-                                contentType: false,
-                                headers: {
-                                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                                },
-                                success:function(response){
-                                    if(response.status){
-                                        window.location.href="{{route('ecommerce.produk.index')}}"
-                                    }else{
-                                        $('#data-alert').html(response.data)
-                                    }
-                                }
-                            })
-                    }else if(myDropzone.files.length){
+                    if(myDropzone.files.length){
                         myDropzone.processQueue();
                     }else{
                         var dataalert = '<div class="alert alert-danger" role="alert"> Gambar wajib diisi</div>'
@@ -312,16 +267,10 @@
                     var data = $('#formProduk').serializeArray();
                     $.each(data, function(key, el) {
                         formData.append(el.name, el.value);
-
                     });
-                    formData.append("oldimage",oldimage)
                 });
                 this.on("queuecomplete", function () {
 
-                });
-
-                this.on("removedfile", function (file) {
-                    oldimage.push(file.name)
                 });
 
                 // Listen to the sendingmultiple event. In this case, it's the sendingmultiple event instead
@@ -333,22 +282,8 @@
                 //      formUpload.append("promo", "assssae");
                 // });
 
-                this.on("success", function(files, response) {
-                    // console.log(response);
-
-                    if(response.status){
-                        window.location.href="{{route('ecommerce.produk.index')}}"
-                    }else{
-                        $('#data-alert').html(response.data)
-                    }
-                    // location.href = "{{route('ecommerce.produk.index')}}"
-                // Gets triggered when the files have successfully been sent.
-                // Redirect user or notify of success.
-                });
-
-
                 this.on("successmultiple", function(files, response) {
-                    // console.log(response);
+                    console.log(response);
 
                     if(response.status){
                         window.location.href="{{route('ecommerce.produk.index')}}"
@@ -363,13 +298,70 @@
                 this.on("errormultiple", function(files, response) {
                 // Gets triggered when there was an error sending the files.
                 // Maybe show form again, and notify user of error
-                console.log(response);
+
                 });
             }
 	        });
 
 
+            $('#barang').on('change', function () {
+                    var id = $(this).find(':selected').val()
 
+                    if(id != ''){
+                        $.ajax({
+                            url:"{{route('ecommerce.produk.getdetail')}}",
+                            method:"GET",
+                            data:{
+                                'id':id
+                            }
+                        }).done(function (response) {
+
+                            if(response.status){
+                                console.log(response);
+
+                                var data = response.data;
+                                var bahan = data.finishing.cuci.jahit.potong.bahan
+                                // var cuci = data.cuci
+                                // var detail_finish = data.detail_finish
+                                // var finish_retur = data.finish_retur
+                                // var finish_dibuang = data.finish_dibuang
+                                var kategori = bahan.detail_sub.sub_kategori.kategori.nama_kategori;
+                                var sub_kategori = bahan.detail_sub.sub_kategori.nama_kategori
+                                var detail_sub_kategori = bahan.detail_sub.nama_kategori
+                                var detail = data.detail_warehouse;
+                                var jumlah = 0;
+                                var ukuran = "";
+                                for (let index = 0; index < detail.length; index++) {
+                                    const element = detail[index];
+                                    jumlah = jumlah + parseInt(element.jumlah)
+                                    ukuran += element.ukuran + ", ";
+
+                                }
+
+                                ukuran =  ukuran.replace(/,\s*$/, "");
+                                $('#kode_sku').val(bahan.sku)
+                                $('#warna').val(bahan.warna)
+                                $('#harga').val(data.harga_produk)
+                                $('#harga_promo').val(data.harga_produk)
+                                $('#stok').val(jumlah)
+                                $('#ukuran').val(ukuran)
+                                $('#kategori').val(kategori)
+                                $('#sub_kategori').val(sub_kategori)
+                                $('#detail_sub_kategori').val(detail_sub_kategori)
+                                // $('#no_surat').val(data.no_surat)
+                                // $('#nama_bahan').val(bahan.nama_bahan)
+                                // $('#jenis_bahan').val(bahan.jenis_bahan)
+                                // $('#warna_baju_keluar').val(bahan.warna)
+                                // $('#siap_jual').val(data.barang_lolos_qc)
+
+
+
+
+                            }
+
+                        })
+                    }
+            })
 
             function hitung_promo(harga, promo){
                 var hitung = harga*(promo/100);

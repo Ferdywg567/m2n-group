@@ -32,10 +32,18 @@ class UserSeeder extends Seeder
 
         $user = User::create([
             'name' => 'admin',
-            'email' => 'admin@gmail.com',
+            'email' => 'admin_offline@gmail.com',
             'password' => Hash::make('123456')
         ]);
 
-        $user->assignRole('admin');
+        $user->assignRole('admin-offline');
+
+        $user = User::create([
+            'name' => 'admin',
+            'email' => 'admin_online@gmail.com',
+            'password' => Hash::make('123456')
+        ]);
+
+        $user->assignRole('admin-online');
     }
 }

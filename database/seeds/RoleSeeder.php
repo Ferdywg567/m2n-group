@@ -23,7 +23,12 @@ class RoleSeeder extends Seeder
         ]);
 
         Role::create([
-            'name' => 'admin',
+            'name' => 'admin-online',
+            'guard_name' => 'web'
+        ]);
+
+        Role::create([
+            'name' => 'admin-offline',
             'guard_name' => 'web'
         ]);
     }

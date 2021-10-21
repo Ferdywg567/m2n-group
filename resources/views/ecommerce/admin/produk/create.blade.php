@@ -24,7 +24,7 @@
         color: rgba(0, 0, 0, .54);
         font-weight: 500;
         font-size: initial;
-        text-transform: uppercase;
+       
     }
 </style>
 
@@ -167,7 +167,8 @@
                                 <div id="dropzoneDragArea" class="dropzone">
                                     <div class="dz-message d-flex flex-column">
                                         <i class="ri-file-upload-line"></i>
-                                        Drag &amp; Drop here or click
+                                        Seret Gambar disini
+
                                         <div class="dropzone-previews"></div>
                                     </div>
 

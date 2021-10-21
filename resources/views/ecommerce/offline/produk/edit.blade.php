@@ -1,4 +1,4 @@
-@extends('ecommerce.admin.master')
+@extends('ecommerce.offline.master')
 @section('title', 'Produk')
 @section('title-nav', 'Produk')
 @section('produk', 'class=active-sidebar')
@@ -24,7 +24,7 @@
         color: rgba(0, 0, 0, .54);
         font-weight: 500;
         font-size: initial;
-        
+
     }
 </style>
 

@@ -69,8 +69,10 @@ class LoginController extends Controller
             return redirect()->route('dashboard.index');
         }elseif($user->hasRole('warehouse')){
             return redirect()->route('warehouse.dashboard.index');
-        }elseif($user->hasRole('admin')){
+        }elseif($user->hasRole('admin-online')){
             return redirect()->route('ecommerce.dashboard.index');
+        }elseif($user->hasRole('admin-offline')){
+            return redirect()->route('offline.dashboard.index');
         }
     }
 }

@@ -2,7 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::group(['prefix' => 'admin', 'namespace' => 'Ecommerce\Admin', 'middleware' => ['role:admin', 'auth'], 'as' => 'ecommerce.'], function () {
+//online
+
+Route::group(['prefix' => 'admin', 'namespace' => 'Ecommerce\Admin', 'middleware' => ['role:admin-online', 'auth'], 'as' => 'ecommerce.'], function () {
 
 
     //produk
@@ -23,5 +25,14 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Ecommerce\Admin', 'middleware
     Route::resource('promo', 'PromoController');
     Route::resource('banner', 'BannerController');
     Route::resource('layout', 'LayoutController');
+    Route::resource('rekapitulasi', 'RekapitulasiController');
+});
+
+
+//offline
+Route::group(['prefix' => 'admin/offline', 'namespace' => 'Ecommerce\Offline', 'middleware' => ['role:admin-offline', 'auth'], 'as' => 'offline.'], function () {
+    Route::resource('dashboard', 'DashboardController');
+    Route::resource('produk', 'ProdukController');
+    Route::resource('transaksi', 'TransaksiController');
     Route::resource('rekapitulasi', 'RekapitulasiController');
 });
