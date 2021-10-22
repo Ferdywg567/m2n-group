@@ -11,11 +11,7 @@
 </style>
 
 <section class="section mt-4">
-    <div class="btn-group">
-        <a href="{{route('offline.produk.create')}}" class="btn btn-primary rounded">
-            Input Data <i class="fas fa-plus"></i>
-        </a>
-    </div>
+
     <div class="section-body mt-4">
         <div class="row">
             <div class="col-md-12">
@@ -36,6 +32,38 @@
                                 </tr>
                             </thead>
                             <tbody id="">
+                                @forelse ($produk as $item)
+                                <tr>
+                                    <td>{{$loop->iteration}}</td>
+                                    <td>{{$item->kode_produk}}</td>
+                                    <td>{{$item->warehouse->finishing->cuci->jahit->potong->bahan->sku}}</td>
+                                    <td>{{$item->warehouse->finishing->cuci->jahit->potong->bahan->nama_bahan}}</td>
+                                    <td>{{$item->warehouse->finishing->cuci->jahit->potong->bahan->detail_sub->sub_kategori->kategori->nama_kategori}}/{{$item->warehouse->finishing->cuci->jahit->potong->bahan->detail_sub->sub_kategori->nama_kategori}}/{{$item->warehouse->finishing->cuci->jahit->potong->bahan->detail_sub->nama_kategori}}
+                                    </td>
+                                    <td>{{$item->stok}}</td>
+                                    <td>@rupiah($item->harga)</td>
+                                    <td>
+                                        <div class="dropdown dropleft">
+                                            <a class="" href="#" id="dropdownMenuButton" data-toggle="dropdown"
+                                                aria-haspopup="true" aria-expanded="false">
+                                                <i class="fa fa-ellipsis-h"></i>
+                                            </a>
+                                            <div class="dropdown-menu text-center" aria-labelledby="dropdownMenuButton">
+                                                <a class="dropdown-item"
+                                                    href="{{route('offline.produk.show',[$item->id])}}"><i
+                                                        class="ri-eye-fill"></i>
+                                                    Detail</a>
+
+
+
+
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                @empty
+
+                                @endforelse
 
                             </tbody>
                         </table>

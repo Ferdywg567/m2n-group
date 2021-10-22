@@ -120,7 +120,17 @@ class ProdukController extends Controller
      */
     public function show($id)
     {
-        //
+        $produk = Produk::findOrFail($id);
+        $today = date('Y-m-d');
+        $promo = Promo::whereDate('promo_mulai', '<=', $today)->whereDate('promo_berakhir', '>=', $today)->get();
+        $detail = DetailProduk::where('produk_id', $id)->get();
+        $ukuran = '';
+        foreach ($detail as $key => $value) {
+            $ukuran .= $value->ukuran . ', ';
+        }
+
+        $ukuran = rtrim($ukuran, ', ');
+        return view("ecommerce.admin.produk.show", ['produk' => $produk, 'promo' => $promo, 'ukuran' => $ukuran]);
     }
 
     /**

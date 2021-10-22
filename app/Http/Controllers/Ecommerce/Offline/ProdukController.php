@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Ecommerce\Offline;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\DetailProduk;
+use App\Promo;
+use App\Produk;
 
 class ProdukController extends Controller
 {
@@ -14,7 +17,8 @@ class ProdukController extends Controller
      */
     public function index()
     {
-        return view('ecommerce.offline.produk.index');
+        $produk = Produk::orderBy('created_at', 'DESC')->get();
+        return view('ecommerce.offline.produk.index', ['produk' => $produk]);
     }
 
     /**
@@ -46,7 +50,17 @@ class ProdukController extends Controller
      */
     public function show($id)
     {
-        //
+        $produk = Produk::findOrFail($id);
+        $today = date('Y-m-d');
+        $promo = Promo::whereDate('promo_mulai', '<=', $today)->whereDate('promo_berakhir', '>=', $today)->get();
+        $detail = DetailProduk::where('produk_id', $id)->get();
+        $ukuran = '';
+        foreach ($detail as $key => $value) {
+            $ukuran .= $value->ukuran . ', ';
+        }
+
+        $ukuran = rtrim($ukuran, ', ');
+        return view("ecommerce.offline.produk.show", ['produk' => $produk, 'promo' => $promo, 'ukuran' => $ukuran]);
     }
 
     /**

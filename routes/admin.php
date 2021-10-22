@@ -31,6 +31,12 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Ecommerce\Admin', 'middleware
 
 //offline
 Route::group(['prefix' => 'admin/offline', 'namespace' => 'Ecommerce\Offline', 'middleware' => ['role:admin-offline', 'auth'], 'as' => 'offline.'], function () {
+
+    Route::group(['prefix' => 'transaksi', 'as' => 'transaksi.'], function () {
+        Route::get('getdetailproduk', 'TransaksiController@getDataProduk')->name('getdetail');
+        Route::get('getdatatable', 'TransaksiController@getDataDetail')->name('gettable');
+    });
+
     Route::resource('dashboard', 'DashboardController');
     Route::resource('produk', 'ProdukController');
     Route::resource('transaksi', 'TransaksiController');

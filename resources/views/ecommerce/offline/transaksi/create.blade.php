@@ -5,9 +5,6 @@
 @section('cssnav', 'cssnav')
 @section('content')
 <style>
-    .cssnav {
-        margin-left: -20px;
-    }
 
 
     .dropzone {
@@ -53,7 +50,12 @@
                                         <div class="form-group">
                                             <label for="produk">Plih Produk</label>
                                             <select class="form-control" id="produk" name="produk">
-                                                <option value="">Pilih Produk</option>
+                                                <option value="0">Pilih Produk</option>
+                                                @forelse ($produk as $item)
+                                                <option value="{{$item->id}}">{{$item->kode_produk}}</option>
+                                                @empty
+
+                                                @endforelse
                                             </select>
                                         </div>
                                     </div>
@@ -151,7 +153,7 @@
                                     <div class="form-group">
                                         <label for="kode_transaksi">Kode Transaksi</label>
                                         <input type="text" class="form-control" readonly required id="kode_transaksi"
-                                            name="kode_transaksi" value="{{old('kode_transaksi')}}">
+                                            name="kode_transaksi" value="{{$kode}}">
                                     </div>
                                 </div>
                             </div>
@@ -171,6 +173,42 @@
 
                                 </tbody>
                             </table>
+                            <div class="row">
+                                <div class="col-md-8 float-left text-left">
+                                    <div class="form-group mt-2" style="padding-left: 50px;">
+                                        <h4>Total</h4>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" readonly required id="total_harga"
+                                        name="total_harga" value="@rupiah($transaksi['total_harga'])">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8 float-left text-left">
+                                    <div class="form-group mt-2" style="padding-left: 50px;">
+                                        <h4>Bayar</h4>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control"  required id="bayar"
+                                        name="bayar" value="{{old('bayar')}}">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8 float-left text-left">
+                                    <div class="form-group mt-2" style="padding-left: 50px;">
+                                        <h4>Kembalian</h4>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" readonly required id="kembalian"
+                                        name="kembalian" value="{{old('kembalian')}}">
+                                </div>
+                            </div>
                             <div class="float-right mt-3 btnSimpan">
                                 <button type="button" class="btn btn-primary btnsimpan">Simpan Transaksi</button>
                             </div>
@@ -186,8 +224,8 @@
 
 @endsection
 @push('scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"></script>
 <script>
-
     $(document).ready(function () {
              function ajax() {
                 $.ajaxSetup({
@@ -197,7 +235,110 @@
                 });
               }
             $('#barang').select2()
+            $('#produk').select2()
             $('#promo').select2()
+            $('#bayar').mask('000.000.000.000', {
+                reverse: true
+            });
+            var table_detail = $('#tabelproduk').DataTable({
+                    processing: true,
+                    serverSide: true,
+                    ajax: "{{ route('offline.transaksi.gettable') }}",
+                    columns: [
+                        {data: 'urut', name: 'urut'},
+                        {data: 'kode', name: 'kode'},
+                        {data: 'nama', name: 'nama'},
+                        {data: 'qty', name: 'qty'},
+                        {data: 'harga', name: 'harga'},
+                        {data: 'subtotal', name: 'subtotal'},
+                        {data: 'action', name: 'action', orderable: false, searchable: false},
+                    ],
+                    language: {
+                        url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'
+                    },
+                    fnRowCallback:function(nRow, aData, iDisplayIndex, iDisplayIndexFull){
+                        $('td:eq(4)', nRow).html("Rp. "+convertToRupiah(aData["harga"]));
+                        $('td:eq(5)', nRow).html("Rp. "+convertToRupiah(aData["subtotal"]));
+                    },
+              })
+
+              $('#bayar').on('keyup',function () {
+                    var total_harga = $('#total_harga').val()
+                    total_harga = convertToAngka(total_harga);
+                    var bayar = convertToAngka($(this).val())
+                    var kembalian = bayar - total_harga;
+
+                    if(bayar > total_harga){
+
+                        $('#kembalian').val("Rp "+ convertToRupiah(kembalian))
+                    }else{
+                        $('#kembalian').val(0)
+                    }
+
+
+               })
+
+            $('#produk').on('change', function () {
+                var id = $(this).find(':selected').val()
+                if(id != '0'){
+                    $.ajax({
+                    url:"{{route('offline.transaksi.getdetail')}}",
+                    method:"GET",
+                    data:{
+                        id:id
+                    },success:function(response){
+                        if(response.status){
+                                console.log(response);
+                                var data = response.data
+                                var bahan = data.warehouse.finishing.cuci.jahit.potong.bahan
+                                console.log(bahan);
+                                var detail_sub = bahan.detail_sub.nama_kategori;
+                                var sub_kategori = bahan.detail_sub.sub_kategori.nama_kategori;
+                                var kategori = bahan.detail_sub.sub_kategori.kategori.nama_kategori;
+                                var detail = data.detail_produk
+                                $('#kode_sku').val(bahan.sku)
+                                $('#warna').val(bahan.warna)
+                                $('#kategori').val(kategori)
+                                $('#sub_kategori').val(sub_kategori)
+                                $('#detail_sub_kategori').val(detail_sub)
+                                $('#stok').val(data.stok)
+                                $('#harga').val("Rp. "+convertToRupiah(data.harga))
+                                var ukuran = ""
+                                for (let index = 0; index < detail.length; index++) {
+                                    const element = detail[index];
+
+                                    ukuran += element.ukuran + ", ";
+                                }
+                                ukuran =  ukuran.replace(/,\s*$/, "");
+                                $('#ukuran').val(ukuran)
+                                $('#total_harga').val(convertToRupiah(response.total_harga))
+                                table_detail.ajax.reload();
+
+                                setTimeout(function () { $('#formProduk').trigger('reset') },1500)
+                                $('#produk').val('0').change()
+
+                        }
+                    }
+                })
+                }
+
+             })
+             function convertToAngka(rupiah)
+            {
+                return parseInt(rupiah.replace(/,.*|[^0-9]/g, ''), 10);
+            }
+             function convertToRupiah(angka) {
+                var rupiah = '';
+                var angkarev = angka.toString().split('').reverse().join('');
+                for (var i = 0; i < angkarev.length; i++) {
+                    if (i%3 == 0) {
+                    rupiah += angkarev.substr(i,3)+'.';
+                    }
+                }
+
+                var res = rupiah.split('',rupiah.length-1).reverse().join('');
+                return res;
+            }
      })
 </script>
 @endpush
