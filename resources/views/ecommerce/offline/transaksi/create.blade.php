@@ -385,18 +385,18 @@
             $(document).on('click','.btnDelete', function () {
                     var kode = $(this).data('kode')
 
-                    swal({
-                title: "Apa anda yakin?",
-                text: "ketika dihapus, data tidak bisa dikembalikan!",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-                })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        window.location.href="{{url('/admin/offline/transaksi/delete_transaksi/')}}/"+kode;
-                    }
-                });
+                swal({
+                    title: "Apa anda yakin?",
+                    text: "ketika dihapus, data tidak bisa dikembalikan!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                    })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            window.location.href="{{url('/admin/offline/transaksi/delete_transaksi/')}}/"+kode;
+                        }
+                    });
             })
      })
 </script>
