@@ -17,7 +17,15 @@
             <div class="col-md-12">
                 <div class="card ">
                     <div class="card-body">
-
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="kode_transaksi">Kode Transaksi</label>
+                                    <input type="text" class="form-control" readonly required id="kode_transaksi"
+                                        name="kode_transaksi" value="{{$transaksi->kode_transaksi}}">
+                                </div>
+                            </div>
+                        </div>
                         <table class="table table-hover" id="tabelrekap">
                             <thead>
                                 <tr>
