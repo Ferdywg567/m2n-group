@@ -348,37 +348,55 @@
                 var bayar = convertToAngka($('#bayar').val());
                 var total_harga = convertToAngka($('#total_harga').val())
 
-                if(bayar >= total_harga){
+
                     $.ajax({
                         url:"{{route('offline.transaksi.cek')}}",
                         method:"GET",
                         success:function(response){
                             if(response.status){
-                                swal({
-                                    text: "Apa anda yakin menyimpan data transaksi ini ?",
-                                    icon: "warning",
-                                    buttons: true,
-                                    dangerMode: true,
-                                    })
-                                    .then((willInsert) => {
-                                    if (willInsert) {
-                                        // swal("Poof! Your imaginary file has been deleted!", {
-                                        // icon: "success",
-                                        // });
-                                        $('#formDetail').submit()
-                                    } else {
-                                        swal("Your imaginary file is safe!");
-                                    }
-                                });
+                                if(bayar >= total_harga){
+                                    swal({
+                                        text: "Apa anda yakin menyimpan data transaksi ini ?",
+                                        icon: "warning",
+                                        buttons: true,
+                                        dangerMode: true,
+                                        })
+                                        .then((willInsert) => {
+                                        if (willInsert) {
+                                            // swal("Poof! Your imaginary file has been deleted!", {
+                                            // icon: "success",
+                                            // });
+                                            $('#formDetail').submit()
+                                        }
+                                    });
+                                }else{
+                                    swal("Silahkan isi pembayaran yang sesuai!");
+                                }
+
                             }else{
                                 swal("Belum ada transaksi, silahkan pilih produk terlebih dahulu!");
                             }
                         }
                     })
-                }else{
-                    swal("Silahkan isi pembayaran yang sesuai!");
-                }
 
+
+            })
+
+            $(document).on('click','.btnDelete', function () {
+                    var kode = $(this).data('kode')
+
+                    swal({
+                title: "Apa anda yakin?",
+                text: "ketika dihapus, data tidak bisa dikembalikan!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        window.location.href="{{url('/admin/offline/transaksi/delete_transaksi/')}}/"+kode;
+                    }
+                });
             })
      })
 </script>

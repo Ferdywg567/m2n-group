@@ -20,7 +20,7 @@ class TransaksiController extends Controller
     public function index()
     {
 
-        $transaksi = Transaksi::where('status_transaksi','offline')->orderBy('created_at', 'DESC')->get();
+        $transaksi = Transaksi::where('status_transaksi', 'offline')->orderBy('created_at', 'DESC')->get();
         return view('ecommerce.offline.transaksi.index', ['transaksi' => $transaksi]);
     }
 
@@ -120,7 +120,6 @@ class TransaksiController extends Controller
      */
     public function show($id)
     {
-
     }
 
     /**
@@ -321,5 +320,37 @@ class TransaksiController extends Controller
                 ]);
             }
         }
+    }
+
+    public function delete_data($kode)
+    {
+        if (session()->has('detail_transaksi')) {
+            $datadetail = session('detail_transaksi');
+            $total  = 0;
+            $arr = [];
+            foreach ($datadetail as $key => $value) {
+                if ($value['kode'] != $kode) {
+                    $total = $total + $value["subtotal"];
+                    array_push($arr, $value);
+                }
+            }
+         
+            if ($total == 0) {
+                session()->forget('detail_transaksi');
+            } else {
+                session(['detail_transaksi' => $arr]);
+                session()->save();
+            }
+
+            $data = [
+                'total_harga' => $total,
+            ];
+            session(['transaksi' => $data]);
+            session()->save();
+
+            return redirect()->route('offline.transaksi.create')->with("success", "Detail transaksi berhasil dihapus");
+        }
+
+
     }
 }
