@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Rekapitulasi</title>
+    <title>Transaksi</title>
     <link rel="stylesheet" href="style.css" media="all" />
 </head>
 

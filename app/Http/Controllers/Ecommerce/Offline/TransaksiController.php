@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Transaksi;
 use App\Produk;
+use PDF;
 
 class TransaksiController extends Controller
 {
@@ -40,7 +41,7 @@ class TransaksiController extends Controller
             $transaksi = session(['transaksi' => $data]);
             $transaksi = session('transaksi');
         }
-        $produk = Produk::orderBy('created_at', 'DESC')->get();
+        $produk = Produk::where('stok','>',0)->orderBy('created_at', 'DESC')->get();
         $kode = $this->generateKode();
         return view('ecommerce.offline.transaksi.create', ['produk' => $produk, 'kode' => $kode, 'transaksi' => $transaksi]);
     }
@@ -103,10 +104,18 @@ class TransaksiController extends Controller
 
                 session()->forget('transaksi');
                 session()->forget('detail_transaksi');
+                $request->session()->flash('success', 'Transaksi berhasil disimpan!');
                 DB::commit();
-                return redirect()->route('offline.transaksi.index')->with("success", "Transaksi berhasil disimpan");
+                return response()->json([
+                    'status' => true,
+                    'data' => $transaksi->id,
+                    'kode_transaksi' => $this->generateKode()
+                ]);
             } catch (\Exception $th) {
                 DB::rollBack();
+                return response()->json([
+                    'status' => false
+                ]);
                 dd($th);
             }
         }
@@ -334,7 +343,7 @@ class TransaksiController extends Controller
                     array_push($arr, $value);
                 }
             }
-         
+
             if ($total == 0) {
                 session()->forget('detail_transaksi');
             } else {
@@ -350,7 +359,12 @@ class TransaksiController extends Controller
 
             return redirect()->route('offline.transaksi.create')->with("success", "Detail transaksi berhasil dihapus");
         }
+    }
 
-
+    public function cetak($id)
+    {
+        $transaksi = Transaksi::findOrFail($id);
+        $pdf = PDF::loadView('ecommerce.offline.transaksi.pdf', ['transaksi' => $transaksi]);
+        return $pdf->stream('transaksi.pdf');
     }
 }

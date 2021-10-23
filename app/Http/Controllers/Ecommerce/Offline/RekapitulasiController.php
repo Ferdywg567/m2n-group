@@ -14,10 +14,20 @@ class RekapitulasiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $month = array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+        $tahun = [];
+
+        for ($i = 2018; $i <= date('Y'); $i++) {
+            array_push($tahun, $i);
+        }
+
+
+       
+
         $transaksi = Transaksi::where('status_transaksi', 'offline')->orderBy('created_at', 'DESC')->get();
-        return view('ecommerce.offline.rekapitulasi.index', ['transaksi' => $transaksi]);
+        return view('ecommerce.offline.rekapitulasi.index', ['transaksi' => $transaksi, 'month' => $month, 'tahun' => $tahun]);
     }
 
     /**

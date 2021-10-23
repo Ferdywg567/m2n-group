@@ -37,6 +37,7 @@ Route::group(['prefix' => 'admin/offline', 'namespace' => 'Ecommerce\Offline', '
         Route::get('getdatatable', 'TransaksiController@getDataDetail')->name('gettable');
         Route::get('cektransaksi', 'TransaksiController@cekTransaksi')->name('cek');
         Route::get('delete_transaksi/{kode}', 'TransaksiController@delete_data')->name('delete_trans');
+        Route::get('cetak/{id}', 'TransaksiController@cetak')->name('cetak');
     });
 
     Route::group(['prefix' => 'rekapitulasi', 'as' => 'rekapitulasi.'], function () {

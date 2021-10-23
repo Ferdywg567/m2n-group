@@ -209,7 +209,7 @@
                                     </div>
                                 </div>
                                 <div class="float-right mt-3">
-                                    <button type="button" class="btn btn-primary btnsimpan">Simpan Transaksi</button>
+                                    <button type="button" class="btn btn-primary btnsimpan">Simpan & Cetak</button>
                                 </div>
                             </form>
 
@@ -363,10 +363,31 @@
                                         })
                                         .then((willInsert) => {
                                         if (willInsert) {
-                                            // swal("Poof! Your imaginary file has been deleted!", {
-                                            // icon: "success",
-                                            // });
-                                            $('#formDetail').submit()
+
+                                            var form = $('#formDetail').serialize()
+                                            ajax()
+                                            $.ajax({
+                                                url:"{{route('offline.transaksi.store')}}",
+                                                method:"POST",
+                                                data:form,
+                                                success:function(response){
+                                                    if(response.status){
+                                                        window.open("{{url('admin/offline/transaksi/cetak/')}}/"+response.data)
+                                                        // setTimeout(function () { window.location.reload(true) },1500)
+                                                        $('#formDetail').trigger('reset')
+                                                        table_detail.clear().draw();
+                                                        $('#kode_transaksi').val(response.kode_transaksi)
+                                                        setTimeout(() => {
+                                                            iziToast.success({
+                                                                title: 'Yeay!',
+                                                                message: 'Transaksi berhasil disimpan!',
+                                                                position: 'topRight'
+                                                            });
+                                                        },500)
+                                                    }
+                                                }
+                                            })
+
                                         }
                                     });
                                 }else{
