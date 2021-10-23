@@ -92,9 +92,13 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12 text-center">
-                                <a type="button" class="btn btn-secondary" href="{{route('offline.rekapitulasi.index')}}">Tutup</a>
-                                <button type="submit" class="btn btn-primary"><i class="ri-printer-fill"></i>
-                                    Cetak</button>
+                                <a type="button" class="btn btn-secondary"
+                                    href="{{route('offline.rekapitulasi.index')}}">Tutup</a>
+                                <a type="button" class="btn btn-primary"
+                                    href="{{route('offline.rekapitulasi.cetak',[$transaksi->id])}}" target="_blank"><i
+                                        class="ri-printer-fill"></i> Cetak</a>
+                                {{-- <button type="submit" class="btn btn-primary"><i class="ri-printer-fill"></i>
+                                    Cetak</button> --}}
                             </div>
                         </div>
                     </div>

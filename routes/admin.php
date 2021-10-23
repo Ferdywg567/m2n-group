@@ -39,6 +39,10 @@ Route::group(['prefix' => 'admin/offline', 'namespace' => 'Ecommerce\Offline', '
         Route::get('delete_transaksi/{kode}', 'TransaksiController@delete_data')->name('delete_trans');
     });
 
+    Route::group(['prefix' => 'rekapitulasi', 'as' => 'rekapitulasi.'], function () {
+        Route::get('cetak/{id}', 'RekapitulasiController@cetak')->name('cetak');
+    });
+
     Route::resource('dashboard', 'DashboardController');
     Route::resource('produk', 'ProdukController');
     Route::resource('transaksi', 'TransaksiController');
