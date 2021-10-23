@@ -5,8 +5,6 @@
 @section('cssnav', 'cssnav')
 @section('content')
 <style>
-
-
     .dropzone {
         border: 2px dashed #dedede;
         border-radius: 5px;
@@ -39,8 +37,7 @@
                     <div class="card">
                         <div class="card-body">
                             @include('ecommerce.admin.include.alert')
-                            <form id="formProduk" method="post" action="{{route('offline.transaksi.store')}}"
-                                enctype="multipart/form-data">
+                            <form id="form_transaksi" enctype="multipart/form-data">
                                 @csrf
                                 <div id="data-alert">
 
@@ -173,45 +170,49 @@
 
                                 </tbody>
                             </table>
-                            <div class="row">
-                                <div class="col-md-8 float-left text-left">
-                                    <div class="form-group mt-2" style="padding-left: 50px;">
-                                        <h4>Total</h4>
+                            <form method="post" id="formDetail" action="{{route('offline.transaksi.store')}}">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-md-8 float-left text-left">
+                                        <div class="form-group mt-2" style="padding-left: 50px;">
+                                            <h4>Total</h4>
 
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control" readonly required id="total_harga"
+                                            name="total_harga" value="{{$transaksi['total_harga']}}">
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <input type="text" class="form-control" readonly required id="total_harga"
-                                        name="total_harga" value="@rupiah($transaksi['total_harga'])">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-8 float-left text-left">
-                                    <div class="form-group mt-2" style="padding-left: 50px;">
-                                        <h4>Bayar</h4>
+                                <div class="row">
+                                    <div class="col-md-8 float-left text-left">
+                                        <div class="form-group mt-2" style="padding-left: 50px;">
+                                            <h4>Bayar</h4>
 
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control" required id="bayar" name="bayar"
+                                            value="{{old('bayar')}}">
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <input type="text" class="form-control"  required id="bayar"
-                                        name="bayar" value="{{old('bayar')}}">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-8 float-left text-left">
-                                    <div class="form-group mt-2" style="padding-left: 50px;">
-                                        <h4>Kembalian</h4>
+                                <div class="row">
+                                    <div class="col-md-8 float-left text-left">
+                                        <div class="form-group mt-2" style="padding-left: 50px;">
+                                            <h4>Kembalian</h4>
 
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control" readonly required id="kembalian"
+                                            name="kembalian" value="{{old('kembalian')}}">
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <input type="text" class="form-control" readonly required id="kembalian"
-                                        name="kembalian" value="{{old('kembalian')}}">
+                                <div class="float-right mt-3">
+                                    <button type="button" class="btn btn-primary btnsimpan">Simpan Transaksi</button>
                                 </div>
-                            </div>
-                            <div class="float-right mt-3 btnSimpan">
-                                <button type="button" class="btn btn-primary btnsimpan">Simpan Transaksi</button>
-                            </div>
+                            </form>
+
                         </div>
                     </div>
                 </div>
@@ -270,13 +271,16 @@
 
                     if(bayar > total_harga){
 
-                        $('#kembalian').val("Rp "+ convertToRupiah(kembalian))
+                        $('#kembalian').val(convertToRupiah(kembalian))
                     }else{
                         $('#kembalian').val(0)
                     }
 
 
                })
+
+               var total_harga = $('#total_harga').val()
+               $('#total_harga').val(convertToRupiah(total_harga))
 
             $('#produk').on('change', function () {
                 var id = $(this).find(':selected').val()
@@ -302,7 +306,7 @@
                                 $('#sub_kategori').val(sub_kategori)
                                 $('#detail_sub_kategori').val(detail_sub)
                                 $('#stok').val(data.stok)
-                                $('#harga').val("Rp. "+convertToRupiah(data.harga))
+                                $('#harga').val(convertToRupiah(data.harga))
                                 var ukuran = ""
                                 for (let index = 0; index < detail.length; index++) {
                                     const element = detail[index];
@@ -314,7 +318,7 @@
                                 $('#total_harga').val(convertToRupiah(response.total_harga))
                                 table_detail.ajax.reload();
 
-                                setTimeout(function () { $('#formProduk').trigger('reset') },1500)
+                                setTimeout(function () { $('#form_transaksi').trigger('reset') },2000)
                                 $('#produk').val('0').change()
 
                         }
@@ -339,6 +343,43 @@
                 var res = rupiah.split('',rupiah.length-1).reverse().join('');
                 return res;
             }
+
+            $('.btnsimpan').on('click', function () {
+                var bayar = convertToAngka($('#bayar').val());
+                var total_harga = convertToAngka($('#total_harga').val())
+
+                if(bayar >= total_harga){
+                    $.ajax({
+                        url:"{{route('offline.transaksi.cek')}}",
+                        method:"GET",
+                        success:function(response){
+                            if(response.status){
+                                swal({
+                                    text: "Apa anda yakin menyimpan data transaksi ini ?",
+                                    icon: "warning",
+                                    buttons: true,
+                                    dangerMode: true,
+                                    })
+                                    .then((willInsert) => {
+                                    if (willInsert) {
+                                        // swal("Poof! Your imaginary file has been deleted!", {
+                                        // icon: "success",
+                                        // });
+                                        $('#formDetail').submit()
+                                    } else {
+                                        swal("Your imaginary file is safe!");
+                                    }
+                                });
+                            }else{
+                                swal("Belum ada transaksi, silahkan pilih produk terlebih dahulu!");
+                            }
+                        }
+                    })
+                }else{
+                    swal("Silahkan isi pembayaran yang sesuai!");
+                }
+
+            })
      })
 </script>
 @endpush

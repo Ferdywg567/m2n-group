@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Ecommerce\Offline;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Transaksi;
 
 class RekapitulasiController extends Controller
 {
@@ -14,7 +15,8 @@ class RekapitulasiController extends Controller
      */
     public function index()
     {
-        return view('ecommerce.offline.rekapitulasi.index');
+        $transaksi = Transaksi::where('status_transaksi','offline')->orderBy('created_at', 'DESC')->get();
+        return view('ecommerce.offline.rekapitulasi.index', ['transaksi' => $transaksi]);
     }
 
     /**
@@ -46,7 +48,9 @@ class RekapitulasiController extends Controller
      */
     public function show($id)
     {
-        //
+
+        $transaksi = Transaksi::findOrFail($id);
+        return view('ecommerce.offline.rekapitulasi.show', ['transaksi' => $transaksi]);
     }
 
     /**

@@ -10,4 +10,9 @@ class DetailTransaksi extends Model
     {
         return $this->belongsTo('App\Transaksi');
     }
+
+    public function produk()
+    {
+        return $this->belongsTo('App\Produk');
+    }
 }

@@ -4,8 +4,6 @@
 @section('rekapitulasi', 'class=active-sidebar')
 @section('content')
 <style>
-
-
     .dropdown-menu {
         left: 50% !important;
         transform: translateX(-50%) !important;
@@ -37,7 +35,61 @@
                             </thead>
                             <tbody id="">
 
+                                @forelse ($transaksi as $item)
+                                <tr>
+                                    <td>{{$loop->iteration}}</td>
+                                    <td>{{$item->kode_transaksi}}</td>
+                                    <td>
+                                        <ul class="list-unstyled">
+                                            @forelse ($item->detail_transaksi as $row)
+                                            <li>{{$row->produk->kode_produk}}</li>
+                                            @empty
 
+                                            @endforelse
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        <ul class="list-unstyled">
+                                            @forelse ($item->detail_transaksi as $row)
+                                            <li>{{$row->produk->warehouse->finishing->cuci->jahit->potong->bahan->nama_bahan}}
+                                            </li>
+                                            @empty
+
+                                            @endforelse
+                                        </ul>
+                                    </td>
+                                    <td>{{$item->qty}} seri</td>
+                                    <td>
+                                        <ul class="list-unstyled">
+                                            @forelse ($item->detail_transaksi as $row)
+                                            <li>{{$row->produk->warehouse->finishing->cuci->jahit->potong->bahan->sku}}
+                                            </li>
+                                            @empty
+
+                                            @endforelse
+                                        </ul>
+                                    </td>
+                                    <td>{{$item->tgl_transaksi}}</td>
+                                    <td>@rupiah($item->total_harga)</td>
+                                    <td>
+                                        <div class="dropdown dropleft">
+                                            <a class="" href="#" id="dropdownMenuButton" data-toggle="dropdown"
+                                                aria-haspopup="true" aria-expanded="false">
+                                                <i class="fa fa-ellipsis-h"></i>
+                                            </a>
+                                            <div class="dropdown-menu text-center" aria-labelledby="dropdownMenuButton">
+                                                <a class="dropdown-item"
+                                                    href="{{route('offline.rekapitulasi.show',[$item->id])}}"><i
+                                                        class="ri-eye-fill"></i>
+                                                    Detail</a>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                </tr>
+                                @empty
+
+                                @endforelse
                             </tbody>
                         </table>
                     </div>
@@ -70,4 +122,3 @@
      })
 </script>
 @endpush
-

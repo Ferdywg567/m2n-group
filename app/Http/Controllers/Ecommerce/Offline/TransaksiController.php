@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Ecommerce\Offline;
 
+use App\DetailProduk;
+use App\DetailTransaksi;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Transaksi;
@@ -17,8 +20,8 @@ class TransaksiController extends Controller
     public function index()
     {
 
-
-        return view('ecommerce.offline.transaksi.index');
+        $transaksi = Transaksi::where('status_transaksi','offline')->orderBy('created_at', 'DESC')->get();
+        return view('ecommerce.offline.transaksi.index', ['transaksi' => $transaksi]);
     }
 
     /**
@@ -50,7 +53,63 @@ class TransaksiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if (session()->has('detail_transaksi') && session()->has('transaksi')) {
+            $total_harga = str_replace('.', '', $request->get('total_harga'));
+            $bayar = str_replace('.', '', $request->get('bayar'));
+            $kembalian = str_replace('.', '', $request->get('kembalian'));
+            $detail = session('detail_transaksi');
+            DB::beginTransaction();
+            try {
+
+                $totalproduk = 0;
+                foreach ($detail as $key => $value) {
+                    $produk = Produk::where('kode_produk', $value['kode'])->first();
+
+                    if ($produk) {
+                        $totalproduk += $value['qty'];
+                        $jumproduk = DetailProduk::where('produk_id', $produk->id)->count();
+                        $produk->stok = $produk->stok - ($jumproduk * $value['qty']);
+                        foreach ($produk->detail_produk as $key => $row) {
+                            $detailProduk = DetailProduk::findOrFail($row->id);
+                            $detailProduk->jumlah = $detailProduk->jumlah - $value['qty'];
+                            $detailProduk->save();
+                        }
+                        $produk->save();
+                        // $produk
+                    }
+                }
+
+                $transaksi = new Transaksi();
+                $transaksi->kode_transaksi = $this->generateKode();
+                $transaksi->tgl_transaksi = date('Y-m-d');
+                $transaksi->qty = $totalproduk;
+                $transaksi->total_harga = $total_harga;
+                $transaksi->bayar = $bayar;
+                $transaksi->kembalian = $kembalian;
+                $transaksi->status_transaksi = "offline";
+                $transaksi->save();
+
+
+                foreach ($detail as $key => $value) {
+                    $detail_trans = new DetailTransaksi();
+                    $produk = Produk::where('kode_produk', $value['kode'])->first();
+                    $detail_trans->produk_id = $produk->id;
+                    $detail_trans->transaksi_id = $transaksi->id;
+                    $detail_trans->jumlah = $value['qty'];
+                    $detail_trans->harga = $value['harga'];
+                    $detail_trans->total_harga = $value['subtotal'];
+                    $detail_trans->save();
+                }
+
+                session()->forget('transaksi');
+                session()->forget('detail_transaksi');
+                DB::commit();
+                return redirect()->route('offline.transaksi.index')->with("success", "Transaksi berhasil disimpan");
+            } catch (\Exception $th) {
+                DB::rollBack();
+                dd($th);
+            }
+        }
     }
 
     /**
@@ -61,7 +120,7 @@ class TransaksiController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -246,6 +305,21 @@ class TransaksiController extends Controller
                 "data" => $data2
             ];
             return response()->json($output);
+        }
+    }
+
+    public function cekTransaksi(Request $request)
+    {
+        if ($request->ajax()) {
+            if (session()->has('detail_transaksi')) {
+                return response()->json([
+                    'status' => true
+                ]);
+            } else {
+                return response()->json([
+                    'status' => false
+                ]);
+            }
         }
     }
 }

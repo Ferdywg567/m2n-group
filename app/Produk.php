@@ -25,4 +25,9 @@ class Produk extends Model
     {
         return $this->hasMany('App\DetailProduk');
     }
+
+    public function detail_transaksi()
+    {
+        return $this->hasMany('App\DetailTransaksi');
+    }
 }

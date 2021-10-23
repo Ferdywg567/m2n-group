@@ -13,17 +13,17 @@
 
     <ul class="sidebar-menu" style="padding: 35px; margin-top:-20px;">
         <li class="menu-header"></li>
-        <li @yield('dashboard')>
+        {{-- <li @yield('dashboard')>
             <a class="nav-link" href="{{ route('offline.dashboard.index') }}">
                 <i class="ri-dashboard-fill"></i> <span>Beranda</span>
             </a>
-        </li>
+        </li> --}}
         <li @yield('transaksi')>
             <a class="nav-link" href="{{route('offline.transaksi.index')}}">
                 <i class="ri-arrow-left-right-fill"></i> <span>Transaksi</span>
             </a>
         </li>
-     
+
         <li @yield('produk')>
             <a class="nav-link" href="{{route('offline.produk.index')}}">
                 <i class="ri-t-shirt-fill"></i><span>Produk</span>

@@ -21,6 +21,8 @@ class CreateTransaksisTable extends Migration
             $table->double('total_harga');
             $table->string('status_transaksi');
             $table->string('status')->nullable();
+            $table->double('bayar')->nullable();
+            $table->double('kembalian')->nullable();
             $table->timestamps();
         });
     }
