@@ -30,7 +30,7 @@
         background-color: white;
     }
 
-    .product-details-tab .btn-wishlist:hover{
+    .product-details-tab .btn-wishlist:hover {
         background-color: black;
         color: white;
     }
@@ -53,44 +53,29 @@
             <div class="col-lg-6 col-md-12">
                 <div class="product-details-tab single-product-wrap">
                     <div class="product-dec-left-detail pro-dec-big-img-slider product-img product-img-zoom">
-                        <img src="{{asset('ecommerce/assets/images/product-details/product-detail-1.png')}}"
-                            class="rounded-lg" alt="">
-                        <img src="{{asset('ecommerce/assets/images/product-details/product-detail-2.png')}}"
-                            class="rounded-lg" alt="">
-                        <img src="{{asset('ecommerce/assets/images/product-details/product-detail-3.png')}}"
-                            class="rounded-lg" alt="">
-                        <img src="{{asset('ecommerce/assets/images/product-details/product-detail-4.png')}}"
-                            class="rounded-lg" alt="">
-
+                        @forelse ($produk->detail_gambar as $item)
+                        <img src="{{asset('uploads/images/produk/'.$item->filename)}}" class="rounded-lg" alt="">
+                        @empty
+                        @endforelse
                     </div>
                     <div class="img-overlay">
                         <button class="btn btn-sm btn-wishlist rounded-circle"><i class="ri-heart-line"></i></button>
                     </div>
 
                     <div class="product-dec-right-detail product-dec-slider-small-2 product-dec-small-style2">
-                        <div class="product-dec-small active">
-                            <img src="{{asset('ecommerce/assets/images/product-details/product-detail-1.png')}}"
-                                class="rounded-lg" alt="">
-                        </div>
-                        <div class="product-dec-small">
-                            <img src="{{asset('ecommerce/assets/images/product-details/product-detail-2.png')}}"
-                                class="rounded-lg" alt="">
-                        </div>
-                        <div class="product-dec-small">
-                            <img src="{{asset('ecommerce/assets/images/product-details/product-detail-3.png')}}"
-                                class="rounded-lg" alt="">
-                        </div>
-                        <div class="product-dec-small">
-                            <img src="{{asset('ecommerce/assets/images/product-details/product-detail-4.png')}}"
-                                class="rounded-lg" alt="">
-                        </div>
+                        @forelse ($produk->detail_gambar as $item)
 
+                        <div class="product-dec-small">
+                            <img src="{{asset('uploads/images/produk/'.$item->filename)}}" class="rounded-lg" alt="">
+                        </div>
+                        @empty
+                        @endforelse
                     </div>
                 </div>
             </div>
             <div class="col-lg-6 col-md-12">
                 <div class="product-details-content pro-details-content-mt-md">
-                    <h2>Kaos Polos 24s</h2>
+                    <h2>{{$produk->warehouse->finishing->cuci->jahit->potong->bahan->nama_bahan}}</h2>
                     <div class="product-ratting-review-wrap">
                         <div class="product-ratting-digit-wrap">
                             <div class="product-ratting">
@@ -105,15 +90,21 @@
                             </div>
                         </div>
                         <div class="product-review-order">
-                            <span>62 Reviews</span>
-                            <span>242 orders</span>
+                            <span>62 Ulasan</span>
+                            <span>242 pesanan</span>
                         </div>
                     </div>
 
                     <div class="pro-details-price">
-                        <span class="old-price">Rp. 155,000</span>
-                        <span class="new-price ml-2">Rp. 120,000</span>
+                        @if ($produk->promo_id == null)
+                        <span class="new-price ml-2">@rupiah($produk->harga)</span>
                         <h4><b> / seri</b></h4>
+                        @else
+                        <span class="old-price">@rupiah($produk->harga)</span>
+                        <span class="new-price ml-2">@rupiah($produk->harga_promo)</span>
+                        <h4><b> / seri</b></h4>
+                        @endif
+
                     </div>
 
                     <div class="pro-details-quality">
@@ -156,17 +147,8 @@
                     <div id="nav-masuk" class="tab-pane active fade show" role="tabpanel"
                         aria-labelledby="nav-masuk-tab">
                         <div class="description-wrap">
-                            <p>Crafted in premium watch quality, fenix Chronos is the first Garmin timepiece to combine
-                                a durable metal case with integrated performance GPS to support navigation and sport. In
-                                the tradition of classic tool watches it features a tough design and a set of modern
-                                meaningful tools.</p>
-                            <p> advanced performance metrics for endurance sports, Garmin quality navigation features
-                                and smart notifications. In fenix Chronos top-tier performance meets sophisticated
-                                design in a highly evolved timepiece that fits your style anywhere, anytime. Solid
-                                brushed 316L stainless steel case with brushed stainless steel bezel and integrated
-                                EXOTM antenna for GPS + GLONASS support. High-strength scratch resistant sapphire
-                                crystal. Brown vintage leather strap with hand-sewn contrast stitching and nubuck inner
-                                lining and quick release mechanism.</p>
+                            <p>{{$produk->deskripsi_produk}}.</p>
+
                         </div>
                     </div>
                     {{-- <div id="des-details2" class="tab-pane">
@@ -372,7 +354,7 @@
                             <span>(2)</span>
                         </div>
                         <div class="pro-add-to-cart">
-                            <button class="btn btn-primary btn-block" >Lihat Produk</button>
+                            <button class="btn btn-primary btn-block">Lihat Produk</button>
                         </div>
                     </div>
                 </div>
@@ -424,7 +406,7 @@
                             <span>(2)</span>
                         </div>
                         <div class="pro-add-to-cart">
-                            <button class="btn btn-primary btn-block" >Lihat Produk</button>
+                            <button class="btn btn-primary btn-block">Lihat Produk</button>
                         </div>
                     </div>
                 </div>
@@ -476,7 +458,7 @@
                             <span>(2)</span>
                         </div>
                         <div class="pro-add-to-cart">
-                            <button class="btn btn-primary btn-block" >Lihat Produk</button>
+                            <button class="btn btn-primary btn-block">Lihat Produk</button>
                         </div>
                     </div>
                 </div>
@@ -528,7 +510,7 @@
                             <span>(2)</span>
                         </div>
                         <div class="pro-add-to-cart">
-                            <button class="btn btn-primary btn-block" >Lihat Produk</button>
+                            <button class="btn btn-primary btn-block">Lihat Produk</button>
                         </div>
                     </div>
                 </div>
@@ -580,7 +562,7 @@
                             <span>(2)</span>
                         </div>
                         <div class="pro-add-to-cart">
-                            <button class="btn btn-primary btn-block" >Lihat Produk</button>
+                            <button class="btn btn-primary btn-block">Lihat Produk</button>
                         </div>
                     </div>
                 </div>

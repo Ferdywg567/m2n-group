@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Ecommerce\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Produk;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -14,7 +15,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-       return view("ecommerce.frontend.product.index");
+        return view("ecommerce.frontend.product.index");
     }
 
     /**
@@ -46,7 +47,8 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        $produk = Produk::findOrFail($id);
+        return view('ecommerce.frontend.product.detail', ['produk' => $produk]);
     }
 
     /**

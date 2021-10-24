@@ -243,7 +243,9 @@
 </div>
 <div class="slider-area">
     <div class="hero-slider-active-1 nav-style-1 dot-style-2 dot-style-2-position-2 dot-style-2-active-black">
-        <div class="single-hero-slider single-animation-wrap slider-height-2 custom-d-flex custom-align-item-center bg-img hm2-slider-bg res-white-overly-xs" style="background-image:url({{asset('ecommerce/assets/images/banner/banner-utama.png')}});">
+        @forelse ($banner as $item)
+        <div class="single-hero-slider single-animation-wrap slider-height-2 custom-d-flex custom-align-item-center bg-img hm2-slider-bg res-white-overly-xs"
+            style="background-image:url({{asset('uploads/images/banner/'.$item->gambar)}});">
             <div class="container">
                 <div class="row">
                     {{-- <div class="col-12">
@@ -259,22 +261,11 @@
                 </div>
             </div>
         </div>
-        <div class="single-hero-slider single-animation-wrap slider-height-2 custom-d-flex custom-align-item-center bg-img hm2-slider-bg res-white-overly-xs " style="background-image:url({{asset('ecommerce/assets/images/banner/banner-utama.png')}});">
-            <div class="container">
-                <div class="row">
-                    {{-- <div class="col-12">
-                        <div class="hero-slider-content-4 slider-animated-1">
-                            <h4 class="animated">Lookbook</h4>
-                            <h1 class="animated">Denim Mixed <br>Layering Combine <br>collect</h1>
-                            <p class="animated">We love seeing how our Raifa wearers like to wear their Norda</p>
-                            <div class="btn-style-1">
-                                <a class="animated btn-1-padding-1" href="product-details.html">Explore Now</a>
-                            </div>
-                        </div>
-                    </div> --}}
-                </div>
-            </div>
-        </div>
+
+        @empty
+
+        @endforelse
+
     </div>
 </div>
 
@@ -291,11 +282,12 @@
         </div>
         <div class="tab-content jump">
             <div class="row">
+                @forelse ($limit as $item)
                 <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
                     <div class="single-product-wrap mb-35 shadow rounded">
                         <div class="product-img product-img-zoom mb-15">
                             <a href="product-details.html">
-                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-4.png')}}" alt="">
+                                <img src="{{asset('uploads/images/produk/'.$item->detail_gambar[0]->filename)}}" alt="">
                             </a>
                             <div class="product-action-2 tooltip-style-2">
                                 <button title="Wishlist"><i class="icon-heart"></i></button>
@@ -303,12 +295,20 @@
                         </div>
                         <div class="product-content-wrap-2 text-left ml-2">
 
-                            <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                            <h3><a
+                                    href="product-details.html">{{$item->warehouse->finishing->cuci->jahit->potong->bahan->nama_bahan}}</a>
+                            </h3>
                             <div class="product-price-2">
-                                <span class="new-price">Rp. 32,000</span>
-                                <span class="old-price">Rp. 45,000</span>
+                                @if ($item->promo_id == null)
+                                <span class="new-price">@rupiah($item->harga)</span>
+                                @else
+                                <span class="new-price">@rupiah($item->harga_promo)</span>
+                                <span class="old-price">@rupiah($item->harga)</span>
+                                @endif
+
+
                             </div>
-                            <div class="product-rating-wrap pb-10">
+                            <div class="product-rating-wrap pb-15">
                                 <div class="product-rating">
                                     <i class="icon_star"></i>
                                     <i class="icon_star"></i>
@@ -320,45 +320,19 @@
                             </div>
                         </div>
                         <div class="product-content-wrap-2 product-content-position text-left">
-                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
-                        <div class="product-price-2">
-                            <span class="new-price">Rp. 32,000</span>
-                            <span class="old-price">Rp. 45,000</span>
-                        </div>
-                        <div class="product-rating-wrap">
-                            <div class="product-rating">
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star gray"></i>
-                            </div>
-                            <span>(2)</span>
-                        </div>
-                        <div class="pro-add-to-cart">
-                            <button class="btn btn-primary btn-block" >Lihat Produk</button>
-                        </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
-                    <div class="single-product-wrap mb-35 shadow rounded">
-                        <div class="product-img product-img-zoom mb-15">
-                            <a href="product-details.html">
-                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-1.png')}}" alt="">
-                            </a>
-                            <div class="product-action-2 tooltip-style-2">
-                                <button title="Wishlist"><i class="icon-heart"></i></button>
-                            </div>
-                        </div>
-                        <div class="product-content-wrap-2 text-left ml-2">
-
-                            <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                            <h3><a
+                                    href="product-details.html">{{$item->warehouse->finishing->cuci->jahit->potong->bahan->nama_bahan}}</a>
+                            </h3>
                             <div class="product-price-2">
-                                <span class="new-price">Rp. 32,000</span>
-                                <span class="old-price">Rp. 45,000</span>
+                                @if ($item->promo_id == null)
+                                <span class="new-price">@rupiah($item->harga)</span>
+                                @else
+                                <span class="new-price">@rupiah($item->harga_promo)</span>
+                                <span class="old-price">@rupiah($item->harga)</span>
+                                @endif
+
                             </div>
-                            <div class="product-rating-wrap pb-10">
+                            <div class="product-rating-wrap">
                                 <div class="product-rating">
                                     <i class="icon_star"></i>
                                     <i class="icon_star"></i>
@@ -368,129 +342,16 @@
                                 </div>
                                 <span>(2)</span>
                             </div>
-                        </div>
-                        <div class="product-content-wrap-2 product-content-position text-left">
-                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
-                        <div class="product-price-2">
-                            <span class="new-price">Rp. 32,000</span>
-                            <span class="old-price">Rp. 45,000</span>
-                        </div>
-                        <div class="product-rating-wrap">
-                            <div class="product-rating">
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star gray"></i>
+                            <div class="pro-add-to-cart pb-10">
+                                <a href="{{route('frontend.product.show',[$item->id])}}"
+                                    class="btn btn-primary btn-block">Lihat Produk</a>
+                                {{-- <button class="btn btn-primary btn-block">Lihat Produk</button> --}}
                             </div>
-                            <span>(2)</span>
-                        </div>
-                        <div class="pro-add-to-cart">
-                            <button class="btn btn-primary btn-block" >Lihat Produk</button>
-                        </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
-                    <div class="single-product-wrap mb-35 shadow rounded">
-                        <div class="product-img product-img-zoom mb-15">
-                            <a href="product-details.html">
-                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-3.png')}}" alt="">
-                            </a>
-                            <div class="product-action-2 tooltip-style-2">
-                                <button title="Wishlist"><i class="icon-heart"></i></button>
-                            </div>
-                        </div>
-                        <div class="product-content-wrap-2 text-left ml-2">
-
-                            <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
-                            <div class="product-price-2">
-                                <span class="new-price">Rp. 32,000</span>
-                                <span class="old-price">Rp. 45,000</span>
-                            </div>
-                            <div class="product-rating-wrap pb-10">
-                                <div class="product-rating">
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star gray"></i>
-                                </div>
-                                <span>(2)</span>
-                            </div>
-                        </div>
-                        <div class="product-content-wrap-2 product-content-position text-left">
-                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
-                        <div class="product-price-2">
-                            <span class="new-price">Rp. 32,000</span>
-                            <span class="old-price">Rp. 45,000</span>
-                        </div>
-                        <div class="product-rating-wrap">
-                            <div class="product-rating">
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star gray"></i>
-                            </div>
-                            <span>(2)</span>
-                        </div>
-                        <div class="pro-add-to-cart">
-                            <button class="btn btn-primary btn-block" >Lihat Produk</button>
-                        </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
-                    <div class="single-product-wrap mb-35 shadow rounded">
-                        <div class="product-img product-img-zoom mb-15">
-                            <a href="product-details.html">
-                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-2.png')}}" alt="">
-                            </a>
-                            <div class="product-action-2 tooltip-style-2">
-                                <button title="Wishlist"><i class="icon-heart"></i></button>
-                            </div>
-                        </div>
-                        <div class="product-content-wrap-2 text-left ml-2">
-
-                            <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
-                            <div class="product-price-2">
-                                <span class="new-price">Rp. 32,000</span>
-                                <span class="old-price">Rp. 45,000</span>
-                            </div>
-                            <div class="product-rating-wrap pb-10">
-                                <div class="product-rating">
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star gray"></i>
-                                </div>
-                                <span>(2)</span>
-                            </div>
-                        </div>
-                        <div class="product-content-wrap-2 product-content-position text-left">
-                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
-                        <div class="product-price-2">
-                            <span class="new-price">Rp. 32,000</span>
-                            <span class="old-price">Rp. 45,000</span>
-                        </div>
-                        <div class="product-rating-wrap">
-                            <div class="product-rating">
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star gray"></i>
-                            </div>
-                            <span>(2)</span>
-                        </div>
-                        <div class="pro-add-to-cart">
-                            <button class="btn btn-primary btn-block" >Lihat Produk</button>
-                        </div>
-                        </div>
-                    </div>
-                </div>
+                @empty
+                @endforelse
             </div>
         </div>
     </div>
@@ -502,7 +363,7 @@
                 <div class="banner-wrap mb-10">
                     <div class="banner-img banner-img-border banner-img-zoom">
                         <a href="product-details.html"><img
-                                src="{{asset('ecommerce/assets/images/banner/banner-1.png')}}"  alt=""></a>
+                                src="{{asset('ecommerce/assets/images/banner/banner-1.png')}}" alt=""></a>
                     </div>
 
                 </div>
@@ -542,7 +403,8 @@
                     <div class="single-product-wrap mb-35 shadow rounded">
                         <div class="product-img product-img-zoom mb-15">
                             <a href="product-details.html">
-                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-4.png')}}" alt="">
+                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-4.png')}}"
+                                    alt="">
                             </a>
                             <div class="product-action-2 tooltip-style-2">
                                 <button title="Wishlist"><i class="icon-heart"></i></button>
@@ -567,24 +429,24 @@
                             </div>
                         </div>
                         <div class="product-content-wrap-2 product-content-position text-left">
-                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
-                        <div class="product-price-2">
-                            <span class="new-price">Rp. 32,000</span>
-                            <span class="old-price">Rp. 45,000</span>
-                        </div>
-                        <div class="product-rating-wrap">
-                            <div class="product-rating">
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star gray"></i>
+                            <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                            <div class="product-price-2">
+                                <span class="new-price">Rp. 32,000</span>
+                                <span class="old-price">Rp. 45,000</span>
                             </div>
-                            <span>(2)</span>
-                        </div>
-                        <div class="pro-add-to-cart">
-                            <button class="btn btn-primary btn-block" >Lihat Produk</button>
-                        </div>
+                            <div class="product-rating-wrap">
+                                <div class="product-rating">
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star gray"></i>
+                                </div>
+                                <span>(2)</span>
+                            </div>
+                            <div class="pro-add-to-cart">
+                                <button class="btn btn-primary btn-block">Lihat Produk</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -592,7 +454,8 @@
                     <div class="single-product-wrap mb-35 shadow rounded">
                         <div class="product-img product-img-zoom mb-15">
                             <a href="product-details.html">
-                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-1.png')}}" alt="">
+                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-1.png')}}"
+                                    alt="">
                             </a>
                             <div class="product-action-2 tooltip-style-2">
                                 <button title="Wishlist"><i class="icon-heart"></i></button>
@@ -617,24 +480,24 @@
                             </div>
                         </div>
                         <div class="product-content-wrap-2 product-content-position text-left">
-                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
-                        <div class="product-price-2">
-                            <span class="new-price">Rp. 32,000</span>
-                            <span class="old-price">Rp. 45,000</span>
-                        </div>
-                        <div class="product-rating-wrap">
-                            <div class="product-rating">
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star gray"></i>
+                            <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                            <div class="product-price-2">
+                                <span class="new-price">Rp. 32,000</span>
+                                <span class="old-price">Rp. 45,000</span>
                             </div>
-                            <span>(2)</span>
-                        </div>
-                        <div class="pro-add-to-cart">
-                            <button class="btn btn-primary btn-block" >Lihat Produk</button>
-                        </div>
+                            <div class="product-rating-wrap">
+                                <div class="product-rating">
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star gray"></i>
+                                </div>
+                                <span>(2)</span>
+                            </div>
+                            <div class="pro-add-to-cart">
+                                <button class="btn btn-primary btn-block">Lihat Produk</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -642,7 +505,8 @@
                     <div class="single-product-wrap mb-35 shadow rounded">
                         <div class="product-img product-img-zoom mb-15">
                             <a href="product-details.html">
-                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-3.png')}}" alt="">
+                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-3.png')}}"
+                                    alt="">
                             </a>
                             <div class="product-action-2 tooltip-style-2">
                                 <button title="Wishlist"><i class="icon-heart"></i></button>
@@ -667,24 +531,24 @@
                             </div>
                         </div>
                         <div class="product-content-wrap-2 product-content-position text-left">
-                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
-                        <div class="product-price-2">
-                            <span class="new-price">Rp. 32,000</span>
-                            <span class="old-price">Rp. 45,000</span>
-                        </div>
-                        <div class="product-rating-wrap">
-                            <div class="product-rating">
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star gray"></i>
+                            <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                            <div class="product-price-2">
+                                <span class="new-price">Rp. 32,000</span>
+                                <span class="old-price">Rp. 45,000</span>
                             </div>
-                            <span>(2)</span>
-                        </div>
-                        <div class="pro-add-to-cart">
-                            <button class="btn btn-primary btn-block" >Lihat Produk</button>
-                        </div>
+                            <div class="product-rating-wrap">
+                                <div class="product-rating">
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star gray"></i>
+                                </div>
+                                <span>(2)</span>
+                            </div>
+                            <div class="pro-add-to-cart">
+                                <button class="btn btn-primary btn-block">Lihat Produk</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -692,7 +556,8 @@
                     <div class="single-product-wrap mb-35 shadow rounded">
                         <div class="product-img product-img-zoom mb-15">
                             <a href="product-details.html">
-                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-2.png')}}" alt="">
+                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-2.png')}}"
+                                    alt="">
                             </a>
                             <div class="product-action-2 tooltip-style-2">
                                 <button title="Wishlist"><i class="icon-heart"></i></button>
@@ -717,47 +582,12 @@
                             </div>
                         </div>
                         <div class="product-content-wrap-2 product-content-position text-left">
-                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
-                        <div class="product-price-2">
-                            <span class="new-price">Rp. 32,000</span>
-                            <span class="old-price">Rp. 45,000</span>
-                        </div>
-                        <div class="product-rating-wrap">
-                            <div class="product-rating">
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star gray"></i>
-                            </div>
-                            <span>(2)</span>
-                        </div>
-                        <div class="pro-add-to-cart">
-                            <button class="btn btn-primary btn-block" >Lihat Produk</button>
-                        </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
-                    <div class="single-product-wrap mb-35 shadow rounded">
-                        <div class="product-img product-img-zoom mb-15">
-                            <a href="product-details.html">
-                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-4.png')}}" alt="">
-                            </a>
-                            <div class="product-action-2 tooltip-style-2">
-                                <button title="Wishlist"><i class="icon-heart"></i></button>
-                            </div>
-                        </div>
-                        <div class="product-content-wrap-2 text-left ml-2">
-
                             <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
                             <div class="product-price-2">
                                 <span class="new-price">Rp. 32,000</span>
                                 <span class="old-price">Rp. 45,000</span>
                             </div>
-                            <div class="product-rating-wrap pb-10">
+                            <div class="product-rating-wrap">
                                 <div class="product-rating">
                                     <i class="icon_star"></i>
                                     <i class="icon_star"></i>
@@ -767,176 +597,9 @@
                                 </div>
                                 <span>(2)</span>
                             </div>
-                        </div>
-                        <div class="product-content-wrap-2 product-content-position text-left">
-                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
-                        <div class="product-price-2">
-                            <span class="new-price">Rp. 32,000</span>
-                            <span class="old-price">Rp. 45,000</span>
-                        </div>
-                        <div class="product-rating-wrap">
-                            <div class="product-rating">
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star gray"></i>
+                            <div class="pro-add-to-cart">
+                                <button class="btn btn-primary btn-block">Lihat Produk</button>
                             </div>
-                            <span>(2)</span>
-                        </div>
-                        <div class="pro-add-to-cart">
-                            <button class="btn btn-primary btn-block" >Lihat Produk</button>
-                        </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
-                    <div class="single-product-wrap mb-35 shadow rounded">
-                        <div class="product-img product-img-zoom mb-15">
-                            <a href="product-details.html">
-                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-1.png')}}" alt="">
-                            </a>
-                            <div class="product-action-2 tooltip-style-2">
-                                <button title="Wishlist"><i class="icon-heart"></i></button>
-                            </div>
-                        </div>
-                        <div class="product-content-wrap-2 text-left ml-2">
-
-                            <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
-                            <div class="product-price-2">
-                                <span class="new-price">Rp. 32,000</span>
-                                <span class="old-price">Rp. 45,000</span>
-                            </div>
-                            <div class="product-rating-wrap pb-10">
-                                <div class="product-rating">
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star gray"></i>
-                                </div>
-                                <span>(2)</span>
-                            </div>
-                        </div>
-                        <div class="product-content-wrap-2 product-content-position text-left">
-                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
-                        <div class="product-price-2">
-                            <span class="new-price">Rp. 32,000</span>
-                            <span class="old-price">Rp. 45,000</span>
-                        </div>
-                        <div class="product-rating-wrap">
-                            <div class="product-rating">
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star gray"></i>
-                            </div>
-                            <span>(2)</span>
-                        </div>
-                        <div class="pro-add-to-cart">
-                            <button class="btn btn-primary btn-block" >Lihat Produk</button>
-                        </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
-                    <div class="single-product-wrap mb-35 shadow rounded">
-                        <div class="product-img product-img-zoom mb-15">
-                            <a href="product-details.html">
-                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-3.png')}}" alt="">
-                            </a>
-                            <div class="product-action-2 tooltip-style-2">
-                                <button title="Wishlist"><i class="icon-heart"></i></button>
-                            </div>
-                        </div>
-                        <div class="product-content-wrap-2 text-left ml-2">
-
-                            <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
-                            <div class="product-price-2">
-                                <span class="new-price">Rp. 32,000</span>
-                                <span class="old-price">Rp. 45,000</span>
-                            </div>
-                            <div class="product-rating-wrap pb-10">
-                                <div class="product-rating">
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star gray"></i>
-                                </div>
-                                <span>(2)</span>
-                            </div>
-                        </div>
-                        <div class="product-content-wrap-2 product-content-position text-left">
-                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
-                        <div class="product-price-2">
-                            <span class="new-price">Rp. 32,000</span>
-                            <span class="old-price">Rp. 45,000</span>
-                        </div>
-                        <div class="product-rating-wrap">
-                            <div class="product-rating">
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star gray"></i>
-                            </div>
-                            <span>(2)</span>
-                        </div>
-                        <div class="pro-add-to-cart">
-                            <button class="btn btn-primary btn-block" >Lihat Produk</button>
-                        </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
-                    <div class="single-product-wrap mb-35 shadow rounded">
-                        <div class="product-img product-img-zoom mb-15">
-                            <a href="product-details.html">
-                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-2.png')}}" alt="">
-                            </a>
-                            <div class="product-action-2 tooltip-style-2">
-                                <button title="Wishlist"><i class="icon-heart"></i></button>
-                            </div>
-                        </div>
-                        <div class="product-content-wrap-2 text-left ml-2">
-
-                            <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
-                            <div class="product-price-2">
-                                <span class="new-price">Rp. 32,000</span>
-                                <span class="old-price">Rp. 45,000</span>
-                            </div>
-                            <div class="product-rating-wrap pb-10">
-                                <div class="product-rating">
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star gray"></i>
-                                </div>
-                                <span>(2)</span>
-                            </div>
-                        </div>
-                        <div class="product-content-wrap-2 product-content-position text-left">
-                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
-                        <div class="product-price-2">
-                            <span class="new-price">Rp. 32,000</span>
-                            <span class="old-price">Rp. 45,000</span>
-                        </div>
-                        <div class="product-rating-wrap">
-                            <div class="product-rating">
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star gray"></i>
-                            </div>
-                            <span>(2)</span>
-                        </div>
-                        <div class="pro-add-to-cart">
-                            <button class="btn btn-primary btn-block" >Lihat Produk</button>
-                        </div>
                         </div>
                     </div>
                 </div>
@@ -946,7 +609,8 @@
                     <div class="single-product-wrap mb-35 shadow rounded">
                         <div class="product-img product-img-zoom mb-15">
                             <a href="product-details.html">
-                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-4.png')}}" alt="">
+                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-4.png')}}"
+                                    alt="">
                             </a>
                             <div class="product-action-2 tooltip-style-2">
                                 <button title="Wishlist"><i class="icon-heart"></i></button>
@@ -971,24 +635,24 @@
                             </div>
                         </div>
                         <div class="product-content-wrap-2 product-content-position text-left">
-                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
-                        <div class="product-price-2">
-                            <span class="new-price">Rp. 32,000</span>
-                            <span class="old-price">Rp. 45,000</span>
-                        </div>
-                        <div class="product-rating-wrap">
-                            <div class="product-rating">
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star gray"></i>
+                            <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                            <div class="product-price-2">
+                                <span class="new-price">Rp. 32,000</span>
+                                <span class="old-price">Rp. 45,000</span>
                             </div>
-                            <span>(2)</span>
-                        </div>
-                        <div class="pro-add-to-cart">
-                            <button class="btn btn-primary btn-block" >Lihat Produk</button>
-                        </div>
+                            <div class="product-rating-wrap">
+                                <div class="product-rating">
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star gray"></i>
+                                </div>
+                                <span>(2)</span>
+                            </div>
+                            <div class="pro-add-to-cart">
+                                <button class="btn btn-primary btn-block">Lihat Produk</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -996,7 +660,8 @@
                     <div class="single-product-wrap mb-35 shadow rounded">
                         <div class="product-img product-img-zoom mb-15">
                             <a href="product-details.html">
-                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-1.png')}}" alt="">
+                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-1.png')}}"
+                                    alt="">
                             </a>
                             <div class="product-action-2 tooltip-style-2">
                                 <button title="Wishlist"><i class="icon-heart"></i></button>
@@ -1021,24 +686,24 @@
                             </div>
                         </div>
                         <div class="product-content-wrap-2 product-content-position text-left">
-                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
-                        <div class="product-price-2">
-                            <span class="new-price">Rp. 32,000</span>
-                            <span class="old-price">Rp. 45,000</span>
-                        </div>
-                        <div class="product-rating-wrap">
-                            <div class="product-rating">
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star gray"></i>
+                            <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                            <div class="product-price-2">
+                                <span class="new-price">Rp. 32,000</span>
+                                <span class="old-price">Rp. 45,000</span>
                             </div>
-                            <span>(2)</span>
-                        </div>
-                        <div class="pro-add-to-cart">
-                            <button class="btn btn-primary btn-block" >Lihat Produk</button>
-                        </div>
+                            <div class="product-rating-wrap">
+                                <div class="product-rating">
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star gray"></i>
+                                </div>
+                                <span>(2)</span>
+                            </div>
+                            <div class="pro-add-to-cart">
+                                <button class="btn btn-primary btn-block">Lihat Produk</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1046,7 +711,8 @@
                     <div class="single-product-wrap mb-35 shadow rounded">
                         <div class="product-img product-img-zoom mb-15">
                             <a href="product-details.html">
-                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-3.png')}}" alt="">
+                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-3.png')}}"
+                                    alt="">
                             </a>
                             <div class="product-action-2 tooltip-style-2">
                                 <button title="Wishlist"><i class="icon-heart"></i></button>
@@ -1071,24 +737,24 @@
                             </div>
                         </div>
                         <div class="product-content-wrap-2 product-content-position text-left">
-                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
-                        <div class="product-price-2">
-                            <span class="new-price">Rp. 32,000</span>
-                            <span class="old-price">Rp. 45,000</span>
-                        </div>
-                        <div class="product-rating-wrap">
-                            <div class="product-rating">
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star gray"></i>
+                            <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                            <div class="product-price-2">
+                                <span class="new-price">Rp. 32,000</span>
+                                <span class="old-price">Rp. 45,000</span>
                             </div>
-                            <span>(2)</span>
-                        </div>
-                        <div class="pro-add-to-cart">
-                            <button class="btn btn-primary btn-block" >Lihat Produk</button>
-                        </div>
+                            <div class="product-rating-wrap">
+                                <div class="product-rating">
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star gray"></i>
+                                </div>
+                                <span>(2)</span>
+                            </div>
+                            <div class="pro-add-to-cart">
+                                <button class="btn btn-primary btn-block">Lihat Produk</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1096,7 +762,8 @@
                     <div class="single-product-wrap mb-35 shadow rounded">
                         <div class="product-img product-img-zoom mb-15">
                             <a href="product-details.html">
-                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-2.png')}}" alt="">
+                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-2.png')}}"
+                                    alt="">
                             </a>
                             <div class="product-action-2 tooltip-style-2">
                                 <button title="Wishlist"><i class="icon-heart"></i></button>
@@ -1121,24 +788,24 @@
                             </div>
                         </div>
                         <div class="product-content-wrap-2 product-content-position text-left">
-                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
-                        <div class="product-price-2">
-                            <span class="new-price">Rp. 32,000</span>
-                            <span class="old-price">Rp. 45,000</span>
-                        </div>
-                        <div class="product-rating-wrap">
-                            <div class="product-rating">
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star gray"></i>
+                            <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                            <div class="product-price-2">
+                                <span class="new-price">Rp. 32,000</span>
+                                <span class="old-price">Rp. 45,000</span>
                             </div>
-                            <span>(2)</span>
-                        </div>
-                        <div class="pro-add-to-cart">
-                            <button class="btn btn-primary btn-block" >Lihat Produk</button>
-                        </div>
+                            <div class="product-rating-wrap">
+                                <div class="product-rating">
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star gray"></i>
+                                </div>
+                                <span>(2)</span>
+                            </div>
+                            <div class="pro-add-to-cart">
+                                <button class="btn btn-primary btn-block">Lihat Produk</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1148,7 +815,8 @@
                     <div class="single-product-wrap mb-35 shadow rounded">
                         <div class="product-img product-img-zoom mb-15">
                             <a href="product-details.html">
-                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-4.png')}}" alt="">
+                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-4.png')}}"
+                                    alt="">
                             </a>
                             <div class="product-action-2 tooltip-style-2">
                                 <button title="Wishlist"><i class="icon-heart"></i></button>
@@ -1173,24 +841,24 @@
                             </div>
                         </div>
                         <div class="product-content-wrap-2 product-content-position text-left">
-                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
-                        <div class="product-price-2">
-                            <span class="new-price">Rp. 32,000</span>
-                            <span class="old-price">Rp. 45,000</span>
-                        </div>
-                        <div class="product-rating-wrap">
-                            <div class="product-rating">
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star gray"></i>
+                            <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                            <div class="product-price-2">
+                                <span class="new-price">Rp. 32,000</span>
+                                <span class="old-price">Rp. 45,000</span>
                             </div>
-                            <span>(2)</span>
-                        </div>
-                        <div class="pro-add-to-cart">
-                            <button class="btn btn-primary btn-block" >Lihat Produk</button>
-                        </div>
+                            <div class="product-rating-wrap">
+                                <div class="product-rating">
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star gray"></i>
+                                </div>
+                                <span>(2)</span>
+                            </div>
+                            <div class="pro-add-to-cart">
+                                <button class="btn btn-primary btn-block">Lihat Produk</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1198,7 +866,8 @@
                     <div class="single-product-wrap mb-35 shadow rounded">
                         <div class="product-img product-img-zoom mb-15">
                             <a href="product-details.html">
-                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-1.png')}}" alt="">
+                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-1.png')}}"
+                                    alt="">
                             </a>
                             <div class="product-action-2 tooltip-style-2">
                                 <button title="Wishlist"><i class="icon-heart"></i></button>
@@ -1223,24 +892,24 @@
                             </div>
                         </div>
                         <div class="product-content-wrap-2 product-content-position text-left">
-                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
-                        <div class="product-price-2">
-                            <span class="new-price">Rp. 32,000</span>
-                            <span class="old-price">Rp. 45,000</span>
-                        </div>
-                        <div class="product-rating-wrap">
-                            <div class="product-rating">
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star gray"></i>
+                            <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                            <div class="product-price-2">
+                                <span class="new-price">Rp. 32,000</span>
+                                <span class="old-price">Rp. 45,000</span>
                             </div>
-                            <span>(2)</span>
-                        </div>
-                        <div class="pro-add-to-cart">
-                            <button class="btn btn-primary btn-block" >Lihat Produk</button>
-                        </div>
+                            <div class="product-rating-wrap">
+                                <div class="product-rating">
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star gray"></i>
+                                </div>
+                                <span>(2)</span>
+                            </div>
+                            <div class="pro-add-to-cart">
+                                <button class="btn btn-primary btn-block">Lihat Produk</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1248,7 +917,8 @@
                     <div class="single-product-wrap mb-35 shadow rounded">
                         <div class="product-img product-img-zoom mb-15">
                             <a href="product-details.html">
-                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-3.png')}}" alt="">
+                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-3.png')}}"
+                                    alt="">
                             </a>
                             <div class="product-action-2 tooltip-style-2">
                                 <button title="Wishlist"><i class="icon-heart"></i></button>
@@ -1273,24 +943,24 @@
                             </div>
                         </div>
                         <div class="product-content-wrap-2 product-content-position text-left">
-                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
-                        <div class="product-price-2">
-                            <span class="new-price">Rp. 32,000</span>
-                            <span class="old-price">Rp. 45,000</span>
-                        </div>
-                        <div class="product-rating-wrap">
-                            <div class="product-rating">
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star gray"></i>
+                            <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                            <div class="product-price-2">
+                                <span class="new-price">Rp. 32,000</span>
+                                <span class="old-price">Rp. 45,000</span>
                             </div>
-                            <span>(2)</span>
-                        </div>
-                        <div class="pro-add-to-cart">
-                            <button class="btn btn-primary btn-block" >Lihat Produk</button>
-                        </div>
+                            <div class="product-rating-wrap">
+                                <div class="product-rating">
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star gray"></i>
+                                </div>
+                                <span>(2)</span>
+                            </div>
+                            <div class="pro-add-to-cart">
+                                <button class="btn btn-primary btn-block">Lihat Produk</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1298,7 +968,8 @@
                     <div class="single-product-wrap mb-35 shadow rounded">
                         <div class="product-img product-img-zoom mb-15">
                             <a href="product-details.html">
-                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-2.png')}}" alt="">
+                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-2.png')}}"
+                                    alt="">
                             </a>
                             <div class="product-action-2 tooltip-style-2">
                                 <button title="Wishlist"><i class="icon-heart"></i></button>
@@ -1323,24 +994,230 @@
                             </div>
                         </div>
                         <div class="product-content-wrap-2 product-content-position text-left">
-                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
-                        <div class="product-price-2">
-                            <span class="new-price">Rp. 32,000</span>
-                            <span class="old-price">Rp. 45,000</span>
-                        </div>
-                        <div class="product-rating-wrap">
-                            <div class="product-rating">
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star gray"></i>
+                            <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                            <div class="product-price-2">
+                                <span class="new-price">Rp. 32,000</span>
+                                <span class="old-price">Rp. 45,000</span>
                             </div>
-                            <span>(2)</span>
+                            <div class="product-rating-wrap">
+                                <div class="product-rating">
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star gray"></i>
+                                </div>
+                                <span>(2)</span>
+                            </div>
+                            <div class="pro-add-to-cart">
+                                <button class="btn btn-primary btn-block">Lihat Produk</button>
+                            </div>
                         </div>
-                        <div class="pro-add-to-cart">
-                            <button class="btn btn-primary btn-block" >Lihat Produk</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+                    <div class="single-product-wrap mb-35 shadow rounded">
+                        <div class="product-img product-img-zoom mb-15">
+                            <a href="product-details.html">
+                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-4.png')}}"
+                                    alt="">
+                            </a>
+                            <div class="product-action-2 tooltip-style-2">
+                                <button title="Wishlist"><i class="icon-heart"></i></button>
+                            </div>
                         </div>
+                        <div class="product-content-wrap-2 text-left ml-2">
+
+                            <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                            <div class="product-price-2">
+                                <span class="new-price">Rp. 32,000</span>
+                                <span class="old-price">Rp. 45,000</span>
+                            </div>
+                            <div class="product-rating-wrap pb-10">
+                                <div class="product-rating">
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star gray"></i>
+                                </div>
+                                <span>(2)</span>
+                            </div>
+                        </div>
+                        <div class="product-content-wrap-2 product-content-position text-left">
+                            <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                            <div class="product-price-2">
+                                <span class="new-price">Rp. 32,000</span>
+                                <span class="old-price">Rp. 45,000</span>
+                            </div>
+                            <div class="product-rating-wrap">
+                                <div class="product-rating">
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star gray"></i>
+                                </div>
+                                <span>(2)</span>
+                            </div>
+                            <div class="pro-add-to-cart">
+                                <button class="btn btn-primary btn-block">Lihat Produk</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+                    <div class="single-product-wrap mb-35 shadow rounded">
+                        <div class="product-img product-img-zoom mb-15">
+                            <a href="product-details.html">
+                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-1.png')}}"
+                                    alt="">
+                            </a>
+                            <div class="product-action-2 tooltip-style-2">
+                                <button title="Wishlist"><i class="icon-heart"></i></button>
+                            </div>
+                        </div>
+                        <div class="product-content-wrap-2 text-left ml-2">
+
+                            <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                            <div class="product-price-2">
+                                <span class="new-price">Rp. 32,000</span>
+                                <span class="old-price">Rp. 45,000</span>
+                            </div>
+                            <div class="product-rating-wrap pb-10">
+                                <div class="product-rating">
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star gray"></i>
+                                </div>
+                                <span>(2)</span>
+                            </div>
+                        </div>
+                        <div class="product-content-wrap-2 product-content-position text-left">
+                            <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                            <div class="product-price-2">
+                                <span class="new-price">Rp. 32,000</span>
+                                <span class="old-price">Rp. 45,000</span>
+                            </div>
+                            <div class="product-rating-wrap">
+                                <div class="product-rating">
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star gray"></i>
+                                </div>
+                                <span>(2)</span>
+                            </div>
+                            <div class="pro-add-to-cart">
+                                <button class="btn btn-primary btn-block">Lihat Produk</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+                    <div class="single-product-wrap mb-35 shadow rounded">
+                        <div class="product-img product-img-zoom mb-15">
+                            <a href="product-details.html">
+                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-3.png')}}"
+                                    alt="">
+                            </a>
+                            <div class="product-action-2 tooltip-style-2">
+                                <button title="Wishlist"><i class="icon-heart"></i></button>
+                            </div>
+                        </div>
+                        <div class="product-content-wrap-2 text-left ml-2">
+
+                            <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                            <div class="product-price-2">
+                                <span class="new-price">Rp. 32,000</span>
+                                <span class="old-price">Rp. 45,000</span>
+                            </div>
+                            <div class="product-rating-wrap pb-10">
+                                <div class="product-rating">
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star gray"></i>
+                                </div>
+                                <span>(2)</span>
+                            </div>
+                        </div>
+                        <div class="product-content-wrap-2 product-content-position text-left">
+                            <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                            <div class="product-price-2">
+                                <span class="new-price">Rp. 32,000</span>
+                                <span class="old-price">Rp. 45,000</span>
+                            </div>
+                            <div class="product-rating-wrap">
+                                <div class="product-rating">
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star gray"></i>
+                                </div>
+                                <span>(2)</span>
+                            </div>
+                            <div class="pro-add-to-cart">
+                                <button class="btn btn-primary btn-block">Lihat Produk</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+                    <div class="single-product-wrap mb-35 shadow rounded">
+                        <div class="product-img product-img-zoom mb-15">
+                            <a href="product-details.html">
+                                <img src="{{asset('ecommerce/assets/images/product-details/product-detail-2.png')}}"
+                                    alt="">
+                            </a>
+                            <div class="product-action-2 tooltip-style-2">
+                                <button title="Wishlist"><i class="icon-heart"></i></button>
+                            </div>
+                        </div>
+                        <div class="product-content-wrap-2 text-left ml-2">
+
+                            <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                            <div class="product-price-2">
+                                <span class="new-price">Rp. 32,000</span>
+                                <span class="old-price">Rp. 45,000</span>
+                            </div>
+                            <div class="product-rating-wrap pb-10">
+                                <div class="product-rating">
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star gray"></i>
+                                </div>
+                                <span>(2)</span>
+                            </div>
+                        </div>
+                        <div class="product-content-wrap-2 product-content-position text-left">
+                            <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                            <div class="product-price-2">
+                                <span class="new-price">Rp. 32,000</span>
+                                <span class="old-price">Rp. 45,000</span>
+                            </div>
+                            <div class="product-rating-wrap">
+                                <div class="product-rating">
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star gray"></i>
+                                </div>
+                                <span>(2)</span>
+                            </div>
+                            <div class="pro-add-to-cart">
+                                <button class="btn btn-primary btn-block">Lihat Produk</button>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -115,6 +115,10 @@
             /* display: inline-block; */
         }
 
+        .pro-add-to-cart a{
+            border-radius: 10px;
+        }
+
         /* For medium devices (e.g. tablets) */
         @media (min-width: 420px) {
             .logo-img a img {
@@ -145,7 +149,7 @@
                         <div class="row align-items-center">
                             <div class="col-xl-2 col-lg-2">
                                 <div class="logo-img">
-                                    <a href="index.html"><img src="{{asset('ecommerce/assets/images/logo.png')}}"
+                                    <a href="/"><img src="{{asset('ecommerce/assets/images/logo.png')}}"
                                             alt="logo"></a>
                                 </div>
                             </div>
@@ -173,14 +177,14 @@
                                 <div class="header-action header-action-flex float-left">
                                     <div class="same-style-2 same-style-2-font-inc header-cart mt-2">
                                         <a class="cart-active" href="#">
-                                            <i class="ri-shopping-cart-line"></i><span class="pro-count green">02</span>
+                                            <i class="ri-shopping-cart-line"></i><span class="pro-count green">2</span>
 
                                         </a>
                                     </div>
                                     <div class="same-style-2 same-style-2-font-inc mt-2">
                                         <a class="cart-active" href="#">
                                             <i class="ri-notification-2-line"></i><span
-                                                class="pro-count green">02</span>
+                                                class="pro-count green">2</span>
 
                                         </a>
                                     </div>
@@ -211,7 +215,7 @@
                     <div class="row align-items-center">
                         <div class="col-5">
                             <div class="mobile-logo">
-                                <a href="index.html">
+                                <a href="/">
                                     <img alt="" src="{{asset('ecommerce/assets/images/logo.png')}}">
                                 </a>
                             </div>

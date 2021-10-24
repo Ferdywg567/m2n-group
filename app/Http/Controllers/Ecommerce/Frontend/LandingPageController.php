@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Ecommerce\Frontend;
 
+use App\Banner;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Produk;
 
 class LandingPageController extends Controller
 {
@@ -14,7 +16,9 @@ class LandingPageController extends Controller
      */
     public function index()
     {
-       return view("ecommerce.frontend.index");
+        $limit = Produk::limit(4)->get();
+        $banner = Banner::where('status_banner', 'Slider Utama')->get();
+        return view("ecommerce.frontend.index", ['limit' => $limit, 'banner' => $banner]);
     }
 
     /**
