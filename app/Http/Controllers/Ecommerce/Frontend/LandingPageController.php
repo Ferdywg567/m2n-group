@@ -18,7 +18,8 @@ class LandingPageController extends Controller
     {
         $limit = Produk::limit(4)->get();
         $banner = Banner::where('status_banner', 'Slider Utama')->get();
-        return view("ecommerce.frontend.index", ['limit' => $limit, 'banner' => $banner]);
+        $rekomendasi = Produk::limit(20)->get();
+        return view("ecommerce.frontend.index", ['limit' => $limit, 'banner' => $banner, 'rekomendasi' => $rekomendasi]);
     }
 
     /**

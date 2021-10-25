@@ -31,5 +31,10 @@ class RoleSeeder extends Seeder
             'name' => 'admin-offline',
             'guard_name' => 'web'
         ]);
+
+        Role::create([
+            'name' => 'ecommerce',
+            'guard_name' => 'web'
+        ]);
     }
 }
