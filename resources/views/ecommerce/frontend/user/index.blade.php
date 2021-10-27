@@ -18,8 +18,6 @@
                 <div class="myaccount-page-wrapper">
                     <!-- My Account Tab Menu Start -->
                     <div class="row">
-
-
                         <!-- My Account Tab Menu End -->
                         <!-- My Account Tab Content Start -->
                         <div class="col-md-12">
@@ -64,7 +62,7 @@
                                                 </div>
 
                                                 <div class="col-md-6">
-                                                    <h5>Samantha</h5>
+                                                    <h5>{{auth()->user()->name}}</h5>
                                                 </div>
                                             </div>
                                             <div class="row mt-3">
@@ -73,7 +71,7 @@
                                                 </div>
 
                                                 <div class="col-md-6">
-                                                    <h5>14 April 2000</h5>
+                                                    <h5>{{auth()->user()->tanggal_lahir}}</h5>
                                                 </div>
                                             </div>
                                             <div class="row mt-3">
@@ -82,7 +80,7 @@
                                                 </div>
 
                                                 <div class="col-md-6">
-                                                    <h5>Perempuan</h5>
+                                                    <h5>{{auth()->user()->jenis_kelamin}}</h5>
                                                 </div>
                                             </div>
                                             <hr>
@@ -93,7 +91,7 @@
                                                 </div>
 
                                                 <div class="col-md-3">
-                                                    <h5>example@gmail.com</h5>
+                                                    <h5>{{auth()->user()->email}}</h5>
                                                 </div>
                                                 <div class="col-md-6" style="margin-top:-4px; display:inline-block">
                                                     <span class="badge badge-primary">Belum terverifikasi</span> <a
@@ -105,18 +103,21 @@
                                                 <div class="col-md-2">
                                                     <h5 class="text-gray">Nomor HP</h5>
                                                 </div>
+                                                @if (auth()->user()->no_hp != null)
                                                 <div class="col-md-2">
-                                                    <h5>6281339760178</h5>
+                                                    <h5>{{auth()->user()->no_hp}}</h5>
                                                 </div>
                                                 <div class="col-md-6" style="margin-top:-4px; display:inline-block">
                                                     <span class="badge badge-success">Terverifikasi</span>
                                                 </div>
+                                                @endif
+
 
                                             </div>
                                             <hr>
+                                            <button type="button" class="btn btn-primary ubahprofile">Ubah Data</button>
                                         </div>
                                     </div>
-
                                 </div>
                                 <div class="tab-pane fade show" id="nav-alamat" role="tabpanel"
                                     aria-labelledby="nav-alamat-tab">
@@ -125,7 +126,8 @@
                                             <button type="button" class="btn btn-primary">Tambah Alamat Baru</button>
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <div class="card mt-2" style="background-color: rgba(0, 123, 255, 0.29); border-color:#007bff">
+                                                    <div class="card mt-2"
+                                                        style="background-color: rgba(0, 123, 255, 0.29); border-color:#007bff">
                                                         <div class="card-body">
                                                             <div>
                                                                 <div style="display:inline-block">
@@ -144,7 +146,8 @@
                                                             </div>
                                                             <div class="pt-5">
                                                                 <p>628123456789</p>
-                                                                <p style="margin-top:-5px">Dusun Balongbiru Desa Sadang RT. 08 RW. 03 Gang 8X No. 5,
+                                                                <p style="margin-top:-5px">Dusun Balongbiru Desa Sadang
+                                                                    RT. 08 RW. 03 Gang 8X No. 5,
                                                                     Sidoarjo</p>
                                                             </div>
                                                             <div class="pt-10">
@@ -181,7 +184,8 @@
                                                             </div>
                                                             <div class="pt-5">
                                                                 <p>628123456789</p>
-                                                                <p style="margin-top:-5px">Dusun Balongbiru Desa Sadang RT. 08 RW. 03 Gang 8X No. 5,
+                                                                <p style="margin-top:-5px">Dusun Balongbiru Desa Sadang
+                                                                    RT. 08 RW. 03 Gang 8X No. 5,
                                                                     Sidoarjo</p>
                                                             </div>
                                                             <div class="pt-10">
@@ -210,4 +214,108 @@
         </div>
     </div>
 </div>
+
+{{-- //modal profile user --}}
+<!-- Modal -->
+<div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="profileModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document" style="width:600px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="profileModalLabel">Ubah Biodata</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="formBiodata">
+                <div id="data-alert-biodata">
+
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="id" value="{{auth()->user()->id}}">
+                    <div class="form-group">
+                        <label for="nama">Nama</label>
+                        <input type="text" class="form-control" id="nama" name="nama" value="{{auth()->user()->name}}">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="tanggal_lahir">Tanggal Lahir</label>
+                                <input type="date" class="form-control" id="tanggal_lahir"
+                                    value="{{auth()->user()->tanggal_lahir}}" name="tanggal_lahir">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="jenis_kelamin">Jenis Kelamin</label>
+                                <select class="form-control" id="jenis_kelamin" name="jenis_kelamin">
+                                    <option value="">Pilih jenis kelamin</option>
+                                    <option value="Pria" @if(auth()->user()->jenis_kelamin == 'Pria') selected
+                                        @endif>Pria</option>
+                                    <option value="Wanita" @if(auth()->user()->jenis_kelamin == 'Wanita') selected
+                                        @endif>Wanita</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" id="email" value="{{auth()->user()->email}}"
+                                    name="email">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="nomor_hp">Nomor Hp</label>
+                                <input type="text" class="form-control" id="nomor_hp" value="{{auth()->user()->no_hp}}"
+                                    name="nomor_hp">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-primary btnSimpanBiodata">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 @endsection
+@push('scripts')
+<script>
+    $(document).ready(function(){
+        function ajax() {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+        }
+        $('.ubahprofile').on('click', function () {
+            $('#profileModal').modal('show')
+            $('#data-alert-biodata').empty()
+         })
+
+         $('.btnSimpanBiodata').on('click', function () {
+                var form = $('#formBiodata').serialize()
+                ajax()
+                $.ajax({
+                    url:"{{route('frontend.user.store')}}",
+                    method:"POST",
+                    data:form,
+                    success:function(response){
+                        if(response.status){
+                            setTimeout(function () {   $('#profileModal').modal('hide') ; window.location.reload(true)  },1500)
+                        }
+                        $('#data-alert-biodata').html(response.data)
+                    }
+                })
+          })
+    })
+</script>
+@endpush

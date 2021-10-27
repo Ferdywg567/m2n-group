@@ -7,6 +7,7 @@
     <title>Garment - Ecommerce</title>
     <meta name="robots" content="noindex, follow" />
     <meta name="description" content="">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('ecommerce/assets/images/favicon.png')}}">
@@ -194,9 +195,9 @@
                                         @if (auth()->user()->hasRole('ecommerce'))
                                         <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <img src="{{asset('ecommerce/assets/images/samantha.png')}}"
-                                                style="width:25%" class="rounded-circle" alt=""> Samantha</a>
+                                                style="width:25%" class="rounded-circle" alt=""> {{auth()->user()->name}}</a>
                                         <div class="dropdown-menu" style="width: 70%">
-                                            <a class="dropdown-item" href="#" style="font-size:16px">Profil</a>
+                                            <a class="dropdown-item" href="{{route('frontend.user.index')}}" style="font-size:16px">Profil</a>
                                             <a class="dropdown-item" href="#" style="font-size:16px">Pembelian</a>
                                             <a class="dropdown-item" href="#" style="font-size:16px">Favorit</a>
                                             <div class="dropdown-divider"></div>

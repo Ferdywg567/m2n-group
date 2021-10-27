@@ -18,6 +18,9 @@ Route::group(['namespace' => 'Ecommerce\Frontend'], function () {
         });
 
         Route::resource('product', 'ProductController');
+        Route::group(['middleware' => ['role:ecommerce', 'auth'], 'prefix' => 'ecommerce'], function () {
+            Route::resource('user', 'UserController');
+        });
     });
 
     Route::get('/detail', function () {
@@ -26,9 +29,9 @@ Route::group(['namespace' => 'Ecommerce\Frontend'], function () {
     Route::get('/cart', function () {
         return view("ecommerce.frontend.cart.index");
     });
-    Route::get('/user', function () {
-        return view("ecommerce.frontend.user.index");
-    });
+    // Route::get('/user', function () {
+    //     return view("ecommerce.frontend.user.index");
+    // });
     Route::get('/checkout', function () {
         return view("ecommerce.frontend.checkout.index");
     });
