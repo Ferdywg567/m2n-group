@@ -55,6 +55,7 @@
                                                 <th scope="col">SKU</th>
                                                 <th scope="col">Total</th>
                                                 <th scope="col">Status</th>
+                                                <th scope="col">Bukti Tf</th>
                                                 <th scope="col">Aksi</th>
                                             </tr>
                                         </thead>
@@ -78,6 +79,7 @@
                                                 <th scope="col">SKU</th>
                                                 <th scope="col">Total</th>
                                                 <th scope="col">Status</th>
+                                                <th scope="col">Bukti Tf</th>
                                                 <th scope="col">Aksi</th>
                                             </tr>
                                         </thead>
@@ -101,6 +103,7 @@
                                                 <th scope="col">SKU</th>
                                                 <th scope="col">Total</th>
                                                 <th scope="col">Status</th>
+                                                <th scope="col">Bukti Tf</th>
                                                 <th scope="col">Aksi</th>
                                             </tr>
                                         </thead>
@@ -123,6 +126,7 @@
                                             <th scope="col">SKU</th>
                                             <th scope="col">Total</th>
                                             <th scope="col">Status</th>
+                                            <th scope="col">Bukti Tf</th>
                                             <th scope="col">Aksi</th>
                                         </tr>
                                     </thead>

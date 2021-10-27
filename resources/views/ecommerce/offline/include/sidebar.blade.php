@@ -19,7 +19,7 @@
             </a>
         </li> --}}
         <li @yield('transaksi')>
-            <a class="nav-link" href="{{route('offline.transaksi.index')}}">
+            <a class="nav-link" href="{{route('offline.transaksi.create')}}">
                 <i class="ri-arrow-left-right-fill"></i> <span>Transaksi</span>
             </a>
         </li>

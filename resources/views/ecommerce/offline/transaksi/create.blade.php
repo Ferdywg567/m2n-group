@@ -26,9 +26,7 @@
 <div id="non-printable">
     <section class="section">
         <div class="section-header ">
-            <a class="btn btn-primary" href="{{route('offline.transaksi.index')}}">
-                <i class="fas fa-arrow-left"></i>
-            </a>
+
             <h1 class="ml-2">Input Data | Transaksi</h1>
         </div>
         <div class="section-body">
@@ -49,7 +47,7 @@
                                             <select class="form-control" id="produk" name="produk">
                                                 <option value="0">Pilih Produk</option>
                                                 @forelse ($produk as $item)
-                                                <option value="{{$item->id}}">{{$item->kode_produk}}</option>
+                                                <option value="{{$item->id}}">{{$item->kode_produk}} | {{$item->warehouse->finishing->cuci->jahit->potong->bahan->nama_bahan}}</option>
                                                 @empty
 
                                                 @endforelse
@@ -261,6 +259,15 @@
                         $('td:eq(4)', nRow).html("Rp. "+convertToRupiah(aData["harga"]));
                         $('td:eq(5)', nRow).html("Rp. "+convertToRupiah(aData["subtotal"]));
                     },
+                    createdRow:function (row, data, dataIndex) {
+                       console.log(data)
+                        $(row).find('td:eq(3)').addClass('updateqty');
+                        $(row).find('td:eq(3)').attr('data-idbarang',data['kode']);
+                        $.each($('td:eq(3)', row), function (colIndex) {
+
+                                $(this).attr('contenteditable', 'true');
+                        });
+                    }
               })
 
               $('#bayar').on('keyup',function () {
@@ -402,6 +409,41 @@
 
 
             })
+
+            $(document).on('blur change', '.updateqty', function(){
+                var id_barang = $(this).data('idbarang');
+                var qty = $(this).text()
+                ajax();
+                swal({
+                    text: "Apa anda yakin mengubah qty produk ?",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                    })
+                    .then((willUpdate) => {
+                    if (willUpdate) {
+                        $.ajax({
+                                url:"{{route('offline.transaksi.update_detail_barang')}}",
+                                method:"POST",
+                                data:{
+                                    'id_barang':id_barang,
+                                    'qty':qty
+                                },success:function(response){
+                                    if(response.status){
+                                        $('#total_harga').val(convertToRupiah(response.total_harga))
+                                    }else{
+                                        swal("Maaf stok tidak mencukupi!");
+                                    }
+                                   
+                                    table_detail.ajax.reload();
+                                }
+                            })
+                    }else{
+                            table_detail.ajax.reload();
+                    }
+                });
+
+            });
 
             $(document).on('click','.btnDelete', function () {
                     var kode = $(this).data('kode')

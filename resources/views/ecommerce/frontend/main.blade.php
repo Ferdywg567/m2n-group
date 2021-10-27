@@ -115,7 +115,7 @@
             /* display: inline-block; */
         }
 
-        .pro-add-to-cart a{
+        .pro-add-to-cart a {
             border-radius: 10px;
         }
 
@@ -149,8 +149,7 @@
                         <div class="row align-items-center">
                             <div class="col-xl-2 col-lg-2">
                                 <div class="logo-img">
-                                    <a href="/"><img src="{{asset('ecommerce/assets/images/logo.png')}}"
-                                            alt="logo"></a>
+                                    <a href="/"><img src="{{asset('ecommerce/assets/images/logo.png')}}" alt="logo"></a>
                                 </div>
                             </div>
 
@@ -183,8 +182,7 @@
                                     </div>
                                     <div class="same-style-2 same-style-2-font-inc mt-2">
                                         <a class="cart-active" href="#">
-                                            <i class="ri-notification-2-line"></i><span
-                                                class="pro-count green">2</span>
+                                            <i class="ri-notification-2-line"></i><span class="pro-count green">2</span>
 
                                         </a>
                                     </div>
@@ -192,14 +190,26 @@
                                         <a href="">|</a>
                                     </div>
                                     <div class="same-style-2 same-style-2-font-inc">
-                                        <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <img src="{{asset('ecommerce/assets/images/samantha.png')}}" style="width:25%" class="rounded-circle" alt=""> Samantha</a>
+                                        @if (auth()->check())
+                                        @if (auth()->user()->hasRole('ecommerce'))
+                                        <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <img src="{{asset('ecommerce/assets/images/samantha.png')}}"
+                                                style="width:25%" class="rounded-circle" alt=""> Samantha</a>
                                         <div class="dropdown-menu" style="width: 70%">
                                             <a class="dropdown-item" href="#" style="font-size:16px">Profil</a>
                                             <a class="dropdown-item" href="#" style="font-size:16px">Pembelian</a>
                                             <a class="dropdown-item" href="#" style="font-size:16px">Favorit</a>
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#" style="font-size:16px">Logout</a>
+                                            <a class="dropdown-item" href="{{route('frontend.auth.logout')}}"
+                                                style="font-size:16px">Logout</a>
                                         </div>
+
+                                        @endif
+                                        @else
+                                        <a type="button" href="{{route('frontend.auth.login')}}" class="btn btn-primary text-white" style="border-radius: 10px">Login</a>
+                                        @endif
+
+
                                     </div>
 
 
@@ -304,7 +314,7 @@
                     <div class="col-lg-3 col-md-6 col-sm-6 col-12 service-border-1">
                         <div class="single-service-wrap-2 mb-30">
                             <div class="service-icon-2">
-                                <i class="ri-truck-line"  style="color:#FF3B30"></i>
+                                <i class="ri-truck-line" style="color:#FF3B30"></i>
                             </div>
                             <div class="service-content-2">
                                 <h5 style="font-weight: bold">Gratis Ongkir</h5>
@@ -315,7 +325,7 @@
                     <div class="col-lg-3 col-md-6 col-sm-6 col-12 service-border-1 service-border-1-none-md">
                         <div class="single-service-wrap-2 mb-30">
                             <div class="service-icon-2">
-                                <i class="ri-shield-check-line"  style="color:#FF3B30"></i>
+                                <i class="ri-shield-check-line" style="color:#FF3B30"></i>
                             </div>
                             <div class="service-content-2">
                                 <h5 style="font-weight: bold">100% Pembayaran Aman </h5>
@@ -378,13 +388,17 @@
                                 <div class="quickview-wrap mt-15">
                                     <div class="quickview-slide-active nav-style-6">
                                         <a class="active" data-toggle="tab" href="#pro-1"><img
-                                                src="{{asset('ecommerce/assets/images/product/quickview-s1.jpg')}}" alt=""></a>
+                                                src="{{asset('ecommerce/assets/images/product/quickview-s1.jpg')}}"
+                                                alt=""></a>
                                         <a data-toggle="tab" href="#pro-2"><img
-                                                src="{{asset('ecommerce/assets/images/product/quickview-s2.jpg')}}" alt=""></a>
+                                                src="{{asset('ecommerce/assets/images/product/quickview-s2.jpg')}}"
+                                                alt=""></a>
                                         <a data-toggle="tab" href="#pro-3"><img
-                                                src="{{asset('ecommerce/assets/images/product/quickview-s3.jpg')}}" alt=""></a>
+                                                src="{{asset('ecommerce/assets/images/product/quickview-s3.jpg')}}"
+                                                alt=""></a>
                                         <a data-toggle="tab" href="#pro-4"><img
-                                                src="{{asset('ecommerce/assets/images/product/quickview-s2.jpg')}}" alt=""></a>
+                                                src="{{asset('ecommerce/assets/images/product/quickview-s2.jpg')}}"
+                                                alt=""></a>
                                     </div>
                                 </div>
                             </div>
@@ -449,7 +463,8 @@
                                     <div class="product-details-meta">
                                         <ul>
                                             <li><span>Categories:</span> <a href="#">Woman,</a> <a href="#">Dress,</a>
-                                                <a href="#">T-Shirt</a></li>
+                                                <a href="#">T-Shirt</a>
+                                            </li>
                                             <li><span>Tag: </span> <a href="#">Fashion,</a> <a href="#">Mentone</a> , <a
                                                     href="#">Texas</a></li>
                                         </ul>

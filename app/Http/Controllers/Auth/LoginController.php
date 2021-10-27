@@ -55,7 +55,7 @@ class LoginController extends Controller
 
         return $request->wantsJson()
             ? new JsonResponse([], 204)
-            : redirect()->route('backend.login')->with('alert-info', 'Anda telah keluar, Sampai ketemu lagi!');;
+            : redirect()->route('backend.login')->with('alert-info', 'Anda telah keluar, Sampai ketemu lagi!');
     }
 
     public function __construct()
@@ -72,7 +72,7 @@ class LoginController extends Controller
         }elseif($user->hasRole('admin-online')){
             return redirect()->route('ecommerce.dashboard.index');
         }elseif($user->hasRole('admin-offline')){
-            return redirect()->route('offline.transaksi.index');
+            return redirect()->route('offline.transaksi.create');
         }
     }
 }

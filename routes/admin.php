@@ -26,6 +26,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Ecommerce\Admin', 'middleware
     Route::resource('banner', 'BannerController');
     Route::resource('layout', 'LayoutController');
     Route::resource('rekapitulasi', 'RekapitulasiController');
+    Route::resource('customer', 'CustomerController');
+
 });
 
 
@@ -38,6 +40,7 @@ Route::group(['prefix' => 'admin/offline', 'namespace' => 'Ecommerce\Offline', '
         Route::get('cektransaksi', 'TransaksiController@cekTransaksi')->name('cek');
         Route::get('delete_transaksi/{kode}', 'TransaksiController@delete_data')->name('delete_trans');
         Route::get('cetak/{id}', 'TransaksiController@cetak')->name('cetak');
+        Route::post('update_detail_barang', 'TransaksiController@update_detail_barang')->name('update_detail_barang');
     });
 
     Route::group(['prefix' => 'rekapitulasi', 'as' => 'rekapitulasi.'], function () {

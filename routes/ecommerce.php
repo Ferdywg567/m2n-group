@@ -13,6 +13,8 @@ Route::group(['namespace' => 'Ecommerce\Frontend'], function () {
             Route::get('/login', 'AuthController@getLogin')->name('login');
             Route::get('/register', 'AuthController@getRegister')->name('register');
             Route::post('/register', 'AuthController@postRegister')->name('post.register');
+            Route::post('/login', 'AuthController@postLogin')->name('post.login');
+            Route::get('/logout', 'AuthController@logout')->name('logout');
         });
 
         Route::resource('product', 'ProductController');

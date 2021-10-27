@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Ecommerce\Offline;
 
+use Illuminate\Support\Facades\Validator;
 use App\DetailProduk;
 use App\DetailTransaksi;
 use Illuminate\Support\Facades\DB;
@@ -41,7 +42,7 @@ class TransaksiController extends Controller
             $transaksi = session(['transaksi' => $data]);
             $transaksi = session('transaksi');
         }
-        $produk = Produk::where('stok','>',0)->orderBy('created_at', 'DESC')->get();
+        $produk = Produk::where('stok', '>', 0)->orderBy('created_at', 'DESC')->get();
         $kode = $this->generateKode();
         return view('ecommerce.offline.transaksi.create', ['produk' => $produk, 'kode' => $kode, 'transaksi' => $transaksi]);
     }
@@ -366,5 +367,61 @@ class TransaksiController extends Controller
         $transaksi = Transaksi::findOrFail($id);
         $pdf = PDF::loadView('ecommerce.offline.transaksi.pdf', ['transaksi' => $transaksi]);
         return $pdf->stream('transaksi.pdf');
+    }
+
+    public function update_detail_barang(Request $request)
+    {
+        if ($request->ajax()) {
+            $validator = Validator::make($request->all(), [
+                'id_barang' => 'required',
+                'qty' => 'required',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json($validator->errors());
+            } else {
+                $kode = $request->get('id_barang');
+                $produk = Produk::where('kode_produk', $kode)->first();
+                if ($request->get('qty') <= $produk->stok) {
+                    $total = 0;
+
+                    $arr = [];
+
+                    $totalqty = 0;
+
+                    if (session()->has('detail_transaksi')) {
+                        $datadetail = session('detail_transaksi');
+                        $no = 0;
+                        $cek = false;
+
+                        foreach ($datadetail as $key => $value) {
+                            if ($value['kode'] == $kode) {
+                                $cek = true;
+                                $value['qty'] = $request->get('qty');
+                                $value['subtotal'] = $value['qty'] * $value['harga'];
+                            }
+                            $total = $total + $value['subtotal'];
+                            $totalqty += $value['qty'];
+                            $no = $value["urut"];
+                            array_push($arr, $value);
+                        }
+
+                        session()->forget('detail_transaksi');
+                        session(['detail_transaksi' => $arr]);
+                        session()->save();
+                    }
+
+                    $data = [
+                        'total_harga' => $total,
+                    ];
+                    session(['transaksi' => $data]);
+                    session()->save();
+
+                    return response()->json(['total_harga' => $total, 'totalqty' => $totalqty, 'status' => true]);
+                } else {
+                    return response()->json(['status' => false]);
+                }
+            }
+        }
     }
 }

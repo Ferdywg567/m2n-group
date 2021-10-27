@@ -39,7 +39,7 @@ Login
                         <h3 class="login-heading mb-4 fw-bold" style="font-weight: bold">Masuk</h3>
                         @include('backend.include.alert')
                         <!-- Sign In Form -->
-                        <form method="POST" action="{{route("backend.login")}}">
+                        <form method="POST" action="{{route('frontend.auth.post.login')}}">
                             @csrf
                             <div class="form-floating mb-3">
                                 <label for="email">Email</label>

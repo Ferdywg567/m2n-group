@@ -28,6 +28,11 @@
                 <i class="ri-arrow-left-right-fill"></i> <span>Transaksi</span>
             </a>
         </li>
+        <li @yield('customer')>
+            <a class="nav-link" href="{{route('ecommerce.customer.index')}}">
+                <i class="ri-user-fill"></i> <span>Customer</span>
+            </a>
+        </li>
         <li @yield('promo')>
             <a class="nav-link" href="{{route('ecommerce.promo.index')}}">
                 <i class="ri-percent-line"></i><span>Promo</span>
