@@ -19,6 +19,12 @@ Route::group(['namespace' => 'Ecommerce\Frontend'], function () {
 
         Route::resource('product', 'ProductController');
         Route::group(['middleware' => ['role:ecommerce', 'auth'], 'prefix' => 'ecommerce'], function () {
+
+            Route::group(['prefix' => 'alamat', 'as' => 'alamat.'], function () {
+                Route::post('/update_alamat', 'AlamatController@update_alamat')->name('update_alamat');
+                Route::get('/get_alamat', 'AlamatController@getAlamat')->name('get_alamat');
+            });
+            Route::resource('alamat', 'AlamatController');
             Route::resource('user', 'UserController');
         });
     });

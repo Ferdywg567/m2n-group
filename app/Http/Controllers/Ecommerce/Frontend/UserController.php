@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Ecommerce\Frontend;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Alamat;
 use App\User;
 
 class UserController extends Controller
@@ -16,7 +17,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('ecommerce.frontend.user.index');
+        $alamat = Alamat::where('user_id',auth()->user()->id)->orderBy('status','DESC')->get();
+        return view('ecommerce.frontend.user.index', ['alamat' => $alamat]);
     }
 
     /**
@@ -114,6 +116,4 @@ class UserController extends Controller
     {
         //
     }
-
-
 }

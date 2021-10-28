@@ -111,6 +111,7 @@
     <script src="{{ asset('assets/modules/select2/dist/js/select2.min.js')}}"></script>
     {{-- <script src="{{asset('js/dropzone-amd-module.min.js')}}"></script> --}}
     <script src="{{asset('js/dropzone.min.js')}}"></script>
+    
     @include('backend.include.toastr')
 
     @stack('scripts')
