@@ -24,7 +24,7 @@ class RekapitulasiController extends Controller
         }
 
 
-       
+
 
         $transaksi = Transaksi::where('status_transaksi', 'offline')->orderBy('created_at', 'DESC')->get();
         return view('ecommerce.offline.rekapitulasi.index', ['transaksi' => $transaksi, 'month' => $month, 'tahun' => $tahun]);
@@ -104,5 +104,12 @@ class RekapitulasiController extends Controller
         $pdf = PDF::loadView('ecommerce.offline.rekapitulasi.pdf', ['transaksi' => $transaksi]);
         return $pdf->stream('rekapitulasi.pdf');
         // return view('ecommerce.offline.rekapitulasi.pdf', ['transaksi' => $transaksi]);
+    }
+
+    public function cetak_semua()
+    {
+        $transaksi = Transaksi::where('status_transaksi', 'offline')->orderBy('created_at', 'DESC')->get();
+        $pdf = PDF::loadView('ecommerce.offline.rekapitulasi.cetak', ['transaksi' => $transaksi]);
+        return $pdf->download('rekapitulasi.pdf');
     }
 }

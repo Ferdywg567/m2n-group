@@ -65,8 +65,8 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <select class="form-control selectgrey" id="bulan">
-                                    @forelse ($month as $item)
-                                    <option value="{{$item}}">{{$item}}</option>
+                                    @forelse ($month as $key => $item)
+                                    <option value="{{$item}}" @if(($key+1) == (int)date('m')) selected @endif>{{$item}}</option>
                                     @empty
                                     @endforelse
                                 </select>
@@ -76,7 +76,7 @@
                             <div class="form-group">
                                 <select class="form-control selectgrey" id="tahun">
                                     @forelse ($tahun as $item)
-                                    <option value="{{$item}}">{{$item}}</option>
+                                    <option value="{{$item}}" @if($item == date('Y')) selected @endif>{{$item}}</option>
                                     @empty
                                     @endforelse
                                 </select>
@@ -785,8 +785,8 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <select class="form-control selectgrey" id="bulan">
-                                    @forelse ($month as $item)
-                                    <option value="{{$item}}">{{$item}}</option>
+                                    @forelse ($month as $key => $item)
+                                    <option value="{{$item}}" @if(($key+1) == (int)date('m')) selected @endif>{{$item}}</option>
                                     @empty
                                     @endforelse
                                 </select>
@@ -796,7 +796,7 @@
                             <div class="form-group">
                                 <select class="form-control selectgrey" id="tahun">
                                     @forelse ($tahun as $item)
-                                    <option value="{{$item}}">{{$item}}</option>
+                                    <option value="{{$item}}" @if($item == date('Y')) selected @endif>{{$item}}</option>
                                     @empty
                                     @endforelse
                                 </select>

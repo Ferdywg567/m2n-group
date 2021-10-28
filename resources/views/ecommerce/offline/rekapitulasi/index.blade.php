@@ -13,25 +13,24 @@
     .selectgrey {
         background-color: #E5E5EA;
     }
-
 </style>
 <section class="section mt-4">
-
     <div class="section-body mt-4">
-
         <div class="row">
-            <div class="col-md-12 text-right">
+            <div class="col-md-12 ">
                 <div class="row">
                     <div class="col-md-9">
-
+                        <a href="{{route('offline.rekapitulasi.cetak_semua')}}" class="btn btn-outline-primary rounded ml-1">Cetak Semua <i
+                                class="ri-printer-fill"></i>
+                        </a>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3 text-right">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <select class="form-control selectgrey" id="bulan">
                                         @forelse ($month as $key => $item)
-                                        <option value="{{$key+1}}" >{{$item}}</option>
+                                        <option value="{{$key+1}}">{{$item}}</option>
                                         @empty
                                         @endforelse
                                     </select>
@@ -69,7 +68,6 @@
                                     <th scope="col">SKU</th>
                                     <th scope="col">Tgl Transaksi</th>
                                     <th scope="col">Total</th>
-
                                     <th scope="col">Aksi</th>
                                 </tr>
                             </thead>
@@ -149,16 +147,14 @@
     integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
     crossorigin="anonymous"></script>
 <script>
-
-
-$.fn.dataTable.ext.search.push(
+    $.fn.dataTable.ext.search.push(
             function( settings, data, dataIndex ) {
                 var bulan = $('#bulan').val();
                 var tahun = $('#tahun').val();
                 var tanggal = tahun+'/'+bulan;
                 var parseDate = moment(data[6]).format('YYYY/MM')
                 tanggal = new Date(tanggal)
-                console.log(tanggal);
+                // console.log(tanggal);
                 var date = new Date( parseDate );
                 if (
                     ( bulan == "" || tahun == "" )
@@ -189,6 +185,13 @@ $.fn.dataTable.ext.search.push(
               $('#bulan, #tahun').on('change', function () {
                     table.draw();
               })
+
+              var tanggal = new Date()
+              var bulan = tanggal.getMonth() + 1
+              var tahun = tanggal.getFullYear()
+              $('#bulan').val(bulan).change()
+              $('#tahun').val(tahun).change()
+
      })
 </script>
 @endpush

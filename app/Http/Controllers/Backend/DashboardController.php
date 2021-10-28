@@ -41,8 +41,8 @@ class DashboardController extends Controller
                 $bulan = session('bulan');
                 $tahun = session('tahun');
             } else {
-                $bulan = 'January';
-                $tahun = '2018';
+                $bulan = date('F');
+                $tahun = date('Y');
             }
 
             $bulan = date('m', strtotime($bulan));
@@ -151,8 +151,8 @@ class DashboardController extends Controller
                     $bulan = session('bulan');
                     $tahun = session('tahun');
                 } else {
-                    $bulan = 'January';
-                    $tahun = '2018';
+                    $bulan = date('F');
+                    $tahun = date('Y');
                 }
 
                 return response()->json([
@@ -268,8 +268,8 @@ class DashboardController extends Controller
                     $bulan = session('bulan');
                     $tahun = session('tahun');
                 } else {
-                    $bulan = 'January';
-                    $tahun = '2018';
+                    $bulan = date('F');
+                    $tahun = date('Y');
                 }
                 return response()->json([
                     'status' => true,

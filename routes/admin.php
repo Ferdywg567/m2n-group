@@ -45,6 +45,7 @@ Route::group(['prefix' => 'admin/offline', 'namespace' => 'Ecommerce\Offline', '
 
     Route::group(['prefix' => 'rekapitulasi', 'as' => 'rekapitulasi.'], function () {
         Route::get('cetak/{id}', 'RekapitulasiController@cetak')->name('cetak');
+        Route::get('cetak_semua', 'RekapitulasiController@cetak_semua')->name('cetak_semua');
     });
 
     Route::resource('dashboard', 'DashboardController');
