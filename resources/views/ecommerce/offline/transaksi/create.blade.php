@@ -207,7 +207,8 @@
                                     </div>
                                 </div>
                                 <div class="float-right mt-3">
-                                    <button type="button" class="btn btn-primary btnsimpan">Simpan & Cetak</button>
+                                    <button type="button" class="btn btn-primary btnsimpan">Simpan</button>
+                                    <button type="button" class="btn btn-primary btnsimpancetak">Simpan & Cetak</button>
                                 </div>
                             </form>
 
@@ -351,7 +352,7 @@
                 return res;
             }
 
-            $('.btnsimpan').on('click', function () {
+            $('.btnsimpancetak').on('click', function () {
                 var bayar = convertToAngka($('#bayar').val());
                 var total_harga = convertToAngka($('#total_harga').val())
 
@@ -409,7 +410,64 @@
 
 
             })
+            $('.btnsimpan').on('click', function () {
+                var bayar = convertToAngka($('#bayar').val());
+                var total_harga = convertToAngka($('#total_harga').val())
 
+
+                    $.ajax({
+                        url:"{{route('offline.transaksi.cek')}}",
+                        method:"GET",
+                        success:function(response){
+                            if(response.status){
+                                if(bayar >= total_harga){
+                                    swal({
+                                        text: "Apa anda yakin menyimpan data transaksi ini ?",
+                                        icon: "warning",
+                                        buttons: true,
+                                        dangerMode: true,
+                                        })
+                                        .then((willInsert) => {
+                                        if (willInsert) {
+
+                                            var form = $('#formDetail').serialize()
+                                            ajax()
+                                            $.ajax({
+                                                url:"{{route('offline.transaksi.store')}}",
+                                                method:"POST",
+                                                data:form,
+                                                success:function(response){
+                                                    if(response.status){
+
+                                                        // setTimeout(function () { window.location.reload(true) },1500)
+                                                        $('#formDetail').trigger('reset')
+                                                        table_detail.clear().draw();
+                                                        $('#kode_transaksi').val(response.kode_transaksi)
+                                                        setTimeout(() => {
+                                                            iziToast.success({
+                                                                title: 'Yeay!',
+                                                                message: 'Transaksi berhasil disimpan!',
+                                                                position: 'topRight'
+                                                            });
+                                                        },500)
+                                                    }
+                                                }
+                                            })
+
+                                        }
+                                    });
+                                }else{
+                                    swal("Silahkan isi pembayaran yang sesuai!");
+                                }
+
+                            }else{
+                                swal("Belum ada transaksi, silahkan pilih produk terlebih dahulu!");
+                            }
+                        }
+                    })
+
+
+            })
             $(document).on('blur change', '.updateqty', function(){
                 var id_barang = $(this).data('idbarang');
                 var qty = $(this).text()
@@ -434,7 +492,7 @@
                                     }else{
                                         swal("Maaf stok tidak mencukupi!");
                                     }
-                                   
+
                                     table_detail.ajax.reload();
                                 }
                             })

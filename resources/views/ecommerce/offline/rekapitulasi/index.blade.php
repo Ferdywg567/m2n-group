@@ -20,8 +20,8 @@
             <div class="col-md-12 ">
                 <div class="row">
                     <div class="col-md-9">
-                        <a href="{{route('offline.rekapitulasi.cetak_semua')}}" class="btn btn-outline-primary rounded ml-1">Cetak Semua <i
-                                class="ri-printer-fill"></i>
+                        <a href="{{route('offline.rekapitulasi.cetak_semua')}}"
+                            class="btn btn-outline-primary rounded ml-1">Cetak Semua <i class="ri-printer-fill"></i>
                         </a>
                     </div>
                     <div class="col-md-3 text-right">
@@ -120,6 +120,9 @@
                                                     href="{{route('offline.rekapitulasi.show',[$item->id])}}"><i
                                                         class="ri-eye-fill"></i>
                                                     Detail</a>
+                                                <a class="dropdown-item btnprint" href="{{route('offline.rekapitulasi.cetak',[$item->id])}}" target="_blank"><i
+                                                        class="ri-printer-fill"></i>
+                                                    Cetak</a>
                                             </div>
                                         </div>
                                     </td>

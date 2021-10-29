@@ -365,8 +365,10 @@ class TransaksiController extends Controller
     public function cetak($id)
     {
         $transaksi = Transaksi::findOrFail($id);
+        $customPaper = array(0,0,198.425 ,255.118);
         $pdf = PDF::loadView('ecommerce.offline.transaksi.pdf', ['transaksi' => $transaksi]);
-        return $pdf->stream('transaksi.pdf');
+        $pdf->setPaper($customPaper);
+        return $pdf->download('transaksi-offline.pdf');
     }
 
     public function update_detail_barang(Request $request)
