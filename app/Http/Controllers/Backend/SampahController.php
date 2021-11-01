@@ -20,12 +20,12 @@ class SampahController extends Controller
      */
     public function index()
     {
-        $cuci = Cuci::all()->where('status_cuci','selesai')->where('status','cucian keluar');
-        $jahit = Jahit::all()->where('status_jahit','selesai')->where('status','jahitan keluar');;
+        $cuci = Cuci::all()->where('status_cuci', 'selesai')->where('status', 'cucian keluar');
+        $jahit = Jahit::all()->where('status_jahit', 'selesai')->where('status', 'jahitan keluar');;
         DB::beginTransaction();
 
         try {
-            if($cuci->isNotEmpty()){
+            if ($cuci->isNotEmpty()) {
                 foreach ($cuci as $key => $value) {
 
                     $sampah = Sampah::where('cuci_id', $value->id)->first();
@@ -47,12 +47,11 @@ class SampahController extends Controller
                         $detail->ukuran = $row->ukuran;
                         $detail->save();
                     }
-
                 }
             }
 
 
-            if($jahit->isNotEmpty()){
+            if ($jahit->isNotEmpty()) {
                 foreach ($jahit as $key => $value) {
 
                     $sampah = Sampah::where('jahit_id', $value->id)->first();
@@ -74,7 +73,6 @@ class SampahController extends Controller
                         $detail->ukuran = $row->ukuran;
                         $detail->save();
                     }
-
                 }
             }
             DB::commit();
@@ -201,38 +199,49 @@ class SampahController extends Controller
 
         $x['title'] = $titletrash;
         $x['icon'] = 'delete-bin-2-fill.png';
-        $x['kode_bahan'] =   $sampah->bahan->kode_bahan;
-        $ukuran = '';
 
-        $jumlahjahit = 0;
-        $jumlahcuci = 0;
-        $keteranganjahit = '';
-        $keterangancuci = '';
-        foreach ($sampah->detail_sampah as $key => $row) {
-            if (!empty($row->jahit_dibuang_id)) {
-                $jumlahjahit = $row->jumlah;
-                $keteranganjahit = $row->keterangan;
+        if (empty($sampah->cuci_id)) {
+            $x['kode_bahan'] =   $sampah->jahit->potong->bahan->kode_transaksi;
+            $ukuran = '';
+            foreach ($sampah->detail_sampah as $key => $row) {
+                $ukuran .= $row->ukuran . ', ';
             }
+            $ukuran = rtrim($ukuran,', ');
+            $keterangan = $sampah->jahit->keterangan_dibuang;
+            $asalbarang = 'Jahit';
 
-            if (!empty($row->cuci_dibuang_id)) {
-                $jumlahcuci = $row->jumlah;
-                $keterangancuci = $row->keterangan;
+            $x['data'] = [
+                $sampah->jahit->potong->bahan->sku,
+                $sampah->jahit->potong->bahan->jenis_bahan,
+                $sampah->jahit->potong->bahan->nama_bahan,
+                $ukuran,
+                $sampah->jahit->potong->bahan->warna,
+                $asalbarang,
+                $keterangan,
+                $sampah->total,
+            ];
+        }else{
+            $x['kode_bahan'] =   $sampah->cuci->jahit->potong->bahan->kode_transaksi;
+            $ukuran = '';
+            foreach ($sampah->detail_sampah as $key => $row) {
+                $ukuran .= $row->ukuran . ', ';
             }
+            $ukuran = rtrim($ukuran,', ');
+            $keterangan = $sampah->cuci->keterangan_dibuang;
+            $asalbarang = 'Cuci';
+
+            $x['data'] = [
+                $sampah->cuci->jahit->potong->bahan->sku,
+                $sampah->cuci->jahit->potong->bahan->jenis_bahan,
+                $sampah->cuci->jahit->potong->bahan->nama_bahan,
+                $ukuran,
+                $sampah->cuci->jahit->potong->bahan->warna,
+                $asalbarang,
+                $keterangan,
+                $sampah->total,
+            ];
         }
 
-        $keterangan = 'Washing : ' . $keterangancuci . "\r\n" . 'Tailoring : ' . $keteranganjahit;
-        $asalbarang = 'Washing : ' . $jumlahcuci . "\r\n" . 'Tailoring : ' . $jumlahjahit;
-
-        $x['data'] = [
-            $sampah->bahan->sku,
-            $sampah->bahan->jenis_bahan,
-            $sampah->bahan->nama_bahan,
-            $sampah->ukuran,
-            $sampah->bahan->warna,
-            $asalbarang,
-            $keterangan,
-            $sampah->total,
-        ];
 
         $pdf = PDF::loadView('backend.sampah.pdf', ['data' => $x]);
         return $pdf->stream('sampah.pdf');

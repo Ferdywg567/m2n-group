@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Laporan Warehouse</title>
+    <title>Laporan Produksi</title>
     <style>
         .clearfix:after {
             content: "";
@@ -187,7 +187,7 @@
         </tr>
     </table>
     <hr>
-    <button class="btn"><i class="fa fa-home"> <img src="{{public_path('assets/icon/delete-bin-2-fill.png')}}" style="margin-top: 2px" alt=""></i>Trash</button>
+    <button class="btn"><i class="fa fa-home"> <img src="{{public_path('assets/icon/delete-bin-2-fill.png')}}" style="margin-top: 2px" alt=""></i>Sampah</button>
     <main>
         <table>
             <tbody>
