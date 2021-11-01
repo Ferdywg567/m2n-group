@@ -151,7 +151,7 @@ class ReturController extends Controller
 
 
             $x['title'] = $titleretur;
-            $x['kode_bahan']=  $retur->finishing->cuci->jahit->potong->bahan->kode_bahan;
+            $x['kode_bahan']=  $retur->finishing->cuci->jahit->potong->bahan->kode_transaksi;
             $ukuran = '';
 
             foreach ($retur->detail_retur as $key => $row) {
@@ -159,7 +159,7 @@ class ReturController extends Controller
             }
             $tanggalretur = date('Y-m-d', strtotime($retur->created_at));
             $jumlahproduk = $retur->detail_retur->sum('jumlah');
-
+            $ukuran = rtrim($ukuran,', ');
             $x['data'] = [
                 $retur->finishing->cuci->jahit->potong->bahan->sku,
                 $retur->finishing->cuci->tanggal_selesai,
@@ -195,7 +195,7 @@ class ReturController extends Controller
 
 
         $x['title'] = $titleretur;
-        $x['kode_bahan']=  $retur->finishing->cuci->jahit->potong->bahan->kode_bahan;
+        $x['kode_bahan']=  $retur->finishing->cuci->jahit->potong->bahan->kode_transaksi;
         $ukuran = '';
 
         foreach ($retur->detail_retur as $key => $row) {
@@ -203,7 +203,7 @@ class ReturController extends Controller
         }
         $tanggalretur = date('Y-m-d', strtotime($retur->created_at));
         $jumlahproduk = $retur->detail_retur->sum('jumlah');
-
+        $ukuran = rtrim($ukuran,', ');
         $x['data'] = [
             $retur->finishing->cuci->jahit->potong->bahan->sku,
             $retur->finishing->cuci->tanggal_selesai,

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Laporan Warehouse</title>
+    <title>Laporan Gudang</title>
     <style>
         .clearfix:after {
             content: "";
