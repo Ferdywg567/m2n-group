@@ -23,14 +23,13 @@
         body {
             position: relative;
             width: 7cm;
-            height: 9cm;
+            height: 12cm;
             margin: 0 auto;
             margin-left: -30px;
             color: #001028;
             background: #FFFFFF;
-            font-family: Arial, sans-serif;
             font-size: 7px;
-            font-family: Arial;
+            font-family: monospace;
         }
 
         header {
@@ -184,24 +183,24 @@
             {{-- <img src="{{public_path('assets/img/logo.png')}}">
             <p> GARMENT</p> --}}
         </div>
-        <div style="padding-left:64px; margin-top:-15px;font-size:8px;">
+        <div style="padding-left:40px; margin-top:-15px;font-size:8px;">
             <h4>Jl. Raya Ir. Soekarno No. 45 Jakarta.</h4>
-            <h4>081223876689 - info@garment.com</h4>
+            <h4  style="padding-left:11px;">081223876689 - info@garment.com</h4>
         </div>
         <hr>
         <div id="project">
             <div style=" display: inline-block;">
-                <span style='width: 48px; padding-right: 0; margin-right:0;'>Kode Transaksi </span>:
+                <span style='width: 60px; padding-right: 0; margin-right:0;'>Kode Transaksi </span>:
                 {{$transaksi->kode_transaksi}}<br />
             </div>
             <br />
             <div style=" display: inline-block; padding-top: 6px;">
-                <span style='width: 48px; padding-right: 0; margin-right:0;'>Tanggal </span>:
+                <span style='width: 60px; padding-right: 0; margin-right:0;'>Tanggal </span>:
                 {{$transaksi->tgl_transaksi}}<br />
             </div>
             <br />
             <div style=" display: inline-block;  padding-top: 4px;">
-                <span style='width: 48px; padding-right: 0; margin-right:0;'>Store </span>: Offline<br />
+                <span style='width: 60px; padding-right: 0; margin-right:0;'>Store </span>: Offline<br />
             </div>
 
 
@@ -214,7 +213,7 @@
                     <th style="text-align: left">Nama Produk</th>
 
                     <th style="text-align: left">Harga</th>
-                    <th style="text-align: left;">Sub Total</th>
+                    <th style="text-align: left; padding-right:23px">Sub Total</th>
                 </tr>
             </thead>
             <tbody>
@@ -238,19 +237,19 @@
                 <tbody>
                     <tr>
                         <td style="text-align:left; font-weight:bold">Total</td>
-                        <td style="text-align:left; padding-left:158px; font-weight:bold">@rupiah($transaksi->total_harga)</td>
+                        <td style="text-align:left; padding-left:135px; font-weight:bold">@rupiah($transaksi->total_harga)</td>
                     </tr>
                     <tr>
                         <td style="text-align:left; font-weight:bold">Potongan</td>
-                        <td style="text-align:left; padding-left:158px; font-weight:bold">-</td>
+                        <td style="text-align:left; padding-left:135px; font-weight:bold">-</td>
                     </tr>
                     <tr>
                         <td style="text-align:left; font-weight:bold">Bayar</td>
-                        <td style="text-align:left; padding-left:158px; font-weight:bold">@rupiah($transaksi->bayar)</td>
+                        <td style="text-align:left; padding-left:135px; font-weight:bold">@rupiah($transaksi->bayar)</td>
                     </tr>
                     <tr>
                         <td style="text-align:left; font-weight:bold">Kembalian</td>
-                        <td style="text-align:left; padding-left:158px; font-weight:bold">@rupiah($transaksi->kembalian)</td>
+                        <td style="text-align:left; padding-left:135px; font-weight:bold">@rupiah($transaksi->kembalian)</td>
                     </tr>
                 </tbody>
             </table>
