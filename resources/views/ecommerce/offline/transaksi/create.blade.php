@@ -21,6 +21,10 @@
         font-size: initial;
 
     }
+
+    .cssnav {
+        margin-left: 10px;
+    }
 </style>
 
 <div id="non-printable">

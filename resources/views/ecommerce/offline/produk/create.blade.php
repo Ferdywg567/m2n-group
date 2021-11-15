@@ -5,11 +5,7 @@
 @section('cssnav', 'cssnav')
 @section('content')
 <style>
-    .cssnav {
-        margin-left: -20px;
-    }
-
-
+   
     .dropzone {
         border: 2px dashed #dedede;
         border-radius: 5px;

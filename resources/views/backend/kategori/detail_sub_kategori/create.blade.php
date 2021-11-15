@@ -91,7 +91,7 @@
                                         </div>
                                     </div> --}}
                                 </div>
-                                <button type="button" class="btn btn-outline-primary btn-block btntambah">Tambah Sub Kategori Baru</button>
+                                <button type="button" class="btn btn-outline-primary btn-block btntambah">Tambah Detail Sub Kategori Baru</button>
                                 <div class="row mt-2">
                                     <div class="col-md-12 text-center">
                                         <a type="button" class="btn btn-secondary"

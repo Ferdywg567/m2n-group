@@ -2,12 +2,17 @@
 @section('title', 'Rekapitulasi')
 @section('title-nav', 'Rekapitulasi')
 @section('rekapitulasi', 'class=active-sidebar')
+@section('cssnav', 'cssnav')
 @section('content')
 <style>
     .dropdown-menu {
         left: 50% !important;
         transform: translateX(-50%) !important;
         top: 100% !important;
+    }
+
+    .cssnav {
+        margin-left: 20px;
     }
 </style>
 <section class="section mt-4">

@@ -72,7 +72,7 @@ $notif = \App\Notification::where('role','warehouse')->orderBy('created_at','DES
                         <i class="fas fa-check"></i>
                     </div>
                     <div class="dropdown-item-desc">
-                        <b>{{$item->description}}</b>
+                        <b>{{ucfirst($item->description)}}</b>
                         <div class="time">{{date('H:i:s',strtotime($item->created_at))}}</div>
                     </div>
                 </a>

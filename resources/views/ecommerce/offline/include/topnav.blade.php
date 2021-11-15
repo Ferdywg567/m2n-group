@@ -33,7 +33,7 @@ $notif = \App\Notification::where('role','admin')->orderBy('created_at','DESC')-
                 <div class="col-md-4 @yield('cssnav')">
                     <span class="badge badge-success rounded" style="height: 80%">
                         <h6>
-                            E-COMMERCE
+                            TOKO
                         </h6>
 
                     </span>
