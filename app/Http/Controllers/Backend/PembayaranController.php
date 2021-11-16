@@ -74,8 +74,13 @@ class PembayaranController extends Controller
             try {
                 // dd($request->all());
                 $total_harga = $request->get('total_harga');
-                $total_harga = $this->convertToAngka($total_harga);
-
+                $total_harga = $this->convertToAngkaRp($total_harga);
+                $nominal1 = $request->get('nominal1');
+                $nominal2 = $request->get('nominal2');
+                $nominal3 = $request->get('nominal3');
+                $nominal1 = $this->convertToAngkaRp($nominal1);
+                $nominal2 = $this->convertToAngkaRp($nominal2);
+                $nominal3 = $this->convertToAngkaRp($nominal3);
                 if ($status == 'jahit') {
 
                     $pembayaran1 = $request->get('pembayaran1');
@@ -89,12 +94,10 @@ class PembayaranController extends Controller
                         $pembayaran = new PembayaranJahit();
                         $pembayaran->jahit_id = $jahit->id;
                         $pembayaran->status = "Lunas";
-                        $pembayaran->nominal = $request->get('nominal1');
+                        $pembayaran->nominal = $nominal1;
                         $pembayaran->save();
                     } elseif ($pembayaran1 == 'Termin 1') {
-                        $nominal1 = $request->get('nominal1');
-                        $nominal2 = $request->get('nominal2');
-                        $nominal3 = $request->get('nominal3');
+
 
                         if ($nominal1 > 0 && $nominal2 > 0 && $nominal3 > 0) {
                             $total = $nominal1 + $nominal2 + $nominal3;
@@ -182,12 +185,10 @@ class PembayaranController extends Controller
                         $pembayaran = new PembayaranCuci();
                         $pembayaran->cuci_id = $cuci->id;
                         $pembayaran->status = "Lunas";
-                        $pembayaran->nominal = $request->get('nominal1');
+                        $pembayaran->nominal = $nominal1;
                         $pembayaran->save();
                     } elseif ($pembayaran1 == 'Termin 1') {
-                        $nominal1 = $request->get('nominal1');
-                        $nominal2 = $request->get('nominal2');
-                        $nominal3 = $request->get('nominal3');
+
 
                         if ($nominal1 > 0 && $nominal2 > 0 && $nominal3 > 0) {
                             $total = $nominal1 + $nominal2 + $nominal3;
@@ -337,7 +338,14 @@ class PembayaranController extends Controller
         } else {
             DB::beginTransaction();
             try {
-
+                $total_harga = $request->get('total_harga');
+                $total_harga = $this->convertToAngkaRp($total_harga);
+                $nominal1 = $request->get('nominal1');
+                $nominal2 = $request->get('nominal2');
+                $nominal3 = $request->get('nominal3');
+                $nominal1 = $this->convertToAngkaRp($nominal1);
+                $nominal2 = $this->convertToAngkaRp($nominal2);
+                $nominal3 = $this->convertToAngkaRp($nominal3);
                 if ($status == 'jahit') {
                     $pembayaran1 = $request->get('pembayaran1');
                     $jahit = Jahit::findOrFail($id);
@@ -345,13 +353,10 @@ class PembayaranController extends Controller
 
                     if ($pembayaran1 == 'Termin 1') {
 
-                        $nominal1 = $request->get('nominal1');
-                        $nominal2 = $request->get('nominal2');
-                        $nominal3 = $request->get('nominal3');
 
                         if ($nominal1 > 0 && $nominal2 > 0 && $nominal3 > 0) {
                             $total = $nominal1 + $nominal2 + $nominal3;
-                            if ($request->get('total_harga') == $total) {
+                            if ($total_harga == $total) {
                                 if ($jahit->status_pembayaran == 'Termin 1') {
                                     $pembayaran = new PembayaranJahit();
                                     $pembayaran->jahit_id = $jahit->id;
@@ -379,12 +384,12 @@ class PembayaranController extends Controller
                             }
                         } else  if ($nominal1 > 0 && $nominal2 > 0) {
                             $total = $nominal1 + $nominal2;
-                            if ($total == $request->get('total_harga')) {
+                            if ($total == $total_harga) {
                                 $status = 'Lunas';
                             } else {
                                 $status = 'Termin 2';
                             }
-                            $sisa =  $request->get('total_harga') - $total;
+                            $sisa =  $total_harga - $total;
                             $jahit->total_bayar = $total;
                             $jahit->sisa_bayar = $sisa;
                             $jahit->status_pembayaran = $status;
@@ -404,13 +409,11 @@ class PembayaranController extends Controller
 
                     if ($pembayaran1 == 'Termin 1') {
 
-                        $nominal1 = $request->get('nominal1');
-                        $nominal2 = $request->get('nominal2');
-                        $nominal3 = $request->get('nominal3');
+                
 
                         if ($nominal1 > 0 && $nominal2 > 0 && $nominal3 > 0) {
                             $total = $nominal1 + $nominal2 + $nominal3;
-                            if ($request->get('total_harga') == $total) {
+                            if ($total_harga == $total) {
                                 if ($cuci->status_pembayaran == 'Termin 1') {
                                     $pembayaran = new PembayaranCuci();
                                     $pembayaran->cuci_id = $cuci->id;
@@ -438,12 +441,12 @@ class PembayaranController extends Controller
                             }
                         } else  if ($nominal1 > 0 && $nominal2 > 0) {
                             $total = $nominal1 + $nominal2;
-                            if ($total == $request->get('total_harga')) {
+                            if ($total == $total_harga) {
                                 $status = 'Lunas';
                             } else {
                                 $status = 'Termin 2';
                             }
-                            $sisa =  $request->get('total_harga') - $total;
+                            $sisa =  $total_harga - $total;
                             $cuci->total_bayar = $total;
                             $cuci->sisa_bayar = $sisa;
                             $cuci->status_pembayaran = $status;
@@ -568,11 +571,17 @@ class PembayaranController extends Controller
         return $pdf->stream('pembayaran.pdf');
     }
 
-    public function convertToAngka($harga)
+    public function convertToAngkaRp($harga)
     {
         $hasil = str_replace('.', '', $harga);
         $hasil = str_replace('Rp. ', '', $hasil);
         $hasil = str_replace(',00', '', $hasil);
+        return $hasil;
+    }
+
+    public function convertToAngka($harga)
+    {
+        $hasil = str_replace('.', '', $harga);
         return $hasil;
     }
 }
