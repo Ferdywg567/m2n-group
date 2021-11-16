@@ -108,7 +108,7 @@
                                         <div class="form-group">
                                             <label for="tanggal_keluar">Tanggal Bahan Keluar</label>
                                             <input type="date" class="form-control" value="{{$bahan->tanggal_keluar}}"
-                                                required id="tanggal_keluar" name="tanggal_keluar">
+                                                required id="tanggal_keluar" readonly name="tanggal_keluar">
                                         </div>
                                     </div>
                                 </div>

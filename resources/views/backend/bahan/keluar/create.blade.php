@@ -112,7 +112,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="tanggal_keluar">Tanggal Bahan Keluar</label>
-                                            <input type="date" class="form-control" required id="tanggal_keluar"
+                                            <input type="date" class="form-control" readonly required value="{{date('Y-m-d')}}" id="tanggal_keluar"
                                                 name="tanggal_keluar">
                                         </div>
                                     </div>
