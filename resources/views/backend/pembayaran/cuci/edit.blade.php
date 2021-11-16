@@ -155,7 +155,7 @@
                                         <div class="form-group">
                                             <label for="total_harga">Total Harga</label>
                                             <input type="text" class="form-control" required readonly id="total_harga"
-                                                value="{{$cuci->total_harga}}"
+                                                value="@rupiah($cuci->total_harga)"
                                                 name="total_harga">
                                         </div>
                                     </div>
@@ -213,8 +213,8 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="nominal1">Nominal</label>
-                                            <input type="number" min="1" class="form-control" required id="nominal1"
-                                                readonly value="{{$item->nominal}}" name="nominal1">
+                                            <input type="text" min="1" class="form-control" required id="nominal1"
+                                                readonly value="@rupiah($item->nominal)" name="nominal1">
                                         </div>
                                     </div>
                                 </div>
@@ -242,8 +242,8 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="nominal2">Nominal</label>
-                                            <input type="number" min="1" class="form-control" required id="nominal2"
-                                                readonly value="{{$item->nominal}}" name="nominal2">
+                                            <input type="text" min="1" class="form-control" required id="nominal2"
+                                                readonly value="@rupiah($item->nominal)" name="nominal2">
                                         </div>
                                     </div>
                                 </div>
@@ -268,8 +268,8 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="nominal3">Nominal</label>
-                                            <input type="number" min="1" class="form-control" required id="nominal3"
-                                                readonly value="{{$item->nominal}}" name="nominal3">
+                                            <input type="text" min="1" class="form-control" required id="nominal3"
+                                                readonly value="@rupiah($item->nominal)" name="nominal3">
                                         </div>
                                     </div>
                                 </div>
@@ -294,7 +294,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="nominal">Nominal</label>
-                                            <input type="number" min="1" class="form-control" id="nominal2"
+                                            <input type="text" min="1" class="form-control" id="nominal2"
                                                 value="{{old('nominal2')}}" name="nominal2">
                                         </div>
                                     </div>
@@ -317,7 +317,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="nominal3">Nominal</label>
-                                            <input type="number" min="1" class="form-control" id="nominal3"
+                                            <input type="text" min="1" class="form-control" id="nominal3"
                                                 value="{{old('nominal3')}}" name="nominal3">
                                         </div>
                                     </div>
@@ -331,7 +331,7 @@
                                         <div class="form-group">
                                             <label for="sisa_bayar">Sisa Bayar</label>
                                             <input type="text" class="form-control" readonly required id="sisa_bayar"
-                                                value="{{$cuci->sisa_bayar}}" name="sisa_bayar">
+                                                value="@rupiah($cuci->sisa_bayar)" name="sisa_bayar">
                                         </div>
                                     </div>
                                 </div>
@@ -367,6 +367,27 @@
                     }
                 });
               }
+                var nominal1 = $('#nominal1').val();
+                var nominal2 = $('#nominal2').val();
+                var nominal3 = $('#nominal3').val();
+
+
+                  if(nominal1 == ''){
+                    $('#nominal1').mask('000.000.000.000', {
+                        reverse: true
+                    });
+                  }
+                  if(nominal2 == ''){
+                    $('#nominal2').mask('000.000.000.000', {
+                        reverse: true
+                    });
+                  }
+                  if(nominal3 == ''){
+                    $('#nominal3').mask('000.000.000.000', {
+                     reverse: true
+                    });
+                  }
+
 
               $('#kdbahanreadonly').hide()
               $('#ukuranm').hide()
@@ -395,11 +416,35 @@
                   $('#konversi').val(res)
               })
 
+
+            function convertToRupiah(angka) {
+                var rupiah = '';
+                var angkarev = angka.toString().split('').reverse().join('');
+                for (var i = 0; i < angkarev.length; i++) {
+                    if (i%3 == 0) {
+                    rupiah += angkarev.substr(i,3)+'.';
+                    }
+                }
+
+                    var res = rupiah.split('',rupiah.length-1).reverse().join('');
+                    return res;
+         }
+
+         function convertToAngka(rupiah)
+        {
+            return parseInt(rupiah.replace(/,.*|[^0-9]/g, ''), 10);
+        }
+
               $('#nominal1, #nominal2, #nominal3').on('keyup', function () {
                   var nominal1 = $('#nominal1').val();
                   var nominal2 = $('#nominal2').val();
                   var nominal3 = $('#nominal3').val();
+                  nominal1 = convertToAngka(nominal1)
+                  nominal2 = convertToAngka(nominal2)
+                  nominal3 = convertToAngka(nominal3)
                   var total_harga = $('#total_harga').val()
+                  total_harga = convertToAngka(total_harga)
+
                   var sisa_bayar = 0;
                   if(nominal2 > 0 && nominal1 > 0 && nominal3 > 0){
                         var total = parseInt(nominal1) + parseInt(nominal2) + parseInt(nominal3)
@@ -407,24 +452,29 @@
                             sisa_bayar = total_harga - total;
                         }
                     }else if(nominal2 > 0 && nominal1 > 0){
-                        var total = parseInt(nominal1) + parseInt(nominal2)
+                        var total = nominal1 + nominal2
+                        console.log(total);
                         if(total <= total_harga){
                             sisa_bayar = total_harga - total;
                         }
                     }else if(nominal1 > 0){
-                        if(parseInt(nominal1) <  parseInt(total_harga)){
+                        if(nominal1 <  total_harga){
                             sisa_bayar = total_harga - nominal1;
                         }
                     }
-                    $('#sisa_bayar').val(sisa_bayar)
+                    console.log(sisa_bayar);
+                    $('#sisa_bayar').val("Rp. "+convertToRupiah(sisa_bayar))
                })
 
               $('form[id=formPembayaran]').submit(function(){
                 var data = $('#pembayaran1').val();
                 var hasil = $('#total_harga').val()
                 var total_bayar = $('#total_bayar').val()
+                total_bayar = convertToAngka(total_bayar)
+                hasil = convertToAngka(hasil)
                 if(data == 'Lunas'){
                     var nominal = $('#nominal1').val()
+                    nominal = convertToAngka(nominal)
                     if(parseInt(hasil) != parseInt(nominal)){
                         $('#dataalert').addClass('alert-danger')
                     $('#dataalert').show()
@@ -438,6 +488,9 @@
                     var nominal = $('#nominal1').val()
                     var nominal2 = $('#nominal2').val()
                     var nominal3 = $('#nominal3').val()
+                    nominal = convertToAngka(nominal)
+                    nominal2 = convertToAngka(nominal2)
+                    nominal3 = convertToAngka(nominal3)
                     if(nominal2 > 0 && nominal > 0 && nominal3 > 0){
                         var total = parseInt(nominal) + parseInt(nominal2) + parseInt(nominal3)
                         if(parseInt(hasil) != parseInt(total)){

@@ -160,8 +160,8 @@
                                                 <td>{{$item->jahit->potong->bahan->sku}}</td>
                                                 <td>{{$item->jahit->potong->bahan->nama_bahan}}</td>
                                                 <td>{{$item->nama_vendor}}</td>
-                                                <td>{{$item->total_bayar}}</td>
-                                                <td>{{$item->sisa_bayar}}</td>
+                                                <td>@rupiah($item->total_bayar)</td>
+                                                <td>@rupiah($item->sisa_bayar)</td>
                                                 <td>
                                                     @if ($item->status_pembayaran == 'Belum Lunas')
                                                     <span
