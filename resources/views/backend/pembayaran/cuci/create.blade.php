@@ -310,6 +310,7 @@
                   var nominal2 = $('#nominal2').val();
                   var nominal3 = $('#nominal3').val();
                   var total_harga = $('#total_harga').val()
+                  total_harga = convertToAngka(total_harga)
                   var sisa_bayar = 0;
                   if(nominal2 > 0 && nominal1 > 0 && nominal3 > 0){
                         var total = parseInt(nominal1) + parseInt(nominal2) + parseInt(nominal3)
@@ -339,6 +340,8 @@
                 var data = $('#pembayaran1').val();
                 var hasil = $('#total_harga').val()
                 var total_bayar = $('#total_bayar').val()
+                total_bayar = convertToAngka(total_bayar)
+                hasil = convertToAngka(hasil)
                 if(data == 'Lunas'){
                     var nominal = $('#nominal1').val()
                     if(parseInt(hasil) != parseInt(nominal)){
@@ -432,6 +435,23 @@
 
             })
 
+            function convertToRupiah(angka) {
+                var rupiah = '';
+                var angkarev = angka.toString().split('').reverse().join('');
+                for (var i = 0; i < angkarev.length; i++) {
+                    if (i%3 == 0) {
+                    rupiah += angkarev.substr(i,3)+'.';
+                    }
+                }
+
+                    var res = rupiah.split('',rupiah.length-1).reverse().join('');
+                    return res;
+         }
+
+         function convertToAngka(rupiah)
+        {
+            return parseInt(rupiah.replace(/,.*|[^0-9]/g, ''), 10);
+        }
 
 
              $('#kode_transaksiselect').on('change', function () {
@@ -457,11 +477,11 @@
                                 var subkategori = bahan.detail_sub.sub_kategori.nama_kategori;
                                 var kategori = bahan.detail_sub.sub_kategori.kategori.nama_kategori;
                                 var total_harga = data.harga_vendor * data.jumlah_bahan;
-                                $('#total_harga').val(data.total_harga)
+                                $('#total_harga').val("Rp "+ convertToRupiah(data.total_harga))
                                 $('#nama_produk').val(bahan.nama_bahan)
                                 $('#nama_vendor').val(data.nama_vendor)
                                 $('#harga_vendor').val(data.harga_vendor)
-                                $('#sisa_bayar').val(data.sisa_bayar)
+                                $('#sisa_bayar').val("Rp "+ convertToRupiah(data.sisa_bayar))
                                 $('#total_bayar').val(data.sisa_bayar)
                                 $('#no_surat').val(data.no_surat)
                                 $('#sku').val(bahan.sku)
