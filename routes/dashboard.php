@@ -29,6 +29,8 @@ Route::group(['prefix' => 'warehouse', 'namespace' => 'Backend', 'middleware' =>
     Route::group(['namespace' => 'Warehouse'], function () {
         Route::group(['prefix' => 'finishing', 'as' => 'finishing.'], function () {
             Route::post('/cetak', 'FinishingController@cetakPdf')->name('cetak');
+            Route::get('/keluar/{id}', 'FinishingController@getkeluar')->name('getkeluar');
+            Route::post('/keluar/{id}', 'FinishingController@storekeluar')->name('storekeluar');
             Route::get('/getdataprint', 'FinishingController@getDataPrint')->name('getdataprint');
             Route::get('/getdatarekap', 'FinishingController@getDataRekap')->name('getdatarekap');
             Route::get('/getdatafinishing', 'FinishingController@getDataFinish')->name('getdatafinish');
@@ -36,6 +38,7 @@ Route::group(['prefix' => 'warehouse', 'namespace' => 'Backend', 'middleware' =>
 
         Route::group(['prefix' => 'warehouse', 'as' => 'warehouse.'], function () {
             Route::post('/cetak', 'WarehouseController@cetakPdf')->name('cetak');
+
             Route::get('/getdataprint', 'WarehouseController@getDataPrint')->name('getdataprint');
         });
 

@@ -614,4 +614,159 @@ class FinishingController extends Controller
         $pdf = PDF::loadView('backend.warehouse.finishing.pdf', ['data' => $x]);
         return $pdf->stream('finishing.pdf');
     }
+
+    public function getkeluar(Request $request, $id)
+    {
+        $finish = Finishing::findOrFail($id);
+        if ($finish->status == 'finishing masuk') {
+            return view("backend.warehouse.finishing.masuk.keluar", ['finish' => $finish]);
+        }
+    }
+
+    public function storekeluar(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'kode_transaksi' =>  'required',
+            'no_surat' => 'required',
+            'tanggal_selesai' => 'required|date_format:"Y-m-d"',
+            'stok_lolos_sortir' => 'required',
+            'gagal_qc' => 'required',
+            'produk_diretur' => 'required',
+            'produk_dibuang' => 'required',
+
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator->errors())->withInput();
+        } else {
+
+            DB::beginTransaction();
+            try {
+                $finish = Finishing::findOrFail($id);
+                $finish->no_surat = $request->get('no_surat');
+                $finish->status = "kirim warehouse";
+                $finish->barang_lolos_qc = $request->get('stok_lolos_sortir');
+                $finish->barang_gagal_qc = $request->get('gagal_qc');
+                $finish->barang_diretur = $request->get('produk_diretur');
+                $finish->barang_dibuang = $request->get('produk_dibuang');
+                $finish->keterangan_diretur = $request->get('keterangan_diretur');
+                $finish->keterangan_dibuang = $request->get('keterangan_dibuang');
+                $finish->tanggal_selesai = date('Y-m-d', strtotime($request->get('tanggal_selesai')));
+                $finish->save();
+
+                $jumlah = $request->get('jumlahutama');
+                $dataukuran = $request->get('dataukuran');
+                $sum = array_sum($jumlah);
+
+                if ($sum != intval($request->get('stok_lolos_sortir'))) {
+                    return redirect()->back()->withErrors('Jumlah yang harus dimasukkan sebanyak ' . $request->get('stok_lolos_sortir'));
+                }
+                $arr = [];
+                foreach ($dataukuran as $key => $value) {
+                    if (!empty($jumlah[$key])) {
+                        $x['ukuran'] = $value;
+                        $x['jumlah'] = $jumlah[$key];
+                        array_push($arr, $x);
+                    }
+                }
+                DetailFinishing::where('finishing_id', $finish->id)->delete();
+                foreach ($arr as $key => $value) {
+                    $detail = new DetailFinishing();
+                    $detail->finishing_id = $finish->id;
+                    $detail->ukuran = $value['ukuran'];
+                    $detail->jumlah = $value['jumlah'];
+                    $detail->save();
+                }
+
+                //warehouse
+                $warehouse = new Warehouse();
+                $warehouse->finishing_id = $finish->id;
+                $warehouse->harga_produk = 0;
+                $warehouse->save();
+
+                foreach ($arr as $key => $value) {
+                    $detail = new DetailWarehouse();
+                    $detail->warehouse_id = $warehouse->id;
+                    $detail->ukuran = $value['ukuran'];
+                    $detail->jumlah =  $value['jumlah'];
+                    $detail->save();
+                }
+
+
+                $jumlah = $request->get('jumlahdiretur');
+                $dataukuran = $request->get('dataukurandiretur');
+                $sum = array_sum($jumlah);
+
+                if ($jumlah > 0) {
+                    $notif = new Notification();
+                    $notif->description = "ada barang yang diretur, silahkan di cek";
+                    $notif->url = route('retur.index');
+                    $notif->aktif = 0;
+                    $notif->role = 'production';
+                    $notif->save();
+                }
+
+                if ($sum != intval($request->get('produk_diretur'))) {
+                    return redirect()->back()->withErrors('Jumlah di retur yang harus dimasukkan sebanyak ' . $request->get('produk_diretur'));
+                }
+                $arr = [];
+                foreach ($dataukuran as $key => $value) {
+                    if (!empty($jumlah[$key])) {
+                        $x['ukuran'] = $value;
+                        $x['jumlah'] = $jumlah[$key];
+                        array_push($arr, $x);
+                    }
+                }
+
+                FinishingRetur::where('finishing_id', $finish->id)->delete();
+                foreach ($arr as $key => $value) {
+                    $detail = new FinishingRetur();
+                    $detail->finishing_id = $finish->id;
+                    $detail->ukuran = $value['ukuran'];
+                    $detail->jumlah = $value['jumlah'];
+                    $detail->save();
+                }
+
+                $jumlah = $request->get('jumlahdibuang');
+                $dataukuran = $request->get('dataukurandibuang');
+                $sum = array_sum($jumlah);
+
+                if ($sum != intval($request->get('produk_dibuang'))) {
+                    return redirect()->back()->withErrors('Jumlah di buang yang harus dimasukkan sebanyak ' . $request->get('produk_dibuang'));
+                }
+                $arr = [];
+                foreach ($dataukuran as $key => $value) {
+                    if (!empty($jumlah[$key])) {
+                        $x['ukuran'] = $value;
+                        $x['jumlah'] = $jumlah[$key];
+                        array_push($arr, $x);
+                    }
+                }
+
+                FinishingDibuang::where('finishing_id', $finish->id)->delete();
+                foreach ($arr as $key => $value) {
+                    $detail = new FinishingDibuang();
+                    $detail->finishing_id = $finish->id;
+                    $detail->ukuran = $value['ukuran'];
+                    $detail->jumlah = $value['jumlah'];
+                    $detail->save();
+                }
+
+                $notif = new Notification();
+                $notif->description = "sortir telah dikirim ke gudang, silahkan di cek";
+                $notif->url = route('warehouse.warehouse.index');
+                $notif->aktif = 0;
+                $notif->role = 'warehouse';
+                $notif->save();
+
+                session(['notification' => 1]);
+
+                $status = 'produk keluar';
+                DB::commit();
+                return redirect()->route('warehouse.finishing.index')->with('success', $status . ' berhasil disimpan');
+            } catch (\Throwable $th) {
+                //throw $th;
+                DB::rollBack();
+            }
+        }
+    }
 }

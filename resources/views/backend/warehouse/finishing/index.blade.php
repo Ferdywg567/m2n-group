@@ -131,6 +131,12 @@
                                                         <a class="dropdown-item hapus" data-id="{{$item->id}}"
                                                             href="#"><i class="ri-delete-bin-fill"></i>
                                                             Hapus</a>
+                                                        @if (!empty($item->tanggal_qc))
+                                                        <a class="dropdown-item" data-id="{{$item->id}}"
+                                                            href="{{route('warehouse.finishing.getkeluar',[$item->id])}}"><i
+                                                                class="ri-arrow-right-circle-line"></i>
+                                                            Keluar</a>
+                                                        @endif
 
                                                     </div>
                                                 </div>
@@ -244,7 +250,8 @@
                 <h5 class="modal-title col-md-12" id="exampleModalLabel">
                     <span class="float left text-primary" id="title_kode"></span>
                     <span id="test" class=" float-right text-dark"> <img src="{{asset('assets/img/logo.png')}}" alt=""
-                            class="mr-1" srcset="" width="30">GARMENT</span></h5>
+                            class="mr-1" srcset="" width="30">GARMENT</span>
+                </h5>
             </div>
             <form action="{{route('warehouse.finishing.cetak')}}" target="_blank" method="post">
                 @csrf

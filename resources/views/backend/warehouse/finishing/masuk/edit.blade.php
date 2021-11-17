@@ -176,7 +176,7 @@
                                 <div class="row">
                                     <div class="col-md-12 text-center">
                                         <a type="button" class="btn btn-secondary"
-                                            href="{{route('warehouse.finishing.index')}}">Close</a>
+                                            href="{{route('warehouse.finishing.index')}}">Batal</a>
                                             <button type="submit" class="btn btn-primary">Update</button>
                                     </div>
                                 </div>
