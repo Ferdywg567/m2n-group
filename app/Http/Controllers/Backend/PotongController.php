@@ -430,4 +430,70 @@ class PotongController extends Controller
             ]);
         }
     }
+
+    public function getselesai(Request $request, $id)
+    {
+        $potong = Potong::with(['detail_potong', 'bahan'])->where('id', $id)->first();
+        if ($potong->status == 'potong masuk') {
+            return view("backend.potong.masuk.selesai", ['potong' => $potong]);
+        }
+    }
+
+    public function storeselesai(Request $request, $id)
+    {
+
+        if ($request->get('status') == 'potong selesai') {
+            $validator = Validator::make($request->all(), [
+                'kode_transaksi' =>  'required',
+                'no_surat' => 'required',
+                'tanggal_potong' => 'required|date_format:"Y-m-d"',
+                'estimasi_selesai_potong' => 'required|date_format:"Y-m-d"',
+                'hasil_cutting' => 'required|integer',
+                'konversi' => 'required'
+            ]);
+        }
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator->errors())->withInput();
+        } else {
+
+            DB::beginTransaction();
+            try {
+                if ($request->get('status') == 'potong selesai') {
+                    $potong = Potong::findOrFail($id);
+                    $jumlah = $request->get('jumlah');
+                    $dataukuran = $request->get('ukuran');
+                    $potong->no_surat = $request->get('no_surat');
+                    $sum = array_sum($jumlah);
+                    if ($sum != intval($request->get('hasil_cutting'))) {
+                        return redirect()->back()->withErrors('Jumlah yang harus dimasukkan sebanyak ' . $request->get('hasil_cutting'));
+                    }
+                    $arr = [];
+                    foreach ($dataukuran as $key => $value) {
+                        if (!empty($jumlah[$key])) {
+                            $x['ukuran'] = $value;
+                            $x['jumlah'] = $jumlah[$key];
+                            array_push($arr, $x);
+                        }
+                    }
+                    $potong->status = "potong selesai";
+                    $potong->hasil_cutting = $request->get('hasil_cutting');
+                    $potong->konversi = $request->get('konversi');
+                    $potong->save();
+
+                    foreach ($arr as $key => $value) {
+                        $detail = new DetailPotong();
+                        $detail->potong_id = $potong->id;
+                        $detail->size = strtoupper($value['ukuran']);
+                        $detail->jumlah = $value['jumlah'];
+                        $detail->save();
+                    }
+                }
+                DB::commit();
+                return redirect()->route('potong.index')->with('success', 'Data potong berhasil disimpan');
+            } catch (\Throwable $th) {
+                //throw $th;
+                DB::rollBack();
+            }
+        }
+    }
 }

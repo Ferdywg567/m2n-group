@@ -79,6 +79,8 @@ Route::group(['prefix' => 'production', 'namespace' => 'Backend', 'middleware' =
         Route::get('/getdatapotong', 'PotongController@getDataPotong')->name('getdata');
         Route::get('/getdataprint', 'PotongController@getDataPrint')->name('getdataprint');
         Route::get('/update_status', 'PotongController@update_status')->name('update_status');
+        Route::get('/selesai/{id}', 'PotongController@getselesai')->name('getselesai');
+        Route::post('/selesai/{id}', 'PotongController@storeselesai')->name('storeselesai');
     });
     Route::resource('potong', 'PotongController');
 
@@ -89,6 +91,8 @@ Route::group(['prefix' => 'production', 'namespace' => 'Backend', 'middleware' =
         Route::get('/getdatajahit', 'JahitController@getDataJahit')->name('getdata');
         Route::get('/pembayaran/{id}','JahitController@pembayaranVendor')->name('pembayaran');
         Route::get('/update_status', 'JahitController@update_status')->name('update_status');
+        Route::get('/selesai/{id}', 'JahitController@getselesai')->name('getselesai');
+        Route::post('/selesai/{id}', 'JahitController@storeselesai')->name('storeselesai');
         Route::put('/pembayaran/update/{id}','JahitController@pembayaranVendorUpdate')->name('pembayaran.update');
     });
     Route::resource('jahit', 'JahitController');

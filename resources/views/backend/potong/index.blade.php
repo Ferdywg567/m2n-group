@@ -135,6 +135,12 @@
                                                             <a class="dropdown-item hapus" data-id="{{$item->id}}"
                                                                 href="#"><i class="ri-delete-bin-fill"></i>
                                                                 Hapus</a>
+                                                            @if ($item->status_potong == 'selesai')
+                                                            <a class="dropdown-item" data-id="{{$item->id}}"
+                                                                href="{{route('potong.getselesai',[$item->id])}}"><i
+                                                                    class="ri-arrow-right-circle-line"></i>
+                                                                Selesai</a>
+                                                            @endif
 
                                                         </div>
                                                     </div>

@@ -688,4 +688,140 @@ class JahitController extends Controller
             ]);
         }
     }
+
+
+    public function getselesai(Request $request, $id)
+    {
+        $jahit = Jahit::where('status', 'jahitan masuk')->where('id', $id)->first();
+        if ($jahit->status == 'jahitan masuk') {
+            return view("backend.jahit.masuk.selesai", ['jahit' => $jahit]);
+        }
+    }
+
+    public function storeselesai(Request $request, $id)
+    {
+        $status = $request->get('status');
+        if ($status == 'jahitan selesai') {
+            if ($request->get('vendor_jahit') == 'internal') {
+                $validasi = [
+                    'kode_transaksi' =>  'required',
+                    'no_surat' => 'required',
+                    'vendor_jahit' => 'required',
+                    'berhasil_jahit' => 'required|integer',
+                ];
+            } else {
+                $validasi = [
+                    'kode_transaksi' =>  'required',
+                    'no_surat' => 'required',
+                    'vendor_jahit' => 'required',
+                    'berhasil_jahit' => 'required|integer',
+                    'nama_vendor' => 'required',
+                    'harga_vendor' => 'required'
+                ];
+            }
+            $validator = Validator::make($request->all(), $validasi);
+        }
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator->errors())->withInput();
+        } else {
+
+            DB::beginTransaction();
+            try {
+                $jahit = Jahit::findOrFail($id);
+                if ($request->get('status') == 'jahitan selesai') {
+
+                    $jahit->berhasil = $request->get('berhasil_jahit');
+                    $jahit->status = "jahitan selesai";
+                    $jahit->status_jahit = "selesai";
+                    //direpair
+                    $direpair = $request->get('jumlahdirepair');
+                    $dibuang = $request->get('jumlahdibuang');
+                    $detailjahit = DetailJahit::where('jahit_id', $jahit->id)->get();
+
+                    foreach ($detailjahit as $key => $value) {
+                        $jumdirepair = $direpair[$key];
+                        if ($jumdirepair < 0 || $jumdirepair == null) {
+                            $jumdirepair = 0;
+                        }
+
+                        $jumdibuang = $dibuang[$key];
+                        if ($jumdibuang < 0 || $jumdibuang == null) {
+                            $jumdibuang = 0;
+                        }
+
+                        $cek = DetailJahit::where('id', $value->id)->where('size', $value->size)->first();
+
+                        if ($cek) {
+
+                            $cek->jahit_id = $jahit->id;
+                            $cek->size = $cek->size;
+                            $cek->jumlah = $cek->jumlah - $jumdibuang - $jumdirepair;
+                            $cek->save();
+                        }
+                    }
+
+                    $jumlah = $request->get('jumlahdirepair');
+                    $dataukuran = $request->get('dataukurandirepair');
+                    $sum = array_sum($jumlah);
+                    if ($sum != intval($request->get('barang_direpair'))) {
+                        return redirect()->back()->withErrors('Jumlah repair yang harus dimasukkan sebanyak ' . $request->get('barang_direpair'));
+                    }
+                    $arr = [];
+                    foreach ($dataukuran as $key => $value) {
+                        if (!empty($jumlah[$key])) {
+                            $x['ukuran'] = $value;
+                            $x['jumlah'] = $jumlah[$key];
+                            array_push($arr, $x);
+                        }
+                    }
+
+                    foreach ($arr as $key => $value) {
+                        $detail = new JahitDirepair();
+                        $detail->jahit_id = $jahit->id;
+                        $detail->ukuran = $value['ukuran'];
+                        $detail->jumlah = $value['jumlah'];
+                        $detail->save();
+                    }
+
+
+                    //dibuang
+                    unset($arr);
+                    $jumlah = $request->get('jumlahdibuang');
+                    $dataukuran = $request->get('dataukurandibuang');
+                    $sum = array_sum($jumlah);
+                    if ($sum != intval($request->get('barang_dibuang'))) {
+                        return redirect()->back()->withErrors('Jumlah dibuang yang harus dimasukkan sebanyak ' . $request->get('barang_dibuang'));
+                    }
+                    $arr = [];
+                    foreach ($dataukuran as $key => $value) {
+                        if (!empty($jumlah[$key])) {
+                            $x['ukuran'] = $value;
+                            $x['jumlah'] = $jumlah[$key];
+                            array_push($arr, $x);
+                        }
+                    }
+
+                    foreach ($arr as $key => $value) {
+                        $detail = new JahitDibuang();
+                        $detail->jahit_id = $jahit->id;
+                        $detail->ukuran = $value['ukuran'];
+                        $detail->jumlah = $value['jumlah'];
+                        $detail->save();
+                    }
+
+                    $jahit->gagal_jahit = $request->get('gagal_jahit');
+                    $jahit->barang_direpair = $request->get('barang_direpair');
+                    $jahit->barang_dibuang = $request->get('barang_dibuang');
+                    $jahit->keterangan_direpair = $request->get('keterangan_direpair');
+                    $jahit->keterangan_dibuang = $request->get('keterangan_dibuang');
+                    $jahit->save();
+                }
+                DB::commit();
+                return redirect()->route('jahit.index')->with('success', 'Data jahit berhasil disimpan');
+            } catch (\Throwable $th) {
+                //throw $th;
+                DB::rollBack();
+            }
+        }
+    }
 }
