@@ -149,7 +149,7 @@
                                         <div class="form-group">
                                             <label for="total_harga">Total Harga</label>
                                             <input type="text" class="form-control" required readonly id="total_harga"
-                                                value="{{$jahit->total_harga}}"
+                                                value="@rupiah($jahit->total_harga)"
                                                 name="total_harga">
                                         </div>
                                     </div>
@@ -179,8 +179,8 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="nominal1">Nominal</label>
-                                            <input type="number" min="1" class="form-control" required id="nominal1"
-                                                readonly value="{{$item->nominal}}" name="nominal1">
+                                            <input type="text" min="1" class="form-control" required id="nominal1"
+                                                readonly value="@rupiah($item->nominal)" name="nominal1">
                                         </div>
                                     </div>
                                 </div>
@@ -207,8 +207,8 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="nominal1">Nominal</label>
-                                            <input type="number" min="1" class="form-control" required id="nominal1"
-                                                readonly value="{{$item->nominal}}" name="nominal1">
+                                            <input type="text" min="1" class="form-control" required id="nominal1"
+                                                readonly value="@rupiah($item->nominal)" name="nominal1">
                                         </div>
                                     </div>
                                 </div>
@@ -236,8 +236,8 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="nominal2">Nominal</label>
-                                            <input type="number" min="1" class="form-control" required id="nominal2"
-                                                readonly value="{{$item->nominal}}" name="nominal2">
+                                            <input type="text" min="1" class="form-control" required id="nominal2"
+                                                readonly value="@rupiah($item->nominal)" name="nominal2">
                                         </div>
                                     </div>
                                 </div>
@@ -262,8 +262,8 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="nominal3">Nominal</label>
-                                            <input type="number" min="1" class="form-control" required id="nominal3"
-                                                readonly value="{{$item->nominal}}" name="nominal3">
+                                            <input type="text" min="1" class="form-control" required id="nominal3"
+                                                readonly value="@rupiah($item->nominal)" name="nominal3">
                                         </div>
                                     </div>
                                 </div>
@@ -275,7 +275,7 @@
                                         <div class="form-group">
                                             <label for="sisa_bayar">Sisa Bayar</label>
                                             <input type="text" class="form-control" readonly required id="sisa_bayar"
-                                                value="{{$jahit->sisa_bayar}}" name="sisa_bayar">
+                                                value="@rupiah($jahit->sisa_bayar)" name="sisa_bayar">
                                         </div>
                                     </div>
 

@@ -281,6 +281,25 @@
                     }
                 });
               }
+                var nominal1 = $('#nominal1').val();
+                var nominal2 = $('#nominal2').val();
+                var nominal3 = $('#nominal3').val();
+
+                  if(nominal1 == ''){
+                    $('#nominal1').mask('000.000.000.000', {
+                        reverse: true
+                    });
+                  }
+                  if(nominal2 == ''){
+                    $('#nominal2').mask('000.000.000.000', {
+                        reverse: true
+                    });
+                  }
+                  if(nominal3 == ''){
+                    $('#nominal3').mask('000.000.000.000', {
+                     reverse: true
+                    });
+                  }
               $('#kdbahanreadonly').hide()
               $('#ukuranm').hide()
               $('#ukuranl').hide()
@@ -312,6 +331,9 @@
                   var nominal1 = $('#nominal1').val();
                   var nominal2 = $('#nominal2').val();
                   var nominal3 = $('#nominal3').val();
+                  nominal1 = convertToAngka(nominal1)
+                  nominal2 = convertToAngka(nominal2)
+                  nominal3 = convertToAngka(nominal3)
                   var total_harga = $('#total_harga').val()
                   total_harga = convertToAngka(total_harga)
                   var sisa_bayar = 0;
@@ -337,7 +359,7 @@
 
                     }
                     console.log(sisa_bayar);
-                    $('#sisa_bayar').val(sisa_bayar)
+                    $('#sisa_bayar').val("Rp. "+convertToRupiah(sisa_bayar))
                })
 
                $('form[id=formPembayaran]').submit(function(){
@@ -349,6 +371,7 @@
                 $('#dataalert').addClass('alert-danger')
                 if(data == 'Lunas'){
                     var nominal = $('#nominal1').val()
+                    nominal = convertToAngka(nominal)
                     if(parseInt(hasil) != parseInt(nominal)){
                     $('#dataalert').show()
                     $('#dataalert').text('Nominal pembayaran harus sesuai dengan sisa bayar')
@@ -361,6 +384,9 @@
                     var nominal = $('#nominal1').val()
                     var nominal2 = $('#nominal2').val()
                     var nominal3 = $('#nominal3').val()
+                    nominal = convertToAngka(nominal)
+                    nominal2 = convertToAngka(nominal2)
+                    nominal3 = convertToAngka(nominal3)
                     if(nominal2 > 0 && nominal > 0 && nominal3 > 0){
                         var total = parseInt(nominal) + parseInt(nominal2) + parseInt(nominal3)
                         if(parseInt(hasil) != parseInt(total)){

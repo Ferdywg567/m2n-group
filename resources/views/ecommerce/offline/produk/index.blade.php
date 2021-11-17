@@ -6,7 +6,11 @@
 @section('content')
 
 <section class="section mt-4">
-
+    <div class="btn-group">
+        <a href="{{route('offline.produk.create')}}" class="btn btn-primary rounded">
+            Input Data <i class="fas fa-plus"></i>
+        </a>
+    </div>
     <div class="section-body mt-4">
         <div class="row">
             <div class="col-md-12">
@@ -49,7 +53,10 @@
                                                         class="ri-eye-fill"></i>
                                                     Detail</a>
 
-
+                                                <a class="dropdown-item"
+                                                    href="{{route('offline.produk.edit',[$item->id])}}"><i
+                                                        class="ri-edit-fill"></i>
+                                                    Edit</a>
 
 
                                             </div>

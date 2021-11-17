@@ -5,7 +5,7 @@
 @section('cssnav', 'cssnav')
 @section('content')
 <style>
- 
+
     .dropzone {
         border: 2px dashed #dedede;
         border-radius: 5px;
@@ -27,7 +27,7 @@
 <div id="non-printable">
     <section class="section">
         <div class="section-header ">
-            <a class="btn btn-primary" href="{{route('ecommerce.produk.index')}}">
+            <a class="btn btn-primary" href="{{route('offline.produk.index')}}">
                 <i class="fas fa-arrow-left"></i>
             </a>
             <h1 class="ml-2">Edit Data | Produk</h1>
@@ -38,7 +38,7 @@
                     <div class="card">
                         <div class="card-body">
                             @include('ecommerce.admin.include.alert')
-                            <form id="formProduk" method="post" action="{{route('ecommerce.produk.store')}}"
+                            <form id="formProduk" method="post" action="{{route('offline.produk.store')}}"
                                 enctype="multipart/form-data">
                                 @csrf
                                 <div id="data-alert">
@@ -174,7 +174,7 @@
                                 <div class="row">
                                     <div class="col-md-12 text-center">
                                         <a type="button" class="btn btn-secondary"
-                                            href="{{route('ecommerce.produk.index')}}">Batal</a>
+                                            href="{{route('offline.produk.index')}}">Batal</a>
                                         <button type="submit" class="btn btn-primary btnmasuk"
                                             id="submit-all">Update</button>
                                     </div>
@@ -210,7 +210,7 @@
             var id = "{{$produk->id}}"
             var myDropzone = new Dropzone("div#dropzoneDragArea", {
             paramName: "file",
-            url: "{{route('ecommerce.produk.updatedata')}}",
+            url: "{{route('offline.produk.updatedata')}}",
             previewsContainer: 'div.dropzone-previews',
             addRemoveLinks: true,
             autoProcessQueue: false,
@@ -235,7 +235,7 @@
                 //get detail
                 var jumlahfile= [];
                 $.ajax({
-                    url:"{{route('ecommerce.produk.getdetailimage')}}",
+                    url:"{{route('offline.produk.getdetailimage')}}",
                     method:"GET",
                     async:false,
                     data:{
@@ -279,7 +279,7 @@
                         formUpload.append("oldimage",oldimage)
                         formUpload.append("id",id)
                             $.ajax({
-                                url: "{{route('ecommerce.produk.updatedata')}}",
+                                url: "{{route('offline.produk.updatedata')}}",
                                 method:"POST",
                                 data:formUpload,
                                 processData: false,
@@ -289,7 +289,7 @@
                                 },
                                 success:function(response){
                                     if(response.status){
-                                        window.location.href="{{route('ecommerce.produk.index')}}"
+                                        window.location.href="{{route('offline.produk.index')}}"
                                     }else{
                                         $('#data-alert').html(response.data)
                                     }
@@ -333,7 +333,7 @@
                     // console.log(response);
 
                     if(response.status){
-                        window.location.href="{{route('ecommerce.produk.index')}}"
+                        window.location.href="{{route('offline.produk.index')}}"
                     }else{
                         $('#data-alert').html(response.data)
                     }
@@ -347,7 +347,7 @@
                     // console.log(response);
 
                     if(response.status){
-                        window.location.href="{{route('ecommerce.produk.index')}}"
+                        window.location.href="{{route('offline.produk.index')}}"
                     }else{
                         $('#data-alert').html(response.data)
                     }

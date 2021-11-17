@@ -43,6 +43,13 @@ Route::group(['prefix' => 'admin/offline', 'namespace' => 'Ecommerce\Offline', '
         Route::post('update_detail_barang', 'TransaksiController@update_detail_barang')->name('update_detail_barang');
     });
 
+    Route::group(['prefix' => 'produk', 'as' => 'produk.'], function () {
+        Route::get('getdetailproduk', 'ProdukController@getDetailProduk')->name('getdetail');
+        Route::get('getdetailimage', 'ProdukController@getDetailImage')->name('getdetailimage');
+        Route::post('/update','ProdukController@update_data')->name('updatedata');
+    });
+
+
     Route::group(['prefix' => 'rekapitulasi', 'as' => 'rekapitulasi.'], function () {
         Route::get('cetak/{id}', 'RekapitulasiController@cetak')->name('cetak');
         Route::get('cetak_semua', 'RekapitulasiController@cetak_semua')->name('cetak_semua');

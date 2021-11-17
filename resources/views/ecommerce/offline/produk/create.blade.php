@@ -5,7 +5,7 @@
 @section('cssnav', 'cssnav')
 @section('content')
 <style>
-   
+
     .dropzone {
         border: 2px dashed #dedede;
         border-radius: 5px;
@@ -27,7 +27,7 @@
 <div id="non-printable">
     <section class="section">
         <div class="section-header ">
-            <a class="btn btn-primary" href="{{route('ecommerce.produk.index')}}">
+            <a class="btn btn-primary" href="{{route('offline.produk.index')}}">
                 <i class="fas fa-arrow-left"></i>
             </a>
             <h1 class="ml-2">Input Data | Produk</h1>
@@ -38,7 +38,7 @@
                     <div class="card">
                         <div class="card-body">
                             @include('ecommerce.admin.include.alert')
-                            <form id="formProduk" method="post" action="{{route('ecommerce.produk.store')}}"
+                            <form id="formProduk" method="post" action="{{route('offline.produk.store')}}"
                                 enctype="multipart/form-data">
                                 @csrf
                                 <div id="data-alert">
@@ -182,7 +182,7 @@
                                 <div class="row">
                                     <div class="col-md-12 text-center">
                                         <a type="button" class="btn btn-secondary"
-                                            href="{{route('ecommerce.produk.index')}}">Batal</a>
+                                            href="{{route('offline.produk.index')}}">Batal</a>
                                         <button type="submit" class="btn btn-primary btnmasuk"
                                             id="submit-all">Simpan</button>
                                     </div>
@@ -218,7 +218,7 @@
 
             var myDropzone = new Dropzone("div#dropzoneDragArea", {
             paramName: "file",
-            url: "{{ route('ecommerce.produk.store')}}",
+            url: "{{ route('offline.produk.store')}}",
             previewsContainer: 'div.dropzone-previews',
             addRemoveLinks: true,
             autoProcessQueue: false,
@@ -282,7 +282,7 @@
                     console.log(response);
 
                     if(response.status){
-                        window.location.href="{{route('ecommerce.produk.index')}}"
+                        window.location.href="{{route('offline.produk.index')}}"
                     }else{
                         $('#data-alert').html(response.data)
                     }
@@ -305,7 +305,7 @@
 
                     if(id != ''){
                         $.ajax({
-                            url:"{{route('ecommerce.produk.getdetail')}}",
+                            url:"{{route('offline.produk.getdetail')}}",
                             method:"GET",
                             data:{
                                 'id':id

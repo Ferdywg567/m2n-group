@@ -367,6 +367,7 @@
                 hasil = convertToAngka(hasil)
                 if(data == 'Lunas'){
                     var nominal = $('#nominal1').val()
+                    nominal = convertToAngka(nominal)
                     if(parseInt(hasil) != parseInt(nominal)){
                         $('#dataalert').addClass('alert-danger')
                     $('#dataalert').show()
@@ -380,6 +381,9 @@
                     var nominal = $('#nominal1').val()
                     var nominal2 = $('#nominal2').val()
                     var nominal3 = $('#nominal3').val()
+                    nominal = convertToAngka(nominal)
+                    nominal2 = convertToAngka(nominal2)
+                    nominal3 = convertToAngka(nominal3)
                     if(nominal2 > 0 && nominal > 0 && nominal3 > 0){
                         var total = parseInt(nominal) + parseInt(nominal2) + parseInt(nominal3)
                         if(parseInt(hasil) != parseInt(total)){

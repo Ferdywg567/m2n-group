@@ -11,11 +11,11 @@
 </style>
 
 <section class="section mt-4">
-    <div class="btn-group">
+    {{-- <div class="btn-group">
         <a href="{{route('ecommerce.produk.create')}}" class="btn btn-primary rounded">
             Input Data <i class="fas fa-plus"></i>
         </a>
-    </div>
+    </div> --}}
     <div class="section-body mt-4">
         <div class="row">
             <div class="col-md-12">
@@ -58,10 +58,10 @@
                                                         class="ri-eye-fill"></i>
                                                     Detail</a>
 
-                                                <a class="dropdown-item"
+                                                {{-- <a class="dropdown-item"
                                                     href="{{route('ecommerce.produk.edit',[$item->id])}}"><i
                                                         class="ri-edit-fill"></i>
-                                                    Edit</a>
+                                                    Edit</a> --}}
 
                                                 {{-- <a class="dropdown-item hapus" data-id="{{$item->id}}" href="#"><i
                                                         class="ri-delete-bin-fill"></i>

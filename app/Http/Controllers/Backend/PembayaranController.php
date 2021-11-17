@@ -409,7 +409,7 @@ class PembayaranController extends Controller
 
                     if ($pembayaran1 == 'Termin 1') {
 
-                
+
 
                         if ($nominal1 > 0 && $nominal2 > 0 && $nominal3 > 0) {
                             $total = $nominal1 + $nominal2 + $nominal3;
