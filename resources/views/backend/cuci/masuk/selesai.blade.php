@@ -27,17 +27,17 @@
             <a class="btn btn-primary" href="{{route('cuci.index')}}">
                 <i class="fas fa-arrow-left"></i>
             </a>
-            <h1 class="ml-2">Edit Data | Selesai</h1>
+            <h1 class="ml-2">Input Data | Selesai</h1>
         </div>
         <div class="section-body">
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <form action="{{route('cuci.update',[$cuci->id])}}" method="POST">
+                        <form action="{{route('cuci.storeselesai',[$cuci->id])}}" method="POST">
                             <div class="card-body">
                                 @include('backend.include.alert')
                                 @csrf
-                                @method('put')
+
                                 <div class="alert" role="alert" id="dataalert">
 
                                 </div>
@@ -51,7 +51,7 @@
                                             <div id="">
                                                 <input type="text" class="form-control"
                                                     value="{{$cuci->jahit->potong->bahan->kode_transaksi}}" readonly
-                                                    id="kdbahanreadkeluar" name="kdbahanreadkeluar">
+                                                    id="kode_transaksi" name="kode_transaksi">
                                             </div>
                                         </div>
 
@@ -200,15 +200,15 @@
                                 <label for="ukurandirepair" class="text-dark">Ukuran yang Diperbaiki</label>
                                 <div class="row">
 
-                                    @forelse ($cuci->cuci_direpair as $item)
+                                    @forelse ($cuci->detail_cuci as $item)
                                     <div class="col-md-2">
-                                        <input type="hidden" name="dataukurandirepair[]" value="{{$item->ukuran}}">
+                                        <input type="hidden" name="dataukurandirepair[]" value="{{$item->size}}">
                                         <div class="input-group mb-2">
                                             <div class="input-group-prepend">
-                                                <div class="input-group-text">{{$item->ukuran}}</div>
+                                                <div class="input-group-text">{{$item->size}}</div>
                                             </div>
                                             <input type="number" class="form-control" required id="jumlahdirepair"
-                                                name="jumlahdirepair[]" value="{{$item->jumlah}}">
+                                                name="jumlahdirepair[]" >
                                         </div>
                                     </div>
 
@@ -251,15 +251,15 @@
                                 <label for="ukurandibuang" class="text-dark">Ukuran yang Dibuang</label>
                                 <div class="row">
 
-                                    @forelse ($cuci->cuci_dibuang as $item)
+                                    @forelse ($cuci->detail_cuci as $item)
                                     <div class="col-md-2">
-                                        <input type="hidden" name="dataukurandibuang[]" value="{{$item->ukuran}}">
+                                        <input type="hidden" name="dataukurandibuang[]" value="{{$item->size}}">
                                         <div class="input-group mb-2">
                                             <div class="input-group-prepend">
-                                                <div class="input-group-text">{{$item->ukuran}}</div>
+                                                <div class="input-group-text">{{$item->size}}</div>
                                             </div>
                                             <input type="number" class="form-control" required id="jumlahdibuang"
-                                                name="jumlahdibuang[]" value="{{$item->jumlah}}">
+                                                name="jumlahdibuang[]" >
                                         </div>
                                     </div>
 
@@ -285,8 +285,8 @@
                                 <div class="row">
                                     <div class="col-md-12 text-center">
                                         <a type="button" class="btn btn-secondary"
-                                            href="{{route('cuci.index')}}">Close</a>
-                                            <button type="submit" class="btn btn-primary">Update</button>
+                                            href="{{route('cuci.index')}}">Batal</a>
+                                            <button type="submit" class="btn btn-primary">Simpan</button>
 
 
                                     </div>
@@ -340,7 +340,17 @@
               $('#kode_transaksiselectkeluar').select2()
               $('.btnmasuk').prop('id','btnsimpanmasuk')
 
+              $('#berhasil_cuci').on('keyup', function(){
+                  var data = $(this).val()
+                var jumlah_bahan = $('#jumlah_bahan').val()
 
+                if(parseInt(data) <= parseInt(jumlah_bahan)){
+                    var res = jumlah_bahan -  data;
+                    $('#gagal_cuci').val(res)
+                }else{
+                    $('#gagal_cuci').val(0)
+                }
+              })
               $('#vendor_cuci').on('change', function () {
                   var data = $(this).find(':selected').val()
 
@@ -357,7 +367,7 @@
 
                $('#barang_direpair').on('keyup', function(){
                    var nilai = $(this).val()
-                   var dibuang = $('#kain_gagal_cuci').val()
+                   var dibuang = $('#gagal_cuci').val()
                    nilai = parseInt(nilai)
                    dibuang = parseInt(dibuang)
                    if(nilai == 0){
@@ -370,7 +380,9 @@
                             $('#barang_dibuang').val(0)
                         }
                    }
+
                })
+
 
               $('#berhasil_cuci').on('keyup', function(){
                   var data = $(this).val()
@@ -483,17 +495,7 @@
             //         return false;
             //     }
             // })
-            $('#berhasil_cuci').on('keyup', function(){
-                  var data = $(this).val()
-                var jumlah_bahan = $('#jumlah_bahan').val()
 
-                if(parseInt(data) <= parseInt(jumlah_bahan)){
-                    var res = jumlah_bahan -  data;
-                    $('#gagal_cuci').val(res)
-                }else{
-                    $('#gagal_cuci').val(0)
-                }
-              })
             function emptyUkuran()
             {
                 $('#iddetails').val('')

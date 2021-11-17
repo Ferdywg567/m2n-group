@@ -102,6 +102,8 @@ Route::group(['prefix' => 'production', 'namespace' => 'Backend', 'middleware' =
         Route::get('/getdataprint', 'CuciController@getDataPrint')->name('getdataprint');
         Route::get('/getdatacuci', 'CuciController@getDataCuci')->name('getdata');
         Route::get('/update_status', 'CuciController@update_status')->name('update_status');
+        Route::get('/selesai/{id}', 'CuciController@getselesai')->name('getselesai');
+        Route::post('/selesai/{id}', 'CuciController@storeselesai')->name('storeselesai');
         Route::get('/pembayaran/{id}','CuciController@pembayaranVendor')->name('pembayaran');
         Route::put('/pembayaran/update/{id}','CuciController@pembayaranVendorUpdate')->name('pembayaran.update');
     });
