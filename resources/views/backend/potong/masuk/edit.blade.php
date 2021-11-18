@@ -56,7 +56,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="tanggal_potong">Tanggal Potong</label>
-                                            <input type="date" class="form-control" required  id="tanggal_potong"  value="{{$potong->tanggal_cutting}}"
+                                            <input type="date" class="form-control" required readonly  id="tanggal_potong" @if(empty($potong->tanggal_cutting))  value="{{date('Y-m-d')}}" @else value="{{$potong->tanggal_cutting}}"  @endif
                                                 name="tanggal_potong">
                                         </div>
                                     </div>

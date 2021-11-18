@@ -139,7 +139,7 @@
                                         <div class="form-group">
                                             <label for="jumlah_bahan_yang_dijahit">Jumlah Bahan Yang Dijahit</label>
                                             <div class="input-group mb-2">
-                                                <input type="number" class="form-control" required
+                                                <input type="text" class="form-control" required
                                                     value="{{old('jumlah_bahan_yang_dijahit')}}"
                                                     id="jumlah_bahan_yang_dijahit" readonly
                                                     name="jumlah_bahan_yang_dijahit">
@@ -185,7 +185,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="nominal1">Nominal</label>
-                                            <input type="number" min="1" class="form-control" required id="nominal1"
+                                            <input type="text" min="1" class="form-control" required id="nominal1"
                                                 value="{{old('nominal1')}}" name="nominal1">
                                         </div>
                                     </div>
@@ -208,7 +208,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="nominal">Nominal</label>
-                                            <input type="number" min="1" class="form-control" id="nominal2"
+                                            <input type="text" min="1" class="form-control" id="nominal2"
                                                 value="{{old('nominal2')}}" name="nominal2">
                                         </div>
                                     </div>
@@ -231,7 +231,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="nominal3">Nominal</label>
-                                            <input type="number" min="1" class="form-control" id="nominal3"
+                                            <input type="text" min="1" class="form-control" id="nominal3"
                                                 value="{{old('nominal3')}}" name="nominal3">
                                         </div>
                                     </div>
@@ -356,7 +356,8 @@
                             sisa_bayar = total_harga - nominal1;
                         }
 
-
+                    }else{
+                        sisa_bayar = total_harga
                     }
                     console.log(sisa_bayar);
                     $('#sisa_bayar').val("Rp. "+convertToRupiah(sisa_bayar))
@@ -526,7 +527,7 @@
                                 //         '<div class="input-group-prepend">'+
                                 //             '<div class="input-group-text">'+result.size+'</div>'+
                                 //         '</div>'+
-                                //         '<input type="number" class="form-control" required id="jumlah" name="jumlah[]" value="'+result.jumlah+'">'+
+                                //         '<input type="text" class="form-control" required id="jumlah" name="jumlah[]" value="'+result.jumlah+'">'+
                                 //     '</div>'+
                                 //    '</div>';
                                 //     if(i!=0 && i%6 == 0){

@@ -355,6 +355,8 @@
                         }
 
 
+                    }else{
+                        sisa_bayar = total_harga
                     }
                     console.log(sisa_bayar);
                     $('#sisa_bayar').val("Rp. "+convertToRupiah(sisa_bayar))
