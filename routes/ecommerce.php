@@ -17,16 +17,21 @@ Route::group(['namespace' => 'Ecommerce\Frontend'], function () {
             Route::get('/logout', 'AuthController@logout')->name('logout');
         });
 
-        Route::resource('product', 'ProductController');
+
         Route::group(['middleware' => ['role:ecommerce', 'auth'], 'prefix' => 'ecommerce'], function () {
 
             Route::group(['prefix' => 'alamat', 'as' => 'alamat.'], function () {
                 Route::post('/update_alamat', 'AlamatController@update_alamat')->name('update_alamat');
                 Route::get('/get_alamat', 'AlamatController@getAlamat')->name('get_alamat');
             });
+
             Route::resource('alamat', 'AlamatController');
             Route::resource('user', 'UserController');
         });
+        Route::group(['prefix' => 'product', 'as' => 'product.'], function () {
+            Route::get('/cari', 'ProductController@CariKategori')->name('kategori');
+        });
+        Route::resource('product', 'ProductController');
     });
 
     Route::get('/detail', function () {
@@ -35,9 +40,9 @@ Route::group(['namespace' => 'Ecommerce\Frontend'], function () {
     Route::get('/cart', function () {
         return view("ecommerce.frontend.cart.index");
     });
-    // Route::get('/user', function () {
-    //     return view("ecommerce.frontend.user.index");
-    // });
+    Route::get('/produk', function () {
+        return view("ecommerce.frontend.product.index");
+    });
     Route::get('/checkout', function () {
         return view("ecommerce.frontend.checkout.index");
     });

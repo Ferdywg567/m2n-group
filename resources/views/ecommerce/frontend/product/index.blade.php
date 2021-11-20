@@ -1,6 +1,19 @@
 @extends('ecommerce.frontend.main')
 
 @section('content')
+<div class="breadcrumb-area bg-white" style="margin-top: -2%">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                <a href="/" class="text-left"><i class="ri-arrow-left-line"></i> Kembali</a>
+
+            </div>
+            <div class="col-md-10" style="margin-left: -80px !important;">
+                <h3 class="text-center">{{$data}}</h3>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="shop-area pt-20 pb-120">
     <div class="container">
         <div class="row flex-row-reverse">

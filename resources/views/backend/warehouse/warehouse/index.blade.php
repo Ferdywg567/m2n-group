@@ -50,9 +50,8 @@
 
                                 @forelse ($warehouse as $item)
                                 @php
-                                $total = $warehouse->sum(function ($q){
-                                return $q->detail_warehouse->sum('jumlah');
-                                });
+                                $total = $item->detail_warehouse->sum('jumlah');
+
                                 @endphp
                                 <tr>
                                     <td>{{$loop->iteration}}</td>

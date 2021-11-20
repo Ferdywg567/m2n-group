@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Ecommerce\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Produk;
+use App\SubKategori;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -83,5 +84,34 @@ class ProductController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function CariKategori(Request $request)
+    {
+        $kategori = $request->get('kategori');
+
+        if ($kategori == 'Semua Kategori') {
+            $produk = Produk::all();
+        } else {
+            $produk = Produk::with(['warehouse' => function ($q) use ($kategori) {
+                $q->with(['finishing' => function ($q) use ($kategori) {
+                    $q->with(['cuci' => function ($q) use ($kategori) {
+                        $q->with(['jahit' => function ($q) use ($kategori) {
+                            $q->with(['potong' => function ($q) use ($kategori) {
+                                $q->with(['bahan'  => function ($q) use ($kategori) {
+                                    $q->with(['detail_sub' => function ($q) use ($kategori) {
+                                        $q->with(['sub_kategori' => function ($q) use ($kategori) {
+                                            $q->where('nama_kategori', $kategori);
+                                        }]);
+                                    }]);
+                                }]);
+                            }]);
+                        }]);
+                    }]);
+                }]);
+            }])->get();
+        }
+
+        return view('ecommerce.frontend.product.index', ['produk' => $produk, 'data' => $kategori]);
     }
 }

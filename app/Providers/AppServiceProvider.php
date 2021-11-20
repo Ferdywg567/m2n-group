@@ -3,6 +3,7 @@
 namespace App\Providers;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use App\SubKategori;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,6 +26,10 @@ class AppServiceProvider extends ServiceProvider
     {
         Blade::directive('rupiah', function ($expression) {
             return "Rp. <?php echo number_format($expression, 2, ',', '.'); ?>";
+        });
+
+        Blade::directive('data_kategori', function () {
+            return SubKategori::all();
         });
     }
 }
