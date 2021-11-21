@@ -75,6 +75,9 @@ class ProdukController extends Controller
             $produk->harga = $request->get('harga');
             $produk->stok = $request->get('stok');
             $produk->deskripsi_produk = $request->get('deskripsi_produk');
+            $produk->kategori =  $request->get('kategori');
+            $produk->sub_kategori =  $request->get('sub_kategori');
+            $produk->detail_sub_kategori =  $request->get('detail_sub_kategori');
             $hargapromo = 0;
             if ($request->get('promo') != 0) {
                 $promo = Promo::findOrFail($request->get('promo'));
@@ -121,6 +124,10 @@ class ProdukController extends Controller
     public function show($id)
     {
         $produk = Produk::findOrFail($id);
+        $produk->kategori = $produk->warehouse->finishing->cuci->jahit->potong->bahan->detail_sub->sub_kategori->kategori->nama_kategori;
+        $produk->sub_kategori = $produk->warehouse->finishing->cuci->jahit->potong->bahan->detail_sub->sub_kategori->nama_kategori;
+        $produk->detail_sub_kategori = $produk->warehouse->finishing->cuci->jahit->potong->bahan->detail_sub->nama_kategori;
+        $produk->save();
         $today = date('Y-m-d');
         $promo = Promo::whereDate('promo_mulai', '<=', $today)->whereDate('promo_berakhir', '>=', $today)->get();
         $detail = DetailProduk::where('produk_id', $id)->get();

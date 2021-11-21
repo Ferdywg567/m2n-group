@@ -42,7 +42,6 @@
                                     <th scope="col">Nama Produk</th>
                                     <th scope="col">Siap Jual</th>
                                     <th scope="col">Harga Jual</th>
-
                                     <th scope="col">Aksi</th>
                                 </tr>
                             </thead>

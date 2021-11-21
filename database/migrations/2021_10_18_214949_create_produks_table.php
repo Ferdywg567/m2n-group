@@ -25,6 +25,9 @@ class CreateProduksTable extends Migration
             $table->integer('harga')->default(0);
             $table->integer('harga_promo')->default(0);
             $table->string('status')->nullable();
+            $table->string('kategori')->nullable();
+            $table->string('sub_kategori')->nullable();
+            $table->string('detail_sub_kategori')->nullable();
             $table->timestamps();
         });
     }

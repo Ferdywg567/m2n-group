@@ -21,19 +21,50 @@
 
                 <div class="shop-bottom-area">
                     <div class="row">
+                        @forelse ($produk as $item)
                         <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
-                            <div class="single-product-wrap mb-35">
+                            <div class="single-product-wrap mb-35 shadow rounded">
                                 <div class="product-img product-img-zoom mb-15">
-                                    <a href="product-details.html">
-                                        <img src="{{asset('ecommerce/assets/images/product/product-13.jpg')}}" alt="">
+                                    <a href="{{route('frontend.product.show',[$item->id])}}">
+                                        <img src="{{asset('uploads/images/produk/'.$item->detail_gambar[0]->filename)}}"
+                                            alt="">
                                     </a>
                                     <div class="product-action-2 tooltip-style-2">
                                         <button title="Wishlist"><i class="icon-heart"></i></button>
-                                        <button title="Quick View" data-toggle="modal" data-target="#exampleModal"><i class="icon-size-fullscreen icons"></i></button>
-                                        <button title="Compare"><i class="icon-refresh"></i></button>
                                     </div>
                                 </div>
-                                <div class="product-content-wrap-2 text-center">
+                                <div class="product-content-wrap-2 text-left ml-2">
+
+                                    <h3><a href="{{route('frontend.product.show',[$item->id])}}">Kaos Hitam Polos</a></h3>
+                                    <div class="product-price-2">
+                                        @if ($item->promo_id == null)
+                                        <span class="new-price">@rupiah($item->harga)</span>
+                                        @else
+                                        <span class="new-price">@rupiah($item->harga_promo)</span>
+                                        <span class="old-price">@rupiah($item->harga)</span>
+                                        @endif
+                                    </div>
+                                    <div class="product-rating-wrap pb-15">
+                                        <div class="product-rating">
+                                            <i class="icon_star"></i>
+                                            <i class="icon_star"></i>
+                                            <i class="icon_star"></i>
+                                            <i class="icon_star"></i>
+                                            <i class="icon_star gray"></i>
+                                        </div>
+                                        <span>(2)</span>
+                                    </div>
+                                </div>
+                                <div class="product-content-wrap-2 product-content-position text-left">
+                                    <h3><a href="{{route('frontend.product.show',[$item->id])}}">Kaos Hitam Polos</a></h3>
+                                    <div class="product-price-2">
+                                        @if ($item->promo_id == null)
+                                        <span class="new-price">@rupiah($item->harga)</span>
+                                        @else
+                                        <span class="new-price">@rupiah($item->harga_promo)</span>
+                                        <span class="old-price">@rupiah($item->harga)</span>
+                                        @endif
+                                    </div>
                                     <div class="product-rating-wrap">
                                         <div class="product-rating">
                                             <i class="icon_star"></i>
@@ -44,377 +75,17 @@
                                         </div>
                                         <span>(2)</span>
                                     </div>
-                                    <h3><a href="product-details.html">Basic Joggin Shorts</a></h3>
-                                    <div class="product-price-2">
-                                        <span>$20.50</span>
-                                    </div>
-                                </div>
-                                <div class="product-content-wrap-2 product-content-position text-center">
-                                    <div class="product-rating-wrap">
-                                        <div class="product-rating">
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star gray"></i>
-                                        </div>
-                                        <span>(2)</span>
-                                    </div>
-                                    <h3><a href="product-details.html">Basic Joggin Shorts</a></h3>
-                                    <div class="product-price-2">
-                                        <span>$20.50</span>
-                                    </div>
-                                    <div class="pro-add-to-cart">
-                                        <button title="Add to Cart">Add To Cart</button>
+                                    <div class="pro-add-to-cart pb-10">
+                                        <button class="btn btn-primary btn-block">Lihat Produk</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
-                            <div class="single-product-wrap mb-35">
-                                <div class="product-img product-img-zoom mb-15">
-                                    <a href="product-details.html">
-                                        <img src="{{asset('ecommerce/assets/images/product/product-13.jpg')}}" alt="">
-                                    </a>
-                                    <div class="product-action-2 tooltip-style-2">
-                                        <button title="Wishlist"><i class="icon-heart"></i></button>
-                                        <button title="Quick View" data-toggle="modal" data-target="#exampleModal"><i class="icon-size-fullscreen icons"></i></button>
-                                        <button title="Compare"><i class="icon-refresh"></i></button>
-                                    </div>
-                                </div>
-                                <div class="product-content-wrap-2 text-center">
-                                    <div class="product-rating-wrap">
-                                        <div class="product-rating">
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star gray"></i>
-                                        </div>
-                                        <span>(2)</span>
-                                    </div>
-                                    <h3><a href="product-details.html">Basic Joggin Shorts</a></h3>
-                                    <div class="product-price-2">
-                                        <span>$20.50</span>
-                                    </div>
-                                </div>
-                                <div class="product-content-wrap-2 product-content-position text-center">
-                                    <div class="product-rating-wrap">
-                                        <div class="product-rating">
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star gray"></i>
-                                        </div>
-                                        <span>(2)</span>
-                                    </div>
-                                    <h3><a href="product-details.html">Basic Joggin Shorts</a></h3>
-                                    <div class="product-price-2">
-                                        <span>$20.50</span>
-                                    </div>
-                                    <div class="pro-add-to-cart">
-                                        <button title="Add to Cart">Add To Cart</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
-                            <div class="single-product-wrap mb-35">
-                                <div class="product-img product-img-zoom mb-15">
-                                    <a href="product-details.html">
-                                        <img src="{{asset('ecommerce/assets/images/product/product-13.jpg')}}" alt="">
-                                    </a>
-                                    <div class="product-action-2 tooltip-style-2">
-                                        <button title="Wishlist"><i class="icon-heart"></i></button>
-                                        <button title="Quick View" data-toggle="modal" data-target="#exampleModal"><i class="icon-size-fullscreen icons"></i></button>
-                                        <button title="Compare"><i class="icon-refresh"></i></button>
-                                    </div>
-                                </div>
-                                <div class="product-content-wrap-2 text-center">
-                                    <div class="product-rating-wrap">
-                                        <div class="product-rating">
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star gray"></i>
-                                        </div>
-                                        <span>(2)</span>
-                                    </div>
-                                    <h3><a href="product-details.html">Basic Joggin Shorts</a></h3>
-                                    <div class="product-price-2">
-                                        <span>$20.50</span>
-                                    </div>
-                                </div>
-                                <div class="product-content-wrap-2 product-content-position text-center">
-                                    <div class="product-rating-wrap">
-                                        <div class="product-rating">
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star gray"></i>
-                                        </div>
-                                        <span>(2)</span>
-                                    </div>
-                                    <h3><a href="product-details.html">Basic Joggin Shorts</a></h3>
-                                    <div class="product-price-2">
-                                        <span>$20.50</span>
-                                    </div>
-                                    <div class="pro-add-to-cart">
-                                        <button title="Add to Cart">Add To Cart</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
-                            <div class="single-product-wrap mb-35">
-                                <div class="product-img product-img-zoom mb-15">
-                                    <a href="product-details.html">
-                                        <img src="{{asset('ecommerce/assets/images/product/product-13.jpg')}}" alt="">
-                                    </a>
-                                    <div class="product-action-2 tooltip-style-2">
-                                        <button title="Wishlist"><i class="icon-heart"></i></button>
-                                        <button title="Quick View" data-toggle="modal" data-target="#exampleModal"><i class="icon-size-fullscreen icons"></i></button>
-                                        <button title="Compare"><i class="icon-refresh"></i></button>
-                                    </div>
-                                </div>
-                                <div class="product-content-wrap-2 text-center">
-                                    <div class="product-rating-wrap">
-                                        <div class="product-rating">
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star gray"></i>
-                                        </div>
-                                        <span>(2)</span>
-                                    </div>
-                                    <h3><a href="product-details.html">Basic Joggin Shorts</a></h3>
-                                    <div class="product-price-2">
-                                        <span>$20.50</span>
-                                    </div>
-                                </div>
-                                <div class="product-content-wrap-2 product-content-position text-center">
-                                    <div class="product-rating-wrap">
-                                        <div class="product-rating">
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star gray"></i>
-                                        </div>
-                                        <span>(2)</span>
-                                    </div>
-                                    <h3><a href="product-details.html">Basic Joggin Shorts</a></h3>
-                                    <div class="product-price-2">
-                                        <span>$20.50</span>
-                                    </div>
-                                    <div class="pro-add-to-cart">
-                                        <button title="Add to Cart">Add To Cart</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
-                            <div class="single-product-wrap mb-35">
-                                <div class="product-img product-img-zoom mb-15">
-                                    <a href="product-details.html">
-                                        <img src="{{asset('ecommerce/assets/images/product/product-13.jpg')}}" alt="">
-                                    </a>
-                                    <div class="product-action-2 tooltip-style-2">
-                                        <button title="Wishlist"><i class="icon-heart"></i></button>
-                                        <button title="Quick View" data-toggle="modal" data-target="#exampleModal"><i class="icon-size-fullscreen icons"></i></button>
-                                        <button title="Compare"><i class="icon-refresh"></i></button>
-                                    </div>
-                                </div>
-                                <div class="product-content-wrap-2 text-center">
-                                    <div class="product-rating-wrap">
-                                        <div class="product-rating">
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star gray"></i>
-                                        </div>
-                                        <span>(2)</span>
-                                    </div>
-                                    <h3><a href="product-details.html">Basic Joggin Shorts</a></h3>
-                                    <div class="product-price-2">
-                                        <span>$20.50</span>
-                                    </div>
-                                </div>
-                                <div class="product-content-wrap-2 product-content-position text-center">
-                                    <div class="product-rating-wrap">
-                                        <div class="product-rating">
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star gray"></i>
-                                        </div>
-                                        <span>(2)</span>
-                                    </div>
-                                    <h3><a href="product-details.html">Basic Joggin Shorts</a></h3>
-                                    <div class="product-price-2">
-                                        <span>$20.50</span>
-                                    </div>
-                                    <div class="pro-add-to-cart">
-                                        <button title="Add to Cart">Add To Cart</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
-                            <div class="single-product-wrap mb-35">
-                                <div class="product-img product-img-zoom mb-15">
-                                    <a href="product-details.html">
-                                        <img src="{{asset('ecommerce/assets/images/product/product-13.jpg')}}" alt="">
-                                    </a>
-                                    <div class="product-action-2 tooltip-style-2">
-                                        <button title="Wishlist"><i class="icon-heart"></i></button>
-                                        <button title="Quick View" data-toggle="modal" data-target="#exampleModal"><i class="icon-size-fullscreen icons"></i></button>
-                                        <button title="Compare"><i class="icon-refresh"></i></button>
-                                    </div>
-                                </div>
-                                <div class="product-content-wrap-2 text-center">
-                                    <div class="product-rating-wrap">
-                                        <div class="product-rating">
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star gray"></i>
-                                        </div>
-                                        <span>(2)</span>
-                                    </div>
-                                    <h3><a href="product-details.html">Basic Joggin Shorts</a></h3>
-                                    <div class="product-price-2">
-                                        <span>$20.50</span>
-                                    </div>
-                                </div>
-                                <div class="product-content-wrap-2 product-content-position text-center">
-                                    <div class="product-rating-wrap">
-                                        <div class="product-rating">
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star gray"></i>
-                                        </div>
-                                        <span>(2)</span>
-                                    </div>
-                                    <h3><a href="product-details.html">Basic Joggin Shorts</a></h3>
-                                    <div class="product-price-2">
-                                        <span>$20.50</span>
-                                    </div>
-                                    <div class="pro-add-to-cart">
-                                        <button title="Add to Cart">Add To Cart</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
-                            <div class="single-product-wrap mb-35">
-                                <div class="product-img product-img-zoom mb-15">
-                                    <a href="product-details.html">
-                                        <img src="{{asset('ecommerce/assets/images/product/product-13.jpg')}}" alt="">
-                                    </a>
-                                    <div class="product-action-2 tooltip-style-2">
-                                        <button title="Wishlist"><i class="icon-heart"></i></button>
-                                        <button title="Quick View" data-toggle="modal" data-target="#exampleModal"><i class="icon-size-fullscreen icons"></i></button>
-                                        <button title="Compare"><i class="icon-refresh"></i></button>
-                                    </div>
-                                </div>
-                                <div class="product-content-wrap-2 text-center">
-                                    <div class="product-rating-wrap">
-                                        <div class="product-rating">
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star gray"></i>
-                                        </div>
-                                        <span>(2)</span>
-                                    </div>
-                                    <h3><a href="product-details.html">Basic Joggin Shorts</a></h3>
-                                    <div class="product-price-2">
-                                        <span>$20.50</span>
-                                    </div>
-                                </div>
-                                <div class="product-content-wrap-2 product-content-position text-center">
-                                    <div class="product-rating-wrap">
-                                        <div class="product-rating">
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star gray"></i>
-                                        </div>
-                                        <span>(2)</span>
-                                    </div>
-                                    <h3><a href="product-details.html">Basic Joggin Shorts</a></h3>
-                                    <div class="product-price-2">
-                                        <span>$20.50</span>
-                                    </div>
-                                    <div class="pro-add-to-cart">
-                                        <button title="Add to Cart">Add To Cart</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
-                            <div class="single-product-wrap mb-35">
-                                <div class="product-img product-img-zoom mb-15">
-                                    <a href="product-details.html">
-                                        <img src="{{asset('ecommerce/assets/images/product/product-13.jpg')}}" alt="">
-                                    </a>
-                                    <div class="product-action-2 tooltip-style-2">
-                                        <button title="Wishlist"><i class="icon-heart"></i></button>
-                                        <button title="Quick View" data-toggle="modal" data-target="#exampleModal"><i class="icon-size-fullscreen icons"></i></button>
-                                        <button title="Compare"><i class="icon-refresh"></i></button>
-                                    </div>
-                                </div>
-                                <div class="product-content-wrap-2 text-center">
-                                    <div class="product-rating-wrap">
-                                        <div class="product-rating">
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star gray"></i>
-                                        </div>
-                                        <span>(2)</span>
-                                    </div>
-                                    <h3><a href="product-details.html">Basic Joggin Shorts</a></h3>
-                                    <div class="product-price-2">
-                                        <span>$20.50</span>
-                                    </div>
-                                </div>
-                                <div class="product-content-wrap-2 product-content-position text-center">
-                                    <div class="product-rating-wrap">
-                                        <div class="product-rating">
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star gray"></i>
-                                        </div>
-                                        <span>(2)</span>
-                                    </div>
-                                    <h3><a href="product-details.html">Basic Joggin Shorts</a></h3>
-                                    <div class="product-price-2">
-                                        <span>$20.50</span>
-                                    </div>
-                                    <div class="pro-add-to-cart">
-                                        <button title="Add to Cart">Add To Cart</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
+                        @empty
+
+                        @endforelse
+
                     </div>
                     <div class="pro-pagination-style text-center mt-10">
                         <ul>
