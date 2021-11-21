@@ -124,6 +124,7 @@ class ProdukController extends Controller
     public function show($id)
     {
         $produk = Produk::findOrFail($id);
+        $produk->nama_produk = $produk->warehouse->finishing->cuci->jahit->potong->bahan->nama_bahan;
         $produk->kategori = $produk->warehouse->finishing->cuci->jahit->potong->bahan->detail_sub->sub_kategori->kategori->nama_kategori;
         $produk->sub_kategori = $produk->warehouse->finishing->cuci->jahit->potong->bahan->detail_sub->sub_kategori->nama_kategori;
         $produk->detail_sub_kategori = $produk->warehouse->finishing->cuci->jahit->potong->bahan->detail_sub->nama_kategori;

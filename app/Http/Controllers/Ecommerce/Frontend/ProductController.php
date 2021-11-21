@@ -93,9 +93,58 @@ class ProductController extends Controller
         if ($kategori == 'Semua Kategori') {
             $produk = Produk::all();
         } else {
-            $produk = Produk::where('sub_kategori',$kategori)->get();
+            $produk = Produk::where('sub_kategori', $kategori)->get();
         }
 
         return view('ecommerce.frontend.product.index', ['produk' => $produk, 'data' => $kategori]);
+    }
+
+    public function removeDuplicate($data)
+    {
+        if ($data) {
+            $data = $data->toArray();
+            $data = array_unique($data, SORT_REGULAR);
+            return $data;
+        }
+    }
+
+    public function cari(Request $request)
+    {
+        if ($request->ajax()) {
+            $cari = $request->get('cari');
+            $sub_kategori = Produk::select('sub_kategori')->where('sub_kategori', 'like', '%' . $cari . '%')->groupBy('sub_kategori')->get();
+            $kategori = Produk::select('kategori')->where('kategori', 'like', '%' . $cari . '%')->groupBy('kategori')->get();
+            $detail_sub_kategori = Produk::select('detail_sub_kategori')->where('detail_sub_kategori', 'like', '%' . $cari . '%')->groupBy('detail_sub_kategori')->get();
+            $nama_produk = Produk::select('nama_produk')->where('nama_produk', 'like', '%' . $cari . '%')->groupBy('nama_produk')->get();
+            $arr = [];
+            $sub_kategori = $this->removeDuplicate($sub_kategori);
+            $kategori = $this->removeDuplicate($kategori);
+            $detail_sub_kategori = $this->removeDuplicate($detail_sub_kategori);
+            $nama_produk = $this->removeDuplicate($nama_produk);
+            foreach ($sub_kategori as $key => $value) {
+                $x['sub_kategori'] =  $value['sub_kategori'];
+                array_push($arr, $value['sub_kategori']);
+            }
+            foreach ($kategori as $key => $value) {
+                $x['kategori'] =  $value['kategori'];
+                array_push($arr, $value['kategori']);
+            }
+            foreach ($detail_sub_kategori as $key => $value) {
+                $x['detail_sub_kategori'] =  $value['detail_sub_kategori'];
+                array_push($arr, $value['detail_sub_kategori']);
+            }
+            foreach ($nama_produk as $key => $value) {
+                $x['nama_produk'] =  $value['nama_produk'];
+                array_push($arr, $value['nama_produk']);
+            }
+            return response()->json(['status' => true, 'data' => $arr]);
+        }
+    }
+
+    public function showCari(Request $request)
+    {
+        $cari = $request->get('cari');
+        $produk = Produk::where('sub_kategori', 'like', '%' . $cari . '%')->orwhere('kategori', 'like', '%' . $cari . '%')->orwhere('detail_sub_kategori', 'like', '%' . $cari . '%')->orwhere('nama_produk', 'like', '%' . $cari . '%')->get();
+        return view('ecommerce.frontend.product.index', ['produk' => $produk, 'data' => $cari]);
     }
 }

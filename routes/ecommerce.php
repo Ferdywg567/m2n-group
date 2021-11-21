@@ -29,7 +29,9 @@ Route::group(['namespace' => 'Ecommerce\Frontend'], function () {
             Route::resource('user', 'UserController');
         });
         Route::group(['prefix' => 'product', 'as' => 'product.'], function () {
-            Route::get('/cari', 'ProductController@CariKategori')->name('kategori');
+            Route::get('/caribykategori', 'ProductController@CariKategori')->name('kategori');
+            Route::get('/get_cari', 'ProductController@cari')->name('get_cari');
+            Route::get('/cari', 'ProductController@showCari')->name('show_cari');
         });
         Route::resource('product', 'ProductController');
     });

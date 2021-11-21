@@ -386,7 +386,13 @@
             <!-- Modal content -->
             <div class="modal-content-search">
                 <span class="close">&times;</span>
-                <p>Some text in the Modal..</p>
+                <table>
+                    <tbody id="data_cari">
+                        <tr>
+                            <td>Kaos Polo bersaku</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
         </div>
@@ -422,7 +428,44 @@
         $(document).ready(function () {
             var modal = document.getElementById("modalSearch");
             $('#search').on('keyup', function () {
-                $('#modalSearch').show()
+                var cari = $(this).val()
+                cari = cari.toLowerCase()
+                $.ajax({
+                    url:"{{route('frontend.product.get_cari')}}",
+                    method:"GET",
+                    data:{
+                        cari:cari
+                    }, success:function(response){
+                        if(response.status){
+                            console.log(response);
+                            var produk = response.data;
+                            var datahtml = ""
+                            for (let index = 0; index < produk.length; index++) {
+                                const element = produk[index];
+                                datahtml += `<tr>
+                                                <td><a href="{{route('frontend.product.show_cari')}}?cari=${element}">${element}</a></td>
+                                            </tr>`
+
+                            }
+
+
+                            if(cari.length == 0){
+                                $('#modalSearch').hide()
+                            }else if(produk.length == 0){
+                                datahtml += `<tr>
+                                                <td style="text-align:center">Pencarian tidak ditemukan</td>
+                                            </tr>`
+                                $('#modalSearch').show()
+                            }else{
+                                $('#modalSearch').show()
+                            }
+                            $('#data_cari').html(datahtml)
+                        }
+                    }
+                })
+
+
+
              })
 
              window.onclick = function(event) {

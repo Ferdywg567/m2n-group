@@ -28,9 +28,9 @@
                                 </select>
                             </div>
                             <div class="search-wrap-3">
-                                <form action="#">
-                                    <input placeholder="Cari Produk...." type="text" id="search">
-                                    <button><i class="lnr lnr-magnifier"></i></button>
+                                <form action="{{route('frontend.product.show_cari')}}">
+                                    <input placeholder="Cari Produk...." type="text" id="search" name="cari">
+                                    <button type="submit"><i class="lnr lnr-magnifier"></i></button>
                                 </form>
                             </div>
                         </div>
