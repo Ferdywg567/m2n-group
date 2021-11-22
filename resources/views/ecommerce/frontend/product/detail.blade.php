@@ -40,7 +40,7 @@
         <div class="breadcrumb-content text-left">
             <ul>
                 <li>
-                    <a href="/">Beranda</a>
+                    <a href="{{route('landingpage.index')}}">Beranda</a>
                 </li>
                 <li class="active">Detail Produk</li>
             </ul>

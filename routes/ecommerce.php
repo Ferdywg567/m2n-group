@@ -5,8 +5,10 @@ use Illuminate\Support\Facades\Route;
 require 'admin.php';
 
 Route::group(['namespace' => 'Ecommerce\Frontend'], function () {
-    Route::resource('/', 'LandingPageController');
 
+    Route::group(['as' => 'landingpage.'], function () {
+        Route::resource('/', 'LandingPageController');
+    });
     Route::group(['as' => 'frontend.'], function () {
         //auth
         Route::group(['as' => 'auth.'], function () {

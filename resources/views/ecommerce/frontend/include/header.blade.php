@@ -10,7 +10,7 @@
                 <div class="row align-items-center">
                     <div class="col-xl-2 col-lg-2">
                         <div class="logo-img">
-                            <a href="/"><img src="{{asset('ecommerce/assets/images/logo.png')}}" alt="logo"></a>
+                            <a href="{{route('landingpage.index')}}"><img src="{{asset('ecommerce/assets/images/logo.png')}}" alt="logo"></a>
                         </div>
                     </div>
 
