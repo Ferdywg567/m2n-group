@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="{{asset('ecommerce/assets/css/plugins/magnific-popup.css')}}">
     <link rel="stylesheet" href="{{asset('ecommerce/assets/css/plugins/jquery-ui.css')}}">
     <link rel="stylesheet" href="{{asset('ecommerce/assets/css/style.css')}}">
+    <link rel="stylesheet" href="{{asset('css/dropzone.min.css')}}">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -419,6 +420,7 @@
     <script src="{{asset('ecommerce/assets/js/plugins/scrollup.js')}}"></script>
     <script src="{{asset('ecommerce/assets/js/plugins/ajax-mail.js')}}"></script>
     <script src="{{ asset('assets/modules/sweetalert/sweetalert.min.js')}}"></script>
+    <script src="{{asset('js/dropzone.min.js')}}"></script>
     <!-- Use the minified version files listed below for better performance and remove the files listed above
 <script src="assets/js/vendor/vendor.min.js"></script>
 <script src="assets/js/plugins/plugins.min.js"></script>  -->

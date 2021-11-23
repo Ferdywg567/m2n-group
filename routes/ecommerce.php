@@ -27,6 +27,11 @@ Route::group(['namespace' => 'Ecommerce\Frontend'], function () {
                 Route::get('/get_alamat', 'AlamatController@getAlamat')->name('get_alamat');
             });
 
+            Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
+                Route::post('/update_password', 'UserController@UpdatePassword')->name('update_password');
+                Route::post('/update_foto', 'UserController@UpdateFoto')->name('update_foto');
+            });
+
             Route::resource('alamat', 'AlamatController');
             Route::resource('user', 'UserController');
         });

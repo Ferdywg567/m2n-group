@@ -40,22 +40,20 @@
                                             <div class="card" style="width: 18rem;">
                                                 <div class="text-center mt-3">
                                                     <img class="card-img-top rounded text-center"
-                                                    src="{{asset('ecommerce/assets/images/product/product-13.jpg')}}"
-                                                    alt="Card image cap" style="width:90%">
+                                                        src="{{asset('uploads/images/user/'.auth()->user()->foto)}}"
+                                                        alt="Card image cap" style="width:90%">
                                                 </div>
                                                 <div class="card-body">
                                                     <button type="button"
-                                                    class="btn btn-outline-dark btn-block mt-3">Pilih Foto</button>
-                                                    <p class="card-text">Some quick example text to build on the card
-                                                        title and make up
-                                                        the bulk of the card's content.</p>
+                                                        class="btn btn-outline-dark btn-block mb-1 btnPilihFoto">Pilih Foto</button>
+                                                    <p class="card-text">Besar file: maksimum 10.000.000 bytes (10 Megabytes). Ekstensi file yang diperbolehkan: .JPG .JPEG .PNG.</p>
 
                                                 </div>
                                             </div>
 
                                             <button type="button" style="  padding: 9px 85px;  display: inline-block; "
-                                            class="btn btn-outline-dark mt-3">Ubah Kata
-                                            Sandi</button>
+                                                class="btn btn-outline-dark mt-3 btn-ubah-sandi">Ubah Kata
+                                                Sandi</button>
                                         </div>
                                         <div class="col-md-8">
                                             <h3 class="text-gray">Biodata Diri</h3>
@@ -162,7 +160,8 @@
                                                                         class="ubah_alamat">Ubah Alamat</a>
                                                                 </div>
                                                                 <div style="display:inline-block" class="ml-2">
-                                                                    <a href="#" data-id="{{$item->id}}" class="hapus_alamat">Hapus Alamat</a>
+                                                                    <a href="#" data-id="{{$item->id}}"
+                                                                        class="hapus_alamat">Hapus Alamat</a>
                                                                 </div>
 
                                                             </div>
@@ -389,9 +388,107 @@
         </div>
     </div>
 </div>
+
+<!-- Modal Ubah Password -->
+<div class="modal fade" id="modalUbahPassword" tabindex="-1" role="dialog" aria-labelledby="modalUbahPasswordLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document" style="width:600px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="modalUbahPasswordLabel">Ubah Kata Sandi</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="formSandi">
+                <div id="data-alert-sandi">
+
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="kata_sandi_sekarang">Kata Sandi Sekarang</label>
+                                <input type="password" class="form-control" id="kata_sandi_sekarang"
+                                    name="kata_sandi_sekarang">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="kata_sandi_baru">Kata Sandi Baru</label>
+                                <input type="password" class="form-control" id="kata_sandi_baru" name="kata_sandi_baru">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="ulangi_kata_sandi_baru">Ulangi Kata Sandi Baru</label>
+                                <input type="password" class="form-control" id="ulangi_kata_sandi_baru" name="ulangi_kata_sandi_baru">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-primary btnSimpanSandi">Simpan Sandi</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Ubah Foto -->
+<div class="modal fade" id="modalUbahFoto" tabindex="-1" role="dialog" aria-labelledby="modalUbahFotoLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document" style="width:600px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="modalUbahFotoLabel">Ubah Foto</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="formFoto">
+                <div id="data-alert-foto">
+
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="file">File Foto</label>
+
+                            </div>
+                            <div id="dropzoneDragArea" class="dropzone" style="margin-top: -20px">
+                                <div class="dz-message d-flex flex-column">
+                                    <i class="ri-file-upload-line"></i>
+                                    Seret Foto disini
+                                    <br>
+                                    Besar file: maksimum 10.000.000 bytes (10 Megabytes). Ekstensi file yang diperbolehkan: .JPG .JPEG .PNG.
+                                    <div class="dropzone-previews"></div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-primary " id="btnSimpanFoto">Simpan Foto</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 @endsection
 @push('scripts')
 <script>
+    Dropzone.autoDiscover = false;
     $(document).ready(function(){
         function ajax() {
                 $.ajaxSetup({
@@ -522,6 +619,142 @@
                     }
                     });
            })
+
+           $('.btn-ubah-sandi').on('click', function(){
+                $('#data-alert-sandi').empty()
+                $('#modalUbahPassword').modal('show')
+           })
+           $('.btnPilihFoto').on('click', function(){
+                $('#data-alert-foto').empty()
+                $('#modalUbahFoto').modal('show')
+           })
+
+           $(document).on('click','.btnSimpanSandi', function () {
+                var form = $('#formSandi').serialize()
+                ajax()
+                $.ajax({
+                    url:"{{route('frontend.user.update_password')}}",
+                    method:"POST",
+                    data:form,
+                    success:function(response){
+                        if(response.status){
+                            setTimeout(function () {   $('#modalUbahPassword').modal('hide') ; window.location.reload(true)  },1500)
+                        }
+                        $('#data-alert-sandi').html(response.data)
+                    }
+                })
+          })
+
+
+            let token = $('meta[name="csrf-token"]').attr('content');
+            var maxImageWidth = 1200, maxImageHeight = 500;
+            var myDropzone = new Dropzone("div#dropzoneDragArea", {
+            paramName: "file",
+            url: "{{ route('frontend.user.update_foto')}}",
+            previewsContainer: 'div.dropzone-previews',
+            addRemoveLinks: true,
+            autoProcessQueue: false,
+            acceptedFiles: 'image/*',
+            uploadMultiple: false,
+            parallelUploads: 1,
+            maxFiles: 1,
+            dictRemoveFile:"Hapus Gambar",
+            params: {
+                _token: token
+            },
+            // The setting up of the dropzone
+            init: function() {
+                var myDropzone = this;
+                var formUpload = new FormData();
+                //form submission code goes here
+                document.getElementById("btnSimpanFoto").addEventListener("click", function(e) {
+                    // Make sure that the form isn't actually being sent.
+                    e.preventDefault();
+                    e.stopPropagation();
+                    // console.log(myDropzone.files);
+
+                    for (let index = 0; index < myDropzone.files.length; index++) {
+                        const element = myDropzone.files[index];
+                        var imagename = element.name.split('.').pop().toLowerCase();
+                        if($.inArray(imagename,  ['png','jpg','jpeg']) == -1){
+                            var dataalert = '<div class="alert alert-danger" role="alert"> Tipe gambar wajib png, jpg, jpeg</div>'
+                            $('#data-alert-foto').html(dataalert)
+                            return false;
+                        }
+
+                        // if(element.width != maxImageWidth || element.height != maxImageHeight){
+                        //     var dataalert = '<div class="alert alert-danger" role="alert">Resolusi gambar wajib 1200 x 500 pixel</div>'
+                        //     $('#data-alert-foto').html(dataalert)
+                        //     return false;
+                        // }
+                    }
+
+                    if(myDropzone.files.length > 1){
+                        var dataalert = '<div class="alert alert-danger" role="alert"> Gambar maksimal 1</div>'
+                        $('#data-alert-foto').html(dataalert)
+                        return false;
+                    }
+
+                    if(myDropzone.files.length){
+                        myDropzone.processQueue();
+                    }else{
+                        var dataalert = '<div class="alert alert-danger" role="alert"> Gambar wajib diisi</div>'
+                        $('#data-alert-foto').html(dataalert)
+                    }
+
+                });
+                this.on('sending', function(file, xhr, formData) {
+                    // Append all form inputs to the formData Dropzone will POST
+                    var data = $('#formFoto').serializeArray();
+                    $.each(data, function(key, el) {
+                        formData.append(el.name, el.value);
+                    });
+                });
+                this.on("queuecomplete", function () {
+
+                });
+
+                // Listen to the sendingmultiple event. In this case, it's the sendingmultiple event instead
+                // of the sending event because uploadMultiple is set to true.
+                // this.on("sendingmultiple", function() {
+                // // Gets triggered when the form is actually being sent.
+                // // Hide the success button or the complete form.
+
+                //      formUpload.append("promo", "assssae");
+                // });
+
+                this.on("success", function(files, response) {
+
+                    if(response.status){
+                       setTimeout(function () {   $('#modalUbahFoto').modal('hide') ; window.location.reload(true)  },1500)
+                    }else{
+                        $('#data-alert-foto').html(response.data)
+                    }
+                    // location.href = "{{route('ecommerce.banner.index')}}"
+                // Gets triggered when the files have successfully been sent.
+                // Redirect user or notify of success.
+                });
+
+                this.on("successmultiple", function(files, response) {
+                    console.log(response);
+
+                    if(response.status){
+                       setTimeout(function () {   $('#modalUbahFoto').modal('hide') ; window.location.reload(true)  },1500)
+                    }else{
+                        $('#data-alert-foto').html(response.data)
+                    }
+                    // location.href = "{{route('ecommerce.banner.index')}}"
+                // Gets triggered when the files have successfully been sent.
+                // Redirect user or notify of success.
+                });
+
+                this.on("errormultiple", function(files, response) {
+                // Gets triggered when there was an error sending the files.
+                // Maybe show form again, and notify user of error
+
+                });
+            }
+	        });
     })
 </script>
 @endpush
