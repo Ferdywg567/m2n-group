@@ -78,6 +78,8 @@ class ProdukController extends Controller
             $produk->kategori =  $request->get('kategori');
             $produk->sub_kategori =  $request->get('sub_kategori');
             $produk->detail_sub_kategori =  $request->get('detail_sub_kategori');
+            $warehouse = Warehouse::findOrFail($produk->warehouse_id);
+            $produk->nama_produk =  $warehouse->finishing->cuci->jahit->potong->bahan->nama_bahan;
             $hargapromo = 0;
             if ($request->get('promo') != 0) {
                 $promo = Promo::findOrFail($request->get('promo'));
