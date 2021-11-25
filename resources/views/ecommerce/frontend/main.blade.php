@@ -150,39 +150,37 @@
             <div class="sidebar-cart-all">
                 <a class="cart-close" href="#"><i class="icon_close"></i></a>
                 <div class="cart-content">
-                    <h3>Shopping Cart</h3>
+                    <h3>Keranjang Belanja</h3>
                     <ul>
+                        @php
+                            $subtotal = 0;
+                        @endphp
+                        @forelse (\AppHelper::instance()->data_keranjang() as $item)
+                        @php
+                            $subtotal += $item->subtotal;
+                        @endphp
                         <li class="single-product-cart">
                             <div class="cart-img">
-                                <a href="#"><img src="{{asset('ecommerce/assets/images/cart/cart-1.jpg')}}" alt=""></a>
+                                <a href="#"><img src="{{asset('uploads/images/produk/'.$item->produk->detail_gambar[0]->filename)}}" alt=""></a>
                             </div>
                             <div class="cart-title">
-                                <h4><a href="#">Simple Black T-Shirt</a></h4>
-                                <span> 1 × $49.00 </span>
+                                <h4><a href="#">{{$item->produk->nama_produk}}</a></h4>
+                                <span> {{$item->jumlah}} × @rupiah($item->harga) </span>
                             </div>
-                            <div class="cart-delete">
-                                <a href="#">×</a>
-                            </div>
+
                         </li>
-                        <li class="single-product-cart">
-                            <div class="cart-img">
-                                <a href="#"><img src="{{asset('ecommerce/assets/images/cart/cart-2.jpg')}}" alt=""></a>
-                            </div>
-                            <div class="cart-title">
-                                <h4><a href="#">Norda Backpack</a></h4>
-                                <span> 1 × $49.00 </span>
-                            </div>
-                            <div class="cart-delete">
-                                <a href="#">×</a>
-                            </div>
-                        </li>
+
+                        @empty
+
+                        @endforelse
+
                     </ul>
                     <div class="cart-total">
-                        <h4>Subtotal: <span>$170.00</span></h4>
+                        <h4>Subtotal: <span>@rupiah($subtotal)</span></h4>
                     </div>
                     <div class="cart-checkout-btn">
-                        <a class="btn-hover cart-btn-style" href="cart.html">view cart</a>
-                        <a class="no-mrg btn-hover cart-btn-style" href="checkout.html">checkout</a>
+                        <a class="btn-hover cart-btn-style" href="{{route('frontend.keranjang.index')}}">Lihat Keranjang</a>
+                        <a class="no-mrg btn-hover cart-btn-style" href="checkout.html">Checkout</a>
                     </div>
                 </div>
             </div>

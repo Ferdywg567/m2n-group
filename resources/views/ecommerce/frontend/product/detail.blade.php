@@ -110,14 +110,14 @@
                     <div class="pro-details-quality">
                         <span>Jumlah:</span>
                         <div class="cart-plus-minus">
-                            <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1">
+                            <input class="cart-plus-minus-box" type="text" name="qtybutton" id="jumlah" value="1">
                         </div>
                     </div>
                     <p>* 1 seri berisikan size S, M, L (3 pcs).</p>
 
                     <div class="pro-details-action-wrap mt-1">
                         <div class="pro-details-add-to-cart">
-                            <button type="button" class="btn btn-primary btn-cart"><i class="ri-shopping-cart-line"></i>
+                            <button type="button" class="btn btn-primary btn-cart btnTambahKeranjang"><i class="ri-shopping-cart-line"></i>
                                 Tambah ke keranjang</button>
                             <hr style="height: 0;border: 1px solid #C4C4C4;">
                             <button type="button" class="btn btn-outline-primary">Beli Langsung</button>
@@ -574,6 +574,14 @@
 @push('scripts')
 <script>
     $(document).ready(function(){
+            function ajax() {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+            }
+
             $('#nav-masuk-tab').css('background-color','black')
                   $('#nav-masuk-tab').css('color','white')
                   $('#nav-keluar-tab').css('background-color','')
@@ -616,6 +624,30 @@
                     slidesToShow: 1,
                     adaptiveHeight: true
                 });
+
+                @if (auth()->check())
+                    ajax()
+                    $('.btnTambahKeranjang').on('click', function () {
+                        var idproduk = "{{$produk->id}}"
+                        var jumlah = $('#jumlah').val()
+                            $.ajax({
+                                url:"{{route('frontend.keranjang.store')}}",
+                                method:"POST",
+                                data:{
+                                    id:idproduk,
+                                    jumlah:jumlah
+                                }, success:function(response){
+                                    if(response.status){
+                                        $('.totalcart').text(response.total)
+                                    }
+                                }
+                            })
+                    })
+                @else
+
+                @endif
+
+
 
 
                 // $('.pro-dec-big-img-slider').slick('unslick', $('.btn-wishlist').index());

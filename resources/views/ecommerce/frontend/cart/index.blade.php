@@ -16,7 +16,7 @@
 </div>
 <div class="cart-main-area  pb-120">
     <div class="container">
-        <h3 class="cart-page-title">Your cart items</h3>
+
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                 <form action="#">
@@ -24,25 +24,33 @@
                         <table>
                             <thead>
                                 <tr>
-                                    <th><input type="checkbox" name="all" id="all" style="width: 15px"></th>
+                                    <th><input type="checkbox" name="all" id="all" @if($checked) checked @endif style="width: 15px"></th>
                                     <th>Produk</th>
                                     <th></th>
-                                    <th>Until Price</th>
-                                    <th>Qty</th>
+                                    <th>Harga</th>
+                                    <th>Jumlah</th>
                                     <th>Subtotal</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @php
+                                $totalharga = 0;
+                                @endphp
+                                @forelse ($keranjang as $item)
+                                @php
+                                $totalharga += $item->subtotal;
+                                @endphp
                                 <tr>
-                                    <td><input type="checkbox" name="cart" id="" style="width: 15px"></td>
+                                    <td><input type="checkbox" name="cart" id="" class="btncheck" @if($item->check==1)
+                                        checked @endif data-id="{{$item->id}}" style="width: 15px"></td>
                                     <td class="product-thumbnail">
                                         <a href="#"><img
-                                                src="{{asset('ecommerce/assets/images/product-details/product-detail-4.png')}}"
+                                                src="{{asset('uploads/images/produk/'.$item->produk->detail_gambar[0]->filename)}}"
                                                 alt="" width="80"></a>
                                     </td>
                                     <td class="product-name" style="text-align: left">
-                                        <a href="#" style="">Simple Black T-Shirt</a>
+                                        <a href="#" style="">{{$item->produk->nama_produk}}</a>
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <a href="#" style="font-size: 11px; color:#8E8E93"><i
@@ -51,79 +59,29 @@
 
                                         </div>
                                     </td>
-                                    <td class="product-price-cart"><span class="amount">$260.00</span></td>
+                                    <td class="product-price-cart"><span class="amount">@rupiah($item->harga)</span>
+                                    </td>
                                     <td class="product-quantity pro-details-quality">
                                         <div class="cart-plus-minus">
-                                            <div class="dec qtybutton">-</div>
-                                            <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1">
-                                            <div class="inc qtybutton">+</div>
-                                        </div>
-                                    </td>
-                                    <td class="product-subtotal">$110.00</td>
-                                    <td class="product-remove">
-                                        <a href="#"><i class="icon_close"></i></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" name="cart" id="" style="width: 15px"></td>
-                                    <td class="product-thumbnail">
-                                        <a href="#"><img
-                                                src="{{asset('ecommerce/assets/images/product-details/product-detail-1.png')}}"
-                                                alt="" width="80"></a>
-                                    </td>
-                                    <td class="product-name" style="text-align: left"><a href="#">Norda Simple
-                                            Backpack</a>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <a href="#" style="font-size: 11px; color:#8E8E93"><i
-                                                        class="ri-heart-add-line"></i> Tambahkan ke favorit</a>
-                                            </div>
 
-                                        </div>
-                                    </td>
-                                    <td class="product-price-cart"><span class="amount">$180.00</span></td>
-                                    <td class="product-quantity pro-details-quality">
-                                        <div class="cart-plus-minus">
-                                            <div class="dec qtybutton">-</div>
-                                            <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1">
-                                            <div class="inc qtybutton">+</div>
-                                        </div>
-                                    </td>
-                                    <td class="product-subtotal">$180.00</td>
-                                    <td class="product-remove">
-                                        <a href="#"><i class="icon_close"></i></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" name="cart" id="" style="width: 15px"></td>
-                                    <td class="product-thumbnail">
-                                        <a href="#"><img
-                                                src="{{asset('ecommerce/assets/images/product-details/product-detail-3.png')}}"
-                                                alt="" width="80"></a>
-                                    </td>
-                                    <td class="product-name" style="text-align: left"><a href="#">Simple Black T-Shirt
-                                        </a>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <a href="#" style="font-size: 11px; color:#8E8E93"><i
-                                                        class="ri-heart-add-line"></i> Tambahkan ke favorit</a>
-                                            </div>
+                                            <input class="cart-plus-minus-box jumlah" type="text"
+                                                value="{{$item->jumlah}}" data-id="{{$item->id}}" name="qtybutton"
+                                                id="jumlah" value="1">
 
+                                            {{-- <button type="button" class="inc qtybutton btnplus"
+                                                data-id="{{$item->id}}">+</button> --}}
                                         </div>
                                     </td>
-                                    <td class="product-price-cart"><span class="amount">$170.00</span></td>
-                                    <td class="product-quantity pro-details-quality">
-                                        <div class="cart-plus-minus">
-                                            <div class="dec qtybutton">-</div>
-                                            <input class="cart-plus-minus-box" type="text" name="qtybutton" value="2">
-                                            <div class="inc qtybutton">+</div>
-                                        </div>
-                                    </td>
-                                    <td class="product-subtotal">$170.00</td>
+                                    <td class="product-subtotal subtotal">@rupiah($item->subtotal)</td>
                                     <td class="product-remove">
                                         <a href="#"><i class="icon_close"></i></a>
                                     </td>
                                 </tr>
+                                @empty
+
+                                @endforelse
+
+
                             </tbody>
                         </table>
                     </div>
@@ -136,16 +94,121 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6">
-                                <h4 class="text-white pt-5">Total : Rp. 1,000,000</h4>
+                                <h4 class="text-white pt-5 totalharga">Total : @rupiah($totalharga)</h4>
                             </div>
                             <div class="col-md-6 text-right">
-                                <button type="button" class="btn btn-light pl-5 pr-5"><i class="ri-money-dollar-circle-line"></i> Checkout</button>
+                                <button type="button" class="btn btn-light pl-5 pr-5 btncheckout"><i
+                                        class="ri-money-dollar-circle-line"></i> Checkout</button>
                             </div>
                         </div>
                     </div>
-                  </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 @endsection
+@push('scripts')
+<script>
+    $(document).ready(function(){
+            function ajax() {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+            }
+            // $('input:checkbox').attr('checked','checked');
+            $('#all').on('click', function () {
+                var nilai = $(this).is(":checked")
+                if(nilai){
+                    $('input:checkbox').prop('checked','checked');
+                }else{
+                    $('input:checkbox').prop('checked',false);
+                }
+                ajax()
+                $.ajax({
+                        url:"{{route('frontend.keranjang.update_checkbox')}}",
+                        method:"POST",
+                        data:{
+                            update:'all',
+                            nilai:nilai
+                        }, success:function(response){
+                            if(response.status){
+                                    $('.totalharga').text('Total : '+response.totalharga)
+                                    if(response.btn){
+                                        $('.btncheckout').prop('disabled',false)
+                                    }else{
+                                        $('.btncheckout').prop('disabled',true)
+                                    }
+                            }
+                        }
+                    })
+                console.log(nilai);
+             })
+
+             $(document).on('click','.qtybutton', function () {
+                 var jumlah = $(this).siblings("input").val();
+                 var id = $(this).siblings("input").data('id')
+                 $tr = $(this).closest('tr');
+
+                var subtotal =  $(this).closest("tr").find('.subtotal');
+
+                ajax()
+                $.ajax({
+                    url:"{{route('frontend.keranjang.update_jumlah')}}",
+                    method:"POST",
+                    data:{
+                        id:id,
+                        jumlah:jumlah,
+                    }, success:function(response){
+                        if(response.status){
+                            $('.totalharga').text('Total : '+response.totalharga)
+                            subtotal.text(response.subtotal)
+
+                                if(response.btn){
+                                    $('.btncheckout').prop('disabled',false)
+                                }else{
+                                    $('.btncheckout').prop('disabled',true)
+                                }
+                        }
+                    }
+                })
+              })
+
+             $('.btncheck').on('click', function () {
+                 var id = $(this).data('id')
+                 var nilai = $(this).is(":checked")
+                 ajax()
+                 $.ajax({
+                     url:"{{route('frontend.keranjang.update_checkbox')}}",
+                     method:"POST",
+                     data:{
+                         id:id,
+                         nilai:nilai,
+                         update:'one'
+                     }, success:function(response){
+                         if(response.status){
+                                $('.totalharga').text('Total : '+response.totalharga)
+                                if(response.btn){
+                                    $('.btncheckout').prop('disabled',false)
+                                }else{
+                                    $('.btncheckout').prop('disabled',true)
+                                }
+
+                                if(response.checked){
+                                    $('#all').prop('checked','checked')
+                                }else{
+                                    $('#all').prop('checked',false)
+                                }
+                         }
+                     }
+                 })
+              })
+
+
+
+                // $('.pro-dec-big-img-slider').slick('unslick', $('.btn-wishlist').index());
+        })
+</script>
+@endpush

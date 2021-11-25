@@ -39,7 +39,13 @@
                         <div class="header-action header-action-flex float-left">
                             <div class="same-style-2 same-style-2-font-inc header-cart mt-2">
                                 <a class="cart-active" href="#">
-                                    <i class="ri-shopping-cart-line"></i><span class="pro-count green">2</span>
+                                    <i class="ri-shopping-cart-line"></i><span class="pro-count green totalcart">
+                                        @if (auth()->check())
+                                        @if (auth()->user()->hasRole('ecommerce'))
+                                             {{App\Helpers\AppHelper::instance()->total_keranjang()}}
+                                        @endif
+                                        @endif
+                                    </span>
 
                                 </a>
                             </div>

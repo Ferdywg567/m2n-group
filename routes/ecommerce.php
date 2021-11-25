@@ -31,8 +31,13 @@ Route::group(['namespace' => 'Ecommerce\Frontend'], function () {
                 Route::post('/update_password', 'UserController@UpdatePassword')->name('update_password');
                 Route::post('/update_foto', 'UserController@UpdateFoto')->name('update_foto');
             });
+            Route::group(['prefix' => 'keranjang', 'as' => 'keranjang.'], function () {
+                Route::post('/update_checkbox', 'KeranjangController@update_checkbox')->name('update_checkbox');
+                Route::post('/update_jumlah', 'KeranjangController@update_jumlah')->name('update_jumlah');
+            });
 
             Route::resource('alamat', 'AlamatController');
+            Route::resource('keranjang', 'KeranjangController');
             Route::resource('user', 'UserController');
         });
         Route::group(['prefix' => 'product', 'as' => 'product.'], function () {
@@ -46,9 +51,9 @@ Route::group(['namespace' => 'Ecommerce\Frontend'], function () {
     Route::get('/detail', function () {
         return view("ecommerce.frontend.product.detail");
     });
-    Route::get('/cart', function () {
-        return view("ecommerce.frontend.cart.index");
-    });
+    // Route::get('/cart', function () {
+    //     return view("ecommerce.frontend.cart.index");
+    // });
     Route::get('/produk', function () {
         return view("ecommerce.frontend.product.index");
     });
