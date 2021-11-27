@@ -30,6 +30,7 @@
     <link rel="stylesheet" href="{{asset('ecommerce/assets/css/plugins/jquery-ui.css')}}">
     <link rel="stylesheet" href="{{asset('ecommerce/assets/css/style.css')}}">
     <link rel="stylesheet" href="{{asset('css/dropzone.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/dd.css?v=4.0')}}">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -146,6 +147,7 @@
     <div class="main-wrapper">
         @include('ecommerce.frontend.include.header')
         <!-- mini cart start -->
+        @if (auth()->check())
         <div class="sidebar-cart-active">
             <div class="sidebar-cart-all">
                 <a class="cart-close" href="#"><i class="icon_close"></i></a>
@@ -153,15 +155,17 @@
                     <h3>Keranjang Belanja</h3>
                     <ul>
                         @php
-                            $subtotal = 0;
+                        $subtotal = 0;
                         @endphp
                         @forelse (\AppHelper::instance()->data_keranjang() as $item)
                         @php
-                            $subtotal += $item->subtotal;
+                        $subtotal += $item->subtotal;
                         @endphp
                         <li class="single-product-cart">
                             <div class="cart-img">
-                                <a href="#"><img src="{{asset('uploads/images/produk/'.$item->produk->detail_gambar[0]->filename)}}" alt=""></a>
+                                <a href="#"><img
+                                        src="{{asset('uploads/images/produk/'.$item->produk->detail_gambar[0]->filename)}}"
+                                        alt=""></a>
                             </div>
                             <div class="cart-title">
                                 <h4><a href="#">{{$item->produk->nama_produk}}</a></h4>
@@ -179,12 +183,15 @@
                         <h4>Subtotal: <span>@rupiah($subtotal)</span></h4>
                     </div>
                     <div class="cart-checkout-btn">
-                        <a class="btn-hover cart-btn-style" href="{{route('frontend.keranjang.index')}}">Lihat Keranjang</a>
+                        <a class="btn-hover cart-btn-style" href="{{route('frontend.keranjang.index')}}">Lihat
+                            Keranjang</a>
                         <a class="no-mrg btn-hover cart-btn-style" href="checkout.html">Checkout</a>
                     </div>
                 </div>
             </div>
         </div>
+        @endif
+
         <!-- mobile header start -->
         @yield('content')
         <div class="service-area pt-20 pb-15">
@@ -417,14 +424,19 @@
     <script src="{{asset('ecommerce/assets/js/plugins/easyzoom.js')}}"></script>
     <script src="{{asset('ecommerce/assets/js/plugins/scrollup.js')}}"></script>
     <script src="{{asset('ecommerce/assets/js/plugins/ajax-mail.js')}}"></script>
-    <script src="{{ asset('assets/modules/sweetalert/sweetalert.min.js')}}"></script>
+    <script src="{{asset('assets/modules/sweetalert/sweetalert.min.js')}}"></script>
     <script src="{{asset('js/dropzone.min.js')}}"></script>
+    <script src="{{asset('js/dd.min.js?ver=4.0')}}"></script>
     <!-- Use the minified version files listed below for better performance and remove the files listed above
-<script src="assets/js/vendor/vendor.min.js"></script>
-<script src="assets/js/plugins/plugins.min.js"></script>  -->
+    <script src="assets/js/vendor/vendor.min.js"></script>
+    <script src="assets/js/plugins/plugins.min.js"></script>  -->
     <!-- Main JS -->
     <script src="{{asset('ecommerce/assets/js/main.js')}}"></script>
     <script>
+        function GoBackWithRefresh(event) {
+                window.history.back();
+        }
+
         $(document).ready(function () {
             var modal = document.getElementById("modalSearch");
             $('#search').on('keyup', function () {

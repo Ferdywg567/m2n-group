@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-2">
-                <a href="/" class="text-left"><i class="ri-arrow-left-line"></i> Kembali</a>
+                <a onclick="GoBackWithRefresh();return false;" href="#" class="text-left"><i class="ri-arrow-left-line"></i> Kembali</a>
 
             </div>
             <div class="col-md-10" style="margin-left: -80px !important;">
@@ -24,7 +24,8 @@
                         <table>
                             <thead>
                                 <tr>
-                                    <th><input type="checkbox" name="all" id="all" @if($checked) checked @endif style="width: 15px"></th>
+                                    <th><input type="checkbox" name="all" id="all" @if($checked) checked @endif
+                                            style="width: 15px"></th>
                                     <th>Produk</th>
                                     <th></th>
                                     <th>Harga</th>
@@ -38,9 +39,11 @@
                                 $totalharga = 0;
                                 @endphp
                                 @forelse ($keranjang as $item)
+                                @if($item->check==1)
                                 @php
                                 $totalharga += $item->subtotal;
                                 @endphp
+                                @endif
                                 <tr>
                                     <td><input type="checkbox" name="cart" id="" class="btncheck" @if($item->check==1)
                                         checked @endif data-id="{{$item->id}}" style="width: 15px"></td>
@@ -74,7 +77,8 @@
                                     </td>
                                     <td class="product-subtotal subtotal">@rupiah($item->subtotal)</td>
                                     <td class="product-remove">
-                                        <a href="#"><i class="icon_close"></i></a>
+                                        <a href="{{route('frontend.keranjang.hapus',[$item->id])}}"><i
+                                                class="icon_close"></i></a>
                                     </td>
                                 </tr>
                                 @empty
@@ -97,8 +101,8 @@
                                 <h4 class="text-white pt-5 totalharga">Total : @rupiah($totalharga)</h4>
                             </div>
                             <div class="col-md-6 text-right">
-                                <button type="button" class="btn btn-light pl-5 pr-5 btncheckout"><i
-                                        class="ri-money-dollar-circle-line"></i> Checkout</button>
+                                <button type="button" class="btn btn-light pl-5 pr-5 btncheckout" @if($totalharga==0)
+                                    disabled @endif><i class="ri-money-dollar-circle-line"></i> Checkout</button>
                             </div>
                         </div>
                     </div>
@@ -110,6 +114,7 @@
 @endsection
 @push('scripts')
 <script>
+ 
     $(document).ready(function(){
             function ajax() {
                 $.ajaxSetup({
@@ -146,6 +151,10 @@
                     })
                 console.log(nilai);
              })
+
+             $('.btncheckout').on('click',function () {
+                 window.location.href="{{route('frontend.checkout.index')}}"
+              })
 
              $(document).on('click','.qtybutton', function () {
                  var jumlah = $(this).siblings("input").val();

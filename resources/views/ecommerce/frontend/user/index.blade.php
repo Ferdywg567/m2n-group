@@ -10,6 +10,18 @@
         background-color: #FF3B30;
     }
 </style>
+<div class="breadcrumb-area bg-white" style="margin-top: -2%">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                <a onclick="GoBackWithRefreshUrl();return false;" href="#" class="text-left"><i
+                        class="ri-arrow-left-line"></i> Kembali</a>
+
+            </div>
+
+        </div>
+    </div>
+</div>
 <div class="my-account-wrapper  pb-120">
     <div class="container">
         <div class="row">
@@ -45,8 +57,11 @@
                                                 </div>
                                                 <div class="card-body">
                                                     <button type="button"
-                                                        class="btn btn-outline-dark btn-block mb-1 btnPilihFoto">Pilih Foto</button>
-                                                    <p class="card-text">Besar file: maksimum 10.000.000 bytes (10 Megabytes). Ekstensi file yang diperbolehkan: .JPG .JPEG .PNG.</p>
+                                                        class="btn btn-outline-dark btn-block mb-1 btnPilihFoto">Pilih
+                                                        Foto</button>
+                                                    <p class="card-text">Besar file: maksimum 10.000.000 bytes (10
+                                                        Megabytes). Ekstensi file yang diperbolehkan: .JPG .JPEG .PNG.
+                                                    </p>
 
                                                 </div>
                                             </div>
@@ -238,10 +253,11 @@
                 </button>
             </div>
             <form id="formBiodata">
-                <div id="data-alert-biodata">
 
-                </div>
                 <div class="modal-body">
+                    <div id="data-alert-biodata">
+
+                    </div>
                     <input type="hidden" name="id" value="{{auth()->user()->id}}">
                     <div class="form-group">
                         <label for="nama">Nama</label>
@@ -308,10 +324,10 @@
                 </button>
             </div>
             <form id="formalamat">
-                <div id="data-alert-alamat">
-
-                </div>
                 <div class="modal-body">
+                    <div id="data-alert-alamat">
+
+                    </div>
                     <input type="hidden" name="id" id="id_alamat" value="">
                     <div class="row">
                         <div class="col-md-6">
@@ -401,11 +417,11 @@
                 </button>
             </div>
             <form id="formSandi">
-                <div id="data-alert-sandi">
 
-                </div>
                 <div class="modal-body">
+                    <div id="data-alert-sandi">
 
+                    </div>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
@@ -426,7 +442,8 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="ulangi_kata_sandi_baru">Ulangi Kata Sandi Baru</label>
-                                <input type="password" class="form-control" id="ulangi_kata_sandi_baru" name="ulangi_kata_sandi_baru">
+                                <input type="password" class="form-control" id="ulangi_kata_sandi_baru"
+                                    name="ulangi_kata_sandi_baru">
                             </div>
                         </div>
                     </div>
@@ -468,7 +485,8 @@
                                     <i class="ri-file-upload-line"></i>
                                     Seret Foto disini
                                     <br>
-                                    Besar file: maksimum 10.000.000 bytes (10 Megabytes). Ekstensi file yang diperbolehkan: .JPG .JPEG .PNG.
+                                    Besar file: maksimum 10.000.000 bytes (10 Megabytes). Ekstensi file yang
+                                    diperbolehkan: .JPG .JPEG .PNG.
                                     <div class="dropzone-previews"></div>
                                 </div>
 
@@ -489,6 +507,10 @@
 @push('scripts')
 <script>
     Dropzone.autoDiscover = false;
+    // console.log();
+    function GoBackWithRefreshUrl(event) {
+        history.go(-1)
+    }
     $(document).ready(function(){
         function ajax() {
                 $.ajaxSetup({
@@ -497,6 +519,40 @@
                     }
                 });
         }
+
+        function getParamArray() {
+            var url = window.location.href
+            var queryString = url.substring(url.lastIndexOf("?") + 1);
+
+            return queryString.split('#').map(function(sParam) {
+                var param = sParam.split('=');
+
+                return {
+                name: param[0],
+                value: decodeURIComponent(param[1])
+                };
+            });
+        }
+
+        function getActive(param) {
+                for (let index = 0; index < param.length; index++) {
+                    const element = param[index];
+                    if(element.name == 'nav-alamat'){
+                        activaTab('nav-alamat')
+                    }else{
+                        activaTab('nav-biodata')
+                    }
+
+                }
+         }
+
+        function activaTab(tab){
+            $('.nav-tabs a[href="#' + tab + '"]').tab('show');
+        };
+
+
+        getActive(getParamArray())
+
         $('.ubahprofile').on('click', function () {
             $('#profileModal').modal('show')
             $('#data-alert-biodata').empty()

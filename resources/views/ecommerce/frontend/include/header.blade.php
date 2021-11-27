@@ -1,6 +1,5 @@
-
 @php
-    $kategori = \App\SubKategori::select('nama_kategori')->groupBy('nama_kategori')->get();
+$kategori = \App\SubKategori::select('nama_kategori')->groupBy('nama_kategori')->get();
 @endphp
 
 <header class="header-area">
@@ -10,7 +9,8 @@
                 <div class="row align-items-center">
                     <div class="col-xl-2 col-lg-2">
                         <div class="logo-img">
-                            <a href="{{route('landingpage.index')}}"><img src="{{asset('ecommerce/assets/images/logo.png')}}" alt="logo"></a>
+                            <a href="{{route('landingpage.index')}}"><img
+                                    src="{{asset('ecommerce/assets/images/logo.png')}}" alt="logo"></a>
                         </div>
                     </div>
 
@@ -18,9 +18,11 @@
                         <div class="categori-search-wrap">
                             <div class="categori-style-1">
                                 <select class="nice-select nice-select-style-1" id="cari_kategori">
-                                    <option value="Semua Kategori" @if(isset($data)) @if($data == 'Semua Kategori') selected  @endif @endif>Semua Kategori</option>
+                                    <option value="Semua Kategori" @if(isset($data)) @if($data=='Semua Kategori' )
+                                        selected @endif @endif>Semua Kategori</option>
                                     @forelse ($kategori as $item)
-                                    <option value="{{$item->nama_kategori}}" @if(isset($data)) @if($data == $item->nama_kategori) selected  @endif @endif>{{$item->nama_kategori}}</option>
+                                    <option value="{{$item->nama_kategori}}" @if(isset($data)) @if($data==$item->
+                                        nama_kategori) selected @endif @endif>{{$item->nama_kategori}}</option>
                                     @empty
 
                                     @endforelse
@@ -38,16 +40,26 @@
                     <div class="col-xl-3 col-lg-3">
                         <div class="header-action header-action-flex float-left">
                             <div class="same-style-2 same-style-2-font-inc header-cart mt-2">
-                                <a class="cart-active" href="#">
-                                    <i class="ri-shopping-cart-line"></i><span class="pro-count green totalcart">
-                                        @if (auth()->check())
-                                        @if (auth()->user()->hasRole('ecommerce'))
-                                             {{App\Helpers\AppHelper::instance()->total_keranjang()}}
-                                        @endif
-                                        @endif
-                                    </span>
 
+
+                                @if (auth()->check())
+                                @if (auth()->user()->hasRole('ecommerce'))
+                                <a class="cart-active" href="#">
+                                    <i class="ri-shopping-cart-line"></i>
+                                    <span class="pro-count green totalcart">
+                                        {{App\Helpers\AppHelper::instance()->total_keranjang()}}
+                                    </span>
                                 </a>
+
+
+                                @endif
+                                @else
+                                <a class="cart" href="{{route('frontend.auth.login')}}">
+                                    <i class="ri-shopping-cart-line"></i>
+                                </a>
+                                @endif
+
+
                             </div>
                             <div class="same-style-2 same-style-2-font-inc mt-2">
                                 <a class="cart-active" href="#">
@@ -62,10 +74,11 @@
                                 @if (auth()->check())
                                 @if (auth()->user()->hasRole('ecommerce'))
                                 <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="{{asset('ecommerce/assets/images/samantha.png')}}"
-                                        style="width:25%" class="rounded-circle" alt=""> {{auth()->user()->name}}</a>
+                                    <img src="{{asset('ecommerce/assets/images/samantha.png')}}" style="width:25%"
+                                        class="rounded-circle" alt=""> {{auth()->user()->name}}</a>
                                 <div class="dropdown-menu" style="width: 70%">
-                                    <a class="dropdown-item" href="{{route('frontend.user.index')}}" style="font-size:16px">Profil</a>
+                                    <a class="dropdown-item" href="{{route('frontend.user.index')}}"
+                                        style="font-size:16px">Profil</a>
                                     <a class="dropdown-item" href="#" style="font-size:16px">Pembelian</a>
                                     <a class="dropdown-item" href="#" style="font-size:16px">Favorit</a>
                                     <div class="dropdown-divider"></div>
@@ -75,7 +88,8 @@
 
                                 @endif
                                 @else
-                                <a type="button" href="{{route('frontend.auth.login')}}" class="btn btn-primary text-white" style="border-radius: 10px">Login</a>
+                                <a type="button" href="{{route('frontend.auth.login')}}"
+                                    class="btn btn-primary text-white" style="border-radius: 10px">Login</a>
                                 @endif
 
 

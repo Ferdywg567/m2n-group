@@ -229,4 +229,11 @@ class KeranjangController extends Controller
             ]);
         }
     }
+
+    public function hapus($id)
+    {
+        $iduser = auth()->user()->id;
+        Keranjang::where('user_id', $iduser)->where('id', $id)->delete();
+        return redirect()->route('frontend.keranjang.index');
+    }
 }
