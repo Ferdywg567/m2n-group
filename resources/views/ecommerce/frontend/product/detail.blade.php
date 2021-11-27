@@ -638,6 +638,7 @@
                                     jumlah:jumlah
                                 }, success:function(response){
                                     if(response.status){
+                                        setTimeout(function () {   getDataSidebar() },1500)
                                         $('.totalcart').text(response.total)
                                     }
                                 }

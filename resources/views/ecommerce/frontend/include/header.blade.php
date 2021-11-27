@@ -62,7 +62,7 @@ $kategori = \App\SubKategori::select('nama_kategori')->groupBy('nama_kategori')-
 
                             </div>
                             <div class="same-style-2 same-style-2-font-inc mt-2">
-                                <a class="cart-active" href="#">
+                                <a class="" href="#">
                                     <i class="ri-notification-2-line"></i><span class="pro-count green">2</span>
 
                                 </a>

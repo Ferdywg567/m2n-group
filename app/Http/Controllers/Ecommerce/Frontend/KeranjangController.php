@@ -236,4 +236,30 @@ class KeranjangController extends Controller
         Keranjang::where('user_id', $iduser)->where('id', $id)->delete();
         return redirect()->route('frontend.keranjang.index');
     }
+
+    public function showDataSidebar(Request $request)
+    {
+        if ($request->ajax()) {
+            $iduser = auth()->user()->id;
+            $keranjang =  Keranjang::where('user_id', $iduser)->get();
+            $helper = AppHelper::instance();
+            $totalharga = 0;
+            $arr = [];
+            foreach ($keranjang as $key => $value) {
+                    $x['gambar'] = asset('uploads/images/produk/'.$value->produk->detail_gambar[0]->filename);
+                    $x['nama_produk'] = $value->produk->nama_produk;
+                    $x['jumlah'] = $value->jumlah;
+                    $x['harga'] = $helper->rupiah($value->harga);
+
+                    $totalharga += $value->harga;
+                    array_push($arr, $x);
+            }
+
+            return response()->json([
+                'status' => true,
+                'data' => $arr,
+                'totalharga' => $helper->rupiah($totalharga)
+            ]);
+        }
+    }
 }

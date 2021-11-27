@@ -35,6 +35,7 @@ Route::group(['namespace' => 'Ecommerce\Frontend'], function () {
                 Route::post('/update_checkbox', 'KeranjangController@update_checkbox')->name('update_checkbox');
                 Route::post('/update_jumlah', 'KeranjangController@update_jumlah')->name('update_jumlah');
                 Route::get('/hapus/{id}', 'KeranjangController@hapus')->name('hapus');
+                Route::get('/showdatasidebar', 'KeranjangController@showDataSidebar')->name('showdatasidebar');
             });
 
             Route::resource('alamat', 'AlamatController');

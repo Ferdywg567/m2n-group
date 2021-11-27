@@ -5,10 +5,11 @@
     <div class="container">
         <div class="row">
             <div class="col-md-2">
-                <a onclick="GoBackWithRefresh();return false;" href="#" class="text-left"><i class="ri-arrow-left-line"></i> Kembali</a>
+                <a onclick="GoBackWithRefresh();return false;" href="#" class="text-left"><i
+                        class="ri-arrow-left-line"></i> Kembali</a>
 
             </div>
-            <div class="col-md-10" style="margin-left: -80px !important;">
+            <div class="col-md-10" style="margin-left: -95px !important;">
                 <h3 class="text-center">Keranjang</h3>
             </div>
         </div>
@@ -17,10 +18,15 @@
 <div class="cart-main-area  pb-120">
     <div class="container">
 
+
+
+        @if (count($keranjang) > 0)
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                 <form action="#">
                     <div class="table-content table-responsive cart-table-content">
+
+
                         <table>
                             <thead>
                                 <tr>
@@ -71,8 +77,7 @@
                                                 value="{{$item->jumlah}}" data-id="{{$item->id}}" name="qtybutton"
                                                 id="jumlah" value="1">
 
-                                            {{-- <button type="button" class="inc qtybutton btnplus"
-                                                data-id="{{$item->id}}">+</button> --}}
+
                                         </div>
                                     </td>
                                     <td class="product-subtotal subtotal">@rupiah($item->subtotal)</td>
@@ -109,12 +114,22 @@
                 </div>
             </div>
         </div>
+        @else
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-12 text-center">
+                <h3>Keranjang Belanja Anda Masih Kosong</h3>
+                <a href="{{route('landingpage.index')}}" class="btn btn-primary btn-lg mt-2"
+                    style="border-radius:15px">Lihat Produk</a>
+            </div>
+        </div>
+        @endif
+
+
     </div>
 </div>
 @endsection
 @push('scripts')
 <script>
- 
     $(document).ready(function(){
             function ajax() {
                 $.ajaxSetup({
@@ -179,6 +194,10 @@
                                     $('.btncheckout').prop('disabled',false)
                                 }else{
                                     $('.btncheckout').prop('disabled',true)
+                                }
+
+                                if(response.hapus){
+                                    location.reload(true)
                                 }
                         }
                     }

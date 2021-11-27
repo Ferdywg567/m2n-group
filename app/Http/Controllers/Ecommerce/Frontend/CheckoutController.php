@@ -6,6 +6,7 @@ use App\Alamat;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Keranjang;
+use App\Bank;
 
 class CheckoutController extends Controller
 {
@@ -22,11 +23,12 @@ class CheckoutController extends Controller
         $admin = 2500;
         $totaltagihan = $totalharga + $admin;
         $alamat = Alamat::where('user_id', $iduser)->where('status', 'Utama')->first();
-
+        $bank = Bank::all();
         return view('ecommerce.frontend.checkout.index', [
             'data' => $data,
             'admin' => $admin, 'totaltagihan' => $totaltagihan,
-            'totalharga' => $totalharga, 'alamat' => $alamat
+            'totalharga' => $totalharga, 'alamat' => $alamat,
+            'bank' => $bank
         ]);
     }
 

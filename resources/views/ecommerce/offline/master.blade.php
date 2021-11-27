@@ -102,7 +102,7 @@
     <script src="{{ asset('assets/modules/datatables/datatables.min.js') }}"></script>
     <script src="{{ asset('assets/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('assets/modules/izitoast/js/iziToast.min.js') }}"></script>
-    <script src="{{ asset('assets/modules/select2/dist/js/select2.min.js') }}"></script>
+   
     <script src="{{ asset('assets/modules/nestable/js/jquery.nestable.js') }}"></script>
     <script src="{{ asset('assets/modules/summernote/summernote-bs4.js') }}"></script>
     <script src="{{ asset('assets/modules/jquery.mask.js')}}"></script>

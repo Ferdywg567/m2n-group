@@ -30,6 +30,7 @@
     <link rel="stylesheet" href="{{asset('ecommerce/assets/css/plugins/jquery-ui.css')}}">
     <link rel="stylesheet" href="{{asset('ecommerce/assets/css/style.css')}}">
     <link rel="stylesheet" href="{{asset('css/dropzone.min.css')}}">
+    {{-- <link rel="stylesheet" href="{{ asset('assets/modules/select2/dist/css/select2.min.css') }}"> --}}
     <link rel="stylesheet" href="{{asset('css/dd.css?v=4.0')}}">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -147,50 +148,7 @@
     <div class="main-wrapper">
         @include('ecommerce.frontend.include.header')
         <!-- mini cart start -->
-        @if (auth()->check())
-        <div class="sidebar-cart-active">
-            <div class="sidebar-cart-all">
-                <a class="cart-close" href="#"><i class="icon_close"></i></a>
-                <div class="cart-content">
-                    <h3>Keranjang Belanja</h3>
-                    <ul>
-                        @php
-                        $subtotal = 0;
-                        @endphp
-                        @forelse (\AppHelper::instance()->data_keranjang() as $item)
-                        @php
-                        $subtotal += $item->subtotal;
-                        @endphp
-                        <li class="single-product-cart">
-                            <div class="cart-img">
-                                <a href="#"><img
-                                        src="{{asset('uploads/images/produk/'.$item->produk->detail_gambar[0]->filename)}}"
-                                        alt=""></a>
-                            </div>
-                            <div class="cart-title">
-                                <h4><a href="#">{{$item->produk->nama_produk}}</a></h4>
-                                <span> {{$item->jumlah}} × @rupiah($item->harga) </span>
-                            </div>
-
-                        </li>
-
-                        @empty
-
-                        @endforelse
-
-                    </ul>
-                    <div class="cart-total">
-                        <h4>Subtotal: <span>@rupiah($subtotal)</span></h4>
-                    </div>
-                    <div class="cart-checkout-btn">
-                        <a class="btn-hover cart-btn-style" href="{{route('frontend.keranjang.index')}}">Lihat
-                            Keranjang</a>
-                        <a class="no-mrg btn-hover cart-btn-style" href="checkout.html">Checkout</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        @endif
+        @include('ecommerce.frontend.include.sidebar_cart')
 
         <!-- mobile header start -->
         @yield('content')
@@ -425,6 +383,7 @@
     <script src="{{asset('ecommerce/assets/js/plugins/scrollup.js')}}"></script>
     <script src="{{asset('ecommerce/assets/js/plugins/ajax-mail.js')}}"></script>
     <script src="{{asset('assets/modules/sweetalert/sweetalert.min.js')}}"></script>
+    {{-- <script src="{{ asset('assets/modules/select2/dist/js/select2.min.js') }}"></script> --}}
     <script src="{{asset('js/dropzone.min.js')}}"></script>
     <script src="{{asset('js/dd.min.js?ver=4.0')}}"></script>
     <!-- Use the minified version files listed below for better performance and remove the files listed above
@@ -436,6 +395,49 @@
         function GoBackWithRefresh(event) {
                 window.history.back();
         }
+
+        @if (auth()->check())
+        function getDataSidebar(){
+                  $.ajax({
+                          url:"{{route('frontend.keranjang.showdatasidebar')}}",
+                          method:"GET",
+                          success:function(response){
+                              if(response.status){
+                                  var data = response.data
+                                  var datahtml = '<ul>';
+                                  for (let index = 0; index < data.length; index++) {
+                                      const element = data[index];
+                                      datahtml += `<li class="single-product-cart">
+                                                    <div class="cart-img">
+                                                        <a href="#"><img
+                                                                src="${element.gambar}"
+                                                                alt=""></a>
+                                                    </div>
+                                                    <div class="cart-title">
+                                                        <h4><a href="#">${element.nama_produk}</a></h4>
+                                                        <span>${element.jumlah} x ${element.harga}</span>
+                                                    </div>
+                                                    </li>`
+                                  }
+
+                                  datahtml += "</ul>"
+
+                                  datahtml += `<div class="cart-total">
+                                                <h4>Subtotal: <span>${response.totalharga}</span></h4>
+                                                </div>
+                                                <div class="cart-checkout-btn">
+                                                    <a class="btn-hover cart-btn-style" href="{{route('frontend.keranjang.index')}}">Lihat Keranjang</a>
+                                                   
+                                                </div>`
+
+                                  $('#data-keranjang-sidebar').html(datahtml)
+                                //   $('.cart-total').html(`<h4>Subtotal: <span>${element.totalharga}</span></h4>`)
+                              }
+                          }
+                      })
+                  }
+
+        @endif
 
         $(document).ready(function () {
             var modal = document.getElementById("modalSearch");
@@ -487,6 +489,15 @@
                  var kategori = $(this).find(':selected').val()
                  window.location.href = "{{route('frontend.product.kategori')}}"+"?kategori="+kategori
               })
+
+              @if (auth()->check())
+
+                setTimeout(function () {   getDataSidebar() },1500)
+              @endif
+
+
+
+
             })
     </script>
 

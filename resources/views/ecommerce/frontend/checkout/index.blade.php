@@ -95,15 +95,14 @@
                             <h6 class="font-weight-bold">Transfer Manual</h6>
                             <hr>
                             <div class="form-group">
+                                <select class="form-control" id="bank">
+                                    @forelse ($bank as $item)
+                                    <option value="{{$item->id}}">{{$item->nama_bank}}</option>
+                                    @empty
 
-                                <select class="form-control" id="bank" >
-                                  <option>1</option>
-                                  <option>2</option>
-                                  <option>3</option>
-                                  <option>4</option>
-                                  <option>5</option>
+                                    @endforelse
                                 </select>
-                              </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -120,7 +119,7 @@
 <script>
     $(document).ready(function(){
         var perfEntries = performance.getEntriesByType("navigation");
-
+        // $('#bank').select2()
         if (perfEntries[0].type === "back_forward") {
             location.reload(true);
         }
