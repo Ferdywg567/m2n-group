@@ -70,7 +70,15 @@
                                         </div>
                                     </div>
                                 </div>
-
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="nama_penerima">Nama Penerima</label>
+                                            <input type="text" class="form-control" required id="nama_penerima"
+                                                name="nama_penerima" value="{{old('nama_penerima')}}">
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">

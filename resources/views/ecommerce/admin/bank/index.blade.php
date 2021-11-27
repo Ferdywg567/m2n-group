@@ -28,6 +28,7 @@
                                     <th scope="col">No</th>
                                     <th scope="col">Nama Bank</th>
                                     <th scope="col">Nomor Rekening</th>
+                                    <th scope="col">Nama Penerima</th>
                                     <th scope="col">Logo</th>
                                     <th scope="col">Aksi</th>
                                 </tr>
@@ -38,6 +39,7 @@
                                     <td>{{$loop->iteration}}</td>
                                     <td>{{$item->nama_bank}}</td>
                                     <td>{{$item->nomor_rekening}}</td>
+                                    <td>{{$item->nama_penerima}}</td>
                                     <td  style="width: 100px;">
                                         <img src="{{asset('uploads/images/bank/'.$item->logo)}}" style="width: 100px;" alt="" srcset="">
                                     </td>

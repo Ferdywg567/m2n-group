@@ -475,9 +475,6 @@
                         }
                     }
                 })
-
-
-
              })
 
              window.onclick = function(event) {

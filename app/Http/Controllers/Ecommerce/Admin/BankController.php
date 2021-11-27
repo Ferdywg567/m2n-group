@@ -41,6 +41,7 @@ class BankController extends Controller
         $validator = Validator::make($request->all(), [
             'nama_bank' => 'required|unique:banks,nama_bank',
             'nomor_rekening' => 'required|unique:banks,nomor_rekening',
+            'nama_penerima' => 'required',
             'file' => 'required',
         ]);
 
@@ -55,6 +56,7 @@ class BankController extends Controller
             $bank = new Bank();
             $bank->nama_bank = strtoupper($request->get('nama_bank'));
             $bank->nomor_rekening = $request->get('nomor_rekening');
+            $bank->nama_penerima = strtoupper($request->get('nama_penerima'));
             $imageName = strtotime(now()) . rand(11111, 99999) . '.' . $file->getClientOriginalExtension();
             $file->move(public_path() . '/uploads/images/bank/', $imageName);
             $bank->logo = $imageName;
@@ -119,6 +121,7 @@ class BankController extends Controller
         $validator = Validator::make($request->all(), [
             'nama_bank' => 'required|unique:banks,nama_bank,' . $id,
             'nomor_rekening' => 'required|unique:banks,nomor_rekening,' . $id,
+            'nama_penerima' => 'required',
             'file' => 'nullable|file',
         ]);
 
@@ -132,19 +135,21 @@ class BankController extends Controller
             $bank = Bank::findOrFail($id);
             $bank->nama_bank = strtoupper($request->get('nama_bank'));
             $bank->nomor_rekening = $request->get('nomor_rekening');
+            $bank->nama_penerima = strtoupper($request->get('nama_penerima'));
             if ($request->hasFile('file')) {
                 $file = $request->file('file');
                 unlink(public_path('uploads/images/bank/' . $bank->logo));
                 $imageName = strtotime(now()) . rand(11111, 99999) . '.' . $file->getClientOriginalExtension();
                 $file->move(public_path() . '/uploads/images/bank/', $imageName);
                 $bank->logo = $imageName;
-                $bank->save();
-            }
 
+            }
+            $bank->save();
             $request->session()->flash('success', 'Bank berhasil diupdate!');
             return response()->json([
                 'status' => true,
-                'message' => 'saved'
+                'message' => 'saved',
+
             ]);
         }
     }

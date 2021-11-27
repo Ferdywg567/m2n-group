@@ -71,7 +71,15 @@
                                         </div>
                                     </div>
                                 </div>
-
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="nama_penerima">Nama Penerima</label>
+                                            <input type="text" class="form-control" required id="nama_penerima"
+                                                name="nama_penerima" value="{{$bank->nama_penerima}}">
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
@@ -184,6 +192,7 @@
                             method:"POST",
                             data:data,
                             success:function(response){
+                                // console.log(response);
                                 if(response.status){
                                     window.location.href="{{route('ecommerce.bank.index')}}"
                                 }else{

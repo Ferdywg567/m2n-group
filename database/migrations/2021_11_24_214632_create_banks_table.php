@@ -17,6 +17,7 @@ class CreateBanksTable extends Migration
             $table->id();
             $table->string('nama_bank');
             $table->string('nomor_rekening');
+            $table->string('nama_penerima');
             $table->string('logo')->nullable();
             $table->timestamps();
         });
