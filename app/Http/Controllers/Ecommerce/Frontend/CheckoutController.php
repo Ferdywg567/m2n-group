@@ -18,8 +18,8 @@ class CheckoutController extends Controller
     public function index()
     {
         $iduser = auth()->user()->id;
-        $data = Keranjang::where('user_id', $iduser)->where('check',1)->get();
-        $totalharga = Keranjang::where('user_id', $iduser)->where('check',1)->sum('subtotal');
+        $data = Keranjang::where('user_id', $iduser)->where('check', 1)->get();
+        $totalharga = Keranjang::where('user_id', $iduser)->where('check', 1)->sum('subtotal');
         $admin = 2500;
         $totaltagihan = $totalharga + $admin;
         $alamat = Alamat::where('user_id', $iduser)->where('status', 'Utama')->first();
@@ -96,5 +96,24 @@ class CheckoutController extends Controller
     public function destroy($id)
     {
         //
+    }
+    function generateRandomString($length = 10)
+    {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return md5($randomString);
+    }
+
+    public function get_checkout_success()
+    {
+        return view('ecommerce.frontend.checkout.success');
+    }
+
+    public function checkout_success()
+    {
     }
 }

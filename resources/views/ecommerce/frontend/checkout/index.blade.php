@@ -71,46 +71,50 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h5 class="font-weight-bold">Total Bayar</h5>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="grand-totall" style="padding-bottom:30px;padding-top:35px;color:#8E8E93">
-                            <h4 style="color:#FF3B30" class="font-weight-bold">@rupiah($totaltagihan)</h4>
-                            <hr>
-                            <h6 style="color:#8E8E93">Total Produk ({{count($data)}}) <span>@rupiah($totalharga)</span>
-                            </h6>
-                            <h6 style="color:#8E8E93">Biaya Admin <span>@rupiah($admin)</span></h6>
-                            <span style="float: right; color:#8E8E93">* Harga diluar ongkos kirim</span>
+            <form action="{{route('frontend.checkout.store')}}" method="post">
+                @csrf
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h5 class="font-weight-bold">Total Bayar</h5>
                         </div>
                     </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-md-12">
-                        <div class="grand-totall" style="padding-bottom:30px;padding-top:35px;  ">
-                            <h6 class="font-weight-bold">Transfer Manual</h6>
-                            <hr>
-                            <div class="form-group">
-                                <select class="form-control" id="bank">
-                                    @forelse ($bank as $item)
-                                    <option value="{{$item->id}}">{{$item->nama_bank}}</option>
-                                    @empty
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="grand-totall" style="padding-bottom:30px;padding-top:35px;color:#8E8E93">
+                                <h4 style="color:#FF3B30" class="font-weight-bold">@rupiah($totaltagihan)</h4>
+                                <hr>
+                                <h6 style="color:#8E8E93">Total Produk ({{count($data)}})
+                                    <span>@rupiah($totalharga)</span>
+                                </h6>
+                                <h6 style="color:#8E8E93">Biaya Admin <span>@rupiah($admin)</span></h6>
+                                <span style="float: right; color:#8E8E93">* Harga diluar ongkos kirim</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-md-12">
+                            <div class="grand-totall" style="padding-bottom:30px;padding-top:35px;  ">
+                                <h6 class="font-weight-bold">Transfer Manual</h6>
+                                <hr>
+                                <div class="form-group">
+                                    <select class="form-control" id="bank" name="bank">
+                                        @forelse ($bank as $item)
+                                        <option value="{{$item->id}}">{{$item->nama_bank}}</option>
+                                        @empty
 
-                                    @endforelse
-                                </select>
+                                        @endforelse
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
+                <div class="modal-footer">
 
-                <button type="button" class="btn btn-primary btn-block">Konfirmasi Pesanan</button>
-            </div>
+                    <button type="button" class="btn btn-primary btn-block">Konfirmasi Pesanan</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

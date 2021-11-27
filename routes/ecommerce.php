@@ -37,7 +37,9 @@ Route::group(['namespace' => 'Ecommerce\Frontend'], function () {
                 Route::get('/hapus/{id}', 'KeranjangController@hapus')->name('hapus');
                 Route::get('/showdatasidebar', 'KeranjangController@showDataSidebar')->name('showdatasidebar');
             });
-
+            Route::group(['prefix' => 'checkout', 'as' => 'checkout.'], function () {
+                Route::get('/success', 'CheckoutController@get_checkout_success')->name('update_password');
+            });
             Route::resource('alamat', 'AlamatController');
             Route::resource('keranjang', 'KeranjangController');
             Route::resource('checkout', 'CheckoutController');
