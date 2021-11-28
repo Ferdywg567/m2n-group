@@ -72,7 +72,8 @@
         .btn-belanja {
             border-radius: 8px;
             height: 45px;
-            width: 11%
+            width: 11%;
+            padding-top: 10px;
         }
 
         .catatan {
@@ -153,10 +154,10 @@
         </div>
         <div class="row mt-3">
             <div class="col-md-12 d-flex justify-content-center">
-                <button type="button" class="btn btn-outline-dark btn-belanja" style="">Belanja Lagi</button>
-                <button type="button" class="btn btn-success ml-2 btn-wa" style=""><i class="ri-whatsapp-fill"></i>
+                <a type="button" class="btn btn-outline-dark btn-belanja" href="{{route('landingpage.index')}}" >Belanja Lagi</a>
+                <a type="button" target="blank" href="https://api.whatsapp.com/send?phone=6281939123456" class="btn btn-success ml-2 btn-wa" ><i class="ri-whatsapp-fill"></i>
                     Lanjutkan
-                    Pembayaran di WhatsApp</button>
+                    Pembayaran di WhatsApp</a>
             </div>
         </div>
         <div class="row mt-3">

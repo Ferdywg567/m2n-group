@@ -645,7 +645,9 @@
                             })
                     })
                 @else
-
+                    $('.btnTambahKeranjang').on('click', function () {
+                        window.location.href="{{route('frontend.auth.login')}}"
+                     })
                 @endif
 
 

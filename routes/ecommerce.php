@@ -38,7 +38,7 @@ Route::group(['namespace' => 'Ecommerce\Frontend'], function () {
                 Route::get('/showdatasidebar', 'KeranjangController@showDataSidebar')->name('showdatasidebar');
             });
             Route::group(['prefix' => 'checkout', 'as' => 'checkout.'], function () {
-                Route::get('/success', 'CheckoutController@get_checkout_success')->name('update_password');
+                Route::get('/success/{token_checkout}', 'CheckoutController@get_checkout_success')->name('success');
             });
             Route::resource('alamat', 'AlamatController');
             Route::resource('keranjang', 'KeranjangController');

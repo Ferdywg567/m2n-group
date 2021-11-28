@@ -10,4 +10,9 @@ class Transaksi extends Model
    {
        return $this->hasMany('App\DetailTransaksi');
    }
+
+   public function bank()
+   {
+       return $this->belongsTo('App\Bank');
+   }
 }

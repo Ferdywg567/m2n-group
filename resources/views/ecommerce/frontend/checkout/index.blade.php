@@ -112,7 +112,7 @@
                 </div>
                 <div class="modal-footer">
 
-                    <button type="button" class="btn btn-primary btn-block">Konfirmasi Pesanan</button>
+                    <button type="submit" class="btn btn-primary btn-block">Konfirmasi Pesanan</button>
                 </div>
             </form>
         </div>
