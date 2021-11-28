@@ -647,7 +647,20 @@
 
 
                     $('.btn-beli-langsung').on('click', function () {
-                            window.location.href = "{{route('frontend.checkout.beli_langsung',[$produk->id])}}"
+                            var jumlah = $('#jumlah').val();
+                            var id = "{{$produk->id}}"
+                            $.ajax({
+                                url:"{{route('frontend.checkout.beli_langsung')}}",
+                                method:"POST",
+                                data:{
+                                    id:id,
+                                    jumlah:jumlah
+                                },success:function(response){
+                                    if(response.status){
+                                        window.location.href = "{{route('frontend.checkout.index')}}"
+                                    }
+                                }
+                            })
                      })
                 @else
                     $('.btnTambahKeranjang').on('click', function () {
