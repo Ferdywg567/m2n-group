@@ -38,6 +38,7 @@ Route::group(['namespace' => 'Ecommerce\Frontend'], function () {
                 Route::get('/showdatasidebar', 'KeranjangController@showDataSidebar')->name('showdatasidebar');
             });
             Route::group(['prefix' => 'checkout', 'as' => 'checkout.'], function () {
+                Route::get('/beli_langsung/{id}', 'CheckoutController@beli_langsung')->name('beli_langsung');
                 Route::get('/success/{token_checkout}', 'CheckoutController@get_checkout_success')->name('success');
             });
             Route::resource('alamat', 'AlamatController');

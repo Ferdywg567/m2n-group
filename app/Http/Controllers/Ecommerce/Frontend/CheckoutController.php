@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\DetailTransaksi;
 use App\Transaksi;
 use App\Keranjang;
+use App\Produk;
 use App\Alamat;
 use App\Bank;
 
@@ -22,17 +23,34 @@ class CheckoutController extends Controller
     {
         $iduser = auth()->user()->id;
         $data = Keranjang::where('user_id', $iduser)->where('check', 1)->get();
-        $totalharga = Keranjang::where('user_id', $iduser)->where('check', 1)->sum('subtotal');
-        $admin = 2500;
-        $totaltagihan = $totalharga + $admin;
-        $alamat = Alamat::where('user_id', $iduser)->where('status', 'Utama')->first();
-        $bank = Bank::all();
-        return view('ecommerce.frontend.checkout.index', [
-            'data' => $data,
-            'admin' => $admin, 'totaltagihan' => $totaltagihan,
-            'totalharga' => $totalharga, 'alamat' => $alamat,
-            'bank' => $bank
-        ]);
+
+        if(session()->has('checkout_langsung') || count($data) > 0){
+            $totalharga = 0;
+            $totalproduk = 0;
+            if(session()->has('checkout_langsung')){
+                $checkout_langsung = session('checkout_langsung');
+                $totalharga = $checkout_langsung['subtotal'];
+                $totalproduk = 1;
+            }elseif(count($data) > 0){
+                $totalharga = Keranjang::where('user_id', $iduser)->where('check', 1)->sum('subtotal');
+                $totalproduk = Keranjang::where('user_id', $iduser)->where('check', 1)->count();
+            }
+            $admin = 2500;
+            // dd($totalproduk);
+            $totaltagihan = $totalharga + $admin;
+            $alamat = Alamat::where('user_id', $iduser)->where('status', 'Utama')->first();
+            $bank = Bank::all();
+            return view('ecommerce.frontend.checkout.index', [
+                'data' => $data,
+                'admin' => $admin, 'totaltagihan' => $totaltagihan,
+                'totalharga' => $totalharga, 'alamat' => $alamat,
+                'bank' => $bank,
+                'totalproduk' => $totalproduk
+            ]);
+        }else{
+            return redirect()->route('landingpage.index');
+        }
+
     }
 
     /**
@@ -59,7 +77,33 @@ class CheckoutController extends Controller
 
         DB::beginTransaction();
         try {
-            if (count($data) > 0) {
+            $totalharga = 0;
+            if(session()->has('checkout_langsung')){
+                $checkout_langsung = session('checkout_langsung');
+
+                $transaksi = new Transaksi();
+                $transaksi->bank_id = $bank;
+                $transaksi->kode_transaksi = $this->generateKode();
+                $transaksi->tgl_transaksi = date('Y-m-d H:i:s');
+                $transaksi->qty = 1;
+                $transaksi->total_harga = $checkout_langsung['total_harga'];
+                $transaksi->status_transaksi = "online";
+                $transaksi->status_bayar = "belum dibayar";
+                $transaksi->status = "butuh konfirmasi";
+                $transaksi->save();
+                $totalharga = $transaksi->total_harga;
+                $detail_trans = new DetailTransaksi();
+                $detail_trans->produk_id = $checkout_langsung['id_produk'];
+                $detail_trans->transaksi_id = $transaksi->id;
+                $detail_trans->jumlah = 1;
+                $detail_trans->harga = $checkout_langsung['subtotal'];
+                $detail_trans->total_harga = $checkout_langsung['subtotal'];
+                $detail_trans->save();
+
+                session()->forget('checkout_langsung');
+
+            }elseif (count($data) > 0) {
+                session()->forget('checkout_langsung');
                 $jumlahqty = Keranjang::where('user_id', $iduser)->where('check', 1)->sum('jumlah');
                 $totalharga = Keranjang::where('user_id', $iduser)->where('check', 1)->sum('subtotal');
                 $totalharga = $totalharga + 2500;
@@ -148,7 +192,8 @@ class CheckoutController extends Controller
     {
         //
     }
-    function generateRandomString($length = 10)
+
+    function generateRandomString($length)
     {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
@@ -173,7 +218,7 @@ class CheckoutController extends Controller
 
     public function checkout_success()
     {
-        $token = $this->generateRandomString(30);
+        $token = $this->generateRandomString(50);
         session(['token_checkout' => $token]);
         return redirect()->route('frontend.checkout.success', [$token]);
     }
@@ -190,5 +235,19 @@ class CheckoutController extends Controller
         }
 
         return $kode;
+    }
+
+    public function beli_langsung($id)
+    {
+        $produk = Produk::findOrFail($id);
+        $checkout = [
+            'id_produk' => $produk->id,
+            'subtotal' => $produk->harga_promo,
+            'total_produk' => 1,
+            'total_harga' => $produk->harga_promo + 2500
+        ];
+        session(['checkout_langsung' => $checkout]);
+
+        return redirect()->route('frontend.checkout.index');
     }
 }

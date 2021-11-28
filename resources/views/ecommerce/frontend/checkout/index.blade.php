@@ -40,10 +40,10 @@
                 {{-- <h5>Perumahan Pabean Asri BLOK F8, Sedati, Sidoarjo, Jawa Timur, 61257</h5> --}}
                 <hr>
                 <a type="button" class="btn btn-outline-primary"
-                    href="{{route('frontend.user.index').'#nav-alamat'}}">Pilih Alamat Lain</a>
+                    href="{{route('frontend.user.index').'#nav-alamatcheckout'}}">Pilih Alamat Lain</a>
                 @else
                 <a type="button" class="btn btn-outline-primary"
-                    href="{{route('frontend.user.index').'#nav-alamat'}}">Isi Alamat Terlebih Dahulu</a>
+                    href="{{route('frontend.user.index').'#nav-alamatcheckout'}}">Isi Alamat Terlebih Dahulu</a>
                 @endif
 
             </div>
@@ -51,7 +51,7 @@
             <div class="col-lg-4 col-md-12">
                 <div class="grand-totall">
                     <h5 style="margin-top: -15px">Ringkasan Pembelian</h5>
-                    <h6>Total Produk ({{count($data)}}) <span>@rupiah($totalharga)</span></h6>
+                    <h6>Total Produk ({{$totalproduk}}) <span>@rupiah($totalharga)</span></h6>
                     <h6>Biaya Admin <span>@rupiah($admin)</span></h6>
                     <h5>Total Tagihan <span>@rupiah($totaltagihan)</span></h5>
                     <button type="button" class="btn btn-primary btn-block btnBayar" @if(!$alamat) disabled @endif><i
@@ -84,7 +84,7 @@
                             <div class="grand-totall" style="padding-bottom:30px;padding-top:35px;color:#8E8E93">
                                 <h4 style="color:#FF3B30" class="font-weight-bold">@rupiah($totaltagihan)</h4>
                                 <hr>
-                                <h6 style="color:#8E8E93">Total Produk ({{count($data)}})
+                                <h6 style="color:#8E8E93">Total Produk ({{$totalproduk}})
                                     <span>@rupiah($totalharga)</span>
                                 </h6>
                                 <h6 style="color:#8E8E93">Biaya Admin <span>@rupiah($admin)</span></h6>

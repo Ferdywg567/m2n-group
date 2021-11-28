@@ -120,7 +120,7 @@
                             <button type="button" class="btn btn-primary btn-cart btnTambahKeranjang"><i class="ri-shopping-cart-line"></i>
                                 Tambah ke keranjang</button>
                             <hr style="height: 0;border: 1px solid #C4C4C4;">
-                            <button type="button" class="btn btn-outline-primary">Beli Langsung</button>
+                            <button type="button" class="btn btn-outline-primary btn-beli-langsung">Beli Langsung</button>
                         </div>
 
                     </div>
@@ -644,8 +644,16 @@
                                 }
                             })
                     })
+
+
+                    $('.btn-beli-langsung').on('click', function () {
+                            window.location.href = "{{route('frontend.checkout.beli_langsung',[$produk->id])}}"
+                     })
                 @else
                     $('.btnTambahKeranjang').on('click', function () {
+                        window.location.href="{{route('frontend.auth.login')}}"
+                     })
+                     $('.btn-beli-langsung').on('click', function () {
                         window.location.href="{{route('frontend.auth.login')}}"
                      })
                 @endif

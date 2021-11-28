@@ -14,7 +14,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-2">
-                <a onclick="GoBackWithRefreshUrl();return false;" href="#" class="text-left"><i
+                <a onclick="GoBackWithRefreshUrl();return false;" href="#" class="text-left btn-kembali"><i
                         class="ri-arrow-left-line"></i> Kembali</a>
 
             </div>
@@ -537,7 +537,7 @@
         function getActive(param) {
                 for (let index = 0; index < param.length; index++) {
                     const element = param[index];
-                    if(element.name == 'nav-alamat'){
+                    if(element.name == 'nav-alamatcheckout'){
                         activaTab('nav-alamat')
                     }else{
                         activaTab('nav-biodata')
