@@ -56,15 +56,52 @@ class CheckoutController extends Controller
         $bank = $request->get('bank');
         $iduser = auth()->user()->id;
         $data = Keranjang::where('user_id', $iduser)->where('check', 1)->get();
-        if(count($data) > 0){
-            $transaksi = new Transaksi();
-            $transaksi->kode_transaksi = $this->generateKode();
-            $transaksi->tgl_transaksi = date('Y-m-d H:i:s');
+
+        DB::beginTransaction();
+        try {
+            if (count($data) > 0) {
+                $jumlahqty = Keranjang::where('user_id', $iduser)->where('check', 1)->sum('jumlah');
+                $totalharga = Keranjang::where('user_id', $iduser)->where('check', 1)->sum('subtotal');
+                $totalharga = $totalharga + 2500;
+                $transaksi = new Transaksi();
+                $transaksi->bank_id = $bank;
+                $transaksi->kode_transaksi = $this->generateKode();
+                $transaksi->tgl_transaksi = date('Y-m-d H:i:s');
+                $transaksi->qty = $jumlahqty;
+                $transaksi->total_harga = $totalharga;
+                $transaksi->status_transaksi = "online";
+                $transaksi->status_bayar = "belum dibayar";
+                $transaksi->status = "butuh konfirmasi";
+                $transaksi->save();
+
+                foreach ($data as $key => $value) {
+                    $detail_trans = new DetailTransaksi();
+                    $detail_trans->produk_id = $value->produk_id;
+                    $detail_trans->transaksi_id = $transaksi->id;
+                    $detail_trans->jumlah = $value->jumlah;
+                    $detail_trans->harga = $value->harga;
+                    $detail_trans->total_harga = $value->subtotal;
+                    $detail_trans->save();
+                }
+
+                Keranjang::where('user_id', $iduser)->where('check', 1)->delete();
+            }
+            $token = $this->generateRandomString(30);
+            session(['token_checkout' => $token]);
+
+            $transaksi = [
+                'bank' => $bank,
+                'total_harga' => $totalharga,
+            ];
+            session(['transaksi_online' => $transaksi]);
+            DB::commit();
+            return redirect()->route('frontend.checkout.success', [$token]);
+        } catch (\Exception $th) {
+            //throw $th;
+
+            DB::rollBack();
+            dd($th);
         }
-        $token = $this->generateRandomString(30);
-        session(['token_checkout' => $token]);
-        session(['bank' => $bank]);
-        return redirect()->route('frontend.checkout.success',[$token]);
     }
 
     /**
@@ -124,21 +161,21 @@ class CheckoutController extends Controller
 
     public function get_checkout_success()
     {
-        if(session()->has('token_checkout')){
-
-            $bank = Bank::findOrFail(1);
-            return view('ecommerce.frontend.checkout.success');
-        }else{
+        if (session()->has('token_checkout')) {
+            $transaksi = session('transaksi_online');
+            $idbank = $transaksi['bank'];
+            $bank = Bank::findOrFail($idbank);
+            return view('ecommerce.frontend.checkout.success', ['bank' => $bank, 'transaksi' => $transaksi]);
+        } else {
             return redirect()->route('landingpage.index');
         }
-
     }
 
     public function checkout_success()
     {
         $token = $this->generateRandomString(30);
         session(['token_checkout' => $token]);
-        return redirect()->route('frontend.checkout.success',[$token]);
+        return redirect()->route('frontend.checkout.success', [$token]);
     }
 
     public function generateKode()
@@ -154,5 +191,4 @@ class CheckoutController extends Controller
 
         return $kode;
     }
-
 }

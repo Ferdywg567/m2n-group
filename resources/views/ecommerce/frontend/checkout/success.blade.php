@@ -93,7 +93,7 @@
                                 <h5 class="font-weight-bold"> Transfer Manual</h5>
                             </div>
                             <div class="col-md-4 text-right">
-                                <img style="width: 60px" src="{{asset('uploads/images/bank/163776819664989.png')}}"
+                                <img style="width: 60px" src="{{asset('uploads/images/bank/'.$bank->logo)}}"
                                     alt="" srcset="">
                             </div>
                         </div>
@@ -109,7 +109,7 @@
                                 {{-- <br> --}}
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <h4 class="font-weight-bold" id="nomor_rekening">12345678</h4>
+                                        <h4 class="font-weight-bold" id="nomor_rekening">{{$bank->nomor_rekening}}</h4>
 
                                     </div>
                                     <div class="col-md-8 mt-1">
@@ -126,7 +126,7 @@
                                 {{-- <br> --}}
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <h4 class="font-weight-bold">GARMENT INDONESIA</h4>
+                                        <h4 class="font-weight-bold">{{$bank->nama_penerima}}</h4>
                                     </div>
 
                                 </div>
@@ -138,7 +138,7 @@
                                 {{-- <br> --}}
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <h4 style="color:#FF3B30" class="font-weight-bold">@rupiah(100000)</h4>
+                                        <h4 style="color:#FF3B30" class="font-weight-bold">@rupiah($transaksi['total_harga'])</h4>
                                     </div>
 
                                 </div>

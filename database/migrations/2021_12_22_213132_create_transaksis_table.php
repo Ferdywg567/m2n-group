@@ -20,7 +20,7 @@ class CreateTransaksisTable extends Migration
             $table->string('no_resi')->nullable();
             $table->double('ongkir')->nullable();
             $table->string('kode_transaksi')->unique();
-            $table->date('tgl_transaksi');
+            $table->timestamp('tgl_transaksi');
             $table->integer('qty')->default(0);
             $table->double('total_harga');
             $table->string('status_transaksi');
