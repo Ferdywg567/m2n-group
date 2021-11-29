@@ -86,7 +86,7 @@ class CheckoutController extends Controller
             $bank = $request->get('bank');
             $iduser = auth()->user()->id;
             $data = Keranjang::where('user_id', $iduser)->where('check', 1)->get();
-
+            $alamat = Alamat::where('user_id', $iduser)->where('status', 'Utama')->first();
             DB::beginTransaction();
             try {
                 $totalharga = 0;
@@ -96,6 +96,7 @@ class CheckoutController extends Controller
 
                     $transaksi = new Transaksi();
                     $transaksi->bank_id = $bank;
+                    $transaksi->alamat_id = $alamat->id;
                     $transaksi->kode_transaksi = $this->generateKode();
                     $transaksi->tgl_transaksi = date('Y-m-d H:i:s');
                     $transaksi->qty = 1;
@@ -123,6 +124,7 @@ class CheckoutController extends Controller
                     $totalharga = $totalharga + 2500;
                     $transaksi = new Transaksi();
                     $transaksi->bank_id = $bank;
+                    $transaksi->alamat_id = $alamat->id;
                     $transaksi->kode_transaksi = $this->generateKode();
                     $transaksi->tgl_transaksi = date('Y-m-d H:i:s');
                     $transaksi->qty = $jumlahqty;
