@@ -20,6 +20,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Ecommerce\Admin', 'middleware
     Route::group(['prefix' => 'bank', 'as' => 'bank.'], function () {
         Route::post('/update','BankController@update_data')->name('updatedata');
     });
+    Route::group(['prefix' => 'transaksi', 'as' => 'transaksi.'], function () {
+        Route::get('/download/{id}','TransaksiController@download')->name('download');
+    });
 
     Route::resource('dashboard', 'DashboardController');
     Route::resource('produk', 'ProdukController');

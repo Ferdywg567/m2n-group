@@ -17,6 +17,8 @@ class CreateTransaksisTable extends Migration
             $table->id();
             $table->bigInteger('bank_id')->unsigned()->index()->nullable();
             $table->foreign('bank_id')->references('id')->on('banks')->onDelete('cascade');
+            $table->bigInteger('user_id')->unsigned()->index()->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->bigInteger('alamat_id')->unsigned()->index()->nullable();
             $table->foreign('alamat_id')->references('id')->on('alamats')->onDelete('cascade');
             $table->string('no_resi')->nullable();

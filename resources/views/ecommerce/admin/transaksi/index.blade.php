@@ -54,8 +54,8 @@
                                                 <th scope="col">Qty</th>
                                                 <th scope="col">SKU</th>
                                                 <th scope="col">Total</th>
-                                                <th scope="col">Status</th>
-                                                <th scope="col">Bukti Tf</th>
+                                                <th scope="col">Status Bayar</th>
+
                                                 <th scope="col">Aksi</th>
                                             </tr>
                                         </thead>
@@ -104,7 +104,7 @@
                                                 <td>@rupiah($item->total_harga)</td>
                                                 <td>{{$item->status_bayar}}</td>
 
-                                                <td></td>
+
                                                 <td>
                                                     <div class="dropdown dropleft">
                                                         <a class="" href="#" id="dropdownMenuButton"
@@ -114,14 +114,18 @@
                                                         </a>
                                                         <div class="dropdown-menu text-center"
                                                             aria-labelledby="dropdownMenuButton">
-                                                            <a class="dropdown-item"
-                                                                href="{{route('offline.rekapitulasi.show',[$item->id])}}"><i
-                                                                    class="ri-eye-fill"></i>
-                                                                Detail</a>
-                                                            <a class="dropdown-item btnprint"
-                                                                href="{{route('offline.rekapitulasi.cetak',[$item->id])}}"
-                                                                target="_blank"><i class="ri-printer-fill"></i>
-                                                                Cetak</a>
+                                                            @if ($item->status_bayar == 'sudah di upload')
+                                                            <a class="dropdown-item" target="blank"
+                                                                href="{{asset('uploads/images/bukti_bayar/'.$item->bukti_bayar)}}"><i
+                                                                    class="ri-eye-line"></i>
+                                                                Cek Bukti Bayar</a>
+                                                            <a class="dropdown-item konfirmasi-bayar"
+                                                                data-id="{{$item->id}}" href="#"><i
+                                                                    class="ri-check-double-line"></i>
+                                                                Konfirmasi Bayar</a>
+                                                            @endif
+
+
                                                         </div>
                                                     </div>
                                                 </td>
@@ -147,13 +151,76 @@
                                                 <th scope="col">SKU</th>
                                                 <th scope="col">Total</th>
                                                 <th scope="col">Status</th>
-                                                <th scope="col">Bukti Tf</th>
                                                 <th scope="col">Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody id="">
 
+                                            @forelse ($sudahbayar as $item)
+                                            <tr>
+                                                <td>{{$loop->iteration}}</td>
+                                                <td>{{$item->kode_transaksi}}</td>
+                                                <td>
+                                                    <ul class="list-unstyled">
+                                                        @forelse ($item->detail_transaksi as $row)
+                                                        <li>{{$row->produk->kode_produk}}</li>
+                                                        @empty
 
+                                                        @endforelse
+                                                    </ul>
+                                                </td>
+                                                <td>
+                                                    <ul class="list-unstyled">
+                                                        @forelse ($item->detail_transaksi as $row)
+                                                        <li>{{$row->produk->nama_produk}}</li>
+                                                        @empty
+
+                                                        @endforelse
+                                                    </ul>
+                                                </td>
+                                                <td>
+                                                    <ul class="list-unstyled">
+                                                        @forelse ($item->detail_transaksi as $row)
+                                                        <li>{{$row->jumlah}} seri</li>
+                                                        @empty
+
+                                                        @endforelse
+                                                    </ul>
+                                                </td>
+                                                <td>
+                                                    <ul class="list-unstyled">
+                                                        @forelse ($item->detail_transaksi as $row)
+                                                        <li>{{$row->produk->warehouse->finishing->cuci->jahit->potong->bahan->sku}}
+                                                        </li>
+                                                        @empty
+
+                                                        @endforelse
+                                                    </ul>
+                                                </td>
+                                                <td>@rupiah($item->total_harga)</td>
+                                                <td><span class="badge badge-warning text-dark">KONFIRMASI KIRIM</span></td>
+
+
+                                                <td>
+                                                    <div class="dropdown dropleft">
+                                                        <a class="" href="#" id="dropdownMenuButton"
+                                                            data-toggle="dropdown" aria-haspopup="true"
+                                                            aria-expanded="false">
+                                                            <i class="fa fa-ellipsis-h"></i>
+                                                        </a>
+                                                        <div class="dropdown-menu text-center"
+                                                            aria-labelledby="dropdownMenuButton">
+                                                            <a class="dropdown-item konfirmasi-kirim"
+                                                                data-id="{{$item->id}}" href="#"><i
+                                                                    class="ri-check-double-line"></i>
+                                                                Konfirmasi Kirim</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            @empty
+
+                                            @endforelse
                                         </tbody>
                                     </table>
 
@@ -171,12 +238,73 @@
                                                 <th scope="col">SKU</th>
                                                 <th scope="col">Total</th>
                                                 <th scope="col">Status</th>
-                                                <th scope="col">Bukti Tf</th>
                                                 <th scope="col">Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody id="">
+                                            @forelse ($dikirim as $item)
+                                            <tr>
+                                                <td>{{$loop->iteration}}</td>
+                                                <td>{{$item->kode_transaksi}}</td>
+                                                <td>
+                                                    <ul class="list-unstyled">
+                                                        @forelse ($item->detail_transaksi as $row)
+                                                        <li>{{$row->produk->kode_produk}}</li>
+                                                        @empty
 
+                                                        @endforelse
+                                                    </ul>
+                                                </td>
+                                                <td>
+                                                    <ul class="list-unstyled">
+                                                        @forelse ($item->detail_transaksi as $row)
+                                                        <li>{{$row->produk->nama_produk}}</li>
+                                                        @empty
+
+                                                        @endforelse
+                                                    </ul>
+                                                </td>
+                                                <td>
+                                                    <ul class="list-unstyled">
+                                                        @forelse ($item->detail_transaksi as $row)
+                                                        <li>{{$row->jumlah}} seri</li>
+                                                        @empty
+
+                                                        @endforelse
+                                                    </ul>
+                                                </td>
+                                                <td>
+                                                    <ul class="list-unstyled">
+                                                        @forelse ($item->detail_transaksi as $row)
+                                                        <li>{{$row->produk->warehouse->finishing->cuci->jahit->potong->bahan->sku}}
+                                                        </li>
+                                                        @empty
+
+                                                        @endforelse
+                                                    </ul>
+                                                </td>
+                                                <td>@rupiah($item->total_harga)</td>
+                                                <td><span class="badge badge-warning text-dark">DIKIRIM</span></td>
+                                                <td>
+                                                    {{-- <div class="dropdown dropleft">
+                                                        <a class="" href="#" id="dropdownMenuButton"
+                                                            data-toggle="dropdown" aria-haspopup="true"
+                                                            aria-expanded="false">
+                                                            <i class="fa fa-ellipsis-h"></i>
+                                                        </a>
+                                                        <div class="dropdown-menu text-center"
+                                                            aria-labelledby="dropdownMenuButton">
+                                                            <a class="dropdown-item konfirmasi-kirim"
+                                                                data-id="{{$item->id}}" href="#"><i
+                                                                    class="ri-check-double-line"></i>
+                                                                Konfirmasi Kirim</a>
+                                                        </div>
+                                                    </div> --}}
+                                                </td>
+                                            </tr>
+                                            @empty
+
+                                            @endforelse
                                         </tbody>
                                     </table>
 
@@ -212,10 +340,68 @@
             </div>
         </div>
     </section>
-
-
 </div>
+<div class="modal fade" id="modalKirim" tabindex="-1" role="dialog" aria-labelledby="modalKirimLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalKirimLabel">Konfirmasi Kirim</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+         <form action="" method="post" id="formResi">
+            <div id="data-alert">
 
+            </div>
+             <input type="hidden" name="status" value="konfirmasi kirim">
+             <input type="hidden" name="id" id="id_transaksi_resi">
+            <div class="form-group">
+                <label for="nomor_resi">Nomor Resi</label>
+                <input type="text" class="form-control" id="nomor_resi" name="nomor_resi">
+              </div>
+         </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+          <button type="button" class="btn btn-primary btnresi">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modalBayar" tabindex="-1" role="dialog" aria-labelledby="modalBayarLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalBayarLabel">Konfirmasi Pembayaran</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+         <form action="" method="post" id="formBayar">
+            <div id="data-alert-bayar">
+            </div>
+             <input type="hidden" name="status" value="konfirmasi bayar">
+             <input type="hidden" name="id" id="id_transaksi_bayar">
+            <div class="form-group">
+                <label for="status_bayar">Status Pembayaran</label>
+                <select class="form-control" id="status_bayar" name="status_bayar">
+                    <option value="sudah dibayar">Sudah Dibayar</option>
+                    <option value="dibatalkan">Dibatalkan</option>
+                  </select>
+              </div>
+         </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+          <button type="button" class="btn btn-primary btnbayar">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>
 @endsection
 @push('scripts')
 <script>
@@ -301,77 +487,58 @@
                 },
               })
               $('#kode_bahanselect').select2()
-              $(document).on('click','.btnprint' ,function () {
-                  var id = $(this).data('id')
-                  $.ajax({
-                      url:"{{route('bahan.getdataprint')}}",
-                      method:"GET",
-                      data:{'id':id},
-                      success:function(response){
-                            if(response.status){
-                                $('#idbahan').val(id)
-                                var data =response.data
-                                var title = data.title
-                                var datares = data.data
-                                var tbody = $('#dataprint');
 
-                                var datahtml = "";
-                                for (let index = 0; index < title.length; index++) {
-                                    const element = title[index];
 
-                                    var nilai = datares[index];
-                                    if(nilai == null){
-                                        nilai = '-'
-                                    }
-                                    datahtml += '<tr>'
-                                        datahtml += '<td class="left">'+element+'</td>'
-                                        datahtml += '<td class="text-right">'+nilai+'</td>'
-                                    datahtml += '</tr>'
-                                }
-
-                                tbody.html(datahtml)
-                                $('#printModal').modal('show')
-                            }
-                      }
-                  })
-               })
-
-               $(document).on('click','.hapus', function () {
-                  var id = $(this).data('id')
-                    swal({
-                    title: "Apa anda yakin?",
-                    text: "Ketika dihapus, data tidak bisa dikembalikan!",
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                    })
-                    .then((willDelete) => {
-                    if (willDelete) {
-                        ajax()
+               $(document).on('click','.btnbayar', function () {
+                var form = $('#formBayar').serialize()
+                         ajax()
                         $.ajax({
-                            url:"{{url('production/bahan/')}}/"+id,
-                            method:"DELETE",
-                            success:function(data){
-
-                                if(data.status){
-                                    swal("Maaf, data tidak bisa dihapus!");
-
-                                }else{
-                                    swal("Success! data berhasil dihapus!", {
-                                    icon: "success",
-                                    });
-
-                                    setTimeout(function () {  location.reload(true) },1500)
+                            url:"{{route('ecommerce.transaksi.store')}}",
+                            method:"POST",
+                            data:form,
+                            success:function(response){
+                                if(response.status){
+                                    setTimeout(function () {  location.reload(true) },1000)
                                 }
+                                $('#data-alert-bayar').html(response.data)
                             }
                        })
 
-                    } else {
+               })
+               $(document).on('click','.konfirmasi-bayar', function () {
+                  var id = $(this).data('id')
+                  $('#id_transaksi_bayar').val(id)
+                  $('#modalBayar').modal('show')
+                  $('#data-alert-bayar').empty()
+               })
 
-                    }
-                    });
+
+               $(document).on('click','.konfirmasi-kirim', function () {
+                  var id = $(this).data('id')
+                  $('#id_transaksi_resi').val(id)
+                  $('#modalKirim').modal('show')
+                  $('#data-alert').empty()
+               })
+
+
+               $(document).on('click','.btnresi', function () {
+                  var form = $('#formResi').serialize()
+                        ajax()
+                        $.ajax({
+                            url:"{{route('ecommerce.transaksi.store')}}",
+                            method:"POST",
+                            data:form,
+                            success:function(response){
+                                if(response.status){
+                                    setTimeout(function () {  location.reload(true) },1500)
+                                }
+                                $('#data-alert').html(response.data)
+                            }
+                       })
 
                })
+
+
      })
 </script>
 @endpush

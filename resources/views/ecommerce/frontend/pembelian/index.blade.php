@@ -124,10 +124,12 @@
                                                     <hr>
                                                     <div class="row">
                                                         <div class="col-md-12 text-right">
-                                                            <a href="http://"
+                                                            <a href="#"
                                                                 style="font-size: 12px;color:#FF3B30">Lihat Detail</a>
-                                                            <button type="button" class="btn btn-primary btn-sm ml-2"
-                                                                style="font-size: 12px;">Upload Bukti
+                                                            <button type="button"
+                                                                class="btn btn-primary btn-sm ml-2 btnupload"
+                                                                style="font-size: 12px;" data-id="{{$item->id}}">Upload
+                                                                Bukti
                                                                 Pembayaran</button>
                                                         </div>
                                                     </div>
@@ -148,45 +150,111 @@
                                     aria-labelledby="nav-daftar-tab">
                                     <div class="row mt-3">
                                         <div class="col-md-12">
-
-                                            {{-- <div class="row">
+                                            @forelse ($transaksi as $item)
+                                            <div class="row">
                                                 <div class="col-md-12">
-                                                    <div class="card mt-2">
+                                                    <div class="card shadow mt-2" style="border-radius: 10px">
                                                         <div class="card-body">
-                                                            <div>
-                                                                <div style="display:inline-block">
-                                                                    <h3>Kantor Sidoarjo </h3>
-                                                                </div>
-                                                                <div style="display:inline-block" class="ml-2">
-                                                                    <h5>Utama</h5>
-                                                                </div>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <h5 class="card-title font-weight-bold ">
+                                                                        <span class="mr-4"> Pembelian
+                                                                            {{date('j F
+                                                                            Y',strtotime($item->created_at))}}</span>
+                                                                        <span class="mr-4"
+                                                                            style="color:#FF3B30">{{$item->kode_transaksi}}</span>
+                                                                        @if ($item->status_bayar == 'sudah di upload')
+                                                                        <span class="badge badge-warning p-2">MENUNGGU
+                                                                            VERIFIKASI</span>
+                                                                        @elseif ($item->status_bayar == 'sudah dibayar'
+                                                                        && $item->status == 'dikirim' )
+                                                                        <span
+                                                                            class="badge badge-warning p-2">DIKIRIM</span>
+                                                                        @elseif ($item->status_bayar == 'sudah dibayar')
+                                                                        <span class="badge badge-warning p-2">PROSES
+                                                                            KIRIM</span>
+                                                                        @elseif ($item->status_bayar == 'dibatalkan')
+                                                                        <span
+                                                                            class="badge badge-danger p-2">DIBATALKAN</span>
+                                                                        @endif
 
-                                                            </div>
-                                                            <div class="pt-20">
-                                                                <div style="display:inline-block">
-                                                                    <h3>Ryan Ardito </h3>
+                                                                    </h5>
                                                                 </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    @forelse ($item->detail_transaksi as $row)
+                                                                    <div class="row mt-1">
+                                                                        <div class="col-md-4">
+                                                                            <img src="{{asset('uploads/images/produk/'.$row->produk->detail_gambar[0]->filename)}}"
+                                                                                class="rounded" alt=""
+                                                                                style="width: 100%" srcset="">
+                                                                        </div>
+                                                                        <div class="col-md-8">
+                                                                            <h5 class="font-weight-bold mt-2">
+                                                                                {{$row->produk->nama_produk}}</h5>
+                                                                            <h5 class="font-weight-bold text-secondary">
+                                                                                Qty {{$row->jumlah}} seri</h5>
+                                                                            <h5 class="font-weight-bold text-secondary">
+                                                                                @rupiah($row->total_harga)</h5>
+                                                                        </div>
+                                                                    </div>
+                                                                    @empty
 
-                                                            </div>
-                                                            <div class="pt-5">
-                                                                <p>628123456789</p>
-                                                                <p style="margin-top:-5px">Dusun Balongbiru Desa Sadang
-                                                                    RT. 08 RW. 03 Gang 8X No. 5,
-                                                                    Sidoarjo</p>
-                                                            </div>
-                                                            <div class="pt-10">
-                                                                <div style="display:inline-block">
-                                                                    <a href="http://">Ubah Alamat</a>
-                                                                </div>
-                                                                <div style="display:inline-block" class="ml-2">
-                                                                    <a href="http://">Hapus Alamat</a>
-                                                                </div>
+                                                                    @endforelse
 
+                                                                </div>
+                                                                <div class="col-md-4"
+                                                                    style="border-left: 1px solid #C7C7CC; border-right:1px solid #C7C7CC">
+                                                                    <div class="row">
+                                                                        <div class="col-md-4">
+                                                                            <img src="{{asset('uploads/images/bank/'.$item->bank->logo)}}"
+                                                                                style="width: 100%" class="mt-3" alt=""
+                                                                                srcset="">
+                                                                        </div>
+                                                                        <div class="col-md-8">
+                                                                            <h5 class="text-secondary mt-3">
+                                                                                Metode Pembayaran</h5>
+                                                                            <h5 class="font-weight-bold">
+                                                                                Transfer Manual
+                                                                                {{$item->bank->nama_bank}}</h5>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <h5 class="text-secondary mt-3">
+                                                                                Total Belanja</h5>
+                                                                            <h5 class="font-weight-bold"
+                                                                                style="color:#FF3B30">
+
+                                                                                @rupiah($item->total_harga)</h5>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <hr>
+                                                            <div class="row">
+                                                                <div class="col-md-12 text-right">
+                                                                    <a href="#"
+                                                                        style="font-size: 12px;color:#FF3B30">Lihat
+                                                                        Detail</a>
+                                                                    @if ($item->status == 'dikirim')
+                                                                    <button type="button"
+                                                                        class="btn btn-primary ml-2">Konfirmasi
+                                                                        Selesai</button>
+                                                                    @endif
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div> --}}
+                                            </div>
+                                            @empty
+
+                                            @endforelse
+
                                         </div>
                                     </div>
 
@@ -200,7 +268,50 @@
         </div>
     </div>
 </div>
+<!-- Modal Upload bukti bayar Foto -->
+<div class="modal fade" id="modalBayar" tabindex="-1" role="dialog" aria-labelledby="modalBayarLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document" style="width:600px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="modalBayarLabel">Upload Bukti Pembayaran</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="formUpload">
+                <div id="data-alert-upload">
 
+                </div>
+                <div class="modal-body">
+
+                    <input type="hidden" name="id" id="id_transaksi">
+
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <div id="dropzoneDragArea" class="dropzone" style="margin-top: -20px">
+                                <div class="dz-message d-flex flex-column">
+                                    <i class="ri-file-upload-line"></i>
+                                    Seret atau pilih bukti bayar disini
+                                    <br>
+                                    Maksimal ukuran file 5 MB dan berekstensi .jpeg / .jpg / .png
+                                    <div class="dropzone-previews"></div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-primary " id="btnSimpanUpload">Upload</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 @endsection
 @push('scripts')
@@ -239,6 +350,122 @@
                })
 
 
+               $(document).on('click','.btnupload', function () {
+                   var id = $(this).data('id');
+                   $('#id_transaksi').val(id)
+                   $('#modalBayar').modal('show')
+                })
+
+
+            let token = $('meta[name="csrf-token"]').attr('content');
+            var maxImageWidth = 1200, maxImageHeight = 500;
+            var myDropzone = new Dropzone("div#dropzoneDragArea", {
+            paramName: "file",
+            url: "{{ route('frontend.user.pembelian.store')}}",
+            previewsContainer: 'div.dropzone-previews',
+            addRemoveLinks: true,
+            autoProcessQueue: false,
+            acceptedFiles: 'image/*',
+            uploadMultiple: false,
+            parallelUploads: 1,
+            maxFiles: 1,
+            dictRemoveFile:"Hapus Gambar",
+            params: {
+                _token: token
+            },
+            // The setting up of the dropzone
+            init: function() {
+                var myDropzone = this;
+                var formUpload = new FormData();
+                //form submission code goes here
+                document.getElementById("btnSimpanUpload").addEventListener("click", function(e) {
+                    // Make sure that the form isn't actually being sent.
+                    e.preventDefault();
+                    e.stopPropagation();
+                    // console.log(myDropzone.files);
+
+                    for (let index = 0; index < myDropzone.files.length; index++) {
+                        const element = myDropzone.files[index];
+                        var imagename = element.name.split('.').pop().toLowerCase();
+                        if($.inArray(imagename,  ['png','jpg','jpeg']) == -1){
+                            var dataalert = '<div class="alert alert-danger" role="alert"> Tipe gambar wajib png, jpg, jpeg</div>'
+                            $('#data-alert-upload').html(dataalert)
+                            return false;
+                        }
+
+                        // if(element.width != maxImageWidth || element.height != maxImageHeight){
+                        //     var dataalert = '<div class="alert alert-danger" role="alert">Resolusi gambar wajib 1200 x 500 pixel</div>'
+                        //     $('#data-alert-upload').html(dataalert)
+                        //     return false;
+                        // }
+                    }
+
+                    if(myDropzone.files.length > 1){
+                        var dataalert = '<div class="alert alert-danger" role="alert"> Gambar maksimal 1</div>'
+                        $('#data-alert-upload').html(dataalert)
+                        return false;
+                    }
+
+                    if(myDropzone.files.length){
+                        myDropzone.processQueue();
+                    }else{
+                        var dataalert = '<div class="alert alert-danger" role="alert"> Gambar wajib diisi</div>'
+                        $('#data-alert-upload').html(dataalert)
+                    }
+
+                });
+                this.on('sending', function(file, xhr, formData) {
+                    // Append all form inputs to the formData Dropzone will POST
+                    var data = $('#formUpload').serializeArray();
+                    $.each(data, function(key, el) {
+                        formData.append(el.name, el.value);
+                    });
+                });
+                this.on("queuecomplete", function () {
+
+                });
+
+                // Listen to the sendingmultiple event. In this case, it's the sendingmultiple event instead
+                // of the sending event because uploadMultiple is set to true.
+                // this.on("sendingmultiple", function() {
+                // // Gets triggered when the form is actually being sent.
+                // // Hide the success button or the complete form.
+
+                //      formUpload.append("promo", "assssae");
+                // });
+
+                this.on("success", function(files, response) {
+
+                    if(response.status){
+                       setTimeout(function () {   $('#modalBayar').modal('hide') ; window.location.reload(true)  },1500)
+                    }else{
+                        $('#data-alert-upload').html(response.data)
+                    }
+                    // location.href = "{{route('ecommerce.banner.index')}}"
+                // Gets triggered when the files have successfully been sent.
+                // Redirect user or notify of success.
+                });
+
+                this.on("successmultiple", function(files, response) {
+                    console.log(response);
+
+                    if(response.status){
+                       setTimeout(function () {   $('#modalBayar').modal('hide') ; window.location.reload(true)  },1500)
+                    }else{
+                        $('#data-alert-upload').html(response.data)
+                    }
+                    // location.href = "{{route('ecommerce.banner.index')}}"
+                // Gets triggered when the files have successfully been sent.
+                // Redirect user or notify of success.
+                });
+
+                this.on("errormultiple", function(files, response) {
+                // Gets triggered when there was an error sending the files.
+                // Maybe show form again, and notify user of error
+
+                });
+            }
+	        });
     })
 </script>
 @endpush

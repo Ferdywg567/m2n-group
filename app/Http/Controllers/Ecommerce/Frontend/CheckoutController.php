@@ -96,6 +96,7 @@ class CheckoutController extends Controller
 
                     $transaksi = new Transaksi();
                     $transaksi->bank_id = $bank;
+                    $transaksi->user_id = $iduser;
                     $transaksi->alamat_id = $alamat->id;
                     $transaksi->kode_transaksi = $this->generateKode();
                     $transaksi->tgl_transaksi = date('Y-m-d H:i:s');
@@ -123,6 +124,7 @@ class CheckoutController extends Controller
                     $jumlah =  $jmlproduk;
                     $totalharga = $totalharga + 2500;
                     $transaksi = new Transaksi();
+                    $transaksi->user_id = $iduser;
                     $transaksi->bank_id = $bank;
                     $transaksi->alamat_id = $alamat->id;
                     $transaksi->kode_transaksi = $this->generateKode();
