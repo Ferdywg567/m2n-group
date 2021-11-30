@@ -243,7 +243,7 @@
                                                                     @if ($item->status == 'dikirim')
                                                                     <button type="button"
                                                                         class="btn btn-primary ml-2">Konfirmasi
-                                                                        Selesai</button>
+                                                                        Selesai </button>
                                                                     @endif
                                                                 </div>
                                                             </div>
