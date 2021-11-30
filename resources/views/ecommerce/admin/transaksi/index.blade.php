@@ -28,10 +28,10 @@
                                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                                         <a class="nav-item nav-link active" id="nav-bahanmasuk-tab" data-toggle="tab"
                                             href="#nav-bahanmasuk" role="tab" aria-controls="nav-bahanmasuk"
-                                            aria-selected="true">Pesanan Masuk</a>
+                                            aria-selected="true">Belum dibayar</a>
                                         <a class="nav-item nav-link " id="nav-stokbahan-tab" data-toggle="tab"
                                             href="#nav-stokbahan" role="tab" aria-controls="nav-stokbahan"
-                                            aria-selected="true">Diproses</a>
+                                            aria-selected="true">Belum Dikirim</a>
                                         <a class="nav-item nav-link" id="nav-keluar-tab" data-toggle="tab"
                                             href="#nav-keluar" role="tab" aria-controls="nav-keluar"
                                             aria-selected="false">Dikirim</a>
@@ -60,7 +60,75 @@
                                             </tr>
                                         </thead>
                                         <tbody id="">
+                                            @forelse ($belumbayar as $item)
+                                            <tr>
+                                                <td>{{$loop->iteration}}</td>
+                                                <td>{{$item->kode_transaksi}}</td>
+                                                <td>
+                                                    <ul class="list-unstyled">
+                                                        @forelse ($item->detail_transaksi as $row)
+                                                        <li>{{$row->produk->kode_produk}}</li>
+                                                        @empty
 
+                                                        @endforelse
+                                                    </ul>
+                                                </td>
+                                                <td>
+                                                    <ul class="list-unstyled">
+                                                        @forelse ($item->detail_transaksi as $row)
+                                                        <li>{{$row->produk->nama_produk}}</li>
+                                                        @empty
+
+                                                        @endforelse
+                                                    </ul>
+                                                </td>
+                                                <td>
+                                                    <ul class="list-unstyled">
+                                                        @forelse ($item->detail_transaksi as $row)
+                                                        <li>{{$row->jumlah}} seri</li>
+                                                        @empty
+
+                                                        @endforelse
+                                                    </ul>
+                                                </td>
+                                                <td>
+                                                    <ul class="list-unstyled">
+                                                        @forelse ($item->detail_transaksi as $row)
+                                                        <li>{{$row->produk->warehouse->finishing->cuci->jahit->potong->bahan->sku}}
+                                                        </li>
+                                                        @empty
+
+                                                        @endforelse
+                                                    </ul>
+                                                </td>
+                                                <td>@rupiah($item->total_harga)</td>
+                                                <td>{{$item->status_bayar}}</td>
+
+                                                <td></td>
+                                                <td>
+                                                    <div class="dropdown dropleft">
+                                                        <a class="" href="#" id="dropdownMenuButton"
+                                                            data-toggle="dropdown" aria-haspopup="true"
+                                                            aria-expanded="false">
+                                                            <i class="fa fa-ellipsis-h"></i>
+                                                        </a>
+                                                        <div class="dropdown-menu text-center"
+                                                            aria-labelledby="dropdownMenuButton">
+                                                            <a class="dropdown-item"
+                                                                href="{{route('offline.rekapitulasi.show',[$item->id])}}"><i
+                                                                    class="ri-eye-fill"></i>
+                                                                Detail</a>
+                                                            <a class="dropdown-item btnprint"
+                                                                href="{{route('offline.rekapitulasi.cetak',[$item->id])}}"
+                                                                target="_blank"><i class="ri-printer-fill"></i>
+                                                                Cetak</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            @empty
+
+                                            @endforelse
 
                                         </tbody>
                                     </table>
@@ -114,28 +182,28 @@
 
                                 </div>
                                 <div class="tab-pane fade" id="nav-selesai" role="tabpanel"
-                                aria-labelledby="nav-selesai-tab">
-                                <table class="table table-hover" id="tabelbahanselesai">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">No</th>
-                                            <th scope="col">Kode Transaksi</th>
-                                            <th scope="col">Kode Produk</th>
-                                            <th scope="col">Nama Produk</th>
-                                            <th scope="col">Qty</th>
-                                            <th scope="col">SKU</th>
-                                            <th scope="col">Total</th>
-                                            <th scope="col">Status</th>
-                                            <th scope="col">Bukti Tf</th>
-                                            <th scope="col">Aksi</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="">
+                                    aria-labelledby="nav-selesai-tab">
+                                    <table class="table table-hover" id="tabelbahanselesai">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">No</th>
+                                                <th scope="col">Kode Transaksi</th>
+                                                <th scope="col">Kode Produk</th>
+                                                <th scope="col">Nama Produk</th>
+                                                <th scope="col">Qty</th>
+                                                <th scope="col">SKU</th>
+                                                <th scope="col">Total</th>
+                                                <th scope="col">Status</th>
+                                                <th scope="col">Bukti Tf</th>
+                                                <th scope="col">Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="">
 
-                                    </tbody>
-                                </table>
+                                        </tbody>
+                                    </table>
 
-                            </div>
+                                </div>
                             </div>
 
                         </div>

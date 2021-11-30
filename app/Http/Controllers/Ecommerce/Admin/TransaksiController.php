@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Ecommerce\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Transaksi;
 
 class TransaksiController extends Controller
 {
@@ -14,7 +15,8 @@ class TransaksiController extends Controller
      */
     public function index()
     {
-        return view('ecommerce.admin.transaksi.index');
+        $belumbayar = Transaksi::where('status_bayar', 'belum dibayar')->orderBy('created_at', 'DESC')->get();
+        return view('ecommerce.admin.transaksi.index', ['belumbayar' => $belumbayar]);
     }
 
     /**
