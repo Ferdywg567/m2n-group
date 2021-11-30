@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Ecommerce\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Transaksi;
 use Illuminate\Http\Request;
 
 class PembelianController extends Controller
@@ -14,7 +15,8 @@ class PembelianController extends Controller
      */
     public function index()
     {
-        //
+        $menunggu = Transaksi::where('status_bayar','belum dibayar')->get();
+        return view('ecommerce.frontend.pembelian.index',['menunggu' =>$menunggu]);
     }
 
     /**

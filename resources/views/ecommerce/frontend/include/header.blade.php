@@ -79,7 +79,7 @@ $kategori = \App\SubKategori::select('nama_kategori')->groupBy('nama_kategori')-
                                 <div class="dropdown-menu" style="width: 70%">
                                     <a class="dropdown-item" href="{{route('frontend.user.index')}}"
                                         style="font-size:16px">Profil</a>
-                                    <a class="dropdown-item" href="#" style="font-size:16px">Pembelian</a>
+                                    <a class="dropdown-item" href="{{route('frontend.user.pembelian.index')}}" style="font-size:16px">Pembelian</a>
                                     <a class="dropdown-item" href="#" style="font-size:16px">Favorit</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="{{route('frontend.auth.logout')}}"
@@ -131,11 +131,11 @@ $kategori = \App\SubKategori::select('nama_kategori')->groupBy('nama_kategori')-
                             <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
                                     class="icon-user"></i></a>
                             <div class="dropdown-menu" style="width: 70%">
-                                <a class="dropdown-item" href="#" style="font-size:16px">Profil</a>
-                                <a class="dropdown-item" href="#" style="font-size:16px">Pembelian</a>
+                                <a class="dropdown-item" href="{{route('frontend.user.index')}}" style="font-size:16px">Profil</a>
+                                <a class="dropdown-item" href="{{route('frontend.user.pembelian.index')}}" style="font-size:16px">Pembelian</a>
                                 <a class="dropdown-item" href="#" style="font-size:16px">Favorit</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" style="font-size:16px">Logout</a>
+                                <a class="dropdown-item" href="{{route('frontend.auth.logout')}}" style="font-size:16px">Logout</a>
                             </div>
                         </div>
                         <div class="same-style-2 main-menu-icon">
