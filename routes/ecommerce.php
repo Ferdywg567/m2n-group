@@ -30,6 +30,9 @@ Route::group(['namespace' => 'Ecommerce\Frontend'], function () {
             Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
                 Route::post('/update_password', 'UserController@UpdatePassword')->name('update_password');
                 Route::post('/update_foto', 'UserController@UpdateFoto')->name('update_foto');
+                Route::group(['prefix' => 'pembelian', 'as' => 'pembelian.'], function () {
+                    Route::post('/update_selesai', 'PembelianController@update_selesai')->name('update_selesai');
+                });
                 Route::resource('pembelian', 'PembelianController');
             });
             Route::group(['prefix' => 'keranjang', 'as' => 'keranjang.'], function () {

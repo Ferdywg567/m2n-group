@@ -19,8 +19,9 @@ class PembelianController extends Controller
         $userid = auth()->user()->id;
         $menunggu = Transaksi::where('user_id', $userid)->where('status_bayar', 'belum dibayar')->orderBy('created_at','DESC')->get();
         $transaksi = Transaksi::where('user_id', $userid)->where(function ($q) {
-            $q->where('status_bayar', 'sudah di upload')->orWhere('status_bayar', 'sudah dibayar')->orWhere('status', 'dikirim');
+            $q->orwhere('status_bayar', 'sudah di upload')->orWhere('status_bayar', 'sudah dibayar')->orWhere('status', 'dikirim')->orWhere('status', 'telah tiba');
         })->orderBy('created_at','DESC')->get();
+        // dd($transaksi);
         return view('ecommerce.frontend.pembelian.index', ['menunggu' => $menunggu, 'transaksi' => $transaksi]);
     }
 
@@ -122,5 +123,20 @@ class PembelianController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function update_selesai(Request $request){
+        if($request->ajax()){
+            $userid = auth()->user()->id;
+            $id = $request->get('id');
+            $transaksi = Transaksi::where('user_id', $userid)->where('id', $id)->firstOrFail();
+            $transaksi->status = "telah tiba";
+            $transaksi->save();
+
+            $request->session()->flash('success', 'Transaksi berhasil di konfirmasi!');
+            return response()->json([
+                'status' => true
+            ]);
+        }
     }
 }

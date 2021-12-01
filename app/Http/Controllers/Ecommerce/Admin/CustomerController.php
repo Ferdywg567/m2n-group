@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Ecommerce\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\User;
 
 class CustomerController extends Controller
 {
@@ -14,7 +15,9 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        return view('ecommerce.admin.customer.index');
+        $user = User::role('ecommerce')->get();
+
+        return view('ecommerce.admin.customer.index',['user' => $user]);
     }
 
     /**

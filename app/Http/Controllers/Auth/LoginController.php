@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Notification;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -73,6 +74,9 @@ class LoginController extends Controller
             return redirect()->route('ecommerce.dashboard.index');
         }elseif($user->hasRole('admin-offline')){
             return redirect()->route('offline.transaksi.create');
+        }else{
+            Auth::logout();
+          return redirect()->back()->withErrors(['Email atau password salah']);
         }
     }
 }

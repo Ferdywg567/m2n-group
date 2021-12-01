@@ -15,6 +15,7 @@
     h4 {
         font-family: 'Heebo', sans-serif;
     }
+
 </style>
 <div class="breadcrumb-area bg-white" style="margin-top: -2%">
     <div class="container">
@@ -53,6 +54,7 @@
                             <div class="tab-content ml-2 mr-2" id="nav-tabContent">
                                 <div class="tab-pane fade show active" id="nav-menunggu" role="tabpanel"
                                     aria-labelledby="nav-menunggu-tab">
+                                    @if (count($menunggu) > 0)
                                     <div class="row mt-3">
                                         @forelse ($menunggu as $item)
                                         <div class="col-md-6">
@@ -124,8 +126,8 @@
                                                     <hr>
                                                     <div class="row">
                                                         <div class="col-md-12 text-right">
-                                                            <a href="#"
-                                                                style="font-size: 12px;color:#FF3B30">Lihat Detail</a>
+                                                            <a href="#" style="font-size: 12px;color:#FF3B30">Lihat
+                                                                Detail</a>
                                                             <button type="button"
                                                                 class="btn btn-primary btn-sm ml-2 btnupload"
                                                                 style="font-size: 12px;" data-id="{{$item->id}}">Upload
@@ -145,6 +147,14 @@
 
                                         @endforelse
                                     </div>
+                                    @else
+                                    <div class="row pt-15">
+                                        <div class="col-md-12 text-center">
+                                            <h4>Data Masih Kosong</h4>
+                                        </div>
+                                    </div>
+                                    @endif
+
                                 </div>
                                 <div class="tab-pane fade show" id="nav-daftar" role="tabpanel"
                                     aria-labelledby="nav-daftar-tab">
@@ -170,6 +180,9 @@
                                                                         && $item->status == 'dikirim' )
                                                                         <span
                                                                             class="badge badge-warning p-2">DIKIRIM</span>
+                                                                        @elseif ($item->status == 'telah tiba')
+                                                                        <span
+                                                                            class="badge badge-success p-2">SELESAI</span>
                                                                         @elseif ($item->status_bayar == 'sudah dibayar')
                                                                         <span class="badge badge-warning p-2">PROSES
                                                                             KIRIM</span>
@@ -242,7 +255,8 @@
                                                                         Detail</a>
                                                                     @if ($item->status == 'dikirim')
                                                                     <button type="button"
-                                                                        class="btn btn-primary ml-2">Konfirmasi
+                                                                        class="btn btn-primary ml-2 konfirmasi-selesai"
+                                                                        data-id="{{$item->id}}">Konfirmasi
                                                                         Selesai</button>
                                                                     @endif
                                                                 </div>
@@ -280,14 +294,13 @@
                 </button>
             </div>
             <form id="formUpload">
-                <div id="data-alert-upload">
-
-                </div>
                 <div class="modal-body">
+                    <div id="data-alert-upload" class="pb-5">
 
+                    </div>
                     <input type="hidden" name="id" id="id_transaksi">
 
-                    <div class="row">
+                    <div class="row mt-2">
                         <div class="col-md-12">
 
                             <div id="dropzoneDragArea" class="dropzone" style="margin-top: -20px">
@@ -321,45 +334,47 @@
     function GoBackWithRefreshUrl(event) {
         history.go(-1)
     }
-    $(document).ready(function(){
+    $(document).ready(function () {
         function ajax() {
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
         }
 
-                 $('#nav-menunggu-tab').css('background-color','black')
-                  $('#nav-menunggu-tab').css('color','white')
-                  $('#nav-daftar-tab').css('background-color','')
-                  $('#nav-daftar-tab').css('color','black')
+        $('#nav-menunggu-tab').css('background-color', 'black')
+        $('#nav-menunggu-tab').css('color', 'white')
+        $('#nav-daftar-tab').css('background-color', '')
+        $('#nav-daftar-tab').css('color', 'black')
 
-              $('#nav-menunggu-tab').click(function () {
-                  $(this).css('background-color','black')
-                  $(this).css('color','white')
-                  $('#nav-daftar-tab').css('background-color','')
-                  $('#nav-daftar-tab').css('color','black')
-               })
+        $('#nav-menunggu-tab').click(function () {
+            $(this).css('background-color', 'black')
+            $(this).css('color', 'white')
+            $('#nav-daftar-tab').css('background-color', '')
+            $('#nav-daftar-tab').css('color', 'black')
+        })
 
-               $('#nav-daftar-tab').click(function () {
-                  $('#nav-menunggu-tab').css('background-color','')
-                  $('#nav-menunggu-tab').css('color','black')
-                  $(this).css('color','white')
-                  $(this).css('background-color','black')
-               })
-
-
-               $(document).on('click','.btnupload', function () {
-                   var id = $(this).data('id');
-                   $('#id_transaksi').val(id)
-                   $('#modalBayar').modal('show')
-                })
+        $('#nav-daftar-tab').click(function () {
+            $('#nav-menunggu-tab').css('background-color', '')
+            $('#nav-menunggu-tab').css('color', 'black')
+            $(this).css('color', 'white')
+            $(this).css('background-color', 'black')
+        })
 
 
-            let token = $('meta[name="csrf-token"]').attr('content');
-            var maxImageWidth = 1200, maxImageHeight = 500;
-            var myDropzone = new Dropzone("div#dropzoneDragArea", {
+        $(document).on('click', '.btnupload', function () {
+            var id = $(this).data('id');
+            $('#id_transaksi').val(id)
+            $('#modalBayar').modal('show')
+            $('#data-alert-upload').empty()
+        })
+
+
+        let token = $('meta[name="csrf-token"]').attr('content');
+        var maxImageWidth = 1200,
+            maxImageHeight = 500;
+        var myDropzone = new Dropzone("div#dropzoneDragArea", {
             paramName: "file",
             url: "{{ route('frontend.user.pembelian.store')}}",
             previewsContainer: 'div.dropzone-previews',
@@ -369,16 +384,16 @@
             uploadMultiple: false,
             parallelUploads: 1,
             maxFiles: 1,
-            dictRemoveFile:"Hapus Gambar",
+            dictRemoveFile: "Hapus Gambar",
             params: {
                 _token: token
             },
             // The setting up of the dropzone
-            init: function() {
+            init: function () {
                 var myDropzone = this;
                 var formUpload = new FormData();
                 //form submission code goes here
-                document.getElementById("btnSimpanUpload").addEventListener("click", function(e) {
+                document.getElementById("btnSimpanUpload").addEventListener("click", function (e) {
                     // Make sure that the form isn't actually being sent.
                     e.preventDefault();
                     e.stopPropagation();
@@ -387,8 +402,9 @@
                     for (let index = 0; index < myDropzone.files.length; index++) {
                         const element = myDropzone.files[index];
                         var imagename = element.name.split('.').pop().toLowerCase();
-                        if($.inArray(imagename,  ['png','jpg','jpeg']) == -1){
-                            var dataalert = '<div class="alert alert-danger" role="alert"> Tipe gambar wajib png, jpg, jpeg</div>'
+                        if ($.inArray(imagename, ['png', 'jpg', 'jpeg']) == -1) {
+                            var dataalert =
+                                '<div class="alert alert-danger" role="alert"> Tipe gambar wajib png, jpg, jpeg</div>'
                             $('#data-alert-upload').html(dataalert)
                             return false;
                         }
@@ -400,24 +416,26 @@
                         // }
                     }
 
-                    if(myDropzone.files.length > 1){
-                        var dataalert = '<div class="alert alert-danger" role="alert"> Gambar maksimal 1</div>'
+                    if (myDropzone.files.length > 1) {
+                        var dataalert =
+                            '<div class="alert alert-danger" role="alert"> Gambar maksimal 1</div>'
                         $('#data-alert-upload').html(dataalert)
                         return false;
                     }
 
-                    if(myDropzone.files.length){
+                    if (myDropzone.files.length) {
                         myDropzone.processQueue();
-                    }else{
-                        var dataalert = '<div class="alert alert-danger" role="alert"> Gambar wajib diisi</div>'
+                    } else {
+                        var dataalert =
+                            '<div class="alert alert-danger" role="alert"> Gambar wajib diisi</div>'
                         $('#data-alert-upload').html(dataalert)
                     }
 
                 });
-                this.on('sending', function(file, xhr, formData) {
+                this.on('sending', function (file, xhr, formData) {
                     // Append all form inputs to the formData Dropzone will POST
                     var data = $('#formUpload').serializeArray();
-                    $.each(data, function(key, el) {
+                    $.each(data, function (key, el) {
                         formData.append(el.name, el.value);
                     });
                 });
@@ -434,38 +452,82 @@
                 //      formUpload.append("promo", "assssae");
                 // });
 
-                this.on("success", function(files, response) {
+                this.on("success", function (files, response) {
 
-                    if(response.status){
-                       setTimeout(function () {   $('#modalBayar').modal('hide') ; window.location.reload(true)  },1500)
-                    }else{
+                    if (response.status) {
+                        setTimeout(function () {
+                            $('#modalBayar').modal('hide');
+                            window.location.reload(true)
+                        }, 1500)
+                    } else {
                         $('#data-alert-upload').html(response.data)
                     }
                     // location.href = "{{route('ecommerce.banner.index')}}"
-                // Gets triggered when the files have successfully been sent.
-                // Redirect user or notify of success.
+                    // Gets triggered when the files have successfully been sent.
+                    // Redirect user or notify of success.
                 });
 
-                this.on("successmultiple", function(files, response) {
+                this.on("successmultiple", function (files, response) {
                     console.log(response);
 
-                    if(response.status){
-                       setTimeout(function () {   $('#modalBayar').modal('hide') ; window.location.reload(true)  },1500)
-                    }else{
+                    if (response.status) {
+                        setTimeout(function () {
+                            $('#modalBayar').modal('hide');
+                            window.location.reload(true)
+                        }, 1500)
+                    } else {
                         $('#data-alert-upload').html(response.data)
                     }
                     // location.href = "{{route('ecommerce.banner.index')}}"
-                // Gets triggered when the files have successfully been sent.
-                // Redirect user or notify of success.
+                    // Gets triggered when the files have successfully been sent.
+                    // Redirect user or notify of success.
                 });
 
-                this.on("errormultiple", function(files, response) {
-                // Gets triggered when there was an error sending the files.
-                // Maybe show form again, and notify user of error
+                this.on("errormultiple", function (files, response) {
+                    // Gets triggered when there was an error sending the files.
+                    // Maybe show form again, and notify user of error
 
                 });
             }
-	        });
+        });
+
+        function activaTab(tab) {
+            $('.nav-tabs a[href="#' + tab + '"]').tab('show');
+        };
+
+        $(document).on('click', '.konfirmasi-selesai', function () {
+            var id = $(this).data('id')
+            swal({
+                    text: "Apa anda yakin konfirmasi selesai transaksi ini ?",
+                    icon: "warning",
+                    buttons: ["Batal", "Ya"],
+                    dangerMode: true,
+                })
+                .then((willUpdate) => {
+                    if (willUpdate) {
+                        ajax()
+                        $.ajax({
+                            url: "{{route('frontend.user.pembelian.update_selesai')}}",
+                            method: "POST",
+                            data: {
+                                id: id
+                            },
+                            success: function (response) {
+                                if (response.status) {
+
+                                    swal("Success!",
+                                        "Transaksi berhasil di konfirmasi!",
+                                        "success");
+                                    setTimeout(function () {
+                                        window.location.reload(true)
+                                    }, 1500)
+                                }
+                            }
+                        })
+                    }
+                });
+        })
     })
+
 </script>
 @endpush

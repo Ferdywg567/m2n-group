@@ -7,7 +7,7 @@
 
 
 <section class="section mt-4">
-    
+
     <div class="section-body mt-4">
         <div class="row">
             <div class="col-md-12">
@@ -21,12 +21,22 @@
                                     <th scope="col">Nama Lengkap</th>
                                     <th scope="col">Email</th>
                                     <th scope="col">No Hp</th>
-                                  
+
                                     <th scope="col">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody id="">
-                              
+                                @forelse ($user as $item)
+                                <tr>
+                                    <td>{{$loop->iteration}}</td>
+                                    <td>{{$item->name}}</td>
+                                    <td>{{$item->email}}</td>
+                                    <td>{{$item->no_hp}}</td>
+                                    <td></td>
+                                </tr>
+                                @empty
+
+                                @endforelse
                             </tbody>
                         </table>
                     </div>

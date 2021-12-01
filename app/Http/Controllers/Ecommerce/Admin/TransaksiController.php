@@ -1,9 +1,13 @@
 <?php
 
 namespace App\Http\Controllers\Ecommerce\Admin;
+
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Response;
 use App\Http\Controllers\Controller;
+use App\DetailProduk;
+use App\Produk;
 use Illuminate\Http\Request;
 use App\Transaksi;
 
@@ -17,10 +21,11 @@ class TransaksiController extends Controller
     public function index()
     {
         $belumbayar = Transaksi::where('status_bayar', 'belum dibayar')->orwhere('status_bayar', 'sudah di upload')->orderBy('created_at', 'DESC')->get();
-        $sudahbayar = Transaksi::where('status_bayar', 'sudah dibayar')->where('status','!=','dikirim')->orderBy('created_at', 'DESC')->get();
-        $dikirim = Transaksi::where('status','dikirim')->orderBy('created_at', 'DESC')->get();
+        $sudahbayar = Transaksi::where('status_bayar', 'sudah dibayar')->where('status', '!=', 'dikirim')->where('status', '!=', 'telah tiba')->orderBy('created_at', 'DESC')->get();
+        $dikirim = Transaksi::where('status', 'dikirim')->orderBy('created_at', 'DESC')->get();
+        $selesai = Transaksi::where('status', 'telah tiba')->orWhere('status_bayar','dibatalkan')->orderBy('created_at', 'DESC')->get();
         return view('ecommerce.admin.transaksi.index', [
-            'belumbayar' => $belumbayar, 'sudahbayar' => $sudahbayar,'dikirim' => $dikirim
+            'belumbayar' => $belumbayar, 'sudahbayar' => $sudahbayar, 'dikirim' => $dikirim, 'selesai' => $selesai
         ]);
     }
 
@@ -46,42 +51,58 @@ class TransaksiController extends Controller
             $status = $request->get('status');
             $id = $request->get('id');
 
-            if ($status == 'konfirmasi bayar') {
-                $transaksi = Transaksi::findOrFail($id);
-                $transaksi->status_bayar = $request->get('status_bayar');
-                $transaksi->save();
-                $html = ' <div class="alert alert-success" role="alert"> Pembayaran berhasil di konfirmasi </div>';
-            }
-
-            if ($status == 'konfirmasi kirim') {
-                $validator = Validator::make($request->all(),[
-                    'id' => 'required',
-                    'nomor_resi' => 'required',
-                ]);
-
-                if ($validator->fails()) {
-                    $html = ' <div class="alert alert-danger" role="alert">' . $validator->errors()->first() . '</div>';
-
-                    return response()->json([
-                        'status' => false,
-                        'data' => $html
-                    ]);
-                } else{
+            DB::beginTransaction();
+            try {
+                if ($status == 'konfirmasi bayar') {
                     $transaksi = Transaksi::findOrFail($id);
-                    $transaksi->status = "dikirim";
-                    $transaksi->no_resi = $request->get('nomor_resi');
+                    $transaksi->status_bayar = $request->get('status_bayar');
                     $transaksi->save();
-                    $html = ' <div class="alert alert-success" role="alert"> Status berhasil di update ke kirim </div>';
-
+                    $html = ' <div class="alert alert-success" role="alert"> Pembayaran berhasil di konfirmasi </div>';
                 }
 
+                if ($status == 'konfirmasi kirim') {
+                    $validator = Validator::make($request->all(), [
+                        'id' => 'required',
+                        'nomor_resi' => 'required',
+                    ]);
 
+                    if ($validator->fails()) {
+                        $html = ' <div class="alert alert-danger" role="alert">' . $validator->errors()->first() . '</div>';
+
+                        return response()->json([
+                            'status' => false,
+                            'data' => $html
+                        ]);
+                    } else {
+                        $transaksi = Transaksi::findOrFail($id);
+                        $transaksi->status = "dikirim";
+                        $transaksi->no_resi = $request->get('nomor_resi');
+                        $transaksi->save();
+
+                        foreach ($transaksi->detail_transaksi as $key => $value) {
+                            $produk = Produk::findOrFail($value->produk_id);
+                            $jumproduk = DetailProduk::where('produk_id', $produk->id)->count();
+                            $produk->stok = $produk->stok - ($jumproduk * $value->jumlah);
+                            foreach ($produk->detail_produk as $key => $row) {
+                                $detailProduk = DetailProduk::findOrFail($row->id);
+                                $detailProduk->jumlah = $detailProduk->jumlah - $value->jumlah;
+                                $detailProduk->save();
+                            }
+                            $produk->save();
+                        }
+
+                        $html = ' <div class="alert alert-success" role="alert"> Status berhasil di update ke kirim </div>';
+                    }
+                }
+                DB::commit();
+                return response()->json([
+                    'status' => true,
+                    'data' => $html
+                ]);
+            } catch (\Exception $th) {
+                //throw $th;
+                DB::rollBack();
             }
-
-            return response()->json([
-                'status' => true,
-                'data' => $html
-            ]);
         }
     }
 

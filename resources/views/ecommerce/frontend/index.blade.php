@@ -276,7 +276,7 @@
                 <h2>Produk Terlaris</h2>
             </div>
             <div class="tab-style-3 nav">
-                <a href="#" class="active">Lihat Semua Produk </a>
+                <a href="{{route('frontend.product.kategori')}}?kategori=Semua Kategori" class="active">Lihat Semua Produk </a>
 
             </div>
         </div>
