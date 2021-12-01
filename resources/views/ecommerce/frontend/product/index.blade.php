@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-2">
-                <a href="/" class="text-left"><i class="ri-arrow-left-line"></i> Kembali</a>
+                <a onclick="GoBackWithRefreshUrl();return false;" href="#" class="text-left"><i class="ri-arrow-left-line"></i> Kembali</a>
 
             </div>
             <div class="col-md-10" style="margin-left: -80px !important;">
@@ -102,3 +102,11 @@
     </div>
 </div>
 @endsection
+@push('scripts')
+<script>
+
+    function GoBackWithRefreshUrl(event) {
+        history.go(-1)
+    }
+</script>
+@endpush
