@@ -9,6 +9,7 @@
     .badge-primary {
         background-color: #FF3B30;
     }
+
 </style>
 <div class="breadcrumb-area bg-white" style="margin-top: -2%">
     <div class="container">
@@ -53,8 +54,8 @@
                                                 <div class="text-center mt-3">
                                                     @if (!empty(auth()->user()->foto))
                                                     <img class="card-img-top rounded text-center"
-                                                    src="{{asset('uploads/images/user/'.auth()->user()->foto)}}"
-                                                    alt="Card image cap" style="width:90%">
+                                                        src="{{asset('uploads/images/user/'.auth()->user()->foto)}}"
+                                                        alt="Card image cap" style="width:90%">
                                                     @else
                                                     <img class="card-img-top rounded text-center"
                                                         src="{{asset('assets/img/avatar/avatar-3.png')}}"
@@ -429,6 +430,8 @@
                     <div id="data-alert-sandi">
 
                     </div>
+
+                    @if (auth()->user()->password != 0)
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
@@ -439,6 +442,8 @@
                         </div>
 
                     </div>
+                    @endif
+
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -517,49 +522,49 @@
     // console.log();
     function GoBackWithRefreshUrl(event) {
         if ('referrer' in document) {
-        window.location = document.referrer;
-        /* OR */
-        //location.replace(document.referrer);
+            window.location = document.referrer;
+            /* OR */
+            //location.replace(document.referrer);
         } else {
             window.history.back();
         }
     }
-    $(document).ready(function(){
+    $(document).ready(function () {
         function ajax() {
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
         }
 
         function getParamArray() {
             var url = window.location.href
             var queryString = url.substring(url.lastIndexOf("?") + 1);
 
-            return queryString.split('#').map(function(sParam) {
+            return queryString.split('#').map(function (sParam) {
                 var param = sParam.split('=');
 
                 return {
-                name: param[0],
-                value: decodeURIComponent(param[1])
+                    name: param[0],
+                    value: decodeURIComponent(param[1])
                 };
             });
         }
 
         function getActive(param) {
-                for (let index = 0; index < param.length; index++) {
-                    const element = param[index];
-                    if(element.name == 'nav-alamatcheckout'){
-                        activaTab('nav-alamat')
-                    }else{
-                        activaTab('nav-biodata')
-                    }
-
+            for (let index = 0; index < param.length; index++) {
+                const element = param[index];
+                if (element.name == 'nav-alamatcheckout') {
+                    activaTab('nav-alamat')
+                } else {
+                    activaTab('nav-biodata')
                 }
-         }
 
-        function activaTab(tab){
+            }
+        }
+
+        function activaTab(tab) {
             $('.nav-tabs a[href="#' + tab + '"]').tab('show');
         };
 
@@ -569,155 +574,171 @@
         $('.ubahprofile').on('click', function () {
             $('#profileModal').modal('show')
             $('#data-alert-biodata').empty()
-         })
+        })
 
-         $('.btnSimpanBiodata').on('click', function () {
-                var form = $('#formBiodata').serialize()
-                ajax()
-                $.ajax({
-                    url:"{{route('frontend.user.store')}}",
-                    method:"POST",
-                    data:form,
-                    success:function(response){
-                        if(response.status){
-                            setTimeout(function () {   $('#profileModal').modal('hide') ; window.location.reload(true)  },1500)
-                        }
-                        $('#data-alert-biodata').html(response.data)
+        $('.btnSimpanBiodata').on('click', function () {
+            var form = $('#formBiodata').serialize()
+            ajax()
+            $.ajax({
+                url: "{{route('frontend.user.store')}}",
+                method: "POST",
+                data: form,
+                success: function (response) {
+                    if (response.status) {
+                        setTimeout(function () {
+                            $('#profileModal').modal('hide');
+                            window.location.reload(true)
+                        }, 1500)
                     }
-                })
-          })
+                    $('#data-alert-biodata').html(response.data)
+                }
+            })
+        })
 
-          $('.btntambahalamat').on('click', function () {
-                $('#modalAlamat').modal('show')
-                $('#data-alert-alamat').empty()
-                $('.btnModalAlamat').addClass('btnSimpanAlamat')
-                $('.btnModalAlamat').removeClass('btnUpdateAlamat')
-                $('#modalAlamatLabel').text('Tambah Alamat Baru')
-          })
+        $('.btntambahalamat').on('click', function () {
+            $('#modalAlamat').modal('show')
+            $('#data-alert-alamat').empty()
+            $('.btnModalAlamat').addClass('btnSimpanAlamat')
+            $('.btnModalAlamat').removeClass('btnUpdateAlamat')
+            $('#modalAlamatLabel').text('Tambah Alamat Baru')
+        })
 
-          $(document).on('click','.btnSimpanAlamat', function () {
-                var form = $('#formalamat').serialize()
-                ajax()
-                $.ajax({
-                    url:"{{route('frontend.alamat.store')}}",
-                    method:"POST",
-                    data:form,
-                    success:function(response){
-                        if(response.status){
-                            setTimeout(function () {   $('#modalAlamat').modal('hide') ; window.location.reload(true)  },1500)
-                        }
-                        $('#data-alert-alamat').html(response.data)
+        $(document).on('click', '.btnSimpanAlamat', function () {
+            var form = $('#formalamat').serialize()
+            ajax()
+            $.ajax({
+                url: "{{route('frontend.alamat.store')}}",
+                method: "POST",
+                data: form,
+                success: function (response) {
+                    if (response.status) {
+                        setTimeout(function () {
+                            $('#modalAlamat').modal('hide');
+                            window.location.reload(true)
+                        }, 1500)
                     }
-                })
-          })
+                    $('#data-alert-alamat').html(response.data)
+                }
+            })
+        })
 
-          $('.ubah_alamat').on('click', function () {
-                $('#modalAlamat').modal('show')
-                $('#data-alert-alamat').empty()
-                var id = $(this).data('id')
-                $('.btnModalAlamat').removeClass('btnSimpanAlamat')
-                $('.btnModalAlamat').addClass('btnUpdateAlamat')
-                $('#modalAlamatLabel').text('Ubah Alamat')
-                $.ajax({
-                    url:"{{route('frontend.alamat.get_alamat')}}",
-                    method:"GET",
-                    data:{
-                        id:id
-                    },success:function(response){
-                        if(response.status){
-                            var data = response.data
-                            $('#id_alamat').val(id)
-                            $('#nama_penerima').val(data.nama_penerima)
-                            $('#no_telp').val(data.no_telp)
-                            $('#jenis_alamat').val(data.jenis_alamat).change()
-                            $('#status_alamat').val(data.status).change()
-                            $('#alamat_detail').val(data.alamat_detail)
-                            $('#kota').val(data.kota)
-                            $('#kecamatan').val(data.kecamatan)
-                            $('#kode_pos').val(data.kode_pos)
+        $('.ubah_alamat').on('click', function () {
+            $('#modalAlamat').modal('show')
+            $('#data-alert-alamat').empty()
+            var id = $(this).data('id')
+            $('.btnModalAlamat').removeClass('btnSimpanAlamat')
+            $('.btnModalAlamat').addClass('btnUpdateAlamat')
+            $('#modalAlamatLabel').text('Ubah Alamat')
+            $.ajax({
+                url: "{{route('frontend.alamat.get_alamat')}}",
+                method: "GET",
+                data: {
+                    id: id
+                },
+                success: function (response) {
+                    if (response.status) {
+                        var data = response.data
+                        $('#id_alamat').val(id)
+                        $('#nama_penerima').val(data.nama_penerima)
+                        $('#no_telp').val(data.no_telp)
+                        $('#jenis_alamat').val(data.jenis_alamat).change()
+                        $('#status_alamat').val(data.status).change()
+                        $('#alamat_detail').val(data.alamat_detail)
+                        $('#kota').val(data.kota)
+                        $('#kecamatan').val(data.kecamatan)
+                        $('#kode_pos').val(data.kode_pos)
 
-                        }
                     }
-                })
-          })
+                }
+            })
+        })
 
-          $(document).on('click','.btnUpdateAlamat', function () {
-                var form = $('#formalamat').serialize()
-                ajax()
-                $.ajax({
-                    url:"{{route('frontend.alamat.update_alamat')}}",
-                    method:"POST",
-                    data:form,
-                    success:function(response){
-                        if(response.status){
-                            setTimeout(function () {   $('#modalAlamat').modal('hide') ; window.location.reload(true)  },1500)
-                        }
-                        $('#data-alert-alamat').html(response.data)
+        $(document).on('click', '.btnUpdateAlamat', function () {
+            var form = $('#formalamat').serialize()
+            ajax()
+            $.ajax({
+                url: "{{route('frontend.alamat.update_alamat')}}",
+                method: "POST",
+                data: form,
+                success: function (response) {
+                    if (response.status) {
+                        setTimeout(function () {
+                            $('#modalAlamat').modal('hide');
+                            window.location.reload(true)
+                        }, 1500)
                     }
-                })
-          })
+                    $('#data-alert-alamat').html(response.data)
+                }
+            })
+        })
 
-          $(document).on('click','.hapus_alamat',function () {
-                var id = $(this).data('id')
-                swal({
+        $(document).on('click', '.hapus_alamat', function () {
+            var id = $(this).data('id')
+            swal({
                     title: "Apa anda yakin?",
                     text: "Ketika dihapus, data tidak bisa dikembalikan!",
                     icon: "warning",
                     buttons: true,
                     dangerMode: true,
-                    })
-                    .then((willDelete) => {
+                })
+                .then((willDelete) => {
                     if (willDelete) {
                         ajax()
                         $.ajax({
-                            url:"{{url('ecommerce/alamat/')}}/"+id,
-                            method:"DELETE",
-                            success:function(data){
-                                if(data.status){
+                            url: "{{url('ecommerce/alamat/')}}/" + id,
+                            method: "DELETE",
+                            success: function (data) {
+                                if (data.status) {
                                     swal("Success! data berhasil dihapus!", {
-                                         icon: "success",
+                                        icon: "success",
                                     });
-                                    setTimeout(function () {  location.reload(true) },1500)
+                                    setTimeout(function () {
+                                        location.reload(true)
+                                    }, 1500)
 
-                                }else{
+                                } else {
                                     swal("Maaf, data tidak bisa dihapus!");
                                 }
                             }
-                       })
+                        })
 
                     }
-                    });
-           })
+                });
+        })
 
-           $('.btn-ubah-sandi').on('click', function(){
-                $('#data-alert-sandi').empty()
-                $('#modalUbahPassword').modal('show')
-           })
-           $('.btnPilihFoto').on('click', function(){
-                $('#data-alert-foto').empty()
-                $('#modalUbahFoto').modal('show')
-           })
+        $('.btn-ubah-sandi').on('click', function () {
+            $('#data-alert-sandi').empty()
+            $('#modalUbahPassword').modal('show')
+        })
+        $('.btnPilihFoto').on('click', function () {
+            $('#data-alert-foto').empty()
+            $('#modalUbahFoto').modal('show')
+        })
 
-           $(document).on('click','.btnSimpanSandi', function () {
-                var form = $('#formSandi').serialize()
-                ajax()
-                $.ajax({
-                    url:"{{route('frontend.user.update_password')}}",
-                    method:"POST",
-                    data:form,
-                    success:function(response){
-                        if(response.status){
-                            setTimeout(function () {   $('#modalUbahPassword').modal('hide') ; window.location.reload(true)  },1500)
-                        }
-                        $('#data-alert-sandi').html(response.data)
+        $(document).on('click', '.btnSimpanSandi', function () {
+            var form = $('#formSandi').serialize()
+            ajax()
+            $.ajax({
+                url: "{{route('frontend.user.update_password')}}",
+                method: "POST",
+                data: form,
+                success: function (response) {
+                    if (response.status) {
+                        setTimeout(function () {
+                            $('#modalUbahPassword').modal('hide');
+                            window.location.reload(true)
+                        }, 1500)
                     }
-                })
-          })
+                    $('#data-alert-sandi').html(response.data)
+                }
+            })
+        })
 
 
-            let token = $('meta[name="csrf-token"]').attr('content');
-            var maxImageWidth = 1200, maxImageHeight = 500;
-            var myDropzone = new Dropzone("div#dropzoneDragArea", {
+        let token = $('meta[name="csrf-token"]').attr('content');
+        var maxImageWidth = 1200,
+            maxImageHeight = 500;
+        var myDropzone = new Dropzone("div#dropzoneDragArea", {
             paramName: "file",
             url: "{{ route('frontend.user.update_foto')}}",
             previewsContainer: 'div.dropzone-previews',
@@ -727,16 +748,16 @@
             uploadMultiple: false,
             parallelUploads: 1,
             maxFiles: 1,
-            dictRemoveFile:"Hapus Gambar",
+            dictRemoveFile: "Hapus Gambar",
             params: {
                 _token: token
             },
             // The setting up of the dropzone
-            init: function() {
+            init: function () {
                 var myDropzone = this;
                 var formUpload = new FormData();
                 //form submission code goes here
-                document.getElementById("btnSimpanFoto").addEventListener("click", function(e) {
+                document.getElementById("btnSimpanFoto").addEventListener("click", function (e) {
                     // Make sure that the form isn't actually being sent.
                     e.preventDefault();
                     e.stopPropagation();
@@ -745,8 +766,9 @@
                     for (let index = 0; index < myDropzone.files.length; index++) {
                         const element = myDropzone.files[index];
                         var imagename = element.name.split('.').pop().toLowerCase();
-                        if($.inArray(imagename,  ['png','jpg','jpeg']) == -1){
-                            var dataalert = '<div class="alert alert-danger" role="alert"> Tipe gambar wajib png, jpg, jpeg</div>'
+                        if ($.inArray(imagename, ['png', 'jpg', 'jpeg']) == -1) {
+                            var dataalert =
+                                '<div class="alert alert-danger" role="alert"> Tipe gambar wajib png, jpg, jpeg</div>'
                             $('#data-alert-foto').html(dataalert)
                             return false;
                         }
@@ -758,24 +780,26 @@
                         // }
                     }
 
-                    if(myDropzone.files.length > 1){
-                        var dataalert = '<div class="alert alert-danger" role="alert"> Gambar maksimal 1</div>'
+                    if (myDropzone.files.length > 1) {
+                        var dataalert =
+                            '<div class="alert alert-danger" role="alert"> Gambar maksimal 1</div>'
                         $('#data-alert-foto').html(dataalert)
                         return false;
                     }
 
-                    if(myDropzone.files.length){
+                    if (myDropzone.files.length) {
                         myDropzone.processQueue();
-                    }else{
-                        var dataalert = '<div class="alert alert-danger" role="alert"> Gambar wajib diisi</div>'
+                    } else {
+                        var dataalert =
+                            '<div class="alert alert-danger" role="alert"> Gambar wajib diisi</div>'
                         $('#data-alert-foto').html(dataalert)
                     }
 
                 });
-                this.on('sending', function(file, xhr, formData) {
+                this.on('sending', function (file, xhr, formData) {
                     // Append all form inputs to the formData Dropzone will POST
                     var data = $('#formFoto').serializeArray();
-                    $.each(data, function(key, el) {
+                    $.each(data, function (key, el) {
                         formData.append(el.name, el.value);
                     });
                 });
@@ -792,38 +816,45 @@
                 //      formUpload.append("promo", "assssae");
                 // });
 
-                this.on("success", function(files, response) {
+                this.on("success", function (files, response) {
 
-                    if(response.status){
-                       setTimeout(function () {   $('#modalUbahFoto').modal('hide') ; window.location.reload(true)  },1500)
-                    }else{
+                    if (response.status) {
+                        setTimeout(function () {
+                            $('#modalUbahFoto').modal('hide');
+                            window.location.reload(true)
+                        }, 1500)
+                    } else {
                         $('#data-alert-foto').html(response.data)
                     }
                     // location.href = "{{route('ecommerce.banner.index')}}"
-                // Gets triggered when the files have successfully been sent.
-                // Redirect user or notify of success.
+                    // Gets triggered when the files have successfully been sent.
+                    // Redirect user or notify of success.
                 });
 
-                this.on("successmultiple", function(files, response) {
+                this.on("successmultiple", function (files, response) {
                     console.log(response);
 
-                    if(response.status){
-                       setTimeout(function () {   $('#modalUbahFoto').modal('hide') ; window.location.reload(true)  },1500)
-                    }else{
+                    if (response.status) {
+                        setTimeout(function () {
+                            $('#modalUbahFoto').modal('hide');
+                            window.location.reload(true)
+                        }, 1500)
+                    } else {
                         $('#data-alert-foto').html(response.data)
                     }
                     // location.href = "{{route('ecommerce.banner.index')}}"
-                // Gets triggered when the files have successfully been sent.
-                // Redirect user or notify of success.
+                    // Gets triggered when the files have successfully been sent.
+                    // Redirect user or notify of success.
                 });
 
-                this.on("errormultiple", function(files, response) {
-                // Gets triggered when there was an error sending the files.
-                // Maybe show form again, and notify user of error
+                this.on("errormultiple", function (files, response) {
+                    // Gets triggered when there was an error sending the files.
+                    // Maybe show form again, and notify user of error
 
                 });
             }
-	        });
+        });
     })
+
 </script>
 @endpush

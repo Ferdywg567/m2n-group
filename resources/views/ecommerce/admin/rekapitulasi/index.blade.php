@@ -5,7 +5,9 @@
 @section('content')
 <style>
 
-
+.selectgrey {
+        background-color: #E5E5EA;
+    }
     .dropdown-menu {
         left: 50% !important;
         transform: translateX(-50%) !important;
@@ -15,6 +17,42 @@
 <section class="section mt-4">
 
     <div class="section-body mt-4">
+        <div class="row">
+            <div class="col-md-12 ">
+                <div class="row">
+                    <div class="col-md-9">
+                        <a href="#"
+                            class="btn btn-outline-primary rounded ml-1">Cetak Semua <i class="ri-printer-fill"></i>
+                        </a>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <select class="form-control selectgrey" id="bulan">
+                                        @forelse ($month as $key => $item)
+                                        <option value="{{$key+1}}">{{$item}}</option>
+                                        @empty
+                                        @endforelse
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <select class="form-control selectgrey" id="tahun">
+                                        @forelse ($tahun as $item)
+                                        <option value="{{$item}}">{{$item}}</option>
+                                        @empty
+                                        @endforelse
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="card ">
@@ -38,6 +76,64 @@
                             <tbody id="">
 
 
+                                @forelse ($transaksi as $item)
+                                <tr>
+                                    <td>{{$loop->iteration}}</td>
+                                    <td>{{$item->kode_transaksi}}</td>
+                                    <td>
+                                        <ul class="list-unstyled">
+                                            @forelse ($item->detail_transaksi as $row)
+                                            <li>{{$row->produk->kode_produk}}</li>
+                                            @empty
+
+                                            @endforelse
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        <ul class="list-unstyled">
+                                            @forelse ($item->detail_transaksi as $row)
+                                            <li>{{$row->produk->warehouse->finishing->cuci->jahit->potong->bahan->nama_bahan}}
+                                            </li>
+                                            @empty
+
+                                            @endforelse
+                                        </ul>
+                                    </td>
+                                    <td>{{$item->qty}} seri</td>
+                                    <td>
+                                        <ul class="list-unstyled">
+                                            @forelse ($item->detail_transaksi as $row)
+                                            <li>{{$row->produk->warehouse->finishing->cuci->jahit->potong->bahan->sku}}
+                                            </li>
+                                            @empty
+
+                                            @endforelse
+                                        </ul>
+                                    </td>
+                                    <td>{{$item->tgl_transaksi}}</td>
+                                    <td>@rupiah($item->total_harga)</td>
+                                    <td>
+                                        {{-- <div class="dropdown dropleft">
+                                            <a class="" href="#" id="dropdownMenuButton" data-toggle="dropdown"
+                                                aria-haspopup="true" aria-expanded="false">
+                                                <i class="fa fa-ellipsis-h"></i>
+                                            </a>
+                                            <div class="dropdown-menu text-center" aria-labelledby="dropdownMenuButton">
+                                                <a class="dropdown-item"
+                                                    href="{{route('offline.rekapitulasi.show',[$item->id])}}"><i
+                                                        class="ri-eye-fill"></i>
+                                                    Detail</a>
+                                                <a class="dropdown-item btnprint" href="{{route('offline.rekapitulasi.cetak',[$item->id])}}" target="_blank"><i
+                                                        class="ri-printer-fill"></i>
+                                                    Cetak</a>
+                                            </div>
+                                        </div> --}}
+                                    </td>
+
+                                </tr>
+                                @empty
+
+                                @endforelse
                             </tbody>
                         </table>
                     </div>
@@ -49,7 +145,33 @@
 
 @endsection
 @push('scripts')
+<script src="https://cdn.datatables.net/datetime/1.0.3/js/dataTables.dateTime.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"
+    integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ=="
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
+    integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
+    crossorigin="anonymous"></script>
 <script>
+    moment.suppressDeprecationWarnings = true;
+    $.fn.dataTable.ext.search.push(
+            function( settings, data, dataIndex ) {
+                var bulan = $('#bulan').val();
+                var tahun = $('#tahun').val();
+                var tanggal = tahun+'/'+bulan;
+                var parseDate = moment(data[6]).format('YYYY/MM')
+
+                if (
+                    ( bulan == "" || tahun == "" )
+                        ||
+                        ( moment(parseDate).isSame(tanggal))
+                ) {
+
+                    return true;
+                }
+                return false;
+            }
+    );
     $(document).ready(function () {
              function ajax() {
                 $.ajaxSetup({
@@ -60,14 +182,23 @@
               }
 
 
-              $('#tabelrekap').DataTable({
+            var table =  $('#tabelrekap').DataTable({
                     language: {
                         url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'
                 },
               })
 
+              $('#bulan, #tahun').on('change', function () {
+                    table.draw();
+              })
 
+              var tanggal = moment(new Date()).format('MM/DD/YYYY')
+
+              var bulan = moment(tanggal).format('M')
+              var tahun = moment(tanggal).format('YYYY')
+              $('#bulan').val(bulan).change()
+              $('#tahun').val(tahun).change()
+              console.log(bulan);
      })
 </script>
 @endpush
-

@@ -79,8 +79,8 @@ $kategori = \App\SubKategori::select('nama_kategori')->groupBy('nama_kategori')-
                                         src="{{asset('uploads/images/user/'.auth()->user()->foto)}}"
                                         alt="Card image cap" style="width:25%">
                                     @else
-                                   
-                                        <img src="{{asset('assets/img/avatar/avatar-3.png')}}" style="width:25%"
+
+                                    <img src="{{asset('assets/img/avatar/avatar-3.png')}}" style="width:25%"
                                         class="rounded-circle" alt="Card image cap">
                                     @endif
 
@@ -99,7 +99,7 @@ $kategori = \App\SubKategori::select('nama_kategori')->groupBy('nama_kategori')-
                                 @endif
                                 @else
                                 <a type="button" href="{{route('frontend.auth.login')}}"
-                                    class="btn btn-primary text-white" style="border-radius: 10px">Login</a>
+                                    class="btn btn-primary text-white" style="border-radius: 10px">Masuk</a>
                                 @endif
 
 
@@ -141,6 +141,8 @@ $kategori = \App\SubKategori::select('nama_kategori')->groupBy('nama_kategori')-
                             <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
                                     class="icon-user"></i></a>
                             <div class="dropdown-menu" style="width: 70%">
+                                @if (auth()->check())
+                                @if (auth()->user()->hasRole('ecommerce'))
                                 <a class="dropdown-item" href="{{route('frontend.user.index')}}"
                                     style="font-size:16px">Profil</a>
                                 <a class="dropdown-item" href="{{route('frontend.user.pembelian.index')}}"
@@ -149,6 +151,11 @@ $kategori = \App\SubKategori::select('nama_kategori')->groupBy('nama_kategori')-
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{route('frontend.auth.logout')}}"
                                     style="font-size:16px">Logout</a>
+                                @endif
+                                @else
+                                <a class="dropdown-item" href="{{route('frontend.auth.login')}}"
+                                style="font-size:16px">Masuk</a>
+                                @endif
                             </div>
                         </div>
                         <div class="same-style-2 main-menu-icon">

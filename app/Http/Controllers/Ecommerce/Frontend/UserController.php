@@ -121,11 +121,24 @@ class UserController extends Controller
     public function UpdatePassword(Request $request)
     {
         if ($request->ajax()) {
-            $validator = Validator::make($request->all(), [
-                'kata_sandi_sekarang' => 'required',
-                'kata_sandi_baru' => 'min:6|required_with:ulangi_kata_sandi_baru|same:ulangi_kata_sandi_baru',
-                'ulangi_kata_sandi_baru' => 'min:6'
-            ]);
+
+            $id = auth()->user()->id;
+            $user = User::findOrFail($id);
+
+            if($user->password == 0){
+                $validator = Validator::make($request->all(), [
+                    'kata_sandi_baru' => 'min:6|required_with:ulangi_kata_sandi_baru|same:ulangi_kata_sandi_baru',
+                    'ulangi_kata_sandi_baru' => 'min:6'
+                ]);
+            }else{
+                $validator = Validator::make($request->all(), [
+                    'kata_sandi_sekarang' => 'required',
+                    'kata_sandi_baru' => 'min:6|required_with:ulangi_kata_sandi_baru|same:ulangi_kata_sandi_baru',
+                    'ulangi_kata_sandi_baru' => 'min:6'
+                ]);
+            }
+
+
 
             if ($validator->fails()) {
                 $html = ' <div class="alert alert-danger" role="alert">' . $validator->errors()->first() . '</div>';
@@ -138,17 +151,23 @@ class UserController extends Controller
 
                 //check password
                 $kata_sandi_sekarang = $request->get('kata_sandi_sekarang');
-                $id = auth()->user()->id;
-                $user = User::findOrFail($id);
-                if (Hash::check($kata_sandi_sekarang, $user->password)) {
+                if($user->password == 0){
                     $user->password = bcrypt($request->get('kata_sandi_baru'));
                     $user->save();
                     $html = ' <div class="alert alert-success" role="alert"> Kata sandi berhasil di update </div>';
                     $status = true;
-                } else {
-                    $html = ' <div class="alert alert-danger" role="alert"> Kata sandi sekarang salah </div>';
-                    $status = false;
+                }else{
+                    if (Hash::check($kata_sandi_sekarang, $user->password)) {
+                        $user->password = bcrypt($request->get('kata_sandi_baru'));
+                        $user->save();
+                        $html = ' <div class="alert alert-success" role="alert"> Kata sandi berhasil di update </div>';
+                        $status = true;
+                    } else {
+                        $html = ' <div class="alert alert-danger" role="alert"> Kata sandi sekarang salah </div>';
+                        $status = false;
+                    }
                 }
+
 
                 return response()->json([
                     'status' => $status,
@@ -178,8 +197,8 @@ class UserController extends Controller
                 if ($request->hasFile('file')) {
                     $file = $request->file('file');
                     $imageName = strtotime(now()) . rand(11111, 99999) . '.' . $file->getClientOriginalExtension();
-                    if(!empty($user->foto)){
-                        unlink(public_path() . '/uploads/images/user/'.$user->foto);
+                    if (!empty($user->foto)) {
+                        unlink(public_path() . '/uploads/images/user/' . $user->foto);
                     }
                     $file->move(public_path() . '/uploads/images/user/', $imageName);
                     $user->foto = $imageName;

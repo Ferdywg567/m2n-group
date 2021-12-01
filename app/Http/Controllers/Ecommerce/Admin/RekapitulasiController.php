@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Ecommerce\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Transaksi;
 
 class RekapitulasiController extends Controller
 {
@@ -14,7 +15,15 @@ class RekapitulasiController extends Controller
      */
     public function index()
     {
-       return view('ecommerce.admin.rekapitulasi.index');
+        $month = array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+        $tahun = [];
+
+        for ($i = 2018; $i <= date('Y'); $i++) {
+            array_push($tahun, $i);
+        }
+
+        $transaksi = Transaksi::where('status_transaksi', 'online')->where('status','telah tiba')->orderBy('created_at', 'DESC')->get();
+       return view('ecommerce.admin.rekapitulasi.index', ['transaksi' => $transaksi, 'month' => $month, 'tahun' => $tahun]);
     }
 
     /**
@@ -46,7 +55,8 @@ class RekapitulasiController extends Controller
      */
     public function show($id)
     {
-        //
+        $transaksi = Transaksi::findOrFail($id);
+        return view('ecommerce.offline.rekapitulasi.show', ['transaksi' => $transaksi]);
     }
 
     /**
