@@ -259,14 +259,19 @@ class CheckoutController extends Controller
 
     public function beli_langsung(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $validator = Validator::make($request->all(),[
             'id' => 'required',
-            'jumlah' => 'required'
+            'jumlah' => 'required|min:1|integer'
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors());
-        } else {
+            $html = ' <div class="alert alert-danger" role="alert">' . $validator->errors()->first() . '</div>';
+
+            return response()->json([
+                'status' => false,
+                'data' => $html
+            ]);
+        }else {
             $id = $request->get('id');
             $jumlah = $request->get('jumlah');
             $produk = Produk::findOrFail($id);

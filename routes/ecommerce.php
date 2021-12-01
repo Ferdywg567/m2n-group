@@ -17,6 +17,8 @@ Route::group(['namespace' => 'Ecommerce\Frontend'], function () {
             Route::post('/register', 'AuthController@postRegister')->name('post.register');
             Route::post('/login', 'AuthController@postLogin')->name('post.login');
             Route::get('/logout', 'AuthController@logout')->name('logout');
+            Route::get('/auth/redirect', 'AuthController@redirectToProvider')->name('google');
+            Route::get('/auth/callback', 'AuthController@handleProviderCallback');
         });
 
 

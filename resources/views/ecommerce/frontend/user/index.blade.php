@@ -51,9 +51,16 @@
                                         <div class="col-md-4">
                                             <div class="card" style="width: 18rem;">
                                                 <div class="text-center mt-3">
+                                                    @if (!empty(auth()->user()->foto))
                                                     <img class="card-img-top rounded text-center"
-                                                        src="{{asset('uploads/images/user/'.auth()->user()->foto)}}"
+                                                    src="{{asset('uploads/images/user/'.auth()->user()->foto)}}"
+                                                    alt="Card image cap" style="width:90%">
+                                                    @else
+                                                    <img class="card-img-top rounded text-center"
+                                                        src="{{asset('assets/img/avatar/avatar-3.png')}}"
                                                         alt="Card image cap" style="width:90%">
+                                                    @endif
+
                                                 </div>
                                                 <div class="card-body">
                                                     <button type="button"
@@ -106,7 +113,7 @@
                                                     <h5 class="text-gray">Email </h5>
                                                 </div>
 
-                                                <div class="col-md-3">
+                                                <div class="col-md-4">
                                                     <h5>{{auth()->user()->email}}</h5>
                                                 </div>
                                                 <div class="col-md-6" style="margin-top:-4px; display:inline-block">
@@ -509,7 +516,13 @@
     Dropzone.autoDiscover = false;
     // console.log();
     function GoBackWithRefreshUrl(event) {
-        history.go(-1)
+        if ('referrer' in document) {
+        window.location = document.referrer;
+        /* OR */
+        //location.replace(document.referrer);
+        } else {
+            window.history.back();
+        }
     }
     $(document).ready(function(){
         function ajax() {

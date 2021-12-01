@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Ecommerce\Frontend;
 
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -51,35 +52,53 @@ class KeranjangController extends Controller
     public function store(Request $request)
     {
         if ($request->ajax()) {
-            $iduser = auth()->user()->id;
-            $idproduk = $request->get('id');
-            $jumlah = $request->get('jumlah');
-            DB::beginTransaction();
-            try {
-                $produk = Produk::findOrFail($idproduk);
-                $cek = Keranjang::where('user_id', $iduser)->where('produk_id', $produk->id)->first();
-                if ($cek) {
-                    $cek->jumlah = $jumlah;
-                } else {
-                    $keranjang = new Keranjang();
-                    $keranjang->user_id = $iduser;
-                    $keranjang->produk_id = $produk->id;
-                    $keranjang->jumlah = $jumlah;
-                    $keranjang->check = 1;
-                    $keranjang->harga = $produk->harga_promo;
-                    $keranjang->subtotal = $produk->harga_promo * $jumlah;
-                    $keranjang->save();
-                }
-                $total = Keranjang::where('user_id', $iduser)->count();
-                DB::commit();
+            // return response()->json($request->all());
+            $validator = Validator::make($request->all(),[
+                'id' => 'required',
+                'jumlah' => 'required|min:1|integer'
+            ]);
+
+            if ($validator->fails()) {
+                $html = ' <div class="alert alert-danger" role="alert">' . $validator->errors()->first() . '</div>';
+
                 return response()->json([
-                    'status' => true,
-                    'total' => $total
+                    'status' => false,
+                    'data' => $html
                 ]);
-            } catch (\Exception $th) {
-                DB::rollBack();
-                //throw $th;
+            }else{
+                $iduser = auth()->user()->id;
+                $idproduk = $request->get('id');
+                $jumlah = $request->get('jumlah');
+                DB::beginTransaction();
+                try {
+
+                    $produk = Produk::findOrFail($idproduk);
+                    $cek = Keranjang::where('user_id', $iduser)->where('produk_id', $produk->id)->first();
+                    if ($cek) {
+                        $cek->jumlah = $jumlah;
+                    } else {
+                        $keranjang = new Keranjang();
+                        $keranjang->user_id = $iduser;
+                        $keranjang->produk_id = $produk->id;
+                        $keranjang->jumlah = $jumlah;
+                        $keranjang->check = 1;
+                        $keranjang->harga = $produk->harga_promo;
+                        $keranjang->subtotal = $produk->harga_promo * $jumlah;
+                        $keranjang->save();
+                    }
+                    $total = Keranjang::where('user_id', $iduser)->count();
+                    DB::commit();
+                    return response()->json([
+                        'status' => true,
+                        'total' => $total
+                    ]);
+                } catch (\Exception $th) {
+                    DB::rollBack();
+                    //throw $th;
+                }
             }
+
+
         }
     }
 

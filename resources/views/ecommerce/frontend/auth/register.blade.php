@@ -68,7 +68,7 @@ Login
                                 <p class="line-text"><span>atau daftar dengan cara lain</span></p>
                             </div>
                             <div class="d-grid">
-                                <a class="btn btn-outline-dark  btn-block" href="/users/googleauth" role="button"
+                                <a class="btn btn-outline-dark  btn-block" href="{{route('frontend.auth.google')}}" role="button"
                                     style="text-transform:none">
                                     <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in"
                                         src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />

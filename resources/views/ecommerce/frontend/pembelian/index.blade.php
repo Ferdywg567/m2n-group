@@ -73,7 +73,7 @@
                                                         </div>
                                                         <div class="col-md-4 text-right">
                                                             <h6 class="card-title font-weight-bold"
-                                                                style="font-size: 10px">Bayar Sebelum 2 Dec 16:27</h6>
+                                                                style="font-size: 10px">Bayar Sebelum {{\AppHelper::instance()->tanggal_add($item->created_at)}}</h6>
                                                         </div>
                                                     </div>
 
@@ -266,7 +266,11 @@
                                                 </div>
                                             </div>
                                             @empty
-
+                                            <div class="row pt-15">
+                                                <div class="col-md-12 text-center">
+                                                    <h4>Data Masih Kosong</h4>
+                                                </div>
+                                            </div>
                                             @endforelse
 
                                         </div>

@@ -108,6 +108,9 @@
                     </div>
 
                     <div class="pro-details-quality">
+                        <div id="data-alert">
+
+                        </div>
                         <span>Jumlah:</span>
                         <div class="cart-plus-minus">
                             <input class="cart-plus-minus-box" type="text" name="qtybutton" id="jumlah" value="1">
@@ -310,7 +313,7 @@
             <div class="product-plr-1">
                 <div class="single-product-wrap shadow rounded">
                     <div class="product-img product-img-zoom mb-15">
-                        <a href="product-details.html">
+                        <a href="#">
                             <img src="{{asset('ecommerce/assets/images/product-details/product-detail-4.png')}}" alt="">
                         </a>
 
@@ -320,7 +323,7 @@
                         </div>
                     </div>
                     <div class="product-content-wrap-2 text-left ml-2">
-                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                        <h3><a href="#">Kaos Hitam Polos</a></h3>
                         <div class="product-price-2">
                             <span class="new-price">Rp. 32,000</span>
                             <span class="old-price">Rp. 45,000</span>
@@ -338,7 +341,7 @@
                     </div>
                     <div class="product-content-wrap-2 product-content-position text-left">
 
-                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                        <h3><a href="#">Kaos Hitam Polos</a></h3>
                         <div class="product-price-2">
                             <span class="new-price">Rp. 32,000</span>
                             <span class="old-price">Rp. 45,000</span>
@@ -362,7 +365,7 @@
             <div class="product-plr-1">
                 <div class="single-product-wrap shadow rounded">
                     <div class="product-img product-img-zoom mb-15">
-                        <a href="product-details.html">
+                        <a href="#">
                             <img src="{{asset('ecommerce/assets/images/product-details/product-detail-1.png')}}" alt="">
                         </a>
 
@@ -372,7 +375,7 @@
                         </div>
                     </div>
                     <div class="product-content-wrap-2 text-left ml-2">
-                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                        <h3><a href="#">Kaos Hitam Polos</a></h3>
                         <div class="product-price-2">
                             <span class="new-price">Rp. 32,000</span>
                             <span class="old-price">Rp. 45,000</span>
@@ -390,7 +393,7 @@
                     </div>
                     <div class="product-content-wrap-2 product-content-position text-left">
 
-                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                        <h3><a href="#">Kaos Hitam Polos</a></h3>
                         <div class="product-price-2">
                             <span class="new-price">Rp. 32,000</span>
                             <span class="old-price">Rp. 45,000</span>
@@ -414,7 +417,7 @@
             <div class="product-plr-1">
                 <div class="single-product-wrap shadow rounded">
                     <div class="product-img product-img-zoom mb-15">
-                        <a href="product-details.html">
+                        <a href="#">
                             <img src="{{asset('ecommerce/assets/images/product-details/product-detail-2.png')}}" alt="">
                         </a>
 
@@ -424,7 +427,7 @@
                         </div>
                     </div>
                     <div class="product-content-wrap-2 text-left ml-2">
-                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                        <h3><a href="#">Kaos Hitam Polos</a></h3>
                         <div class="product-price-2">
                             <span class="new-price">Rp. 32,000</span>
                             <span class="old-price">Rp. 45,000</span>
@@ -442,7 +445,7 @@
                     </div>
                     <div class="product-content-wrap-2 product-content-position text-left">
 
-                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                        <h3><a href="#">Kaos Hitam Polos</a></h3>
                         <div class="product-price-2">
                             <span class="new-price">Rp. 32,000</span>
                             <span class="old-price">Rp. 45,000</span>
@@ -466,7 +469,7 @@
             <div class="product-plr-1">
                 <div class="single-product-wrap shadow rounded">
                     <div class="product-img product-img-zoom mb-15">
-                        <a href="product-details.html">
+                        <a href="#">
                             <img src="{{asset('ecommerce/assets/images/product-details/product-detail-3.png')}}" alt="">
                         </a>
 
@@ -476,7 +479,7 @@
                         </div>
                     </div>
                     <div class="product-content-wrap-2 text-left ml-2">
-                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                        <h3><a href="#">Kaos Hitam Polos</a></h3>
                         <div class="product-price-2">
                             <span class="new-price">Rp. 32,000</span>
                             <span class="old-price">Rp. 45,000</span>
@@ -494,7 +497,7 @@
                     </div>
                     <div class="product-content-wrap-2 product-content-position text-left">
 
-                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                        <h3><a href="#">Kaos Hitam Polos</a></h3>
                         <div class="product-price-2">
                             <span class="new-price">Rp. 32,000</span>
                             <span class="old-price">Rp. 45,000</span>
@@ -518,7 +521,7 @@
             <div class="product-plr-1">
                 <div class="single-product-wrap shadow rounded">
                     <div class="product-img product-img-zoom mb-15">
-                        <a href="product-details.html">
+                        <a href="#">
                             <img src="{{asset('ecommerce/assets/images/product-details/product-detail-4.png')}}" alt="">
                         </a>
 
@@ -528,7 +531,7 @@
                         </div>
                     </div>
                     <div class="product-content-wrap-2 text-left ml-2">
-                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                        <h3><a href="#">Kaos Hitam Polos</a></h3>
                         <div class="product-price-2">
                             <span class="new-price">Rp. 32,000</span>
                             <span class="old-price">Rp. 45,000</span>
@@ -546,7 +549,7 @@
                     </div>
                     <div class="product-content-wrap-2 product-content-position text-left">
 
-                        <h3><a href="product-details.html">Kaos Hitam Polos</a></h3>
+                        <h3><a href="#">Kaos Hitam Polos</a></h3>
                         <div class="product-price-2">
                             <span class="new-price">Rp. 32,000</span>
                             <span class="old-price">Rp. 45,000</span>
@@ -630,6 +633,7 @@
                     $('.btnTambahKeranjang').on('click', function () {
                         var idproduk = "{{$produk->id}}"
                         var jumlah = $('#jumlah').val()
+                        console.log(jumlah);
                             $.ajax({
                                 url:"{{route('frontend.keranjang.store')}}",
                                 method:"POST",
@@ -637,13 +641,20 @@
                                     id:idproduk,
                                     jumlah:jumlah
                                 }, success:function(response){
+                                    // console.log(response);
                                     if(response.status){
                                         setTimeout(function () {   getDataSidebar() },1500)
                                         $('.totalcart').text(response.total)
+                                    }else{
+                                        $('#data-alert').html(response.data)
                                     }
                                 }
                             })
                     })
+
+                    $('.qtybutton').on('click',function () {
+                        $('#data-alert').empty()
+                     })
 
 
                     $('.btn-beli-langsung').on('click', function () {
@@ -658,6 +669,8 @@
                                 },success:function(response){
                                     if(response.status){
                                         window.location.href = "{{route('frontend.checkout.index')}}"
+                                    }else{
+                                        $('#data-alert').html(response.data)
                                     }
                                 }
                             })

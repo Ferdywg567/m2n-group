@@ -46,7 +46,7 @@
                                 </li>
                                 <li class="menu-item-has-children"><a href="#">Products Layout</a>
                                     <ul class="dropdown">
-                                        <li><a href="product-details.html">tab style 1</a></li>
+                                        <li><a href="#">tab style 1</a></li>
                                         <li><a href="product-details-2.html">tab style 2</a></li>
                                         <li><a href="product-details-sticky.html">sticky style</a></li>
                                         <li><a href="product-details-gallery.html">gallery style </a></li>
@@ -110,7 +110,7 @@
                                     </li>
                                     <li class="menu-item-has-children"><a href="#">Kids Clothing</a>
                                         <ul class="dropdown">
-                                            <li><a href="product-details.html">Winter Wear </a></li>
+                                            <li><a href="#">Winter Wear </a></li>
                                             <li><a href="product-details-2.html">Occasion Gowns</a></li>
                                             <li><a href="product-details-tab1.html">Birthday Tailcoat</a></li>
                                             <li><a href="product-details-tab2.html">Stylish Unicorn</a></li>
@@ -158,7 +158,7 @@
                                     </li>
                                     <li class="menu-item-has-children"><a href="#">Kids Clothing</a>
                                         <ul class="dropdown">
-                                            <li><a href="product-details.html">Winter Wear </a></li>
+                                            <li><a href="#">Winter Wear </a></li>
                                             <li><a href="product-details-2.html">Occasion Gowns</a></li>
                                             <li><a href="product-details-tab1.html">Birthday Tailcoat</a></li>
                                             <li><a href="product-details-tab2.html">Stylish Unicorn</a></li>
@@ -254,7 +254,7 @@
                             <h1 class="animated">Denim Mixed <br>Layering Combine <br>collect</h1>
                             <p class="animated">We love seeing how our Raifa wearers like to wear their Norda</p>
                             <div class="btn-style-1">
-                                <a class="animated btn-1-padding-1" href="product-details.html">Explore Now</a>
+                                <a class="animated btn-1-padding-1" href="#">Explore Now</a>
                             </div>
                         </div>
                     </div> --}}
@@ -362,7 +362,7 @@
             <div class="col-lg-4 col-md-6 col-12">
                 <div class="banner-wrap mb-10">
                     <div class="banner-img banner-img-border banner-img-zoom">
-                        <a href="product-details.html"><img
+                        <a href="#"><img
                                 src="{{asset('ecommerce/assets/images/banner/banner-1.png')}}" alt=""></a>
                     </div>
 
@@ -371,7 +371,7 @@
             <div class="col-lg-4 col-md-6 col-12">
                 <div class="banner-wrap mb-10">
                     <div class="banner-img banner-img-border banner-img-zoom">
-                        <a href="product-details.html"><img
+                        <a href="#"><img
                                 src="{{asset('ecommerce/assets/images/banner/banner-2.png')}}" alt=""></a>
                     </div>
 
@@ -380,7 +380,7 @@
             <div class="col-lg-4 col-md-6 col-12">
                 <div class="banner-wrap mb-10">
                     <div class="banner-img banner-img-border banner-img-zoom">
-                        <a href="product-details.html"><img
+                        <a href="#"><img
                                 src="{{asset('ecommerce/assets/images/banner/banner-4.png')}}" alt=""></a>
                     </div>
 

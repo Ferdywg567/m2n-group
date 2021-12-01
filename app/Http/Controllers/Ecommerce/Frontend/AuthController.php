@@ -7,6 +7,7 @@ use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use Laravel\Socialite\Facades\Socialite;
 
 class AuthController extends Controller
 {
@@ -73,5 +74,43 @@ class AuthController extends Controller
         Auth::logout();
 
         return redirect()->route('frontend.auth.login')->with('alert-info', 'Anda telah keluar, Sampai ketemu lagi!');
+    }
+
+    public function redirectToProvider()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function handleProviderCallback(Request $request)
+    {
+        try {
+            $user_google    = Socialite::driver('google')->user();
+            $user           = User::where('email', $user_google->getEmail())->first();
+
+            //jika user ada maka langsung di redirect ke halaman home
+            //jika user tidak ada maka simpan ke database
+            //$user_google menyimpan data google account seperti email, foto, dsb
+
+            if($user != null){
+                auth()->login($user, true);
+                return redirect()->route('landingpage.index');
+            }else{
+                $create = User::Create([
+                    'email'             => $user_google->getEmail(),
+                    'name'              => $user_google->getName(),
+                    'password'          => 0,
+                    'email_verified_at' => now()
+                ]);
+                $create->assignRole('ecommerce');
+
+                auth()->login($create, true);
+                return redirect()->route('landingpage.index');
+            }
+
+        } catch (\Exception $e) {
+            return redirect()->route('frontend.auth.login');
+        }
+
+
     }
 }
