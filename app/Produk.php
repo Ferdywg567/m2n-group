@@ -35,4 +35,9 @@ class Produk extends Model
     {
         return $this->hasMany('App\Keranjang');
     }
+
+    public function favorit()
+    {
+        return $this->hasOne('App\Favorit');
+    }
 }

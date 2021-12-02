@@ -290,11 +290,10 @@
                                 <img src="{{asset('uploads/images/produk/'.$item->detail_gambar[0]->filename)}}" alt="">
                             </a>
                             <div class="product-action-2 tooltip-style-2">
-                                <button title="Wishlist"><i class="icon-heart"></i></button>
+                                <button title="Wishlist" class="wishlist" @if(!empty($item->favorit->produk_id)) style="background-color:black;color:white" @endif data-id="{{$item->id}}"><i class="icon-heart"></i></button>
                             </div>
                         </div>
                         <div class="product-content-wrap-2 text-left ml-2">
-
                             <h3><a
                                     href="{{route('frontend.product.show',[$item->id])}}">{{$item->warehouse->finishing->cuci->jahit->potong->bahan->nama_bahan}}</a>
                             </h3>
@@ -305,8 +304,6 @@
                                 <span class="new-price">@rupiah($item->harga_promo)</span>
                                 <span class="old-price">@rupiah($item->harga)</span>
                                 @endif
-
-
                             </div>
                             <div class="product-rating-wrap pb-15">
                                 <div class="product-rating">
@@ -408,7 +405,7 @@
                                     alt="">
                             </a>
                             <div class="product-action-2 tooltip-style-2">
-                                <button title="Wishlist"><i class="icon-heart"></i></button>
+                                <button title="Wishlist" data-id="{{$item->id}}" class="wishlist-bottom" @if(!empty($item->favorit->produk_id)) style="background-color:black;color:white" @endif ><i class="icon-heart"></i></button>
                             </div>
                         </div>
                         <div class="product-content-wrap-2 text-left ml-2">

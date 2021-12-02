@@ -90,7 +90,7 @@ $kategori = \App\SubKategori::select('nama_kategori')->groupBy('nama_kategori')-
                                         style="font-size:16px">Profil</a>
                                     <a class="dropdown-item" href="{{route('frontend.user.pembelian.index')}}"
                                         style="font-size:16px">Pembelian</a>
-                                    <a class="dropdown-item" href="#" style="font-size:16px">Favorit</a>
+                                    <a class="dropdown-item" href="{{route('frontend.favorit.index')}}" style="font-size:16px">Favorit</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="{{route('frontend.auth.logout')}}"
                                         style="font-size:16px">Logout</a>
@@ -147,7 +147,7 @@ $kategori = \App\SubKategori::select('nama_kategori')->groupBy('nama_kategori')-
                                     style="font-size:16px">Profil</a>
                                 <a class="dropdown-item" href="{{route('frontend.user.pembelian.index')}}"
                                     style="font-size:16px">Pembelian</a>
-                                <a class="dropdown-item" href="#" style="font-size:16px">Favorit</a>
+                                <a class="dropdown-item" href="{{route('frontend.favorit.index')}}" style="font-size:16px">Favorit</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{route('frontend.auth.logout')}}"
                                     style="font-size:16px">Logout</a>

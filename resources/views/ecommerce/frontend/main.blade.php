@@ -439,6 +439,13 @@
 
         $(document).ready(function () {
             var modal = document.getElementById("modalSearch");
+            function ajax() {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+            }
             $('#search').on('keyup', function () {
                 var cari = $(this).val()
                 cari = cari.toLowerCase()
@@ -486,16 +493,24 @@
              $('#cari_kategori').on('change', function () {
                  var kategori = $(this).find(':selected').val()
                  window.location.href = "{{route('frontend.product.kategori')}}"+"?kategori="+kategori
-              })
+             })
 
               @if (auth()->check())
-
                 setTimeout(function () {   getDataSidebar() },1500)
+                ajax()
+                $('.wishlist, .wishlist-bottom').on('click', function(){
+                    var id = $(this).data('id')
+                    $(this).css('background-color','black')
+                    $(this).css('color','white')
+                    $.ajax({
+                        url:"{{route('frontend.favorit.store')}}",
+                        method:"POST",
+                        data:{
+                            id:id
+                        }
+                    })
+                });
               @endif
-
-
-
-
             })
     </script>
 
