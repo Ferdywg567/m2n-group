@@ -47,12 +47,13 @@ Route::group(['namespace' => 'Ecommerce\Frontend'], function () {
                 Route::post('/beli_langsung', 'CheckoutController@beli_langsung')->name('beli_langsung');
                 Route::get('/success/{token_checkout}', 'CheckoutController@get_checkout_success')->name('success');
             });
-            
+
             Route::resource('alamat', 'AlamatController');
             Route::resource('keranjang', 'KeranjangController');
             Route::resource('checkout', 'CheckoutController');
             Route::resource('user', 'UserController');
             Route::resource('favorit', 'FavoritController');
+            Route::resource('notifikasi', 'NotifikasiController');
         });
         Route::group(['prefix' => 'product', 'as' => 'product.'], function () {
             Route::get('/caribykategori', 'ProductController@CariKategori')->name('kategori');

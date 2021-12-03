@@ -21,6 +21,9 @@
 
 
         @if (count($keranjang) > 0)
+        <div id="data-alert-cart">
+
+        </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                 <form action="#">
@@ -62,7 +65,7 @@
                                         <a href="#" style="">{{$item->produk->nama_produk}}</a>
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <a href="#" style="font-size: 11px; color:#8E8E93"><i
+                                                <a href="#" style="font-size: 11px; color:#8E8E93" data-id="{{$item->produk_id}}" class="wishlist-cart"><i
                                                         class="ri-heart-add-line"></i> Tambahkan ke favorit</a>
                                             </div>
 
@@ -234,7 +237,22 @@
                  })
               })
 
+              $('.wishlist-cart').on('click', function(){
+                    var id = $(this).data('id')
 
+                    $.ajax({
+                        url:"{{route('frontend.favorit.store')}}",
+                        method:"POST",
+                        data:{
+                            id:id
+                        },success:function(response){
+                            if(response.status){
+                                $('#data-alert-cart').html('<div class="alert alert-success" role="alert"> Produk berhasil di tambahkan ke favorit </div>')
+                                setTimeout(function () { $('#data-alert-cart').empty() },1500)
+                            }
+                        }
+                    })
+                });
 
                 // $('.pro-dec-big-img-slider').slick('unslick', $('.btn-wishlist').index());
         })

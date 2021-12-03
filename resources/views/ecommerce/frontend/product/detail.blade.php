@@ -59,7 +59,7 @@
                         @endforelse
                     </div>
                     <div class="img-overlay">
-                        <button class="btn btn-sm btn-wishlist rounded-circle"><i class="ri-heart-line"></i></button>
+                        <button class="btn btn-sm btn-wishlist rounded-circle wishlist" data-id="{{$produk->id}}" @if(auth()->check())  @if(\AppHelper::instance()->favorit_data(auth()->user()->id, $produk->id)) style="background-color:black;color:white" @endif @endif><i class="ri-heart-line"></i></button>
                     </div>
 
                     <div class="product-dec-right-detail product-dec-slider-small-2 product-dec-small-style2">

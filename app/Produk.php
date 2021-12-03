@@ -38,6 +38,6 @@ class Produk extends Model
 
     public function favorit()
     {
-        return $this->hasOne('App\Favorit');
+        return $this->hasMany('App\Favorit');
     }
 }

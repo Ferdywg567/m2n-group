@@ -62,10 +62,20 @@ $kategori = \App\SubKategori::select('nama_kategori')->groupBy('nama_kategori')-
 
                             </div>
                             <div class="same-style-2 same-style-2-font-inc mt-2">
-                                <a class="" href="#">
-                                    <i class="ri-notification-2-line"></i><span class="pro-count green">2</span>
+                                @if (auth()->check())
+                                @if (auth()->user()->hasRole('ecommerce'))
+                                <a class="" href="{{route('frontend.notifikasi.index')}}">
+                                    <i class="ri-notification-2-line"></i><span class="pro-count "></span>
 
                                 </a>
+                                @endif
+                                @else
+                                <a class="" href="{{route('frontend.auth.login')}}">
+                                    <i class="ri-notification-2-line"></i><span class="pro-count"></span>
+
+                                </a>
+
+                                @endif
                             </div>
                             <div class="same-style-2 same-style-2-font-inc mt-2">
                                 <a href="">|</a>
@@ -127,15 +137,25 @@ $kategori = \App\SubKategori::select('nama_kategori')->groupBy('nama_kategori')-
                     <div class="header-action header-action-flex">
                         <div class="same-style-2 same-style-2-font-inc header-cart">
                             <a class="cart-active" href="#">
-                                <i class="ri-shopping-cart-line"></i><span class="pro-count green">02</span>
+                                <i class="ri-shopping-cart-line"></i><span class="pro-count green"></span>
 
                             </a>
                         </div>
                         <div class="same-style-2 same-style-2-font-inc">
-                            <a class="cart-active" href="#">
-                                <i class="ri-notification-2-line"></i><span class="pro-count green">02</span>
+                            @if (auth()->check())
+                            @if (auth()->user()->hasRole('ecommerce'))
+                            <a class="" href="{{route('frontend.notifikasi.index')}}">
+                                <i class="ri-notification-2-line"></i><span class="pro-count green"></span>
 
                             </a>
+                            @endif
+                            @else
+                            <a class="" href="{{route('frontend.auth.login')}}">
+                                <i class="ri-notification-2-line"></i><span class="pro-count green"></span>
+
+                            </a>
+
+                            @endif
                         </div>
                         <div class="same-style-2 same-style-2-font-inc">
                             <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i

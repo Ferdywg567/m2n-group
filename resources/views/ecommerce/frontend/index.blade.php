@@ -290,7 +290,7 @@
                                 <img src="{{asset('uploads/images/produk/'.$item->detail_gambar[0]->filename)}}" alt="">
                             </a>
                             <div class="product-action-2 tooltip-style-2">
-                                <button title="Wishlist" class="wishlist" @if(!empty($item->favorit->produk_id)) style="background-color:black;color:white" @endif data-id="{{$item->id}}"><i class="icon-heart"></i></button>
+                                <button title="Wishlist" class="wishlist" @if(auth()->check())  @if(\AppHelper::instance()->favorit_data(auth()->user()->id, $item->id)) style="background-color:black;color:white" @endif @endif data-id="{{$item->id}}"><i class="icon-heart"></i></button>
                             </div>
                         </div>
                         <div class="product-content-wrap-2 text-left ml-2">
@@ -405,7 +405,7 @@
                                     alt="">
                             </a>
                             <div class="product-action-2 tooltip-style-2">
-                                <button title="Wishlist" data-id="{{$item->id}}" class="wishlist-bottom" @if(!empty($item->favorit->produk_id)) style="background-color:black;color:white" @endif ><i class="icon-heart"></i></button>
+                                <button title="Wishlist" data-id="{{$item->id}}" class="wishlist-bottom" @if(auth()->check())  @if(\AppHelper::instance()->favorit_data(auth()->user()->id, $item->id)) style="background-color:black;color:white" @endif @endif ><i class="icon-heart"></i></button>
                             </div>
                         </div>
                         <div class="product-content-wrap-2 text-left ml-2">

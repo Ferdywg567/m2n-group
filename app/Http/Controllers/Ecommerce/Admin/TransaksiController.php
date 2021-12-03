@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Response;
 use App\Http\Controllers\Controller;
+use App\NotificationEcommerce;
 use App\DetailProduk;
 use App\Produk;
 use Illuminate\Http\Request;
@@ -90,6 +91,14 @@ class TransaksiController extends Controller
                             }
                             $produk->save();
                         }
+
+                        //notifikasi kirim
+                        $notif = new NotificationEcommerce();
+                        $notif->user_id = $transaksi->user_id;
+                        $notif->transaksi_id = $transaksi->id;
+                        $notif->pesan = "Pesanan dengan nomor transaksi ".$transaksi->kode_transaksi." dalam proses pengiriman!";
+                        $notif->save();
+
 
                         $html = ' <div class="alert alert-success" role="alert"> Status berhasil di update ke kirim </div>';
                     }
