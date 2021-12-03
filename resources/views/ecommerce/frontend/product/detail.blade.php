@@ -234,8 +234,13 @@
                                         <h5><span>{{$row->user->name}}</span> - {{date('d F, Y',strtotime($row->created_at))}}</h5>
                                     </div>
                                     <div class="review-rating text-right">
-                                        @for ($i=0;$i<$row->rating;$i++)
-                                           <i class="yellow icon_star"></i>
+                                        @for ($i=1;$i<=5;$i++)
+                                        @if (round($row->rating) >= $i)
+                                        <i class="yellow icon_star"></i>
+                                        @else
+                                        <i class="icon_star gray"></i>
+                                        @endif
+
                                         @endfor
                                     </div>
                                 </div>

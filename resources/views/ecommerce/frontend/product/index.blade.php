@@ -46,13 +46,17 @@
                                     </div>
                                     <div class="product-rating-wrap pb-15">
                                         <div class="product-rating">
+                                            @for ($i=1;$i<=5;$i++)
+                                            @if (round(\AppHelper::instance()->avg_ulasan($item->id)) >= $i)
                                             <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
+                                            @else
                                             <i class="icon_star gray"></i>
+                                            @endif
+
+                                            @endfor
+
                                         </div>
-                                        <span>(2)</span>
+                                        <span>({{\AppHelper::instance()->avg_ulasan($item->id)}})</span>
                                     </div>
                                 </div>
                                 <div class="product-content-wrap-2 product-content-position text-left">
@@ -67,13 +71,17 @@
                                     </div>
                                     <div class="product-rating-wrap">
                                         <div class="product-rating">
+                                            @for ($i=1;$i<=5;$i++)
+                                            @if (round(\AppHelper::instance()->avg_ulasan($item->id)) >= $i)
                                             <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
+                                            @else
                                             <i class="icon_star gray"></i>
+                                            @endif
+
+                                            @endfor
+
                                         </div>
-                                        <span>(2)</span>
+                                        <span>({{\AppHelper::instance()->avg_ulasan($item->id)}})</span>
                                     </div>
                                     <div class="pro-add-to-cart pb-10">
                                         <a href="{{route('frontend.product.show',[$item->id])}}"

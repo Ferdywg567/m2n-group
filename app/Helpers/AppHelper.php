@@ -96,7 +96,11 @@ class AppHelper
     public function avg_ulasan($idproduk){
         $jumlah = Ulasan::where('produk_id', $idproduk)->count();
         $jumlahulasan = Ulasan::where('produk_id', $idproduk)->sum('rating');
-        $avg = $jumlahulasan/$jumlah;
+        $avg = 0;
+        if($jumlah > 0 && $jumlahulasan >0){
+            $avg = $jumlahulasan/$jumlah;
+        }
+
         return $avg;
     }
 
