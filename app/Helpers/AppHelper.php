@@ -5,6 +5,9 @@ namespace App\Helpers;
 use App\Keranjang;
 use DateTime;
 use App\Favorit;
+use App\Produk;
+use App\Transaksi;
+use App\Ulasan;
 use Illuminate\Support\Carbon;
 
 class AppHelper
@@ -87,5 +90,28 @@ class AppHelper
         }
 
         return $status;
+    }
+
+
+    public function avg_ulasan($idproduk){
+        $jumlah = Ulasan::where('produk_id', $idproduk)->count();
+        $jumlahulasan = Ulasan::where('produk_id', $idproduk)->sum('rating');
+        $avg = $jumlahulasan/$jumlah;
+        return $avg;
+    }
+
+    public function jumlah_ulasan($idproduk){
+        $jumlah = Ulasan::where('produk_id', $idproduk)->count();
+
+        return $jumlah;
+    }
+
+
+    public function jumlah_pesanan($idproduk){
+        $jumlah = Transaksi::where('status','telah tiba')->whereHas('detail_transaksi', function($q) use($idproduk){
+            return $q->where('produk_id', $idproduk);
+        })->count();
+
+        return $jumlah;
     }
 }

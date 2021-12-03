@@ -40,4 +40,9 @@ class Produk extends Model
     {
         return $this->hasMany('App\Favorit');
     }
+
+    public function ulasan()
+    {
+        return $this->hasMany('App\Ulasan');
+    }
 }

@@ -54,6 +54,7 @@ Route::group(['namespace' => 'Ecommerce\Frontend'], function () {
             Route::resource('user', 'UserController');
             Route::resource('favorit', 'FavoritController');
             Route::resource('notifikasi', 'NotifikasiController');
+            Route::resource('ulasan', 'UlasanController');
         });
         Route::group(['prefix' => 'product', 'as' => 'product.'], function () {
             Route::get('/caribykategori', 'ProductController@CariKategori')->name('kategori');

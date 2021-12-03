@@ -73,7 +73,9 @@
                                                         </div>
                                                         <div class="col-md-4 text-right">
                                                             <h6 class="card-title font-weight-bold"
-                                                                style="font-size: 10px">Bayar Sebelum {{\AppHelper::instance()->tanggal_add($item->created_at)}}</h6>
+                                                                style="font-size: 10px">Bayar Sebelum
+                                                                {{\AppHelper::instance()->tanggal_add($item->created_at)}}
+                                                            </h6>
                                                         </div>
                                                     </div>
 
@@ -259,6 +261,12 @@
                                                                         data-id="{{$item->id}}">Konfirmasi
                                                                         Selesai</button>
                                                                     @endif
+
+                                                                    @if ($item->status == 'telah tiba')
+                                                                    <button type="button"
+                                                                        class="btn btn-primary ml-2 add_review"
+                                                                        data-id="{{$item->id}}">Review</button>
+                                                                    @endif
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -329,6 +337,43 @@
         </div>
     </div>
 </div>
+<div id="review_modal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" style="width: 40%" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Submit Ulasan</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="" method="post" id="formReview">
+                <div class="modal-body">
+                    <div id="data-alert-ulasan">
+
+                    </div>
+                    <input type="hidden" name="id" id="id_transaksi_review">
+                    <input type="hidden" name="rating" id="rating">
+                    <h3 class="text-center mt-2 mb-4">
+                        <i class="ri-star-line star-light submit_star mr-1" id="submit_star_1" data-rating="1"></i>
+                        <i class="ri-star-line star-light submit_star mr-1" id="submit_star_2" data-rating="2"></i>
+                        <i class="ri-star-line star-light submit_star mr-1" id="submit_star_3" data-rating="3"></i>
+                        <i class="ri-star-line star-light submit_star mr-1" id="submit_star_4" data-rating="4"></i>
+                        <i class="ri-star-line star-light submit_star mr-1" id="submit_star_5" data-rating="5"></i>
+                    </h3>
+
+                    <div class="form-group">
+                        <textarea name="ulasan" id="ulasan" class="form-control"
+                            placeholder="Tulis ulasan disini"></textarea>
+                    </div>
+                    <div class="form-group text-center mt-4">
+                        <button type="button" class="btn btn-primary" id="save_review">Submit</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
 
 @endsection
 @push('scripts')
@@ -346,7 +391,7 @@
                 }
             });
         }
-
+        var rating_data = 0;
         $('#nav-menunggu-tab').css('background-color', 'black')
         $('#nav-menunggu-tab').css('color', 'white')
         $('#nav-daftar-tab').css('background-color', '')
@@ -366,7 +411,50 @@
             $(this).css('background-color', 'black')
         })
 
+        function reset_background() {
+            for (var count = 1; count <= 5; count++) {
 
+                $('#submit_star_' + count).addClass('star-light');
+
+                $('#submit_star_' + count).removeClass('text-warning');
+
+            }
+        }
+        $(document).on('mouseenter', '.submit_star', function () {
+
+            var rating = $(this).data('rating');
+            $('#rating').val(rating)
+            reset_background();
+
+            for (var count = 1; count <= rating; count++) {
+
+                $('#submit_star_' + count).addClass('text-warning');
+
+            }
+
+        });
+        $(document).on('click', '.submit_star', function () {
+
+            rating_data = $(this).data('rating');
+            $('#rating').val(rating_data)
+
+        });
+
+        $(document).on('mouseleave', '.submit_star', function () {
+
+            // reset_background();
+
+            for (var count = 1; count <= rating_data; count++) {
+
+                $('#submit_star_' + count).removeClass('star-light');
+
+                $('#submit_star_' + count).addClass('text-warning');
+            }
+
+        });
+        $('#review_modal').on('hidden.bs.modal', function () {
+            $(this).find('form').trigger('reset');
+        });
         $(document).on('click', '.btnupload', function () {
             var id = $(this).data('id');
             $('#id_transaksi').val(id)
@@ -374,6 +462,31 @@
             $('#data-alert-upload').empty()
         })
 
+        $('.add_review').click(function () {
+            reset_background();
+            var id = $(this).data('id')
+            $('#id_transaksi_review').val(id)
+            $('#review_modal').modal('show');
+        });
+
+        $('#save_review').on('click', function () {
+            var form = $('#formReview').serialize()
+
+            ajax()
+            $.ajax({
+                url: "{{route('frontend.ulasan.store')}}",
+                method: "POST",
+                data: form,
+                success: function (response) {
+                    if (response.status) {
+                        setTimeout(function () {
+                            window.location.reload(true)
+                        }, 1500)
+                    }
+                    $('#data-alert-ulasan').html(response.data)
+                }
+            })
+        })
 
         let token = $('meta[name="csrf-token"]').attr('content');
         var maxImageWidth = 1200,

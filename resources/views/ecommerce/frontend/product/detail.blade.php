@@ -34,6 +34,7 @@
         background-color: black;
         color: white;
     }
+
 </style>
 <div class="breadcrumb-area bg-white" style="margin-top: -2%">
     <div class="container">
@@ -59,7 +60,10 @@
                         @endforelse
                     </div>
                     <div class="img-overlay">
-                        <button class="btn btn-sm btn-wishlist rounded-circle wishlist" data-id="{{$produk->id}}" @if(auth()->check())  @if(\AppHelper::instance()->favorit_data(auth()->user()->id, $produk->id)) style="background-color:black;color:white" @endif @endif><i class="ri-heart-line"></i></button>
+                        <button class="btn btn-sm btn-wishlist rounded-circle wishlist" data-id="{{$produk->id}}"
+                            @if(auth()->check()) @if(\AppHelper::instance()->favorit_data(auth()->user()->id,
+                            $produk->id)) style="background-color:black;color:white" @endif @endif><i
+                                class="ri-heart-line"></i></button>
                     </div>
 
                     <div class="product-dec-right-detail product-dec-slider-small-2 product-dec-small-style2">
@@ -75,23 +79,26 @@
             </div>
             <div class="col-lg-6 col-md-12">
                 <div class="product-details-content pro-details-content-mt-md">
-                    <h2>{{$produk->warehouse->finishing->cuci->jahit->potong->bahan->nama_bahan}}</h2>
+                    <h2>{{$produk->nama_produk}}</h2>
                     <div class="product-ratting-review-wrap">
                         <div class="product-ratting-digit-wrap">
                             <div class="product-ratting">
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
+                                @for ($i=0;$i<\AppHelper::instance()->avg_ulasan($produk->id);$i++)
+                                    <i class="icon_star"></i>
+                                    @endfor
+
+                                    {{-- <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i> --}}
                             </div>
                             <div class="product-digit">
-                                <span>5.0</span>
+                                <span>{{\AppHelper::instance()->avg_ulasan($produk->id)}}</span>
                             </div>
                         </div>
                         <div class="product-review-order">
-                            <span>62 Ulasan</span>
-                            <span>242 pesanan</span>
+                            <span>{{\AppHelper::instance()->jumlah_ulasan($produk->id)}} Ulasan</span>
+                            <span>{{\AppHelper::instance()->jumlah_pesanan($produk->id)}} pesanan</span>
                         </div>
                     </div>
 
@@ -120,10 +127,12 @@
 
                     <div class="pro-details-action-wrap mt-1">
                         <div class="pro-details-add-to-cart">
-                            <button type="button" class="btn btn-primary btn-cart btnTambahKeranjang"><i class="ri-shopping-cart-line"></i>
+                            <button type="button" class="btn btn-primary btn-cart btnTambahKeranjang"><i
+                                    class="ri-shopping-cart-line"></i>
                                 Tambah ke keranjang</button>
                             <hr style="height: 0;border: 1px solid #C4C4C4;">
-                            <button type="button" class="btn btn-outline-primary btn-beli-langsung">Beli Langsung</button>
+                            <button type="button" class="btn btn-outline-primary btn-beli-langsung">Beli
+                                Langsung</button>
                         </div>
 
                     </div>
@@ -212,31 +221,33 @@
                     </div> --}}
                     <div id="nav-selesai" role="tabpanel" aria-labelledby="nav-selesai-tab" class="tab-pane fade">
                         <div class="review-wrapper">
-                            <h2>1 review for Sleeve Button Cowl Neck</h2>
-                            <div class="single-review">
-                                <div class="review-img">
-                                    <img src="{{asset('ecommerce/assets/images/product-details/client-1.png')}}" alt="">
-                                </div>
-                                <div class="review-content">
-                                    <div class="review-top-wrap">
-                                        <div class="review-name">
-                                            <h5><span>John Snow</span> - March 14, 2019</h5>
-                                        </div>
-                                        <div class="review-rating">
-                                            <i class="yellow icon_star"></i>
-                                            <i class="yellow icon_star"></i>
-                                            <i class="yellow icon_star"></i>
-                                            <i class="yellow icon_star"></i>
-                                            <i class="yellow icon_star"></i>
-                                        </div>
+                            <h2>{{\AppHelper::instance()->jumlah_ulasan($produk->id)}} ulasan untuk {{$produk->nama_produk}}</h2>
+
+                           @forelse ($produk->ulasan as $row)
+                           <div class="single-review">
+                            <div class="review-img">
+                                <img src="{{asset('uploads/images/user/'.$row->user->foto)}}" style="width: 80%" alt="">
+                            </div>
+                            <div class="review-content">
+                                <div class="review-top-wrap">
+                                    <div class="review-name">
+                                        <h5><span>{{$row->user->name}}</span> - {{date('d F, Y',strtotime($row->created_at))}}</h5>
                                     </div>
-                                    <p>Donec accumsan auctor iaculis. Sed suscipit arcu ligula, at egestas magna
-                                        molestie a. Proin ac ex maximus, ultrices justo eget, sodales orci. Aliquam
-                                        egestas libero ac turpis pharetra, in vehicula lacus scelerisque</p>
+                                    <div class="review-rating text-right">
+                                        @for ($i=0;$i<$row->rating;$i++)
+                                           <i class="yellow icon_star"></i>
+                                        @endfor
+                                    </div>
                                 </div>
+                                <p>{{$row->ulasan}}</p>
                             </div>
                         </div>
-                        <div class="ratting-form-wrapper">
+                           @empty
+
+                           @endforelse
+
+                        </div>
+                        {{-- <div class="ratting-form-wrapper">
                             <span>Add a Review</span>
                             <p>Your email address will not be published. Required fields are marked <span>*</span></p>
                             <div class="ratting-form">
@@ -297,7 +308,7 @@
                                     </div>
                                 </form>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -576,118 +587,123 @@
 @endsection
 @push('scripts')
 <script>
-    $(document).ready(function(){
-            function ajax() {
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-            }
+    $(document).ready(function () {
+        function ajax() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+        }
 
-            $('#nav-masuk-tab').css('background-color','black')
-                  $('#nav-masuk-tab').css('color','white')
-                  $('#nav-keluar-tab').css('background-color','')
-                  $('#nav-keluar-tab').css('color','black')
-                  $('#nav-selesai-tab').css('background-color','')
-                  $('#nav-selesai-tab').css('color','black')
+        $('#nav-masuk-tab').css('background-color', 'black')
+        $('#nav-masuk-tab').css('color', 'white')
+        $('#nav-keluar-tab').css('background-color', '')
+        $('#nav-keluar-tab').css('color', 'black')
+        $('#nav-selesai-tab').css('background-color', '')
+        $('#nav-selesai-tab').css('color', 'black')
 
-              $('#nav-masuk-tab').click(function () {
-                  $(this).css('background-color','black')
-                  $(this).css('color','white')
-                  $('#nav-keluar-tab').css('background-color','')
-                  $('#nav-keluar-tab').css('color','black')
-                  $('#nav-selesai-tab').css('background-color','')
-                  $('#nav-selesai-tab').css('color','black')
-               })
-
-               $('#nav-keluar-tab').click(function () {
-                  $('#nav-masuk-tab').css('background-color','')
-                  $('#nav-masuk-tab').css('color','black')
-                  $('#nav-selesai-tab').css('background-color','')
-                  $('#nav-selesai-tab').css('color','black')
-                  $(this).css('color','white')
-                  $(this).css('background-color','black')
-               })
-
-
-               $('#nav-selesai-tab').click(function () {
-                  $('#nav-masuk-tab').css('background-color','')
-                  $('#nav-masuk-tab').css('color','black')
-                  $('#nav-keluar-tab').css('background-color','')
-                  $('#nav-keluar-tab').css('color','black')
-                  $(this).css('color','white')
-                  $(this).css('background-color','black')
-               })
-
-               $('.one-time').slick({
-                    dots: true,
-                    infinite: true,
-                    speed: 300,
-                    slidesToShow: 1,
-                    adaptiveHeight: true
-                });
-
-                @if (auth()->check())
-                    ajax()
-                    $('.btnTambahKeranjang').on('click', function () {
-                        var idproduk = "{{$produk->id}}"
-                        var jumlah = $('#jumlah').val()
-                        console.log(jumlah);
-                            $.ajax({
-                                url:"{{route('frontend.keranjang.store')}}",
-                                method:"POST",
-                                data:{
-                                    id:idproduk,
-                                    jumlah:jumlah
-                                }, success:function(response){
-                                    // console.log(response);
-                                    if(response.status){
-                                        setTimeout(function () {   getDataSidebar() },1500)
-                                        $('.totalcart').text(response.total)
-                                    }else{
-                                        $('#data-alert').html(response.data)
-                                    }
-                                }
-                            })
-                    })
-
-                    $('.qtybutton').on('click',function () {
-                        $('#data-alert').empty()
-                     })
-
-
-                    $('.btn-beli-langsung').on('click', function () {
-                            var jumlah = $('#jumlah').val();
-                            var id = "{{$produk->id}}"
-                            $.ajax({
-                                url:"{{route('frontend.checkout.beli_langsung')}}",
-                                method:"POST",
-                                data:{
-                                    id:id,
-                                    jumlah:jumlah
-                                },success:function(response){
-                                    if(response.status){
-                                        window.location.href = "{{route('frontend.checkout.index')}}"
-                                    }else{
-                                        $('#data-alert').html(response.data)
-                                    }
-                                }
-                            })
-                     })
-                @else
-                    $('.btnTambahKeranjang').on('click', function () {
-                        window.location.href="{{route('frontend.auth.login')}}"
-                     })
-                     $('.btn-beli-langsung').on('click', function () {
-                        window.location.href="{{route('frontend.auth.login')}}"
-                     })
-                @endif
-
-
-
-
-                // $('.pro-dec-big-img-slider').slick('unslick', $('.btn-wishlist').index());
+        $('#nav-masuk-tab').click(function () {
+            $(this).css('background-color', 'black')
+            $(this).css('color', 'white')
+            $('#nav-keluar-tab').css('background-color', '')
+            $('#nav-keluar-tab').css('color', 'black')
+            $('#nav-selesai-tab').css('background-color', '')
+            $('#nav-selesai-tab').css('color', 'black')
         })
+
+        $('#nav-keluar-tab').click(function () {
+            $('#nav-masuk-tab').css('background-color', '')
+            $('#nav-masuk-tab').css('color', 'black')
+            $('#nav-selesai-tab').css('background-color', '')
+            $('#nav-selesai-tab').css('color', 'black')
+            $(this).css('color', 'white')
+            $(this).css('background-color', 'black')
+        })
+
+
+        $('#nav-selesai-tab').click(function () {
+            $('#nav-masuk-tab').css('background-color', '')
+            $('#nav-masuk-tab').css('color', 'black')
+            $('#nav-keluar-tab').css('background-color', '')
+            $('#nav-keluar-tab').css('color', 'black')
+            $(this).css('color', 'white')
+            $(this).css('background-color', 'black')
+        })
+
+        $('.one-time').slick({
+            dots: true,
+            infinite: true,
+            speed: 300,
+            slidesToShow: 1,
+            adaptiveHeight: true
+        });
+
+        @if(auth()->check())
+        ajax()
+        $('.btnTambahKeranjang').on('click', function () {
+            var idproduk = "{{$produk->id}}"
+            var jumlah = $('#jumlah').val()
+            console.log(jumlah);
+            $.ajax({
+                url: "{{route('frontend.keranjang.store')}}",
+                method: "POST",
+                data: {
+                    id: idproduk,
+                    jumlah: jumlah
+                },
+                success: function (response) {
+                    // console.log(response);
+                    if (response.status) {
+                        setTimeout(function () {
+                            getDataSidebar()
+                        }, 1500)
+                        $('.totalcart').text(response.total)
+                    } else {
+                        $('#data-alert').html(response.data)
+                    }
+                }
+            })
+        })
+
+        $('.qtybutton').on('click', function () {
+            $('#data-alert').empty()
+        })
+
+
+        $('.btn-beli-langsung').on('click', function () {
+            var jumlah = $('#jumlah').val();
+            var id = "{{$produk->id}}"
+            $.ajax({
+                url: "{{route('frontend.checkout.beli_langsung')}}",
+                method: "POST",
+                data: {
+                    id: id,
+                    jumlah: jumlah
+                },
+                success: function (response) {
+                    if (response.status) {
+                        window.location.href = "{{route('frontend.checkout.index')}}"
+                    } else {
+                        $('#data-alert').html(response.data)
+                    }
+                }
+            })
+        })
+        @else
+        $('.btnTambahKeranjang').on('click', function () {
+            window.location.href = "{{route('frontend.auth.login')}}"
+        })
+        $('.btn-beli-langsung').on('click', function () {
+            window.location.href = "{{route('frontend.auth.login')}}"
+        })
+        @endif
+
+
+
+
+        // $('.pro-dec-big-img-slider').slick('unslick', $('.btn-wishlist').index());
+    })
+
 </script>
 @endpush
