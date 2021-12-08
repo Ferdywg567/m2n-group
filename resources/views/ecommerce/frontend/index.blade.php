@@ -364,33 +364,22 @@
 <div class="banner-area padding-10-row-col pb-80">
     <div class="container">
         <div class="row">
+
+            @forelse ($promo as $item)
             <div class="col-lg-4 col-md-6 col-12">
                 <div class="banner-wrap mb-10">
                     <div class="banner-img banner-img-border banner-img-zoom">
                         <a href="#"><img
-                                src="{{asset('ecommerce/assets/images/banner/banner-1.png')}}" alt=""></a>
+                                src="{{asset('uploads/images/banner/'.$item->gambar)}}" alt=""></a>
                     </div>
 
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6 col-12">
-                <div class="banner-wrap mb-10">
-                    <div class="banner-img banner-img-border banner-img-zoom">
-                        <a href="#"><img
-                                src="{{asset('ecommerce/assets/images/banner/banner-2.png')}}" alt=""></a>
-                    </div>
 
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-12">
-                <div class="banner-wrap mb-10">
-                    <div class="banner-img banner-img-border banner-img-zoom">
-                        <a href="#"><img
-                                src="{{asset('ecommerce/assets/images/banner/banner-4.png')}}" alt=""></a>
-                    </div>
+            @empty
 
-                </div>
-            </div>
+            @endforelse
+
         </div>
     </div>
 </div>
