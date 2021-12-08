@@ -49,7 +49,8 @@ class ProductController extends Controller
     public function show($id)
     {
         $produk = Produk::findOrFail($id);
-        return view('ecommerce.frontend.product.detail', ['produk' => $produk]);
+        $terkait = Produk::limit(6)->get();
+        return view('ecommerce.frontend.product.detail', ['produk' => $produk, 'terkait' => $terkait]);
     }
 
     /**
