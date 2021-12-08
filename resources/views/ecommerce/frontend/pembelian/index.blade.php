@@ -128,7 +128,7 @@
                                                     <hr>
                                                     <div class="row">
                                                         <div class="col-md-12 text-right">
-                                                            <a href="#" style="font-size: 12px;color:#FF3B30">Lihat
+                                                            <a href="{{route('frontend.user.pembelian.show',[$item->id])}}" style="font-size: 12px;color:#FF3B30">Lihat
                                                                 Detail</a>
                                                             <button type="button"
                                                                 class="btn btn-primary btn-sm ml-2 btnupload"
@@ -252,7 +252,7 @@
                                                             <hr>
                                                             <div class="row">
                                                                 <div class="col-md-12 text-right">
-                                                                    <a href="#"
+                                                                    <a href="{{route('frontend.user.pembelian.show',[$item->id])}}"
                                                                         style="font-size: 12px;color:#FF3B30">Lihat
                                                                         Detail</a>
                                                                     @if ($item->status == 'dikirim')

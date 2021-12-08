@@ -88,7 +88,11 @@ class PembelianController extends Controller
      */
     public function show($id)
     {
-        //
+        $userid = auth()->user()->id;
+        $menunggu = Transaksi::where('user_id', $userid)->where('status_bayar', 'belum dibayar')->orderBy('created_at','DESC')->get();
+        $transaksi = Transaksi::where('user_id', $userid)->where('id',$id)->firstOrFail();
+        // dd($transaksi);
+        return view('ecommerce.frontend.pembelian.show', [ 'transaksi' => $transaksi]);
     }
 
     /**

@@ -15,4 +15,9 @@ class Transaksi extends Model
    {
        return $this->belongsTo('App\Bank');
    }
+
+   public function alamat()
+   {
+       return $this->belongsTo('App\Alamat');
+   }
 }
