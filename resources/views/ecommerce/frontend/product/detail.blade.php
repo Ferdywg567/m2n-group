@@ -3,15 +3,77 @@
 @section('content')
 <style>
     .btn-cart {
-        padding: 12px 150px;
+        padding: 12px;
         font-size: 14px;
+        width: 100%;
+    }
+
+    @media (min-width: 576px) {
+       .btn-cart {
+        padding: 12px 10px;
+        font-size: 14px;
+        }
+        .product-details-tab .btn-wishlist {
+        position: absolute;
+        top: 8% !important;
+        left: 68%;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        font-size: 16px;
+        text-align: right;
+        background-color: white;
+    }
+    }
+
+    @media (min-width: 768px) {
+        .btn-cart {
+        padding: 12px 120px;
+        font-size: 14px;
+        }
+
+        .product-details-tab .btn-wishlist {
+        position: absolute;
+        top: 6% !important;
+        left: 72%;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        font-size: 16px;
+        text-align: right;
+        background-color: white;
+    }
+    }
+
+    @media (min-width: 992px) {
+        .btn-cart {
+            padding: 12px 140px;
+        font-size: 14px;
+        }
+
+        .btn-outline-primary {
+        color: #FF3B30;
+        border-color: #FF3B30;
+        padding: 12px 180px;
+        font-size: 14px;
+    }
+
+    .product-details-tab .btn-wishlist {
+        position: absolute;
+        top: 4% !important;
+        left: 72% !important;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        font-size: 16px;
+        text-align: right;
+        background-color: white;
+    }
     }
 
     .btn-outline-primary {
         color: #FF3B30;
         border-color: #FF3B30;
-        padding: 12px 180px;
+        padding: 12px;
         font-size: 14px;
+        width: 100%;
     }
 
     .btn-outline-primary:hover {
@@ -21,8 +83,8 @@
 
     .product-details-tab .btn-wishlist {
         position: absolute;
-        top: 6% !important;
-        left: 72%;
+        top: 9% !important;
+        left: 64%;
         transform: translate(-50%, -50%);
         -ms-transform: translate(-50%, -50%);
         font-size: 16px;
@@ -33,6 +95,10 @@
     .product-details-tab .btn-wishlist:hover {
         background-color: black;
         color: white;
+    }
+
+    .review-img{
+        width: 10%;
     }
 
 </style>
@@ -160,7 +226,6 @@
                         aria-labelledby="nav-masuk-tab">
                         <div class="description-wrap">
                             <p>{{$produk->deskripsi_produk}}.</p>
-
                         </div>
                     </div>
                     {{-- <div id="des-details2" class="tab-pane">

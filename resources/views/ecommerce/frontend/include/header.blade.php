@@ -136,10 +136,23 @@ $kategori = \App\SubKategori::select('nama_kategori')->groupBy('nama_kategori')-
                 <div class="col-7">
                     <div class="header-action header-action-flex">
                         <div class="same-style-2 same-style-2-font-inc header-cart">
-                            <a class="cart-active" href="#">
-                                <i class="ri-shopping-cart-line"></i><span class="pro-count green"></span>
 
+                            @if (auth()->check())
+                            @if (auth()->user()->hasRole('ecommerce'))
+                            <a class="cart-active" href="#">
+                                <i class="ri-shopping-cart-line"></i>
+                                <span class="pro-count green totalcart">
+                                    {{App\Helpers\AppHelper::instance()->total_keranjang()}}
+                                </span>
                             </a>
+
+
+                            @endif
+                            @else
+                            <a class="cart" href="{{route('frontend.auth.login')}}">
+                                <i class="ri-shopping-cart-line"></i>
+                            </a>
+                            @endif
                         </div>
                         <div class="same-style-2 same-style-2-font-inc">
                             @if (auth()->check())
@@ -151,7 +164,7 @@ $kategori = \App\SubKategori::select('nama_kategori')->groupBy('nama_kategori')-
                             @endif
                             @else
                             <a class="" href="{{route('frontend.auth.login')}}">
-                                <i class="ri-notification-2-line"></i><span class="pro-count green"></span>
+                                <i class="ri-notification-2-line"></i><span class="pro-count"></span>
 
                             </a>
 
@@ -178,9 +191,7 @@ $kategori = \App\SubKategori::select('nama_kategori')->groupBy('nama_kategori')-
                                 @endif
                             </div>
                         </div>
-                        <div class="same-style-2 main-menu-icon">
-                            <a class="mobile-header-button-active" href="#"><i class="icon-menu"></i> </a>
-                        </div>
+
                     </div>
                 </div>
             </div>

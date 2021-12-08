@@ -137,6 +137,11 @@
             }
         }
 
+        h5,
+    h6,
+    h4 {
+        font-family: 'Heebo', sans-serif;
+    }
 
     </style>
 </head>
