@@ -136,9 +136,13 @@ class BankController extends Controller
             $bank->nama_bank = strtoupper($request->get('nama_bank'));
             $bank->nomor_rekening = $request->get('nomor_rekening');
             $bank->nama_penerima = strtoupper($request->get('nama_penerima'));
+            $path =  public_path('uploads/images/banner/' . $bank->logo);
             if ($request->hasFile('file')) {
                 $file = $request->file('file');
-                unlink(public_path('uploads/images/bank/' . $bank->logo));
+                if(is_file($path) && @unlink($path)){
+                    unlink(public_path('uploads/images/bank/' . $bank->logo));
+                }
+
                 $imageName = strtotime(now()) . rand(11111, 99999) . '.' . $file->getClientOriginalExtension();
                 $file->move(public_path() . '/uploads/images/bank/', $imageName);
                 $bank->logo = $imageName;
