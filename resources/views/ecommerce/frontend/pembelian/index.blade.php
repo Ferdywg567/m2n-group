@@ -354,11 +354,12 @@
                     <input type="hidden" name="id" id="id_transaksi_review">
                     <input type="hidden" name="rating" id="rating">
                     <h3 class="text-center mt-2 mb-4">
-                        <i class="ri-star-line star-light submit_star mr-1" id="submit_star_1" data-rating="1"></i>
-                        <i class="ri-star-line star-light submit_star mr-1" id="submit_star_2" data-rating="2"></i>
-                        <i class="ri-star-line star-light submit_star mr-1" id="submit_star_3" data-rating="3"></i>
-                        <i class="ri-star-line star-light submit_star mr-1" id="submit_star_4" data-rating="4"></i>
-                        <i class="ri-star-line star-light submit_star mr-1" id="submit_star_5" data-rating="5"></i>
+
+                        <i class="icon_star submit_star mr-1" id="submit_star_1" data-rating="1"></i>
+                        <i class="icon_star submit_star mr-1" id="submit_star_2" data-rating="2"></i>
+                        <i class="icon_star submit_star mr-1" id="submit_star_3" data-rating="3"></i>
+                        <i class="icon_star submit_star mr-1" id="submit_star_4" data-rating="4"></i>
+                        <i class="icon_star submit_star mr-1" id="submit_star_5" data-rating="5"></i>
                     </h3>
 
                     <div class="form-group">
@@ -414,7 +415,7 @@
         function reset_background() {
             for (var count = 1; count <= 5; count++) {
 
-                $('#submit_star_' + count).addClass('star-light');
+                $('#submit_star_' + count).addClass('icon_star');
 
                 $('#submit_star_' + count).removeClass('text-warning');
 
@@ -446,7 +447,7 @@
 
             for (var count = 1; count <= rating_data; count++) {
 
-                $('#submit_star_' + count).removeClass('star-light');
+                $('#submit_star_' + count).removeClass('icon_star');
 
                 $('#submit_star_' + count).addClass('text-warning');
             }

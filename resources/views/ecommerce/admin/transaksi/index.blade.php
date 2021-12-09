@@ -55,6 +55,7 @@
                                                 <th scope="col">Qty</th>
                                                 <th scope="col">SKU</th>
                                                 <th scope="col">Total</th>
+                                                <th scope="col">Tgl Transaksi</th>
                                                 <th scope="col">Status Bayar</th>
 
                                                 <th scope="col">Aksi</th>
@@ -103,7 +104,7 @@
                                                     </ul>
                                                 </td>
                                                 <td>@rupiah($item->total_harga)</td>
-
+                                                <td>{{date('j F Y',strtotime($item->tgl_transaksi))}}</td>
                                                 <td><span
                                                         class="badge badge-warning text-dark">{{strtoupper($item->status_bayar)}}</span>
                                                 </td>
@@ -152,6 +153,7 @@
                                                 <th scope="col">Qty</th>
                                                 <th scope="col">SKU</th>
                                                 <th scope="col">Total</th>
+                                                <th scope="col">Tgl Transaksi</th>
                                                 <th scope="col">Status</th>
                                                 <th scope="col">Aksi</th>
                                             </tr>
@@ -200,6 +202,7 @@
                                                     </ul>
                                                 </td>
                                                 <td>@rupiah($item->total_harga)</td>
+                                                <td>{{date('j F Y',strtotime($item->tgl_transaksi))}}</td>
                                                 <td><span class="badge badge-warning text-dark">KONFIRMASI KIRIM</span>
                                                 </td>
 
@@ -240,6 +243,7 @@
                                                 <th scope="col">Qty</th>
                                                 <th scope="col">SKU</th>
                                                 <th scope="col">Total</th>
+                                                <th scope="col">Tgl Transaksi</th>
                                                 <th scope="col">Status</th>
                                                 <th scope="col">Aksi</th>
                                             </tr>
@@ -287,6 +291,7 @@
                                                     </ul>
                                                 </td>
                                                 <td>@rupiah($item->total_harga)</td>
+                                                <td>{{date('j F Y',strtotime($item->tgl_transaksi))}}</td>
                                                 <td><span class="badge badge-warning text-dark">DIKIRIM</span></td>
                                                 <td>
                                                     {{-- <div class="dropdown dropleft">
@@ -323,6 +328,7 @@
                                         <th scope="col">Qty</th>
                                         <th scope="col">SKU</th>
                                         <th scope="col">Total</th>
+                                        <th scope="col">Tgl Transaksi</th>
                                         <th scope="col">Status</th>
                                         <th scope="col">Aksi</th>
                                     </tr>
@@ -370,6 +376,7 @@
                                             </ul>
                                         </td>
                                         <td>@rupiah($item->total_harga)</td>
+                                        <td>{{date('j F Y',strtotime($item->tgl_transaksi))}}</td>
                                         @if ($item->status == 'telah tiba')
                                         <td><span class="badge badge-success text-dark">TELAH TIBA</span></td>
                                         @else
