@@ -268,7 +268,11 @@ class ProdukController extends Controller
                 foreach ($oldimage as $key => $value) {
                     $detail = DetailProdukImage::where('filename', $value)->where('produk_id', $id)->first();
                     if ($detail) {
-                        unlink(public_path('uploads/images/produk/' . $value));
+                        $path = public_path('uploads/images/produk/' . $value);
+                        if(is_file($path) && @unlink($path)){
+                            unlink(public_path('uploads/images/produk/' . $value));
+                        }
+
                         DetailProdukImage::where('filename', $value)->where('produk_id', $id)->delete();
                     }
                 }
