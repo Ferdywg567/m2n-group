@@ -165,8 +165,11 @@ class BannerController extends Controller
             $banner->promo_mulai = $request->get('promo_mulai');
             $banner->promo_berakhir = $request->get('promo_berakhir');
             $banner->syarat = $request->get('syarat');
+            $path =  unlink(public_path('uploads/images/banner/' . $banner->gambar));
             if ($request->has('file')) {
-                unlink(public_path('uploads/images/banner/' . $banner->gambar));
+                if(is_file($path) && @unlink($path)){
+                    unlink(public_path('uploads/images/banner/' . $banner->gambar));
+                }
                 $imageName = strtotime(now()) . rand(11111, 99999) . '.' . $file->getClientOriginalExtension();
                 $file->move(public_path() . '/uploads/images/banner/', $imageName);
                 $banner->gambar = $imageName;
