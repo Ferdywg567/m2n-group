@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Middleware;
-
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Closure;
 
@@ -16,14 +16,23 @@ class CheckAuth
      */
     public function handle($request, Closure $next)
     {
-        if (auth()->check()) {
-            if (auth()->user()->hasRole('ecommerce')) {
-                return $next($request);
+        if(!$request->is('api/*')){
+            if (auth()->check()) {
+                if (auth()->user()->hasRole('ecommerce')) {
+                    return $next($request);
+                } else {
+                    return redirect()->route('frontend.auth.login');
+                }
             } else {
                 return redirect()->route('frontend.auth.login');
             }
-        } else {
-            return redirect()->route('frontend.auth.login');
+        }else{
+            return response()->json([
+                'status' => false,
+                'message' => 'Unauthenticated.',
+                'code' => Response::HTTP_UNAUTHORIZED
+            ]);
         }
+
     }
 }

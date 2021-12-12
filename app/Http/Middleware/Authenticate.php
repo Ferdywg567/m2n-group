@@ -14,7 +14,7 @@ class Authenticate extends Middleware
      */
     protected function redirectTo($request)
     {
-        if (!$request->expectsJson()) {
+        if (!$request->expectsJson() && !$request->is('api/*')) {
             if (strpos($request->url(), 'ecommerce') !== FALSE) {
                 return route('frontend.auth.login');
             } else {

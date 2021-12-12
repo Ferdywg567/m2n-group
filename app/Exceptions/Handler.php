@@ -4,7 +4,8 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
-
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Http\Response;
 class Handler extends ExceptionHandler
 {
     /**
@@ -51,5 +52,25 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $exception)
     {
         return parent::render($request, $exception);
+    }
+
+
+    protected function unauthenticated($request, AuthenticationException $exception)
+    {
+        if ($request->expectsJson()) {
+              return response()->json([
+                'status' => false,
+                'message' => 'Unauthenticated.',
+                'code' => Response::HTTP_UNAUTHORIZED
+            ]);
+        }elseif($request->is('api/*')){
+              return response()->json([
+                'status' => false,
+                'message' => 'Unauthenticated.',
+                'code' => Response::HTTP_UNAUTHORIZED
+            ]);
+        }
+
+        return redirect()->route('frontend.auth.login');
     }
 }
