@@ -150,7 +150,7 @@ class CheckoutController extends Controller
                 }
                 $token = $this->generateRandomString(30);
                 session(['token_checkout' => $token]);
-
+                session(['kode_transaksi' => $transaksi->kode_transaksi]);
                 $transaksi = [
                     'bank' => $bank,
                     'total_harga' => $totalharga,
