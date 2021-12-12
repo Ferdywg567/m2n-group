@@ -46,6 +46,7 @@ Route::group(['namespace' => 'Ecommerce\Frontend'], function () {
             Route::group(['prefix' => 'checkout', 'as' => 'checkout.'], function () {
                 Route::post('/beli_langsung', 'CheckoutController@beli_langsung')->name('beli_langsung');
                 Route::get('/success/{token_checkout}', 'CheckoutController@get_checkout_success')->name('success');
+                Route::post('/upload_bukti', 'CheckoutController@upload_bukti')->name('upload_bukti');
             });
 
             Route::resource('alamat', 'AlamatController');

@@ -151,6 +151,7 @@ class CheckoutController extends Controller
                 $token = $this->generateRandomString(30);
                 session(['token_checkout' => $token]);
                 session(['kode_transaksi' => $transaksi->kode_transaksi]);
+                session()->forget('bukti_bayar');
                 $transaksi = [
                     'bank' => $bank,
                     'total_harga' => $totalharga,
@@ -259,7 +260,7 @@ class CheckoutController extends Controller
 
     public function beli_langsung(Request $request)
     {
-        $validator = Validator::make($request->all(),[
+        $validator = Validator::make($request->all(), [
             'id' => 'required',
             'jumlah' => 'required|min:1|integer'
         ]);
@@ -271,7 +272,7 @@ class CheckoutController extends Controller
                 'status' => false,
                 'data' => $html
             ]);
-        }else {
+        } else {
             $id = $request->get('id');
             $jumlah = $request->get('jumlah');
             $produk = Produk::findOrFail($id);
@@ -284,6 +285,55 @@ class CheckoutController extends Controller
             session(['checkout_langsung' => $checkout]);
 
             return response()->json(['status' => true]);
+        }
+    }
+
+    public function upload_bukti(Request $request)
+    {
+        if ($request->ajax()) {
+            $validator = Validator::make($request->all(), [
+                'file' => 'required',
+
+            ]);
+            if ($validator->fails()) {
+                $html = ' <div class="alert alert-danger" role="alert">' . $validator->errors()->first() . '</div>';
+
+                return response()->json([
+                    'status' => false,
+                    'data' => $html
+                ]);
+            } else {
+                if ($request->hasFile('file')) {
+
+                    if (session()->has('kode_transaksi')) {
+                        $userid = auth()->user()->id;
+                        $kode = session('kode_transaksi');
+                        $transaksi = Transaksi::where('user_id', $userid)->where('kode_transaksi', $kode)->firstOrFail();
+                        $file = $request->file('file');
+                        $imageName = strtotime(now()) . rand(11111, 99999) . '.' . $file->getClientOriginalExtension();
+                        $file->move(public_path() . '/uploads/images/bukti_bayar/', $imageName);
+                        $transaksi->status_bayar = "sudah di upload";
+                        $transaksi->bukti_bayar = $imageName;
+                        $transaksi->save();
+                        $html = ' <div class="alert alert-success" role="alert"> Bukti Pembayaran berhasil di simpan </div>';
+                        $status = true;
+
+                        session(['bukti_bayar' => true]);
+                        session()->forget('kode_transaksi');
+                    } else {
+                        $html = ' <div class="alert alert-danger" role="alert"> Maaf ada salah </div>';
+                        $status = false;
+                    }
+                } else {
+                    $html = ' <div class="alert alert-danger" role="alert"> Maaf ada salah </div>';
+                    $status = false;
+                }
+
+                return response()->json([
+                    'status' => $status,
+                    'data' => $html
+                ]);
+            }
         }
     }
 }
