@@ -283,7 +283,7 @@
         <div class="tab-content jump">
             <div class="row">
                 @forelse ($limit as $item)
-                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+                <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-6">
                     <div class="single-product-wrap mb-35 shadow rounded">
                         <div class="product-img product-img-zoom mb-15">
                             <a href="{{route('frontend.product.show',[$item->id])}}">
@@ -394,7 +394,7 @@
         <div class="tab-content jump">
             <div class="row">
                 @forelse ($rekomendasi as $item)
-                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+                <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-6">
                     <div class="single-product-wrap mb-35 shadow rounded">
                         <div class="product-img product-img-zoom mb-15">
                             <a href="{{route('frontend.product.show',[$item->id])}}">

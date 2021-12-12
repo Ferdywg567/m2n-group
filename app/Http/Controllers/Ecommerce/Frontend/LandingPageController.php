@@ -16,7 +16,7 @@ class LandingPageController extends Controller
      */
     public function index()
     {
-        $limit = Produk::limit(4)->get();
+        $limit = Produk::limit(6)->get();
         $banner = Banner::where('status_banner', 'Slider Utama')->get();
         $promo = Banner::where('status_banner', 'Promo Tambahan')->get();
         $rekomendasi = Produk::limit(20)->get();
