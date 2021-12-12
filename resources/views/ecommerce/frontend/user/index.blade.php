@@ -117,10 +117,10 @@
                                                 <div class="col-md-4">
                                                     <h5>{{auth()->user()->email}}</h5>
                                                 </div>
-                                                <div class="col-md-6" style="margin-top:-4px; display:inline-block">
+                                                {{-- <div class="col-md-6" style="margin-top:-4px; display:inline-block">
                                                     <span class="badge badge-primary">Belum terverifikasi</span> <a
                                                         href="http://" class="ml-2">verifikasi sekarang</a>
-                                                </div>
+                                                </div> --}}
 
                                             </div>
                                             <div class="row mt-3">
@@ -131,9 +131,9 @@
                                                 <div class="col-md-2">
                                                     <h5>{{auth()->user()->no_hp}}</h5>
                                                 </div>
-                                                <div class="col-md-6" style="margin-top:-4px; display:inline-block">
+                                                {{-- <div class="col-md-6" style="margin-top:-4px; display:inline-block">
                                                     <span class="badge badge-success">Terverifikasi</span>
-                                                </div>
+                                                </div> --}}
                                                 @endif
 
 
