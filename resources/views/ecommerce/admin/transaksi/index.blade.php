@@ -238,6 +238,7 @@
                                             <tr>
                                                 <th scope="col">No</th>
                                                 <th scope="col">Kode Transaksi</th>
+                                                <th scope="col">No. Resi</th>
                                                 <th scope="col">Kode Produk</th>
                                                 <th scope="col">Nama Produk</th>
                                                 <th scope="col">Qty</th>
@@ -253,6 +254,7 @@
                                             <tr>
                                                 <td>{{$loop->iteration}}</td>
                                                 <td>{{$item->kode_transaksi}}</td>
+                                                <td>{{$item->no_resi}}</td>
                                                 <td>
                                                     <ul class="list-unstyled">
                                                         @forelse ($item->detail_transaksi as $row)
