@@ -149,6 +149,7 @@
 <body>
 
     <div class="main-wrapper">
+
         @include('ecommerce.frontend.include.header')
         <!-- mini cart start -->
         @include('ecommerce.frontend.include.sidebar_cart')
@@ -398,7 +399,13 @@
         function GoBackWithRefresh(event) {
                 window.history.back();
         }
-
+        window.onpageshow = function(evt) {
+            // If persisted then it is in the page cache, force a reload of the page.
+            if (evt.persisted) {
+                document.body.style.display = "none";
+                location.reload();
+            }
+        };
         @if (auth()->check())
         function getDataSidebar(){
                   $.ajax({
@@ -443,6 +450,7 @@
         @endif
 
         $(document).ready(function () {
+
             var modal = document.getElementById("modalSearch");
             function ajax() {
                 $.ajaxSetup({

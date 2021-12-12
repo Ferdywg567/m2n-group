@@ -475,6 +475,7 @@
 @endsection
 @push('scripts')
 <script>
+
     $(document).ready(function () {
         function ajax() {
             $.ajaxSetup({
