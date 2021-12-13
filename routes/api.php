@@ -28,3 +28,9 @@ Route::group([
     Route::post('register', 'AuthController@register');
 
 });
+
+
+Route::group(['middleware' => ['assign.guard:api','jwt.auth'],'namespace' => 'API'],function () {
+    Route::resource('kategori', 'KategoriController');
+    Route::resource('produk', 'ProdukController');
+});
