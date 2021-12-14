@@ -183,12 +183,12 @@ class UserController extends Controller
                         $message =  'password berhasil di update';
                         $status = true;
                     } else {
-                        $message = 'password lama salah';
+                        $message = 'password lama tidak sesuai';
                         $status = false;
                     }
                 }
 
-               
+
                 DB::commit();
                 return response()->json([
                     'status' => $status,
