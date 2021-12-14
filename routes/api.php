@@ -26,11 +26,16 @@ Route::group([
     Route::post('logout', 'AuthController@logout');
     Route::get('me', 'AuthController@me');
     Route::post('register', 'AuthController@register');
-
 });
 
 
-Route::group(['middleware' => ['assign.guard:api','jwt.auth'],'namespace' => 'API'],function () {
+Route::group(['middleware' => ['assign.guard:api', 'jwt.auth'], 'namespace' => 'API'], function () {
+    //beranda
     Route::resource('kategori', 'KategoriController');
     Route::resource('produk', 'ProdukController');
+    //profil user
+    Route::group(['prefix' => 'user'], function () {
+        Route::post('/update_password','UserController@update_password');
+    });
+    Route::resource('user', 'UserController');
 });
