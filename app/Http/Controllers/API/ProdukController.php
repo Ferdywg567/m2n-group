@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\DetailProdukImage;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -21,12 +22,27 @@ class ProdukController extends Controller
         $arr = [];
         foreach ($produk as $key => $value) {
             $gambar = '';
-            foreach ($value->detail_gambar as $key => $row) {
-                $gambar = asset('uploads/images/produk/' . $row->filename);
+            $argambar = [];
+            $detailgambar = DetailProdukImage::where('produk_id', $value->id)->first();
+            if ($detailgambar) {
+                $gambar = asset('uploads/images/produk/' . $detailgambar->filename);
             }
-            $cv = json_decode(json_encode($value),true);
+
+            $detailgambarall = DetailProdukImage::where('produk_id', $value->id)->get();
+            if($detailgambarall->isNotEmpty()){
+                foreach ($detailgambarall as $key => $row) {
+                    $y['gambar'] = asset('uploads/images/produk/' . $row->filename);
+                    array_push($argambar, $y);
+                }
+                $x['detail_gambar'] = $argambar;
+            }else{
+                $x['detail_gambar'] = [];
+            }
+
+            $cv = json_decode(json_encode($value), true);
             $x['gambar'] = $gambar;
-            $data = array_merge($x,$cv);
+
+            $data = array_merge($x, $cv);
             array_push($arr, $data);
         }
 
