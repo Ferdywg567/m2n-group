@@ -34,16 +34,21 @@ class AuthController extends Controller
             $credentials = $request->only('email', 'password');
             // cek role
             $user = User::where('email', $request->get('email'))->first();
-            if ($user->hasRole('ecommerce')) {
-                if (Auth::attempt($credentials)) {
-                    // Authentication passed...
-                    return redirect('/');
+            if($user){
+                if ($user->hasRole('ecommerce')) {
+                    if (Auth::attempt($credentials)) {
+                        // Authentication passed...
+                        return redirect('/');
+                    } else {
+                        return redirect()->back()->withErrors(['Email atau password salah']);
+                    }
                 } else {
                     return redirect()->back()->withErrors(['Email atau password salah']);
                 }
-            } else {
+            }else {
                 return redirect()->back()->withErrors(['Email atau password salah']);
             }
+
         }
     }
 
