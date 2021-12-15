@@ -62,9 +62,8 @@ class AuthController extends Controller
             $user->name = $request->get('nama_lengkap');
             $user->email = $request->get('email');
             $user->password = bcrypt($request->get('password'));
-            $user->assignRole('ecommerce');
             $user->save();
-
+            $user->assignRole('ecommerce');
             return redirect()->route('frontend.auth.login')->with('alert-success', 'Berhasil daftar, silahkan login');
         }
     }
