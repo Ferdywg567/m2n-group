@@ -24,7 +24,7 @@ class BannerController extends Controller
         ]);
         $slider = Banner::where('status_banner', 'Slider Utama')->get();
         $tambahan = Banner::where('status_banner', 'Promo Tambahan')->get();
-
+        
         return view('ecommerce.admin.banner.index', ['slider' => $slider, 'tambahan' => $tambahan]);
     }
 

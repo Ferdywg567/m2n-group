@@ -33,6 +33,7 @@ Route::group(['middleware' => ['assign.guard:api', 'jwt.auth'], 'namespace' => '
     //beranda
     Route::resource('kategori', 'KategoriController');
     Route::resource('produk', 'ProdukController');
+    Route::resource('banner', 'BannerController');
     //profil user
     Route::group(['prefix' => 'user'], function () {
         Route::post('/update_password','UserController@update_password');
