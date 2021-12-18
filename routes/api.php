@@ -39,4 +39,5 @@ Route::group(['middleware' => ['assign.guard:api', 'jwt.auth'], 'namespace' => '
         Route::post('/update_password','UserController@update_password');
     });
     Route::resource('user', 'UserController');
+    Route::resource('cari', 'CariController');
 });

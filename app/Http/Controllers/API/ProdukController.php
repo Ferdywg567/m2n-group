@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Produk;
+use App\Helpers\AppHelper;
 
 class ProdukController extends Controller
 {
@@ -29,13 +30,13 @@ class ProdukController extends Controller
             }
 
             $detailgambarall = DetailProdukImage::where('produk_id', $value->id)->get();
-            if($detailgambarall->isNotEmpty()){
+            if ($detailgambarall->isNotEmpty()) {
                 foreach ($detailgambarall as $key => $row) {
                     $y['gambar'] = asset('uploads/images/produk/' . $row->filename);
                     array_push($argambar, $y);
                 }
                 $x['detail_gambar'] = $argambar;
-            }else{
+            } else {
                 $x['detail_gambar'] = [];
             }
 
@@ -82,7 +83,25 @@ class ProdukController extends Controller
      */
     public function show($id)
     {
-        //
+        $produk = Produk::where('kode_produk', $id)->with('ulasan')->firstOrFail();
+
+        $arr = [];
+
+        $detailgambarall = DetailProdukImage::where('produk_id', $produk->id)->get();
+        foreach ($detailgambarall as $key => $value) {
+            $x['gambar'] = asset('uploads/images/produk/' . $value->filename);
+            array_push($arr, $x);
+        }
+
+        $produk->detail_gambar = $arr;
+        $produk->jumlah_ulasan = AppHelper::instance()->jumlah_ulasan($produk->id);
+        $produk->jumlah_pesanan = AppHelper::instance()->jumlah_pesanan($produk->id);
+
+        return response()->json([
+            'status' => true,
+            'data' => $produk,
+            'code' => Response::HTTP_OK
+        ]);
     }
 
     /**
