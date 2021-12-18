@@ -390,84 +390,82 @@
         <div class="section-title mb-45 text-left">
             <h3>Produk Terkait</h3>
         </div>
-        <div class="related-product-active">
-            @forelse ($terkait as $item)
-            <div class="product-plr-1">
-                <div class="single-product-wrap shadow rounded">
-                    <div class="product-img product-img-zoom mb-15">
-                        <a href="{{route('frontend.product.show',[$item->id])}}">
-                            <img src="{{asset('uploads/images/produk/'.$item->detail_gambar[0]->filename)}}" alt="">
-                        </a>
-                        <div class="product-action-2 tooltip-style-2">
-                            <button title="Wishlist" class="wishlist" @if(auth()->check())  @if(\AppHelper::instance()->favorit_data(auth()->user()->id, $item->id)) style="background-color:black;color:white" @endif @endif data-id="{{$item->id}}"><i class="icon-heart"></i></button>
-                        </div>
-                    </div>
-                    <div class="product-content-wrap-2 text-left ml-2">
-                        <h3><a
-                                href="{{route('frontend.product.show',[$item->id])}}">{{$item->warehouse->finishing->cuci->jahit->potong->bahan->nama_bahan}}</a>
-                        </h3>
-                        <div class="product-price-2">
-                            @if ($item->promo_id == null)
-                            <span class="new-price">@rupiah($item->harga)</span>
-                            @else
-                            <span class="new-price">@rupiah($item->harga_promo)</span>
-                            <span class="old-price">@rupiah($item->harga)</span>
-                            @endif
-                        </div>
-                        <div class="product-rating-wrap pb-15">
-                            <div class="product-rating">
-                                @for ($i=1;$i<=5;$i++)
-                                @if (round(\AppHelper::instance()->avg_ulasan($item->id)) >= $i)
-                                <i class="icon_star"></i>
-                                @else
-                                <i class="icon_star gray"></i>
-                                @endif
-
-                                @endfor
-
+        <div class="tab-content jump">
+            <div class="row">
+                @forelse ($terkait as $item)
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-6">
+                    <div class="single-product-wrap mb-35 shadow rounded">
+                        <div class="product-img product-img-zoom mb-15">
+                            <a href="{{route('frontend.product.show',[$item->id])}}">
+                                <img src="{{asset('uploads/images/produk/'.$item->detail_gambar[0]->filename)}}"
+                                    alt="">
+                            </a>
+                            <div class="product-action-2 tooltip-style-2">
+                                <button title="Wishlist" data-id="{{$item->id}}" class="wishlist-bottom" @if(auth()->check())  @if(\AppHelper::instance()->favorit_data(auth()->user()->id, $item->id)) style="background-color:black;color:white" @endif @endif ><i class="icon-heart"></i></button>
                             </div>
-                            <span>({{\AppHelper::instance()->avg_ulasan($item->id)}})</span>
                         </div>
-                    </div>
-                    <div class="product-content-wrap-2 product-content-position text-left">
-                        <h3><a
-                                href="{{route('frontend.product.show',[$item->id])}}">{{$item->warehouse->finishing->cuci->jahit->potong->bahan->nama_bahan}}</a>
-                        </h3>
-                        <div class="product-price-2">
-                            @if ($item->promo_id == null)
-                            <span class="new-price">@rupiah($item->harga)</span>
-                            @else
-                            <span class="new-price">@rupiah($item->harga_promo)</span>
-                            <span class="old-price">@rupiah($item->harga)</span>
-                            @endif
+                        <div class="product-content-wrap-2 text-left ml-2">
 
-                        </div>
-                        <div class="product-rating-wrap">
-                            <div class="product-rating">
-                                @for ($i=1;$i<=5;$i++)
-                                @if (round(\AppHelper::instance()->avg_ulasan($item->id)) >= $i)
-                                <i class="icon_star"></i>
+                            <h3><a href="{{route('frontend.product.show',[$item->id])}}">Kaos Hitam Polos</a></h3>
+                            <div class="product-price-2">
+                                @if ($item->promo_id == null)
+                                <span class="new-price">@rupiah($item->harga)</span>
                                 @else
-                                <i class="icon_star gray"></i>
+                                <span class="new-price">@rupiah($item->harga_promo)</span>
+                                <span class="old-price">@rupiah($item->harga)</span>
                                 @endif
-
-                                @endfor
-
                             </div>
-                            <span>({{\AppHelper::instance()->avg_ulasan($item->id)}})</span>
+                            <div class="product-rating-wrap pb-15">
+                                <div class="product-rating">
+                                    @for ($i=1;$i<=5;$i++)
+                                    @if (round(\AppHelper::instance()->avg_ulasan($item->id)) >= $i)
+                                    <i class="icon_star"></i>
+                                    @else
+                                    <i class="icon_star gray"></i>
+                                    @endif
+
+                                    @endfor
+
+                                </div>
+                                <span>({{\AppHelper::instance()->avg_ulasan($item->id)}})</span>
+                            </div>
                         </div>
-                        <div class="pro-add-to-cart pb-10">
-                            <a href="{{route('frontend.product.show',[$item->id])}}"
-                                class="btn btn-primary btn-block">Lihat Produk</a>
-                            {{-- <button class="btn btn-primary btn-block">Lihat Produk</button> --}}
+                        <div class="product-content-wrap-2 product-content-position text-left">
+                            <h3><a href="{{route('frontend.product.show',[$item->id])}}">Kaos Hitam Polos</a></h3>
+                            <div class="product-price-2">
+                                @if ($item->promo_id == null)
+                                <span class="new-price">@rupiah($item->harga)</span>
+                                @else
+                                <span class="new-price">@rupiah($item->harga_promo)</span>
+                                <span class="old-price">@rupiah($item->harga)</span>
+                                @endif
+                            </div>
+                            <div class="product-rating-wrap">
+                                <div class="product-rating">
+                                    @for ($i=1;$i<=5;$i++)
+                                    @if (round(\AppHelper::instance()->avg_ulasan($item->id)) >= $i)
+                                    <i class="icon_star"></i>
+                                    @else
+                                    <i class="icon_star gray"></i>
+                                    @endif
+
+                                    @endfor
+
+                                </div>
+                                <span>({{\AppHelper::instance()->avg_ulasan($item->id)}})</span>
+                            </div>
+                            <div class="pro-add-to-cart pb-10">
+                                <button class="btn btn-primary btn-block">Lihat Produk</button>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+                @empty
+
+                @endforelse
+
             </div>
-
-            @empty
-
-            @endforelse
 
         </div>
     </div>
