@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers\API;
 
-use App\DetailProdukImage;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use App\Produk;
-use App\Helpers\AppHelper;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Response;
+use App\DetailProdukImage;
+use App\Favorit;
+use App\Produk;
+use Illuminate\Http\Request;
 
-class ProdukController extends Controller
+class FavoritController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,8 +21,10 @@ class ProdukController extends Controller
      */
     public function index()
     {
-        $produk = Produk::all();
-
+        $userid = Auth::guard('api')->user()->id;
+        $produk = Produk::whereHas('favorit', function ($q) use ($userid) {
+            return $q->where('user_id', $userid);
+        })->get();
         $arr = [];
         foreach ($produk as $key => $value) {
             $gambar = '';
@@ -73,7 +77,43 @@ class ProdukController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'kode_produk' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['status' => false, 'message' => $validator->errors()->first(), 'code' => Response::HTTP_OK]);
+        } else {
+            $userid = Auth::guard('api')->user()->id;
+            DB::beginTransaction();
+            try {
+                $produk = Produk::where('kode_produk', $request->get('kode_produk'))->firstOrFail();
+                $cek = Favorit::where('user_id', $userid)->where('produk_id', $produk->id)->first();
+
+                if (!$cek) {
+                    $favorit = new Favorit();
+                    $favorit->user_id = $userid;
+                    $favorit->produk_id = $produk->id;
+                    $favorit->save();
+                }
+
+                DB::commit();
+                return response()->json([
+                    'status' => true,
+                    'message' => 'saved',
+                    'code' => Response::HTTP_OK
+                ]);
+            } catch (\Exception $th) {
+                //throw $th;
+                DB::rollBack();
+
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Maaf ada yang error',
+                    'code' => Response::HTTP_INTERNAL_SERVER_ERROR
+                ]);
+            }
+        }
     }
 
     /**
@@ -84,28 +124,7 @@ class ProdukController extends Controller
      */
     public function show($id)
     {
-        $userid = Auth::guard('api')->user()->id;
-        $produk = Produk::where('kode_produk', $id)->with(['ulasan'])->withCount(['favorit' => function ($q) use ($userid) {
-            return  $q->where('user_id', $userid);
-        }])->firstOrFail();
-
-        $arr = [];
-
-        $detailgambarall = DetailProdukImage::where('produk_id', $produk->id)->get();
-        foreach ($detailgambarall as $key => $value) {
-            $x['gambar'] = asset('uploads/images/produk/' . $value->filename);
-            array_push($arr, $x);
-        }
-
-        $produk->detail_gambar = $arr;
-        $produk->jumlah_ulasan = AppHelper::instance()->jumlah_ulasan($produk->id);
-        $produk->jumlah_pesanan = AppHelper::instance()->jumlah_pesanan($produk->id);
-
-        return response()->json([
-            'status' => true,
-            'data' => $produk,
-            'code' => Response::HTTP_OK
-        ]);
+        //
     }
 
     /**
@@ -139,6 +158,27 @@ class ProdukController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+        $userid = Auth::guard('api')->user()->id;
+        DB::beginTransaction();
+        try {
+            $produk = Produk::where('kode_produk', $id)->firstOrFail();
+            Favorit::where('user_id', $userid)->where('produk_id', $produk->id)->delete();
+            DB::commit();
+            return response()->json([
+                'status' => true,
+                'message' => 'deleted',
+                'code' => Response::HTTP_OK
+            ]);
+        } catch (\Exception $th) {
+            //throw $th;
+            DB::rollBack();
+
+            return response()->json([
+                'status' => false,
+                'message' => 'Maaf ada yang error',
+                'code' => Response::HTTP_INTERNAL_SERVER_ERROR
+            ]);
+        }
     }
 }
