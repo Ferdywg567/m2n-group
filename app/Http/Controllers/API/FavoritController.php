@@ -162,8 +162,11 @@ class FavoritController extends Controller
         $userid = Auth::guard('api')->user()->id;
         DB::beginTransaction();
         try {
-            $produk = Produk::where('kode_produk', $id)->firstOrFail();
-            Favorit::where('user_id', $userid)->where('produk_id', $produk->id)->delete();
+            $produk = Produk::where('kode_produk', $id)->first();
+            if($produk){
+                Favorit::where('user_id', $userid)->where('produk_id', $produk->id)->delete();
+            }
+
             DB::commit();
             return response()->json([
                 'status' => true,
