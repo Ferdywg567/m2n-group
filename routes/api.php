@@ -32,6 +32,7 @@ Route::group([
 Route::group(['middleware' => ['assign.guard:api', 'jwt.auth'], 'namespace' => 'API'], function () {
     //beranda
     Route::resource('kategori', 'KategoriController');
+    Route::resource('sub_kategori', 'SubKategoriController');
     Route::resource('produk', 'ProdukController');
     Route::resource('banner', 'BannerController');
     //profil user

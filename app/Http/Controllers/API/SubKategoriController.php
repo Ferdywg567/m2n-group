@@ -5,23 +5,33 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
+use App\SubKategori;
 use App\Kategori;
 
-class KategoriController extends Controller
+
+class SubKategoriController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $kategori = Kategori::with('sub_kategori')->get();
+       if($request->has('kategori_id')){
+            $kategori = SubKategori::where('kategori_id', $request->get('kategori_id'))->get();
+            return response()->json([
+                'status' => true,
+                'data' => $kategori,
+                'code' => Response::HTTP_OK
+            ]);
+       }else{
         return response()->json([
             'status' => true,
-            'data' => $kategori,
+            'data' => [],
             'code' => Response::HTTP_OK
         ]);
+       }
     }
 
     /**
