@@ -197,4 +197,69 @@ class KeranjangController extends Controller
             ]);
         }
     }
+
+    public function update_qty(Request $request)
+    { {
+            $validator = Validator::make($request->all(), [
+                'kode_produk' => 'required',
+                'status' => 'required|in:min,plus'
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json(['status' => false, 'message' => $validator->errors()->first(), 'code' => Response::HTTP_OK]);
+            } else {
+                $userid = Auth::guard('api')->user()->id;
+                $produk = Produk::where('kode_produk', $request->get('kode_produk'))->first();
+                DB::beginTransaction();
+
+                try {
+                    if ($produk) {
+                        //cek keranjang
+                        $keranjang = Keranjang::where('user_id', $userid)->where('produk_id', $produk->id)->first();
+
+                        if ($keranjang) {
+
+                            if ($request->get('status') == 'plus') {
+                                $keranjang->jumlah = $keranjang->jumlah + 1;
+                                $keranjang->subtotal = $keranjang->jumlah * $keranjang->harga;
+                                $keranjang->save();
+                            } else {
+                                if ($keranjang->jumlah == 1) {
+                                    Keranjang::where('user_id', $userid)->where('produk_id', $produk->id)->delete();
+                                } else {
+                                    $keranjang->jumlah = $keranjang->jumlah - 1;
+                                    $keranjang->subtotal = $keranjang->jumlah * $keranjang->harga;
+                                    $keranjang->save();
+                                }
+                            }
+                        } else {
+                            $keranjang = new Keranjang();
+                            $keranjang->user_id = $userid;
+                            $keranjang->produk_id = $produk->id;
+                            $keranjang->harga = $produk->harga_promo;
+                            $keranjang->check = 1;
+                            $keranjang->jumlah = 1;
+                            $keranjang->subtotal = $keranjang->jumlah * $keranjang->harga;
+                            $keranjang->save();
+                        }
+                    }
+
+                    DB::commit();
+                    return response()->json([
+                        'status' => true,
+                        'message' => 'saved',
+                        'code' => Response::HTTP_OK
+                    ]);
+                } catch (\Exception $th) {
+                    //throw $th;
+                    DB::rollBack();
+                    return response()->json([
+                        'status' => false,
+                        'message' => 'Maaf ada yang error',
+                        'code' => Response::HTTP_INTERNAL_SERVER_ERROR
+                    ]);
+                }
+            }
+        }
+    }
 }

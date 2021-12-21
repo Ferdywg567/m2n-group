@@ -33,12 +33,19 @@ Route::group(['middleware' => ['assign.guard:api', 'jwt.auth'], 'namespace' => '
     //beranda
     Route::resource('kategori', 'KategoriController');
     Route::resource('sub_kategori', 'SubKategoriController');
+    Route::resource('detail_sub_kategori', 'DetailSubKategoriController');
     Route::resource('produk', 'ProdukController');
     Route::resource('banner', 'BannerController');
     //profil user
     Route::group(['prefix' => 'user'], function () {
         Route::post('/update_password','UserController@update_password');
     });
+
+    //cart
+    Route::group(['prefix' => 'keranjang'], function () {
+        Route::post('/update_qty','KeranjangController@update_qty');
+    });
+
     Route::resource('user', 'UserController');
     Route::resource('favorit', 'FavoritController');
     Route::resource('cari', 'CariController');

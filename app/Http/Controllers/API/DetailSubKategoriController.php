@@ -3,22 +3,20 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Response;
 use Illuminate\Http\Request;
-use App\SubKategori;
-use App\Kategori;
+use App\DetailSubKategori;
+use Illuminate\Http\Response;
 
-
-class SubKategoriController extends Controller
+class DetailSubKategoriController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $kategori = SubKategori::all();
+        $kategori = DetailSubKategori::all();
         return response()->json([
             'status' => true,
             'data' => $kategori,
