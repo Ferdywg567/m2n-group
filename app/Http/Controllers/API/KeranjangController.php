@@ -22,9 +22,9 @@ class KeranjangController extends Controller
     public function index()
     {
         $userid = Auth::guard('api')->user()->id;
-        $produk = Produk::with(['keranjang' => function ($q) use ($userid) {
+        $produk = Produk::with('keranjang')->whereHas('keranjang', function ($q) use ($userid) {
             return  $q->where('user_id', $userid);
-        }])->withCount('favorit')->get();
+        })->withCount('favorit')->get();
         $arr = [];
         foreach ($produk as $key => $value) {
             $gambar = '';
