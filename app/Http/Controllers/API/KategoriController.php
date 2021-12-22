@@ -16,7 +16,9 @@ class KategoriController extends Controller
      */
     public function index()
     {
-        $kategori = Kategori::with('sub_kategori')->get();
+        $kategori = Kategori::with(['sub_kategori' => function ($q) {
+            $q->with('detail_sub');
+        }])->get();
         return response()->json([
             'status' => true,
             'data' => $kategori,

@@ -202,7 +202,7 @@ class KeranjangController extends Controller
     { {
             $validator = Validator::make($request->all(), [
                 'kode_produk' => 'required',
-                'status' => 'required|in:min,plus'
+                'qty' => 'required|integer'
             ]);
 
             if ($validator->fails()) {
@@ -214,33 +214,18 @@ class KeranjangController extends Controller
 
                 try {
                     if ($produk) {
+                        $qty = $request->get('qty');
                         //cek keranjang
                         $keranjang = Keranjang::where('user_id', $userid)->where('produk_id', $produk->id)->first();
 
                         if ($keranjang) {
-
-                            if ($request->get('status') == 'plus') {
-                                $keranjang->jumlah = $keranjang->jumlah + 1;
+                            if ($qty > 0) {
+                                $keranjang->jumlah = $qty;
                                 $keranjang->subtotal = $keranjang->jumlah * $keranjang->harga;
                                 $keranjang->save();
                             } else {
-                                if ($keranjang->jumlah == 1) {
-                                    Keranjang::where('user_id', $userid)->where('produk_id', $produk->id)->delete();
-                                } else {
-                                    $keranjang->jumlah = $keranjang->jumlah - 1;
-                                    $keranjang->subtotal = $keranjang->jumlah * $keranjang->harga;
-                                    $keranjang->save();
-                                }
+                                Keranjang::where('user_id', $userid)->where('produk_id', $produk->id)->delete();
                             }
-                        } else {
-                            $keranjang = new Keranjang();
-                            $keranjang->user_id = $userid;
-                            $keranjang->produk_id = $produk->id;
-                            $keranjang->harga = $produk->harga_promo;
-                            $keranjang->check = 1;
-                            $keranjang->jumlah = 1;
-                            $keranjang->subtotal = $keranjang->jumlah * $keranjang->harga;
-                            $keranjang->save();
                         }
                     }
 
