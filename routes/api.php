@@ -50,4 +50,5 @@ Route::group(['middleware' => ['assign.guard:api', 'jwt.auth'], 'namespace' => '
     Route::resource('favorit', 'FavoritController');
     Route::resource('cari', 'CariController');
     Route::resource('keranjang', 'KeranjangController');
+    Route::resource('bank', 'BankController');
 });
