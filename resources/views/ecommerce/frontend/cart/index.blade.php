@@ -164,6 +164,7 @@
                                     }else{
                                         $('.btncheckout').prop('disabled',true)
                                     }
+                                    getDataSidebar()
                             }
                         }
                     })
@@ -198,7 +199,7 @@
                                 }else{
                                     $('.btncheckout').prop('disabled',true)
                                 }
-
+                                getDataSidebar()
                                 if(response.hapus){
                                     location.reload(true)
                                 }
@@ -226,7 +227,7 @@
                                 }else{
                                     $('.btncheckout').prop('disabled',true)
                                 }
-
+                                getDataSidebar()
                                 if(response.checked){
                                     $('#all').prop('checked','checked')
                                 }else{

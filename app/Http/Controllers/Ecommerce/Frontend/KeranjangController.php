@@ -270,7 +270,7 @@ class KeranjangController extends Controller
                     $x['jumlah'] = $value->jumlah;
                     $x['harga'] = $helper->rupiah($value->harga);
 
-                    $totalharga += $value->harga;
+                    $totalharga += $value->subtotal;
                     array_push($arr, $x);
             }
 

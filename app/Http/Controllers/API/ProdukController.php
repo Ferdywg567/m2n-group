@@ -19,7 +19,10 @@ class ProdukController extends Controller
      */
     public function index()
     {
-        $produk = Produk::all();
+        $userid = Auth::guard('api')->user()->id;
+        $produk = Produk::with(['ulasan'])->withCount(['favorit' => function ($q) use ($userid) {
+            return  $q->where('user_id', $userid);
+        }])->get();
 
         $arr = [];
         foreach ($produk as $key => $value) {
@@ -43,6 +46,8 @@ class ProdukController extends Controller
 
             $cv = json_decode(json_encode($value), true);
             $x['gambar'] = $gambar;
+            $x['jumlah_ulasan'] = AppHelper::instance()->jumlah_ulasan($value->id);
+            $x['jumlah_pesanan'] = AppHelper::instance()->jumlah_pesanan($value->id);
 
             $data = array_merge($x, $cv);
             array_push($arr, $data);

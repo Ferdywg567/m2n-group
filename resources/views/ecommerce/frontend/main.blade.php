@@ -415,6 +415,7 @@
                           success:function(response){
                               if(response.status){
                                   var data = response.data
+                                  console.log(response);
                                   var datahtml = '<ul>';
                                   for (let index = 0; index < data.length; index++) {
                                       const element = data[index];

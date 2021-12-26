@@ -199,10 +199,100 @@ class KeranjangController extends Controller
     }
 
     public function update_qty(Request $request)
-    { {
+    {
+        $validator = Validator::make($request->all(), [
+            'kode_produk' => 'required',
+            'qty' => 'required|integer'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['status' => false, 'message' => $validator->errors()->first(), 'code' => Response::HTTP_OK]);
+        } else {
+            $userid = Auth::guard('api')->user()->id;
+            $produk = Produk::where('kode_produk', $request->get('kode_produk'))->first();
+            DB::beginTransaction();
+
+            try {
+                if ($produk) {
+                    $qty = $request->get('qty');
+                    //cek keranjang
+                    $keranjang = Keranjang::where('user_id', $userid)->where('produk_id', $produk->id)->first();
+
+                    if ($keranjang) {
+                        if ($qty > 0) {
+                            $keranjang->jumlah = $qty;
+                            $keranjang->subtotal = $keranjang->jumlah * $keranjang->harga;
+                            $keranjang->save();
+                        } else {
+                            Keranjang::where('user_id', $userid)->where('produk_id', $produk->id)->delete();
+                        }
+                    }
+                }
+
+                DB::commit();
+                return response()->json([
+                    'status' => true,
+                    'message' => 'saved',
+                    'code' => Response::HTTP_OK
+                ]);
+            } catch (\Exception $th) {
+                //throw $th;
+                DB::rollBack();
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Maaf ada yang error',
+                    'code' => Response::HTTP_INTERNAL_SERVER_ERROR
+                ]);
+            }
+        }
+    }
+
+    public function check(Request $request)
+    {
+
+        $status = $request->get('status');
+
+        if ($status == 'semua') {
             $validator = Validator::make($request->all(), [
-                'kode_produk' => 'required',
-                'qty' => 'required|integer'
+                'check' => 'required|in:1,0',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json(['status' => false, 'message' => $validator->errors()->first(), 'code' => Response::HTTP_OK]);
+            } else {
+                $userid = Auth::guard('api')->user()->id;
+                DB::beginTransaction();
+                try {
+                    if ($request->get('check') == 1) {
+                        $keranjang = Keranjang::where('user_id', $userid)->update([
+                            'check' => 1
+                        ]);
+                    } else {
+                        $keranjang = Keranjang::where('user_id', $userid)->update([
+                            'check' => 0
+                        ]);
+                    }
+
+                    DB::commit();
+                    return response()->json([
+                        'status' => true,
+                        'message' => 'saved',
+                        'code' => Response::HTTP_OK
+                    ]);
+                } catch (\Exception $th) {
+                    //throw $th;
+                    DB::rollBack();
+                    return response()->json([
+                        'status' => false,
+                        'message' => 'Maaf ada yang error',
+                        'code' => Response::HTTP_INTERNAL_SERVER_ERROR
+                    ]);
+                }
+            }
+        } else {
+            $validator = Validator::make($request->all(), [
+                'check' => 'required|in:1,0',
+                'kode_produk' => 'required'
             ]);
 
             if ($validator->fails()) {
@@ -213,19 +303,16 @@ class KeranjangController extends Controller
                 DB::beginTransaction();
 
                 try {
-                    if ($produk) {
-                        $qty = $request->get('qty');
-                        //cek keranjang
-                        $keranjang = Keranjang::where('user_id', $userid)->where('produk_id', $produk->id)->first();
 
-                        if ($keranjang) {
-                            if ($qty > 0) {
-                                $keranjang->jumlah = $qty;
-                                $keranjang->subtotal = $keranjang->jumlah * $keranjang->harga;
-                                $keranjang->save();
-                            } else {
-                                Keranjang::where('user_id', $userid)->where('produk_id', $produk->id)->delete();
-                            }
+                    if($produk){
+                        if ($request->get('check') == 1) {
+                            $keranjang = Keranjang::where('user_id', $userid)->where('produk_id', $produk->id)->update([
+                                'check' => 1
+                            ]);
+                        } else {
+                            $keranjang = Keranjang::where('user_id', $userid)->where('produk_id', $produk->id)->update([
+                                'check' => 0
+                            ]);
                         }
                     }
 

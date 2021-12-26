@@ -44,6 +44,7 @@ Route::group(['middleware' => ['assign.guard:api', 'jwt.auth'], 'namespace' => '
     //cart
     Route::group(['prefix' => 'keranjang'], function () {
         Route::post('/update_qty','KeranjangController@update_qty');
+        Route::post('/check','KeranjangController@check');
     });
 
     Route::resource('user', 'UserController');
