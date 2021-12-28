@@ -47,6 +47,10 @@ Route::group(['middleware' => ['assign.guard:api', 'jwt.auth'], 'namespace' => '
         Route::post('/check','KeranjangController@check');
     });
 
+    Route::group(['prefix' => 'checkout'], function () {
+        Route::post('/upload_bukti','CheckoutController@upload_bukti');
+    });
+
     Route::resource('user', 'UserController');
     Route::resource('favorit', 'FavoritController');
     Route::resource('cari', 'CariController');
@@ -54,4 +58,5 @@ Route::group(['middleware' => ['assign.guard:api', 'jwt.auth'], 'namespace' => '
     Route::resource('bank', 'BankController');
     Route::resource('alamat', 'AlamatController');
     Route::resource('checkout', 'CheckoutController');
+    Route::resource('admin', 'AdminController');
 });

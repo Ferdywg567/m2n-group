@@ -90,8 +90,8 @@ class CheckoutController extends Controller
                                 $detail_trans->total_harga = $value->subtotal;
                                 $detail_trans->save();
                             }
-                            $resdata = Transaksi::where('id',$transaksi->id)->with('bank')->first();
-                            $resdata->bank->logo = asset('uploads/images/bank/'.$resdata->bank->logo);
+                            $resdata = Transaksi::where('id', $transaksi->id)->with('bank')->first();
+                            $resdata->bank->logo = asset('uploads/images/bank/' . $resdata->bank->logo);
                             Keranjang::where('user_id', $userid)->where('check', 1)->delete();
                             $status_akhir = true;
                             $message = 'saved';
@@ -108,9 +108,9 @@ class CheckoutController extends Controller
 
                         if ($validator->fails()) {
                             return response()->json(['status' => false, 'message' => $validator->errors()->first(), 'code' => Response::HTTP_OK]);
-                        }else{
+                        } else {
                             $produk = Produk::where('kode_produk', $request->get('kode_produk'))->first();
-                            if($produk){
+                            if ($produk) {
                                 $transaksi = new Transaksi();
                                 $transaksi->bank_id = $request->get('bank_id');
                                 $transaksi->user_id = $userid;
@@ -127,16 +127,16 @@ class CheckoutController extends Controller
                                 $detail_trans = new DetailTransaksi();
                                 $detail_trans->produk_id = $produk->id;
                                 $detail_trans->transaksi_id = $transaksi->id;
-                                $detail_trans->jumlah =$request->get('jumlah');
+                                $detail_trans->jumlah = $request->get('jumlah');
                                 $detail_trans->harga =  $produk->harga_promo;
                                 $detail_trans->total_harga =  $produk->harga_promo * $request->get('jumlah');
                                 $detail_trans->save();
 
-                                $resdata = Transaksi::where('id',$transaksi->id)->with('bank')->first();
-                                $resdata->bank->logo = asset('uploads/images/bank/'.$resdata->bank->logo);
+                                $resdata = Transaksi::where('id', $transaksi->id)->with('bank')->first();
+                                $resdata->bank->logo = asset('uploads/images/bank/' . $resdata->bank->logo);
                                 $message = 'saved';
                                 $status_akhir = true;
-                            }else{
+                            } else {
                                 $status_akhir = false;
                                 $message = 'Produk harus di pilih';
                                 $resdata = [];
@@ -228,5 +228,58 @@ class CheckoutController extends Controller
         }
 
         return $kode;
+    }
+
+    public function upload_bukti(Request $request)
+    {
+
+            $validator = Validator::make($request->all(), [
+                'kode_transaksi' => 'required',
+                'gambar' => 'required',
+
+            ]);
+            if ($validator->fails()) {
+                return response()->json(['status' => false, 'message' => $validator->errors()->first(), 'code' => Response::HTTP_OK]);
+            } else {
+                DB::beginTransaction();
+                try {
+                    if ($request->hasFile('gambar')) {
+                        $userid = Auth::guard('api')->user()->id;
+                        $kode = $request->get('kode_transaksi');
+                        $transaksi = Transaksi::where('user_id', $userid)->where('kode_transaksi', $kode)->first();
+                        if ($transaksi) {
+                            $file = $request->file('gambar');
+                            $imageName = strtotime(now()) . rand(11111, 99999) . '.' . $file->getClientOriginalExtension();
+                            $file->move(public_path() . '/uploads/images/bukti_bayar/', $imageName);
+                            $transaksi->status_bayar = "sudah di upload";
+                            $transaksi->bukti_bayar = $imageName;
+                            $transaksi->save();
+                            $message = 'saved';
+                            $status = true;
+                        } else {
+                            $status = false;
+                            $message = 'kode tidak ditemukan';
+                        }
+                    }
+
+                    DB::commit();
+
+                    return response()->json([
+                        'status' => $status,
+                        'message' => $message,
+                        'code' => Response::HTTP_OK,
+                    ]);
+                } catch (\Exception $th) {
+                    //throw $th;
+                    DB::rollBack();
+                    return response()->json([
+                        'status' => false,
+                        'message' => 'Maaf ada yang error',
+                        'code' => Response::HTTP_INTERNAL_SERVER_ERROR,
+                        'data' => $th
+                    ]);
+                }
+            }
+        
     }
 }
