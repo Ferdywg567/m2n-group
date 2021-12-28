@@ -53,4 +53,5 @@ Route::group(['middleware' => ['assign.guard:api', 'jwt.auth'], 'namespace' => '
     Route::resource('keranjang', 'KeranjangController');
     Route::resource('bank', 'BankController');
     Route::resource('alamat', 'AlamatController');
+    Route::resource('checkout', 'CheckoutController');
 });

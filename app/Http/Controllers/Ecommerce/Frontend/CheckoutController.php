@@ -111,7 +111,7 @@ class CheckoutController extends Controller
                     $detail_trans->produk_id = $checkout_langsung['id_produk'];
                     $detail_trans->transaksi_id = $transaksi->id;
                     $detail_trans->jumlah = $checkout_langsung['total_produk'];
-                    $detail_trans->harga = $checkout_langsung['subtotal'];
+                    $detail_trans->harga = $checkout_langsung['harga'];
                     $detail_trans->total_harga = $checkout_langsung['subtotal'];
                     $detail_trans->save();
                     $jumlah = $checkout_langsung['total_produk'];
@@ -278,9 +278,10 @@ class CheckoutController extends Controller
             $produk = Produk::findOrFail($id);
             $checkout = [
                 'id_produk' => $produk->id,
-                'subtotal' => $produk->harga_promo,
+                'harga' =>  $produk->harga_promo,
+                'subtotal' => $produk->harga_promo * $jumlah,
                 'total_produk' => $jumlah,
-                'total_harga' => $produk->harga_promo + 2500
+                'total_harga' => ($produk->harga_promo *  $jumlah) + 2500
             ];
             session(['checkout_langsung' => $checkout]);
 
