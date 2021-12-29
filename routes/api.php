@@ -59,4 +59,5 @@ Route::group(['middleware' => ['assign.guard:api', 'jwt.auth'], 'namespace' => '
     Route::resource('alamat', 'AlamatController');
     Route::resource('checkout', 'CheckoutController');
     Route::resource('admin', 'AdminController');
+    Route::resource('transaksi', 'TransaksiController');
 });
