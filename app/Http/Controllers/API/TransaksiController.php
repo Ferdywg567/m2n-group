@@ -72,22 +72,33 @@ class TransaksiController extends Controller
             $q->with(['produk' => function ($q) use ($userid) {
                 $q->with('detail_gambar');
                 $q->withCount(['favorit' => function ($q) use ($userid) {
-                    return  $q->where('user_id', $userid);
+                    return $q->where('user_id', $userid);
                 }]);
             }]);
         }, 'alamat'])->first();
 
-        foreach ($transaksi->detail_transaksi as $key => $value) {
-            foreach ($value->produk->detail_gambar as $key => $row) {
-                $value->produk->gambar = asset('uploads/images/produk/' . $row->filename);
+        if($transaksi){
+            foreach ($transaksi->detail_transaksi as $key => $value) {
+                foreach ($value->produk->detail_gambar as $key => $row) {
+                    $value->produk->gambar = asset('uploads/images/produk/' . $row->filename);
+                }
+                unset($value->produk->detail_gambar);
             }
-            unset($value->produk->detail_gambar);
+            return response()->json([
+                'status' => true,
+                'data' => $transaksi,
+                'code' => Response::HTTP_OK
+            ]);
+        }else{
+            return response()->json([
+                'status' => true,
+                'data' => [],
+                'message' => 'not found',
+                'code' => Response::HTTP_OK
+            ]);
         }
-        return response()->json([
-            'status' => true,
-            'data' => $transaksi,
-            'code' => Response::HTTP_OK
-        ]);
+
+
     }
 
     /**
