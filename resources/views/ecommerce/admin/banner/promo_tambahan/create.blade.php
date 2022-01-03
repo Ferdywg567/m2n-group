@@ -182,11 +182,11 @@
                             return false;
                         }
 
-                        if(element.width != maxImageWidth || element.height != maxImageHeight){
-                            var dataalert = '<div class="alert alert-danger" role="alert">Resolusi gambar wajib 1200 x 500 pixel</div>'
-                            $('#data-alert').html(dataalert)
-                            return false;
-                        }
+                        // if(element.width != maxImageWidth || element.height != maxImageHeight){
+                        //     var dataalert = '<div class="alert alert-danger" role="alert">Resolusi gambar wajib 1200 x 500 pixel</div>'
+                        //     $('#data-alert').html(dataalert)
+                        //     return false;
+                        // }
                     }
 
                     if(myDropzone.files.length > 1){
