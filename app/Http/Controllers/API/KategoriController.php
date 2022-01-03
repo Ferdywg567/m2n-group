@@ -19,6 +19,10 @@ class KategoriController extends Controller
         $kategori = Kategori::with(['sub_kategori' => function ($q) {
             $q->with('detail_sub');
         }])->get();
+
+        foreach ($kategori as $key => $value) {
+           $value->gambar = asset('uploads/images/kategori/'.$value->gambar);
+        }
         return response()->json([
             'status' => true,
             'data' => $kategori,
