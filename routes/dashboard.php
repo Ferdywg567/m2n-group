@@ -138,6 +138,8 @@ Route::group(['prefix' => 'production', 'namespace' => 'Backend', 'middleware' =
         Route::get('/cetak', 'PembayaranController@cetakPdf')->name('cetak');
     });
     Route::group(['prefix' => 'kategori', 'as' => 'kategori.'], function () {
+        Route::post('/save_kategori', 'KategoriController@save_kategori')->name('save_kategori');
+        Route::post('/update_kategori', 'KategoriController@update_kategori')->name('update_kategori');
         Route::get('/getkategori', 'KategoriController@getKategori')->name('getkategori');
         Route::get('/getsubkategori', 'KategoriController@getSubKategori')->name('getSubKategori');
         Route::get('/getsubkategoridetail', 'KategoriController@getDetailSubKategori')->name('getDetailSubKategori');

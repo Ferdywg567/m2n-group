@@ -18,9 +18,9 @@ class KategoriController extends Controller
      */
     public function index()
     {
-        $kategori = Kategori::orderBy('created_at','DESC')->get();
-        $sub = SubKategori::orderBy('created_at','DESC')->get();
-        $detail = DetailSubKategori::orderBy('created_at','DESC')->get();
+        $kategori = Kategori::orderBy('created_at', 'DESC')->get();
+        $sub = SubKategori::orderBy('created_at', 'DESC')->get();
+        $detail = DetailSubKategori::orderBy('created_at', 'DESC')->get();
         return view("backend.kategori.index", ['kategori' => $kategori, 'sub' => $sub, 'detail' => $detail]);
     }
 
@@ -124,9 +124,14 @@ class KategoriController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        //
+        $kategori = Kategori::findOrFail($id);
+
+        if ($request->ajax()) {
+            return response()->json(['data' => $kategori, 'status' => true]);
+        }
+        return view('backend.kategori.kategori.edit', ['kategori' => $kategori]);
     }
 
     /**
@@ -164,7 +169,7 @@ class KategoriController extends Controller
                         'status' => false
                     ]);
                 }
-            }elseif($status == 'sub kategori'){
+            } elseif ($status == 'sub kategori') {
                 $kategori = SubKategori::where('id', $id)->doesntHave('detail_sub')->first();
                 if ($kategori) {
                     SubKategori::where('id', $id)->doesntHave('detail_sub')->delete();
@@ -176,7 +181,7 @@ class KategoriController extends Controller
                         'status' => false
                     ]);
                 }
-            }else{
+            } else {
                 $kategori = DetailSubKategori::where('id', $id)->doesntHave('bahan')->first();
                 if ($kategori) {
                     DetailSubKategori::where('id', $id)->doesntHave('bahan')->delete();
@@ -224,6 +229,80 @@ class KategoriController extends Controller
                 'status' => true,
                 'data' => $kategori
             ]);
+        }
+    }
+
+    public function save_kategori(Request $request)
+    {
+        $status =  $request->get('status');
+        if ($status == 'kategori') {
+            $validator = Validator::make($request->all(), [
+                'nama_kategori' => 'required',
+                'sku' => 'required|unique:kategoris,sku',
+                'file' => 'required',
+            ]);
+
+            if ($validator->fails()) {
+                $html = '<div class="alert alert-danger" role="alert">' . $validator->errors()->first() . '</div>';
+                return response()->json([
+                    'status' => false,
+                    'data' => $html
+                ]);
+            } else {
+                $file = $request->file('file');
+                $kategori = new Kategori();
+                $kategori->nama_kategori = $request->get('nama_kategori');
+                $kategori->sku = $request->get('sku');
+                $imageName = strtotime(now()) . rand(11111, 99999) . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path() . '/uploads/images/kategori/', $imageName);
+                $kategori->gambar = $imageName;
+                $kategori->save();
+                $request->session()->flash('success', 'Kategori berhasil disimpan!');
+                return response()->json([
+                    'status' => true,
+                    'message' => 'saved',
+
+                ]);
+            }
+        }
+    }
+
+    public function update_kategori(Request $request)
+    {
+        $status =  $request->get('status');
+        $id = $request->get('id');
+        if ($status == 'kategori') {
+            $validator = Validator::make($request->all(), [
+                'file' => 'nullable|file',
+                'id' => 'required',
+            ]);
+
+            if ($validator->fails()) {
+                $html = '<div class="alert alert-danger" role="alert">' . $validator->errors()->first() . '</div>';
+                return response()->json([
+                    'status' => false,
+                    'data' => $html
+                ]);
+            } else {
+
+                $kategori = Kategori::findOrFail($id);
+                if ($request->hasFile('file')) {
+                    if(!empty($kategori->gambar)){
+                        unlink(public_path('uploads/images/kategori/' . $kategori->gambar));
+                    }
+                    $file = $request->file('file');
+                    $imageName = strtotime(now()) . rand(11111, 99999) . '.' . $file->getClientOriginalExtension();
+                    $file->move(public_path() . '/uploads/images/kategori/', $imageName);
+                    $kategori->gambar = $imageName;
+                }
+                $kategori->save();
+                $request->session()->flash('success', 'Kategori berhasil diupdate!');
+                return response()->json([
+                    'status' => true,
+                    'message' => 'saved',
+
+                ]);
+            }
         }
     }
 }

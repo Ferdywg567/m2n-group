@@ -90,6 +90,11 @@
                                                         </a>
                                                         <div class="dropdown-menu text-center dropdown-menu-custom"
                                                             aria-labelledby="dropdownMenuButton">
+                                                            <a class="dropdown-item"
+                                                            href="{{route('kategori.edit',[$item->id])}}"><i
+                                                                class="ri-edit-fill"></i>
+                                                            Edit</a>
+
                                                             <a class="dropdown-item hapus" data-status="kategori" data-id="{{$item->id}}"
                                                                 href="#"><i class="ri-delete-bin-fill"></i>
                                                                 Delete</a>
