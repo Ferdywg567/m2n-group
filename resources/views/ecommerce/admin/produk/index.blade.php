@@ -41,7 +41,7 @@
                                     <td>{{$loop->iteration}}</td>
                                     <td>{{$item->kode_produk}}</td>
                                     <td>{{$item->warehouse->finishing->cuci->jahit->potong->bahan->sku}}</td>
-                                    <td>{{$item->warehouse->finishing->cuci->jahit->potong->bahan->nama_bahan}}</td>
+                                    <td>{{ucwords($item->warehouse->finishing->cuci->jahit->potong->bahan->nama_bahan)}}</td>
                                     <td>{{$item->warehouse->finishing->cuci->jahit->potong->bahan->detail_sub->sub_kategori->kategori->nama_kategori}}/{{$item->warehouse->finishing->cuci->jahit->potong->bahan->detail_sub->sub_kategori->nama_kategori}}/{{$item->warehouse->finishing->cuci->jahit->potong->bahan->detail_sub->nama_kategori}}
                                     </td>
                                     <td>{{$item->stok}}</td>
