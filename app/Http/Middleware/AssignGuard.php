@@ -38,6 +38,11 @@ class AssignGuard
             }
         } catch (\Throwable $th) {
             //throw $th;
+            return response()->json([
+                'status' => false,
+                'message' => 'Unauthenticated.',
+                'code' => Response::HTTP_UNAUTHORIZED
+            ]);
         }
 
     }
