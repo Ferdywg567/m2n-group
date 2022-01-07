@@ -361,7 +361,7 @@
         </div>
     </div>
 </div>
-<div class="banner-area padding-10-row-col pb-50">
+<div class="banner-area padding-10-row-col pb-80">
     <div class="container">
         <div class="row">
 
