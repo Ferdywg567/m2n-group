@@ -19,10 +19,14 @@ class ProdukController extends Controller
      */
     public function index()
     {
-        $userid = Auth::guard('api')->user()->id;
-        $produk = Produk::with(['ulasan'])->withCount(['favorit' => function ($q) use ($userid) {
-            return  $q->where('user_id', $userid);
-        }])->get();
+        if (Auth::guard('api')->check()) {
+            $userid = Auth::guard('api')->user()->id;
+            $produk = Produk::with(['ulasan'])->withCount(['favorit' => function ($q) use ($userid) {
+                return  $q->where('user_id', $userid);
+            }])->get();
+        } else {
+            $produk = Produk::with(['ulasan'])->withCount(['favorit'])->get();
+        }
 
         $arr = [];
         foreach ($produk as $key => $value) {
@@ -89,10 +93,15 @@ class ProdukController extends Controller
      */
     public function show($id)
     {
-        $userid = Auth::guard('api')->user()->id;
-        $produk = Produk::where('kode_produk', $id)->with(['ulasan'])->withCount(['favorit' => function ($q) use ($userid) {
-            return  $q->where('user_id', $userid);
-        }])->firstOrFail();
+        if (Auth::guard('api')->check()) {
+            $userid = Auth::guard('api')->user()->id;
+            $produk = Produk::where('kode_produk', $id)->with(['ulasan'])->withCount(['favorit' => function ($q) use ($userid) {
+                return  $q->where('user_id', $userid);
+            }])->firstOrFail();
+        } else {
+            $produk = Produk::where('kode_produk', $id)->with(['ulasan'])->withCount(['favorit'])->firstOrFail();
+        }
+
 
         $arr = [];
 

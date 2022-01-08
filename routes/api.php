@@ -29,36 +29,46 @@ Route::group([
 });
 
 
-Route::group(['middleware' => ['assign.guard:api', 'jwt.auth'], 'namespace' => 'API'], function () {
+
+
+Route::group(['namespace' => 'API'], function () {
     //beranda
-    Route::resource('kategori', 'KategoriController');
-    Route::resource('sub_kategori', 'SubKategoriController');
-    Route::resource('detail_sub_kategori', 'DetailSubKategoriController');
+    Route::resource('kategori', 'KategoriController@index');
+    Route::resource('sub_kategori', 'SubKategoriController@index');
+    Route::resource('detail_sub_kategori', 'DetailSubKategoriController@index');
+
     Route::resource('produk', 'ProdukController');
-    Route::resource('banner', 'BannerController');
-    //profil user
-    Route::group(['prefix' => 'user'], function () {
-        Route::post('/update_password','UserController@update_password');
+    Route::get('banner', 'BannerController@index');
+    Route::get('ulasan', 'UlasanController@index');
+
+    Route::group(['middleware' => ['assign.guard:api', 'jwt.auth']], function(){
+        //profil user
+        Route::group(['prefix' => 'user'], function () {
+            Route::post('/update_password','UserController@update_password');
+        });
+
+        //cart
+        Route::group(['prefix' => 'keranjang'], function () {
+            Route::post('/update_qty','KeranjangController@update_qty');
+            Route::post('/check','KeranjangController@check');
+        });
+
+        Route::group(['prefix' => 'checkout'], function () {
+            Route::post('/upload_bukti','CheckoutController@upload_bukti');
+        });
+
+        Route::post('ulasan', 'UlasanController@store');
+        Route::resource('user', 'UserController');
+        Route::resource('favorit', 'FavoritController');
+        Route::resource('cari', 'CariController');
+        Route::resource('keranjang', 'KeranjangController');
+        Route::resource('bank', 'BankController');
+        Route::resource('alamat', 'AlamatController');
+        Route::resource('checkout', 'CheckoutController');
+        Route::resource('admin', 'AdminController');
+        Route::resource('transaksi', 'TransaksiController');
+
     });
 
-    //cart
-    Route::group(['prefix' => 'keranjang'], function () {
-        Route::post('/update_qty','KeranjangController@update_qty');
-        Route::post('/check','KeranjangController@check');
-    });
 
-    Route::group(['prefix' => 'checkout'], function () {
-        Route::post('/upload_bukti','CheckoutController@upload_bukti');
-    });
-
-    Route::resource('user', 'UserController');
-    Route::resource('favorit', 'FavoritController');
-    Route::resource('cari', 'CariController');
-    Route::resource('keranjang', 'KeranjangController');
-    Route::resource('bank', 'BankController');
-    Route::resource('alamat', 'AlamatController');
-    Route::resource('checkout', 'CheckoutController');
-    Route::resource('admin', 'AdminController');
-    Route::resource('transaksi', 'TransaksiController');
-    Route::resource('ulasan', 'UlasanController');
 });
