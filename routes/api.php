@@ -33,9 +33,9 @@ Route::group([
 
 Route::group(['namespace' => 'API'], function () {
     //beranda
-    Route::resource('kategori', 'KategoriController@index');
-    Route::resource('sub_kategori', 'SubKategoriController@index');
-    Route::resource('detail_sub_kategori', 'DetailSubKategoriController@index');
+    Route::resource('kategori', 'KategoriController');
+    Route::resource('sub_kategori', 'SubKategoriController');
+    Route::resource('detail_sub_kategori', 'DetailSubKategoriController');
 
     Route::resource('produk', 'ProdukController');
     Route::get('banner', 'BannerController@index');
