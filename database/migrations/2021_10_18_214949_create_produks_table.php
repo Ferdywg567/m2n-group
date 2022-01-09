@@ -20,6 +20,7 @@ class CreateProduksTable extends Migration
             $table->foreign('promo_id')->references('id')->on('promos')->onDelete('cascade');
             $table->bigInteger('warehouse_id')->unsigned()->index()->nullable();
             $table->foreign('warehouse_id')->references('id')->on('warehouses')->onDelete('cascade');
+            $table->string('barcode',20)->unique()->nullable();
             $table->string('nama_produk')->nullable();
             $table->longText('deskripsi_produk')->nullable();
             $table->integer('stok');

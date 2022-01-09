@@ -67,7 +67,8 @@ Route::group(['namespace' => 'API'], function () {
         Route::resource('checkout', 'CheckoutController');
         Route::resource('admin', 'AdminController');
         Route::resource('transaksi', 'TransaksiController');
-
+        Route::resource('provinsi', 'ProvinsiController');
+        Route::resource('kota', 'KotaController');
     });
 
 

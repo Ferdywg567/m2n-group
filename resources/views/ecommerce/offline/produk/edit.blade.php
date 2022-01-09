@@ -152,6 +152,15 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="kode_barcode">Kode Barcode</label>
+                                            <input type="text" class="form-control"   id="kode_barcode"
+                                                name="kode_barcode" value="{{$produk->barcode}}">
+                                        </div>
+                                    </div>
+                                </div>
                                 <div id="dropzoneDragArea" class="dropzone">
                                     <div class="dz-message d-flex flex-column">
                                         <i class="ri-file-upload-line"></i>

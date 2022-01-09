@@ -11,11 +11,11 @@
 </style>
 
 <section class="section mt-4">
-    {{-- <div class="btn-group">
-        <a href="{{route('ecommerce.produk.create')}}" class="btn btn-primary rounded">
-            Input Data <i class="fas fa-plus"></i>
-        </a>
-    </div> --}}
+    <div class="btn-group">
+        {{-- <a href="{{route('ecommerce.produk.create')}}" class="btn btn-primary rounded">
+           Cetak Barcode <i class="fas fa-print"></i>
+        </a> --}}
+    </div>
     <div class="section-body mt-4">
         <div class="row">
             <div class="col-md-12">

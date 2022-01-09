@@ -155,6 +155,15 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
+                                            <label for="kode_barcode">Kode Barcode</label>
+                                            <input type="text" class="form-control" readonly  id="kode_barcode"
+                                                name="kode_barcode" value="{{$produk->barcode}}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
                                             <label for="file_gambar">File Gambar</label>
 
                                         </div>

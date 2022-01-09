@@ -121,6 +121,8 @@ return [
 
     'key' => env('APP_KEY'),
 
+    'key_rajaongkir' => env('API_KEY_RAJAONGKIR'),
+
     'cipher' => 'AES-256-CBC',
 
     /*

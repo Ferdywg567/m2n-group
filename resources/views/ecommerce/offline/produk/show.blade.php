@@ -5,7 +5,7 @@
 @section('cssnav', 'cssnav')
 @section('content')
 <style>
-    
+
 
     .dropzone {
         border: 2px dashed #dedede;
@@ -146,6 +146,15 @@
                                             <label for="harga_promo">Harga Setelah Promo</label>
                                             <input type="text" class="form-control" required readonly id="harga_promo"
                                                 name="harga_promo" value="{{$produk->harga_promo}}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="kode_barcode">Kode Barcode</label>
+                                            <input type="text" class="form-control" readonly  id="kode_barcode"
+                                                name="kode_barcode" value="{{$produk->barcode}}">
                                         </div>
                                     </div>
                                 </div>

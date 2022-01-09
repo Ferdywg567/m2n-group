@@ -33,7 +33,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Ecommerce\Admin', 'middleware
     Route::resource('rekapitulasi', 'RekapitulasiController');
     Route::resource('customer', 'CustomerController');
     Route::resource('bank', 'BankController');
-
+    // Route::resource('cetak_label', 'CetakLabelController');
 });
 
 
@@ -65,4 +65,5 @@ Route::group(['prefix' => 'admin/offline', 'namespace' => 'Ecommerce\Offline', '
     Route::resource('produk', 'ProdukController');
     Route::resource('transaksi', 'TransaksiController');
     Route::resource('rekapitulasi', 'RekapitulasiController');
+    Route::resource('cetak_label', 'CetakLabelController');
 });
