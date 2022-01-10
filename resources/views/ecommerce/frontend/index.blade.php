@@ -368,7 +368,7 @@
             @forelse ($promo as $item)
             <div class="col-lg-4 col-md-6 col-12" style="border: none">
                 <div class="banner-wrap mb-10" style="border: none">
-                    <div class="banner-img banner-img-border banner-img-zoom">
+                    <div class="banner-img  banner-img-zoom">
                         <a href="#"><img
                                 src="{{asset('uploads/images/banner/'.$item->gambar)}}" style="border: none" alt=""></a>
                     </div>
