@@ -53,7 +53,7 @@
 
     <main>
         @forelse ($cetak as $item)
-            <table class="" style="margin-bottom: 10px">
+            <table class="" style="margin-bottom: 11.33px">
                 <tbody>
                     <tr>
                         <td>
