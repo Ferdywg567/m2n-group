@@ -59,8 +59,15 @@ $notif = \App\Notification::where('role','warehouse')->orderBy('created_at','DES
             aria-expanded="true" id="btnnotif"><img src="{{asset('assets/icon/notification-fill.png')}}" alt=""
                 srcset=""><span class="badge">{{$jumlah}}</span></a>
         <div class="dropdown-menu dropdown-list dropdown-menu-right ">
-            <div class="dropdown-header">Notifikasi
-
+            <div class="dropdown-header">
+                <div class="row">
+                    <div class="col-md-6">
+                        Notifikasi
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <button type="button" class="btn btn-primary">Baca Semua</button>
+                    </div>
+                </div>
             </div>
             <div class="dropdown-list-content dropdown-list-icons" tabindex="3"
                 style="overflow: hidden; outline: none; touch-action: none;">

@@ -5,8 +5,6 @@
     <meta charset="utf-8">
     <title>Cetak Label</title>
     <style>
-
-
         a {
             color: #5D6975;
             text-decoration: underline;
@@ -15,7 +13,7 @@
         body {
             position: relative;
             width: 8cm;
-            height: "{{$height}}";
+            height: "{{ $height }}";
             margin: 0 auto;
             color: #001028;
             background: #FFFFFF;
@@ -24,23 +22,21 @@
             font-family: Arial;
         }
 
-
         header {
             padding: 10px 0;
             margin-bottom: 30px;
         }
 
-        main{
+        main {
             margin-right: 2% !important;
         }
-
 
         table th,
         table td {
             text-align: center;
             font-size: 1.2em;
-            width: 5cm !important;
-            height: 2cm !important;
+            width: 188.97px !important;
+            height: 75.59px !important;
         }
 
         table,
@@ -50,7 +46,6 @@
             border-collapse: collapse;
         }
 
-
     </style>
 </head>
 
@@ -58,36 +53,26 @@
 
     <main>
         @forelse ($cetak as $item)
-        <table class="" style="margin-bottom: 10px">
-
-            <tbody>
-                {{-- <tr>
-                    <td>aa</td>
-                    <td>a</td>
-                </tr> --}}
-
-
+            <table class="" style="margin-bottom: 10px">
+                <tbody>
                     <tr>
                         <td>
                             <div style="font-size: 16px">
-                              @rupiah($item->harga_promo)
+                                @rupiah($item->harga_promo)
                             </div>
-                            {{-- <br> --}}
-                            {{$item->nama_produk}}
+                            {{ $item->nama_produk }}
 
                             <br>
                             <br>
-                            <img src="data:image/png;base64,{{DNS1D::getBarcodePNG($item->kode_produk, 'C39+',3,33)}}" width="90" height="40" alt="" srcset="" style="margin-bottom: -10px">
+                            <img src="data:image/png;base64,{{ DNS1D::getBarcodePNG($item->kode_produk, 'C39+', 3, 33) }}"
+                                width="120" height="40" alt="" srcset="" style="margin-bottom: -10px">
                             <br>
-                            {{$item->kode_produk}}
+                            {{ $item->kode_produk }}
                         </td>
                     </tr>
-
-
-            </tbody>
-        </table>
+                </tbody>
+            </table>
         @empty
-
         @endforelse
     </main>
 
