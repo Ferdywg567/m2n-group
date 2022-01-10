@@ -14,8 +14,8 @@
 
         body {
             position: relative;
-            width: 21cm;
-            height: 29.7cm;
+            width: 8cm;
+            height: "{{$height}}";
             margin: 0 auto;
             color: #001028;
             background: #FFFFFF;
@@ -39,8 +39,8 @@
         table td {
             text-align: center;
             font-size: 1.2em;
-            width: 4.5cm !important;
-            height: 3cm !important;
+            width: 5cm !important;
+            height: 2cm !important;
         }
 
         table,
@@ -57,7 +57,8 @@
 <body>
 
     <main>
-        <table class="">
+        @forelse ($cetak as $item)
+        <table class="" style="margin-bottom: 10px">
 
             <tbody>
                 {{-- <tr>
@@ -65,47 +66,29 @@
                     <td>a</td>
                 </tr> --}}
 
-                @forelse ($cetak as $item)
-                    @if ($item != [])
+
                     <tr>
-                    @php
-                        $data = 0
-                    @endphp
-                        @forelse ($item as $row)
                         <td>
-                            <div style="font-size: 18px">
-                              @rupiah($row['harga_promo'])
+                            <div style="font-size: 16px">
+                              @rupiah($item->harga_promo)
                             </div>
                             {{-- <br> --}}
-                            {{$row['nama_produk']}}
+                            {{$item->nama_produk}}
 
                             <br>
-
-                            <img src="data:image/png;base64,{{DNS1D::getBarcodePNG($row['barcode'], 'C39+',3,33)}}" width="100" height="40" alt="" srcset="">
-
+                            <br>
+                            <img src="data:image/png;base64,{{DNS1D::getBarcodePNG($item->kode_produk, 'C39+',3,33)}}" width="90" height="40" alt="" srcset="" style="margin-bottom: -10px">
+                            <br>
+                            {{$item->kode_produk}}
                         </td>
-
-                        @empty
-
-                        @endforelse
-                        @if (count($item) == 1)
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        @elseif (count($item) == 2)
-                        <td></td>
-                        <td></td>
-                        @elseif (count($item) == 3)
-                        <td></td>
-
-                        @endif
                     </tr>
-                    @endif
-                @empty
 
-                @endforelse
+
             </tbody>
         </table>
+        @empty
+
+        @endforelse
     </main>
 
 </body>

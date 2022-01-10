@@ -59,7 +59,6 @@ class ProdukController extends Controller
             'file.*' => 'image|mimes:jpg,jpeg,png',
             'deskripsi_produk' => 'required',
             'stok' => 'required|min:1',
-            'kode_barcode' => 'nullable|string|unique:produks,barcode'
         ]);
 
         if ($validator->fails()) {
@@ -73,7 +72,6 @@ class ProdukController extends Controller
             $produk = new Produk();
             $produk->kode_produk = $this->generateKode();
             $produk->warehouse_id = $request->get('barang');
-            $produk->barcode = $request->get('kode_barcode');
             $produk->harga = $request->get('harga');
             $produk->stok = $request->get('stok');
             $produk->deskripsi_produk = $request->get('deskripsi_produk');
@@ -243,7 +241,7 @@ class ProdukController extends Controller
         $validator = Validator::make($request->all(), [
             'deskripsi_produk' => 'required',
             'stok' => 'required|min:1',
-            'kode_barcode' => 'nullable|string|unique:produks,barcode,'.$request->get('id')
+
         ]);
 
         if ($validator->fails()) {
@@ -257,7 +255,6 @@ class ProdukController extends Controller
             $id = $request->get('id');
             $produk = Produk::findOrFail($id);
             $produk->deskripsi_produk = $request->get('deskripsi_produk');
-            $produk->barcode = $request->get('kode_barcode');
             $hargapromo = 0;
             if ($request->get('promo') != 0) {
                 $promo = Promo::findOrFail($request->get('promo'));

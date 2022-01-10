@@ -16,34 +16,41 @@ class CetakLabelController extends Controller
      */
     public function index()
     {
-        $cetak = Produk::whereNotNull('barcode')->get();
-        $count =  Produk::whereNotNull('barcode')->count();
-        $bagi = $count / 4;
+        $cetak = Produk::all();
+        // $count =  Produk::count();
+        // $bagi = $count / 4;
 
-        if($cetak->isNotEmpty()){
-            $cetak = $cetak->toArray();
-        }else{
-            $cetak = [];
-        }
+        // if($cetak->isNotEmpty()){
+        //     $cetak = $cetak->toArray();
+        // }else{
+        //     $cetak = [];
+        // }
 
-        // dd($bagi);
-        $arr = [];
-        $length = 4;
-        $from  = 0;
-        for ($i = 0; $i < $bagi; $i++) {
-            $x = array_slice($cetak, $from, $length);
-            $from = $from + 4;
-            // $length = $length + 4;
-            array_push($arr, $x);
-        }
+        // // dd($bagi);
+        // $arr = [];
+        // $length = 4;
+        // $from  = 0;
+        // for ($i = 0; $i < $bagi; $i++) {
+        //     $x = array_slice($cetak, $from, $length);
+        //     $from = $from + 4;
+        //     // $length = $length + 4;
+        //     array_push($arr, $x);
+        // }
 
         // dd($arr);
+        $hitung = count($cetak) * 150;
+        $height =count($cetak) * 3;
+        $customPaper = array(0,0,215,$hitung);
         $pdf = PDF::loadview(
             "ecommerce.offline.cetak_label.pdf",
             [
-                'cetak' => $arr
+                'cetak' => $cetak,
+                'height' => $height
             ]
-        )->setPaper('a4', 'potrait');
+        )->setPaper($customPaper);
+
+
+
         return $pdf->stream('cetak-barcode-produk.pdf', array('Attachment' => 0));
     }
 
