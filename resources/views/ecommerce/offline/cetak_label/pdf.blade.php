@@ -64,7 +64,7 @@
 
                             <br>
                             <br>
-                            <img src="data:image/png;base64,{{ DNS1D::getBarcodePNG($item->kode_produk, 'C39+', 3, 33) }}"
+                            <img src="data:image/png;base64,{{ DNS1D::getBarcodePNG($item->kode_produk, 'C39', 3, 33) }}"
                                 width="120" height="40" alt="" srcset="" style="margin-bottom: -10px">
                             <br>
                             {{ $item->kode_produk }}
