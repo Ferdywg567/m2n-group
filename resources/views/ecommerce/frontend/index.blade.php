@@ -456,7 +456,8 @@
                                 <span>({{\AppHelper::instance()->avg_ulasan($item->id)}})</span>
                             </div>
                             <div class="pro-add-to-cart pb-10">
-                                <button class="btn btn-primary btn-block">Lihat Produk</button>
+                                <a href="{{route('frontend.product.show',[$item->id])}}"
+                                    class="btn btn-primary btn-block">Lihat Produk</a>
                             </div>
                         </div>
                     </div>
