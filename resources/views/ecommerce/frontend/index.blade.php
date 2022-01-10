@@ -366,11 +366,11 @@
         <div class="row">
 
             @forelse ($promo as $item)
-            <div class="col-lg-4 col-md-6 col-12">
-                <div class="banner-wrap mb-10">
+            <div class="col-lg-4 col-md-6 col-12" style="border: none">
+                <div class="banner-wrap mb-10" style="border: none">
                     <div class="banner-img banner-img-border banner-img-zoom">
                         <a href="#"><img
-                                src="{{asset('uploads/images/banner/'.$item->gambar)}}" alt=""></a>
+                                src="{{asset('uploads/images/banner/'.$item->gambar)}}" style="border: none" alt=""></a>
                     </div>
 
                 </div>
