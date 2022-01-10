@@ -576,12 +576,12 @@ class PembayaranController extends Controller
         $hasil = str_replace('.', '', $harga);
         $hasil = str_replace('Rp. ', '', $hasil);
         $hasil = str_replace(',00', '', $hasil);
-        return $hasil;
+        return (float)$hasil;
     }
 
     public function convertToAngka($harga)
     {
         $hasil = str_replace('.', '', $harga);
-        return $hasil;
+        return (float)$hasil;
     }
 }
