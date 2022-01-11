@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\DetailProdukImage;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Produk;
@@ -93,15 +94,21 @@ class ProdukController extends Controller
      */
     public function show($id)
     {
+
         if (Auth::guard('api')->check()) {
             $userid = Auth::guard('api')->user()->id;
-            $produk = Produk::where('kode_produk', $id)->with(['ulasan'])->withCount(['favorit' => function ($q) use ($userid) {
+            $produk = Produk::where('kode_produk', $id)->with(['ulasan' => function ($q) {
+                $q->with(['user' => function ($q) {
+                    $userpath = asset('uploads/images/user/');
+                    $nullpath = asset('assets/img/avatar/avatar-3.png');
+                    return $q->select('name', DB::raw('(CASE WHEN foto IS NULL THEN "'.$nullpath.'" ELSE CONCAT("'.$userpath.'",foto) END) foto'), 'id')->get();
+                }]);
+            }])->withCount(['favorit' => function ($q) use ($userid) {
                 return  $q->where('user_id', $userid);
             }])->firstOrFail();
         } else {
             $produk = Produk::where('kode_produk', $id)->with(['ulasan'])->withCount(['favorit'])->firstOrFail();
         }
-
 
         $arr = [];
 

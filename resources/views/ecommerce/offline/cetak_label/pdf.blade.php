@@ -35,7 +35,7 @@
         table td {
             text-align: center;
             font-size: 1.2em;
-            width: 188.97px !important;
+            width: 188.97px ;
             height: 75.59px !important;
         }
 

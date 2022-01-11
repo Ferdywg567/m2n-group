@@ -40,7 +40,7 @@ class CetakLabelController extends Controller
         // dd($arr);
         $hitung = count($cetak) * 150;
         $height =count($cetak) * 3;
-        $customPaper = array(0,0,215,$hitung);
+        $customPaper = array(0,0,218,$hitung);
         $pdf = PDF::loadview(
             "ecommerce.offline.cetak_label.pdf",
             [
