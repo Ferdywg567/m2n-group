@@ -67,7 +67,7 @@ class CheckoutController extends Controller
                             $jmlproduk = Keranjang::where('user_id', $userid)->where('check', 1)->count();
 
                             $jumlah =  $jmlproduk;
-                            $totalharga = $totalharga + 2500;
+                            $totalharga = $totalharga;
                             $transaksi = new Transaksi();
                             $transaksi->user_id = $userid;
                             $transaksi->bank_id = $request->get('bank_id');
@@ -79,6 +79,7 @@ class CheckoutController extends Controller
                             $transaksi->status_transaksi = "online";
                             $transaksi->status_bayar = "belum dibayar";
                             $transaksi->status = "butuh konfirmasi";
+                            $transaksi->biaya_admin = 2500;
                             $transaksi->save();
 
                             foreach ($data as $key => $value) {
@@ -118,7 +119,8 @@ class CheckoutController extends Controller
                                 $transaksi->kode_transaksi = $this->generateKode();
                                 $transaksi->tgl_transaksi = date('Y-m-d H:i:s');
                                 $transaksi->qty = 1;
-                                $transaksi->total_harga =  ($produk->harga_promo * $request->get('jumlah')) + 2500;
+                                $transaksi->total_harga =  ($produk->harga_promo * $request->get('jumlah'));
+                                $transaksi->biaya_admin = 2500;
                                 $transaksi->status_transaksi = "online";
                                 $transaksi->status_bayar = "belum dibayar";
                                 $transaksi->status = "butuh konfirmasi";
@@ -280,6 +282,6 @@ class CheckoutController extends Controller
                     ]);
                 }
             }
-        
+
     }
 }
