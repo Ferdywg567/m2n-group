@@ -32,11 +32,9 @@ class BannerController extends Controller
 
             $status = 'Slider Utama';
         } else {
-            $data = Banner::where('status_banner', 'Promo Tambahan')->first();
-            if ($data) {
-                $data->gambar = asset('uploads/images/banner/' . $data->gambar);
-            } else {
-                $data = null;
+            $data = Banner::where('status_banner', 'Promo Tambahan')->get();
+            foreach ($data as $key => $value) {
+                $value->gambar = asset('uploads/images/banner/' . $value->gambar);
             }
 
             $status = 'Promo Tambahan';
