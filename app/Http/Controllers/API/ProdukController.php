@@ -22,7 +22,13 @@ class ProdukController extends Controller
     {
         if (Auth::guard('api')->check()) {
             $userid = Auth::guard('api')->user()->id;
-            $produk = Produk::with(['ulasan'])->withCount(['favorit' => function ($q) use ($userid) {
+            $produk = Produk::with(['ulasan' => function ($q) {
+                $q->with(['user' => function ($q) {
+                    $userpath = asset('uploads/images/user/');
+                    $nullpath = asset('assets/img/avatar/avatar-3.png');
+                    return $q->select('name', DB::raw('(CASE WHEN foto IS NULL THEN "' . $nullpath . '" ELSE CONCAT("' . $userpath . '",foto) END) foto'), 'id')->get();
+                }]);
+            }])->withCount(['favorit' => function ($q) use ($userid) {
                 return  $q->where('user_id', $userid);
             }])->get();
         } else {
@@ -101,7 +107,7 @@ class ProdukController extends Controller
                 $q->with(['user' => function ($q) {
                     $userpath = asset('uploads/images/user/');
                     $nullpath = asset('assets/img/avatar/avatar-3.png');
-                    return $q->select('name', DB::raw('(CASE WHEN foto IS NULL THEN "'.$nullpath.'" ELSE CONCAT("'.$userpath.'",foto) END) foto'), 'id')->get();
+                    return $q->select('name', DB::raw('(CASE WHEN foto IS NULL THEN "' . $nullpath . '" ELSE CONCAT("' . $userpath . '",foto) END) foto'), 'id')->get();
                 }]);
             }])->withCount(['favorit' => function ($q) use ($userid) {
                 return  $q->where('user_id', $userid);
