@@ -24,7 +24,7 @@ class BannerController extends Controller
         ]);
 
         if ($request->get('status') == 'Slider Utama') {
-            $data = Banner::where('status_banner', 'Slider Utama')->get();
+            $data = Banner::where('status','Aktif')->where('status_banner', 'Slider Utama')->get();
             $arr = [];
             foreach ($data as $key => $value) {
                 $value->gambar = asset('uploads/images/banner/' . $value->gambar);
@@ -32,7 +32,7 @@ class BannerController extends Controller
 
             $status = 'Slider Utama';
         } else {
-            $data = Banner::where('status_banner', 'Promo Tambahan')->get();
+            $data = Banner::where('status','Aktif')->where('status_banner', 'Promo Tambahan')->get();
             foreach ($data as $key => $value) {
                 $value->gambar = asset('uploads/images/banner/' . $value->gambar);
             }

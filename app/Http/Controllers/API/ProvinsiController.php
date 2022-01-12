@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 
 class ProvinsiController extends Controller
@@ -16,14 +17,32 @@ class ProvinsiController extends Controller
      */
     public function index()
     {
-        $response = Http::withHeaders([
-            'key' => config('app.key_rajaongkir')
-        ])->accept('application/json')->get('https://pro.rajaongkir.com/api/province');
 
-        // $response = $response->getBody();
-        $data = $response->getBody()->getContents();
-        $data = json_decode($data);
-        return response()->json($data);
+        try {
+            $response = Http::withHeaders([
+                'key' => config('app.key_rajaongkir')
+            ])->accept('application/json')->get('https://pro.rajaongkir.com/api/province');
+
+            // $response = $response->getBody();
+            $data = $response->getBody()->getContents();
+            $data = json_decode($data);
+            if(isset($data['rajaongkir']['results'])){
+                $data = $data['rajaongkir']['results'];
+
+            }else{
+                $data = [];
+            }
+            return response()->json([
+            'status' => true,
+            'data' => $data,
+            'code' => Response::HTTP_OK
+        ]);
+
+        } catch (\Exception $th) {
+            //throw $th;
+        }
+
+
     }
 
     /**
