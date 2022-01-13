@@ -19,19 +19,11 @@ class ProvinsiController extends Controller
     {
 
         try {
-            $response = Http::withHeaders([
-                'key' => config('app.key_rajaongkir')
-            ])->accept('application/json')->get('https://pro.rajaongkir.com/api/province');
-
-            // $response = $response->getBody();
-            $data = $response->getBody()->getContents();
-            $data = json_decode($data);
-            if(isset($data['rajaongkir']['results'])){
-                $data = $data['rajaongkir']['results'];
-
-            }else{
-                $data = [];
-            }
+            $data = public_path().'/ecommerce/assets/alamat/data_provinsi.json';
+            $data = file_get_contents($data);
+            $data = json_decode($data,true);
+          
+            // return response()->json($arr);
             return response()->json([
             'status' => true,
             'data' => $data,

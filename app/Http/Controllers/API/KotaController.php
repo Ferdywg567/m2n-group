@@ -16,14 +16,16 @@ class KotaController extends Controller
      */
     public function index()
     {
-        $response = Http::withHeaders([
-            'key' => config('app.key_rajaongkir')
-        ])->accept('application/json')->get('https://pro.rajaongkir.com/api/city?province=12');
-
-        // $response = $response->getBody();
-        $data = $response->getBody()->getContents();
-        $data = json_decode($data);
-        return response()->json($data);
+        $data = public_path().'/ecommerce/assets/alamat/provinsi.json';
+        $data = file_get_contents($data);
+        $data = json_decode($data,true);
+        $arr =[];
+        foreach ($data as $key => $value) {
+            if($value['province_id'] == 11){
+                array_push($arr, $value);
+            }
+        }
+        return response()->json($arr);
     }
 
     /**

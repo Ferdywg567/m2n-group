@@ -21,6 +21,7 @@ class CreateAlamatsTable extends Migration
             $table->string('no_telp');
             $table->string('jenis_alamat');
             $table->string('alamat_detail');
+            $table->string('provinsi')->nullable();
             $table->string('kota');
             $table->string('kecamatan');
             $table->string('kode_pos');

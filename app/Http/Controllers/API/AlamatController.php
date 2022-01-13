@@ -54,6 +54,7 @@ class AlamatController extends Controller
             'jenis_alamat' => 'required|in:Kantor,Rumah,Sekolah',
             'status_alamat' => 'required|in:Utama,Tidak Utama',
             'alamat_detail' => 'required',
+            'provinsi' => 'required',
             'kota' => 'required',
             'kecamatan' => 'required',
             'kode_pos' => 'required',
@@ -71,6 +72,7 @@ class AlamatController extends Controller
                 $alamat->no_telp = $request->get('no_telp');
                 $alamat->jenis_alamat = $request->get('jenis_alamat');
                 $alamat->alamat_detail = $request->get('alamat_detail');
+                $alamat->provinsi = $request->get('provinsi');
                 $alamat->kota = $request->get('kota');
                 $alamat->kecamatan = $request->get('kecamatan');
                 $alamat->kode_pos = $request->get('kode_pos');
@@ -138,6 +140,7 @@ class AlamatController extends Controller
             'jenis_alamat' => 'required|in:Kantor,Rumah,Sekolah',
             'status_alamat' => 'required|in:Utama,Tidak Utama',
             'alamat_detail' => 'required',
+            'provinsi' => 'required',
             'kota' => 'required',
             'kecamatan' => 'required',
             'kode_pos' => 'required',
@@ -153,6 +156,7 @@ class AlamatController extends Controller
                 $alamat->no_telp = $request->get('no_telp');
                 $alamat->jenis_alamat = $request->get('jenis_alamat');
                 $alamat->alamat_detail = $request->get('alamat_detail');
+                $alamat->provinsi = $request->get('provinsi');
                 $alamat->kota = $request->get('kota');
                 $alamat->kecamatan = $request->get('kecamatan');
                 $alamat->kode_pos = $request->get('kode_pos');
