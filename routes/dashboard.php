@@ -62,6 +62,7 @@ Route::group(['prefix' => 'warehouse', 'namespace' => 'Backend', 'middleware' =>
 Route::group(['namespace' => 'Backend', 'middleware' => ['role:production|warehouse', 'auth']], function () {
     Route::get('notification-read','DashboardController@read')->name('notification');
     Route::get('notification-read-klik','DashboardController@readklik')->name('notification.readklik');
+    Route::resource('notifikasi','NotifikasiController');
 });
 
 

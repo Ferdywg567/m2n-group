@@ -65,7 +65,7 @@ $notif = \App\Notification::where('role','warehouse')->orderBy('created_at','DES
                         Notifikasi
                     </div>
                     <div class="col-md-6 text-right">
-                        <button type="button" class="btn btn-primary">Baca Semua</button>
+                        <a href="{{route('notifikasi.index')}}" class="btn btn-primary">Baca Semua</a>
                     </div>
                 </div>
             </div>
