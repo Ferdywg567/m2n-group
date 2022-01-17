@@ -24,7 +24,7 @@ class ProdukController extends Controller
             $userid = Auth::guard('api')->user()->id;
             $produk = Produk::with(['ulasan' => function ($q) {
                 $q->with(['user' => function ($q) {
-                    $userpath = asset('uploads/images/user/');
+                    $userpath = asset('uploads/images/user/').'/';
                     $nullpath = asset('assets/img/avatar/avatar-3.png');
                     return $q->select('name', DB::raw('(CASE WHEN foto IS NULL THEN "' . $nullpath . '" ELSE CONCAT("' . $userpath . '",foto) END) foto'), 'id')->get();
                 }]);
@@ -34,7 +34,7 @@ class ProdukController extends Controller
         } else {
             $produk = Produk::with(['ulasan'=> function ($q) {
                 $q->with(['user' => function ($q) {
-                    $userpath = asset('uploads/images/user/');
+                    $userpath = asset('uploads/images/user/').'/';
                     $nullpath = asset('assets/img/avatar/avatar-3.png');
                     return $q->select('name', DB::raw('(CASE WHEN foto IS NULL THEN "' . $nullpath . '" ELSE CONCAT("' . $userpath . '",foto) END) foto'), 'id')->get();
                 }]);
@@ -123,7 +123,7 @@ class ProdukController extends Controller
             $userid = Auth::guard('api')->user()->id;
             $produk = Produk::where('kode_produk', $id)->with(['ulasan' => function ($q) {
                 $q->with(['user' => function ($q) {
-                    $userpath = asset('uploads/images/user/');
+                    $userpath = asset('uploads/images/user/').'/';
                     $nullpath = asset('assets/img/avatar/avatar-3.png');
                     return $q->select('name', DB::raw('(CASE WHEN foto IS NULL THEN "' . $nullpath . '" ELSE CONCAT("' . $userpath . '",foto) END) foto'), 'id')->get();
                 }]);
@@ -133,7 +133,7 @@ class ProdukController extends Controller
         } else {
             $produk = Produk::where('kode_produk', $id)->with(['ulasan' => function ($q) {
                 $q->with(['user' => function ($q) {
-                    $userpath = asset('uploads/images/user/');
+                    $userpath = asset('uploads/images/user/').'/';
                     $nullpath = asset('assets/img/avatar/avatar-3.png');
                     return $q->select('name', DB::raw('(CASE WHEN foto IS NULL THEN "' . $nullpath . '" ELSE CONCAT("' . $userpath . '",foto) END) foto'), 'id')->get();
                 }]);

@@ -22,7 +22,7 @@ class CariController extends Controller
             $data = $request->get('data');
             $produk = Produk::where('sub_kategori', 'like', '%' . $data . '%')->orwhere('kategori', 'like', '%' . $data . '%')->orwhere('detail_sub_kategori', 'like', '%' . $data . '%')->orwhere('nama_produk', 'like', '%' . $data . '%')->with(['ulasan'=> function ($q) {
                 $q->with(['user' => function ($q) {
-                    $userpath = asset('uploads/images/user/');
+                    $userpath = asset('uploads/images/user/').'/';
                     $nullpath = asset('assets/img/avatar/avatar-3.png');
                     return $q->select('name', DB::raw('(CASE WHEN foto IS NULL THEN "' . $nullpath . '" ELSE CONCAT("' . $userpath . '",foto) END) foto'), 'id')->get();
                 }]);
