@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Response;
 use App\DetailProdukImage;
 use App\Produk;
@@ -19,7 +20,13 @@ class CariController extends Controller
     {
         if ($request->has('data')) {
             $data = $request->get('data');
-            $produk = Produk::where('sub_kategori', 'like', '%' . $data . '%')->orwhere('kategori', 'like', '%' . $data . '%')->orwhere('detail_sub_kategori', 'like', '%' . $data . '%')->orwhere('nama_produk', 'like', '%' . $data . '%')->get();
+            $produk = Produk::where('sub_kategori', 'like', '%' . $data . '%')->orwhere('kategori', 'like', '%' . $data . '%')->orwhere('detail_sub_kategori', 'like', '%' . $data . '%')->orwhere('nama_produk', 'like', '%' . $data . '%')->with(['ulasan'=> function ($q) {
+                $q->with(['user' => function ($q) {
+                    $userpath = asset('uploads/images/user/');
+                    $nullpath = asset('assets/img/avatar/avatar-3.png');
+                    return $q->select('name', DB::raw('(CASE WHEN foto IS NULL THEN "' . $nullpath . '" ELSE CONCAT("' . $userpath . '",foto) END) foto'), 'id')->get();
+                }]);
+            }])->withCount(['favorit'])->get();
             $arr = [];
             foreach ($produk as $key => $value) {
                 $gambar = '';
@@ -29,6 +36,15 @@ class CariController extends Controller
                     $gambar = asset('uploads/images/produk/' . $detailgambar->filename);
                 }
 
+                $jumlah = 0;
+                foreach ($value->ulasan as $key => $ulasan) {
+                    $jumlah += $ulasan->rating;
+                }
+                if (count($value->ulasan) > 0) {
+                    $x['summary_ulasan'] = $jumlah / count($value->ulasan);
+                } else {
+                    $x['summary_ulasan'] = 0;
+                }
                 $detailgambarall = DetailProdukImage::where('produk_id', $value->id)->get();
                 if ($detailgambarall->isNotEmpty()) {
                     foreach ($detailgambarall as $key => $row) {
