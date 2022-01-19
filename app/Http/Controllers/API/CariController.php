@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use App\DetailProdukImage;
 use App\Produk;
 
@@ -20,15 +21,31 @@ class CariController extends Controller
     {
         if ($request->has('data')) {
             $data = $request->get('data');
-            $produk = Produk::where('sub_kategori', 'like', '%' . $data . '%')->orwhere('kategori', 'like', '%' . $data . '%')->orwhere('detail_sub_kategori', 'like', '%' . $data . '%')->orwhere('nama_produk', 'like', '%' . $data . '%')->with(['ulasan'=> function ($q) {
-                $q->with(['user' => function ($q) {
-                    $userpath = asset('uploads/images/user/').'/';
-                    $nullpath = asset('assets/img/avatar/avatar-3.png');
-                    return $q->select('name', DB::raw('(CASE WHEN foto IS NULL THEN "' . $nullpath . '" ELSE CONCAT("' . $userpath . '",foto) END) foto'), 'id')->get();
-                }]);
-            }])->withCount(['favorit' => function ($q)  {
-                return  $q->where('user_id', null);
-            }])->get();
+
+            if (Auth::guard('api')->check()) {
+                $userid = Auth::guard('api')->user()->id;
+                $produk = Produk::where('sub_kategori', 'like', '%' . $data . '%')->orwhere('kategori', 'like', '%' . $data . '%')->orwhere('detail_sub_kategori', 'like', '%' . $data . '%')->orwhere('nama_produk', 'like', '%' . $data . '%')->with(['ulasan' => function ($q) {
+                    $q->with(['user' => function ($q) {
+                        $userpath = asset('uploads/images/user/').'/';
+                        $nullpath = asset('assets/img/avatar/avatar-3.png');
+                        return $q->select('name', DB::raw('(CASE WHEN foto IS NULL THEN "' . $nullpath . '" ELSE CONCAT("' . $userpath . '",foto) END) foto'), 'id')->get();
+                    }]);
+                }])->withCount(['favorit' => function ($q) use ($userid) {
+                    return  $q->where('user_id', $userid);
+                }])->get();
+            } else {
+                $produk = Produk::where('sub_kategori', 'like', '%' . $data . '%')->orwhere('kategori', 'like', '%' . $data . '%')->orwhere('detail_sub_kategori', 'like', '%' . $data . '%')->orwhere('nama_produk', 'like', '%' . $data . '%')->with(['ulasan'=> function ($q) {
+                    $q->with(['user' => function ($q) {
+                        $userpath = asset('uploads/images/user/').'/';
+                        $nullpath = asset('assets/img/avatar/avatar-3.png');
+                        return $q->select('name', DB::raw('(CASE WHEN foto IS NULL THEN "' . $nullpath . '" ELSE CONCAT("' . $userpath . '",foto) END) foto'), 'id')->get();
+                    }]);
+                }])->withCount(['favorit' => function ($q)  {
+                    return  $q->where('user_id', null);
+                }])->get();
+            }
+
+        
             $arr = [];
             foreach ($produk as $key => $value) {
                 $gambar = '';
