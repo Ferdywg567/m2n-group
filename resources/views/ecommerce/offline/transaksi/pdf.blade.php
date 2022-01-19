@@ -39,7 +39,7 @@
 
         #logo {
             text-align: center;
-            padding-right: 115px;
+            padding-left: 90px;
             display: inline-block;
             font-size: 7px;
             /* margin-bottom: 10px; */
@@ -175,9 +175,9 @@
     </style>
     <header class="clearfix">
         <div id="logo">
-            <div id="photo" class="customization_text" style="text-align: right">
+            <div id="photo" class="customization_text" >
                 <img style="vertical-align:middle" src="{{public_path('assets/img/logo-hitam.png')}}" alt="">
-                <span style="vertical-align:middle; font-size:8px; font-weight:bold; margin-left:-4px;">GARMENT</span>
+                <span style="vertical-align:middle; font-size:8px; font-weight:bold">GARMENT</span>
 
             </div>
             {{-- <img src="{{public_path('assets/img/logo.png')}}">

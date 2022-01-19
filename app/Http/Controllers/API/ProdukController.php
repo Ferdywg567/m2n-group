@@ -38,7 +38,9 @@ class ProdukController extends Controller
                     $nullpath = asset('assets/img/avatar/avatar-3.png');
                     return $q->select('name', DB::raw('(CASE WHEN foto IS NULL THEN "' . $nullpath . '" ELSE CONCAT("' . $userpath . '",foto) END) foto'), 'id')->get();
                 }]);
-            }])->withCount(['favorit'])->get();
+            }])->withCount(['favorit' => function ($q)  {
+                return  $q->where('user_id', null);
+            }])->get();
         }
 
         $arr = [];
@@ -137,7 +139,9 @@ class ProdukController extends Controller
                     $nullpath = asset('assets/img/avatar/avatar-3.png');
                     return $q->select('name', DB::raw('(CASE WHEN foto IS NULL THEN "' . $nullpath . '" ELSE CONCAT("' . $userpath . '",foto) END) foto'), 'id')->get();
                 }]);
-            }])->withCount(['favorit'])->firstOrFail();
+            }])->withCount(['favorit' => function ($q)  {
+                return  $q->where('user_id', null);
+            }])->firstOrFail();
         }
 
         $arr = [];
