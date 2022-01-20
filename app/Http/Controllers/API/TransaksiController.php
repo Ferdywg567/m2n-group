@@ -20,7 +20,9 @@ class TransaksiController extends Controller
         $userid = Auth::guard('api')->user()->id;
         $status = $request->get('status');
         if ($status == 'menunggu konfirmasi') {
-            $transaksi = Transaksi::where('user_id', $userid)->where('status_bayar', 'belum dibayar')->orwhere('status_bayar', 'sudah di upload')->orderBy('created_at', 'DESC')->get();
+            $transaksi = Transaksi::where('user_id', $userid)->where(function($q){
+                $q->orwhere('status_bayar', 'belum dibayar')->orwhere('status_bayar', 'sudah di upload');
+            })->orderBy('created_at', 'DESC')->get();
         } elseif ($status == 'diproses') {
             $transaksi = Transaksi::where('user_id', $userid)->where('status_bayar', 'sudah dibayar')->where('status', '!=', 'dikirim')->where('status', '!=', 'telah tiba')->orderBy('created_at', 'DESC')->get();
         } elseif ($status == 'dikirim') {
@@ -28,7 +30,9 @@ class TransaksiController extends Controller
         } elseif ($status == 'sampai tujuan') {
             $transaksi = Transaksi::where('user_id', $userid)->where('status', 'dikirim')->orderBy('created_at', 'DESC')->get();
         } else {
-            $transaksi = Transaksi::where('user_id', $userid)->where('status', 'telah tiba')->orWhere('status_bayar', 'dibatalkan')->orderBy('created_at', 'DESC')->get();
+            $transaksi = Transaksi::where('user_id', $userid)->where(function($q){
+                $q->where('status', 'telah tiba')->orWhere('status_bayar', 'dibatalkan');
+            })->orderBy('created_at', 'DESC')->get();
         }
 
         return response()->json([
