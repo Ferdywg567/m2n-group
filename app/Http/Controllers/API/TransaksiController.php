@@ -68,14 +68,16 @@ class TransaksiController extends Controller
     public function show($id)
     {
         $userid = Auth::guard('api')->user()->id;
-        $transaksi = Transaksi::where('user_id', $userid)->where('kode_transaksi', $id)->with(['detail_transaksi' => function ($q) use ($userid) {
-            $q->with(['produk' => function ($q) use ($userid) {
-                $q->with('detail_gambar');
-                $q->withCount(['favorit' => function ($q) use ($userid) {
-                    return $q->where('user_id', $userid);
-                }]);
-            }]);
-        }, 'alamat'])->first();
+        // $transaksi = Transaksi::where('user_id', $userid)->where('kode_transaksi', $id)->with(['detail_transaksi' => function ($q) use ($userid) {
+        //     $q->with(['produk' => function ($q) use ($userid) {
+        //         $q->with('detail_gambar');
+        //         $q->withCount(['favorit' => function ($q) use ($userid) {
+        //             return $q->where('user_id', $userid);
+        //         }]);
+        //     }]);
+        // }, 'alamat'])->first();
+
+        $transaksi = Transaksi::where('user_id', $userid)->where('kode_transaksi', $id)->first();
 
         return response()->json($transaksi);
 
