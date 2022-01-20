@@ -77,6 +77,8 @@ class TransaksiController extends Controller
             }]);
         }, 'alamat'])->first();
 
+        return response()->json($transaksi);
+
         if($transaksi){
             foreach ($transaksi->detail_transaksi as $key => $value) {
                 foreach ($value->produk->detail_gambar as $key => $row) {
