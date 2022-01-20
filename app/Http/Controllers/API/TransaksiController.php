@@ -31,7 +31,7 @@ class TransaksiController extends Controller
             $transaksi = Transaksi::where('user_id', $userid)->where('status', 'dikirim')->orderBy('created_at', 'DESC')->get();
         } else {
             $transaksi = Transaksi::where('user_id', $userid)->where(function($q){
-                $q->where('status', 'telah tiba')->orWhere('status_bayar', 'dibatalkan');
+                $q->orwhere('status', 'telah tiba')->orWhere('status_bayar', 'dibatalkan');
             })->orderBy('created_at', 'DESC')->get();
         }
 
