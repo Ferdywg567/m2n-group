@@ -79,7 +79,7 @@ class TransaksiController extends Controller
 
         $transaksi = Transaksi::where('user_id', $userid)->where('kode_transaksi', $id)->first();
 
-        return response()->json($transaksi);
+        return response()->json($userid);
 
         if($transaksi){
             foreach ($transaksi->detail_transaksi as $key => $value) {
