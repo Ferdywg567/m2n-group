@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Ecommerce\Frontend;
 
+use App\DetailProduk;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -53,9 +54,10 @@ class KeranjangController extends Controller
     {
         if ($request->ajax()) {
             // return response()->json($request->all());
-            $validator = Validator::make($request->all(),[
+            $validator = Validator::make($request->all(), [
                 'id' => 'required',
-                'jumlah' => 'required|min:1|integer'
+                'jumlah' => 'required|min:1|integer',
+                'ukuran' => 'required'
             ]);
 
             if ($validator->fails()) {
@@ -65,25 +67,34 @@ class KeranjangController extends Controller
                     'status' => false,
                     'data' => $html
                 ]);
-            }else{
+            } else {
                 $iduser = auth()->user()->id;
                 $idproduk = $request->get('id');
                 $jumlah = $request->get('jumlah');
+                $ukuran = $request->get('ukuran');
+                if ($ukuran == 'S,M,L') {
+                    $resukuran = ['S', 'M', 'L'];
+                } else {
+                    $resukuran = [$ukuran];
+                }
                 DB::beginTransaction();
                 try {
 
                     $produk = Produk::findOrFail($idproduk);
-                    $cek = Keranjang::where('user_id', $iduser)->where('produk_id', $produk->id)->first();
+                    $cek = Keranjang::where('user_id', $iduser)->where('produk_id', $produk->id)->where('ukuran', $ukuran)->first();
                     if ($cek) {
                         $cek->jumlah = $jumlah;
                     } else {
+                        $harga = $produk->detail_produk->whereIn('ukuran', $resukuran)->avg('harga');
+                        $subtotal = $harga * $jumlah;
                         $keranjang = new Keranjang();
                         $keranjang->user_id = $iduser;
                         $keranjang->produk_id = $produk->id;
                         $keranjang->jumlah = $jumlah;
+                        $keranjang->ukuran = $ukuran;
                         $keranjang->check = 1;
-                        $keranjang->harga = $produk->harga_promo;
-                        $keranjang->subtotal = $produk->harga_promo * $jumlah;
+                        $keranjang->harga = $harga;
+                        $keranjang->subtotal = $subtotal;
                         $keranjang->save();
                     }
                     $total = Keranjang::where('user_id', $iduser)->count();
@@ -97,8 +108,6 @@ class KeranjangController extends Controller
                     //throw $th;
                 }
             }
-
-
         }
     }
 
@@ -249,6 +258,51 @@ class KeranjangController extends Controller
         }
     }
 
+
+    public function update_ukuran(Request $request)
+    {
+        if ($request->ajax()) {
+            $ukuran = $request->get('ukuran');
+            $iduser = auth()->user()->id;
+            $id = $request->get('id');
+            $cek = Keranjang::where('user_id', $iduser)->where('id', $id)->first();
+            if ($ukuran == 'S,M,L') {
+                $resukuran = ['S', 'M', 'L'];
+            } else {
+                $resukuran = [$ukuran];
+            }
+            $harga = DetailProduk::where('produk_id', $cek->produk_id)->whereIn('ukuran', $resukuran)->avg('harga');
+            $cek->harga = $harga;
+            $cek->ukuran = $ukuran;
+            $cek->subtotal = $cek->harga * $cek->jumlah;
+            $cek->save();
+            $subtotal = $cek->subtotal;
+            $totalharga = Keranjang::where('user_id', $iduser)->where('check', 1)->sum('subtotal');
+            $semua = Keranjang::where('user_id', $iduser)->count();
+            $check = Keranjang::where('user_id', $iduser)->where('check', 1)->count();
+            if ($totalharga > 0) {
+                $btn = true;
+            } else {
+                $btn = false;
+            }
+
+            if ($semua == $check) {
+                $checked = true;
+            } else {
+                $checked = false;
+            }
+
+            return response()->json([
+                'status' => true,
+                'harga' => AppHelper::instance()->rupiah($cek->harga),
+                'totalharga' => AppHelper::instance()->rupiah($totalharga),
+                'btn' => $btn,
+                'subtotal' => AppHelper::instance()->rupiah($subtotal),
+                'checked' => $checked,
+            ]);
+        }
+    }
+
     public function hapus($id)
     {
         $iduser = auth()->user()->id;
@@ -265,13 +319,13 @@ class KeranjangController extends Controller
             $totalharga = 0;
             $arr = [];
             foreach ($keranjang as $key => $value) {
-                    $x['gambar'] = asset('uploads/images/produk/'.$value->produk->detail_gambar[0]->filename);
-                    $x['nama_produk'] = $value->produk->nama_produk;
-                    $x['jumlah'] = $value->jumlah;
-                    $x['harga'] = $helper->rupiah($value->harga);
-
-                    $totalharga += $value->subtotal;
-                    array_push($arr, $x);
+                $x['gambar'] = asset('uploads/images/produk/' . $value->produk->detail_gambar[0]->filename);
+                $x['nama_produk'] = $value->produk->nama_produk;
+                $x['jumlah'] = $value->jumlah;
+                $x['harga'] = $helper->rupiah($value->harga);
+                $x['ukuran'] = $value->ukuran;
+                $totalharga += $value->subtotal;
+                array_push($arr, $x);
             }
 
             return response()->json([

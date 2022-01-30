@@ -44,7 +44,7 @@ Route::group(['prefix' => 'admin/offline', 'namespace' => 'Ecommerce\Offline', '
         Route::get('getdetailproduk', 'TransaksiController@getDataProduk')->name('getdetail');
         Route::get('getdatatable', 'TransaksiController@getDataDetail')->name('gettable');
         Route::get('cektransaksi', 'TransaksiController@cekTransaksi')->name('cek');
-        Route::get('delete_transaksi/{kode}', 'TransaksiController@delete_data')->name('delete_trans');
+        Route::get('delete_transaksi/{kode}/{ukuran}', 'TransaksiController@delete_data')->name('delete_trans');
         Route::get('cetak/{id}', 'TransaksiController@cetak')->name('cetak');
         Route::post('update_detail_barang', 'TransaksiController@update_detail_barang')->name('update_detail_barang');
     });

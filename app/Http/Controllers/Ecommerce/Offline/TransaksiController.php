@@ -358,6 +358,7 @@ class TransaksiController extends Controller
 
                     if($row['ukuran'] == 'seri'){
                         $ukuran = 'S,M,L';
+
                     }else{
                         $ukuran = $row['ukuran'];
                     }
@@ -369,7 +370,7 @@ class TransaksiController extends Controller
                     $sub["harga"] = $row['harga'];
                     $sub["qty"] = $row['qty'];
                     $sub["subtotal"] = $row['subtotal'];
-                    $sub["action"] = '<button data-kode="' . $row['kode'] . '" class="btn btn-danger ml-2 btnDelete">Delete</button>';
+                    $sub["action"] = '<button data-ukuran="' . $row['ukuran'] . '" data-kode="' . $row['kode'] . '" class="btn btn-danger ml-2 btnDelete">Delete</button>';
                     $data2[] = $sub;
                 }
             } else {
@@ -400,14 +401,15 @@ class TransaksiController extends Controller
         }
     }
 
-    public function delete_data($kode)
+    public function delete_data($kode, $ukuran)
     {
         if (session()->has('detail_transaksi')) {
             $datadetail = session('detail_transaksi');
             $total  = 0;
             $arr = [];
+            // dd($datadetail);
             foreach ($datadetail as $key => $value) {
-                if ($value['kode'] != $kode) {
+                if (($value['kode'] === $kode && $value['ukuran'] === $ukuran) == FALSE) {
                     $total = $total + $value["subtotal"];
                     array_push($arr, $value);
                 }
@@ -446,12 +448,14 @@ class TransaksiController extends Controller
             $validator = Validator::make($request->all(), [
                 'id_barang' => 'required',
                 'qty' => 'required',
+                'ukuran' => 'required',
             ]);
 
             if ($validator->fails()) {
                 return response()->json($validator->errors());
             } else {
                 $kode = $request->get('id_barang');
+                $ukuran = $request->get('ukuran');
                 $produk = Produk::where('kode_produk', $kode)->first();
                 if ($request->get('qty') <= $produk->stok) {
                     $total = 0;
@@ -466,7 +470,7 @@ class TransaksiController extends Controller
                         $cek = false;
 
                         foreach ($datadetail as $key => $value) {
-                            if ($value['kode'] == $kode) {
+                            if ($value['kode'] == $kode && $value['ukuran'] == $ukuran) {
                                 $cek = true;
                                 $value['qty'] = $request->get('qty');
                                 $value['subtotal'] = $value['qty'] * $value['harga'];

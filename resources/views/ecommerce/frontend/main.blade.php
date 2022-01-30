@@ -428,6 +428,8 @@
                                                     <div class="cart-title">
                                                         <h4><a href="#">${element.nama_produk}</a></h4>
                                                         <span>${element.jumlah} x ${element.harga}</span>
+                                                        <br>
+                                                        <span>ukuran : ${element.ukuran}</span>
                                                     </div>
                                                     </li>`
                                   }

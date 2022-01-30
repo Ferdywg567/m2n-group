@@ -37,9 +37,11 @@ Route::group(['namespace' => 'Ecommerce\Frontend'], function () {
                 });
                 Route::resource('pembelian', 'PembelianController');
             });
+            
             Route::group(['prefix' => 'keranjang', 'as' => 'keranjang.'], function () {
                 Route::post('/update_checkbox', 'KeranjangController@update_checkbox')->name('update_checkbox');
                 Route::post('/update_jumlah', 'KeranjangController@update_jumlah')->name('update_jumlah');
+                Route::post('/update_ukuran', 'KeranjangController@update_ukuran')->name('update_ukuran');
                 Route::get('/hapus/{id}', 'KeranjangController@hapus')->name('hapus');
                 Route::get('/showdatasidebar', 'KeranjangController@showDataSidebar')->name('showdatasidebar');
             });

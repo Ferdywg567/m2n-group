@@ -52,7 +52,8 @@ class AppHelper
         return $date;
     }
 
-    function time_elapsed_string($datetime, $full = false) {
+    function time_elapsed_string($datetime, $full = false)
+    {
         $now = new DateTime;
         $ago = new DateTime($datetime);
         $diff = $now->diff($ago);
@@ -71,7 +72,7 @@ class AppHelper
         );
         foreach ($string as $k => &$v) {
             if ($diff->$k) {
-                $v = $diff->$k . ' ' . $v ;
+                $v = $diff->$k . ' ' . $v;
             } else {
                 unset($string[$k]);
             }
@@ -81,11 +82,12 @@ class AppHelper
         return $string ? implode(', ', $string) . ' yang lalu' : 'baru saja';
     }
 
-    public function favorit_data($iduser, $idproduk){
-        $status =false;
-        $favorit = Favorit::where('user_id', $iduser)->where('produk_id',$idproduk)->first();
+    public function favorit_data($iduser, $idproduk)
+    {
+        $status = false;
+        $favorit = Favorit::where('user_id', $iduser)->where('produk_id', $idproduk)->first();
 
-        if($favorit){
+        if ($favorit) {
             $status = true;
         }
 
@@ -93,29 +95,65 @@ class AppHelper
     }
 
 
-    public function avg_ulasan($idproduk){
+    public function avg_ulasan($idproduk)
+    {
         $jumlah = Ulasan::where('produk_id', $idproduk)->count();
         $jumlahulasan = Ulasan::where('produk_id', $idproduk)->sum('rating');
         $avg = 0;
-        if($jumlah > 0 && $jumlahulasan >0){
-            $avg = $jumlahulasan/$jumlah;
+        if ($jumlah > 0 && $jumlahulasan > 0) {
+            $avg = $jumlahulasan / $jumlah;
         }
 
         return $avg;
     }
 
-    public function jumlah_ulasan($idproduk){
+    public function jumlah_ulasan($idproduk)
+    {
         $jumlah = Ulasan::where('produk_id', $idproduk)->count();
 
         return $jumlah;
     }
 
 
-    public function jumlah_pesanan($idproduk){
-        $jumlah = Transaksi::where('status','telah tiba')->whereHas('detail_transaksi', function($q) use($idproduk){
+    public function jumlah_pesanan($idproduk)
+    {
+        $jumlah = Transaksi::where('status', 'telah tiba')->whereHas('detail_transaksi', function ($q) use ($idproduk) {
             return $q->where('produk_id', $idproduk);
         })->count();
 
         return $jumlah;
+    }
+
+    public function ukuran($idproduk)
+    {
+        $ukuran = [];
+        $produk = Produk::findOrFail($idproduk);
+        $target = ["S", "L", "M"];
+        $detail = $produk->detail_produk->pluck('ukuran')->toArray();
+        $seri = false;
+        $harga_seri = 0;
+        if (in_array('S', $detail) && in_array('M', $detail) && in_array('L', $detail)) {
+            $seri = true;
+            // $harga_seri = $produk->detail_produk->whereIn('ukuran', $target)->avg('harga');
+            $detail = $produk->detail_produk->whereNotIn('ukuran', $target)->pluck('ukuran');
+            $res = [];
+            $x[] = 'S,M,L';
+            if ($detail->isNotEmpty()) {
+                $res = $detail->toArray();
+
+                $data = array_merge($x, $res);
+            } else {
+                $data =  $x;
+            }
+
+            $ukuran = $data;
+        } else {
+            $detail = $produk->detail_produk->pluck('ukuran');
+            if ($detail->isNotEmpty()) {
+                $ukuran = $detail->toArray();
+            }
+        }
+      
+        return $ukuran;
     }
 }

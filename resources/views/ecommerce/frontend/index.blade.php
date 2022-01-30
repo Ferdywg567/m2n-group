@@ -298,12 +298,19 @@
                                     href="{{route('frontend.product.show',[$item->id])}}">{{$item->warehouse->finishing->cuci->jahit->potong->bahan->nama_bahan}}</a>
                             </h3>
                             <div class="product-price-2">
-                                @if ($item->promo_id == null)
+                                {{-- @if ($item->promo_id == null)
                                 <span class="new-price">@rupiah($item->harga)</span>
                                 @else
                                 <span class="new-price">@rupiah($item->harga_promo)</span>
                                 <span class="old-price">@rupiah($item->harga)</span>
+                                @endif --}}
+
+                                @if ($item->detail_produk->min('harga') == $item->detail_produk->max('harga'))
+                                  <span class="new-price">@rupiah($item->detail_produk->max('harga'))/pcs</span>
+                                @else
+                                  <span class="new-price">@rupiah($item->detail_produk->min('harga')) - @rupiah($item->detail_produk->max('harga'))/pcs</span>
                                 @endif
+
                             </div>
                             <div class="product-rating-wrap pb-15">
                                 <div class="product-rating">
@@ -325,13 +332,17 @@
                                     href="{{route('frontend.product.show',[$item->id])}}">{{$item->warehouse->finishing->cuci->jahit->potong->bahan->nama_bahan}}</a>
                             </h3>
                             <div class="product-price-2">
-                                @if ($item->promo_id == null)
+                                {{-- @if ($item->promo_id == null)
                                 <span class="new-price">@rupiah($item->harga)</span>
                                 @else
                                 <span class="new-price">@rupiah($item->harga_promo)</span>
                                 <span class="old-price">@rupiah($item->harga)</span>
-                                @endif
-
+                                @endif --}}
+                                @if ($item->detail_produk->min('harga') == $item->detail_produk->max('harga'))
+                                <span class="new-price">@rupiah($item->detail_produk->max('harga'))/pcs</span>
+                              @else
+                                <span class="new-price">@rupiah($item->detail_produk->min('harga')) - @rupiah($item->detail_produk->max('harga'))/pcs</span>
+                              @endif
                             </div>
                             <div class="product-rating-wrap">
                                 <div class="product-rating">
@@ -409,12 +420,17 @@
 
                             <h3><a href="{{route('frontend.product.show',[$item->id])}}">Kaos Hitam Polos</a></h3>
                             <div class="product-price-2">
-                                @if ($item->promo_id == null)
+                                {{-- @if ($item->promo_id == null)
                                 <span class="new-price">@rupiah($item->harga)</span>
                                 @else
                                 <span class="new-price">@rupiah($item->harga_promo)</span>
                                 <span class="old-price">@rupiah($item->harga)</span>
-                                @endif
+                                @endif --}}
+                                @if ($item->detail_produk->min('harga') == $item->detail_produk->max('harga'))
+                                <span class="new-price">@rupiah($item->detail_produk->max('harga'))/pcs</span>
+                              @else
+                                <span class="new-price" style="font-size: 16px">@rupiah($item->detail_produk->min('harga')) - @rupiah($item->detail_produk->max('harga'))/pcs</span>
+                              @endif
                             </div>
                             <div class="product-rating-wrap pb-15">
                                 <div class="product-rating">
@@ -434,12 +450,17 @@
                         <div class="product-content-wrap-2 product-content-position text-left">
                             <h3><a href="{{route('frontend.product.show',[$item->id])}}">Kaos Hitam Polos</a></h3>
                             <div class="product-price-2">
-                                @if ($item->promo_id == null)
+                                {{-- @if ($item->promo_id == null)
                                 <span class="new-price">@rupiah($item->harga)</span>
                                 @else
                                 <span class="new-price">@rupiah($item->harga_promo)</span>
                                 <span class="old-price">@rupiah($item->harga)</span>
-                                @endif
+                                @endif --}}
+                                @if ($item->detail_produk->min('harga') == $item->detail_produk->max('harga'))
+                                <span class="new-price">@rupiah($item->detail_produk->max('harga'))/pcs</span>
+                              @else
+                                <span class="new-price" style="font-size: 14px">@rupiah($item->detail_produk->min('harga')) - @rupiah($item->detail_produk->max('harga'))/pcs</span>
+                              @endif
                             </div>
                             <div class="product-rating-wrap">
                                 <div class="product-rating">

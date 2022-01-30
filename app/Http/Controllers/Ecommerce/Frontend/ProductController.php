@@ -50,7 +50,19 @@ class ProductController extends Controller
     {
         $produk = Produk::findOrFail($id);
         $terkait = Produk::limit(4)->get();
-        return view('ecommerce.frontend.product.detail', ['produk' => $produk, 'terkait' => $terkait]);
+        $target = ["S","L","M"];
+        $detail = $produk->detail_produk->pluck('ukuran')->toArray();
+        $seri = false;
+        $harga_seri = 0;
+        if(in_array('S',$detail) && in_array('M',$detail) && in_array('L', $detail)){
+            $seri = true;
+            $harga_seri = $produk->detail_produk->whereIn('ukuran', $target)->avg('harga');
+            $detail = $produk->detail_produk->whereNotIn('ukuran', $target);
+        }else{
+            $detail = $produk->detail_produk;
+        }
+
+        return view('ecommerce.frontend.product.detail', ['produk' => $produk, 'seri' => $seri,'detail' => $detail, 'terkait' => $terkait]);
     }
 
     /**

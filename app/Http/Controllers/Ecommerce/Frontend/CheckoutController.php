@@ -112,6 +112,7 @@ class CheckoutController extends Controller
                     $detail_trans->transaksi_id = $transaksi->id;
                     $detail_trans->jumlah = $checkout_langsung['total_produk'];
                     $detail_trans->harga = $checkout_langsung['harga'];
+                    $detail_trans->ukuran = $checkout_langsung['ukuran'];
                     $detail_trans->total_harga = $checkout_langsung['subtotal'];
                     $detail_trans->save();
                     $jumlah = $checkout_langsung['total_produk'];
@@ -142,6 +143,7 @@ class CheckoutController extends Controller
                         $detail_trans->transaksi_id = $transaksi->id;
                         $detail_trans->jumlah = $value->jumlah;
                         $detail_trans->harga = $value->harga;
+                        $detail_trans->ukuran = $value->ukuran;
                         $detail_trans->total_harga = $value->subtotal;
                         $detail_trans->save();
                     }
@@ -262,7 +264,8 @@ class CheckoutController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'id' => 'required',
-            'jumlah' => 'required|min:1|integer'
+            'jumlah' => 'required|min:1|integer',
+            'ukuran' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -275,10 +278,12 @@ class CheckoutController extends Controller
         } else {
             $id = $request->get('id');
             $jumlah = $request->get('jumlah');
+            $ukuran = $request->get('ukuran');
             $produk = Produk::findOrFail($id);
             $checkout = [
                 'id_produk' => $produk->id,
                 'harga' =>  $produk->harga_promo,
+                'ukuran' => $ukuran,
                 'subtotal' => $produk->harga_promo * $jumlah,
                 'total_produk' => $jumlah,
                 'total_harga' => ($produk->harga_promo *  $jumlah) + 2500

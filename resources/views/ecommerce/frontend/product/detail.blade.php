@@ -169,20 +169,42 @@
                     </div>
 
                     <div class="pro-details-price">
-                        @if ($produk->promo_id == null)
+                        {{-- @if ($produk->promo_id == null)
                         <span class="new-price ml-2">@rupiah($produk->harga)</span>
                         <h4><b> / seri</b></h4>
                         @else
                         <span class="old-price">@rupiah($produk->harga)</span>
                         <span class="new-price ml-2">@rupiah($produk->harga_promo)</span>
                         <h4><b> / seri</b></h4>
-                        @endif
+                        @endif --}}
+
+                        @if ($produk->detail_produk->min('harga') == $produk->detail_produk->max('harga'))
+                        <span class="new-price ml-2">@rupiah($produk->detail_produk->max('harga'))/pcs</span>
+                      @else
+                        <span class="new-price ml-2">@rupiah($produk->detail_produk->min('harga')) - @rupiah($produk->detail_produk->max('harga'))/pcs</span>
+                      @endif
 
                     </div>
 
                     <div class="pro-details-quality">
                         <div id="data-alert">
 
+                        </div>
+                        <span>Pilih Ukuran:</span>
+                        <div class="row mb-2">
+                            <div class="col-md-6">
+                                <select class="form-control" id="ukuran" name="ukuran">
+                                    <option value="">Pilih Ukuran</option>
+                                    @if ($seri)
+                                    <option value="S,M,L">S,M,L</option>
+                                    @endif
+                                    @forelse ($detail as $item)
+                                    <option value="{{$item->ukuran}}">{{$item->ukuran}}</option>
+                                    @empty
+
+                                    @endforelse
+                                  </select>
+                            </div>
                         </div>
                         <span>Jumlah:</span>
                         <div class="cart-plus-minus">
@@ -531,21 +553,24 @@
         $('.btnTambahKeranjang').on('click', function () {
             var idproduk = "{{$produk->id}}"
             var jumlah = $('#jumlah').val()
-            console.log(jumlah);
+            var ukuran = $('#ukuran').find(':selected').val()
+            // console.log(jumlah);
             $.ajax({
                 url: "{{route('frontend.keranjang.store')}}",
                 method: "POST",
                 data: {
                     id: idproduk,
-                    jumlah: jumlah
+                    jumlah: jumlah,
+                    ukuran:ukuran
                 },
                 success: function (response) {
-                    // console.log(response);
+                    console.log(response);
                     if (response.status) {
                         setTimeout(function () {
                             getDataSidebar()
                         }, 1500)
                         $('.totalcart').text(response.total)
+                        $('#data-alert').empty()
                     } else {
                         $('#data-alert').html(response.data)
                     }
@@ -561,12 +586,14 @@
         $('.btn-beli-langsung').on('click', function () {
             var jumlah = $('#jumlah').val();
             var id = "{{$produk->id}}"
+            var ukuran = $('#ukuran').find(':selected').val()
             $.ajax({
                 url: "{{route('frontend.checkout.beli_langsung')}}",
                 method: "POST",
                 data: {
                     id: id,
-                    jumlah: jumlah
+                    jumlah: jumlah,
+                    ukuran:ukuran
                 },
                 success: function (response) {
                     if (response.status) {

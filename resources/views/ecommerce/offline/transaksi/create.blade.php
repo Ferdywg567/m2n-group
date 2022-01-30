@@ -312,6 +312,12 @@
                     console.log(data)
                     $(row).find('td:eq(4)').addClass('updateqty');
                     $(row).find('td:eq(4)').attr('data-idbarang', data['kode']);
+                    if(data['ukuran'] == 'S,M,L'){
+                        var ukuran = 'seri';
+                    }else{
+                        var ukuran = data['ukuran'];
+                    }
+                    $(row).find('td:eq(4)').attr('data-ukuran', ukuran);
                     $.each($('td:eq(4)', row), function(colIndex) {
 
                         $(this).attr('contenteditable', 'true');
@@ -591,6 +597,7 @@
             $(document).on('blur change', '.updateqty', function() {
                 var id_barang = $(this).data('idbarang');
                 var qty = $(this).text()
+                var ukuran = $(this).data('ukuran');
                 ajax();
                 swal({
                         text: "Apa anda yakin mengubah qty produk ?",
@@ -605,7 +612,8 @@
                                 method: "POST",
                                 data: {
                                     'id_barang': id_barang,
-                                    'qty': qty
+                                    'qty': qty,
+                                    'ukuran' : ukuran
                                 },
                                 success: function(response) {
                                     if (response.status) {
@@ -627,7 +635,7 @@
 
             $(document).on('click', '.btnDelete', function() {
                 var kode = $(this).data('kode')
-
+                var ukuran = $(this).data('ukuran')
                 swal({
                         title: "Apa anda yakin?",
                         text: "ketika dihapus, data tidak bisa dikembalikan!",
@@ -638,7 +646,7 @@
                     .then((willDelete) => {
                         if (willDelete) {
                             window.location.href =
-                                "{{ url('/admin/offline/transaksi/delete_transaksi/') }}/" + kode;
+                                "{{ url('/admin/offline/transaksi/delete_transaksi/') }}/" + kode+"/"+ukuran;
                         }
                     });
             })
