@@ -160,7 +160,7 @@
                                         </div>
                                     </div>
                                 </div>
-                           
+
                                 <div id="dropzoneDragArea" class="dropzone">
                                     <div class="dz-message d-flex flex-column">
                                         <i class="ri-file-upload-line"></i>
@@ -338,8 +338,8 @@
                                 ukuran =  ukuran.replace(/,\s*$/, "");
                                 $('#kode_sku').val(bahan.sku)
                                 $('#warna').val(bahan.warna)
-                                $('#harga').val(data.harga_produk)
-                                $('#harga_promo').val(data.harga_produk)
+                                $('#harga').val(response.harga)
+                                $('#harga_promo').val(response.harga)
                                 $('#stok').val(jumlah)
                                 $('#ukuran').val(ukuran)
                                 $('#kategori').val(kategori)

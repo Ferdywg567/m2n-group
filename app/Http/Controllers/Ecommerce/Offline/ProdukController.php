@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\DetailWarehouse;
+use App\Helpers\AppHelper;
 use App\Warehouse;
 use App\Produk;
 use App\DetailProduk;
@@ -32,7 +33,7 @@ class ProdukController extends Controller
      */
     public function create()
     {
-        $produk = Warehouse::where('harga_produk', '>', 0)->doesntHave('produk')->get();
+        $produk = Warehouse::doesntHave('produk')->get();
         $today = date('Y-m-d');
         $promo = Promo::whereDate('promo_mulai', '<=', $today)->whereDate('promo_berakhir', '>=', $today)->get();
         $cekmax = Produk::max('id');
@@ -72,7 +73,7 @@ class ProdukController extends Controller
             $produk = new Produk();
             $produk->kode_produk = $this->generateKode();
             $produk->warehouse_id = $request->get('barang');
-            $produk->harga = $request->get('harga');
+            $produk->harga = 0;
             $produk->stok = $request->get('stok');
             $produk->deskripsi_produk = $request->get('deskripsi_produk');
             $produk->kategori =  $request->get('kategori');
@@ -81,13 +82,13 @@ class ProdukController extends Controller
             $warehouse = Warehouse::findOrFail($produk->warehouse_id);
             $produk->nama_produk =  $warehouse->finishing->cuci->jahit->potong->bahan->nama_bahan;
             $hargapromo = 0;
-            if ($request->get('promo') != 0) {
-                $promo = Promo::findOrFail($request->get('promo'));
-                $produk->promo_id = $request->get('promo');
-                $hargapromo = $request->get('harga') - ($request->get('harga') * ($promo->potongan / 100));
-            } else {
-                $hargapromo = $request->get('harga');
-            }
+            // if ($request->get('promo') != 0) {
+            //     $promo = Promo::findOrFail($request->get('promo'));
+            //     $produk->promo_id = $request->get('promo');
+            //     $hargapromo = $request->get('harga') - ($request->get('harga') * ($promo->potongan / 100));
+            // } else {
+            //     $hargapromo = $request->get('harga');
+            // }
             $produk->harga_promo = $hargapromo;
             $produk->save();
 
@@ -98,6 +99,7 @@ class ProdukController extends Controller
                 $detailproduk->produk_id = $produk->id;
                 $detailproduk->ukuran = $value->ukuran;
                 $detailproduk->jumlah = $value->jumlah;
+                $detailproduk->harga = $value->harga;
                 $detailproduk->save();
             }
 
@@ -109,6 +111,7 @@ class ProdukController extends Controller
                 $detailimage->filename = $imageName;
                 $detailimage->save();
             }
+
             $request->session()->flash('success', 'Produk berhasil disimpan!');
             return response()->json([
                 'status' => true,
@@ -205,9 +208,14 @@ class ProdukController extends Controller
                     }]);
                 }]);
             }, 'detail_warehouse'])->where('id', $request->get('id'))->first();
-
+            if($produk->detail_warehouse->min('harga') == $produk->detail_warehouse->max('harga')){
+                $harga = AppHelper::instance()->rupiah($produk->detail_warehouse->max('harga'));
+            }else{
+                $harga = AppHelper::instance()->rupiah($produk->detail_warehouse->min('harga')).'-'.AppHelper::instance()->rupiah($produk->detail_warehouse->max('harga'));
+            }
             return response()->json([
                 'data' => $produk,
+                'harga' => $harga,
                 'status' => true
             ]);
         }

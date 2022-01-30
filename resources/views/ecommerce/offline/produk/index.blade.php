@@ -44,7 +44,12 @@
                                             <td>{{ $item->warehouse->finishing->cuci->jahit->potong->bahan->detail_sub->sub_kategori->kategori->nama_kategori }}/{{ $item->warehouse->finishing->cuci->jahit->potong->bahan->detail_sub->sub_kategori->nama_kategori }}/{{ $item->warehouse->finishing->cuci->jahit->potong->bahan->detail_sub->nama_kategori }}
                                             </td>
                                             <td>{{ $item->stok }}</td>
-                                            <td>@rupiah($item->harga)</td>
+                                            @if ($item->detail_produk->min('harga') == $item->detail_produk->max('harga'))
+                                            <td>@rupiah($item->detail_produk->max('harga'))/pcs</td>
+                                            @else
+                                            <td>@rupiah($item->detail_produk->min('harga')) - @rupiah($item->detail_produk->max('harga'))/pcs</td>
+                                            @endif
+
                                             <td>
                                                 <div class="dropdown dropleft">
                                                     <a class="" href="#" id="dropdownMenuButton"

@@ -19,6 +19,7 @@ class CreateDetailProduksTable extends Migration
             $table->foreign('produk_id')->references('id')->on('produks')->onDelete('cascade');
             $table->string('ukuran');
             $table->integer('jumlah');
+            $table->double('harga')->default(0)->nullable();
             $table->timestamps();
         });
     }

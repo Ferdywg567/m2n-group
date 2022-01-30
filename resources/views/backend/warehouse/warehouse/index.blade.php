@@ -59,7 +59,13 @@
                                     <td>{{$item->finishing->cuci->jahit->potong->bahan->jenis_bahan}}</td>
                                     <td>{{$item->finishing->cuci->jahit->potong->bahan->nama_bahan}}</td>
                                     <td>{{$total}}</td>
-                                    <td>@rupiah($item->harga_produk)/pcs</td>
+
+                                    @if ($item->detail_warehouse->min('harga') == $item->detail_warehouse->max('harga'))
+                                    <td>@rupiah($item->detail_warehouse->max('harga'))/pcs</td>
+                                    @else
+                                    <td>@rupiah($item->detail_warehouse->min('harga')) - @rupiah($item->detail_warehouse->max('harga'))/pcs</td>
+                                    @endif
+
 
                                     <td>
                                         <div class="dropdown dropleft">

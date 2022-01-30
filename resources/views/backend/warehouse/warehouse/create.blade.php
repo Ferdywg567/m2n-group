@@ -106,9 +106,27 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                </div>
+                                <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="harga_produk">Harga Produk</label>
+                                            <label for="harga_produk">Harga Produk (S,M,L)</label>
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Rp.</div>
+                                                </div>
+                                                <input type="number" class="form-control" required id="harga_produk"
+                                                    name="harga_produk">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">/seri</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="harga_produk">Harga Produk (XL)</label>
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Rp.</div>
@@ -122,7 +140,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <div id="ukuran-utama">
 
 

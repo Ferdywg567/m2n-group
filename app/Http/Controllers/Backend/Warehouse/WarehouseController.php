@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\DB;
 use App\Notification;
 use App\Finishing;
 use App\Warehouse;
+use App\Produk;
+use App\DetailProduk;
 use PDF;
 
 class WarehouseController extends Controller
@@ -106,7 +108,19 @@ class WarehouseController extends Controller
     public function edit($id)
     {
         $warehouse = Warehouse::findOrFail($id);
-        return view("backend.warehouse.warehouse.edit", ['warehouse' => $warehouse]);
+        $target = ["S","L","M"];
+        $detail = $warehouse->detail_warehouse->pluck('ukuran')->toArray();
+        $seri = false;
+        $harga_seri = 0;
+        if(in_array('S',$detail) && in_array('M',$detail) && in_array('L', $detail)){
+            $seri = true;
+            $harga_seri = $warehouse->detail_warehouse->whereIn('ukuran', $target)->avg('harga');
+            $detail = $warehouse->detail_warehouse->whereNotIn('ukuran', $target);
+        }else{
+            $detail = $warehouse->detail_warehouse;
+        }
+
+        return view("backend.warehouse.warehouse.edit", ['warehouse' => $warehouse, 'seri' => $seri,'detail' => $detail,'harga_seri' => $harga_seri]);
     }
 
     /**
@@ -119,7 +133,8 @@ class WarehouseController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'harga_produk' => 'required',
+            'harga_produk' => 'nullable:not_in:0',
+            'harga_seri' => 'nullable:not_in:0',
         ]);
 
         if ($validator->fails()) {
@@ -127,9 +142,44 @@ class WarehouseController extends Controller
         } else {
             DB::beginTransaction();
             try {
+                $target = ["S","L","M"];
+
+                //gudang
                 $warehouse =  Warehouse::findOrFail($id);
-                $warehouse->harga_produk = $request->get('harga_produk');
                 $warehouse->save();
+
+                //produk
+                $produk = Produk::where('warehouse_id', $warehouse->id)->first();
+
+
+                if($request->has('harga_seri')){
+                    DetailWarehouse::where('warehouse_id', $warehouse->id)->whereIn('ukuran',$target)->update([
+                        'harga' => $request->get('harga_seri')
+                    ]);
+
+                    if($produk){
+                        DetailProduk::where('produk_id', $produk->id)->whereIn('ukuran',$target)->update([
+                            'harga' => $request->get('harga_seri')
+                        ]);
+                    }
+                }
+
+                $harga_produk = $request->get('harga_produk');
+                $ukuran = $request->get('ukuran_harga');
+                if($ukuran){
+                    foreach ($ukuran as $key => $value) {
+                        DetailWarehouse::where('warehouse_id', $warehouse->id)->where('ukuran',$value)->update([
+                            'harga' => $harga_produk[$key]
+                        ]);
+
+                        if($produk){
+                            DetailProduk::where('produk_id', $produk->id)->where('ukuran',$value)->update([
+                                'harga' => $harga_produk[$key]
+                            ]);
+                        }
+                    }
+                }
+
 
                 $notif = new Notification();
                 $notif->description = "gudang telah dikirim ke ecommerce, silahkan di cek";
@@ -142,6 +192,7 @@ class WarehouseController extends Controller
                 return redirect()->route('warehouse.warehouse.index')->with('success', 'Data gudang berhasil diupdate');
             } catch (\Exception $th) {
                 //throw $th;
+                dd($th);
                 DB::rollBack();
             }
         }

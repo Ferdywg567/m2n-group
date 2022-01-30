@@ -22,6 +22,7 @@ class CreateDetailTransaksisTable extends Migration
             $table->bigInteger('promo_id')->unsigned()->index()->nullable();
             $table->foreign('promo_id')->references('id')->on('promos')->onDelete('cascade');
             $table->integer('jumlah');
+            $table->string('ukuran')->nullable();
             $table->double('harga');
             $table->double('total_harga');
             $table->timestamps();

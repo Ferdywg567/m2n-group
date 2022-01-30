@@ -69,7 +69,12 @@ class TransaksiController extends Controller
 
                     if ($produk) {
                         $totalproduk += $value['qty'];
-                        $jumproduk = DetailProduk::where('produk_id', $produk->id)->count();
+                        if($value['ukuran'] == 'seri'){
+                            $ukuran = ['S','M','L'];
+                        }else{
+                            $ukuran = [$value['ukuran']];
+                        }
+                        $jumproduk = DetailProduk::where('produk_id', $produk->id)->whereIn('ukuran',$ukuran)->count();
                         $produk->stok = $produk->stok - ($jumproduk * $value['qty']);
                         foreach ($produk->detail_produk as $key => $row) {
                             $detailProduk = DetailProduk::findOrFail($row->id);
@@ -93,10 +98,16 @@ class TransaksiController extends Controller
 
 
                 foreach ($detail as $key => $value) {
+                    if($value['ukuran'] == 'seri'){
+                        $ukuran = "S,M,L";
+                    }else{
+                        $ukuran = $value['ukuran'];
+                    }
                     $detail_trans = new DetailTransaksi();
                     $produk = Produk::where('kode_produk', $value['kode'])->first();
                     $detail_trans->produk_id = $produk->id;
                     $detail_trans->transaksi_id = $transaksi->id;
+                    $detail_trans->ukuran = $ukuran;
                     $detail_trans->jumlah = $value['qty'];
                     $detail_trans->harga = $value['harga'];
                     $detail_trans->total_harga = $value['subtotal'];
@@ -183,34 +194,81 @@ class TransaksiController extends Controller
     public function getDataProduk(Request $request)
     {
         if ($request->ajax()) {
-            $produk = Produk::with(['warehouse' => function ($q) {
-                $q->with(['finishing' => function ($q) {
-                    $q->with(['cuci' => function ($q) {
-                        $q->with(['jahit' => function ($q) {
-                            $q->with(['potong' => function ($q) {
-                                $q->with(['bahan'  => function ($q) {
-                                    $q->with(['detail_sub' => function ($q) {
-                                        $q->with(['sub_kategori' => function ($q) {
-                                            $q->with('kategori');
+            $status = $request->get('status');
+            $target = ["S","L","M"];
+            if($status == 'produk'){
+                $produk = Produk::with('detail_produk')->where('id', $request->get('id'))->first();
+
+                $detail = $produk->detail_produk->pluck('ukuran')->toArray();
+                $seri = false;
+                $harga_seri = 0;
+                $arr = [];
+                if(in_array('S',$detail) && in_array('M',$detail) && in_array('L', $detail)){
+                    $seri = true;
+                    $harga_seri = $produk->detail_produk->whereIn('ukuran', $target)->avg('harga');
+                    $detail = $produk->detail_produk->whereNotIn('ukuran', $target);
+                    if($detail->isNotEmpty()){
+                        foreach ($detail as $key => $value) {
+                           array_push($arr, $value);
+                        }
+                    }
+                }else{
+                    $detail = $produk->detail_produk;
+                    if($detail->isNotEmpty()){
+                        foreach ($detail as $key => $value) {
+                           array_push($arr, $value);
+                        }
+                    }
+                }
+
+                return response()->json([
+                    'data' => $arr,
+                    'seri' => $seri,
+                    'harga_seri' => $harga_seri,
+                    'status' => true
+                ]);
+            }else{
+                $produk = Produk::with(['warehouse' => function ($q) {
+                    $q->with(['finishing' => function ($q) {
+                        $q->with(['cuci' => function ($q) {
+                            $q->with(['jahit' => function ($q) {
+                                $q->with(['potong' => function ($q) {
+                                    $q->with(['bahan'  => function ($q) {
+                                        $q->with(['detail_sub' => function ($q) {
+                                            $q->with(['sub_kategori' => function ($q) {
+                                                $q->with('kategori');
+                                            }]);
                                         }]);
                                     }]);
                                 }]);
                             }]);
                         }]);
                     }]);
-                }]);
-            }, 'detail_produk'])->where('id', $request->get('id'))->first();
-            $namaproduk = $produk->warehouse->finishing->cuci->jahit->potong->bahan->nama_bahan;
-            $res =  $this->store_detail($produk->kode_produk, $namaproduk, $produk->harga);
-            return response()->json([
-                'data' => $produk,
-                'total_harga' => $res['total_harga'],
-                'status' => true
-            ]);
+                }, 'detail_produk'])->where('id', $request->get('id'))->first();
+                $ukuran = $request->get('ukuran');
+                if($ukuran == 'seri'){
+                    $harga = DetailProduk::whereIn('ukuran',$target)->where('produk_id',$produk->id)->avg('harga');
+                    $resukuran = 'S,M,L';
+                }else{
+                    $harga = DetailProduk::where('ukuran',$ukuran)->where('produk_id',$produk->id)->avg('harga');
+                    $resukuran = $ukuran;
+                }
+                $namaproduk = $produk->warehouse->finishing->cuci->jahit->potong->bahan->nama_bahan;
+                $res =  $this->store_detail($produk->kode_produk, $namaproduk, $harga, $ukuran);
+                return response()->json([
+                    'data' => $produk,
+                    'harga' => $harga,
+                    'total_harga' => $res['total_harga'],
+                    'status' => true,
+                    'ukuran' => $resukuran
+                ]);
+            }
+
+
         }
     }
 
-    public function store_detail($kode, $nama, $harga)
+    public function store_detail($kode, $nama, $harga, $ukuran)
     {
         $transaksi = session('transaksi');
         $total = 0;
@@ -226,7 +284,7 @@ class TransaksiController extends Controller
 
             foreach ($datadetail as $key => $value) {
                 $total = $total + $value["subtotal"];
-                if ($value['kode'] == $kode) {
+                if ($value['kode'] == $kode && $value['ukuran'] == $ukuran) {
                     $cek = true;
                     $value['qty'] = 1 + $value['qty'];
                     $value['subtotal'] = $value['qty'] * $value['harga'];
@@ -244,6 +302,7 @@ class TransaksiController extends Controller
                     'harga' => $harga,
                     'qty' => 1,
                     'subtotal' => $subtotal,
+                    'ukuran' => $ukuran
                 ];
                 $totalqty += 1;
                 array_push($arr, $data);
@@ -262,6 +321,7 @@ class TransaksiController extends Controller
                 'harga' => $harga,
                 'qty' => 1,
                 'subtotal' => $subtotal,
+                'ukuran' => $ukuran
             ];
             $totalqty += 1;
             $total = $total + $subtotal;
@@ -295,9 +355,17 @@ class TransaksiController extends Controller
                 $no = 1;
                 foreach ($datadetail as $row) {
                     $sub = array();
+
+                    if($row['ukuran'] == 'seri'){
+                        $ukuran = 'S,M,L';
+                    }else{
+                        $ukuran = $row['ukuran'];
+                    }
+
                     $sub["urut"] = $row['urut'];
                     $sub["kode"] = $row['kode'];
                     $sub["nama"] = $row['nama'];
+                    $sub["ukuran"] =$ukuran;
                     $sub["harga"] = $row['harga'];
                     $sub["qty"] = $row['qty'];
                     $sub["subtotal"] = $row['subtotal'];
@@ -369,7 +437,7 @@ class TransaksiController extends Controller
         $pdf = PDF::loadView('ecommerce.offline.transaksi.pdf', ['transaksi' => $transaksi]);
         $pdf->setPaper($customPaper);
         return $pdf->stream('transaksi-offline.pdf', array("Attachment" => 0));
-        
+
     }
 
     public function update_detail_barang(Request $request)

@@ -77,7 +77,7 @@
 
 
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="siap_jual">Produk Siap Jual</label>
                                             <div class="input-group mb-2">
@@ -90,24 +90,51 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                </div>
+
+                                <div class="row">
+                                    @if ($seri)
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="harga_produk">Harga Produk</label>
+                                            <label for="harga_seri">Harga Produk (S,M,L)</label>
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Rp.</div>
                                                 </div>
-                                                <input type="number" class="form-control" required id="harga_produk"
-                                                    value="{{$warehouse->harga_produk}}" name="harga_produk">
+                                                <input type="number" class="form-control" required id="harga_seri"
+                                                    value="{{$harga_seri}}" name="harga_seri">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">/seri</div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    @endif
+
+                                    @forelse ($detail as $item)
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <input type="hidden" name="ukuran_harga[]" value="{{$item->ukuran}}">
+                                            <label for="harga_produk">Harga Produk ({{$item->ukuran}})</label>
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Rp.</div>
+                                                </div>
+                                                <input type="number" class="form-control" required id="harga_produk"
+                                                    value="{{$item->harga}}" name="harga_produk[]">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">/seri</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @if ($loop->iteration % 6 ==0)
+                                    </div><div class="row">
+                                    @endif
+                                    @empty
+                                    @endforelse
                                 </div>
-
-
 
                                 <div class="row" id="ukuran">
                                     <div class="col-md-12">

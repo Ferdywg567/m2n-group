@@ -19,6 +19,7 @@ class CreateDetailWarehousesTable extends Migration
             $table->foreign('warehouse_id')->references('id')->on('warehouses')->onDelete('cascade');
             $table->string('ukuran');
             $table->integer('jumlah');
+            $table->double('harga')->default(0);
             $table->timestamps();
         });
     }
