@@ -104,6 +104,7 @@ class KeranjangController extends Controller
                         'total' => $total
                     ]);
                 } catch (\Exception $th) {
+                    return response()->json($th);
                     DB::rollBack();
                     //throw $th;
                 }
