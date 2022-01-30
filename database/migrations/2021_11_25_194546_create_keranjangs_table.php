@@ -23,6 +23,7 @@ class CreateKeranjangsTable extends Migration
             $table->double('harga');
             $table->double('jumlah');
             $table->double('subtotal');
+            $table->string('ukuran')->nullable();
             $table->timestamps();
         });
     }
