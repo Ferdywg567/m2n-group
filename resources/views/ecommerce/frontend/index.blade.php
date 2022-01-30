@@ -418,7 +418,7 @@
                         </div>
                         <div class="product-content-wrap-2 text-left ml-2">
 
-                            <h3><a href="{{route('frontend.product.show',[$item->id])}}">Kaos Hitam Polos</a></h3>
+                            <h3><a href="{{route('frontend.product.show',[$item->id])}}">{{$item->nama_produk}}</a></h3>
                             <div class="product-price-2">
                                 {{-- @if ($item->promo_id == null)
                                 <span class="new-price">@rupiah($item->harga)</span>
@@ -448,7 +448,7 @@
                             </div>
                         </div>
                         <div class="product-content-wrap-2 product-content-position text-left">
-                            <h3><a href="{{route('frontend.product.show',[$item->id])}}">Kaos Hitam Polos</a></h3>
+                            <h3><a href="{{route('frontend.product.show',[$item->id])}}">{{$item->nama_produk}}</a></h3>
                             <div class="product-price-2">
                                 {{-- @if ($item->promo_id == null)
                                 <span class="new-price">@rupiah($item->harga)</span>
