@@ -22,6 +22,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Ecommerce\Admin', 'middleware
     });
     Route::group(['prefix' => 'transaksi', 'as' => 'transaksi.'], function () {
         Route::get('/download/{id}','TransaksiController@download')->name('download');
+        Route::get('/get_alamat','TransaksiController@getAlamat')->name('get_alamat');
     });
 
     Route::resource('dashboard', 'DashboardController');

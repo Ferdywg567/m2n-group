@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\NotificationEcommerce;
 use App\DetailProduk;
 use App\Produk;
+use App\Alamat;
 use Illuminate\Http\Request;
 use App\Transaksi;
 
@@ -81,10 +82,18 @@ class TransaksiController extends Controller
                         $transaksi->save();
 
                         foreach ($transaksi->detail_transaksi as $key => $value) {
+
+                            if($value->ukuran == 'S,M,L'){
+                                $ukuran = ['S','M','L'];
+                            }else{
+                                $ukuran = $value->ukuran;
+                            }
+
                             $produk = Produk::findOrFail($value->produk_id);
-                            $jumproduk = DetailProduk::where('produk_id', $produk->id)->count();
+                            $jumproduk = DetailProduk::where('produk_id', $produk->id)->whereIn('ukuran', $ukuran)->count();
                             $produk->stok = $produk->stok - ($jumproduk * $value->jumlah);
-                            foreach ($produk->detail_produk as $key => $row) {
+                            $detailpro = DetailProduk::where('produk_id', $produk->id)->whereIn('ukuran',$ukuran)->get();
+                            foreach ($detailpro as $key => $row) {
                                 $detailProduk = DetailProduk::findOrFail($row->id);
                                 $detailProduk->jumlah = $detailProduk->jumlah - $value->jumlah;
                                 $detailProduk->save();
@@ -174,6 +183,27 @@ class TransaksiController extends Controller
         } else {
             // Error
             exit('Requested file does not exist on our server!');
+        }
+    }
+
+    public function getAlamat(Request $request){
+        if($request->ajax()){
+            $id = $request->get('id');
+            $transaksi = Transaksi::where('id',$id)->first();
+
+            if($transaksi){
+                $alamat = Alamat::findOrFail($transaksi->alamat_id);
+
+                return response()->json([
+                    'status' => true,
+                    'data' => $alamat
+                ]);
+            }else{
+                return response()->json([
+                    'status' => false,
+
+                ]);
+            }
         }
     }
 }

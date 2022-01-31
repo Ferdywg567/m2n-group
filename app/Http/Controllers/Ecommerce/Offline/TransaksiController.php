@@ -75,8 +75,9 @@ class TransaksiController extends Controller
                             $ukuran = [$value['ukuran']];
                         }
                         $jumproduk = DetailProduk::where('produk_id', $produk->id)->whereIn('ukuran',$ukuran)->count();
+                        $detailpro = DetailProduk::where('produk_id', $produk->id)->whereIn('ukuran',$ukuran)->get();
                         $produk->stok = $produk->stok - ($jumproduk * $value['qty']);
-                        foreach ($produk->detail_produk as $key => $row) {
+                        foreach ($detailpro as $key => $row) {
                             $detailProduk = DetailProduk::findOrFail($row->id);
                             $detailProduk->jumlah = $detailProduk->jumlah - $value['qty'];
                             $detailProduk->save();
