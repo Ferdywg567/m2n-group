@@ -86,7 +86,7 @@ class TransaksiController extends Controller
                             if($value->ukuran == 'S,M,L'){
                                 $ukuran = ['S','M','L'];
                             }else{
-                                $ukuran = $value->ukuran;
+                                $ukuran = [$value->ukuran];
                             }
 
                             $produk = Produk::findOrFail($value->produk_id);
