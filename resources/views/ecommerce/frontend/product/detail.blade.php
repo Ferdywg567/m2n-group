@@ -188,9 +188,9 @@
                         @endif --}}
 
                         @if ($produk->detail_produk->min('harga') == $produk->detail_produk->max('harga'))
-                        <span class="new-price ml-2">{{\AppHelper::instance()->rupiah($produk->detail_produk->max('harga'))}}/pcs</span>
+                        <span class="new-price ml-2 hargaproduk">{{\AppHelper::instance()->rupiah($produk->detail_produk->max('harga'))}}/pcs</span>
                       @else
-                        <span class="new-price ml-2">{{\AppHelper::instance()->rupiah($produk->detail_produk->min('harga'))}} - {{\AppHelper::instance()->rupiah($produk->detail_produk->max('harga'))}}/pcs</span>
+                        <span class="new-price ml-2 hargaproduk">{{\AppHelper::instance()->rupiah($produk->detail_produk->min('harga'))}} - {{\AppHelper::instance()->rupiah($produk->detail_produk->max('harga'))}}/pcs</span>
                       @endif
 
                     </div>
@@ -566,6 +566,25 @@
             slidesToShow: 1,
             adaptiveHeight: true
         });
+
+        $('#ukuran').on('change',function(){
+            var idproduk = "{{$produk->id}}"
+            var ukuran = $(this).find(':selected').val()
+
+            $.ajax({
+                url:"{{route('frontend.product.harga')}}",
+                method:"GET",
+                data:{
+                    id:idproduk,
+                    ukuran:ukuran
+                },success:function(response){
+                    console.log(response);
+                    if(response.status){
+                        $('.hargaproduk').text(response.data)
+                    }
+                }
+            })
+        })
 
         @if(auth()->check())
         ajax()

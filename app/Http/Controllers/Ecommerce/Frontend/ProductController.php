@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Ecommerce\Frontend;
 
+use App\DetailProduk;
+use App\Helpers\AppHelper;
 use App\Http\Controllers\Controller;
 use App\Produk;
 use App\SubKategori;
@@ -159,5 +161,44 @@ class ProductController extends Controller
         $cari = $request->get('cari');
         $produk = Produk::where('sub_kategori', 'like', '%' . $cari . '%')->orwhere('kategori', 'like', '%' . $cari . '%')->orwhere('detail_sub_kategori', 'like', '%' . $cari . '%')->orwhere('nama_produk', 'like', '%' . $cari . '%')->get();
         return view('ecommerce.frontend.product.index', ['produk' => $produk, 'data' => $cari]);
+    }
+
+    public function getHarga(Request $request){
+        if($request->ajax()){
+            $id = $request->get('id');
+            $ukuran = $request->get('ukuran');
+            if(!empty($ukuran)){
+
+                if($ukuran=='S,M,L'){
+                    $res = ['S','M','L'];
+                }else{
+                    $res = [$ukuran];
+                }
+
+                $detail = DetailProduk::where('produk_id',$id)->whereIn('ukuran', $res)->avg('harga');
+
+                $harga = AppHelper::instance()->rupiah($detail);
+                $harga = $harga.'/pcs';
+
+            }else{
+                $min = DetailProduk::where('produk_id',$id)->min('harga');
+                $max = DetailProduk::where('produk_id',$id)->max('harga');
+
+                if($min == $max){
+                    $harga = AppHelper::instance()->rupiah($min);
+                }else{
+                    $harga =AppHelper::instance()->rupiah($min).' - '.AppHelper::instance()->rupiah($max);
+                }
+
+                $harga = $harga.'/pcs';
+            }
+
+            return response()->json([
+                'status' => true,
+                'data' => $harga
+            ]);
+
+
+        }
     }
 }
