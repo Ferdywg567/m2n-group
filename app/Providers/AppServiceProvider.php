@@ -33,6 +33,6 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('data_kategori', function () {
             return SubKategori::all();
         });
-      
+
     }
 }

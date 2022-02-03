@@ -33,7 +33,9 @@ class AppHelper
 
     public function rupiah($data)
     {
-        return "Rp. " . number_format($data, 2, ',', '.');
+        $format = "Rp. " . number_format($data, 2, ',', '.');
+        $format = str_replace(',00','',$format);
+        return $format;
     }
 
     public function nama_header($nama)
@@ -153,7 +155,7 @@ class AppHelper
                 $ukuran = $detail->toArray();
             }
         }
-      
+
         return $ukuran;
     }
 }

@@ -98,10 +98,12 @@ class KeranjangController extends Controller
                         $keranjang->save();
                     }
                     $total = Keranjang::where('user_id', $iduser)->count();
+                    $data = '<div class="alert alert-success" role="alert">Produk berhasil ditambahkan</div>';
                     DB::commit();
                     return response()->json([
                         'status' => true,
-                        'total' => $total
+                        'total' => $total,
+                        'data' => $data
                     ]);
                 } catch (\Exception $th) {
                     return response()->json($th);

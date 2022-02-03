@@ -159,6 +159,9 @@
               });
 
 
+              $('#nama_bahan').on('change blur keyup', function(){
+                $(this).css('textTransform', 'capitalize');
+              })
      })
 </script>
 @endpush

@@ -101,6 +101,9 @@
         width: 10%;
     }
 
+    .gray{
+        color: #cccccc !important;
+    }
 </style>
 <div class="breadcrumb-area bg-white" style="margin-top: -2%">
     <div class="container">
@@ -152,6 +155,12 @@
                                 @for ($i=0;$i<\AppHelper::instance()->avg_ulasan($produk->id);$i++)
                                     <i class="icon_star"></i>
                                     @endfor
+                                    @if (\AppHelper::instance()->avg_ulasan($produk->id) == 0)
+                                        <i class="icon_star gray"></i>
+                                        <i class="icon_star gray"></i>
+                                        <i class="icon_star gray"></i>
+                                        <i class="icon_star gray"></i>
+                                    @endif
 
                                     {{-- <i class="icon_star"></i>
                                     <i class="icon_star"></i>
@@ -179,9 +188,9 @@
                         @endif --}}
 
                         @if ($produk->detail_produk->min('harga') == $produk->detail_produk->max('harga'))
-                        <span class="new-price ml-2">@rupiah($produk->detail_produk->max('harga'))/pcs</span>
+                        <span class="new-price ml-2">{{\AppHelper::instance()->rupiah($produk->detail_produk->max('harga'))}}/pcs</span>
                       @else
-                        <span class="new-price ml-2">@rupiah($produk->detail_produk->min('harga')) - @rupiah($produk->detail_produk->max('harga'))/pcs</span>
+                        <span class="new-price ml-2">{{\AppHelper::instance()->rupiah($produk->detail_produk->min('harga'))}} - {{\AppHelper::instance()->rupiah($produk->detail_produk->max('harga'))}}/pcs</span>
                       @endif
 
                     </div>
@@ -430,12 +439,17 @@
 
                             <h3><a href="{{route('frontend.product.show',[$item->id])}}">Kaos Hitam Polos</a></h3>
                             <div class="product-price-2">
-                                @if ($item->promo_id == null)
+                                {{-- @if ($item->promo_id == null)
                                 <span class="new-price">@rupiah($item->harga)</span>
                                 @else
-                                <span class="new-price">@rupiah($item->harga_promo)</span>
-                                <span class="old-price">@rupiah($item->harga)</span>
-                                @endif
+                                <span class="new-price">{{\AppHelper::instance()->rupiah($item->harga_promo)}}</span>
+                                <span class="old-price">{{\AppHelper::instance()->rupiah($item->harga)}}</span>
+                                @endif --}}
+                                @if ($item->detail_produk->min('harga') == $item->detail_produk->max('harga'))
+                                <span class="new-price">{{\AppHelper::instance()->rupiah($item->detail_produk->max('harga'))}}/pcs</span>
+                              @else
+                                <span class="new-price">{{\AppHelper::instance()->rupiah($item->detail_produk->min('harga'))}} - {{\AppHelper::instance()->rupiah($item->detail_produk->max('harga'))}}/pcs</span>
+                              @endif
                             </div>
                             <div class="product-rating-wrap pb-15">
                                 <div class="product-rating">
@@ -455,12 +469,17 @@
                         <div class="product-content-wrap-2 product-content-position text-left">
                             <h3><a href="{{route('frontend.product.show',[$item->id])}}">Kaos Hitam Polos</a></h3>
                             <div class="product-price-2">
-                                @if ($item->promo_id == null)
+                                {{-- @if ($item->promo_id == null)
                                 <span class="new-price">@rupiah($item->harga)</span>
                                 @else
-                                <span class="new-price">@rupiah($item->harga_promo)</span>
-                                <span class="old-price">@rupiah($item->harga)</span>
-                                @endif
+                                <span class="new-price">{{\AppHelper::instance()->rupiah($item->harga_promo)}}</span>
+                                <span class="old-price">{{\AppHelper::instance()->rupiah($item->harga)}}</span>
+                                @endif --}}
+                                @if ($item->detail_produk->min('harga') == $item->detail_produk->max('harga'))
+                                <span class="new-price">{{\AppHelper::instance()->rupiah($item->detail_produk->max('harga'))}}/pcs</span>
+                              @else
+                                <span class="new-price">{{\AppHelper::instance()->rupiah($item->detail_produk->min('harga'))}} - {{\AppHelper::instance()->rupiah($item->detail_produk->max('harga'))}}/pcs</span>
+                              @endif
                             </div>
                             <div class="product-rating-wrap">
                                 <div class="product-rating">
@@ -570,7 +589,10 @@
                             getDataSidebar()
                         }, 1500)
                         $('.totalcart').text(response.total)
-                        $('#data-alert').empty()
+                        $('#data-alert').html(response.data)
+                        setTimeout(function(){
+                            $('#data-alert').empty()
+                        },2000)
                     } else {
                         $('#data-alert').html(response.data)
                     }
