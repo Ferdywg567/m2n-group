@@ -578,7 +578,7 @@
                     id:idproduk,
                     ukuran:ukuran
                 },success:function(response){
-                    console.log(response);
+                    // console.log(response);
                     if(response.status){
                         $('.hargaproduk').text(response.data)
                     }
