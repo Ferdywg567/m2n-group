@@ -81,7 +81,8 @@ class KeranjangController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'kode_produk' => 'required'
+            'kode_produk' => 'required',
+            'ukuran' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -95,29 +96,56 @@ class KeranjangController extends Controller
                 if ($produk) {
                     //cek keranjang
                     $keranjang = Keranjang::where('user_id', $userid)->where('produk_id', $produk->id)->first();
+                    $ukuran = $request->get('ukuran');
 
-                    if ($keranjang) {
-                        $keranjang->jumlah = $keranjang->jumlah + 1;
-                        $keranjang->subtotal = $keranjang->jumlah * $keranjang->harga;
-                        $keranjang->save();
+                    if ($ukuran == 'S,M,L') {
+                        $resukuran = ['S', 'M', 'L'];
                     } else {
-                        $keranjang = new Keranjang();
-                        $keranjang->user_id = $userid;
-                        $keranjang->produk_id = $produk->id;
-                        $keranjang->harga = $produk->harga_promo;
-                        $keranjang->check = 1;
-                        $keranjang->jumlah = 1;
-                        $keranjang->subtotal = $keranjang->jumlah * $keranjang->harga;
-                        $keranjang->save();
+                        $resukuran = [$ukuran];
                     }
-                }
+                    $harga = $produk->detail_produk->whereIn('ukuran', $resukuran)->avg('harga');
 
-                DB::commit();
-                return response()->json([
-                    'status' => true,
-                    'message' => 'saved',
-                    'code' => Response::HTTP_OK
-                ]);
+
+                    if ($harga > 0) {
+                        if ($keranjang) {
+                            $keranjang->jumlah = $keranjang->jumlah + 1;
+                            $keranjang->subtotal = $keranjang->jumlah * $keranjang->harga;
+                            $keranjang->save();
+                        } else {
+                            $keranjang = new Keranjang();
+                            $keranjang->user_id = $userid;
+                            $keranjang->produk_id = $produk->id;
+                            $keranjang->harga = $harga;
+                            $keranjang->ukuran = $request->get('ukuran');
+                            $keranjang->check = 1;
+                            $keranjang->jumlah = 1;
+                            $keranjang->subtotal = $keranjang->jumlah * $keranjang->harga;
+                            $keranjang->save();
+                        }
+
+                        DB::commit();
+                        return response()->json([
+                            'status' => true,
+                            'message' => 'saved',
+                            'code' => Response::HTTP_OK
+                        ]);
+                    } else {
+                        DB::commit();
+                        return response()->json([
+                            'status' => false,
+                            'message' => 'not found',
+                            'code' => Response::HTTP_OK
+                        ]);
+                    }
+                } else {
+
+                    DB::commit();
+                    return response()->json([
+                        'status' => false,
+                        'message' => 'not found',
+                        'code' => Response::HTTP_OK
+                    ]);
+                }
             } catch (\Exception $th) {
                 //throw $th;
                 DB::rollBack();
@@ -304,7 +332,7 @@ class KeranjangController extends Controller
 
                 try {
 
-                    if($produk){
+                    if ($produk) {
                         if ($request->get('check') == 1) {
                             $keranjang = Keranjang::where('user_id', $userid)->where('produk_id', $produk->id)->update([
                                 'check' => 1
