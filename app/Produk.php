@@ -45,4 +45,30 @@ class Produk extends Model
     {
         return $this->hasMany('App\Ulasan');
     }
+
+    public function get_ukuran($produk)
+    {
+        $target = ["S", "L", "M"];
+        $detail = $produk->detail_produk->pluck('ukuran')->toArray();
+        $harga_seri = 0;
+        $arrdetail = [];
+        if (in_array('S', $detail) && in_array('M', $detail) && in_array('L', $detail)) {
+            $harga_seri = $produk->detail_produk->whereIn('ukuran', $target)->avg('harga');
+            $resdetail = $produk->detail_produk->whereNotIn('ukuran', $target);
+            $res = [
+                ['ukuran' => 'S,M,L', 'harga' => $harga_seri]
+            ];
+            foreach ($resdetail as $key => $value) {
+                $y['ukuran'] = $value->ukuran;
+                $y['harga'] = $value->harga;
+                array_push($res, $y);
+            }
+            array_push($arrdetail, $res);
+        } else {
+            $resdetail = $produk->detail_produk;
+            array_push($arrdetail, $resdetail);
+        }
+
+        return $arrdetail;
+    }
 }

@@ -24,23 +24,23 @@ class ProdukController extends Controller
             $userid = Auth::guard('api')->user()->id;
             $produk = Produk::with(['ulasan' => function ($q) {
                 $q->with(['user' => function ($q) {
-                    $userpath = asset('uploads/images/user/').'/';
+                    $userpath = asset('uploads/images/user/') . '/';
                     $nullpath = asset('assets/img/avatar/avatar-3.png');
                     return $q->select('name', DB::raw('(CASE WHEN foto IS NULL THEN "' . $nullpath . '" ELSE CONCAT("' . $userpath . '",foto) END) foto'), 'id')->get();
                 }]);
             }])->withCount(['favorit' => function ($q) use ($userid) {
                 return  $q->where('user_id', $userid);
-            }])->get();
+            }])->get()->makeHidden(['harga', 'harga_promo', 'detail_produk']);
         } else {
-            $produk = Produk::with(['ulasan'=> function ($q) {
+            $produk = Produk::with(['ulasan' => function ($q) {
                 $q->with(['user' => function ($q) {
-                    $userpath = asset('uploads/images/user/').'/';
+                    $userpath = asset('uploads/images/user/') . '/';
                     $nullpath = asset('assets/img/avatar/avatar-3.png');
                     return $q->select('name', DB::raw('(CASE WHEN foto IS NULL THEN "' . $nullpath . '" ELSE CONCAT("' . $userpath . '",foto) END) foto'), 'id')->get();
                 }]);
-            }])->withCount(['favorit' => function ($q)  {
+            }])->withCount(['favorit' => function ($q) {
                 return  $q->where('user_id', null);
-            }])->get();
+            }])->get()->makeHidden(['harga', 'harga_promo', 'detail_produk']);
         }
 
         $arr = [];
@@ -57,9 +57,9 @@ class ProdukController extends Controller
             foreach ($value->ulasan as $key => $ulasan) {
                 $jumlah += $ulasan->rating;
             }
-            if(count($value->ulasan)>0){
-                $x['summary_ulasan'] = $jumlah/count($value->ulasan);
-            }else{
+            if (count($value->ulasan) > 0) {
+                $x['summary_ulasan'] = $jumlah / count($value->ulasan);
+            } else {
                 $x['summary_ulasan'] = 0;
             }
 
@@ -79,7 +79,8 @@ class ProdukController extends Controller
             $x['gambar'] = $gambar;
             $x['jumlah_ulasan'] = AppHelper::instance()->jumlah_ulasan($value->id);
             $x['jumlah_pesanan'] = AppHelper::instance()->jumlah_pesanan($value->id);
-
+            $x['harga_min'] = $value->detail_produk->min('harga');
+            $x['harga_max'] = $value->detail_produk->max('harga');
             $data = array_merge($x, $cv);
             array_push($arr, $data);
         }
@@ -125,23 +126,23 @@ class ProdukController extends Controller
             $userid = Auth::guard('api')->user()->id;
             $produk = Produk::where('kode_produk', $id)->with(['ulasan' => function ($q) {
                 $q->with(['user' => function ($q) {
-                    $userpath = asset('uploads/images/user/').'/';
+                    $userpath = asset('uploads/images/user/') . '/';
                     $nullpath = asset('assets/img/avatar/avatar-3.png');
                     return $q->select('name', DB::raw('(CASE WHEN foto IS NULL THEN "' . $nullpath . '" ELSE CONCAT("' . $userpath . '",foto) END) foto'), 'id')->get();
                 }]);
             }])->withCount(['favorit' => function ($q) use ($userid) {
                 return  $q->where('user_id', $userid);
-            }])->firstOrFail();
+            }])->firstOrFail()->makeHidden(['harga', 'harga_promo', 'detail_produk']);
         } else {
             $produk = Produk::where('kode_produk', $id)->with(['ulasan' => function ($q) {
                 $q->with(['user' => function ($q) {
-                    $userpath = asset('uploads/images/user/').'/';
+                    $userpath = asset('uploads/images/user/') . '/';
                     $nullpath = asset('assets/img/avatar/avatar-3.png');
                     return $q->select('name', DB::raw('(CASE WHEN foto IS NULL THEN "' . $nullpath . '" ELSE CONCAT("' . $userpath . '",foto) END) foto'), 'id')->get();
                 }]);
-            }])->withCount(['favorit' => function ($q)  {
+            }])->withCount(['favorit' => function ($q) {
                 return  $q->where('user_id', null);
-            }])->firstOrFail();
+            }])->firstOrFail()->makeHidden(['harga', 'harga_promo', 'detail_produk']);
         }
 
         $arr = [];
@@ -156,18 +157,19 @@ class ProdukController extends Controller
         foreach ($produk->ulasan as $key => $ulasan) {
             $jumlah += $ulasan->rating;
         }
-        if(count($produk->ulasan)>0){
-            $hasil_ulasan = $jumlah/count($produk->ulasan);
-        }else{
+        if (count($produk->ulasan) > 0) {
+            $hasil_ulasan = $jumlah / count($produk->ulasan);
+        } else {
             $hasil_ulasan = 0;
         }
-
-
+        $arrdetail = $produk->get_ukuran($produk);
+        $produk->detail_produk_ukuran = $arrdetail;
         $produk->summary_ulasan = $hasil_ulasan;
         $produk->detail_gambar = $arr;
         $produk->jumlah_ulasan = AppHelper::instance()->jumlah_ulasan($produk->id);
         $produk->jumlah_pesanan = AppHelper::instance()->jumlah_pesanan($produk->id);
-
+        $produk->harga_min = $produk->detail_produk->min('harga');
+        $produk->harga_max = $produk->detail_produk->max('harga');
         return response()->json([
             'status' => true,
             'data' => $produk,
