@@ -95,8 +95,9 @@ class KeranjangController extends Controller
             try {
                 if ($produk) {
                     //cek keranjang
-                    $keranjang = Keranjang::where('user_id', $userid)->where('produk_id', $produk->id)->first();
                     $ukuran = $request->get('ukuran');
+                    $keranjang = Keranjang::where('user_id', $userid)->where('produk_id', $produk->id)->where('ukuran', $ukuran)->first();
+
 
                     if ($ukuran == 'S,M,L') {
                         $resukuran = ['S', 'M', 'L'];
