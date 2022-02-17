@@ -329,7 +329,8 @@ class KeranjangController extends Controller
         } else {
             $validator = Validator::make($request->all(), [
                 'check' => 'required|in:1,0',
-                'kode_produk' => 'required'
+                'kode_produk' => 'required',
+                'ukuran' => 'required'
             ]);
 
             if ($validator->fails()) {
@@ -343,11 +344,11 @@ class KeranjangController extends Controller
 
                     if ($produk) {
                         if ($request->get('check') == 1) {
-                            $keranjang = Keranjang::where('user_id', $userid)->where('produk_id', $produk->id)->update([
+                            $keranjang = Keranjang::where('user_id', $userid)->where('produk_id', $produk->id)->where('ukuran', $request->get('ukuran'))->update([
                                 'check' => 1
                             ]);
                         } else {
-                            $keranjang = Keranjang::where('user_id', $userid)->where('produk_id', $produk->id)->update([
+                            $keranjang = Keranjang::where('user_id', $userid)->where('produk_id', $produk->id)->where('ukuran', $request->get('ukuran'))->update([
                                 'check' => 0
                             ]);
                         }
