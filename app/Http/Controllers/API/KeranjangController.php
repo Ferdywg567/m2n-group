@@ -198,14 +198,22 @@ class KeranjangController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'ukuran' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['status' => false, 'message' => $validator->errors()->first(), 'code' => Response::HTTP_OK]);
+        }
+
         $userid = Auth::guard('api')->user()->id;
         DB::beginTransaction();
         try {
             $produk = Produk::where('kode_produk', $id)->first();
             if ($produk) {
-                Keranjang::where('user_id', $userid)->where('produk_id', $produk->id)->delete();
+                Keranjang::where('user_id', $userid)->where('produk_id', $produk->id)->where('ukuran', $request->get('ukuran'))->delete();
             }
 
             DB::commit();
@@ -230,7 +238,8 @@ class KeranjangController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'kode_produk' => 'required',
-            'qty' => 'required|integer'
+            'qty' => 'required|integer',
+            'ukuran' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -244,7 +253,7 @@ class KeranjangController extends Controller
                 if ($produk) {
                     $qty = $request->get('qty');
                     //cek keranjang
-                    $keranjang = Keranjang::where('user_id', $userid)->where('produk_id', $produk->id)->first();
+                    $keranjang = Keranjang::where('user_id', $userid)->where('produk_id', $produk->id)->where('ukuran', $request->get('ukuran'))->first();
 
                     if ($keranjang) {
                         if ($qty > 0) {
@@ -252,7 +261,7 @@ class KeranjangController extends Controller
                             $keranjang->subtotal = $keranjang->jumlah * $keranjang->harga;
                             $keranjang->save();
                         } else {
-                            Keranjang::where('user_id', $userid)->where('produk_id', $produk->id)->delete();
+                            Keranjang::where('user_id', $userid)->where('produk_id', $produk->id)->where('ukuran', $request->get('ukuran'))->delete();
                         }
                     }
                 }
