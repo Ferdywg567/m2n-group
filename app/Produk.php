@@ -33,7 +33,7 @@ class Produk extends Model
 
     public function keranjang()
     {
-        return $this->hasOne('App\Keranjang', 'produk_id','id');
+        return $this->hasMany('App\Keranjang', 'produk_id','id');
     }
 
     public function favorit()
