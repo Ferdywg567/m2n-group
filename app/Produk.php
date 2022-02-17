@@ -66,7 +66,7 @@ class Produk extends Model
             $arrdetail = $res;
         } else {
             $resdetail = $produk->detail_produk;
-            array_push($arrdetail, $resdetail);
+            $arrdetail = $resdetail;
         }
 
         return $arrdetail;
