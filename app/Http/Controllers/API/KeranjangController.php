@@ -30,31 +30,71 @@ class KeranjangController extends Controller
             $q->where('user_id', $userid);
         }])->get();
         $arr = [];
-        foreach ($produk as $key => $value) {
-            $gambar = '';
-            $argambar = [];
-            $detailgambar = DetailProdukImage::where('produk_id', $value->id)->first();
-            if ($detailgambar) {
-                $gambar = asset('uploads/images/produk/' . $detailgambar->filename);
-            }
+        $keranjang = Keranjang::where('user_id', $userid)->get();
 
-            $detailgambarall = DetailProdukImage::where('produk_id', $value->id)->get();
-            if ($detailgambarall->isNotEmpty()) {
-                foreach ($detailgambarall as $key => $row) {
-                    $y['gambar'] = asset('uploads/images/produk/' . $row->filename);
-                    array_push($argambar, $y);
+
+        foreach ($keranjang as $key => $value) {
+            $produk = Produk::whereHas('keranjang', function ($q) use ($userid, $value) {
+                $q->where('user_id', $userid)->where('id', $value->id);
+            })->withCount(['favorit' => function ($q) use ($userid) {
+                $q->where('user_id', $userid);
+            }])->first();
+
+            if ($produk) {
+                $x['keranjang'] = $value;
+                $gambar = '';
+                $argambar = [];
+                $detailgambar = DetailProdukImage::where('produk_id', $produk->id)->first();
+                if ($detailgambar) {
+                    $gambar = asset('uploads/images/produk/' . $detailgambar->filename);
                 }
-                $x['detail_gambar'] = $argambar;
-            } else {
-                $x['detail_gambar'] = [];
+
+                $detailgambarall = DetailProdukImage::where('produk_id', $produk->id)->get();
+                if ($detailgambarall->isNotEmpty()) {
+                    foreach ($detailgambarall as $key => $row) {
+                        $y['gambar'] = asset('uploads/images/produk/' . $row->filename);
+                        array_push($argambar, $y);
+                    }
+                    $x['detail_gambar'] = $argambar;
+                } else {
+                    $x['detail_gambar'] = [];
+                }
+
+                $x['gambar'] = $gambar;
+
+                $cv = json_decode(json_encode($produk), true);
+                $data = array_merge($cv, $x);
+                array_push($arr, $data);
             }
-
-            $cv = json_decode(json_encode($value), true);
-            $x['gambar'] = $gambar;
-
-            $data = array_merge($x, $cv);
-            array_push($arr, $data);
         }
+
+        // foreach ($produk as $key => $value) {
+        //     $gambar = '';
+        //     $argambar = [];
+
+        //     $detailgambar = DetailProdukImage::where('produk_id', $value->id)->first();
+        //     if ($detailgambar) {
+        //         $gambar = asset('uploads/images/produk/' . $detailgambar->filename);
+        //     }
+
+        //     $detailgambarall = DetailProdukImage::where('produk_id', $value->id)->get();
+        //     if ($detailgambarall->isNotEmpty()) {
+        //         foreach ($detailgambarall as $key => $row) {
+        //             $y['gambar'] = asset('uploads/images/produk/' . $row->filename);
+        //             array_push($argambar, $y);
+        //         }
+        //         $x['detail_gambar'] = $argambar;
+        //     } else {
+        //         $x['detail_gambar'] = [];
+        //     }
+
+        //     $cv = json_decode(json_encode($value), true);
+        //     $x['gambar'] = $gambar;
+
+        //     $data = array_merge($x, $cv);
+        //     array_push($arr, $data);
+        // }
+
         return response()->json([
             'status' => true,
             'data' => $arr,
