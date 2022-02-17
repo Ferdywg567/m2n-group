@@ -76,6 +76,9 @@ class ProdukController extends Controller
             }
 
             $cv = json_decode(json_encode($value), true);
+            $getukuran = new Produk();
+            $arrdetail = $getukuran->get_ukuran($value);
+            $x['detail_produk_ukuran'] = $arrdetail;
             $x['gambar'] = $gambar;
             $x['jumlah_ulasan'] = AppHelper::instance()->jumlah_ulasan($value->id);
             $x['jumlah_pesanan'] = AppHelper::instance()->jumlah_pesanan($value->id);

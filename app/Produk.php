@@ -63,7 +63,7 @@ class Produk extends Model
                 $y['harga'] = $value->harga;
                 array_push($res, $y);
             }
-            array_push($arrdetail, $res);
+            $arrdetail = $res;
         } else {
             $resdetail = $produk->detail_produk;
             array_push($arrdetail, $resdetail);
