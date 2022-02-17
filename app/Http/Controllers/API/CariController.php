@@ -45,7 +45,7 @@ class CariController extends Controller
                 }])->get();
             }
 
-        
+
             $arr = [];
             foreach ($produk as $key => $value) {
                 $gambar = '';
@@ -77,7 +77,9 @@ class CariController extends Controller
 
                 $cv = json_decode(json_encode($value), true);
                 $x['gambar'] = $gambar;
-
+                $getukuran = new Produk();
+                $arrdetail = $getukuran->get_ukuran($value);
+                $x['detail_produk_ukuran'] = $arrdetail;
                 $data = array_merge($x, $cv);
                 array_push($arr, $data);
             }
