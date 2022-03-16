@@ -367,7 +367,13 @@ class DashboardController extends Controller
     public function read(Request $request)
     {
         if ($request->ajax()) {
-            $notif = Notification::query()->update(['aktif' => '1']);
+            $user = Auth::user();
+            if ($user->hasRole('production')) {
+                $notif = Notification::where('role', 'production')->update(['aktif' => '1']);
+            } else {
+                $notif = Notification::where('role', 'warehouse')->update(['aktif' => '1']);
+            }
+           
             session()->forget('notification');
             return response()->json(['status' => true]);
         }

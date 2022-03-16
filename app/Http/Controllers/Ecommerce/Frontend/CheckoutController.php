@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\DetailTransaksi;
+use App\Notification;
 use App\Transaksi;
 use App\Keranjang;
 use App\Produk;
@@ -150,6 +151,13 @@ class CheckoutController extends Controller
 
                     Keranjang::where('user_id', $iduser)->where('check', 1)->delete();
                 }
+
+                $notif = new Notification();
+                $notif->description = "Ada transaksi baru ".$transaksi->kode_transaksi;
+                $notif->url = route('ecommerce.transaksi.index');
+                $notif->aktif = 0;
+                $notif->role = 'online';
+                $notif->save();
                 $token = $this->generateRandomString(30);
                 session(['token_checkout' => $token]);
                 session(['kode_transaksi' => $transaksi->kode_transaksi]);

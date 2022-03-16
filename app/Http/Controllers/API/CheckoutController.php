@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Notification;
 use App\Transaksi;
 use App\Keranjang;
 use App\Alamat;
@@ -97,6 +98,13 @@ class CheckoutController extends Controller
                             Keranjang::where('user_id', $userid)->where('check', 1)->delete();
                             $status_akhir = true;
                             $message = 'saved';
+
+                            $notif = new Notification();
+                            $notif->description = "Ada transaksi baru " . $transaksi->kode_transaksi;
+                            $notif->url = route('ecommerce.transaksi.index');
+                            $notif->aktif = 0;
+                            $notif->role = 'online';
+                            $notif->save();
                         } else {
                             $status_akhir = false;
                             $message = 'Keranjang tidak boleh kosong';
@@ -160,6 +168,13 @@ class CheckoutController extends Controller
                                     $resdata->bank->logo = asset('uploads/images/bank/' . $resdata->bank->logo);
                                     $message = 'saved';
                                     $status_akhir = true;
+
+                                    $notif = new Notification();
+                                    $notif->description = "Ada transaksi baru " . $transaksi->kode_transaksi;
+                                    $notif->url = route('ecommerce.transaksi.index');
+                                    $notif->aktif = 0;
+                                    $notif->role = 'online';
+                                    $notif->save();
                                 }else{
                                     $message = 'not found';
                                     $status_akhir = false;

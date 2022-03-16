@@ -25,6 +25,10 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Ecommerce\Admin', 'middleware
         Route::get('/get_alamat','TransaksiController@getAlamat')->name('get_alamat');
     });
 
+    Route::group(['prefix' => 'notifikasi', 'as' => 'notifikasi.'], function () {
+        Route::get('notifikasi-read', 'NotifikasiController@read')->name('notifikasi.read');
+        Route::get('notifikasi-read-klik', 'NotifikasiController@readklik')->name('notifikasi.readklik');
+    });
     Route::resource('dashboard', 'DashboardController');
     Route::resource('produk', 'ProdukController');
     Route::resource('transaksi', 'TransaksiController');
@@ -34,6 +38,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Ecommerce\Admin', 'middleware
     Route::resource('rekapitulasi', 'RekapitulasiController');
     Route::resource('customer', 'CustomerController');
     Route::resource('bank', 'BankController');
+    Route::resource('notifikasi','NotifikasiController');
     // Route::resource('cetak_label', 'CetakLabelController');
 });
 

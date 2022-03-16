@@ -122,28 +122,28 @@
         $(document).ready(function () {
             $('.nicescroll-rails.nicescroll-rails-vr').remove();
             $(".do-nicescrol").niceScroll("{horizrailenabled:false}");
-            // $('#btnnotif').on('click',function () {
-            //     $.ajax({
-            //         url:"{{route('notification')}}",
-            //         method:"GET",
-            //         success:function(data){
-            //             if(data.status){
-            //                 $('#btnnotif').removeClass('beep');
-            //             }
-            //         }
-            //     })
-            // })
+            $('#btnnotif').on('click',function () {
+                $.ajax({
+                    url:"{{route('ecommerce.notifikasi.notifikasi.read')}}",
+                    method:"GET",
+                    success:function(data){
+                        if(data.status){
+                            $('#btnnotif').removeClass('beep');
+                        }
+                    }
+                })
+            })
 
-            // $('.notif-item').on('click', function () {
-            //     var id = $(this).data('id')
-            //     $.ajax({
-            //         url:"{{route('notification.readklik')}}",
-            //         method:"GET",
-            //         data:{
-            //             'id':id
-            //         }
-            //     })
-            //  })
+            $('.notif-item').on('click', function () {
+                var id = $(this).data('id')
+                $.ajax({
+                    url:"{{route('ecommerce.notifikasi.notifikasi.readklik')}}",
+                    method:"GET",
+                    data:{
+                        'id':id
+                    }
+                })
+             })
 
 
         })

@@ -438,7 +438,7 @@ class TransaksiController extends Controller
         $transaksi = Transaksi::findOrFail($id);
         $customPaper = array(0, 0, 198.425, 340.157);
         $pdf = PDF::loadView('ecommerce.offline.transaksi.pdf', ['transaksi' => $transaksi]);
-        $pdf->setPaper($customPaper);
+        $pdf->setPaper('A5','potrait');
         return $pdf->stream('transaksi-offline.pdf', array("Attachment" => 0));
 
     }

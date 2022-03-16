@@ -15,8 +15,8 @@
     }
 </style>
 @php
-$jumlah = \App\Notification::where('role','admin')->where('read',0)->count();
-$notif = \App\Notification::where('role','admin')->orderBy('created_at','DESC')->get();
+$jumlah = \App\Notification::where('role','online')->where('read',0)->count();
+$notif = \App\Notification::where('role','online')->orderBy('created_at','DESC')->get();
 @endphp
 <form class="form-inline mr-auto" action="">
     <ul class="navbar-nav mr-3">
@@ -49,9 +49,16 @@ $notif = \App\Notification::where('role','admin')->orderBy('created_at','DESC')-
             class="nav-link notification notification-toggle mr-2  nav-link-lg"
             aria-expanded="true" id="btnnotif"><img src="{{asset('assets/icon/notification-fill.png')}}" alt=""
                 srcset=""><span class="badge">{{$jumlah}}</span></a>
-        <div class="dropdown-menu dropdown-list dropdown-menu-right ">
-            <div class="dropdown-header">Notifikasi
-
+      <div class="dropdown-menu dropdown-list dropdown-menu-right ">
+            <div class="dropdown-header">
+                <div class="row">
+                    <div class="col-md-6">
+                        Notifikasi
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <a href="{{route('ecommerce.notifikasi.index')}}" class="btn btn-primary">Baca Semua</a>
+                    </div>
+                </div>
             </div>
             <div class="dropdown-list-content dropdown-list-icons" tabindex="3"
                 style="overflow: hidden; outline: none; touch-action: none;">
