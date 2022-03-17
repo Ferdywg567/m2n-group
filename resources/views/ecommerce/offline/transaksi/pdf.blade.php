@@ -135,9 +135,9 @@
                 <tr>
                     <td>
                         <img style="float: left; margin-right:-170px"
-                            src="{{ public_path('/assets/img/M2N Kids Logo.png') }}" width="15%" alt="" srcset="">
+                            src="{{ public_path('/assets/img/Push & Pull Logo.png') }}" width="40%" alt="" srcset="">
                     </td>
-                    <td>
+                    {{-- <td>
                         <p
                             style="text-align: left; font-size:7pt; padding-right:10px; white-space: nowrap; margin-bottom:-5px; margin-top:-4px">
                             Your Stylish Children's
@@ -145,7 +145,7 @@
                         <p style="text-align: left; font-size:7pt; padding-right:10px; white-space: nowrap">Clothing
                             Solution
                         </p>
-                    </td>
+                    </td> --}}
                     <td style="padding-right: 5px;">
                         <p style="margin-bottom:-5px; margin-top:-10px;font-size:5pt;text-align: right;">Hubungi Kami:
                         </p>
@@ -165,7 +165,7 @@
                 </tr>
 
             </table>
-            <table style="margin-top: -10px">
+            <table style="margin-top: -5px">
                 <tr>
                     <td>Blok B Lt. Ground Los E No. 100 - 101</td>
                 </tr>
