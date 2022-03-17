@@ -9,7 +9,7 @@
     <div class="sidebar-brand">
         <img src="{{ asset('/assets/img/M2N 1.png') }}" alt="" srcset="" width="30">
         <a href="#">
-            M2N GROUP</a>
+            M2N GROUP </a>
     </div>
 
     <ul class="sidebar-menu" style="padding: 35px; margin-top:-20px;">
