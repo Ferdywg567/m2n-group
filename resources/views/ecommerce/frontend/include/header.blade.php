@@ -10,7 +10,9 @@ $kategori = \App\SubKategori::select('nama_kategori')->groupBy('nama_kategori')-
                     <div class="col-xl-2 col-lg-2">
                         <div class="logo-img">
                             <a href="{{route('landingpage.index')}}"><img
-                                    src="{{asset('ecommerce/assets/images/logo.png')}}" alt="logo"></a>
+                                    src="{{asset('/assets/img/M2N 1.png')}}" width="40%" alt="logo">
+                                    <p style="display: inline; font-size:12pt; color:black"><b>M2N STORE</b></p>
+                                </a>
                         </div>
                     </div>
 

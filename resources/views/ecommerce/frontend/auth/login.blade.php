@@ -27,10 +27,10 @@ Login
                         <div class="mb-3" style="margin-left: -1%">
                             <div class="row">
                                 <div class="col-md-2">
-                                    <img src="{{asset('assets/img/logo.png')}}" alt="" srcset="" width="60">
+                                    <img src="{{asset('/assets/img/M2N 1.png')}}" alt="" srcset="" width="60">
                                 </div>
-                                <div class="col-md-4">
-                                    <h2 class="mt-2" style="font-weight: bold">GARMENT</h2>
+                                <div class="col-md-10">
+                                    <h4 class="mt-2" style="font-weight: bold">M2N GROUP SYSTEM</h4>
                                 </div>
                             </div>
 
