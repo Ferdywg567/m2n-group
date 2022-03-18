@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Transaksi;
@@ -20,7 +21,7 @@ class TransaksiController extends Controller
         $userid = Auth::guard('api')->user()->id;
         $status = $request->get('status');
         if ($status == 'menunggu konfirmasi') {
-            $transaksi = Transaksi::where('user_id', $userid)->where(function($q){
+            $transaksi = Transaksi::where('user_id', $userid)->where(function ($q) {
                 $q->orwhere('status_bayar', 'belum dibayar')->orwhere('status_bayar', 'sudah di upload');
             })->orderBy('created_at', 'DESC')->get();
         } elseif ($status == 'diproses') {
@@ -30,7 +31,7 @@ class TransaksiController extends Controller
         } elseif ($status == 'sampai tujuan') {
             $transaksi = Transaksi::where('user_id', $userid)->where('status', 'dikirim')->orderBy('created_at', 'DESC')->get();
         } else {
-            $transaksi = Transaksi::where('user_id', $userid)->where(function($q){
+            $transaksi = Transaksi::where('user_id', $userid)->where(function ($q) {
                 $q->orwhere('status', 'telah tiba')->orWhere('status_bayar', 'dibatalkan');
             })->orderBy('created_at', 'DESC')->get();
         }
@@ -60,7 +61,28 @@ class TransaksiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'kode_transaksi' => 'required',
+            'status' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['status' => false, 'message' => $validator->errors()->first(), 'code' => Response::HTTP_OK]);
+        } else {
+            $transaksi = Transaksi::where('kode_transaksi', $request->get('kode_transaksi'))->first();
+
+            if ($transaksi) {
+                if ($transaksi->status == 'dikirim') {
+                    $transaksi->status = "telah tiba";
+                    $transaksi->save();
+                    return response()->json(['status' => true, 'message' => 'transaksi berhasil di konfirmasi', 'code' => Response::HTTP_OK]);
+                }else{
+                    return response()->json(['status' => false, 'message' => 'produk belum dikirim', 'code' => Response::HTTP_OK]);
+                }
+            } else {
+                return response()->json(['status' => false, 'message' => 'not found', 'code' => Response::HTTP_OK]);
+            }
+        }
     }
 
     /**
@@ -81,7 +103,7 @@ class TransaksiController extends Controller
             }]);
         }, 'alamat'])->first();
 
-        if($transaksi){
+        if ($transaksi) {
             foreach ($transaksi->detail_transaksi as $key => $value) {
                 foreach ($value->produk->detail_gambar as $key => $row) {
                     $value->produk->gambar = asset('uploads/images/produk/' . $row->filename);
@@ -93,7 +115,7 @@ class TransaksiController extends Controller
                 'data' => $transaksi,
                 'code' => Response::HTTP_OK
             ]);
-        }else{
+        } else {
             return response()->json([
                 'status' => true,
                 'data' => [],
@@ -101,8 +123,6 @@ class TransaksiController extends Controller
                 'code' => Response::HTTP_OK
             ]);
         }
-
-
     }
 
     /**
