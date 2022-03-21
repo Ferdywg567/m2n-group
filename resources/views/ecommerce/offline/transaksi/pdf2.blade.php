@@ -95,9 +95,9 @@
             border-left: solid 1px black; */
         }
 
-        .jarak{
+        .jarak {
             padding-bottom: 10px;
-             padding-top: 10px;
+            padding-top: 10px;
         }
 
 
@@ -134,52 +134,74 @@
             <table style="white-space: nowrap">
                 <tr>
                     <td>
-                        <img style="float: left; margin-right:-170px"
-                            src="{{ public_path('/assets/img/M2N Kids Logo.png') }}" width="15%" alt="" srcset="">
+                        <div style="padding-bottom: 30px">
+                            <img style="float: left; margin-right:-170px;"
+                                src="{{ public_path('/assets/img/M2N Kids Logo.png') }}" width="15%" alt="" srcset="">
+                        </div>
+
                     </td>
                     <td>
-                        <p
-                            style="text-align: left; font-size:7pt; padding-right:10px; white-space: nowrap; margin-bottom:-5px; margin-top:-4px">
-                            Your Stylish Children's
-                        </p>
-                        <p style="text-align: left; font-size:7pt; padding-right:10px; white-space: nowrap">Clothing
-                            Solution
-                        </p>
+                        <div style="margin-left: -10px">
+                            <p
+                                style="text-align: left; font-size:6pt; white-space: nowrap; margin-bottom:-5px; margin-top:-4px">
+                                Your Stylish Children's
+                            </p>
+                            <p style="text-align: left; font-size:6pt; white-space: nowrap">Clothing
+                                Solution
+                            </p>
+                        </div>
                     </td>
                     <td style="padding-right: 5px;">
-                        <p style="margin-bottom:-5px; margin-top:-10px;font-size:5pt;text-align: right;">Hubungi Kami:
-                        </p>
-                        <p style="font-size:5pt;text-align: right;margin-bottom:-5px;">0812-0780-9972/0815-3460-5040</p>
-                        <p style="font-size:5pt;text-align: right;">m2ngroup@outlook.co.id</p>
+                        <div style="margin-left: -20px">
+                            <p style="margin-bottom:-5px; margin-top:-10px;font-size:5pt;text-align: right;">Hubungi
+                                Kami:
+                            </p>
+                            <p style="font-size:5pt;text-align: right;margin-bottom:-5px; padding-top:3px">
+                                0812-0780-9972/0815-3460-5040
+                            </p>
+                            <p style="font-size:5pt;text-align: right; padding-top:3px">m2ngroup@outlook.co.id</p>
+                        </div>
                     </td>
                     <td>
-                        <p style="margin-bottom:-5px; margin-top:-10px;font-size:6pt;text-align: left;">Tanggal
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:..........
-                        </p>
-                        <p style="font-size:6pt;text-align: left;margin-bottom:-5px;">Nama Pelanggan:..........</p>
-                        <p style="font-size:6pt;text-align: left;margin-bottom:-5px;">Alamat
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:..........</p>
-                        <p style="font-size:6pt;text-align: left;margin-bottom:-5px;">No. Hp
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:..........</p>
+                        <img style="margin-top: -5px" src="{{ public_path('/assets/img/whatsapp-line.png') }}"
+                            width="2%" alt="" srcset="">
+                        <br>
+                        <img style="margin-top: -4px" src="{{ public_path('/assets/img/mail-line.png') }}" width="2%"
+                            alt="" srcset="">
+                    </td>
+                    <td>
+                        <div style="margin-left: -6px">
+                            <p style="margin-bottom:-5px; font-size:6pt;text-align: left;">Tanggal
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:..........
+                            </p>
+                            <p style="font-size:6pt;text-align: left;margin-bottom:-5px;padding-top:8px">Nama
+                                Pelanggan:..........</p>
+                            <p style="font-size:6pt;text-align: left;margin-bottom:-5px;padding-top:8px">Alamat
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:..........</p>
+                            <p style="font-size:6pt;text-align: left;margin-bottom:-5px;padding-top:8px">No. Hp
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:..........</p>
+                        </div>
                     </td>
                 </tr>
 
             </table>
-            <table style="margin-top: -10px">
+            <table style="margin-top: -25px">
                 <tr>
                     <td>Blok B Lt. Ground Los E No. 100 - 101</td>
                 </tr>
 
             </table>
-            <table  style="font-size:6pt;">
-                  <tr>
-                    <td >
+            <table style="font-size:6pt;padding-top:8px">
+                <tr>
+                    <td>
                         <div style="float: left; margin-right:-50px">
                             No. Nota : .............
                         </div>
                     </td>
-                    <td><div style="padding-right: 200px;">
-                        Pembayaran : .............</div></td>
+                    <td>
+                        <div style="padding-right: 200px;">
+                            Pembayaran : .............</div>
+                    </td>
                 </tr>
             </table>
         </header>
@@ -215,7 +237,9 @@
                 <tr>
 
                     <td class="center jarak" colspan="5"><b>Jumlah</b></td>
-                    <td class="center" style="border:1px solid black"><b>@rupiah($transaksi->detail_transaksi->sum('total_harga'))</b></td>
+                    <td class="center" style="border:1px solid black">
+                        <b>@rupiah($transaksi->detail_transaksi->sum('total_harga'))</b>
+                    </td>
                 </tr>
             </tfoot>
 
