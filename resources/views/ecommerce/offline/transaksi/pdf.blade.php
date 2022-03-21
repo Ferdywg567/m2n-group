@@ -248,7 +248,7 @@
             <tr style="border: none">
                 <td style="border: none">
                     <div style="padding-top: 10px; text-align:left">Hormat Kami,</div>
-                    <div style="padding-top: 35px; text-align:left"><b>PT. Garment</b></div>
+                    <div style="padding-top: 35px; text-align:left"><b>............</b></div>
                 </td>
                 <td style="border: none">
                     <div style="padding-top: 10px; text-align:left">Tanda Terima,</div>
