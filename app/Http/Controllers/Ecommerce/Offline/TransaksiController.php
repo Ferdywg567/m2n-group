@@ -433,11 +433,18 @@ class TransaksiController extends Controller
         }
     }
 
-    public function cetak($id)
+    public function cetak(Request $request, $id)
     {
         $transaksi = Transaksi::findOrFail($id);
         $customPaper = array(0, 0, 198.425, 340.157);
-        $pdf = PDF::loadView('ecommerce.offline.transaksi.pdf', ['transaksi' => $transaksi]);
+        $cetak = $request->get('cetak');
+        // dd($cetak);
+        if($cetak == 'Push'){
+            $pdf = PDF::loadView('ecommerce.offline.transaksi.pdf', ['transaksi' => $transaksi]);
+        }else{
+            $pdf = PDF::loadView('ecommerce.offline.transaksi.pdf2', ['transaksi' => $transaksi]);
+        }
+
         $pdf->setPaper('A5','potrait');
         return $pdf->stream('transaksi-offline.pdf', array("Attachment" => 0));
 

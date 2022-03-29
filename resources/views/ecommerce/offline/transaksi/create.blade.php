@@ -56,7 +56,6 @@
                                                             {{ $item->warehouse->finishing->cuci->jahit->potong->bahan->nama_bahan }}
                                                         </option>
                                                     @empty
-
                                                     @endforelse
                                                 </select>
                                             </div>
@@ -147,7 +146,19 @@
 
                                     </div>
 
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="cetak">Cetak</label>
+                                                <select class="form-control" id="cetak" name="cetak">
+                                                    <option value="Push">Push & Pull Logo</option>
+                                                    <option value="M2N">M2N Kids Logo</option>
+                                                </select>
+                                            </div>
+                                        </div>
 
+
+                                    </div>
 
 
                                 </form>
@@ -312,9 +323,9 @@
                     console.log(data)
                     $(row).find('td:eq(4)').addClass('updateqty');
                     $(row).find('td:eq(4)').attr('data-idbarang', data['kode']);
-                    if(data['ukuran'] == 'S,M,L'){
+                    if (data['ukuran'] == 'S,M,L') {
                         var ukuran = 'seri';
-                    }else{
+                    } else {
                         var ukuran = data['ukuran'];
                     }
                     $(row).find('td:eq(4)').attr('data-ukuran', ukuran);
@@ -408,16 +419,16 @@
             })
 
 
-            $('#ukuran').on('change', function(){
+            $('#ukuran').on('change', function() {
                 var id = $('#produk').find(':selected').val()
                 var ukuran = $('#ukuran').find(':selected').val()
-                if (id != '0' && ukuran !='0') {
+                if (id != '0' && ukuran != '0') {
                     $.ajax({
                         url: "{{ route('offline.transaksi.getdetail') }}",
                         method: "GET",
                         data: {
                             id: id,
-                            ukuran:ukuran,
+                            ukuran: ukuran,
                         },
                         success: function(response) {
                             if (response.status) {
@@ -426,7 +437,8 @@
                                 var bahan = data.warehouse.finishing.cuci.jahit.potong.bahan
                                 var detail_sub = bahan.detail_sub.nama_kategori;
                                 var sub_kategori = bahan.detail_sub.sub_kategori.nama_kategori;
-                                var kategori = bahan.detail_sub.sub_kategori.kategori.nama_kategori;
+                                var kategori = bahan.detail_sub.sub_kategori.kategori
+                                    .nama_kategori;
                                 var detail = data.detail_produk
                                 $('#kode_sku').val(bahan.sku)
                                 $('#warna').val(bahan.warna)
@@ -469,7 +481,7 @@
             $('.btnsimpancetak').on('click', function() {
                 var bayar = convertToAngka($('#bayar').val());
                 var total_harga = convertToAngka($('#total_harga').val())
-
+                var cetak = $('#cetak').find(':selected').val()
 
                 $.ajax({
                     url: "{{ route('offline.transaksi.cek') }}",
@@ -495,8 +507,7 @@
                                                 success: function(response) {
                                                     if (response.status) {
                                                         window.open(
-                                                            "{{ url('admin/offline/transaksi/cetak/') }}/" +
-                                                            response.data)
+                                                            "{{ url('admin/offline/transaksi/cetak/') }}/" + response.data + "/?cetak="+cetak)
                                                         // setTimeout(function () { window.location.reload(true) },1500)
                                                         $('#formDetail')
                                                             .trigger('reset')
@@ -613,7 +624,7 @@
                                 data: {
                                     'id_barang': id_barang,
                                     'qty': qty,
-                                    'ukuran' : ukuran
+                                    'ukuran': ukuran
                                 },
                                 success: function(response) {
                                     if (response.status) {
@@ -646,7 +657,8 @@
                     .then((willDelete) => {
                         if (willDelete) {
                             window.location.href =
-                                "{{ url('/admin/offline/transaksi/delete_transaksi/') }}/" + kode+"/"+ukuran;
+                                "{{ url('/admin/offline/transaksi/delete_transaksi/') }}/" + kode +
+                                "/" + ukuran;
                         }
                     });
             })
