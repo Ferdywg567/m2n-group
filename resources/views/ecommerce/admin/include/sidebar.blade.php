@@ -60,6 +60,11 @@
                 <i class="ri-booklet-fill"></i><span>Rekapitulasi</span>
             </a>
         </li>
+        <li @yield('karyawan')>
+            <a class="nav-link" href="{{ route('ecommerce.karyawan.index') }}">
+                <i class="ri-user-fill"></i><span>Karyawan</span>
+            </a>
+        </li>
 
     </ul>
 </aside>

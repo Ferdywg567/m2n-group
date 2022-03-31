@@ -306,9 +306,9 @@
                                 @endif --}}
 
                                 @if ($item->detail_produk->min('harga') == $item->detail_produk->max('harga'))
-                                  <span class="new-price">{{\AppHelper::instance()->rupiah($item->detail_produk->max('harga'))}}/pcs</span>
+                                  <span class="new-price">{{\AppHelper::instance()->rupiah($item->detail_produk->max('harga'))}}/seri</span>
                                 @else
-                                  <span class="new-price">{{\AppHelper::instance()->rupiah($item->detail_produk->min('harga'))}} - {{\AppHelper::instance()->rupiah($item->detail_produk->max('harga'))}}/pcs</span>
+                                  <span class="new-price">{{\AppHelper::instance()->rupiah($item->detail_produk->min('harga'))}} - {{\AppHelper::instance()->rupiah($item->detail_produk->max('harga'))}}/seri</span>
                                 @endif
 
                             </div>
@@ -339,9 +339,9 @@
                                 <span class="old-price">@rupiah($item->harga)</span>
                                 @endif --}}
                                 @if ($item->detail_produk->min('harga') == $item->detail_produk->max('harga'))
-                                <span class="new-price">{{\AppHelper::instance()->rupiah($item->detail_produk->max('harga'))}}/pcs</span>
+                                <span class="new-price">{{\AppHelper::instance()->rupiah($item->detail_produk->max('harga'))}}/seri</span>
                               @else
-                                <span class="new-price">{{\AppHelper::instance()->rupiah($item->detail_produk->min('harga'))}} - {{\AppHelper::instance()->rupiah($item->detail_produk->max('harga'))}}/pcs</span>
+                                <span class="new-price">{{\AppHelper::instance()->rupiah($item->detail_produk->min('harga'))}} - {{\AppHelper::instance()->rupiah($item->detail_produk->max('harga'))}}/seri</span>
                               @endif
                             </div>
                             <div class="product-rating-wrap">
@@ -427,9 +427,9 @@
                                 <span class="old-price">@rupiah($item->harga)</span>
                                 @endif --}}
                                 @if ($item->detail_produk->min('harga') == $item->detail_produk->max('harga'))
-                                <span class="new-price">{{\AppHelper::instance()->rupiah($item->detail_produk->max('harga'))}}/pcs</span>
+                                <span class="new-price">{{\AppHelper::instance()->rupiah($item->detail_produk->max('harga'))}}/seri</span>
                               @else
-                                <span class="new-price" style="font-size: 16px">{{\AppHelper::instance()->rupiah($item->detail_produk->min('harga'))}} - {{\AppHelper::instance()->rupiah($item->detail_produk->max('harga'))}}/pcs</span>
+                                <span class="new-price" style="font-size: 16px">{{\AppHelper::instance()->rupiah($item->detail_produk->min('harga'))}} - {{\AppHelper::instance()->rupiah($item->detail_produk->max('harga'))}}/seri</span>
                               @endif
                             </div>
                             <div class="product-rating-wrap pb-15">
@@ -457,9 +457,9 @@
                                 <span class="old-price">@rupiah($item->harga)</span>
                                 @endif --}}
                                 @if ($item->detail_produk->min('harga') == $item->detail_produk->max('harga'))
-                                <span class="new-price">{{\AppHelper::instance()->rupiah($item->detail_produk->max('harga'))}}/pcs</span>
+                                <span class="new-price">{{\AppHelper::instance()->rupiah($item->detail_produk->max('harga'))}}/seri</span>
                               @else
-                                <span class="new-price" style="font-size: 14px">{{\AppHelper::instance()->rupiah($item->detail_produk->min('harga'))}} - {{\AppHelper::instance()->rupiah($item->detail_produk->max('harga'))}}/pcs</span>
+                                <span class="new-price" style="font-size: 14px">{{\AppHelper::instance()->rupiah($item->detail_produk->min('harga'))}} - {{\AppHelper::instance()->rupiah($item->detail_produk->max('harga'))}}/seri</span>
                               @endif
                             </div>
                             <div class="product-rating-wrap">

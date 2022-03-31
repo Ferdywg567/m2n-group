@@ -245,13 +245,7 @@ class DashboardController extends Controller
                     'data' => $datapie
                 ];
 
-                // $bar = RekapitulasiWarehouse::select(
-                //     DB::raw('sum(total_barang) as jumlah'),
-                //     DB::raw("DATE_FORMAT(tanggal_masuk,'%M %Y') as months")
-                // )->whereYear('tanggal_masuk', $tahun)->orderBy('months', 'DESC')
-                //     ->groupBy('months')
-                //     ->get();
-
+            
                 $bar = DetailWarehouse::select(
                     DB::raw('sum(jumlah) as jumlah'),
                     DB::raw("DATE_FORMAT(created_at,'%M %Y') as months")
@@ -373,7 +367,7 @@ class DashboardController extends Controller
             } else {
                 $notif = Notification::where('role', 'warehouse')->update(['aktif' => '1']);
             }
-           
+
             session()->forget('notification');
             return response()->json(['status' => true]);
         }

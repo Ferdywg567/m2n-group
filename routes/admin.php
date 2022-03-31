@@ -39,6 +39,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Ecommerce\Admin', 'middleware
     Route::resource('customer', 'CustomerController');
     Route::resource('bank', 'BankController');
     Route::resource('notifikasi','NotifikasiController');
+    Route::resource('karyawan', 'KaryawanController');
     // Route::resource('cetak_label', 'CetakLabelController');
 });
 
@@ -65,6 +66,10 @@ Route::group(['prefix' => 'admin/offline', 'namespace' => 'Ecommerce\Offline', '
     Route::group(['prefix' => 'rekapitulasi', 'as' => 'rekapitulasi.'], function () {
         Route::get('cetak/{id}', 'RekapitulasiController@cetak')->name('cetak');
         Route::get('cetak_semua', 'RekapitulasiController@cetak_semua')->name('cetak_semua');
+    });
+
+    Route::group(['prefix' => 'cetak_label', 'as' => 'cetak_label.'], function () {
+        Route::get('cetak', 'CetakLabelController@cetak')->name('cetak');
     });
 
     Route::resource('dashboard', 'DashboardController');

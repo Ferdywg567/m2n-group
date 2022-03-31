@@ -30,7 +30,7 @@ Login
                                     <img src="{{asset('/assets/img/M2N 1.png')}}" alt="" srcset="" width="60">
                                 </div>
                                 <div class="col-md-10">
-                                    <h4 class="mt-2" style="font-weight: bold">M2N GROUP SYSTEM</h4>
+                                    <h4 class="mt-2" style="font-weight: bold">M2N STORE</h4>
                                 </div>
                             </div>
 

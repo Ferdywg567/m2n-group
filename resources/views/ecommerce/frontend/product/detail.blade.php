@@ -148,7 +148,7 @@
             </div>
             <div class="col-lg-6 col-md-12">
                 <div class="product-details-content pro-details-content-mt-md">
-                    <h2>{{$produk->nama_produk}}</h2>
+                    <h2>{{ucwords($produk->nama_produk)}}</h2>
                     <div class="product-ratting-review-wrap">
                         <div class="product-ratting-digit-wrap">
                             <div class="product-ratting">
@@ -188,9 +188,9 @@
                         @endif --}}
 
                         @if ($produk->detail_produk->min('harga') == $produk->detail_produk->max('harga'))
-                        <span class="new-price ml-2 hargaproduk">{{\AppHelper::instance()->rupiah($produk->detail_produk->max('harga'))}}/pcs</span>
+                        <span class="new-price ml-2 hargaproduk">{{\AppHelper::instance()->rupiah($produk->detail_produk->max('harga'))}}/seri</span>
                       @else
-                        <span class="new-price ml-2 hargaproduk">{{\AppHelper::instance()->rupiah($produk->detail_produk->min('harga'))}} - {{\AppHelper::instance()->rupiah($produk->detail_produk->max('harga'))}}/pcs</span>
+                        <span class="new-price ml-2 hargaproduk">{{\AppHelper::instance()->rupiah($produk->detail_produk->min('harga'))}} - {{\AppHelper::instance()->rupiah($produk->detail_produk->max('harga'))}}/seri</span>
                       @endif
 
                     </div>
@@ -205,7 +205,7 @@
                                 <select class="form-control" id="ukuran" name="ukuran">
                                     <option value="">Pilih Ukuran</option>
                                     @if ($seri)
-                                    <option value="S,M,L">S,M,L</option>
+                                    <option value="S,M,L">S-L</option>
                                     @endif
                                     @forelse ($detail as $item)
                                     <option value="{{$item->ukuran}}">{{$item->ukuran}}</option>
@@ -446,9 +446,9 @@
                                 <span class="old-price">{{\AppHelper::instance()->rupiah($item->harga)}}</span>
                                 @endif --}}
                                 @if ($item->detail_produk->min('harga') == $item->detail_produk->max('harga'))
-                                <span class="new-price">{{\AppHelper::instance()->rupiah($item->detail_produk->max('harga'))}}/pcs</span>
+                                <span class="new-price">{{\AppHelper::instance()->rupiah($item->detail_produk->max('harga'))}}/seri</span>
                               @else
-                                <span class="new-price">{{\AppHelper::instance()->rupiah($item->detail_produk->min('harga'))}} - {{\AppHelper::instance()->rupiah($item->detail_produk->max('harga'))}}/pcs</span>
+                                <span class="new-price">{{\AppHelper::instance()->rupiah($item->detail_produk->min('harga'))}} - {{\AppHelper::instance()->rupiah($item->detail_produk->max('harga'))}}/seri</span>
                               @endif
                             </div>
                             <div class="product-rating-wrap pb-15">
@@ -476,9 +476,9 @@
                                 <span class="old-price">{{\AppHelper::instance()->rupiah($item->harga)}}</span>
                                 @endif --}}
                                 @if ($item->detail_produk->min('harga') == $item->detail_produk->max('harga'))
-                                <span class="new-price">{{\AppHelper::instance()->rupiah($item->detail_produk->max('harga'))}}/pcs</span>
+                                <span class="new-price">{{\AppHelper::instance()->rupiah($item->detail_produk->max('harga'))}}/seri</span>
                               @else
-                                <span class="new-price">{{\AppHelper::instance()->rupiah($item->detail_produk->min('harga'))}} - {{\AppHelper::instance()->rupiah($item->detail_produk->max('harga'))}}/pcs</span>
+                                <span class="new-price">{{\AppHelper::instance()->rupiah($item->detail_produk->min('harga'))}} - {{\AppHelper::instance()->rupiah($item->detail_produk->max('harga'))}}/seri</span>
                               @endif
                             </div>
                             <div class="product-rating-wrap">

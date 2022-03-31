@@ -16,42 +16,8 @@ class CetakLabelController extends Controller
      */
     public function index()
     {
-        $cetak = Produk::all();
-        // $count =  Produk::count();
-        // $bagi = $count / 4;
-
-        // if($cetak->isNotEmpty()){
-        //     $cetak = $cetak->toArray();
-        // }else{
-        //     $cetak = [];
-        // }
-
-        // // dd($bagi);
-        // $arr = [];
-        // $length = 4;
-        // $from  = 0;
-        // for ($i = 0; $i < $bagi; $i++) {
-        //     $x = array_slice($cetak, $from, $length);
-        //     $from = $from + 4;
-        //     // $length = $length + 4;
-        //     array_push($arr, $x);
-        // }
-
-        // dd($arr);
-        $hitung = count($cetak) * 150;
-        $height =count($cetak) * 3;
-        $customPaper = array(0,0,218,$hitung);
-        $pdf = PDF::loadview(
-            "ecommerce.offline.cetak_label.pdf",
-            [
-                'cetak' => $cetak,
-                'height' => $height
-            ]
-        )->setPaper($customPaper);
-
-
-
-        return $pdf->stream('cetak-barcode-produk.pdf', array('Attachment' => 0));
+        $produk = Produk::all();
+        return view('ecommerce.offline.cetak_label.index',['produk' => $produk]);
     }
 
     /**
@@ -118,5 +84,24 @@ class CetakLabelController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function cetak(Request $request)
+    {
+        $cetak = Produk::findOrFail($request->get('produk'));
+        $hitung = $cetak->stok * 100;
+        $height = $cetak->stok * 3;
+        $customPaper = array(0, 0, 218, $hitung);
+        $pdf = PDF::loadview(
+            "ecommerce.offline.cetak_label.pdf",
+            [
+                'cetak' => $cetak,
+                'height' => $height
+            ]
+        )->setPaper($customPaper);
+
+
+
+        return $pdf->stream('cetak-barcode-produk.pdf', array('Attachment' => 0));
     }
 }

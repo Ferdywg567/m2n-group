@@ -178,7 +178,13 @@ class ProductController extends Controller
                 $detail = DetailProduk::where('produk_id',$id)->whereIn('ukuran', $res)->avg('harga');
 
                 $harga = AppHelper::instance()->rupiah($detail);
-                $harga = $harga.'/pcs';
+
+                if ($ukuran == 'S,M,L') {
+                    $harga = $harga . '/seri';
+                } else {
+                    $harga = $harga . '/seri';
+                }
+
 
             }else{
                 $min = DetailProduk::where('produk_id',$id)->min('harga');
@@ -190,7 +196,13 @@ class ProductController extends Controller
                     $harga =AppHelper::instance()->rupiah($min).' - '.AppHelper::instance()->rupiah($max);
                 }
 
-                $harga = $harga.'/pcs';
+                if ($ukuran == 'S,M,L') {
+                    $harga = $harga . '/seri';
+
+                } else {
+                    $harga = $harga . '/seri';
+                }
+
             }
 
             return response()->json([

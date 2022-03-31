@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Ecommerce\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use App\Transaksi;
 
 class DashboardController extends Controller
 {
@@ -12,9 +15,43 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-       return view("ecommerce.admin.dashboard.index");
+       
+        if ($request->ajax()) {
+            $offline = Transaksi::select(
+                DB::raw("(sum(total_harga)) as total"),
+                DB::raw("(DATE_FORMAT(created_at, '%m-%Y')) as tanggal")
+            )->where('status_transaksi', 'offline')
+                ->orderBy('created_at')
+                ->groupBy(DB::raw("DATE_FORMAT(created_at, '%m-%Y')"))
+                ->get();
+            $online = Transaksi::select(
+                DB::raw("(sum(total_harga)) as total"),
+                DB::raw("(DATE_FORMAT(created_at, '%m-%Y')) as tanggal")
+            )->where('status_transaksi', 'online')
+                ->where('status', 'telah tiba')
+                ->orderBy('created_at')
+                ->groupBy(DB::raw("DATE_FORMAT(created_at, '%m-%Y')"))
+                ->get();
+
+
+            $semua = Transaksi::select(
+                DB::raw("(sum(total_harga)) as total"),
+                DB::raw("(DATE_FORMAT(created_at, '%m-%Y')) as tanggal")
+            )->orwhere('status', 'telah tiba')->orwhere('status_transaksi', 'offline')
+                ->orderBy('created_at')
+                ->groupBy(DB::raw("DATE_FORMAT(created_at, '%m-%Y')"))
+                ->get();
+
+            return response()->json([
+                'offline' => $offline,
+                'online' => $online,
+                'semua' => $semua,
+                'status' => true
+            ]);
+        }
+        return view("ecommerce.admin.dashboard.index");
     }
 
     /**

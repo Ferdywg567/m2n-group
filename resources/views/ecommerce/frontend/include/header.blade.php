@@ -131,7 +131,7 @@ $kategori = \App\SubKategori::select('nama_kategori')->groupBy('nama_kategori')-
                 <div class="col-5">
                     <div class="mobile-logo">
                         <a href="/">
-                            <img alt="" src="{{asset('ecommerce/assets/images/logo.png')}}">
+                            <img alt="" src="{{asset('/assets/img/M2N 1.png')}}">
                         </a>
                     </div>
                 </div>
