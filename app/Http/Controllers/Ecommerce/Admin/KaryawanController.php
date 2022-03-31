@@ -67,7 +67,8 @@ class KaryawanController extends Controller
      */
     public function show($id)
     {
-        //
+        $karyawan = User::findOrFail($id);
+        return view('ecommerce.admin.karyawan.detail', ['karyawan' => $karyawan]);
     }
 
     /**
