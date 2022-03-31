@@ -53,8 +53,8 @@
                 return '#' + (Math.random().toString(16) + '0000000').slice(2, 8);
             };
 
-            function barChartData(data, label, nama, color) {
-                var ctx = document.getElementById(nama).getContext('2d');
+            function pendapatanOffline(data, label, nama, color) {
+                var ctx = document.getElementById('pendapatanOffline').getContext('2d');
                 barChart = new Chart(ctx, {
                     type: 'bar',
                     data: {
@@ -62,22 +62,8 @@
                         datasets: [{
                             label: 'Pendapatan',
                             data: data,
-                            backgroundColor: [
-                                'rgba(255, 99, 132, 0.2)',
-                                'rgba(54, 162, 235, 0.2)',
-                                'rgba(255, 206, 86, 0.2)',
-                                'rgba(75, 192, 192, 0.2)',
-                                'rgba(153, 102, 255, 0.2)',
-                                'rgba(255, 159, 64, 0.2)'
-                            ],
-                            borderColor: [
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(54, 162, 235, 1)',
-                                'rgba(255, 206, 86, 1)',
-                                'rgba(75, 192, 192, 1)',
-                                'rgba(153, 102, 255, 1)',
-                                'rgba(255, 159, 64, 1)'
-                            ],
+                            backgroundColor: color,
+                            borderColor: color,
                             borderWidth: 1
                         }]
                     },
@@ -91,7 +77,53 @@
                 });
             }
 
+            function pendapatanOnline(data, label, nama, color) {
+                var ctx = document.getElementById('pendapatanOnline').getContext('2d');
+                barChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: label,
+                        datasets: [{
+                            label: 'Pendapatan',
+                            data: data,
+                            backgroundColor: color,
+                            borderColor: color,
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            }
 
+            function totalPendapatan(data, label, nama, color) {
+                var ctx = document.getElementById('totalPendapatan').getContext('2d');
+                barChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: label,
+                        datasets: [{
+                            label: 'Pendapatan',
+                            data: data,
+                            backgroundColor: color,
+                            borderColor: color,
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            }
             $.ajax({
                 url: "{{ route('ecommerce.dashboard.index') }}",
                 method: "GET",
@@ -108,7 +140,8 @@
                         });
 
 
-                        barChartData(total_offline, tanggal_offline, 'pendapatanOffline', color_offline)
+                        pendapatanOffline(total_offline, tanggal_offline, 'pendapatanOffline',
+                            color_offline)
 
                         var online = data.online
                         var tanggal_online = []
@@ -121,7 +154,7 @@
                         });
 
                         setTimeout(() => {
-                            barChartData(total_online, tanggal_online, 'pendapatanOnline',
+                            pendapatanOnline(total_online, tanggal_online, 'pendapatanOnline',
                                 color_online)
                         }, 1000);
 
@@ -136,7 +169,7 @@
                             color_semua.push(randomColorGenerator())
                         });
                         setTimeout(() => {
-                            barChartData(total_semua, tanggal_semua, 'totalPendapatan',
+                            totalPendapatan(total_semua, tanggal_semua, 'totalPendapatan',
                                 color_semua)
                         }, 1500);
                     }
