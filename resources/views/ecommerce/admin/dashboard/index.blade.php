@@ -106,7 +106,11 @@
                             color_online.push(randomColorGenerator())
                         });
 
-                        barChartData(total_online, tanggal_online, 'pendapatanOnline', color_online)
+                           setTimeout(() => {
+                            barChartData(total_online, tanggal_online, 'pendapatanOnline',
+                                color_online)
+                        }, 1000);
+
 
                         var semua = data.semua
                         var tanggal_semua = []
@@ -117,8 +121,10 @@
                             total_semua.push(element.total)
                             color_semua.push(randomColorGenerator())
                         });
-
-                        barChartData(total_semua, tanggal_semua, 'totalPendapatan', color_semua)
+                        setTimeout(() => {
+                            barChartData(total_semua, tanggal_semua, 'totalPendapatan',
+                                color_semua)
+                        }, 1500);
                     }
                 }
             })
