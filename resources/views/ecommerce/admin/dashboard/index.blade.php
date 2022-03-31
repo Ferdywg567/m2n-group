@@ -49,6 +49,9 @@
                 var b = Math.floor(Math.random() * 255);
                 return "rgb(" + r + "," + g + "," + b + ")";
             }
+            var randomColorGenerator = function() {
+                return '#' + (Math.random().toString(16) + '0000000').slice(2, 8);
+            };
 
             function barChartData(data, label, nama, color) {
                 var ctx = document.getElementById(nama).getContext('2d');
@@ -59,8 +62,8 @@
                         datasets: [{
                             label: 'Pendapatan',
                             data: data,
-                            backgroundColor: color,
-                            borderColor: color,
+                            backgroundColor:color,
+                            borderColor:color,
                             borderWidth: 1
                         }]
                     },
@@ -87,7 +90,7 @@
                         offline.forEach(element => {
                             tanggal_offline.push(element.tanggal)
                             total_offline.push(element.total)
-                            color_offline.push(generateColour())
+                            color_offline.push(randomColorGenerator())
                         });
 
 
@@ -100,7 +103,7 @@
                         online.forEach(element => {
                             tanggal_online.push(element.tanggal)
                             total_online.push(element.total)
-                            color_online.push(generateColour())
+                            color_online.push(randomColorGenerator())
                         });
 
                         barChartData(total_online, tanggal_online, 'pendapatanOnline', color_online)
@@ -112,7 +115,7 @@
                         semua.forEach(element => {
                             tanggal_semua.push(element.tanggal)
                             total_semua.push(element.total)
-                            color_semua.push(generateColour())
+                            color_semua.push(randomColorGenerator())
                         });
 
                         barChartData(total_semua, tanggal_semua, 'totalPendapatan', color_semua)
