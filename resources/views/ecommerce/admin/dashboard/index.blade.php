@@ -36,7 +36,7 @@
     </section>
 @endsection
 @push('scripts')
-    <script src="{{ asset('assets/modules/chart.min.js') }}"></script>
+    <script src="{{ asset('https://cdn.jsdelivr.net/npm/chart.js') }}"></script>
     <script>
         $(document).ready(function() {
             var pieChart;
