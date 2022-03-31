@@ -17,7 +17,7 @@ class DashboardController extends Controller
      */
     public function index(Request $request)
     {
-       
+
         if ($request->ajax()) {
             $offline = Transaksi::select(
                 DB::raw("(sum(total_harga)) as total"),
