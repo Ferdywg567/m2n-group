@@ -29,6 +29,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Ecommerce\Admin', 'middleware
         Route::get('notifikasi-read', 'NotifikasiController@read')->name('notifikasi.read');
         Route::get('notifikasi-read-klik', 'NotifikasiController@readklik')->name('notifikasi.readklik');
     });
+    Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.'], function () {
+        Route::get('/transaksi', 'DashboardController@transaksi')->name('transaksi');
+    });
     Route::resource('dashboard', 'DashboardController');
     Route::resource('produk', 'ProdukController');
     Route::resource('transaksi', 'TransaksiController');
@@ -71,7 +74,9 @@ Route::group(['prefix' => 'admin/offline', 'namespace' => 'Ecommerce\Offline', '
     Route::group(['prefix' => 'cetak_label', 'as' => 'cetak_label.'], function () {
         Route::get('cetak', 'CetakLabelController@cetak')->name('cetak');
     });
-
+    Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.'], function () {
+        Route::get('/transaksi', 'DashboardController@transaksi')->name('transaksi');
+    });
     Route::resource('dashboard', 'DashboardController');
     Route::resource('produk', 'ProdukController');
     Route::resource('transaksi', 'TransaksiController');

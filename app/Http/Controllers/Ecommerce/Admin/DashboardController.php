@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Ecommerce\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Produk;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -24,24 +25,24 @@ class DashboardController extends Controller
                 DB::raw("(DATE_FORMAT(created_at, '%m-%Y')) as tanggal")
             )->where('status_transaksi', 'offline')
                 ->orderBy('created_at')
-                ->groupBy(DB::raw("DATE_FORMAT(created_at, '%m-%Y')"))
+                ->groupBy(DB::raw("DATE_FORMAT(created_at, '%m-%Y')"))->limit(10)
                 ->get();
             $online = Transaksi::select(
                 DB::raw("(sum(total_harga)) as total"),
                 DB::raw("(DATE_FORMAT(created_at, '%m-%Y')) as tanggal")
             )->where('status_transaksi', 'online')
-                ->where('status', 'telah tiba')
+                ->where('status_bayar', 'sudah dibayar')
                 ->orderBy('created_at')
-                ->groupBy(DB::raw("DATE_FORMAT(created_at, '%m-%Y')"))
+                ->groupBy(DB::raw("DATE_FORMAT(created_at, '%m-%Y')"))->limit(10)
                 ->get();
 
 
             $semua = Transaksi::select(
                 DB::raw("(sum(total_harga)) as total"),
                 DB::raw("(DATE_FORMAT(created_at, '%m-%Y')) as tanggal")
-            )->orwhere('status', 'telah tiba')->orwhere('status_transaksi', 'offline')
+            )->orwhere('status_bayar', 'sudah dibayar')->orwhere('status_transaksi', 'offline')
                 ->orderBy('created_at')
-                ->groupBy(DB::raw("DATE_FORMAT(created_at, '%m-%Y')"))
+                ->groupBy(DB::raw("DATE_FORMAT(created_at, '%m-%Y')"))->limit(10)
                 ->get();
 
             return response()->json([
@@ -51,7 +52,18 @@ class DashboardController extends Controller
                 'status' => true
             ]);
         }
-        return view("ecommerce.admin.dashboard.index");
+
+        $bulan = date('m');
+        $tahun = date('Y');
+
+        $pendapatan = Transaksi::where('status_bayar', 'sudah dibayar')->whereMonth('created_at', $bulan)
+            ->whereYear('created_at', $tahun)
+            ->sum('total_harga');
+        $transaksi = Transaksi::whereMonth('created_at', $bulan)->where('status_transaksi', 'online')
+            ->whereYear('created_at', $tahun)
+            ->count();
+        $produk = Produk::count();
+        return view("ecommerce.admin.dashboard.index", ['pendapatan' => $pendapatan, 'transaksi' => $transaksi, 'produk' => $produk]);
     }
 
     /**
@@ -118,5 +130,17 @@ class DashboardController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function transaksi()
+    {
+        $bulan = date('m');
+        $tahun = date('Y');
+
+        $transaksi = Transaksi::whereMonth('created_at', $bulan)
+            ->whereYear('created_at', $tahun)
+            ->get();
+
+        return view("ecommerce.admin.dashboard.transaksi", ['transaksi' => $transaksi]);
     }
 }
