@@ -24,7 +24,7 @@ class BannerController extends Controller
         ]);
         $slider = Banner::where('status_banner', 'Slider Utama')->get();
         $tambahan = Banner::where('status_banner', 'Promo Tambahan')->get();
-        
+
         return view('ecommerce.admin.banner.index', ['slider' => $slider, 'tambahan' => $tambahan]);
     }
 
@@ -138,7 +138,10 @@ class BannerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Banner::findOrFail($id)->delete();
+        return response()->json([
+            'status' => true
+        ]);
     }
 
     public function update_data(Request $request)
