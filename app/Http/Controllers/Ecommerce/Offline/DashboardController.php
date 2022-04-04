@@ -20,6 +20,18 @@ class DashboardController extends Controller
     {
 
         if ($request->ajax()) {
+            if ($request->get('status') == 'change') {
+                $bulan = $request->get('bulan');
+                $tahun = $request->get('tahun');
+                session(['bulan' => $bulan]);
+                session(['tahun' => $tahun]);
+            } elseif (session()->has('bulan') && session()->has('tahun')) {
+                $bulan = session('bulan');
+                $tahun = session('tahun');
+            } else {
+                $bulan = date('F');
+                $tahun = date('Y');
+            }
             $offline = Transaksi::select(
                 DB::raw("(sum(total_harga)) as total"),
                 DB::raw("(DATE_FORMAT(created_at, '%m-%Y')) as tanggal")
@@ -35,7 +47,7 @@ class DashboardController extends Controller
                 ->orderBy('created_at')
                 ->groupBy(DB::raw("DATE_FORMAT(created_at, '%m-%Y')"))->limit(10)
                 ->get();
-
+            $bulan = date('m', strtotime($bulan));
 
             $semua = Transaksi::select(
                 DB::raw("(sum(total_harga)) as total"),
@@ -44,10 +56,21 @@ class DashboardController extends Controller
                 ->orderBy('created_at')
                 ->groupBy(DB::raw("DATE_FORMAT(created_at, '%m-%Y')"))->limit(10)
                 ->get();
+            $pendapatan = Transaksi::where('status_transaksi', 'offline')->whereMonth('created_at', $bulan)
+            ->whereYear('created_at', $tahun)
+            ->sum('total_harga');
+            $transaksi = Transaksi::whereMonth('created_at', $bulan)->where('status_transaksi', 'offline')
+            ->whereYear('created_at', $tahun)
+            ->count();
+            $produk = Produk::whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->count();
+
             return response()->json([
                 'offline' => $offline,
                 'online' => $online,
                 'semua' => $semua,
+                'pendapatan' => $pendapatan,
+                'transaksi' => $transaksi,
+                'produk' => $produk,
                 'status' => true
             ]);
         }
@@ -61,8 +84,16 @@ class DashboardController extends Controller
         $transaksi = Transaksi::whereMonth('created_at', $bulan)->where('status_transaksi', 'offline')
         ->whereYear('created_at', $tahun)
         ->count();
-        $produk = Produk::count();
-        return view('ecommerce.offline.dashboard.index', ['pendapatan' => $pendapatan, 'transaksi' => $transaksi, 'produk' => $produk]);
+        $produk = Produk::whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->count();
+        $tahun = [];
+        $month = array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+        for ($i = 2018; $i <= date('Y'); $i++) {
+            array_push($tahun, $i);
+        }
+        return view('ecommerce.offline.dashboard.index', [
+            'pendapatan' => $pendapatan,
+            'transaksi' => $transaksi, 'produk' => $produk,
+            'month' => $month, 'tahun' => $tahun]);
     }
 
     /**
@@ -133,8 +164,14 @@ class DashboardController extends Controller
 
     public function transaksi()
     {
-        $bulan = date('m');
-        $tahun = date('Y');
+        if (session()->has('bulan') && session()->has('tahun')) {
+            $bulan = session('bulan');
+            $tahun = session('tahun');
+            $bulan = date('m', strtotime($bulan));
+        } else {
+            $bulan = date('m');
+            $tahun = date('Y');
+        }
 
         $transaksi = Transaksi::whereMonth('created_at', $bulan)
             ->whereYear('created_at', $tahun)

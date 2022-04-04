@@ -4,12 +4,50 @@
 @section('dashboard', 'class=active-sidebar')
 @section('content')
     <section class="section mt-3">
-         <div class="row">
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <div class="row">
+                    <div class="col-md-9">
+
+                    </div>
+                    <div class="col-md-3">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <select class="form-control selectgrey" id="bulan">
+                                        @forelse ($month as $key => $item)
+                                            <option value="{{ $item }}"
+                                                @if ($key + 1 == (int) date('m')) selected @endif>{{ $item }}
+                                            </option>
+                                        @empty
+                                        @endforelse
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <select class="form-control selectgrey" id="tahun">
+                                        @forelse ($tahun as $item)
+                                            <option value="{{ $item }}"
+                                                @if ($item == date('Y')) selected @endif>{{ $item }}
+                                            </option>
+                                        @empty
+                                        @endforelse
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-md-4">
-                <a href="{{route('offline.dashboard.transaksi')}}">
+                <a href="{{ route('offline.dashboard.transaksi') }}">
                     <div class="card card-statistic-1">
                         <div class="card-icon" style="background-color: rgba(26, 152, 255, 0.3);
-                                        border-radius: 8px;">
+                                                        border-radius: 8px;">
                             <img src="{{ asset('assets/icon/pendapatan.png') }}" alt="" srcset="">
                         </div>
                         <div class="card-wrap">
@@ -17,7 +55,7 @@
                                 <h4 class="size10" style="margin-top: -6px !important">Pendapatan Offline</h4>
                             </div>
                             <div class="card-body">
-                                <h4 id="siap_qc" class="label-data" style="margin-top: 6px !important">
+                                <h4 id="pendapatanOnlineCard" class="label-data" style="margin-top: 6px !important">
                                     @rupiah($pendapatan)
                                 </h4>
                             </div>
@@ -29,7 +67,7 @@
             <div class="col-md-4">
                 <div class="card card-statistic-1">
                     <div class="card-icon" style="background-color: rgba(51, 199, 88, 0.3);
-                                        border-radius: 8px;">
+                                                        border-radius: 8px;">
                         <img src="{{ asset('assets/icon/transaksi.png') }}" alt="" srcset="">
                     </div>
                     <div class="card-wrap">
@@ -37,7 +75,8 @@
                             <h4 class="size10" style="margin-top: -6px !important">Transaksi Offline</h4>
                         </div>
                         <div class="card-body">
-                            <h4 id="siap_qc" class="label-data" style="margin-top: 6px !important">{{ $transaksi }}
+                            <h4 id="transaksiOnlineCard" class="label-data" style="margin-top: 6px !important">
+                                {{ $transaksi }}
                             </h4>
                         </div>
                     </div>
@@ -46,7 +85,7 @@
             <div class="col-md-4">
                 <div class="card card-statistic-1">
                     <div class="card-icon " style="background-color: rgba(26, 205, 255, 0.30);
-                                border-radius: 8px;">
+                                                border-radius: 8px;">
                         <img src="{{ asset('assets/icon/t-shirt-fill-biru.png') }}" alt="" srcset="">
                     </div>
                     <div class="card-wrap">
@@ -54,13 +93,15 @@
                             <h4 class="size10" style="margin-top: -6px !important">Total Produk</h4>
                         </div>
                         <div class="card-body">
-                            <h4 id="siap_qc" class="label-data" style="margin-top: 6px !important">{{ $produk }}
+                            <h4 id="totalProdukOnlineCard" class="label-data" style="margin-top: 6px !important">
+                                {{ $produk }}
                             </h4>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
         <div class="row">
             <div class="col-md-4">
                 <div class="card">
@@ -93,7 +134,7 @@
     </section>
 @endsection
 @push('scripts')
-     <script src="{{ asset('https://cdn.jsdelivr.net/npm/chart.js') }}"></script>
+    <script src="{{ asset('https://cdn.jsdelivr.net/npm/chart.js') }}"></script>
     <script>
         $(document).ready(function() {
             var pieChart;
@@ -233,6 +274,33 @@
                 }
             })
 
+
+            $('#bulan, #tahun').on('change', function() {
+                var bulan = $('#bulan').find(':selected').val()
+                var tahun = $('#tahun').find(':selected').val()
+
+                $.ajax({
+                    url: "{{ route('offline.dashboard.index') }}",
+                    method: "GET",
+                    data: {
+                        'bulan': bulan,
+                        'tahun': tahun,
+                        'status': 'change'
+                    },
+                    success: function(data) {
+
+                        if (data.status) {
+                            var transaksi = data.transaksi;
+                            var pendapatan = data.pendapatan;
+                            var produk = data.produk;
+                            $('#pendapatanOnlineCard').text("Rp. " + convertToRupiah(
+                                pendapatan))
+                            $('#transaksiOnlineCard').text(transaksi)
+                            $('#totalProdukOnlineCard').text(produk)
+                        }
+                    }
+                })
+            })
         })
     </script>
 @endpush
