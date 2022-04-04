@@ -21,6 +21,9 @@ class CreateTransaksisTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->bigInteger('alamat_id')->unsigned()->index()->nullable();
             $table->foreign('alamat_id')->references('id')->on('alamats')->onDelete('cascade');
+            $table->string('nama')->nullable();
+            $table->string('no_hp')->nullable();
+            $table->string('alamat')->nullable();
             $table->string('no_resi')->nullable();
             $table->double('ongkir')->nullable();
             $table->string('kode_transaksi')->unique();

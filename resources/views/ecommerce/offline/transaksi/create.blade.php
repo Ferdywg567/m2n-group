@@ -35,12 +35,14 @@
                 <h1 class="ml-2">Input Data | Transaksi</h1>
             </div>
             <div class="section-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-body">
-                                @include('ecommerce.admin.include.alert')
-                                <form id="form_transaksi" enctype="multipart/form-data">
+
+                <form method="post" id="formDetail" action="{{ route('offline.transaksi.store') }}">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    @include('ecommerce.admin.include.alert')
+
                                     @csrf
                                     <div id="data-alert">
 
@@ -142,8 +144,6 @@
                                                     name="harga">
                                             </div>
                                         </div>
-
-
                                     </div>
 
                                     <div class="row">
@@ -157,47 +157,75 @@
                                             </div>
                                         </div>
                                     </div>
-                                </form>
+
+                                    <h5>Detail Pelanggan</h5>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="nama">Nama Pelanggan</label>
+                                                <input type="text" class="form-control" required id="nama" name="nama">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="no_hp">No. HP</label>
+                                                <input type="text" class="form-control" required id="no_hp" name="no_hp">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="alamat">Alamat</label>
+                                                <input type="text" class="form-control" required id="alamat"
+                                                    name="alamat">
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card ">
-                            <div class="card-header">
-                                <h4 class="text-dark"><i class="fas fa-list pr-2"></i> Detail Transaksi</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="kode_transaksi">Kode Transaksi</label>
-                                            <input type="text" class="form-control" readonly required id="kode_transaksi"
-                                                name="kode_transaksi" value="{{ $kode }}">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card ">
+                                <div class="card-header">
+                                    <h4 class="text-dark"><i class="fas fa-list pr-2"></i> Detail Transaksi</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="kode_transaksi">Kode Transaksi</label>
+                                                <input type="text" class="form-control" readonly required
+                                                    id="kode_transaksi" name="kode_transaksi" value="{{ $kode }}">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <table class="table table-hover" id="tabelproduk">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">No</th>
-                                            <th scope="col">Kode Produk</th>
-                                            <th scope="col">Nama Produk</th>
-                                            <th scope="col">Ukuran</th>
-                                            <th scope="col">Jumlah</th>
-                                            <th scope="col">Harga</th>
-                                            <th scope="col">Sub Total</th>
-                                            <th scope="col">Aksi</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="">
+                                    <table class="table table-hover" id="tabelproduk">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">No</th>
+                                                <th scope="col">Kode Produk</th>
+                                                <th scope="col">Nama Produk</th>
+                                                <th scope="col">Ukuran</th>
+                                                <th scope="col">Jumlah</th>
+                                                <th scope="col">Harga</th>
+                                                <th scope="col">Sub Total</th>
+                                                <th scope="col">Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="">
 
-                                    </tbody>
-                                </table>
-                                <form method="post" id="formDetail" action="{{ route('offline.transaksi.store') }}">
-                                    @csrf
+                                        </tbody>
+                                    </table>
+
+
                                     <div class="row">
                                         <div class="col-md-8 float-left text-left">
                                             <div class="form-group mt-2" style="padding-left: 50px;">
@@ -236,14 +264,14 @@
                                     </div>
                                     <div class="float-right mt-3">
                                         <button type="button" class="btn btn-primary btnsimpan">Simpan</button>
-                                        <button type="button" class="btn btn-primary btnsimpancetak">Simpan & Cetak</button>
+                                        <button type="button" class="btn btn-primary btnsimpancetak">Simpan &
+                                            Cetak</button>
                                     </div>
-                                </form>
-
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
         </section>
 
@@ -479,6 +507,17 @@
                 var total_harga = convertToAngka($('#total_harga').val())
                 var cetak = $('#cetak').find(':selected').val()
 
+                var nama = $('#nama').val()
+                var no_hp = $('#no_hp').val()
+                var alamat = $('#alamat').val()
+
+
+                if (nama == '' || no_hp == '' || alamat == '') {
+                    swal("Detail pelanggan wajib diisi!");
+
+                    return false;
+                }
+
                 $.ajax({
                     url: "{{ route('offline.transaksi.cek') }}",
                     method: "GET",
@@ -503,7 +542,10 @@
                                                 success: function(response) {
                                                     if (response.status) {
                                                         window.open(
-                                                            "{{ url('admin/offline/transaksi/cetak/') }}/" + response.data + "/?cetak="+cetak)
+                                                            "{{ url('admin/offline/transaksi/cetak/') }}/" +
+                                                            response.data +
+                                                            "/?cetak=" +
+                                                            cetak)
                                                         // setTimeout(function () { window.location.reload(true) },1500)
                                                         $('#formDetail')
                                                             .trigger('reset')
@@ -541,7 +583,16 @@
             $('.btnsimpan').on('click', function() {
                 var bayar = convertToAngka($('#bayar').val());
                 var total_harga = convertToAngka($('#total_harga').val())
+                var nama = $('#nama').val()
+                var no_hp = $('#no_hp').val()
+                var alamat = $('#alamat').val()
 
+
+                if (nama == '' || no_hp == '' || alamat == '') {
+                    swal("Detail pelanggan wajib diisi!");
+
+                    return false;
+                }
 
                 $.ajax({
                     url: "{{ route('offline.transaksi.cek') }}",

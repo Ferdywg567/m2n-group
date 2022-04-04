@@ -175,11 +175,11 @@
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:{{date('Y-m-d')}}
                             </p>
                             <p style="font-size:6pt;text-align: left;margin-bottom:-5px;padding-top:8px">Nama
-                                Pelanggan:..........</p>
+                                Pelanggan:{{$transaksi->nama}}</p>
                             <p style="font-size:6pt;text-align: left;margin-bottom:-5px;padding-top:8px">Alamat
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:..........</p>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:{{$transaksi->alamat}}</p>
                             <p style="font-size:6pt;text-align: left;margin-bottom:-5px;padding-top:8px">No. Hp
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:..........</p>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:{{$transaksi->no_hp}}</p>
                         </div>
                     </td>
                 </tr>
