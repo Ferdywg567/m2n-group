@@ -136,7 +136,7 @@
                     <td>
                         <div style="padding-bottom: 45px">
                             <img style="float: left; margin-right:-170px;"
-                                src="{{ public_path('/assets/img/Push & Pull Logo.png') }}" width="80%" alt=""
+                                src="{{ public_path('/assets/img/Push & Pull Logo.png') }}" width="90%" alt=""
                                 srcset="">
                         </div>
                     </td>
