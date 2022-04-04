@@ -136,7 +136,7 @@
                     <td>
                         <div style="padding-bottom: 30px">
                             <img style="float: left; margin-right:-170px;"
-                                src="{{ public_path('/assets/img/M2N Kids Logo.png') }}"  width="90%" alt="" srcset="">
+                                src="{{ public_path('/assets/img/M2N Kids Logo.png') }}"  width="85%" alt="" srcset="">
                         </div>
 
                     </td>
