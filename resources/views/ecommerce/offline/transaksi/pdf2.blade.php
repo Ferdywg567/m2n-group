@@ -172,7 +172,7 @@
                     <td>
                         <div style="margin-left: -6px">
                             <p style="margin-bottom:-5px; font-size:6pt;text-align: left;">Tanggal
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:..........
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:{{date('Y-m-d')}}
                             </p>
                             <p style="font-size:6pt;text-align: left;margin-bottom:-5px;padding-top:8px">Nama
                                 Pelanggan:..........</p>
