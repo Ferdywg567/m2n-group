@@ -190,7 +190,7 @@
                 <tr>
                     <td>
                         <div style="float: left; margin-right:-50px">
-                            No. Nota : .............
+                            No. Nota : {{$transaksi->kode_transaksi}}
                         </div>
                     </td>
                     <td>
