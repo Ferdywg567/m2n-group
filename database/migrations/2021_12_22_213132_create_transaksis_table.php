@@ -34,6 +34,7 @@ class CreateTransaksisTable extends Migration
             $table->string('status')->nullable();
             $table->string('status_bayar')->nullable();
             $table->string('bukti_bayar')->nullable();
+            $table->string('pembayaran')->nullable();
             $table->double('bayar')->nullable();
             $table->double('kembalian')->nullable();
             $table->timestamps();

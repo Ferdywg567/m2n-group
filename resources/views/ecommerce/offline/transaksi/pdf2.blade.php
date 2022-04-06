@@ -200,7 +200,7 @@
                     </td>
                     <td>
                         <div style="padding-right: 200px;">
-                            Pembayaran : .............</div>
+                            Pembayaran : {{$transaksi->pembayaran}}</div>
                     </td>
                 </tr>
             </table>

@@ -93,6 +93,7 @@ class TransaksiController extends Controller
                 $transaksi->no_hp = $request->get('no_hp');
                 $transaksi->alamat = $request->get('alamat');
                 $transaksi->tgl_transaksi = date('Y-m-d H:i:s');
+                $transaksi->pembayaran = $request->get('pembayaran');
                 $transaksi->qty = $totalproduk;
                 $transaksi->total_harga = $total_harga;
                 $transaksi->bayar = $bayar;

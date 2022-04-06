@@ -184,7 +184,17 @@
                                         </div>
                                     </div>
 
-
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="pembayaran">Pembayaran</label>
+                                                <select class="form-control" id="pembayaran" name="pembayaran">
+                                                    <option value="Tunai">Tunai</option>
+                                                    <option value="Transfer">Transfer</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
 
                                 </div>
                             </div>
