@@ -149,7 +149,7 @@
                             Solution
                         </p>
                     </td> --}}
-                    <td style="padding-right: 5px;">
+                    <td style="padding-right: 1px;">
                         <p style="margin-bottom:-5px; margin-top:-10px;font-size:5pt;text-align: right;">Hubungi Kami:
                         </p>
                         <p style="font-size:5pt;text-align: right;margin-bottom:-5px; padding-top:3px">
