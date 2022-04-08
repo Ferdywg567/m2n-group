@@ -157,7 +157,7 @@
                         </p>
                         <p style="font-size:5pt;text-align: right; padding-top:3px">m2ngroup@outlook.co.id</p>
                     </td>
-                    <td style="margin-right: -4px">
+                    <td style="margin-right: -1px">
                         <img style="margin-top: -5px" src="{{ public_path('/assets/img/whatsapp-line.png') }}"
                             width="2%" alt="" srcset="">
                         <br>
