@@ -136,7 +136,7 @@
                     <td>
                         <div style="padding-bottom: 30px">
                             <img style="float: left; margin-right:-170px;"
-                                src="{{ public_path('/assets/img/M2N Kids Logo.png') }}"  width="85%" alt="" srcset="">
+                                src="{{ public_path('/assets/img/M2N Kids Logo.png') }}" width="85%" alt="" srcset="">
                         </div>
 
                     </td>
@@ -152,7 +152,7 @@
                         </div>
                     </td>
                     <td style="padding-right: 1px;">
-                        <div >
+                        <div>
                             <p style="margin-bottom:-5px; margin-top:-10px;font-size:5pt;text-align: right;">Hubungi
                                 Kami:
                             </p>
@@ -162,24 +162,25 @@
                             <p style="font-size:5pt;text-align: right; padding-top:3px">m2ngroup@outlook.co.id</p>
                         </div>
                     </td>
-                    <td style="margin-right: -20px">
-                        <img style="margin-top: -2px" src="{{ public_path('/assets/img/whatsapp-line.png') }}"
-                            width="30%" alt="" srcset="">
-                        <br>
-                        <img  src="{{ public_path('/assets/img/mail-line.png') }}" width="30%"
-                            alt="" srcset="">
+                    <td style="margin-right: -1px">
+                        <div style="margin-right: -10px">
+                            <img style="margin-top: -2px" src="{{ public_path('/assets/img/whatsapp-line.png') }}"
+                                width="30%" alt="" srcset="">
+                            <br>
+                            <img src="{{ public_path('/assets/img/mail-line.png') }}" width="30%" alt="" srcset="">
+                        </div>
                     </td>
                     <td>
                         <div style="margin-left: -6px">
                             <p style="margin-bottom:-5px; font-size:6pt;text-align: left;">Tanggal
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:{{date('Y-m-d')}}
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:{{ date('Y-m-d') }}
                             </p>
                             <p style="font-size:6pt;text-align: left;margin-bottom:-5px;padding-top:8px">Nama
-                                Pelanggan:{{$transaksi->nama}}</p>
+                                Pelanggan:{{ $transaksi->nama }}</p>
                             <p style="font-size:6pt;text-align: left;margin-bottom:-5px;padding-top:8px">Alamat
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:{{$transaksi->alamat}}</p>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:{{ $transaksi->alamat }}</p>
                             <p style="font-size:6pt;text-align: left;margin-bottom:-5px;padding-top:8px">No. Hp
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:{{$transaksi->no_hp}}</p>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:{{ $transaksi->no_hp }}</p>
                         </div>
                     </td>
                 </tr>
@@ -195,12 +196,12 @@
                 <tr>
                     <td>
                         <div style="float: left; margin-right:-50px">
-                            No. Nota : {{$transaksi->kode_transaksi}}
+                            No. Nota : {{ $transaksi->kode_transaksi }}
                         </div>
                     </td>
                     <td>
                         <div style="padding-right: 200px;">
-                            Pembayaran : {{$transaksi->pembayaran}}</div>
+                            Pembayaran : {{ $transaksi->pembayaran }}</div>
                     </td>
                 </tr>
             </table>
