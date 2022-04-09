@@ -166,7 +166,7 @@
                         <img style="margin-top: -3px" src="{{ public_path('/assets/img/whatsapp-line.png') }}"
                             width="30%" alt="" srcset="">
                         <br>
-                        <img style="margin-top: -4px" src="{{ public_path('/assets/img/mail-line.png') }}" width="30%"
+                        <img  src="{{ public_path('/assets/img/mail-line.png') }}" width="30%"
                             alt="" srcset="">
                     </td>
                     <td>
