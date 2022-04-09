@@ -164,9 +164,9 @@
                     </td>
                     <td style="margin-right: -1px">
                         <img style="margin-top: -5px" src="{{ public_path('/assets/img/whatsapp-line.png') }}"
-                            width="2%" alt="" srcset="">
+                            width="20%" alt="" srcset="">
                         <br>
-                        <img style="margin-top: -4px" src="{{ public_path('/assets/img/mail-line.png') }}" width="2%"
+                        <img style="margin-top: -4px" src="{{ public_path('/assets/img/mail-line.png') }}" width="20%"
                             alt="" srcset="">
                     </td>
                     <td>
