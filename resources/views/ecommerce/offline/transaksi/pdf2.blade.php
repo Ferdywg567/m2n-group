@@ -151,7 +151,7 @@
                             </p>
                         </div>
                     </td>
-                    <td style="padding-right: 5px;">
+                    <td style="padding-right: 1px;">
                         <div style="margin-left: -20px">
                             <p style="margin-bottom:-5px; margin-top:-10px;font-size:5pt;text-align: right;">Hubungi
                                 Kami:
@@ -162,7 +162,7 @@
                             <p style="font-size:5pt;text-align: right; padding-top:3px">m2ngroup@outlook.co.id</p>
                         </div>
                     </td>
-                    <td>
+                    <td style="margin-right: -1px">
                         <img style="margin-top: -5px" src="{{ public_path('/assets/img/whatsapp-line.png') }}"
                             width="2%" alt="" srcset="">
                         <br>
