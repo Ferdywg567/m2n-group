@@ -163,7 +163,7 @@
                         </div>
                     </td>
                     <td style="margin-right: -1px">
-                        <div style="margin-right: -10px">
+                        <div style="margin-right: -15px">
                             <img style="margin-top: -2px" src="{{ public_path('/assets/img/whatsapp-line.png') }}"
                                 width="30%" alt="" srcset="">
                             <br>
