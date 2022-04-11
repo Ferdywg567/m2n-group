@@ -196,7 +196,7 @@
                 </tr>
 
             </table>
-            <table style="margin-top: -10px">
+            <table style="margin-top: -20px">
                 <tr>
                     <td>Blok B Lt. Ground Los E No. 100 - 101</td>
                 </tr>
