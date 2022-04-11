@@ -5,7 +5,6 @@
     <meta charset="utf-8">
     <title>Transaksi</title>
     <link rel="stylesheet" href="style.css" media="all" />
-    {{-- <link rel="stylesheet" href="{{ public_path('ecommerce/assets/css/vendor/bootstrap.min.css') }}"> --}}
 </head>
 
 <body>
