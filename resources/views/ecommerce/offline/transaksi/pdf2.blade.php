@@ -11,7 +11,7 @@
 <body>
     <style>
         table {
-            width: 100%;
+            width: 50%;
             border-collapse: collapse;
             border-spacing: 0;
             /* border: 1px solid black; */
