@@ -150,10 +150,11 @@
                             <div>
                                 <p style="text-align: left; font-size:5px; white-space: nowrap;">
                                     Your Stylish Children's
+                                    <br>
+                                    Clothing Solution
                                 </p>
-                                <p style="text-align: left; font-size:5px; white-space: nowrap">Clothing
-                                    Solution
-                                </p>
+                                {{-- <p style="text-align: left; font-size:5px; white-space: nowrap">
+                                </p> --}}
                             </div>
                         </div>
                     </td>
