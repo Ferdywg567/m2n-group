@@ -143,12 +143,12 @@
 
             <table style="white-space: nowrap">
                 <tr>
-                    <td>
+                    {{-- <td>
                         <div style="padding-bottom: 30px">
                             <img style="float: left; "
                                 src="{{ public_path('/assets/img/M2N Kids Logo.png') }}" width="20%" alt="" srcset="">
                         </div>
-                    </td>
+                    </td> --}}
                     <td>
                         <div style="margin-left: -130px !important">
                             <p
