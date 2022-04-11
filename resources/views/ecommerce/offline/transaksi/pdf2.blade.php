@@ -135,7 +135,7 @@
             <table style="white-space: nowrap">
                 <tr>
                     <td>
-                        <div style="padding-bottom: 30px">
+                        <div style="padding-bottom: 30px; margin-right:-20px;">
                             <img style="float: left; " src="{{ public_path('/assets/img/M2N Kids Logo.png') }}"
                                 width="50%" alt="" srcset="">
                         </div>
