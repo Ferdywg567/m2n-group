@@ -87,7 +87,7 @@
             margin: 0 auto;
             color: #001028;
             background: #FFFFFF;
-            font-size: 10px;
+            font-size: 5px;
             font-family: monospace;
         }
 
