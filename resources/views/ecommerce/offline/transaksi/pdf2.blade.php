@@ -146,11 +146,11 @@
                     <td>
                         <div style="padding-bottom: 30px">
                             <img style="float: left; " src="{{ public_path('/assets/img/M2N Kids Logo.png') }}"
-                                width="20%" alt="" srcset="">
+                                width="80%" alt="" srcset="">
 
                         </div>
                     </td>
-                 
+
                     <td style="padding-right: 1px;">
                         <div>
                             <p style="margin-bottom:-5px; margin-top:-10px;font-size:5pt;text-align: right;">Hubungi
