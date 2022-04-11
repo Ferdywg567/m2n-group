@@ -147,24 +147,11 @@
                         <div style="padding-bottom: 30px">
                             <img style="float: left; " src="{{ public_path('/assets/img/M2N Kids Logo.png') }}"
                                 width="20%" alt="" srcset="">
-                            <div>
-                                <p style="text-align: left; font-size:6px; white-space: nowrap;">
-                                    Your Stylish Children's
-                                    <br>
-
-                                    Clothing Solution
-                                </p>
-                                {{-- <p style="text-align: left; font-size:5px; white-space: nowrap">
-                                </p> --}}
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div style="margin-left: -130px !important">
 
                         </div>
                     </td>
-                    {{-- <td style="padding-right: 1px;">
+                 
+                    <td style="padding-right: 1px;">
                         <div>
                             <p style="margin-bottom:-5px; margin-top:-10px;font-size:5pt;text-align: right;">Hubungi
                                 Kami:
@@ -196,7 +183,7 @@
                             <p style="font-size:7px; text-align: left;margin-bottom:-5px;padding-top:8px">No. Hp
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:{{ $transaksi->no_hp }}</p>
                         </div>
-                    </td> --}}
+                    </td>
                 </tr>
 
             </table>
