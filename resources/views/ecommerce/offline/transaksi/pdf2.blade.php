@@ -196,13 +196,13 @@
                 </tr>
 
             </table>
-            <table style="margin-top: -20px">
+            <table style="margin-top: -20px;font-size:5px;">
                 <tr>
                     <td>Blok B Lt. Ground Los E No. 100 - 101</td>
                 </tr>
 
             </table>
-            <table style="font-size:7px;padding-top:8px">
+            <table style="font-size:5px;padding-top:8px">
                 <tr>
                     <td>
                         <div style="float: left; margin-right:-50px">
