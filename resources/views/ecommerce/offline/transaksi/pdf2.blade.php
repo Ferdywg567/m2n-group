@@ -140,7 +140,7 @@
                                 width="50%" alt="" srcset="">
                         </div>
                     </td>
-                    <td style="padding-right: 1px;">
+                    <td style="margin-left:-10px">
                         <div>
                             <p style="margin-bottom:-5px; margin-top:-10px;font-size:5px; text-align: right;">Hubungi
                                 Kami:
