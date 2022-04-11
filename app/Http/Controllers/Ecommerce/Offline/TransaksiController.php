@@ -442,7 +442,6 @@ class TransaksiController extends Controller
         $transaksi = Transaksi::findOrFail($id);
         $customPaper = array(0, 0, 269, 311);
         $cetak = $request->get('cetak');
-        // dd($cetak);
         if($cetak == 'Push'){
             $pdf = PDF::loadView('ecommerce.offline.transaksi.pdf', ['transaksi' => $transaksi]);
         }else{
