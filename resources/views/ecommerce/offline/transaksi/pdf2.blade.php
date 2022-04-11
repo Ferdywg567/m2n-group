@@ -169,14 +169,14 @@
                     </td>
                     <td>
                         <div style="margin-left: -6px">
-                            <p style="margin-bottom:-5px; font-size:7px; text-align: left;">Tanggal
+                            <p style="margin-bottom:-5px; font-size:5px; text-align: left;">Tanggal
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:{{ date('Y-m-d') }}
                             </p>
-                            <p style="font-size:7px; text-align: left;margin-bottom:-5px;padding-top:8px">Nama
+                            <p style="font-size:5px; text-align: left;margin-bottom:-5px;padding-top:8px">Nama
                                 Pelanggan:{{ $transaksi->nama }}</p>
-                            <p style="font-size:7px; text-align: left;margin-bottom:-5px;padding-top:8px">Alamat
+                            <p style="font-size:5px; text-align: left;margin-bottom:-5px;padding-top:8px">Alamat
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:{{ $transaksi->alamat }}</p>
-                            <p style="font-size:7px; text-align: left;margin-bottom:-5px;padding-top:8px">No. Hp
+                            <p style="font-size:5px; text-align: left;margin-bottom:-5px;padding-top:8px">No. Hp
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:{{ $transaksi->no_hp }}</p>
                         </div>
                     </td>
