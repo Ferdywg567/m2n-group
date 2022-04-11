@@ -126,6 +126,10 @@
             /* border-top: 1px solid #C1CED9; */
         }
 
+        @page{
+            size: 359px 415px;
+
+        }
     </style>
 
     <main>
