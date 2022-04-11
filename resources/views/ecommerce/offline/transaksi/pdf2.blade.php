@@ -203,7 +203,7 @@
                 </tr>
 
             </table>
-            <table style="font-size:6pt;padding-top:8px">
+            <table style="font-size:7px;padding-top:8px">
                 <tr>
                     <td>
                         <div style="float: left; margin-right:-50px">
