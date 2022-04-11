@@ -146,9 +146,8 @@
                     <td>
                         <div style="padding-bottom: 30px">
                             <img style="float: left; margin-right:-170px;"
-                                src="{{ public_path('/assets/img/M2N Kids Logo.png') }}" width="55%" alt="" srcset="">
+                                src="{{ public_path('/assets/img/M2N Kids Logo.png') }}" width="15%" alt="" srcset="">
                         </div>
-
                     </td>
                     {{-- <td>
                         <div style="margin-left: -10px">
@@ -197,7 +196,7 @@
                 </tr>
 
             </table>
-            <table style="margin-top: -25px">
+            <table style="margin-top: -10px">
                 <tr>
                     <td>Blok B Lt. Ground Los E No. 100 - 101</td>
                 </tr>
