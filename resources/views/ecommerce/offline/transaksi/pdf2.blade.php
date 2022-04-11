@@ -149,7 +149,7 @@
                                 src="{{ public_path('/assets/img/M2N Kids Logo.png') }}" width="15%" alt="" srcset="">
                         </div>
                     </td>
-                    {{-- <td>
+                    <td>
                         <div style="margin-left: -10px">
                             <p
                                 style="text-align: left; font-size:4px; white-space: nowrap; margin-bottom:-5px; margin-top:-4px">
@@ -160,7 +160,7 @@
                             </p>
                         </div>
                     </td>
-                    <td style="padding-right: 1px;">
+                    {{-- <td style="padding-right: 1px;">
                         <div>
                             <p style="margin-bottom:-5px; margin-top:-10px;font-size:5pt;text-align: right;">Hubungi
                                 Kami:
