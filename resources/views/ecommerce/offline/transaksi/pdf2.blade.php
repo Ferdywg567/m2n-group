@@ -162,7 +162,7 @@
                 </tr>
 
             </table>
-            {{-- <table style="margin-top: -20px;font-size:5px;">
+            <table style="margin-top: -20px;font-size:5px;">
                 <tr>
                     <td>Blok B Lt. Ground Los E No. 100 - 101</td>
                 </tr>
@@ -180,7 +180,7 @@
                             Pembayaran : {{ $transaksi->pembayaran }}</div>
                     </td>
                 </tr>
-            </table> --}}
+            </table>
         </header>
         {{-- <div style="text-align: right; padding-top:12px">Kode Transaksi : <b>{{ $transaksi->kode_transaksi }}</b> --}}
         </div>
