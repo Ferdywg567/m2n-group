@@ -440,7 +440,7 @@ class TransaksiController extends Controller
     public function cetak(Request $request, $id)
     {
         $transaksi = Transaksi::findOrFail($id);
-        $customPaper = array(0, 0, 198.425, 340.157);
+        $customPaper = array(0, 0, 269, 311);
         $cetak = $request->get('cetak');
         // dd($cetak);
         if($cetak == 'Push'){
@@ -449,7 +449,8 @@ class TransaksiController extends Controller
             $pdf = PDF::loadView('ecommerce.offline.transaksi.pdf2', ['transaksi' => $transaksi]);
         }
 
-        $pdf->setPaper('A5','potrait');
+        // $pdf->setPaper('A5','potrait');
+        $pdf->setPaper($customPaper);
         return $pdf->stream('transaksi-offline.pdf', array("Attachment" => 0));
 
     }
