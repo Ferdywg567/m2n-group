@@ -29,12 +29,10 @@
         }
 
         table th {
-            /* padding: 5px 15px; */
-            /* color: #5D6975; */
-            /* border-bottom: 1px solid #C1CED9; */
+
             white-space: nowrap;
             font-weight: normal;
-            /* border: 1px solid black; */
+
         }
 
 
@@ -91,11 +89,7 @@
 
         table td {
             white-space: nowrap;
-            /* padding-bottom: 10px;
-            padding-top: 10px; */
-            /* border: 1px solid black; */
-            /* border-right: solid 1px black;
-            border-left: solid 1px black; */
+
         }
 
         .jarak {
@@ -157,8 +151,8 @@
                             <p style="font-size:5px; text-align: right; padding-top:3px">m2ngroup@outlook.co.id</p>
                         </div>
                     </td>
-                    <td style="margin-right: -1px">
-                        <div style="margin-right: -15px">
+                    <td>
+                        <div>
                             <img style="margin-top: -2px" src="{{ public_path('/assets/img/whatsapp-line.png') }}"
                                 width="30%" alt="" srcset="">
                             <br>
