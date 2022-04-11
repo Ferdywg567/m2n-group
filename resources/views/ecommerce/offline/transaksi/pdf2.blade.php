@@ -150,7 +150,7 @@
                         </div>
                     </td>
                     <td>
-                        <div style="margin-left: -130px">
+                        <div style="margin-left: -130px !important">
                             <p
                                 style="text-align: left; font-size:4px; white-space: nowrap;  margin-top:-4px">
                                 Your Stylish Children's
