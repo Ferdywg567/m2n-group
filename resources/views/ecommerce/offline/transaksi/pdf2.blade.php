@@ -25,7 +25,7 @@
 
         .table td,
         .table th {
-            font-size: 5px;
+            font-size: 7px;
         }
 
         table th {
@@ -68,7 +68,7 @@
             width: 52px;
             margin-right: 10px;
             display: inline-block;
-            font-size: 0.8em;
+            font-size: 7px;
         }
 
         #company {
@@ -87,7 +87,7 @@
             margin: 0 auto;
             color: #001028;
             background: #FFFFFF;
-            font-size: 5px;
+            font-size: 7px;
             font-family: monospace;
         }
 
