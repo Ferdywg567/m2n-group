@@ -146,13 +146,13 @@
                     <td>
                         <div style="padding-bottom: 30px">
                             <img style="float: left; margin-right:-170px;"
-                                src="{{ public_path('/assets/img/M2N Kids Logo.png') }}" width="15%" alt="" srcset="">
+                                src="{{ public_path('/assets/img/M2N Kids Logo.png') }}" width="20%" alt="" srcset="">
                         </div>
                     </td>
                     <td>
-                        <div style="margin-left: -10px">
+                        <div style="margin-left: -30px">
                             <p
-                                style="text-align: left; font-size:4px; white-space: nowrap; margin-bottom:-5px; margin-top:-4px">
+                                style="text-align: left; font-size:4px; white-space: nowrap;  margin-top:-4px">
                                 Your Stylish Children's
                             </p>
                             <p style="text-align: left; font-size:4px; white-space: nowrap">Clothing
