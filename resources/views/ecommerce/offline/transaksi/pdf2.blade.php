@@ -14,13 +14,6 @@
             width: 100%;
             border-collapse: collapse;
             border-spacing: 0;
-            /* border: 1px solid black; */
-            /* margin-bottom: 20px; */
-            /* padding-right: 20px; */
-        }
-
-        table tr:nth-child(2n-1) td {
-            /* background: #F5F5F5; */
         }
 
         .table td,
@@ -29,10 +22,8 @@
         }
 
         table th {
-
             white-space: nowrap;
             font-weight: normal;
-
         }
 
 
@@ -51,8 +42,6 @@
             text-align: center;
             margin-bottom: 10px;
         }
-
-
 
         #project {
             float: right;
@@ -101,10 +90,8 @@
 
         #logo {
             text-align: center;
-            /* padding-left: 90px; */
             display: inline-block;
             font-size: 7px;
-            /* margin-bottom: 10px; */
         }
 
         #logo img {
@@ -120,7 +107,6 @@
             width: 100%;
             position: absolute;
             bottom: 0;
-            /* border-top: 1px solid #C1CED9; */
         }
 
         @page {
