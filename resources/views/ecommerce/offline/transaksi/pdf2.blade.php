@@ -54,9 +54,7 @@
             margin-bottom: 10px;
         }
 
-        #logo img {
-            width: 90px;
-        }
+   
 
         #project {
             float: right;
@@ -140,7 +138,6 @@
 
     <main>
         <header class="clearfix">
-
             <table style="white-space: nowrap">
                 <tr>
                     <td>
