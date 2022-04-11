@@ -146,7 +146,7 @@
                     <td>
                         <div style="padding-bottom: 30px">
                             <img style="float: left; " src="{{ public_path('/assets/img/M2N Kids Logo.png') }}"
-                                width="100%" alt="" srcset="">
+                                width="120%" alt="" srcset="">
                         </div>
                     </td>
 
