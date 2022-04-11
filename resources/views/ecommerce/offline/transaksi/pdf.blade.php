@@ -122,7 +122,7 @@
                     <td>
                         <div style="padding-bottom: 30px; margin-right:-20px;">
                             <img style="float: left; " src="{{ public_path('/assets/img/Push & Pull Logo.png') }}"
-                                width="50%" alt="" srcset="">
+                                width="70%" alt="" srcset="">
                         </div>
                     </td>
                     <td>
