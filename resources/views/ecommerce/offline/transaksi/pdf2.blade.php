@@ -54,7 +54,7 @@
             margin-bottom: 10px;
         }
 
-   
+
 
         #project {
             float: right;
@@ -149,13 +149,13 @@
 
                     <td style="padding-right: 1px;">
                         <div>
-                            <p style="margin-bottom:-5px; margin-top:-10px;font-size:5pt;text-align: right;">Hubungi
+                            <p style="margin-bottom:-5px; margin-top:-10px;font-size:5px; text-align: right;">Hubungi
                                 Kami:
                             </p>
-                            <p style="font-size:5pt;text-align: right;margin-bottom:-5px; padding-top:3px">
+                            <p style="font-size:5px; text-align: right;margin-bottom:-5px; padding-top:3px">
                                 0812-0780-9972/0815-3460-5040
                             </p>
-                            <p style="font-size:5pt;text-align: right; padding-top:3px">m2ngroup@outlook.co.id</p>
+                            <p style="font-size:5px; text-align: right; padding-top:3px">m2ngroup@outlook.co.id</p>
                         </div>
                     </td>
                     <td style="margin-right: -1px">
