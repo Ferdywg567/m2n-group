@@ -143,21 +143,21 @@
 
             <table style="white-space: nowrap">
                 <tr>
-                    {{-- <td>
-                        <div style="padding-bottom: 30px">
-                            <img style="float: left; "
-                                src="{{ public_path('/assets/img/M2N Kids Logo.png') }}" width="20%" alt="" srcset="">
-                        </div>
-                    </td> --}}
                     <td>
-                        <div style="margin-left: -130px !important">
-                            <p
-                                style="text-align: left; font-size:4px; white-space: nowrap;  margin-top:-4px">
+                        <div style="padding-bottom: 30px">
+                            <img style="float: left; " src="{{ public_path('/assets/img/M2N Kids Logo.png') }}"
+                                width="20%" alt="" srcset="">
+                            <p style="text-align: left; font-size:4px; white-space: nowrap;  margin-top:-4px">
                                 Your Stylish Children's
                             </p>
                             <p style="text-align: left; font-size:4px; white-space: nowrap">Clothing
                                 Solution
                             </p>
+                        </div>
+                    </td>
+                    <td>
+                        <div style="margin-left: -130px !important">
+
                         </div>
                     </td>
                     {{-- <td style="padding-right: 1px;">
