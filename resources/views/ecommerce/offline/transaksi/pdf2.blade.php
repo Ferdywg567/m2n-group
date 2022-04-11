@@ -23,6 +23,11 @@
             /* background: #F5F5F5; */
         }
 
+        .table td,
+        .table th {
+            font-size: 5px;
+        }
+
         table th {
             /* padding: 5px 15px; */
             /* color: #5D6975; */
@@ -126,10 +131,11 @@
             /* border-top: 1px solid #C1CED9; */
         }
 
-        @page{
+        @page {
             size: 359px 415px;
 
         }
+
     </style>
 
     <main>
@@ -171,7 +177,8 @@
                             <img style="margin-top: -2px" src="{{ public_path('/assets/img/whatsapp-line.png') }}"
                                 width="30%" alt="" srcset="">
                             <br>
-                            <img style="margin-top: -1px" src="{{ public_path('/assets/img/mail-line.png') }}" width="30%" alt="" srcset="">
+                            <img style="margin-top: -1px" src="{{ public_path('/assets/img/mail-line.png') }}"
+                                width="30%" alt="" srcset="">
                         </div>
                     </td>
                     <td>
