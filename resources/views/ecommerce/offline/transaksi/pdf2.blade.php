@@ -148,8 +148,9 @@
                             <img style="float: left; " src="{{ public_path('/assets/img/M2N Kids Logo.png') }}"
                                 width="20%" alt="" srcset="">
                             <div>
-                                <p style="text-align: left; font-size:5px; white-space: nowrap;">
+                                <p style="text-align: left; font-size:5px; white-space: nowrap; margin-top:-2px">
                                     Your Stylish Children's
+                                    <br>
                                     <br>
                                     Clothing Solution
                                 </p>
