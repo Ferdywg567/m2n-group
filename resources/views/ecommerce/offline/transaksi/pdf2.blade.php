@@ -140,8 +140,8 @@
                                 width="50%" alt="" srcset="">
                         </div>
                     </td>
-                    <td style="margin-left:-10px">
-                        <div>
+                    <td>
+                        <div style="margin-left:-10px">
                             <p style="margin-bottom:-5px; margin-top:-10px;font-size:5px; text-align: right;">Hubungi
                                 Kami:
                             </p>
