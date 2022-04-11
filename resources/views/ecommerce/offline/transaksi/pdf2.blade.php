@@ -150,7 +150,7 @@
                         </div>
 
                     </td>
-                    <td>
+                    {{-- <td>
                         <div style="margin-left: -10px">
                             <p
                                 style="text-align: left; font-size:4px; white-space: nowrap; margin-bottom:-5px; margin-top:-4px">
@@ -193,7 +193,7 @@
                             <p style="font-size:7px; text-align: left;margin-bottom:-5px;padding-top:8px">No. Hp
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:{{ $transaksi->no_hp }}</p>
                         </div>
-                    </td>
+                    </td> --}}
                 </tr>
 
             </table>
