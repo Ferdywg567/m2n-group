@@ -127,7 +127,7 @@
         }
 
         @page{
-            size: 359px 415px;
+            size: 359px 800px;
 
         }
     </style>
