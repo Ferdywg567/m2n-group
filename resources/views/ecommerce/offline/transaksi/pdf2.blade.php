@@ -205,7 +205,7 @@
             <table style="font-size:5px;padding-top:8px">
                 <tr>
                     <td>
-                        <div style="float: left; margin-right:-50px">
+                        <div style="float: left; margin-right:-20px">
                             No. Nota : {{ $transaksi->kode_transaksi }}
                         </div>
                     </td>
