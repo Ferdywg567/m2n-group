@@ -67,8 +67,8 @@ class PotongController extends Controller
             $validator = Validator::make($request->all(), [
                 'kode_transaksi' =>  'required',
                 'no_surat' => 'required|unique:potongs,no_surat',
-                'tanggal_potong' => 'required|date_format:"Y-m-d"',
-                'estimasi_selesai_potong' => 'required|date_format:"Y-m-d"',
+                'tanggal_potong' => 'required|date_format:"Y-m-d"|after_or_equal:' . date('Y-m-d'),
+                'estimasi_selesai_potong' => 'required|date_format:"Y-m-d"|after_or_equal:tanggal_potong',
             ]);
         } else if ($request->get('status') == 'potong selesai') {
             $validator = Validator::make($request->all(), [

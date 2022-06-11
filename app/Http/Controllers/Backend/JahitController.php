@@ -72,8 +72,8 @@ class JahitController extends Controller
                 $validasi = [
                     'kode_transaksi' =>  'required',
                     'no_surat' => 'required|unique:jahits,no_surat',
-                    'tanggal_jahit' => 'required|date_format:"Y-m-d"',
-                    'estimasi_selesai_jahit' => 'required|date_format:"Y-m-d"|after:tanggal_jahit',
+                    'tanggal_jahit' => 'required|date_format:"Y-m-d"|after_or_equal:' . date('Y-m-d'),
+                    'estimasi_selesai_jahit' => 'required|date_format:"Y-m-d"|after_or_equal:tanggal_jahit',
                     'vendor_jahit' => 'required',
                     'jumlah_bahan_yang_dijahit' => 'required',
 
@@ -650,8 +650,9 @@ class JahitController extends Controller
         return $res;
     }
 
-    public function update_status(Request $request){
-        if($request->ajax()){
+    public function update_status(Request $request)
+    {
+        if ($request->ajax()) {
             $jahit = Jahit::findOrFail($request->get('id'));
             $jahit->status = "jahitan keluar";
             $jahit->tanggal_keluar = date('Y-m-d');
