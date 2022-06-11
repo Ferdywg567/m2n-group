@@ -26,7 +26,7 @@ class CuciController extends Controller
      */
     public function index()
     {
-        Cuci::whereNotNull('tanggal_cuci')->whereNotNull('tanggal_selesai')->update(['status_cuci' => 'selesai']);
+        // Cuci::whereNotNull('tanggal_cuci')->whereNotNull('tanggal_selesai')->update(['status_cuci' => 'selesai']);
         $cuci = Cuci::where('status', 'cucian masuk')->orderBy('created_at', 'DESC')->get();
         $selesai = Cuci::where('status', 'cucian selesai')->orderBy('created_at', 'DESC')->get();
         $keluar = Cuci::where('status', 'cucian keluar')->orderBy('created_at', 'DESC')->get();

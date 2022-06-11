@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use App\Potong;
 use App\Jahit;
 use App\Cuci;
+use Illuminate\Support\Facades\Log;
 
 class DailyUpdate extends Command
 {
@@ -48,6 +49,6 @@ class DailyUpdate extends Command
         $proses = Cuci::whereDate('tanggal_cuci', date('Y-m-d'))->where('status', 'cucian masuk')->update(['status_cuci' => 'proses cuci']);
         $selesai = Cuci::whereDate('tanggal_selesai', date('Y-m-d'))->where('status', 'cucian masuk')->update(['status_cuci' => 'selesai']);
 
-        echo "success";
+        Log::info('Cron sudah jalan!');
     }
 }

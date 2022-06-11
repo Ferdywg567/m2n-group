@@ -23,9 +23,9 @@ class PotongController extends Controller
      */
     public function index()
     {
-        // $proses = Potong::whereDate('tanggal_cutting', date('Y-m-d'))->where('status', 'potong masuk')->update(['status_potong' => 'proses potong']);
-        // $selesai = Potong::whereDate('tanggal_selesai', date('Y-m-d'))->where('status', 'potong masuk')->update(['status_potong' => 'selesai']);
-        $selesai = Potong::whereNotNull('tanggal_cutting')->whereNotNull('tanggal_selesai')->update(['status_potong' => 'selesai']);
+        $proses = Potong::whereDate('tanggal_cutting', date('Y-m-d'))->where('status', 'potong masuk')->update(['status_potong' => 'proses potong']);
+        $selesai = Potong::whereDate('tanggal_selesai', date('Y-m-d'))->where('status', 'potong masuk')->update(['status_potong' => 'selesai']);
+        // $selesai = Potong::whereNotNull('tanggal_cutting')->whereNotNull('tanggal_selesai')->update(['status_potong' => 'selesai']);
         $bahan = Bahan::doesntHave('potong')->where('status', 'bahan keluar')->get();
         $masuk = Potong::where('status', 'potong masuk')->orderBy('created_at', 'DESC')->get();
         $selesai = Potong::where('status', 'potong selesai')->orderBy('created_at', 'DESC')->get();
