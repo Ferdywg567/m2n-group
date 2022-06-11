@@ -82,8 +82,8 @@ class JahitController extends Controller
                 $validasi = [
                     'kode_transaksi' =>  'required',
                     'no_surat' => 'required|unique:jahits,no_surat',
-                    'tanggal_jahit' => 'required|date_format:"Y-m-d"',
-                    'estimasi_selesai_jahit' => 'required|date_format:"Y-m-d"|after:tanggal_jahit',
+                    'tanggal_jahit' => 'required|date_format:"Y-m-d"|after_or_equal:' . date('Y-m-d'),
+                    'estimasi_selesai_jahit' => 'required|date_format:"Y-m-d"|after_or_equal:tanggal_jahit',
                     'vendor_jahit' => 'required',
                     'nama_vendor' => 'required',
                     'harga_vendor' => 'required',
@@ -350,15 +350,15 @@ class JahitController extends Controller
             if ($request->get('vendor_jahit') == 'internal') {
                 $validasi = [
                     'no_surat' => 'required',
-                    'tanggal_jahit' => 'required|date_format:"Y-m-d"',
-                    'estimasi_selesai_jahit' => 'required|date_format:"Y-m-d"',
+                    'tanggal_jahit' => 'required|date_format:"Y-m-d"|after_or_equal:' . date('Y-m-d'),
+                    'estimasi_selesai_jahit' => 'required|date_format:"Y-m-d"|after_or_equal:tanggal_jahit',
                     'vendor_jahit' => 'required'
                 ];
             } else {
                 $validasi = [
                     'no_surat' => 'required',
-                    'tanggal_jahit' => 'required|date_format:"Y-m-d"',
-                    'estimasi_selesai_jahit' => 'required|date_format:"Y-m-d"',
+                    'tanggal_jahit' => 'required|date_format:"Y-m-d"|after_or_equal:' . date('Y-m-d'),
+                    'estimasi_selesai_jahit' => 'required|date_format:"Y-m-d"|after_or_equal:tanggal_jahit',
                     'vendor_jahit' => 'required',
                     'nama_vendor' => 'required',
                     'harga_vendor' => 'required'

@@ -221,8 +221,8 @@ class PotongController extends Controller
         if ($request->get('status') == 'potong masuk') {
             $potong = Potong::findOrFail($id);
             $validator = Validator::make($request->all(), [
-                'tanggal_potong' => 'required|date_format:"Y-m-d"',
-                'estimasi_selesai_potong' => 'required|date_format:"Y-m-d"',
+                'tanggal_potong' => 'required|date_format:"Y-m-d"|after_or_equal:' . date('Y-m-d'),
+                'estimasi_selesai_potong' => 'required|date_format:"Y-m-d"|after_or_equal:tanggal_potong',
             ]);
         } elseif ($request->get('status') == 'potong selesai') {
             $validator = Validator::make($request->all(), [
