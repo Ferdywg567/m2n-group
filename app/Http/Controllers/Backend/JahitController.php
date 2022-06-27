@@ -26,8 +26,8 @@ class JahitController extends Controller
      */
     public function index()
     {
-        $proses = Jahit::whereDate('tanggal_jahit', date('Y-m-d'))->where('status', 'jahitan masuk')->update(['status_jahit' => 'proses jahit']);
-        $selesai = Jahit::whereDate('tanggal_selesai', date('Y-m-d'))->where('status', 'jahitan masuk')->update(['status_jahit' => 'selesai']);
+        // $proses = Jahit::whereDate('tanggal_jahit', date('Y-m-d'))->where('status', 'jahitan masuk')->update(['status_jahit' => 'proses jahit']);
+        // $selesai = Jahit::whereDate('tanggal_selesai', date('Y-m-d'))->where('status', 'jahitan masuk')->update(['status_jahit' => 'selesai']);
         $selesai = Jahit::whereNotNull('tanggal_jahit')->whereNotNull('tanggal_selesai')->update(['status_jahit' => 'selesai']);
         $datakeluar = Potong::where('status', 'potong keluar')->where('status_potong', 'selesai')->doesntHave('jahit')->get();
         $jahitmasuk = Jahit::where('status', 'jahitan masuk')->orderBy('created_at', 'DESC')->get();
