@@ -25,7 +25,7 @@ class PotongController extends Controller
     {
         $proses = Potong::whereDate('tanggal_cutting', date('Y-m-d'))->where('status', 'potong masuk')->update(['status_potong' => 'proses potong']);
         $selesai = Potong::whereDate('tanggal_selesai', date('Y-m-d'))->where('status', 'potong masuk')->update(['status_potong' => 'selesai']);
-        // $selesai = Potong::whereNotNull('tanggal_cutting')->whereNotNull('tanggal_selesai')->update(['status_potong' => 'selesai']);
+        $selesai = Potong::whereNotNull('tanggal_cutting')->whereNotNull('tanggal_selesai')->update(['status_potong' => 'selesai']);
         $bahan = Bahan::doesntHave('potong')->where('status', 'bahan keluar')->get();
         $masuk = Potong::where('status', 'potong masuk')->orderBy('created_at', 'DESC')->get();
         $selesai = Potong::where('status', 'potong selesai')->orderBy('created_at', 'DESC')->get();
@@ -67,7 +67,9 @@ class PotongController extends Controller
             $validator = Validator::make($request->all(), [
                 'kode_transaksi' =>  'required',
                 'no_surat' => 'required|unique:potongs,no_surat',
-                'tanggal_potong' => 'required|date_format:"Y-m-d"|after_or_equal:' . date('Y-m-d'),
+                // 'tanggal_potong' => 'required|date_format:"Y-m-d"|after_or_equal:' . date('Y-m-d'),
+                // 'estimasi_selesai_potong' => 'required|date_format:"Y-m-d"|after_or_equal:tanggal_potong',
+                'tanggal_potong' => 'required|date_format:"Y-m-d"',
                 'estimasi_selesai_potong' => 'required|date_format:"Y-m-d"|after_or_equal:tanggal_potong',
             ]);
         } else if ($request->get('status') == 'potong selesai') {
@@ -221,7 +223,9 @@ class PotongController extends Controller
         if ($request->get('status') == 'potong masuk') {
             $potong = Potong::findOrFail($id);
             $validator = Validator::make($request->all(), [
-                'tanggal_potong' => 'required|date_format:"Y-m-d"|after_or_equal:' . date('Y-m-d'),
+                //   'tanggal_potong' => 'required|date_format:"Y-m-d"|after_or_equal:' . date('Y-m-d'),
+                // 'estimasi_selesai_potong' => 'required|date_format:"Y-m-d"|after_or_equal:tanggal_potong',
+                'tanggal_potong' => 'required|date_format:"Y-m-d"',
                 'estimasi_selesai_potong' => 'required|date_format:"Y-m-d"|after_or_equal:tanggal_potong',
             ]);
         } elseif ($request->get('status') == 'potong selesai') {

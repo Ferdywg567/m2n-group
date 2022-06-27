@@ -26,7 +26,7 @@ class CuciController extends Controller
      */
     public function index()
     {
-        // Cuci::whereNotNull('tanggal_cuci')->whereNotNull('tanggal_selesai')->update(['status_cuci' => 'selesai']);
+        Cuci::whereNotNull('tanggal_cuci')->whereNotNull('tanggal_selesai')->update(['status_cuci' => 'selesai']);
         $cuci = Cuci::where('status', 'cucian masuk')->orderBy('created_at', 'DESC')->get();
         $selesai = Cuci::where('status', 'cucian selesai')->orderBy('created_at', 'DESC')->get();
         $keluar = Cuci::where('status', 'cucian keluar')->orderBy('created_at', 'DESC')->get();
@@ -66,7 +66,9 @@ class CuciController extends Controller
             $validasi = [
                 'kode_transaksi' =>  'required',
                 'no_surat' => 'required|unique:cucis,no_surat',
-                'tanggal_cuci' => 'required|date_format:"Y-m-d"|after_or_equal:' . date('Y-m-d'),
+                // 'tanggal_cuci' => 'required|date_format:"Y-m-d"|after_or_equal:' . date('Y-m-d'),
+                // 'estimasi_selesai_cuci' => 'required|date_format:"Y-m-d"|after_or_equal:tanggal_cuci',
+                'tanggal_cuci' => 'required|date_format:"Y-m-d"',
                 'estimasi_selesai_cuci' => 'required|date_format:"Y-m-d"|after_or_equal:tanggal_cuci',
                 'jumlah_bahan_yang_dicuci' => 'required',
                 'nama_vendor' => 'required',
@@ -315,7 +317,9 @@ class CuciController extends Controller
             $cuci = Cuci::findOrFail($id);
             $validasi = [
                 'no_surat' => 'required',
-                'tanggal_cuci' => 'required|date_format:"Y-m-d"|after_or_equal:' . date('Y-m-d'),
+                // 'tanggal_cuci' => 'required|date_format:"Y-m-d"|after_or_equal:' . date('Y-m-d'),
+                // 'estimasi_selesai_cuci' => 'required|date_format:"Y-m-d"|after_or_equal:tanggal_cuci',
+                'tanggal_cuci' => 'required|date_format:"Y-m-d"',
                 'estimasi_selesai_cuci' => 'required|date_format:"Y-m-d"|after_or_equal:tanggal_cuci',
                 'jumlah_bahan_yang_dicuci' => 'required',
                 'nama_vendor' => 'required',

@@ -28,7 +28,7 @@ class JahitController extends Controller
     {
         $proses = Jahit::whereDate('tanggal_jahit', date('Y-m-d'))->where('status', 'jahitan masuk')->update(['status_jahit' => 'proses jahit']);
         $selesai = Jahit::whereDate('tanggal_selesai', date('Y-m-d'))->where('status', 'jahitan masuk')->update(['status_jahit' => 'selesai']);
-        // $selesai = Jahit::whereNotNull('tanggal_jahit')->whereNotNull('tanggal_selesai')->update(['status_jahit' => 'selesai']);
+        $selesai = Jahit::whereNotNull('tanggal_jahit')->whereNotNull('tanggal_selesai')->update(['status_jahit' => 'selesai']);
         $datakeluar = Potong::where('status', 'potong keluar')->where('status_potong', 'selesai')->doesntHave('jahit')->get();
         $jahitmasuk = Jahit::where('status', 'jahitan masuk')->orderBy('created_at', 'DESC')->get();
         $jahitkeluar = Jahit::where('status', 'jahitan keluar')->orderBy('created_at', 'DESC')->get();
@@ -72,8 +72,10 @@ class JahitController extends Controller
                 $validasi = [
                     'kode_transaksi' =>  'required',
                     'no_surat' => 'required|unique:jahits,no_surat',
-                    'tanggal_jahit' => 'required|date_format:"Y-m-d"|after_or_equal:' . date('Y-m-d'),
+                    'tanggal_jahit' => 'required|date_format:"Y-m-d"',
                     'estimasi_selesai_jahit' => 'required|date_format:"Y-m-d"|after_or_equal:tanggal_jahit',
+                    // 'tanggal_jahit' => 'required|date_format:"Y-m-d"|after_or_equal:' . date('Y-m-d'),
+                    // 'estimasi_selesai_jahit' => 'required|date_format:"Y-m-d"|after_or_equal:tanggal_jahit',
                     'vendor_jahit' => 'required',
                     'jumlah_bahan_yang_dijahit' => 'required',
 
@@ -82,8 +84,10 @@ class JahitController extends Controller
                 $validasi = [
                     'kode_transaksi' =>  'required',
                     'no_surat' => 'required|unique:jahits,no_surat',
-                    'tanggal_jahit' => 'required|date_format:"Y-m-d"|after_or_equal:' . date('Y-m-d'),
+                    'tanggal_jahit' => 'required|date_format:"Y-m-d"',
                     'estimasi_selesai_jahit' => 'required|date_format:"Y-m-d"|after_or_equal:tanggal_jahit',
+                    // 'tanggal_jahit' => 'required|date_format:"Y-m-d"|after_or_equal:' . date('Y-m-d'),
+                    // 'estimasi_selesai_jahit' => 'required|date_format:"Y-m-d"|after_or_equal:tanggal_jahit',
                     'vendor_jahit' => 'required',
                     'nama_vendor' => 'required',
                     'harga_vendor' => 'required',
@@ -350,14 +354,18 @@ class JahitController extends Controller
             if ($request->get('vendor_jahit') == 'internal') {
                 $validasi = [
                     'no_surat' => 'required',
-                    'tanggal_jahit' => 'required|date_format:"Y-m-d"|after_or_equal:' . date('Y-m-d'),
+                    // 'tanggal_jahit' => 'required|date_format:"Y-m-d"|after_or_equal:' . date('Y-m-d'),
+                    // 'estimasi_selesai_jahit' => 'required|date_format:"Y-m-d"|after_or_equal:tanggal_jahit',
+                    'tanggal_jahit' => 'required|date_format:"Y-m-d"',
                     'estimasi_selesai_jahit' => 'required|date_format:"Y-m-d"|after_or_equal:tanggal_jahit',
                     'vendor_jahit' => 'required'
                 ];
             } else {
                 $validasi = [
                     'no_surat' => 'required',
-                    'tanggal_jahit' => 'required|date_format:"Y-m-d"|after_or_equal:' . date('Y-m-d'),
+                    // 'tanggal_jahit' => 'required|date_format:"Y-m-d"|after_or_equal:' . date('Y-m-d'),
+                    // 'estimasi_selesai_jahit' => 'required|date_format:"Y-m-d"|after_or_equal:tanggal_jahit',
+                    'tanggal_jahit' => 'required|date_format:"Y-m-d"',
                     'estimasi_selesai_jahit' => 'required|date_format:"Y-m-d"|after_or_equal:tanggal_jahit',
                     'vendor_jahit' => 'required',
                     'nama_vendor' => 'required',
