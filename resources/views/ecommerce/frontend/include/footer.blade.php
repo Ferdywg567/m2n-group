@@ -90,7 +90,7 @@
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="copyright copyright-center">
-                        <p> © 2021 <b>GARMENT</b> All Right Reserved.</p>
+                        <p> © {{ date('Y') }} <b>M2N GROUP</b> All Right Reserved.</p>
                     </div>
                 </div>
             </div>
