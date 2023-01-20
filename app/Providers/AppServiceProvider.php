@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use App\SubKategori;
 use App\Keranjang;
+use Illuminate\Routing\UrlGenerator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,8 +25,11 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(UrlGenerator $url)
     {
+        if (env('REDIRECT_HTTPS')) {
+            $url->forceScheme('https');
+        }
         Blade::directive('rupiah', function ($expression) {
             return "Rp. <?php echo number_format($expression, 2, ',', '.'); ?>";
         });
@@ -33,6 +37,5 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('data_kategori', function () {
             return SubKategori::all();
         });
-
     }
 }
