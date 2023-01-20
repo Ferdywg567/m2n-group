@@ -17,7 +17,7 @@
 
         .table td,
         .table th {
-            font-size: 7px;
+            font-size: 1rem;
         }
 
         table th {
@@ -37,41 +37,12 @@
             text-decoration: underline;
         }
 
-        #logo {
-            text-align: center;
-            margin-bottom: 10px;
-        }
-
-        #project {
-            float: right;
-        }
-
-        #project span {
-            color: #5D6975;
-            text-align: right;
-            width: 52px;
-            margin-right: 10px;
-            display: inline-block;
-            font-size: 7px;
-        }
-
-        #company {
-            float: left;
-            text-align: left;
-            padding-left: 30px;
-        }
-
-        #project div,
-        #company div {
-            white-space: nowrap;
-        }
-
         body {
-            position: relative;
+            /* position: relative; */
             margin: 0 auto;
             color: #001028;
             background: #FFFFFF;
-            font-size: 7px;
+            /* font-size: 1rem; */
             font-family: monospace;
         }
 
@@ -102,136 +73,140 @@
             text-align: center;
         }
 
-        footer {
-            width: 100%;
-            position: absolute;
-            bottom: 0;
+        @page {
+            /* size: 359px 415px; */
+            size: A5 landscape;
+            margin: 20px;
+        }
+        table.no-white-space tr td:first-child {
+            width: 10%;
         }
 
-        @page {
-            size: 359px 415px;
-
+        table.table-data {
+            border-spacing: 30px 0;
+        }
+        html {
+            font-size: 10px;
+        }
+        body {
+            margin: 0px;
         }
 
     </style>
-
-    <main>
-        <header class="clearfix">
-            <table style="white-space: nowrap">
-                <tr>
-                    <td>
-                        <div style="padding-bottom: 30px; margin-right:-20px;">
-                            <img style="float: left; " src="{{ public_path('/assets/img/Push & Pull Logo.png') }}"
-                                width="70%" alt="" srcset="">
-                        </div>
-                    </td>
-                    <td>
-                        <div style="margin-left:-10px">
-                            <p style="margin-bottom:-5px; margin-top:-10px;font-size:5px; text-align: right;">Hubungi
-                                Kami:
-                            </p>
-                            <p style="font-size:5px; text-align: right;margin-bottom:-5px; padding-top:3px">
-                                0812-0780-9972/0815-3460-5040
-                            </p>
-                            <p style="font-size:5px; text-align: right; padding-top:3px">m2ngroup@outlook.co.id</p>
-                        </div>
-                    </td>
-                    <td>
-                        <div>
-                            <img style="margin-top: -2px" src="{{ public_path('/assets/img/whatsapp-line.png') }}"
-                                width="40%" alt="" srcset="">
+    <table style="width: 100%">
+        <tr>
+            <td>
+                <table>
+                    <tr>
+                        <td style="vertical-align: top">
+                            <img src="{{ public_path('/assets/img/Push & Pull Logo.png') }}" width="100%" alt="" srcset="">
                             <br>
-                            <img style="margin-top: -1px" src="{{ public_path('/assets/img/mail-line.png') }}"
-                                width="40%" alt="" srcset="">
-                        </div>
-                    </td>
-                    <td>
-                        <div style="margin-left: -6px">
-                            <p style="margin-bottom:-5px; font-size:5px; text-align: left;">Tanggal
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:{{ date('Y-m-d') }}
-                            </p>
-                            <p style="font-size:5px; text-align: left;margin-bottom:-5px;padding-top:8px">Nama
-                                Pelanggan:{{ $transaksi->nama }}</p>
-                            <p style="font-size:5px; text-align: left;margin-bottom:-5px;padding-top:8px">Alamat
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:{{ $transaksi->alamat }}</p>
-                            <p style="font-size:5px; text-align: left;margin-bottom:-5px;padding-top:8px">No. Hp
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:{{ $transaksi->no_hp }}</p>
-                        </div>
-                    </td>
-                </tr>
-
-            </table>
-            <table style="margin-top: -20px;font-size:5px;">
-                <tr>
-                    <td>Blok B Lt. Ground Los E No. 100 - 101</td>
-                </tr>
-
-            </table>
-            <table style="font-size:5px;padding-top:11px">
-                <tr>
-                    <td>
-                        <div style="float: left; margin-right:-20px">
-                            No. Nota : {{ $transaksi->kode_transaksi }}
-                        </div>
-                    </td>
-                    <td>
-                        <div style="padding-right: 200px;">
-                            Pembayaran : {{ $transaksi->pembayaran }}</div>
-                    </td>
-                </tr>
-            </table>
-        </header>
-        </div>
-        <table class="table" style="padding-top: 10px; border:1px solid black">
-            <thead style="border: 1px solid black">
-                <tr>
-                    <th scope="col" style="border: 1px solid black">No</th>
-                    <th scope="col" style="border: 1px solid black">Nama Barang</th>
-                    <th scope="col" style="border: 1px solid black">Ukuran</th>
-                    <th scope="col" style="border: 1px solid black">Qty</th>
-                    <th scope="col" style="border: 1px solid black">Harga/Lusin</th>
-                    <th scope="col" style="border: 1px solid black">Total Harga</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse ($transaksi->detail_transaksi as $item)
-                    <tr class="center">
-                        <td style="border: 1px solid black">{{ $loop->iteration }}</td>
-                        <td style="border: 1px solid black">
-                            {{ $item->produk->nama_produk }}
+                            <span style="font-size: 1.1rem; position: relative; left: 1.5px;"><b>Blok B Lt. Ground Los E No. 100 - 101</b></span>
                         </td>
-                        <td class="center jarak" style="border: 1px solid black">{{ $item->ukuran }}</td>
-                        <td class="center jarak" style="border: 1px solid black">{{ $item->jumlah }}</td>
-                        <td style="border: 1px solid black">@rupiah($item->harga)</td>
-                        <td style="border: 1px solid black">@rupiah($item->total_harga)</td>
+                        <td style="text-align: right; vertical-align: top">
+                            <div style="margin-top: 0rem">
+                                <p style="margin: 0">
+                                    <b>Hubungi Kami:</b>
+                                </p>
+                                <p style="margin: 0; padding: .1rem 0;">
+                                    0812-0780-9972/0815-3460-5040 
+                                    <img style="position: relative; top: 1px" src="{{ public_path('/assets/img/whatsapp-line.png') }}" width="10vw" alt="" srcset="">
+                                </p>
+                                <p style="margin: 0">
+                                    m2ngroup@outlook.co.id 
+                                    <img style="position: relative; top: 1px" src="{{ public_path('/assets/img/mail-line.png') }}" width="10vw" alt="" srcset="">
+                                </p>
+                            </div>
+                        </td>
                     </tr>
-                @empty
-                @endforelse
-            </tbody>
-            <tfoot style="border: none !important">
-                <tr>
-
-                    <td class="center jarak" colspan="5"><b>Jumlah</b></td>
-                    <td class="center" style="border:1px solid black">
-                        <b>@rupiah($transaksi->detail_transaksi->sum('total_harga'))</b>
-                    </td>
-                </tr>
-            </tfoot>
-        </table>
-        <table style="border: none; margin-top:5px">
-            <tr style="border: none">
-                <td style="border: none">
-                    <div style="padding-top: 10px; text-align:left">Hormat Kami,</div>
-                    <div style="padding-top: 35px; text-align:left"><b>............</b></div>
-                </td>
-                <td style="border: none">
-                    <div style="padding-top: 10px; text-align:left">Tanda Terima,</div>
-                    <div style="padding-top: 35px; text-align:left"><b>............</b></div>
-                </td>
-
+                </table>
+            </td>
+            <td>
+                <table class="no-white-space table-data" style="font-size: 1rem; margin-top: 1.1rem; margin-left: .5rem;">
+                    <tr>
+                        <td><b>Tanggal</b></td>
+                        <td style="width: 1%"><b>:</b></td>
+                        <td>{{ date('Y-m-d') }}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Nama Pelanggan</b></td>
+                        <td style="width: 1%"><b>:</b></td>
+                        <td>{{ $transaksi->nama }}</td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top"><b>Alamat</b></td>
+                        <td style="width: 1%; vertical-align: top"><b>:</b></td>
+                        <td style="word-wrap: break-word; white-space:normal; vertical-align: top">{{ $transaksi->alamat }}</td>
+                    </tr>
+                    <tr>
+                        <td><b>No. Hp</b></td>
+                        <td style="width: 1%"><b>:</b></td>
+                        <td>{{ $transaksi->no_hp }}</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <br>
+    <p style="font-size: 1.1rem; margin-top: .5rem; position: relative; left: 3.5px; margin: 0">
+        <b>
+            <span style="margin-right: 10px">
+                No. Nota : {{ $transaksi->kode_transaksi }}
+            </span>
+            <span>
+                Pembayaran : {{ $transaksi->pembayaran }}
+            </span>
+        </b>
+    </p>
+    <table class="table" style="padding-top: 2px; border:1px solid black">
+        <thead style="border: 1px solid black">
+            <tr>
+                <th scope="col" style="border: 1px solid black; font-weight: bold; padding: 5px;">No</th>
+                <th scope="col" style="border: 1px solid black; font-weight: bold; padding: 5px; width: 40%">Nama Barang</th>
+                <th scope="col" style="border: 1px solid black; font-weight: bold; padding: 5px;">Ukuran</th>
+                <th scope="col" style="border: 1px solid black; font-weight: bold; padding: 5px;">Qty</th>
+                <th scope="col" style="border: 1px solid black; font-weight: bold; padding: 5px;">Harga/Lusin</th>
+                <th scope="col" style="border: 1px solid black; font-weight: bold; padding: 5px;">Total Harga</th>
             </tr>
-        </table>
-    </main>
+        </thead>
+        <tbody>
+            @forelse ($transaksi->detail_transaksi as $item)
+                <tr class="center">
+                    <td style="border: 1px solid black; font-weight: bold">{{ $loop->iteration }}</td>
+                    <td style="border: 1px solid black; text-align: left; padding: 0 20px;">
+                        {{ $item->produk->nama_produk }}
+                    </td>
+                    <td class="center jarak" style="border: 1px solid black">{{ $item->ukuran }}</td>
+                    <td class="center jarak" style="border: 1px solid black">{{ $item->jumlah }}</td>
+                    <td style="border: 1px solid black; text-align:right; padding: 0 40px 0px 10px;">@rupiah($item->harga)</td>
+                    <td style="border: 1px solid black; text-align:right; padding: 0 40px 0px 10px;">@rupiah($item->total_harga)</td>
+                </tr>
+            @empty
+            @endforelse
+        </tbody>
+        <tfoot style="border: none !important">
+            <tr>
+
+                <td class="center" style="padding: 6px 0px;" colspan="5"><b>Jumlah</b></td>
+                <td class="center" style="border:1px solid black; text-align: right; padding: 0 40px 0px 10px;">
+                    <b style="font-weight: bolder">@rupiah($transaksi->detail_transaksi->sum('total_harga'))</b>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+    <table style="border: none;">
+        <tr style="border: none">
+            <td style="border: none; width: 41.3%">
+                <div style="padding-top: 10px; padding-left:50px; text-align:left"><b>Hormat Kami,</b></div>
+                <div style="padding-top: 45px; padding-left:50px; text-align:left"><b>............</b></div>
+            </td>
+            <td style="border: none">
+                <div style="padding-top: 10px; text-align:left"><b>Tanda Terima,</b></div>
+                <div style="padding-top: 45px; text-align:left"><b>............</b></div>
+            </td>
+
+        </tr>
+    </table>
 
 </body>
 
