@@ -19,6 +19,7 @@ class CreatePembayaranCucisTable extends Migration
             $table->foreign('cuci_id')->references('id')->on('cucis')->onDelete('cascade');
             $table->string('status');
             $table->integer('nominal');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

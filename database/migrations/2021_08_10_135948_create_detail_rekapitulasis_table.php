@@ -20,6 +20,7 @@ class CreateDetailRekapitulasisTable extends Migration
             $table->string('status');
             $table->string('ukuran');
             $table->integer('jumlah');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

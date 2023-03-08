@@ -25,7 +25,6 @@
         .cssnav {
             margin-left: 10px;
         }
-
     </style>
 
     <div id="non-printable">
@@ -131,8 +130,8 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="ukuran_read">Ukuran</label>
-                                                <input type="text" class="form-control" readonly required id="ukuran_read"
-                                                    name="ukuran_read" value="{{ old('ukuran_read') }}">
+                                                <input type="text" class="form-control" readonly required
+                                                    id="ukuran_read" name="ukuran_read" value="{{ old('ukuran_read') }}">
                                             </div>
                                         </div>
                                     </div>
@@ -163,13 +162,15 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="nama">Nama Pelanggan</label>
-                                                <input type="text" class="form-control" required id="nama" name="nama">
+                                                <input type="text" class="form-control" required id="nama"
+                                                    name="nama">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="no_hp">No. HP</label>
-                                                <input type="text" class="form-control" required id="no_hp" name="no_hp">
+                                                <input type="text" class="form-control" required id="no_hp"
+                                                    name="no_hp">
                                             </div>
                                         </div>
                                     </div>
@@ -213,7 +214,8 @@
                                             <div class="form-group">
                                                 <label for="kode_transaksi">Kode Transaksi</label>
                                                 <input type="text" class="form-control" readonly required
-                                                    id="kode_transaksi" name="kode_transaksi" value="{{ $kode }}">
+                                                    id="kode_transaksi" name="kode_transaksi"
+                                                    value="{{ $kode }}">
                                             </div>
                                         </div>
                                     </div>
@@ -256,8 +258,8 @@
                                             </div>
                                         </div>
                                         <div class="col-md-4">
-                                            <input type="text" class="form-control" required id="bayar" name="bayar"
-                                                value="{{ old('bayar') }}">
+                                            <input type="text" class="form-control" required id="bayar"
+                                                name="bayar" value="{{ old('bayar') }}">
                                         </div>
                                     </div>
                                     <div class="row">
@@ -292,6 +294,20 @@
 @push('scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"></script>
     <script>
+        $.extend(true, $.fn.dataTable.defaults, {
+            columnDefs: [{
+                searchable: false,
+                orderable: false,
+                targets: 0,
+            }, ],
+            order: [
+                [1, 'asc']
+            ],
+            language: {
+                url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'
+            },
+        });
+
         $(document).ready(function() {
             function ajax() {
                 $.ajaxSetup({
@@ -346,9 +362,6 @@
                         searchable: false
                     },
                 ],
-                language: {
-                    url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'
-                },
                 fnRowCallback: function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
                     $('td:eq(5)', nRow).html("Rp. " + convertToRupiah(aData["harga"]));
                     $('td:eq(6)', nRow).html("Rp. " + convertToRupiah(aData["subtotal"]));
@@ -369,6 +382,17 @@
                     });
                 }
             })
+
+            table_detail.on('order.dt search.dt', function() {
+                let i = 1;
+
+                table_detail.cells(null, 0, {
+                    search: 'applied',
+                    order: 'applied'
+                }).every(function(cell) {
+                    this.data(i++);
+                });
+            }).draw();
 
             $('#bayar').on('keyup', function() {
                 var total_harga = $('#total_harga').val()

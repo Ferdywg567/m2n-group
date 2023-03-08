@@ -294,8 +294,8 @@
                             </div>
                         </div>
                         <div class="product-content-wrap-2 text-left ml-2">
-                            <h3><a
-                                    href="{{route('frontend.product.show',[$item->id])}}">{{ucwords($item->warehouse->finishing->cuci->jahit->potong->bahan->nama_bahan)}}</a>
+                            {{-- <h3><a href="{{route('frontend.product.show',[$item->id])}}">{{ucwords($item->warehouse->finishing->cuci->jahit->potong->bahan->nama_bahan)}}</a> --}}
+                            <h3><a href="{{route('frontend.product.show',[$item->id])}}">{{ucwords($item->nama_produk)}}</a>
                             </h3>
                             <div class="product-price-2">
                                 {{-- @if ($item->promo_id == null)

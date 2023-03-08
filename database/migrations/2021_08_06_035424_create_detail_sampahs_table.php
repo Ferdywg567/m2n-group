@@ -19,6 +19,7 @@ class CreateDetailSampahsTable extends Migration
             $table->foreign('sampah_id')->references('id')->on('sampahs')->onDelete('cascade');
             $table->string('ukuran');
             $table->integer('jumlah');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

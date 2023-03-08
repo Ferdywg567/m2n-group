@@ -19,6 +19,7 @@ class CreateDetailPotongsTable extends Migration
             $table->foreign('potong_id')->references('id')->on('potongs')->onDelete('cascade');
             $table->string('size');
             $table->integer('jumlah');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

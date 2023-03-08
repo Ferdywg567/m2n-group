@@ -19,6 +19,7 @@ class CreateDetailSubKategorisTable extends Migration
             $table->foreign('sub_kategori_id')->references('id')->on('sub_kategoris')->onDelete('cascade');
             $table->string('nama_kategori');
             $table->string('sku');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -5,106 +5,122 @@
 @section('sampah', 'class=active-sidebar')
 @section('cssnav', 'cssnav')
 @section('content')
-<style>
+    <style>
+        .dropdown-menu {
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+            top: 100% !important;
 
+        }
 
-    .dropdown-menu {
-        left: 50% !important;
-        transform: translateX(-50%) !important;
-        top: 100% !important;
+        .left {
+            text-align: left;
+        }
+    </style>
+    <div id="non-printable">
+        <section class="section mt-4">
+            <a href="{{ route('print.index') }}" class="btn btn-outline-primary rounded ml-1">Cetak Semua <i
+                    class="ri-printer-fill"></i>
+            </a>
+            <div class="section-body mt-4">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
 
-    }
+                            <div class="card-body">
+                                <table class="table table-hover" id="tabelsampah">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">No</th>
+                                            <th scope="col">Kode</th>
+                                            <th scope="col">SKU</th>
+                                            <th scope="col">Nama Produk</th>
+                                            <th scope="col">Tgl. Masuk</th>
+                                            <th scope="col">Asal</th>
+                                            <th scope="col">Jumlah</th>
 
-    .left {
-        text-align: left;
-    }
-</style>
-<div id="non-printable">
-    <section class="section mt-4">
-        <a href="{{route('print.index')}}" class="btn btn-outline-primary rounded ml-1">Cetak Semua <i
-                class="ri-printer-fill"></i>
-        </a>
-        <div class="section-body mt-4">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
+                                            <th scope="col">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="">
+                                        @forelse ($sampah as $item)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                @if ($item->asal == 'cuci')
+                                                    <td>{{ $item->cuci->jahit->potong->bahan->kode_transaksi }}</td>
+                                                    <td>{{ $item->cuci->jahit->potong->bahan->sku }}</td>
+                                                    <td>{{ $item->cuci->jahit->potong->bahan->nama_bahan }}</td>
+                                                    <td>{{ $item->tanggal_masuk }}</td>
+                                                    <td>{{ $item->asal }} </td>
+                                                    <td>{{ $item->total }} pcs</td>
+                                                @else
+                                                    <td>{{ $item->jahit->potong->bahan->kode_transaksi }}</td>
+                                                    <td>{{ $item->jahit->potong->bahan->sku }}</td>
+                                                    <td>{{ $item->jahit->potong->bahan->nama_bahan }}</td>
+                                                    <td>{{ $item->tanggal_masuk }}</td>
+                                                    <td>{{ $item->asal }} </td>
+                                                    <td>{{ $item->total }} pcs</td>
+                                                @endif
 
-                        <div class="card-body">
-                            <table class="table table-hover" id="tabelsampah">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">No</th>
-                                        <th scope="col">Kode</th>
-                                        <th scope="col">SKU</th>
-                                        <th scope="col">Nama Produk</th>
-                                        <th scope="col">Tgl. Masuk</th>
-                                        <th scope="col">Asal</th>
-                                        <th scope="col">Jumlah</th>
+                                                <td>
+                                                    <a href="{{ route('sampah.show', [$item->id]) }}"
+                                                        class="btn btn-outline-primary">Detail</a>
+                                                </td>
+                                            </tr>
+                                        @empty
+                                        @endforelse
 
-                                        <th scope="col">Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="">
-                                    @forelse ($sampah as $item)
-                                    <tr>
-                                        <td>{{$loop->iteration}}</td>
-                                        @if ($item->asal == 'cuci')
-                                        <td>{{$item->cuci->jahit->potong->bahan->kode_transaksi}}</td>
-                                        <td>{{$item->cuci->jahit->potong->bahan->sku}}</td>
-                                        <td>{{$item->cuci->jahit->potong->bahan->nama_bahan}}</td>
-                                        <td>{{$item->tanggal_masuk}}</td>
-                                        <td>{{$item->asal}} </td>
-                                        <td>{{$item->total}} pcs</td>
-                                        @else
-                                        <td>{{$item->jahit->potong->bahan->kode_transaksi}}</td>
-                                        <td>{{$item->jahit->potong->bahan->sku}}</td>
-                                        <td>{{$item->jahit->potong->bahan->nama_bahan}}</td>
-                                        <td>{{$item->tanggal_masuk}}</td>
-                                        <td>{{$item->asal}} </td>
-                                        <td>{{$item->total}} pcs</td>
-                                        @endif
+                                    </tbody>
+                                </table>
 
-                                        <td>
-                                            <a href="{{route('sampah.show',[$item->id])}}"
-                                                class="btn btn-outline-primary">Detail</a>
-                                        </td>
-                                    </tr>
-                                    @empty
-
-                                    @endforelse
-
-                                </tbody>
-                            </table>
-
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
 
-</div>
+    </div>
 
 @endsection
 @push('scripts')
-<script>
-    $(document).ready(function () {
-             function ajax() {
+    <script>
+        $.extend(true, $.fn.dataTable.defaults, {
+            columnDefs: [{
+                searchable: false,
+                orderable: false,
+                targets: 0,
+            }, ],
+            order: [
+                [1, 'asc']
+            ],
+            language: {
+                url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'
+            },
+        });
+        $(document).ready(function() {
+            function ajax() {
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
                 });
-              }
+            }
 
-              $('#tabelsampah').DataTable({
-                    language: {
-                        url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'
-                },
-              })
-              $('#tabelbahankeluar').DataTable()
+            let dt_tabelsampah = $('#tabelsampah').DataTable()
 
-     })
-</script>
+            dt_tabelsampah.on('order.dt search.dt', function() {
+                let i = 1;
+
+                dt_tabelsampah.cells(null, 0, {
+                    search: 'applied',
+                    order: 'applied'
+                }).every(function(cell) {
+                    this.data(i++);
+                });
+            }).draw();
+            //   $('#tabelbahankeluar').DataTable()
+        })
+    </script>
 @endpush

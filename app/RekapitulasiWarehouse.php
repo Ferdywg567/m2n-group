@@ -8,12 +8,12 @@ class RekapitulasiWarehouse extends Model
 {
     public function warehouse()
     {
-        return $this->belongsTo('App\Warehouse');
+        return $this->belongsTo(Warehouse::class)->withTrashed();
     }
 
 
     public function detail_rekap_warehouse()
     {
-        return $this->hasMany('App\DetailRekapitulasiWarehouse');
+        return $this->hasMany(DetailRekapitulasiWarehouse::class);
     }
 }

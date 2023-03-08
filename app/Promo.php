@@ -8,6 +8,6 @@ class Promo extends Model
 {
     public function produk()
     {
-        return $this->hasMany('App\Produk');
+        return $this->hasMany(Produk::class);
     }
 }

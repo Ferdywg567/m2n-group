@@ -8,42 +8,42 @@ class Produk extends Model
 {
     public function warehouse()
     {
-        return $this->belongsTo('App\Warehouse');
+        return $this->belongsTo(Warehouse::class);
     }
 
     public function promo()
     {
-        return $this->belongsTo('App\Promo');
+        return $this->belongsTo(Promo::class);
     }
 
     public function detail_gambar()
     {
-        return $this->hasMany('App\DetailProdukImage');
+        return $this->hasMany(DetailProdukImage::class);
     }
 
     public function detail_produk()
     {
-        return $this->hasMany('App\DetailProduk');
+        return $this->hasMany(DetailProduk::class);
     }
 
     public function detail_transaksi()
     {
-        return $this->hasMany('App\DetailTransaksi');
+        return $this->hasMany(DetailTransaksi::class);
     }
 
     public function keranjang()
     {
-        return $this->hasMany('App\Keranjang', 'produk_id','id');
+        return $this->hasMany(Keranjang::class, 'produk_id','id');
     }
 
     public function favorit()
     {
-        return $this->hasMany('App\Favorit');
+        return $this->hasMany(Favorit::class);
     }
 
     public function ulasan()
     {
-        return $this->hasMany('App\Ulasan');
+        return $this->hasMany(Ulasan::class);
     }
 
     public function get_ukuran($produk)

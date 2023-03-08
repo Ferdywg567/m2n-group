@@ -3,30 +3,35 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Warehouse extends Model
 {
+    use SoftDeletes;
+
+    protected $dates = ['deleted_at'];
+
     public function finishing()
     {
-        return $this->belongsTo('App\Finishing');
+        return $this->belongsTo(Finishing::class)->withTrashed();
     }
 
     public function detail_warehouse()
     {
-        return $this->hasMany('App\DetailWarehouse');
+        return $this->hasMany(DetailWarehouse::class)->withTrashed();
     }
 
     public function rekapitulasi_warehouse()
     {
-        return $this->hasOne('App\RekapitulasiWarehouse');
-    }
-
-    public function getJumlahUkuranAttribute(){
-        return $this->detail_warehouse()->sum('jumlah');
+        return $this->hasOne(RekapitulasiWarehouse::class);
     }
 
     public function produk()
     {
-        return $this->hasOne('App\Produk');
+        return $this->hasOne(Produk::class);
+    }
+    
+    public function getJumlahUkuranAttribute(){
+        return $this->detail_warehouse()->sum('jumlah');
     }
 }

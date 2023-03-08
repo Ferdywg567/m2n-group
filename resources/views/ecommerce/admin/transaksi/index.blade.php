@@ -14,7 +14,6 @@
         .left {
             text-align: left;
         }
-
     </style>
     <div id="non-printable">
         <section class="section mt-4">
@@ -71,7 +70,6 @@
                                                                 @forelse ($item->detail_transaksi as $row)
                                                                     <li>{{ $row->produk->kode_produk }}</li>
                                                                 @empty
-
                                                                 @endforelse
                                                             </ul>
                                                         </td>
@@ -80,7 +78,6 @@
                                                                 @forelse ($item->detail_transaksi as $row)
                                                                     <li>{{ $row->produk->nama_produk }}</li>
                                                                 @empty
-
                                                                 @endforelse
                                                             </ul>
                                                         </td>
@@ -89,7 +86,6 @@
                                                                 @forelse ($item->detail_transaksi as $row)
                                                                     <li>{{ $row->jumlah }} seri</li>
                                                                 @empty
-
                                                                 @endforelse
                                                             </ul>
                                                         </td>
@@ -99,7 +95,6 @@
                                                                     <li>{{ $row->produk->warehouse->finishing->cuci->jahit->potong->bahan->sku }}
                                                                     </li>
                                                                 @empty
-
                                                                 @endforelse
                                                             </ul>
                                                         </td>
@@ -172,7 +167,6 @@
                                                                 @forelse ($item->detail_transaksi as $row)
                                                                     <li>{{ $row->produk->kode_produk }}</li>
                                                                 @empty
-
                                                                 @endforelse
                                                             </ul>
                                                         </td>
@@ -181,7 +175,6 @@
                                                                 @forelse ($item->detail_transaksi as $row)
                                                                     <li>{{ $row->produk->nama_produk }}</li>
                                                                 @empty
-
                                                                 @endforelse
                                                             </ul>
                                                         </td>
@@ -190,7 +183,6 @@
                                                                 @forelse ($item->detail_transaksi as $row)
                                                                     <li>{{ $row->jumlah }} seri</li>
                                                                 @empty
-
                                                                 @endforelse
                                                             </ul>
                                                         </td>
@@ -200,7 +192,6 @@
                                                                     <li>{{ $row->produk->warehouse->finishing->cuci->jahit->potong->bahan->sku }}
                                                                     </li>
                                                                 @empty
-
                                                                 @endforelse
                                                             </ul>
                                                         </td>
@@ -268,7 +259,6 @@
                                                                 @forelse ($item->detail_transaksi as $row)
                                                                     <li>{{ $row->produk->kode_produk }}</li>
                                                                 @empty
-
                                                                 @endforelse
                                                             </ul>
                                                         </td>
@@ -277,7 +267,6 @@
                                                                 @forelse ($item->detail_transaksi as $row)
                                                                     <li>{{ $row->produk->nama_produk }}</li>
                                                                 @empty
-
                                                                 @endforelse
                                                             </ul>
                                                         </td>
@@ -286,7 +275,6 @@
                                                                 @forelse ($item->detail_transaksi as $row)
                                                                     <li>{{ $row->jumlah }} seri</li>
                                                                 @empty
-
                                                                 @endforelse
                                                             </ul>
                                                         </td>
@@ -296,7 +284,6 @@
                                                                     <li>{{ $row->produk->warehouse->finishing->cuci->jahit->potong->bahan->sku }}
                                                                     </li>
                                                                 @empty
-
                                                                 @endforelse
                                                             </ul>
                                                         </td>
@@ -354,7 +341,6 @@
                                                                 @forelse ($item->detail_transaksi as $row)
                                                                     <li>{{ $row->produk->kode_produk }}</li>
                                                                 @empty
-
                                                                 @endforelse
                                                             </ul>
                                                         </td>
@@ -363,7 +349,6 @@
                                                                 @forelse ($item->detail_transaksi as $row)
                                                                     <li>{{ $row->produk->nama_produk }}</li>
                                                                 @empty
-
                                                                 @endforelse
                                                             </ul>
                                                         </td>
@@ -372,7 +357,6 @@
                                                                 @forelse ($item->detail_transaksi as $row)
                                                                     <li>{{ $row->jumlah }} seri</li>
                                                                 @empty
-
                                                                 @endforelse
                                                             </ul>
                                                         </td>
@@ -382,7 +366,6 @@
                                                                     <li>{{ $row->produk->warehouse->finishing->cuci->jahit->potong->bahan->sku }}
                                                                     </li>
                                                                 @empty
-
                                                                 @endforelse
                                                             </ul>
                                                         </td>
@@ -513,7 +496,8 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="nama_penerima">Nama Penerima</label>
-                                <input type="text" readonly class="form-control" id="nama_penerima" name="nama_penerima">
+                                <input type="text" readonly class="form-control" id="nama_penerima"
+                                    name="nama_penerima">
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -527,7 +511,8 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="jenis_alamat">Jenis Alamat</label>
-                                <input type="text" readonly class="form-control" id="jenis_alamat" name="jenis_alamat">
+                                <input type="text" readonly class="form-control" id="jenis_alamat"
+                                    name="jenis_alamat">
                             </div>
                         </div>
 
@@ -537,8 +522,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="alamat_detail">Alamat Detail</label>
-                                <textarea readonly class="form-control" id="alamat_detail" name="alamat_detail"
-                                    rows="3"></textarea>
+                                <textarea readonly class="form-control" id="alamat_detail" name="alamat_detail" rows="3"></textarea>
                             </div>
                         </div>
                     </div>
@@ -580,6 +564,20 @@
 @endsection
 @push('scripts')
     <script>
+        $.extend(true, $.fn.dataTable.defaults, {
+            columnDefs: [{
+                searchable: false,
+                orderable: false,
+                targets: 0,
+            }, ],
+            order: [
+                [1, 'asc']
+            ],
+            language: {
+                url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'
+            },
+        });
+
         $(document).ready(function() {
             function ajax() {
                 $.ajaxSetup({
@@ -641,26 +639,55 @@
                 $(this).css('background-color', 'black')
             })
 
-            $('#tabelbahanmasuk').DataTable({
-                language: {
-                    url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'
-                },
-            })
-            $('#tabelstokbahan').DataTable({
-                language: {
-                    url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'
-                },
-            })
-            $('#tabelbahankeluar').DataTable({
-                language: {
-                    url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'
-                },
-            })
-            $('#tabelbahanselesai').DataTable({
-                language: {
-                    url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'
-                },
-            })
+            let dt_tabelbahanmasuk = $('#tabelbahanmasuk').DataTable()
+            let dt_tabelstokbahan = $('#tabelstokbahan').DataTable()
+            let dt_tabelbahankeluar = $('#tabelbahankeluar').DataTable()
+            let dt_tabelbahanselesai = $('#tabelbahanselesai').DataTable()
+
+            dt_tabelbahanmasuk.on('order.dt search.dt', function() {
+                let i = 1;
+
+                dt_tabelbahanmasuk.cells(null, 0, {
+                    search: 'applied',
+                    order: 'applied'
+                }).every(function(cell) {
+                    this.data(i++);
+                });
+            }).draw();
+            
+            dt_tabelstokbahan.on('order.dt search.dt', function() {
+                let i = 1;
+
+                dt_tabelstokbahan.cells(null, 0, {
+                    search: 'applied',
+                    order: 'applied'
+                }).every(function(cell) {
+                    this.data(i++);
+                });
+            }).draw();
+
+            dt_tabelbahankeluar.on('order.dt search.dt', function() {
+                let i = 1;
+
+                dt_tabelbahankeluar.cells(null, 0, {
+                    search: 'applied',
+                    order: 'applied'
+                }).every(function(cell) {
+                    this.data(i++);
+                });
+            }).draw();
+
+            dt_tabelbahanselesai.on('order.dt search.dt', function() {
+                let i = 1;
+
+                dt_tabelbahanselesai.cells(null, 0, {
+                    search: 'applied',
+                    order: 'applied'
+                }).every(function(cell) {
+                    this.data(i++);
+                });
+            }).draw();
+
             $('#kode_bahanselect').select2()
 
 

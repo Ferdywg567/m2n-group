@@ -19,6 +19,7 @@ class CreatePembayaranJahitsTable extends Migration
             $table->foreign('jahit_id')->references('id')->on('jahits')->onDelete('cascade');
             $table->string('status');
             $table->integer('nominal');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

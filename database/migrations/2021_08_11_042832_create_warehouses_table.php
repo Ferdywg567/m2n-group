@@ -19,6 +19,7 @@ class CreateWarehousesTable extends Migration
             $table->foreign('finishing_id')->references('id')->on('finishings')->onDelete('cascade');
             $table->float('harga_produk');
             $table->date('tanggal_masuk')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -11,7 +11,7 @@ use App\Cuci;
 use App\Jahit;
 use App\PembayaranCuci;
 use App\PembayaranJahit;
-use PDF;
+use Barryvdh\DomPDF\PDF;
 
 class PembayaranController extends Controller
 {
@@ -318,6 +318,7 @@ class PembayaranController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // dd($request);
         $status = $request->get('status');
 
         if ($status == 'jahit') {
@@ -408,9 +409,6 @@ class PembayaranController extends Controller
 
 
                     if ($pembayaran1 == 'Termin 1') {
-
-
-
                         if ($nominal1 > 0 && $nominal2 > 0 && $nominal3 > 0) {
                             $total = $nominal1 + $nominal2 + $nominal3;
                             if ($total_harga == $total) {
@@ -573,9 +571,11 @@ class PembayaranController extends Controller
 
     public function convertToAngkaRp($harga)
     {
-        $hasil = str_replace('.', '', $harga);
-        $hasil = str_replace('Rp. ', '', $hasil);
+        $hasil = str_replace('Rp', '', $harga);
+        $hasil = str_replace('.', '', $hasil);
+        $hasil = str_replace(' ', '', $hasil);
         $hasil = str_replace(',00', '', $hasil);
+        // dd($hasil);
         return (float)$hasil;
     }
 

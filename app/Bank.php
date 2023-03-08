@@ -10,6 +10,6 @@ class Bank extends Model
 
     public function transaksi()
     {
-        return $this->hasMany('App\Transaksi');
+        return $this->hasMany(Transaksi::class);
     }
 }

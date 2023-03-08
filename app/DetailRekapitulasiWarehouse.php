@@ -8,7 +8,7 @@ class DetailRekapitulasiWarehouse extends Model
 {
     public function rekapitulasi_warehouse()
     {
-        return $this->belongsTo('App\RekapitulasiWarehouse');
+        return $this->belongsTo(RekapitulasiWarehouse::class);
     }
 
 }

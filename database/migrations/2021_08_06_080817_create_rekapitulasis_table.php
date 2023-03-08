@@ -21,6 +21,7 @@ class CreateRekapitulasisTable extends Migration
             $table->foreign('jahit_id')->references('id')->on('jahits')->onDelete('cascade');
             $table->integer('jumlah_diperbaiki')->nullable();
             $table->integer('jumlah_dibuang')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

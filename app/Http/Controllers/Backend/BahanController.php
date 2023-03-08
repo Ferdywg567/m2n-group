@@ -24,9 +24,10 @@ class BahanController extends Controller
      */
     public function index()
     {
-        $masuk = Bahan::where('status', 'bahan masuk')->orderBy('created_at', 'DESC')->get();
-        $keluar = Bahan::where('status', 'bahan keluar')->whereNotNull('kode_transaksi')->orderBy('created_at', 'DESC')->get();
-        $bahan = Bahan::orderBy('created_at', 'DESC')->get();
+        $masuk = Bahan::where('status', 'bahan masuk')->orderBy('tanggal_masuk', 'desc')->get();
+        $keluar = Bahan::where('status', 'bahan keluar')->whereNotNull('kode_transaksi')->orderBy('tanggal_masuk', 'desc')->get();
+        $bahan = Bahan::orderBy('tanggal_masuk', 'desc')->get();
+        // dd($bahan[0]);
         $kategori = Kategori::all();
         return view("backend.bahan.index", ['masuk' => $masuk, 'keluar' => $keluar, 'kategori' => $kategori, 'bahan' => $bahan]);
     }
@@ -396,6 +397,8 @@ class BahanController extends Controller
                     $addzero = str_pad($nomor, 4, '0', STR_PAD_LEFT);
                     $formatNomor = "TR-" . date('Y-m-d') . "-" . $addzero;
                 }
+            } else {
+                $formatNomor = '';
             }
         } else {
             $nomor = 1;
