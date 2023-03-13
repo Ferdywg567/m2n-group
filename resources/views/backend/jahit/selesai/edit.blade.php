@@ -308,6 +308,7 @@
 @push('scripts')
 <script>
     $(document).ready(function () {
+
              function ajax() {
                 $.ajaxSetup({
                     headers: {
@@ -329,7 +330,7 @@
               $('#kode_bahanselect').select2()
               $('#kode_transaksiselectkeluar').select2()
               $('.btnmasuk').prop('id','btnsimpanmasuk')
-
+              
               $('form[id=formJahit]').submit(function(){
                 var jumlahdirepair =0;
                 var jumlahdibuang =0;
@@ -407,7 +408,9 @@
                 }
             })
 
-
+            $('#harga_vendor').mask('000.000.000.000', {
+                reverse: true
+            });
 
      })
 </script>

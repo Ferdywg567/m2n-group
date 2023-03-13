@@ -96,7 +96,20 @@ class WarehouseController extends Controller
     public function show($id)
     {
         $warehouse = Warehouse::findOrFail($id);
-        return view("backend.warehouse.warehouse.show", ['warehouse' => $warehouse]);
+        $target = ["S","L","M"];
+        $detail = $warehouse->detail_warehouse->pluck('ukuran')->toArray();
+        $seri = false;
+        $harga_seri = 0;
+        if(in_array('S',$detail) && in_array('M',$detail) && in_array('L', $detail)){
+            $seri = true;
+            $harga_seri = $warehouse->detail_warehouse->whereIn('ukuran', $target)->avg('harga');
+            $detail = $warehouse->detail_warehouse->whereNotIn('ukuran', $target);
+        }else{
+            $detail = $warehouse->detail_warehouse;
+        }
+
+        // dd(['warehouse' => $warehouse, 'seri' => $seri,'detail' => $detail,'harga_seri' => $harga_seri]);
+        return view("backend.warehouse.warehouse.show", ['warehouse' => $warehouse, 'seri' => $seri,'detail' => $detail,'harga_seri' => $harga_seri]);
     }
 
     /**

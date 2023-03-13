@@ -15,7 +15,7 @@ use App\FinishingRetur;
 use App\Rekapitulasi;
 use App\Notification;
 use App\Cuci;
-use PDF;
+use Barryvdh\DomPDF\Facade as PDF;
 
 use function GuzzleHttp\Promise\all;
 
@@ -42,9 +42,11 @@ class FinishingController extends Controller
      */
     public function create(Request $request)
     {
+        // dd(Finishing::all(), Finishing::withTrashed()->get());
         $status = $request->get('status');
         if ($status == 'masuk') {
-            $rekap = Cuci::doesntHave('finishing')->get();
+            $rekap = Cuci::doesntHave('finishing')->where('status', 'cucian keluar')->get();
+            // dd(Cuci::whereHas('finishing')->with(['finishing'])->get());
             return view("backend.warehouse.finishing.masuk.create", ['rekap' => $rekap]);
         } else {
             $finish = Finishing::where('status', 'finishing masuk')->whereNotNull('tanggal_qc')->get();

@@ -26,7 +26,7 @@ class CuciController extends Controller
      */
     public function index()
     {
-        Cuci::whereNotNull('tanggal_cuci')->whereNotNull('tanggal_selesai')->where('status', '!=', 'selesai')->update(['status_cuci' => 'butuh konfirmasi']);
+        Cuci::whereNotNull('tanggal_cuci')->whereNotNull('tanggal_selesai')->where('status', '!=', 'cucian keluar')->update(['status_cuci' => 'butuh konfirmasi']);
         $cuci = Cuci::where('status', 'cucian masuk')->orderBy('created_at', 'DESC')->get();
         $selesai = Cuci::where('status', 'cucian selesai')->orderBy('created_at', 'DESC')->get();
         $keluar = Cuci::where('status', 'cucian keluar')->orderBy('created_at', 'DESC')->get();
@@ -355,8 +355,8 @@ class CuciController extends Controller
                 $cuci->no_surat = $request->get('no_surat');
                 $cuci->konversi = $request->get('konversi');
                 if ($request->get('status') == 'cucian masuk') {
-                    $cuci->tanggal_cuci = date('Y-m-d', strtotime($request->get('tanggal_mulai_cuci')));
-                    $cuci->tanggal_selesai = date('Y-m-d', strtotime($request->get('tanggal_selesai_cuci')));
+                    $cuci->tanggal_cuci = date('Y-m-d', strtotime($request->get('tanggal_cuci')));
+                    $cuci->tanggal_selesai = date('Y-m-d', strtotime($request->get('estimasi_selesai_cuci')));
                     if ($cuci->tanggal_cuci == date('Y-m-d')) {
                         $cuci->status_cuci = "proses cuci";
                     } else {

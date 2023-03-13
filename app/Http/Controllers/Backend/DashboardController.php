@@ -87,7 +87,7 @@ class DashboardController extends Controller
                         $q->with('bahan');
                     }]);
                 }])->whereMonth('tanggal_selesai', $bulan)->whereYear('tanggal_selesai', $tahun)->limit(5)->get();
-
+                // dd(Cuci::whereMonth('tanggal_selesai', $bulan)->whereYear('tanggal_selesai', $tahun)->limit(5)->get());
                 $group_kain = Bahan::select(
                     DB::raw('sum(panjang_bahan) as jumlah'),
                     DB::raw("DATE_FORMAT(tanggal_masuk,'%M %Y') as months")
@@ -226,7 +226,7 @@ class DashboardController extends Controller
                     }]);
                 }])->whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->limit(5)->get();
 
-                dd($warehouse);
+                // dd($warehouse);
 
 
                 $dataretur = Retur::with(['finishing' => function ($q) use ($bulan, $tahun) {
