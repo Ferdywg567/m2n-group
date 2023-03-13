@@ -157,11 +157,9 @@ class KategoriController extends Controller
         if ($request->ajax()) {
             $status = $request->get('status');
             if ($status == 'kategori') {
-                // $kategori = Kategori::where('id', $id)->doesntHave('sub_kategori')->first();
-                $kategori = Kategori::find($id);
+                $kategori = Kategori::where('id', $id)->doesntHave('sub_kategori')->first();
                 if ($kategori) {
-                    // Kategori::where('id', $id)->doesntHave('sub_kategori')->delete();
-                    $kategori->delete();
+                    Kategori::where('id', $id)->doesntHave('sub_kategori')->delete();
                     return response()->json([
                         'status' => true,
                         'data' => $kategori
@@ -172,11 +170,9 @@ class KategoriController extends Controller
                     ]);
                 }
             } elseif ($status == 'sub kategori') {
-                // $kategori = SubKategori::where('id', $id)->doesntHave('detail_sub')->first();
-                $kategori = SubKategori::find($id);
+                $kategori = SubKategori::where('id', $id)->doesntHave('detail_sub')->first();
                 if ($kategori) {
-                    // SubKategori::where('id', $id)->doesntHave('detail_sub')->delete();
-                    $kategori->delete();
+                    SubKategori::where('id', $id)->doesntHave('detail_sub')->delete();
                     return response()->json([
                         'status' => true
                     ]);
@@ -186,11 +182,9 @@ class KategoriController extends Controller
                     ]);
                 }
             } else {
-                // $kategori = DetailSubKategori::where('id', $id)->doesntHave('bahan')->first();
-                $kategori = DetailSubKategori::find($id);
+                $kategori = DetailSubKategori::where('id', $id)->doesntHave('bahan')->first();
                 if ($kategori) {
-                    // DetailSubKategori::where('id', $id)->doesntHave('bahan')->delete();
-                    $kategori->delete();
+                    DetailSubKategori::where('id', $id)->doesntHave('bahan')->delete();
                     return response()->json([
                         'status' => true
                     ]);

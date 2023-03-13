@@ -19,7 +19,6 @@ class CreateCuciDibuangsTable extends Migration
             $table->foreign('cuci_id')->references('id')->on('cucis')->onDelete('cascade');
             $table->string('ukuran');
             $table->integer('jumlah');
-            $table->softDeletes();
             $table->timestamps();
         });
     }

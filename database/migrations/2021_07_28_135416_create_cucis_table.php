@@ -41,7 +41,6 @@ class CreateCucisTable extends Migration
             $table->integer('total_harga')->nullable();
             $table->string('status');
             $table->string('status_cuci');
-            $table->softDeletes();
             $table->timestamps();
         });
     }

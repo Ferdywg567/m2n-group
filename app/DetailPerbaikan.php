@@ -11,6 +11,6 @@ class DetailPerbaikan extends Model
 
     public function perbaikan()
     {
-        return $this->belongsTo(Perbaikan::class);
+        return $this->belongsTo('App\Perbaikan');
     }
 }

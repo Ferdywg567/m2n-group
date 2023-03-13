@@ -3,26 +3,21 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Potong extends Model
 {
-    use SoftDeletes;
-
-    protected $dates = ['deleted_at'];
-
     public function bahan()
     {
-        return $this->belongsTo(Bahan::class)->withTrashed();
+        return $this->belongsTo('App\Bahan');
     }
 
     public function detail_potong()
     {
-        return $this->hasMany(DetailPotong::class)->withTrashed();
+        return $this->hasMany('App\DetailPotong');
     }
 
     public function jahit()
     {
-        return $this->hasOne(Jahit::class)->withTrashed();
+        return $this->hasOne('App\Jahit');
     }
 }
