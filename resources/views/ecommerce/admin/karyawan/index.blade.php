@@ -36,7 +36,12 @@
                                     @forelse ($karyawan as $item)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $item->name }}</td>
+                                            <td class="text-left">
+                                                {{ $item->name }}
+                                                @if ($item->id == auth()->id())
+                                                    <span class="badge badge-success">Akun Anda</span>
+                                                @endif
+                                            </td>
                                             <td>{{ $item->email }}</td>
 
                                             <td>

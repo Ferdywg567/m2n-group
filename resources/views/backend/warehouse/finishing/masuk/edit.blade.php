@@ -81,7 +81,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="tanggal_masuk">Tanggal Barang Masuk</label>
-                                            <input type="date" class="form-control" readonly
+                                            <input type="date" class="form-control"
                                                 value="{{$finish->cuci->jahit->potong->bahan->tanggal_masuk}}"
                                                 required id="tanggal_masuk" name="tanggal_masuk">
                                         </div>

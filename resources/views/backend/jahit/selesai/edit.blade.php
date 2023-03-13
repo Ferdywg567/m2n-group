@@ -394,17 +394,18 @@
                    }
                })
 
-              $('#berhasil_jahit').on('keyup', function(){
-                  var data = $(this).val()
-                var jumlah_bahan = $('#jumlah_bahan').val()
+            $('#berhasil_jahit').on('keyup', function(){
+                console.log(jumlah_bahan -  data);
+                var data = parseInt($(this).val())
+                var jumlah_bahan = parseInt($('#jumlah_bahan').val())
 
                 if(data <= jumlah_bahan){
-                    var res = jumlah_bahan -  data;
+                    var res = jumlah_bahan - data;
                     $('#gagal_jahit').val(res)
                 }else{
                     $('#gagal_jahit').val(0)
                 }
-              })
+            })
 
 
 

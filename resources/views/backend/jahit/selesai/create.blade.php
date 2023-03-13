@@ -369,18 +369,17 @@
 
                })
 
-              $('#berhasil_jahit').on('keyup', function(){
-                  var data = $(this).val()
-                var jumlah_bahan = $('#jumlah_bahan').val()
-                data = parseInt(data)
-                jumlah_bahan = parseInt(jumlah_bahan)
+            $('#berhasil_jahit').on('keyup', function(){
+                
+                var data = parseInt($(this).val())
+                var jumlah_bahan = parseInt($('#jumlah_bahan').val())
                 if(data <= jumlah_bahan){
                     var res = jumlah_bahan -  data;
                     $('#gagal_jahit').val(res)
                 }else{
                     $('#gagal_jahit').val(0)
                 }
-              })
+            })
 
             $('#kode_transaksiselectkeluar').on('change', function () {
                     var id = $(this).find(':selected').val()

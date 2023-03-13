@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Garment - Ecommerce</title>
+    <title>M2N Group System - Ecommerce</title>
     <meta name="robots" content="noindex, follow" />
     <meta name="description" content="">
     {{-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> --}}

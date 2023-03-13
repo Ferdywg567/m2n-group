@@ -140,7 +140,7 @@
                                                                         data-id="{{ $item->id }}" href="#"><i
                                                                             class="ri-delete-bin-fill"></i>
                                                                         Hapus</a>
-                                                                    @if ($item->status_potong == 'selesai')
+                                                                    @if ($item->status_potong == 'butuh konfirmasi')
                                                                         <a class="dropdown-item"
                                                                             data-id="{{ $item->id }}"
                                                                             href="{{ route('potong.getselesai', [$item->id]) }}"><i
@@ -192,8 +192,12 @@
                                                             @php
                                                                 $status = strtoupper($item->status_potong);
                                                             @endphp
-                                                            <span
-                                                                class="badge badge-success text-dark">{{ $status }}</span>
+                                                            
+                                                            @if ($status == 'SELESAI')
+                                                                <span class="badge badge-success text-dark">{{ $status }}</span>
+                                                            @else
+                                                                <span class="badge badge-secondary text-dark">{{ $status }}</span>
+                                                            @endif
                                                         </td>
                                                         <td>
                                                             <div class="dropdown dropleft">

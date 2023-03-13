@@ -43,6 +43,8 @@
                                                 @forelse ($cuci as $item)
                                                 <option value="{{$item->id}}" @if($item->id ==
                                                     old('kode_transaksi')) selected
+                                                    @elseif(app('request')->input('item') != null and app('request')->input('item') == $item->id)
+                                                    selected
                                                     @endif>{{$item->jahit->potong->bahan->kode_transaksi}} |
                                                     {{$item->jahit->potong->bahan->nama_bahan}}
                                                 </option>
@@ -505,8 +507,8 @@
                                 var detail = bahan.detail_sub.nama_kategori;
                                 var subkategori = bahan.detail_sub.sub_kategori.nama_kategori;
                                 var kategori = bahan.detail_sub.sub_kategori.kategori.nama_kategori;
-                                var total_harga = data.harga_vendor * data.jumlah_bahan;
-                                $('#total_harga').val("Rp. "+ convertToRupiah(data.total_harga))
+                                var total_harga = data.harga_vendor * Math.ceil(jahit.jumlah_bahan / 12);
+                                $('#total_harga').val("Rp. "+ convertToRupiah(total_harga))
                                 $('#nama_produk').val(bahan.nama_bahan)
                                 $('#nama_vendor').val(data.nama_vendor)
                                 $('#harga_vendor').val(data.harga_vendor)
@@ -517,8 +519,8 @@
                                 $('#kategori').val(kategori)
                                 $('#sub_kategori').val(subkategori)
                                 $('#detail_sub_kategori').val(detail)
-                                $('#jumlah_bahan_yang_dicuci').val(potong.hasil_cutting)
-                                $('#konversi').val(data.konversi)
+                                $('#jumlah_bahan_yang_dicuci').val(jahit.berhasil)
+                                $('#konversi').val(jahit.konversi)
 
                             }
 
@@ -527,7 +529,9 @@
             })
 
 
-
+            @if( app('request')->input('item'))
+            $('#kode_transaksiselect').trigger('change')
+            @endif
      })
 </script>
 @endpush

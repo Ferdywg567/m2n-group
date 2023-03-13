@@ -43,13 +43,17 @@
                                             <th scope="col">Tgl Masuk</th>
                                             <th scope="col">Jumlah Perbaikan</th>
                                             <th scope="col">Surat Jalan</th>
+                                            <th scope="col">Jenis Perbaikan</th>
                                             <th scope="col">Status</th>
                                             <th scope="col">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody id="">
 
-                                        @forelse ($repair as $item)
+                                        @forelse ($repair as $r)
+                                            @php
+                                                $item = $r->perbaikan;
+                                            @endphp
                                             <tr>
                                                 {{-- <td>{{$loop->iteration}}</td> --}}
                                                 <td></td>
@@ -57,8 +61,15 @@
                                                 <td>{{ $item->bahan->kode_bahan }}</td>
                                                 <td>{{ $item->bahan->sku }}</td>
                                                 <td>{{ $item->tanggal_masuk }}</td>
-                                                <td>{{ $item->total }}</td>
+                                                <td>{{ $r->jumlah }}</td>
                                                 <td>{{ $item->bahan->no_surat }}</td>
+                                                <td>
+                                                    @if ($r->jahit_direpair_id == null)
+                                                        <span class="badge badge-success text-dark">PERBAIKAN CUCI</span>
+                                                    @else
+                                                        <span class="badge badge-primary text-dark">PERBAIKAN JAHIT</span>
+                                                    @endif
+                                                </td>
                                                 <td>
                                                     @php
                                                         $status = strtoupper($item->status);

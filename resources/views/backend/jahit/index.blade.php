@@ -86,8 +86,11 @@
                                                 </tr>
                                             </thead>
                                             <tbody id="">
-
+                                                
                                                 @forelse ($jahitmasuk as $item)
+                                                @php
+                                                    // dd($item->pembayaran_jahit);
+                                                @endphp
                                                     <tr>
                                                         <td>{{ $loop->iteration }}</td>
                                                         <td>{{ $item->potong->bahan->kode_transaksi }}</td>
@@ -125,10 +128,17 @@
                                                                         $item->status_pembayaran == 'Termin 1' ||
                                                                         $item->status_pembayaran == 'Termin 2' ||
                                                                         $item->status_pembayaran == 'Termin 3')
-                                                                    <a href="{{ route('pembayaran.index') }}">
+                                                                    @if($item->status_pembayaran == 'Belum Lunas')
+                                                                    <a href="{{ route('pembayaran.create') }}?status=jahit&item={{$item->id}}">
                                                                         <span
                                                                             class="badge badge-warning text-dark">{{ $item->status_pembayaran }}</span>
                                                                     </a>
+                                                                    @else
+                                                                    <a href="{{ route('pembayaran.edit', $item->pembayaran_jahit[0]) }}?status=jahit&item={{$item->id}}">
+                                                                        <span
+                                                                            class="badge badge-warning text-dark">{{ $item->status_pembayaran }}</span>
+                                                                    </a>
+                                                                    @endif
                                                                 @endif
                                                             @else
                                                                 -
@@ -161,7 +171,7 @@
                                                                         data-id="{{ $item->id }}" href="#"><i
                                                                             class="ri-delete-bin-fill"></i>
                                                                         Hapus</a>
-                                                                    @if ($item->status_jahit == 'selesai')
+                                                                    @if ($item->status_jahit == 'butuh konfirmasi')
                                                                         <a class="dropdown-item"
                                                                             data-id="{{ $item->id }}"
                                                                             href="{{ route('jahit.getselesai', [$item->id]) }}"><i

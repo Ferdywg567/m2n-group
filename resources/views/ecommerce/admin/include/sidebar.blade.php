@@ -50,11 +50,11 @@
                 <i class="ri-artboard-fill"></i> <span>Banner</span>
             </a>
         </li>
-        <li @yield('layout')>
+        {{-- <li @yield('layout')>
             <a class="nav-link" href="{{ route('ecommerce.layout.index') }}">
                 <i class="ri-layout-fill"></i><span>Layout</span>
             </a>
-        </li>
+        </li> --}}
         <li @yield('rekapitulasi')>
             <a class="nav-link" href="{{ route('ecommerce.rekapitulasi.index') }}">
                 <i class="ri-booklet-fill"></i><span>Rekapitulasi</span>

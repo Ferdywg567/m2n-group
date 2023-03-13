@@ -24,7 +24,10 @@ $kategori = \App\SubKategori::select('nama_kategori')->groupBy('nama_kategori')-
                                         selected @endif @endif>Semua Kategori</option>
                                     @forelse ($kategori as $item)
                                     <option value="{{$item->nama_kategori}}" @if(isset($data)) @if($data==$item->
-                                        nama_kategori) selected @endif @endif>{{$item->nama_kategori}}</option>
+                                        nama_kategori) selected @endif @endif>
+                                        {{ strlen($item->nama_kategori) > 17 ?
+                                            substr($item->nama_kategori, 0, 14) . '...' : $item->nama_kategori }}
+                                    </option>
                                     @empty
 
                                     @endforelse

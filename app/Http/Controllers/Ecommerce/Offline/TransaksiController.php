@@ -10,7 +10,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Transaksi;
 use App\Produk;
-use PDF;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class TransaksiController extends Controller
 {
@@ -60,13 +60,14 @@ class TransaksiController extends Controller
             $bayar = str_replace('.', '', $request->get('bayar'));
             $kembalian = str_replace('.', '', $request->get('kembalian'));
             $detail = session('detail_transaksi');
+            
             DB::beginTransaction();
             try {
 
                 $totalproduk = 0;
                 foreach ($detail as $key => $value) {
                     $produk = Produk::where('kode_produk', $value['kode'])->first();
-
+                    // dd(DetailProduk::where('produk_id', $produk->id)->whereIn('ukuran', [$value['ukuran']])->sum('jumlah'));
                     if ($produk) {
                         $totalproduk += $value['qty'];
                         if($value['ukuran'] == 'seri'){
@@ -78,15 +79,35 @@ class TransaksiController extends Controller
                         $detailpro = DetailProduk::where('produk_id', $produk->id)->whereIn('ukuran',$ukuran)->get();
                         $produk->stok = $produk->stok - ($jumproduk * $value['qty']);
                         foreach ($detailpro as $key => $row) {
+
                             $detailProduk = DetailProduk::findOrFail($row->id);
-                            $detailProduk->jumlah = $detailProduk->jumlah - $value['qty'];
-                            $detailProduk->save();
+
+                            if($detailProduk->jumlah < $value['qty']){
+                                DB::rollBack();
+                                // $request->session()->flash('error', 'insufficient stock');
+                                return response()->json([
+                                    'status' => false,
+                                    'message' => 'Stok tidak mencukupi, sisa stok '.$detailProduk->jumlah
+                                ]);
+                            }else{
+                                $detailProduk->jumlah = $detailProduk->jumlah - $value['qty'];
+                                $detailProduk->save();
+
+                                //didan - deduct jumlah barang from warehouse detail
+                                $warehouse = $detailProduk->produk->warehouse;
+                                foreach($warehouse->detail_warehouse as $d){
+                                    if($d->ukuran == $value['ukuran']){
+                                        $d->jumlah = $d->jumlah - $value['qty'];
+                                        $d->save();
+                                    }
+                                }
+                                //end deduct jumlah barang from warehouse detail
+                            }
                         }
                         $produk->save();
                         // $produk
                     }
                 }
-
                 $transaksi = new Transaksi();
                 $transaksi->kode_transaksi = $this->generateKode();
                 $transaksi->nama = $request->get('nama');

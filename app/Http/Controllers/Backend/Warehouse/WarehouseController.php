@@ -12,7 +12,7 @@ use App\Finishing;
 use App\Warehouse;
 use App\Produk;
 use App\DetailProduk;
-use PDF;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class WarehouseController extends Controller
 {
@@ -23,7 +23,7 @@ class WarehouseController extends Controller
      */
     public function index()
     {
-        $warehouse = Warehouse::orderBy('created_at','DESC')->get();;
+        $warehouse = Warehouse::orderBy('created_at','DESC')->get();
         return view("backend.warehouse.warehouse.index", ['warehouse' => $warehouse]);
     }
 

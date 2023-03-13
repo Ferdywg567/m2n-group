@@ -115,7 +115,7 @@
     <script src="{{ asset('js/dropzone.min.js') }}"></script>
     @include('ecommerce.offline.include.toastr')
 
-    @stack('scripts')
+    
 
     <script>
         function convertToAngka(rupiah) {
@@ -167,6 +167,7 @@
 
         })
     </script>
+    @stack('scripts')
 </body>
 
 </html>

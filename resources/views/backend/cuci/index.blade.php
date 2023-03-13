@@ -123,10 +123,17 @@
                                                                         $item->status_pembayaran == 'Termin 1' ||
                                                                         $item->status_pembayaran == 'Termin 2' ||
                                                                         $item->status_pembayaran == 'Termin 3')
-                                                                    <a href="{{ route('pembayaran.index') }}">
-                                                                        <span
-                                                                            class="badge badge-warning text-dark">{{ $item->status_pembayaran }}</span>
-                                                                    </a>
+                                                                    @if($item->status_pembayaran == 'Belum Lunas')
+                                                                        <a href="{{ route('pembayaran.create') }}?status=cuci&item={{$item->id}}">
+                                                                            <span
+                                                                                class="badge badge-warning text-dark">{{ $item->status_pembayaran }}</span>
+                                                                        </a>
+                                                                    @else
+                                                                        <a href="{{ route('pembayaran.edit', $item->pembayaran_cuci[0]) }}?status=jahit&item={{$item->id}}">
+                                                                            <span
+                                                                                class="badge badge-warning text-dark">{{ $item->status_pembayaran }}</span>
+                                                                        </a>
+                                                                    @endif
                                                                 @endif
                                                             @else
                                                                 -
@@ -161,7 +168,7 @@
                                                                         data-id="{{ $item->id }}" href="#"><i
                                                                             class="ri-delete-bin-fill"></i>
                                                                         Hapus</a>
-                                                                    @if ($item->status_cuci == 'selesai')
+                                                                    @if ($item->status_cuci == 'butuh konfirmasi')
                                                                         <a class="dropdown-item"
                                                                             data-id="{{ $item->id }}"
                                                                             href="{{ route('cuci.getselesai', [$item->id]) }}"><i

@@ -249,6 +249,9 @@
 @push('scripts')
 <script>
     $(document).ready(function () {
+        $('#harga_vendor').mask('000.000.000.000', {
+            reverse: true
+        });
              function ajax() {
                 $.ajaxSetup({
                     headers: {
