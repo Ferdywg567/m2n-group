@@ -25,7 +25,6 @@ class CreatePotongsTable extends Migration
             $table->string('konversi')->nullable();
             $table->string('status');
             $table->string('status_potong');
-            $table->softDeletes();
             $table->timestamps();
         });
     }

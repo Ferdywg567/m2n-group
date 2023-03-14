@@ -8,6 +8,6 @@ class DetailProduk extends Model
 {
     public function produk()
     {
-        return $this->belongsTo(Produk::class);
+        return $this->belongsTo('App\Produk');
     }
 }

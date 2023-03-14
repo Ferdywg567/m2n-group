@@ -7,26 +7,22 @@ use Illuminate\Support\Facades\DB;
 use App\DetailRekapitulasi;
 use App\Cuci;
 use App\Jahit;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Rekapitulasi extends Model
 {
-    use SoftDeletes;
 
-    protected $dates = ['deleted_at'];
-    
     public function detail_rekap()
     {
-        return $this->hasMany(DetailRekapitulasi::class)->withTrashed();
+        return $this->hasMany('App\DetailRekapitulasi');
     }
 
     public function jahit()
     {
-        return $this->belongsTo(Jahit::class)->withTrashed();
+        return $this->belongsTo('App\Jahit');
     }
     public function cuci()
     {
-        return $this->belongsTo(Cuci::class)->withTrashed();
+        return $this->belongsTo('App\Cuci');
     }
 
     public static function generateRekap()

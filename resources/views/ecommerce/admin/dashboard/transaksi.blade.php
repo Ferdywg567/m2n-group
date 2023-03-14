@@ -81,20 +81,6 @@
 @endsection
 @push('scripts')
     <script>
-        $.extend(true, $.fn.dataTable.defaults, {
-            columnDefs: [{
-                searchable: false,
-                orderable: false,
-                targets: 0,
-            }, ],
-            order: [
-                [1, 'asc']
-            ],
-            language: {
-                url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'
-            },
-        });
-        
         $(document).ready(function() {
             function ajax() {
                 $.ajaxSetup({
@@ -105,19 +91,11 @@
             }
 
 
-            let dt_tabelproduk = $('#tabelproduk').DataTable()
-
-            dt_tabelproduk.on('order.dt search.dt', function() {
-                let i = 1;
-
-                dt_tabelproduk.cells(null, 0, {
-                    search: 'applied',
-                    order: 'applied'
-                }).every(function(cell) {
-                    this.data(i++);
-                });
-            }).draw();
-
+            $('#tabelproduk').DataTable({
+                language: {
+                    url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'
+                },
+            })
             history.pushState(null, null, '<?php echo $_SERVER['REQUEST_URI']; ?>');
             window.addEventListener('popstate', function(event) {
                 window.location.assign("{{ route('ecommerce.dashboard.index') }}");

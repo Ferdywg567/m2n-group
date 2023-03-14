@@ -3,46 +3,42 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Finishing extends Model
 {
-    use SoftDeletes;
-
-    protected $dates = ['deleted_at'];
-
     public function rekapitulasi()
     {
-        return $this->belongsTo(Rekapitulasi::class)->withTrashed();
+        return $this->belongsTo('App\Rekapitulasi');
     }
+
 
     public function detail_finish()
     {
-        return $this->hasMany(DetailFinishing::class)->withTrashed();
+        return $this->hasMany('App\DetailFinishing');
     }
 
     public  function finish_retur()
     {
-        return $this->hasMany(FinishingRetur::class)->withTrashed();
+        return $this->hasMany('App\FinishingRetur');
     }
 
     public  function finish_dibuang()
     {
-        return $this->hasMany(FinishingDibuang::class)->withTrashed();
+        return $this->hasMany('App\FinishingDibuang');
     }
 
     public function warehouse()
     {
-        return $this->hasOne(Warehouse::class)->withTrashed();
+        return $this->hasOne('App\Warehouse');
     }
 
     public function retur()
     {
-        $this->hasOne(Retur::class)->withTrashed();
+        $this->hasOne('App\Retur');
     }
 
     public function cuci()
     {
-        return $this->belongsTo(Cuci::class)->withTrashed();
+        return $this->belongsTo('App\Cuci');
     }
 }

@@ -8,11 +8,11 @@ class Perbaikan extends Model
 {
     public function bahan()
     {
-        return $this->belongsTo(Bahan::class);
+        return $this->belongsTo('App\Bahan');
     }
 
     public function detail_perbaikan()
     {
-        return $this->hasMany(DetailPerbaikan::class);
+        return $this->hasMany('App\DetailPerbaikan');
     }
 }

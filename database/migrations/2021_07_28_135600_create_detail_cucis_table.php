@@ -19,7 +19,6 @@ class CreateDetailCucisTable extends Migration
             $table->foreign('cuci_id')->references('id')->on('cucis')->onDelete('cascade');
             $table->string('size');
             $table->integer('jumlah');
-            $table->softDeletes();
             $table->timestamps();
         });
     }
