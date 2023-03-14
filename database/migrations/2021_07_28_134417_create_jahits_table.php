@@ -38,7 +38,6 @@ class CreateJahitsTable extends Migration
             $table->integer('total_harga')->nullable();
             $table->string('status');
             $table->string('status_jahit');
-            $table->softDeletes();
             $table->timestamps();
         });
     }

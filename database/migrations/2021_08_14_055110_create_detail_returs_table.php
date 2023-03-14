@@ -19,7 +19,6 @@ class CreateDetailRetursTable extends Migration
             $table->foreign('retur_id')->references('id')->on('returs')->onDelete('cascade');
             $table->string('ukuran');
             $table->integer('jumlah');
-            $table->softDeletes();
             $table->timestamps();
         });
     }

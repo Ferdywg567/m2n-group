@@ -19,7 +19,6 @@ class CreateJahitDirepairsTable extends Migration
             $table->foreign('jahit_id')->references('id')->on('jahits')->onDelete('cascade');
             $table->string('ukuran');
             $table->integer('jumlah');
-            $table->softDeletes();
             $table->timestamps();
         });
     }

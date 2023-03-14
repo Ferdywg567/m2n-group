@@ -10,7 +10,6 @@ use App\Bahan;
 use App\Perbaikan;
 use App\DetailPerbaikan;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Validation\Rule;
 use PDF;
 
 class PerbaikanController extends Controller
@@ -213,27 +212,12 @@ class PerbaikanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // dd($request);
-        // $validator = Validator::make($request->all(), [
-        //     'tailoring' => 'required|integer',
-        //     'washing' => 'required|integer',
-        //     'keterangan_tailoring' => 'required',
-        //     'keterangan_washing' => 'required',
-        //     'tanggal_selesai' => 'required|date_format:"Y-m-d"',
-        // ]);
-        // $validator = Validator::make($request->all(), [
-        //     'tailoring'            => [Rule::requiredIf($request->jahit_direpair_id != null), 'integer'],
-        //     'washing'              => [Rule::requiredIf($request->cuci_direpair_id != null), 'integer'],
-        //     'keterangan_tailoring' => [Rule::requiredIf($request->jahit_direpair_id != null), 'string'],
-        //     'keterangan_washing'   => [Rule::requiredIf($request->cuci_direpair_id != null), 'string'],
-        //     'tanggal_selesai'      => 'required|date_format:"Y-m-d"',
-        // ]);
         $validator = Validator::make($request->all(), [
-            'tailoring'            => ['nullable', 'integer'],
-            'washing'              => ['nullable', 'integer'],
-            'keterangan_tailoring' => ['nullable', 'string'],
-            'keterangan_washing'   => ['nullable', 'string'],
-            'tanggal_selesai'      => 'required|date_format:"Y-m-d"',
+            'tailoring' => 'required|integer',
+            'washing' => 'required|integer',
+            'keterangan_tailoring' => 'required',
+            'keterangan_washing' => 'required',
+            'tanggal_selesai' => 'required|date_format:"Y-m-d"',
         ]);
 
         if ($validator->fails()) {
