@@ -5,32 +5,31 @@
 @section('perbaikan', 'class=active-sidebar')
 
 @section('content')
-    <style>
-        .modal-body {
-            max-height: calc(100vh - 210px);
-            overflow-y: auto;
-        }
+<style>
+    .modal-body {
+        max-height: calc(100vh - 210px);
+        overflow-y: auto;
+    }
 
-        .dropdown-menu {
-            left: 50% !important;
-            transform: translateX(-50%) !important;
-            top: 100% !important;
+    .dropdown-menu {
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        top: 100% !important;
 
-        }
+    }
 
-        .left {
-            text-align: left;
-        }
-    </style>
-    <div id="non-printable">
-        <section class="section mt-4">
-            <a href="{{ route('print.index') }}" class="btn btn-outline-primary rounded ml-1">Cetak Semua <i
-                    class="ri-printer-fill"></i>
-            </a>
-            <div class="section-body mt-4">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
+    .left{
+        text-align: left;
+    }
+</style>
+<div id="non-printable">
+    <section class="section mt-4">
+        <a href="{{route('print.index')}}" class="btn btn-outline-primary rounded ml-1">Cetak Semua <i class="ri-printer-fill"></i>
+        </a>
+        <div class="section-body mt-4">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
 
                             <div class="card-body">
                                 <table class="table table-hover" id="tabelperbaikan">
@@ -94,85 +93,64 @@
                                         @empty
                                         @endforelse
 
-                                    </tbody>
-                                </table>
+                                </tbody>
+                            </table>
 
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
 
-    </div>
+</div>
 
 @endsection
 @push('scripts')
-    <script>
-        $.extend(true, $.fn.dataTable.defaults, {
-            columnDefs: [{
-                searchable: false,
-                orderable: false,
-                targets: 0,
-            }, ],
-            order: [
-                [1, 'asc']
-            ],
-            language: {
-                url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'
-            },
-        });
-        $(document).ready(function() {
-            function ajax() {
+<script>
+    $(document).ready(function () {
+             function ajax() {
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
                 });
-            }
-            $('#kdbahanreadonly').hide()
-            $('#ukuranm').hide()
-            $('#ukuranl').hide()
-            $('#ukuranxl').hide()
-            $('#ukuranxxl').hide()
-            $('#kdbahanselectmasuk').show()
-            $('#kdbahanmasuk').hide()
-            $('#kdbahanselectkeluar').show()
-            $('#kdbahankeluar').hide()
-            $('.btnkeluar').prop('id', 'btnsimpankeluar')
-            let dt_perbaikan = $('#tabelperbaikan').DataTable();
-
-            dt_perbaikan.on('order.dt search.dt', function() {
-                let i = 1;
-
-                dt_perbaikan.cells(null, 0, {
-                    search: 'applied',
-                    order: 'applied'
-                }).every(function(cell) {
-                    this.data(i++);
-                });
-            }).draw();
-            
-            $('#tabelbahankeluar').DataTable()
-            $('#kode_bahanselect').select2()
-            $('#kode_bahanselectkeluar').select2()
-            $('.btnmasuk').prop('id', 'btnsimpanmasuk')
-            $('#perbaikanMasuk').on('hidden.bs.modal', function() {
+              }
+              $('#kdbahanreadonly').hide()
+              $('#ukuranm').hide()
+              $('#ukuranl').hide()
+              $('#ukuranxl').hide()
+              $('#ukuranxxl').hide()
+              $('#kdbahanselectmasuk').show()
+              $('#kdbahanmasuk').hide()
+              $('#kdbahanselectkeluar').show()
+              $('#kdbahankeluar').hide()
+              $('.btnkeluar').prop('id','btnsimpankeluar')
+              $('#tabelperbaikan').DataTable({
+                    language: {
+                        url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'
+                },
+              })
+              $('#tabelbahankeluar').DataTable()
+              $('#kode_bahanselect').select2()
+              $('#kode_bahanselectkeluar').select2()
+              $('.btnmasuk').prop('id','btnsimpanmasuk')
+              $('#perbaikanMasuk').on('hidden.bs.modal', function() {
                 $(this).find('form').trigger('reset');
                 $('#perbaikanMasukLabel').text('Input Data [perbaikan Masuk]')
                 $('#alert-perbaikan-masuk').empty()
-                $('.btnmasuk').prop('id', 'btnsimpanmasuk')
+                $('.btnmasuk').prop('id','btnsimpanmasuk')
                 $('.btnmasuk').show()
                 $('#kdbahanselectmasuk').show()
-                $('#kdbahanmasuk').hide()
-            });
+              $('#kdbahanmasuk').hide()
+              });
 
-            $('#perbaikanKeluar').on('hidden.bs.modal', function() {
+              $('#perbaikanKeluar').on('hidden.bs.modal', function() {
                 $(this).find('form').trigger('reset');
                 $('#perbaikanKeluarLabel').text('Input Data [perbaikan Keluar]')
                 $('#alert-perbaikan-keluar').empty()
-                $('.btnkeluar').prop('id', 'btnsimpankeluar')
+                $('.btnkeluar').prop('id','btnsimpankeluar')
                 $('#kdbahanselectkeluar').show()
                 $('#kdbahankeluar').hide()
                 $('.btnkeluar').show()
@@ -189,409 +167,415 @@
                 $('#tanggal_keluar').prop('readonly', false)
                 $('#no_surat_keluar').prop('readonly', false)
                 $('#hasil_cutting').prop('readonly', false)
-            });
+              });
 
-            $('#hasil_cutting').on('keyup', function() {
-                var data = $(this).val()
-                var lusin = 12
+              $('#hasil_cutting').on('keyup', function(){
+                  var data = $(this).val()
+                  var lusin = 12
 
-                var sisa = data % lusin;
-                var hasil = (data - sisa) / lusin;
-                var res = hasil + ' Lusin ' + sisa + ' pcs'
-                $('#konversi').val(res)
-            })
+                  var sisa = data%lusin;
+                  var hasil = (data - sisa) / lusin;
+                  var res = hasil+' Lusin '+sisa+ ' pcs'
+                  $('#konversi').val(res)
+              })
 
-            $(document).on('click', '#btnsize', function() {
+            $(document).on('click','#btnsize', function(){
                 var ukuranm = $('#ukuranm').is(':visible')
                 var ukuranl = $('#ukuranl').is(':visible')
                 var ukuranxl = $('#ukuranxl').is(':visible')
                 var ukuranxxl = $('#ukuranxxl').is(':visible')
 
-                if (!ukuranm) {
+                if(!ukuranm){
                     $('#ukuranm').show()
                     return false;
-                } else if (!ukuranl) {
+                }else if(!ukuranl){
                     $('#ukuranl').show()
                     return false;
-                } else if (!ukuranxl) {
+                }else if(!ukuranxl){
                     $('#ukuranxl').show()
                     return false;
-                } else if (!ukuranxxl) {
+                }else if(!ukuranxxl){
                     $('#ukuranxxl').show()
                     return false;
                 }
             })
 
-            $(document).on('click', '#btnsimpanmasuk', function() {
+            $(document).on('click','#btnsimpanmasuk', function () {
 
                 var form = $('#formperbaikanMasuk').serialize()
                 ajax()
                 $.ajax({
-                    url: "{{ route('perbaikan.store') }}",
-                    method: "POST",
-                    data: form
-                }).done(function(response) {
+                    url:"{{route('perbaikan.store')}}",
+                    method:"POST",
+                    data:form
+                }).done(function (response) {
                     console.log(response);
-                    if (response.status) {
+                    if(response.status){
                         $('#alert-perbaikan-masuk').html(response.data)
-                        setTimeout(function() {
+                        setTimeout(function(){
                             $('#alert-perbaikan-masuk').empty()
                             location.reload(true)
-                        }, 1500)
+                        },1500)
 
 
-                    } else {
+                    }else{
                         $('#alert-perbaikan-masuk').html(response.data)
                         return false;
                     }
                 })
-            })
+             })
 
-            $(document).on('click', '.btneditmasuk', function() {
-                var id = $(this).data('id');
-                $('.btnmasuk').prop('id', 'btnupdatemasuk')
-                $('#perbaikanMasukLabel').text('Edit Data [perbaikan Masuk]')
-                $('#kdbahanselectmasuk').hide()
-                $('#perbaikanMasuk').modal('show')
-                $('#kdbahanmasuk').show()
-                $.ajax({
-                    //
-                    method: "GET",
-                    data: {
-                        'id': id
-                    }
+             $(document).on('click','.btneditmasuk',function () {
+                    var id = $(this).data('id');
+                    $('.btnmasuk').prop('id','btnupdatemasuk')
+                    $('#perbaikanMasukLabel').text('Edit Data [perbaikan Masuk]')
+                    $('#kdbahanselectmasuk').hide()
+                    $('#perbaikanMasuk').modal('show')
+                    $('#kdbahanmasuk').show()
+                    $.ajax({
+                        //
+                        method:"GET",
+                        data:{
+                            'id':id
+                        }
 
-                }).done(function(response) {
-                    console.log(response);
-                    if (response.status) {
-                        var data = response.data;
-                        var bahan = data.bahan;
+                    }).done(function (response) {
+                        console.log(response);
+                            if(response.status){
+                                var data = response.data;
+                                var bahan = data.bahan;
 
-                        $('#idmasuk').val(data.id)
-                        $('#kdbahanreadmasuk').val(bahan.kode_bahan)
-                        $('#no_surat').val(data.no_surat)
-                        $('#nama_produk').val(bahan.nama_bahan)
-                        $('#jenis_kain').val(bahan.jenis_bahan)
-                        $('#warna').val(bahan.warna)
-                        $('#sku').val(bahan.sku)
-                        $('#tanggal_cutting').val(data.tanggal_cutting)
-                        $('#tanggal_selesai').val(data.tanggal_selesai)
-                        $('#panjang_kain').val(bahan.panjang_bahan)
+                                $('#idmasuk').val(data.id)
+                                $('#kdbahanreadmasuk').val(bahan.kode_bahan)
+                                $('#no_surat').val(data.no_surat)
+                                $('#nama_produk').val(bahan.nama_bahan)
+                                $('#jenis_kain').val(bahan.jenis_bahan)
+                                $('#warna').val(bahan.warna)
+                                $('#sku').val(bahan.sku)
+                                $('#tanggal_cutting').val(data.tanggal_cutting)
+                                $('#tanggal_selesai').val(data.tanggal_selesai)
+                                $('#panjang_kain').val(bahan.panjang_bahan)
 
-                    }
-                })
-            })
+                            }
+                    })
+              })
 
-            $(document).on('click', '#btnupdatemasuk', function() {
+            $(document).on('click','#btnupdatemasuk', function () {
                 var id = $('#idmasuk').val()
                 var form = $('#formperbaikanMasuk').serialize()
 
                 ajax()
                 $.ajax({
-                    url: "{{ url('production/perbaikan/') }}/" + id,
-                    method: "PUT",
-                    data: form
-                }).done(function(response) {
+                    url:"{{url('production/perbaikan/')}}/"+id,
+                    method:"PUT",
+                    data:form
+                }).done(function (response) {
 
-                    if (response.status) {
+                    if(response.status){
                         $('#alert-perbaikan-masuk').html(response.data)
-                        setTimeout(function() {
+                        setTimeout(function(){
                             $('#alert-perbaikan-masuk').empty()
                             location.reload(true)
-                        }, 1500)
+                        },1500)
 
 
-                    } else {
+                    }else{
                         $('#alert-perbaikan-masuk').html(response.data)
                         return false;
                     }
                 })
-            })
+             })
 
 
-            $(document).on('click', '.btndetailmasuk', function() {
+             $(document).on('click','.btndetailmasuk',function () {
 
-                var id = $(this).data('id');
+                    var id = $(this).data('id');
 
-                $('.btnmasuk').hide()
-                $('#perbaikanMasukLabel').text('Detail Data [Bahan Masuk]')
-                $('#kdbahanselectmasuk').hide()
-                $('#perbaikanMasuk').modal('show')
-                $('#kdbahanmasuk').show()
-                $('#kdbahanreadmasuk').prop('readonly', true)
-                $('#no_surat').prop('readonly', true)
-                $('#tanggal_cutting').prop('readonly', true)
-                $('#tanggal_selesai').prop('readonly', true)
-
-
-                $.ajax({
-                    //
-                    method: "GET",
-                    data: {
-                        'id': id
-                    }
-
-                }).done(function(response) {
-                    if (response.status) {
-                        var data = response.data;
-                        var bahan = data.bahan;
-                        $('#kdbahanreadmasuk').val(bahan.kode_bahan)
-                        $('#no_surat').val(data.no_surat)
-                        $('#nama_produk').val(bahan.nama_bahan)
-                        $('#jenis_kain').val(bahan.jenis_bahan)
-                        $('#warna').val(bahan.warna)
-                        $('#sku').val(bahan.sku)
-                        $('#tanggal_cutting').val(data.tanggal_cutting)
-                        $('#tanggal_selesai').val(data.tanggal_selesai)
-                        $('#panjang_kain').val(bahan.panjang_bahan)
-
-                    }
-                })
-            })
-
-            $(document).on('click', '.btnprintmasuk', function() {
-
-                window.print()
-
-            })
-
-            $('#kode_bahanselect').on('change', function() {
-                var id = $(this).find(':selected').val()
-
-                if (id != '') {
-                    $.ajax({
-                        url: "{{ route('bahan.getdata') }}",
-                        method: "GET",
-                        data: {
-                            'id': id
-                        }
-                    }).done(function(response) {
-
-                        if (response.status) {
-                            console.log(response);
-                            var data = response.data;
-                            $('#sku').val(data.sku)
-                            $('#nama_produk').val(data.nama_bahan)
-                            $('#jenis_kain').val(data.jenis_bahan)
-                            $('#warna').val(data.warna)
-                            $('#vendor_keluar').val(data.vendor)
-
-                            $('#panjang_kain').val(data.panjang_bahan)
-                        }
-
-                    })
-                }
-            })
+                    $('.btnmasuk').hide()
+                    $('#perbaikanMasukLabel').text('Detail Data [Bahan Masuk]')
+                    $('#kdbahanselectmasuk').hide()
+                    $('#perbaikanMasuk').modal('show')
+                    $('#kdbahanmasuk').show()
+                    $('#kdbahanreadmasuk').prop('readonly', true)
+                    $('#no_surat').prop('readonly', true)
+                    $('#tanggal_cutting').prop('readonly', true)
+                    $('#tanggal_selesai').prop('readonly', true)
 
 
-            $('#kode_bahanselectkeluar').on('change', function() {
-                var id = $(this).find(':selected').val()
-
-                if (id != '') {
                     $.ajax({
                         //
-                        method: "GET",
-                        data: {
-                            'id': id
-                        }
-                    }).done(function(response) {
-
-                        if (response.status) {
-                            console.log(response);
-                            var data = response.data;
-                            var bahan = data.bahan
-                            $('#sku_keluar').val(bahan.sku)
-                            $('#nama_produk_keluar').val(bahan.nama_bahan)
-                            $('#jenis_kain_keluar').val(bahan.jenis_bahan)
-                            $('#warna_keluar').val(bahan.warna)
-                            $('#tanggal_selesai_keluar').val(data.tanggal_selesai)
-
-                            $('#panjang_kain_keluar').val(bahan.panjang_bahan)
+                        method:"GET",
+                        data:{
+                            'id':id
                         }
 
+                    }).done(function (response) {
+                            if(response.status){
+                                var data = response.data;
+                                var bahan = data.bahan;
+                                $('#kdbahanreadmasuk').val(bahan.kode_bahan)
+                                $('#no_surat').val(data.no_surat)
+                                $('#nama_produk').val(bahan.nama_bahan)
+                                $('#jenis_kain').val(bahan.jenis_bahan)
+                                $('#warna').val(bahan.warna)
+                                $('#sku').val(bahan.sku)
+                                $('#tanggal_cutting').val(data.tanggal_cutting)
+                                $('#tanggal_selesai').val(data.tanggal_selesai)
+                                $('#panjang_kain').val(bahan.panjang_bahan)
+
+                            }
                     })
-                }
+              })
+
+              $(document).on('click','.btnprintmasuk', function(){
+
+                  window.print()
+
+              })
+
+             $('#kode_bahanselect').on('change', function () {
+                    var id = $(this).find(':selected').val()
+
+                    if(id != ''){
+                        $.ajax({
+                            url:"{{route('bahan.getdata')}}",
+                            method:"GET",
+                            data:{
+                                'id':id
+                            }
+                        }).done(function (response) {
+
+                            if(response.status){
+                                console.log(response);
+                                var data = response.data;
+                                $('#sku').val(data.sku)
+                                $('#nama_produk').val(data.nama_bahan)
+                                $('#jenis_kain').val(data.jenis_bahan)
+                                $('#warna').val(data.warna)
+                                $('#vendor_keluar').val(data.vendor)
+
+                                $('#panjang_kain').val(data.panjang_bahan)
+                            }
+
+                        })
+                    }
             })
 
-            $(document).on('click', '#btnsimpankeluar', function() {
+
+            $('#kode_bahanselectkeluar').on('change', function () {
+                    var id = $(this).find(':selected').val()
+
+                    if(id != ''){
+                        $.ajax({
+                            //
+                            method:"GET",
+                            data:{
+                                'id':id
+                            }
+                        }).done(function (response) {
+
+                            if(response.status){
+                                console.log(response);
+                                var data = response.data;
+                                var bahan = data.bahan
+                                $('#sku_keluar').val(bahan.sku)
+                                $('#nama_produk_keluar').val(bahan.nama_bahan)
+                                $('#jenis_kain_keluar').val(bahan.jenis_bahan)
+                                $('#warna_keluar').val(bahan.warna)
+                                $('#tanggal_selesai_keluar').val(data.tanggal_selesai)
+
+                                $('#panjang_kain_keluar').val(bahan.panjang_bahan)
+                            }
+
+                        })
+                    }
+            })
+
+            $(document).on('click','#btnsimpankeluar', function () {
 
                 var form = $('#formperbaikanKeluar').serialize()
                 ajax()
                 $.ajax({
-                    url: "{{ route('perbaikan.store') }}",
-                    method: "POST",
-                    data: form
-                }).done(function(response) {
-                    if (response.status) {
+                    url:"{{route('perbaikan.store')}}",
+                    method:"POST",
+                    data:form
+                }).done(function (response) {
+                    if(response.status){
                         $('#alert-perbaikan-keluar').html(response.data)
-                        setTimeout(function() {
+                        setTimeout(function(){
                             $('#alert-perbaikan-keluar').empty()
                             location.reload(true)
-                        }, 1500)
+                        },1500)
 
 
-                    } else {
+                    }else{
                         $('#alert-perbaikan-keluar').html(response.data)
                         return false;
                     }
                 })
             })
 
-            $(document).on('click', '.btneditkeluar', function() {
-                var id = $(this).data('id');
-                $('.btnkeluar').prop('id', 'btnupdatekeluar')
-                $('#kdbahanselectkeluar').hide()
-                $('#kdbahankeluar').show()
-                $('#perbaikanKeluarLabel').text('Edit Data [perbaikan Keluar]')
-                $('#kode_bahan').prop('readonly', true)
-                $('#perbaikanKeluar').modal('show')
+            $(document).on('click','.btneditkeluar',function () {
+                    var id = $(this).data('id');
+                    $('.btnkeluar').prop('id','btnupdatekeluar')
+                    $('#kdbahanselectkeluar').hide()
+                    $('#kdbahankeluar').show()
+                    $('#perbaikanKeluarLabel').text('Edit Data [perbaikan Keluar]')
+                    $('#kode_bahan').prop('readonly', true)
+                    $('#perbaikanKeluar').modal('show')
 
-                $.ajax({
-                    //
-                    method: "GET",
-                    data: {
-                        'id': id
-                    }
+                    $.ajax({
+                        //
+                        method:"GET",
+                        data:{
+                            'id':id
+                        }
 
-                }).done(function(response) {
-                    if (response.status) {
-                        console.log(response);
-                        var data = response.data;
-                        var bahan = data.bahan;
-                        var detail = data.detail_perbaikan
-                        $('#idkeluar').val(data.id)
-                        $('#kdbahanreadkeluar').val(bahan.kode_bahan)
-                        $('#no_surat_keluar').val(data.no_surat)
-                        $('#nama_produk_keluar').val(bahan.nama_bahan)
-                        $('#jenis_kain_keluar').val(bahan.jenis_bahan)
-                        $('#warna_keluar').val(bahan.warna)
-                        $('#sku_keluar').val(bahan.sku)
-                        $('#tanggal_keluar').val(data.tanggal_keluar)
-                        $('#tanggal_selesai_keluar').val(data.tanggal_selesai)
-                        $('#hasil_cutting').val(data.hasil_cutting)
-                        $('#konversi').val(data.konversi)
+                    }).done(function (response) {
+                            if(response.status){
+                                console.log(response);
+                                var data = response.data;
+                                var bahan = data.bahan;
+                                var detail = data.detail_perbaikan
+                                $('#idkeluar').val(data.id)
+                                $('#kdbahanreadkeluar').val(bahan.kode_bahan)
+                                $('#no_surat_keluar').val(data.no_surat)
+                                $('#nama_produk_keluar').val(bahan.nama_bahan)
+                                $('#jenis_kain_keluar').val(bahan.jenis_bahan)
+                                $('#warna_keluar').val(bahan.warna)
+                                $('#sku_keluar').val(bahan.sku)
+                                $('#tanggal_keluar').val(data.tanggal_keluar)
+                                $('#tanggal_selesai_keluar').val(data.tanggal_selesai)
+                                $('#hasil_cutting').val(data.hasil_cutting)
+                                $('#konversi').val(data.konversi)
 
-                        $('#panjang_kain_keluar').val(bahan.panjang_bahan)
+                                $('#panjang_kain_keluar').val(bahan.panjang_bahan)
 
-                        detail.forEach(element => {
-                            if (element.size == 'S' && element.jumlah > 0) {
-                                $('#jumlahs').val(element.jumlah)
-                                $('#iddetails').val(element.id)
-                            } else if (element.size == 'M' && element.jumlah > 0) {
-                                $('#jumlahm').val(element.jumlah)
-                                $('#iddetailm').val(element.id)
-                                $('#ukuranm').show()
-                            } else if (element.size == 'L' && element.jumlah > 0) {
-                                $('#jumlahl').val(element.jumlah)
-                                $('#iddetaill').val(element.id)
-                                $('#ukuranl').show()
-                            } else if (element.size == 'XL' && element.jumlah > 0) {
-                                $('#jumlahxl').val(element.jumlah)
-                                $('#iddetailxl').val(element.id)
-                                $('#ukuranxl').show()
-                            } else if (element.size == 'XXL' && element.jumlah > 0) {
-                                $('#jumlahxxl').val(element.jumlah)
-                                $('#iddetailxxl').val(element.id)
-                                $('#ukuranxxl').show()
+                                detail.forEach(element => {
+                                        if(element.size == 'S' && element.jumlah > 0){
+                                            $('#jumlahs').val(element.jumlah)
+                                            $('#iddetails').val(element.id)
+                                        }else if(element.size == 'M' && element.jumlah > 0){
+                                            $('#jumlahm').val(element.jumlah)
+                                            $('#iddetailm').val(element.id)
+                                            $('#ukuranm').show()
+                                        }
+                                        else if(element.size == 'L' && element.jumlah > 0){
+                                            $('#jumlahl').val(element.jumlah)
+                                            $('#iddetaill').val(element.id)
+                                            $('#ukuranl').show()
+                                        }
+                                        else if(element.size == 'XL' && element.jumlah > 0){
+                                            $('#jumlahxl').val(element.jumlah)
+                                            $('#iddetailxl').val(element.id)
+                                            $('#ukuranxl').show()
+                                        }
+                                        else if(element.size == 'XXL' && element.jumlah > 0){
+                                            $('#jumlahxxl').val(element.jumlah)
+                                            $('#iddetailxxl').val(element.id)
+                                            $('#ukuranxxl').show()
+                                        }
+                                });
                             }
-                        });
-                    }
-                })
-            })
+                    })
+              })
 
-            $(document).on('click', '#btnupdatekeluar', function() {
+              $(document).on('click','#btnupdatekeluar', function () {
                 var id = $('#idkeluar').val()
                 var form = $('#formperbaikanKeluar').serialize()
                 ajax()
                 $.ajax({
-                    url: "{{ url('production/perbaikan/') }}/" + id,
-                    method: "PUT",
-                    data: form
-                }).done(function(response) {
-                    if (response.status) {
+                    url:"{{url('production/perbaikan/')}}/"+id,
+                    method:"PUT",
+                    data:form
+                }).done(function (response) {
+                    if(response.status){
                         $('#alert-perbaikan-keluar').html(response.data)
-                        setTimeout(function() {
+                        setTimeout(function(){
                             $('#alert-perbaikan-keluar').empty()
                             location.reload(true)
-                        }, 1500)
+                        },1500)
 
 
-                    } else {
+                    }else{
                         $('#alert-perbaikan-keluar').html(response.data)
                         return false;
                     }
                 })
-            })
+             })
 
-            $(document).on('click', '.btndetailkeluar', function() {
-                var id = $(this).data('id');
-                $('.btnkeluar').hide()
-                $('#kdbahanselectkeluar').hide()
-                $('#kdbahankeluar').show()
-                $('#perbaikanKeluarLabel').text('Detail Data [perbaikan Keluar]')
-                $('#kode_bahan').prop('readonly', true)
-                $('#perbaikanKeluar').modal('show')
+             $(document).on('click','.btndetailkeluar',function () {
+                    var id = $(this).data('id');
+                    $('.btnkeluar').hide()
+                    $('#kdbahanselectkeluar').hide()
+                    $('#kdbahankeluar').show()
+                    $('#perbaikanKeluarLabel').text('Detail Data [perbaikan Keluar]')
+                    $('#kode_bahan').prop('readonly', true)
+                    $('#perbaikanKeluar').modal('show')
 
-                $('#tanggal_keluar').prop('readonly', true)
-                $('#no_surat_keluar').prop('readonly', true)
-                $('#hasil_cutting').prop('readonly', true)
+                    $('#tanggal_keluar').prop('readonly', true)
+                    $('#no_surat_keluar').prop('readonly', true)
+                    $('#hasil_cutting').prop('readonly', true)
 
-                $.ajax({
+                    $.ajax({
 
-                    method: "GET",
-                    data: {
-                        'id': id
-                    }
+                        method:"GET",
+                        data:{
+                            'id':id
+                        }
 
-                }).done(function(response) {
-                    if (response.status) {
-                        var data = response.data;
-                        var bahan = data.bahan;
-                        var detail = data.detail_perbaikan
+                    }).done(function (response) {
+                            if(response.status){
+                                var data = response.data;
+                                var bahan = data.bahan;
+                                var detail = data.detail_perbaikan
 
-                        $('#kdbahanreadkeluar').val(bahan.kode_bahan)
-                        $('#no_surat_keluar').val(data.no_surat)
-                        $('#nama_produk_keluar').val(bahan.nama_bahan)
-                        $('#jenis_kain_keluar').val(bahan.jenis_bahan)
-                        $('#warna_keluar').val(bahan.warna)
-                        $('#sku_keluar').val(bahan.sku)
-                        $('#tanggal_keluar').val(data.tanggal_keluar)
-                        $('#tanggal_selesai').val(data.tanggal_selesai)
-                        $('#hasil_cutting').val(data.hasil_cutting)
-                        $('#konversi').val(data.konversi)
+                                $('#kdbahanreadkeluar').val(bahan.kode_bahan)
+                                $('#no_surat_keluar').val(data.no_surat)
+                                $('#nama_produk_keluar').val(bahan.nama_bahan)
+                                $('#jenis_kain_keluar').val(bahan.jenis_bahan)
+                                $('#warna_keluar').val(bahan.warna)
+                                $('#sku_keluar').val(bahan.sku)
+                                $('#tanggal_keluar').val(data.tanggal_keluar)
+                                $('#tanggal_selesai').val(data.tanggal_selesai)
+                                $('#hasil_cutting').val(data.hasil_cutting)
+                                $('#konversi').val(data.konversi)
 
-                        $('#panjang_kain_keluar').val(bahan.panjang_bahan)
+                                $('#panjang_kain_keluar').val(bahan.panjang_bahan)
 
-                        detail.forEach(element => {
-                            if (element.size == 'S' && element.jumlah > 0) {
-                                $('#jumlahs').val(element.jumlah)
-                                $('#iddetails').val(element.id)
-                                $('#jumlahs').prop('readonly', true)
-                            } else if (element.size == 'M' && element.jumlah > 0) {
-                                $('#jumlahm').val(element.jumlah)
-                                $('#iddetailm').val(element.id)
-                                $('#jumlahm').prop('readonly', true)
-                                $('#ukuranm').show()
-                            } else if (element.size == 'L' && element.jumlah > 0) {
-                                $('#jumlahl').val(element.jumlah)
-                                $('#iddetaill').val(element.id)
-                                $('#jumlahl').prop('readonly', true)
-                                $('#ukuranl').show()
-                            } else if (element.size == 'XL' && element.jumlah > 0) {
-                                $('#jumlahxl').val(element.jumlah)
-                                $('#iddetailxl').val(element.id)
-                                $('#jumlahxl').prop('readonly', true)
-                                $('#ukuranxl').show()
-                            } else if (element.size == 'XXL' && element.jumlah > 0) {
-                                $('#jumlahxxl').val(element.jumlah)
-                                $('#iddetailxxl').val(element.id)
-                                $('#jumlahxxl').prop('readonly', true)
-                                $('#ukuranxxl').show()
+                                detail.forEach(element => {
+                                        if(element.size == 'S' && element.jumlah > 0){
+                                            $('#jumlahs').val(element.jumlah)
+                                            $('#iddetails').val(element.id)
+                                            $('#jumlahs').prop('readonly', true)
+                                        }else if(element.size == 'M' && element.jumlah > 0){
+                                            $('#jumlahm').val(element.jumlah)
+                                            $('#iddetailm').val(element.id)
+                                            $('#jumlahm').prop('readonly', true)
+                                            $('#ukuranm').show()
+                                        }
+                                        else if(element.size == 'L' && element.jumlah > 0){
+                                            $('#jumlahl').val(element.jumlah)
+                                            $('#iddetaill').val(element.id)
+                                            $('#jumlahl').prop('readonly', true)
+                                            $('#ukuranl').show()
+                                        }
+                                        else if(element.size == 'XL' && element.jumlah > 0){
+                                            $('#jumlahxl').val(element.jumlah)
+                                            $('#iddetailxl').val(element.id)
+                                            $('#jumlahxl').prop('readonly', true)
+                                            $('#ukuranxl').show()
+                                        }
+                                        else if(element.size == 'XXL' && element.jumlah > 0){
+                                            $('#jumlahxxl').val(element.jumlah)
+                                            $('#iddetailxxl').val(element.id)
+                                            $('#jumlahxxl').prop('readonly', true)
+                                            $('#ukuranxxl').show()
+                                        }
+                                });
                             }
-                        });
-                    }
-                })
-            })
-        })
-    </script>
+                    })
+              })
+     })
+</script>
 @endpush

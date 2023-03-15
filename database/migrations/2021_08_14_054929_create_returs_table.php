@@ -20,7 +20,6 @@ class CreateRetursTable extends Migration
             $table->integer('total_barang');
             $table->date('tanggal_masuk')->nullable();
             $table->longText('keterangan_diretur')->nullable();
-            $table->softDeletes();
             $table->timestamps();
         });
     }

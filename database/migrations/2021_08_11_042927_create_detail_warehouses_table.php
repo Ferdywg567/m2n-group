@@ -20,7 +20,6 @@ class CreateDetailWarehousesTable extends Migration
             $table->string('ukuran');
             $table->integer('jumlah');
             $table->double('harga')->default(0);
-            $table->softDeletes();
             $table->timestamps();
         });
     }

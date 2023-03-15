@@ -22,7 +22,6 @@ class CreateSampahsTable extends Migration
             $table->integer('total')->default(0);
             $table->date('tanggal_masuk')->nullable();
             $table->string('asal');
-            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -29,7 +29,6 @@ class CreateFinishingsTable extends Migration
             $table->longText('keterangan_dibuang')->nullable();
             $table->string('status')->nullable();
             $table->string('status_finishing')->nullable();
-            $table->softDeletes();
             $table->timestamps();
         });
     }

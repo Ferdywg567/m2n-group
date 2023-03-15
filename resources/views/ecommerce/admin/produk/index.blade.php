@@ -4,23 +4,23 @@
 @section('produk', 'class=active-sidebar')
 @section('cssnav', 'cssnav')
 @section('content')
-    <style>
-        .cssnav {
-            margin-left: -20px;
-        }
-    </style>
+<style>
+    .cssnav {
+        margin-left: -20px;
+    }
+</style>
 
-    <section class="section mt-4">
-        <div class="btn-group">
-            {{-- <a href="{{route('ecommerce.produk.create')}}" class="btn btn-primary rounded">
+<section class="section mt-4">
+    <div class="btn-group">
+        {{-- <a href="{{route('ecommerce.produk.create')}}" class="btn btn-primary rounded">
            Cetak Barcode <i class="fas fa-print"></i>
         </a> --}}
-        </div>
-        <div class="section-body mt-4">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card ">
-                        <div class="card-body">
+    </div>
+    <div class="section-body mt-4">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card ">
+                    <div class="card-body">
 
                             <table class="table table-hover" id="tabelproduk">
                                 <thead>
@@ -64,72 +64,52 @@
                                                                 class="ri-eye-fill"></i>
                                                             Detail</a>
 
-                                                        {{-- <a class="dropdown-item"
+                                                {{-- <a class="dropdown-item"
                                                     href="{{route('ecommerce.produk.edit',[$item->id])}}"><i
                                                         class="ri-edit-fill"></i>
                                                     Edit</a> --}}
 
-                                                        {{-- <a class="dropdown-item hapus" data-id="{{$item->id}}" href="#"><i
+                                                {{-- <a class="dropdown-item hapus" data-id="{{$item->id}}" href="#"><i
                                                         class="ri-delete-bin-fill"></i>
                                                     Hapus</a> --}}
 
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @empty
-                                    @endforelse
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                @empty
 
-                                </tbody>
-                            </table>
-                        </div>
+                                @endforelse
+
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
 @endsection
 @push('scripts')
-    <script>
-        $.extend(true, $.fn.dataTable.defaults, {
-            columnDefs: [{
-                searchable: false,
-                orderable: false,
-                targets: 0,
-            }, ],
-            order: [
-                [1, 'asc']
-            ],
-            language: {
-                url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'
-            },
-        });
-
-        $(document).ready(function() {
-            function ajax() {
+<script>
+    $(document).ready(function () {
+             function ajax() {
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
                 });
-            }
+              }
 
 
-            let dt_tabelproduk = $('#tabelproduk').DataTable()
-
-            dt_tabelproduk.on('order.dt search.dt', function() {
-                let i = 1;
-
-                dt_tabelproduk.cells(null, 0, {
-                    search: 'applied',
-                    order: 'applied'
-                }).every(function(cell) {
-                    this.data(i++);
-                });
-            }).draw();
+              $('#tabelproduk').DataTable({
+                    language: {
+                        url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'
+                },
+              })
 
 
-        })
-    </script>
+     })
+</script>
 @endpush

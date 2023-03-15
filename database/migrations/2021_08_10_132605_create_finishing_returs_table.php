@@ -19,7 +19,6 @@ class CreateFinishingRetursTable extends Migration
             $table->foreign('finishing_id')->references('id')->on('finishings')->onDelete('cascade');
             $table->string('ukuran');
             $table->integer('jumlah');
-            $table->softDeletes();
             $table->timestamps();
         });
     }
