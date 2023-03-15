@@ -13,6 +13,8 @@ use App\Keranjang;
 use App\Produk;
 use App\Alamat;
 use App\Bank;
+use App\DetailProduk;
+use Exception;
 
 class CheckoutController extends Controller
 {
@@ -77,6 +79,7 @@ class CheckoutController extends Controller
      */
     public function store(Request $request)
     {
+        
         $validator = Validator::make($request->all(), [
             'bank' => 'required'
         ]);
@@ -108,16 +111,27 @@ class CheckoutController extends Controller
                     $transaksi->status = "butuh konfirmasi";
                     $transaksi->save();
                     $totalharga = $transaksi->total_harga;
-                    $detail_trans = new DetailTransaksi();
-                    $detail_trans->produk_id = $checkout_langsung['id_produk'];
-                    $detail_trans->transaksi_id = $transaksi->id;
-                    $detail_trans->jumlah = $checkout_langsung['total_produk'];
-                    $detail_trans->harga = $checkout_langsung['harga'];
-                    $detail_trans->ukuran = $checkout_langsung['ukuran'];
-                    $detail_trans->total_harga = $checkout_langsung['subtotal'];
-                    $detail_trans->save();
+
+                    //save detail transaction
+                    $dp = DetailProduk::where('produk_id', $checkout_langsung['id_produk'])
+                            ->where('ukuran', $checkout_langsung['ukuran']);
+
+                    if($dp->exists() and $dp->first()->jumlah >= $checkout_langsung['total_produk']){
+                        $detail_trans = new DetailTransaksi();
+                        $detail_trans->produk_id = $checkout_langsung['id_produk'];
+                        $detail_trans->transaksi_id = $transaksi->id;
+                        $detail_trans->jumlah = $checkout_langsung['total_produk'];
+                        $detail_trans->harga = $checkout_langsung['harga'];
+                        $detail_trans->ukuran = $checkout_langsung['ukuran'];
+                        $detail_trans->total_harga = $checkout_langsung['subtotal'];
+                        $detail_trans->save();
+                    }else{
+                        throw new Exception("Stok tidak mencukupi");
+                    }
+
                     $jumlah = $checkout_langsung['total_produk'];
                     session()->forget('checkout_langsung');
+
                 } elseif (count($data) > 0) {
                     session()->forget('checkout_langsung');
                     $jumlahqty = Keranjang::where('user_id', $iduser)->where('check', 1)->sum('jumlah');
@@ -138,15 +152,24 @@ class CheckoutController extends Controller
                     $transaksi->status = "butuh konfirmasi";
                     $transaksi->save();
 
+                    //save detail transaksi
                     foreach ($data as $key => $value) {
-                        $detail_trans = new DetailTransaksi();
-                        $detail_trans->produk_id = $value->produk_id;
-                        $detail_trans->transaksi_id = $transaksi->id;
-                        $detail_trans->jumlah = $value->jumlah;
-                        $detail_trans->harga = $value->harga;
-                        $detail_trans->ukuran = $value->ukuran;
-                        $detail_trans->total_harga = $value->subtotal;
-                        $detail_trans->save();
+                        $dp = DetailProduk::where('produk_id', $value->produk_id)
+                            ->where('ukuran', $value->ukuran);
+
+                        if($dp->exists() and $dp->first()->jumlah >= $value->jumlah){
+                            $detail_trans = new DetailTransaksi();
+                            $detail_trans->produk_id = $value->produk_id;
+                            $detail_trans->transaksi_id = $transaksi->id;
+                            $detail_trans->jumlah = $value->jumlah;
+                            $detail_trans->harga = $value->harga;
+                            $detail_trans->ukuran = $value->ukuran;
+                            $detail_trans->total_harga = $value->subtotal;
+                            $detail_trans->save();
+                        }else{
+                            throw new Exception("Stok tidak mencukupi");
+                        }
+                        
                     }
 
                     Keranjang::where('user_id', $iduser)->where('check', 1)->delete();
@@ -174,6 +197,9 @@ class CheckoutController extends Controller
                 //throw $th;
 
                 DB::rollBack();
+                if(str_starts_with($th->getMessage(), "Stok tidak mencukupi")){
+                    return redirect()->back()->withErrors(['error' => $th->getMessage()]);
+                }
                 dd($th);
             }
         }
