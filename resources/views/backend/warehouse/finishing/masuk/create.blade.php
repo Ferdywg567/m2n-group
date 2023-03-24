@@ -276,7 +276,6 @@
                             if(response.status){
                                 console.log(response);
                                 var data = response.data;
-
                                 var bahan = data.jahit.potong.bahan
                                 var detail_cuci = data.detail_cuci
                                 $('#sku').val(bahan.sku)
@@ -316,10 +315,11 @@
             })
 
             $('form[id=formProduk]').submit(function(){
-                var jumlah =0;
+                var jumlah = 0;
                 var barang_siap_qc = $("#barang_siap_qc").val()
                 $('input[name^="jumlah"]').each(function() {
-                    jumlah = jumlah + parseInt($(this).val());
+                    console.log($(this).val())
+                    jumlah += parseInt($(this).val());
                 });
                 if(parseInt(barang_siap_qc) != parseInt(jumlah)){
                     $('#dataalert').show()

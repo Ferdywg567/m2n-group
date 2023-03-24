@@ -269,14 +269,14 @@
 @push('scripts')
 <script>
     $(document).ready(function () {
-             function ajax() {
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-              }
-              $('#kdbahanreadonly').hide()
+        function ajax() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+        }
+        $('#kdbahanreadonly').hide()
             //   $('#ukuranm').hide()
             //   $('#ukuranl').hide()
             //   $('#ukuranxl').hide()
@@ -289,199 +289,197 @@
             //   $('#ukurandibuangl').hide()
             //   $('#ukurandibuangxl').hide()
             //   $('#ukurandibuangxxl').hide()
-              $('#iddatavendor').hide()
-              $('#idhargavendor').hide()
-              $('#datavendor').hide()
-              $('#kdbahanselectmasuk').show()
-              $('#kdbahanmasuk').hide()
-              $('#kdbahanselectkeluar').show()
-              $('#datahapus').hide()
-              $('#dataalert').hide()
-              $('#kdbahankeluar').hide()
-              $('.btnkeluar').prop('id','btnsimpankeluar')
-              $('#tabelmasuk').DataTable()
-              $('#tabelbahankeluar').DataTable()
-              $('#kode_bahanselect').select2()
-              $('#kode_transaksiselectkeluar').select2()
-              $('.btnmasuk').prop('id','btnsimpanmasuk')
-              $('form[id=formJahit]').submit(function(){
-                var jumlahdirepair =0;
-                var jumlahdibuang =0;
-                var jumlah_bahan = $("#jumlah_bahan").val()
-                var berhasil_jahit = $('#berhasil_jahit').val()
-                var barang_dibuang = $('#barang_dibuang').val()
-                var hasil = $('#barang_direpair').val()
-                $('input[name^="jumlahdirepair"]').each(function() {
-                    jumlahdirepair = jumlahdirepair + parseInt($(this).val());
-                });
-                $('input[name^="jumlahdibuang"]').each(function() {
-                    jumlahdibuang = jumlahdibuang + parseInt($(this).val());
-                });
-                if(parseInt(berhasil_jahit) > parseInt(jumlah_bahan)  ){
-                    $('#dataalert').addClass('alert-danger')
-                    $('#dataalert').show()
-                    $('#dataalert').text('Jumlah Berhasil Jahit tidak boleh melebihi Jumlah Bahan yang Dijahit')
-                    return false;
-                }else if(parseInt(jumlahdirepair) != parseInt(hasil)){
-                    $('#dataalert').addClass('alert-danger')
-                    $('#dataalert').show()
-                    $('#dataalert').text('Jumlah ukuran perbaikan harus sesuai dengan jumlah perbaikan')
-                    return false;
-                }else if(parseInt(jumlahdibuang) != parseInt(barang_dibuang)){
-                    $('#dataalert').addClass('alert-danger')
-                    $('#dataalert').show()
-                    $('#dataalert').text('Jumlah ukuran dibuang harus sesuai dengan jumlah dibuang')
-                    return false;
-                } else{
-                    $('#dataalert').hide()
-                   return true;
-                }
+        $('#iddatavendor').hide()
+        $('#idhargavendor').hide()
+        $('#datavendor').hide()
+        $('#kdbahanselectmasuk').show()
+        $('#kdbahanmasuk').hide()
+        $('#kdbahanselectkeluar').show()
+        $('#datahapus').hide()
+        $('#dataalert').hide()
+        $('#kdbahankeluar').hide()
+        $('.btnkeluar').prop('id','btnsimpankeluar')
+        $('#tabelmasuk').DataTable()
+        $('#tabelbahankeluar').DataTable()
+        $('#kode_bahanselect').select2()
+        $('#kode_transaksiselectkeluar').select2()
+        $('.btnmasuk').prop('id','btnsimpanmasuk')
+        $('form[id=formJahit]').submit(function(){
+            var jumlahdirepair =0;
+            var jumlahdibuang =0;
+            var jumlah_bahan = $("#jumlah_bahan").val()
+            var berhasil_jahit = $('#berhasil_jahit').val()
+            var barang_dibuang = $('#barang_dibuang').val()
+            var hasil = $('#barang_direpair').val()
+            $('input[name^="jumlahdirepair"]').each(function() {
+                jumlahdirepair = jumlahdirepair + parseInt($(this).val());
             });
+            $('input[name^="jumlahdibuang"]').each(function() {
+                jumlahdibuang = jumlahdibuang + parseInt($(this).val());
+            });
+            if(parseInt(berhasil_jahit) > parseInt(jumlah_bahan)  ){
+                $('#dataalert').addClass('alert-danger')
+                $('#dataalert').show()
+                $('#dataalert').text('Jumlah Berhasil Jahit tidak boleh melebihi Jumlah Bahan yang Dijahit')
+                return false;
+            }else if(parseInt(jumlahdirepair) != parseInt(hasil)){
+                $('#dataalert').addClass('alert-danger')
+                $('#dataalert').show()
+                $('#dataalert').text('Jumlah ukuran perbaikan harus sesuai dengan jumlah perbaikan')
+                return false;
+            }else if(parseInt(jumlahdibuang) != parseInt(barang_dibuang)){
+                $('#dataalert').addClass('alert-danger')
+                $('#dataalert').show()
+                $('#dataalert').text('Jumlah ukuran dibuang harus sesuai dengan jumlah dibuang')
+                return false;
+            } else{
+                $('#dataalert').hide()
+                return true;
+            }
+        });
 
-              $('#vendor_jahit').on('change', function () {
-                  var data = $(this).find(':selected').val()
+        $('#vendor_jahit').on('change', function () {
+            var data = $(this).find(':selected').val()
 
-                  if(data == 'eksternal'){
-                    $('#iddatavendor').show()
+            if(data == 'eksternal'){
+                $('#iddatavendor').show()
 
-                  }else{
-                    $('#iddatavendor').hide()
+            }else{
+                $('#iddatavendor').hide()
 
-                  }
-               })
+            }
+        })
 
-               $('#barang_direpair').on('keyup', function(){
-                   var nilai = $(this).val()
-                   var gagal = $('#gagal_jahit').val()
-                   nilai = parseInt(nilai)
-                   gagal = parseInt(gagal)
-                   if(nilai == 0){
-                    $('#barang_dibuang').val(gagal)
-                   }else{
-                    if(nilai > 0 && gagal > 0 && gagal >= nilai){
-                        var res =gagal-nilai;
-                        console.log(res);
-                        $('#barang_dibuang').val(res)
-                    }else{
-                        $('#barang_dibuang').val(0)
-                    }
-                   }
-
-               })
-
-              $('#berhasil_jahit').on('keyup', function(){
-                  var data = $(this).val()
-                var jumlah_bahan = $('#jumlah_bahan').val()
-                data = parseInt(data)
-                jumlah_bahan = parseInt(jumlah_bahan)
-                if(data <= jumlah_bahan){
-                    var res = jumlah_bahan -  data;
-                    $('#gagal_jahit').val(res)
+        $('#barang_direpair').on('keyup', function(){
+            var nilai = $(this).val()
+            var gagal = $('#gagal_jahit').val()
+            nilai = parseInt(nilai)
+            gagal = parseInt(gagal)
+            if(nilai == 0){
+                $('#barang_dibuang').val(gagal)
+            }else{
+                if(nilai > 0 && gagal > 0 && gagal >= nilai){
+                    var res =gagal-nilai;
+                    console.log(res);
+                    $('#barang_dibuang').val(res)
                 }else{
-                    $('#gagal_jahit').val(0)
+                    $('#barang_dibuang').val(0)
                 }
-              })
+            }
 
-            $('#kode_transaksiselectkeluar').on('change', function () {
-                    var id = $(this).find(':selected').val()
+        })
 
-                    if(id != ''){
-                        $.ajax({
-                            url:"{{route('jahit.getdata')}}",
-                            method:"GET",
-                            data:{
-                                'id':id
-                            }
-                        }).done(function (response) {
+        $('#berhasil_jahit').on('keyup', function(){
+            
+            var data = parseInt($(this).val())
+            var jumlah_bahan = parseInt($('#jumlah_bahan').val())
+            if(data <= jumlah_bahan){
+                var res = jumlah_bahan -  data;
+                $('#gagal_jahit').val(res)
+            }else{
+                $('#gagal_jahit').val(0)
+            }
+        })
 
-                            if(response.status){
-                                console.log(response);
-                                var data = response.data;
-                                var bahan = data.potong.bahan
-                                var detail = bahan.detail_sub.nama_kategori;
-                                var subkategori = bahan.detail_sub.sub_kategori.nama_kategori;
-                                var kategori = bahan.detail_sub.sub_kategori.kategori.nama_kategori;
-                                var detail_jahit =data.detail_jahit
+        $('#kode_transaksiselectkeluar').on('change', function () {
+            var id = $(this).find(':selected').val()
 
-                                $('#sku_keluar').val(bahan.sku)
-                                $('#no_surat_keluar').val(data.no_surat)
-                                $('#nama_produk').val(bahan.nama_bahan)
-                                $('#jenis_kain_keluar').val(bahan.jenis_bahan)
-                                $('#warna_keluar').val(bahan.warna)
-                                $('#tanggal_selesai_keluar').val(data.tanggal_selesai)
-                                $('#vendor_jahit').val(data.vendor)
-                                $('#jumlah_bahan').val(data.jumlah_bahan)
-                                // $('#berhasil_jahit').prop('max',data.jumlah_bahan)
-                                $('#kategori').val(kategori)
-                                $('#sub_kategori').val(subkategori)
-                                $('#detail_sub_kategori').val(detail)
-                                $('#panjang_kain_keluar').val(bahan.panjang_bahan)
-
-                                if(data.vendor == 'eksternal'){
-                                    $('#iddatavendor').show()
-                                    $('#nama_vendor').val(data.nama_vendor)
-                                    $('#harga_vendor').val(data.harga_vendor)
-                                }else{
-                                    $('#iddatavendor').hide()
-                                }
-
-                                var content="";
-                                content += ' <label for="ukurandirepair" class="text-dark">Ukuran yang Diperbaiki</label>'
-                                detail_jahit.forEach((result, i) => {
-                                    if(i == 0){
-                                        content+= '<div class="row">'
-                                    }
-
-                                    content += '<div class="col-md-2">'+
-                                    '<input type="hidden" name="dataukurandirepair[]" value="'+result.size+'">'+
-                                    '<div class="input-group mb-2">'+
-                                        '<div class="input-group-prepend">'+
-                                            '<div class="input-group-text">'+result.size+'</div>'+
-                                        '</div>'+
-                                        '<input type="number" class="form-control" required id="jumlahdirepair" name="jumlahdirepair[]" >'+
-                                    '</div>'+
-                                   '</div>';
-                                    if(i!=0 && i%6 == 0){
-
-                                        // add end of row ,and start new row on every 5 elements
-                                        content += '</div><div class="row">'
-                                    }
-                                });
-                                // $('#title-ukuran').show()
-                                $('#data-ukuran-direpair').html(content)
-
-
-                                var content="";
-                                content += ' <label for="ukurangdibuang" class="text-dark">Ukuran yang Dibuang</label>'
-                                detail_jahit.forEach((result, i) => {
-                                    if(i == 0){
-                                        content+= '<div class="row">'
-                                    }
-
-                                    content += '<div class="col-md-2">'+
-                                    '<input type="hidden" name="dataukurandibuang[]" value="'+result.size+'">'+
-                                    '<div class="input-group mb-2">'+
-                                        '<div class="input-group-prepend">'+
-                                            '<div class="input-group-text">'+result.size+'</div>'+
-                                        '</div>'+
-                                        '<input type="number" class="form-control" required id="jumlahdibuang" name="jumlahdibuang[]" >'+
-                                    '</div>'+
-                                   '</div>';
-                                    if(i!=0 && i%6 == 0){
-
-                                        // add end of row ,and start new row on every 5 elements
-                                        content += '</div><div class="row">'
-                                    }
-                                });
-                                // $('#title-ukuran').show()
-                                $('#data-ukuran-dibuang').html(content)
-                            }
-
-                        })
+            if(id != ''){
+                $.ajax({
+                    url:"{{route('jahit.getdata')}}",
+                    method:"GET",
+                    data:{
+                        'id':id
                     }
-            })
+                }).done(function (response) {
 
+                    if(response.status){
+                        console.log(response);
+                        var data = response.data;
+                        var bahan = data.potong.bahan
+                        var detail = bahan.detail_sub.nama_kategori;
+                        var subkategori = bahan.detail_sub.sub_kategori.nama_kategori;
+                        var kategori = bahan.detail_sub.sub_kategori.kategori.nama_kategori;
+                        var detail_jahit =data.detail_jahit
 
-     })
+                        $('#sku_keluar').val(bahan.sku)
+                        $('#no_surat_keluar').val(data.no_surat)
+                        $('#nama_produk').val(bahan.nama_bahan)
+                        $('#jenis_kain_keluar').val(bahan.jenis_bahan)
+                        $('#warna_keluar').val(bahan.warna)
+                        $('#tanggal_selesai_keluar').val(data.tanggal_selesai)
+                        $('#vendor_jahit').val(data.vendor)
+                        $('#jumlah_bahan').val(data.jumlah_bahan)
+                        // $('#berhasil_jahit').prop('max',data.jumlah_bahan)
+                        $('#kategori').val(kategori)
+                        $('#sub_kategori').val(subkategori)
+                        $('#detail_sub_kategori').val(detail)
+                        $('#panjang_kain_keluar').val(bahan.panjang_bahan)
+
+                        if(data.vendor == 'eksternal'){
+                            $('#iddatavendor').show()
+                            $('#nama_vendor').val(data.nama_vendor)
+                            $('#harga_vendor').val(data.harga_vendor)
+                        }else{
+                            $('#iddatavendor').hide()
+                        }
+
+                        var content="";
+                        content += ' <label for="ukurandirepair" class="text-dark">Ukuran yang Diperbaiki</label>'
+                        detail_jahit.forEach((result, i) => {
+                            if(i == 0){
+                                content+= '<div class="row">'
+                            }
+
+                            content += '<div class="col-md-2">'+
+                            '<input type="hidden" name="dataukurandirepair[]" value="'+result.size+'">'+
+                            '<div class="input-group mb-2">'+
+                                '<div class="input-group-prepend">'+
+                                    '<div class="input-group-text">'+result.size+'</div>'+
+                                '</div>'+
+                                '<input type="number" class="form-control" required id="jumlahdirepair" name="jumlahdirepair[]" >'+
+                            '</div>'+
+                            '</div>';
+                            if(i!=0 && i%6 == 0){
+
+                                // add end of row ,and start new row on every 5 elements
+                                content += '</div><div class="row">'
+                            }
+                        });
+                        // $('#title-ukuran').show()
+                        $('#data-ukuran-direpair').html(content)
+
+                        var content="";
+                        content += ' <label for="ukurangdibuang" class="text-dark">Ukuran yang Dibuang</label>'
+                        detail_jahit.forEach((result, i) => {
+                            if(i == 0){
+                                content+= '<div class="row">'
+                            }
+
+                            content += '<div class="col-md-2">'+
+                            '<input type="hidden" name="dataukurandibuang[]" value="'+result.size+'">'+
+                            '<div class="input-group mb-2">'+
+                                '<div class="input-group-prepend">'+
+                                    '<div class="input-group-text">'+result.size+'</div>'+
+                                '</div>'+
+                                '<input type="number" class="form-control" required id="jumlahdibuang" name="jumlahdibuang[]" >'+
+                            '</div>'+
+                            '</div>';
+                            if(i!=0 && i%6 == 0){
+
+                                // add end of row ,and start new row on every 5 elements
+                                content += '</div><div class="row">'
+                            }
+                        });
+                        // $('#title-ukuran').show()
+                        $('#data-ukuran-dibuang').html(content)
+                    }
+                })
+            }
+        })
+        $('#harga_vendor').mask('000.000.000.000', {
+            reverse: true
+        });
+    })
 </script>
 @endpush

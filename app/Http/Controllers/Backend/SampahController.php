@@ -27,25 +27,26 @@ class SampahController extends Controller
         try {
             if ($cuci->isNotEmpty()) {
                 foreach ($cuci as $key => $value) {
-
-                    $sampah = Sampah::where('cuci_id', $value->id)->first();
-                    if ($sampah) {
-                        $sampah->total =  $value->barang_dibuang;
-                    } else {
-                        $sampah = new Sampah();
-                        $sampah->cuci_id =  $value->id;
-                        $sampah->asal = "cuci";
-                        $sampah->total = $value->barang_dibuang;
-                        $sampah->tanggal_masuk = $value->created_at;
-                    }
-                    $sampah->save();
-                    foreach ($value->cuci_dibuang as $key => $row) {
-                        $detail = DetailSampah::where('sampah_id', $sampah->id)->delete();
-                        $detail = new DetailSampah();
-                        $detail->sampah_id = $sampah->id;
-                        $detail->jumlah = $row->jumlah;
-                        $detail->ukuran = $row->ukuran;
-                        $detail->save();
+                    if($value->barang_dibuang > 0){
+                        $sampah = Sampah::where('cuci_id', $value->id)->first();
+                        if ($sampah) {
+                            $sampah->total =  $value->barang_dibuang;
+                        } else {
+                            $sampah = new Sampah();
+                            $sampah->cuci_id =  $value->id;
+                            $sampah->asal = "cuci";
+                            $sampah->total = $value->barang_dibuang;
+                            $sampah->tanggal_masuk = $value->created_at;
+                        }
+                        $sampah->save();
+                        foreach ($value->cuci_dibuang as $key => $row) {
+                            $detail = DetailSampah::where('sampah_id', $sampah->id)->delete();
+                            $detail = new DetailSampah();
+                            $detail->sampah_id = $sampah->id;
+                            $detail->jumlah = $row->jumlah;
+                            $detail->ukuran = $row->ukuran;
+                            $detail->save();
+                        }
                     }
                 }
             }
@@ -54,24 +55,26 @@ class SampahController extends Controller
             if ($jahit->isNotEmpty()) {
                 foreach ($jahit as $key => $value) {
 
-                    $sampah = Sampah::where('jahit_id', $value->id)->first();
-                    if ($sampah) {
-                        $sampah->total =  $value->barang_dibuang;
-                    } else {
-                        $sampah = new Sampah();
-                        $sampah->jahit_id =  $value->id;
-                        $sampah->asal = "jahit";
-                        $sampah->total = $value->barang_dibuang;
-                        $sampah->tanggal_masuk = $value->created_at;
-                    }
-                    $sampah->save();
-                    foreach ($value->jahit_dibuang as $key => $row) {
-                        $detail = DetailSampah::where('sampah_id', $sampah->id)->delete();
-                        $detail = new DetailSampah();
-                        $detail->sampah_id = $sampah->id;
-                        $detail->jumlah = $row->jumlah;
-                        $detail->ukuran = $row->ukuran;
-                        $detail->save();
+                    if($value->barang_dibuang > 0){
+                        $sampah = Sampah::where('jahit_id', $value->id)->first();
+                        if ($sampah) {
+                            $sampah->total =  $value->barang_dibuang;
+                        } else {
+                            $sampah = new Sampah();
+                            $sampah->jahit_id =  $value->id;
+                            $sampah->asal = "jahit";
+                            $sampah->total = $value->barang_dibuang;
+                            $sampah->tanggal_masuk = $value->created_at;
+                        }
+                        $sampah->save();
+                        foreach ($value->jahit_dibuang as $key => $row) {
+                            $detail = DetailSampah::where('sampah_id', $sampah->id)->delete();
+                            $detail = new DetailSampah();
+                            $detail->sampah_id = $sampah->id;
+                            $detail->jumlah = $row->jumlah;
+                            $detail->ukuran = $row->ukuran;
+                            $detail->save();
+                        }
                     }
                 }
             }

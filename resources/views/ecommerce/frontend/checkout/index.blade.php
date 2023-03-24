@@ -29,6 +29,12 @@
 </div>
 <div class="cart-main-area  pb-120">
     <div class="container">
+        {{-- @php
+            dd($errors)
+        @endphp --}}
+        @if($errors->has('error'))
+            <div class="alert alert-danger">{{ $errors->first('error') }}</div>
+        @endif
         <div class="row">
             <div class="col-lg-8">
                 @if ($alamat)
@@ -49,7 +55,9 @@
             </div>
 
             <div class="col-lg-4 col-md-12">
+                
                 <div class="grand-totall">
+                    
                     <h5 style="margin-top: -15px">Ringkasan Pembelian</h5>
                     <h6>Total Produk ({{$totalproduk}}) <span>@rupiah($totalharga)</span></h6>
                     <h6>Biaya Admin <span>@rupiah($admin)</span></h6>

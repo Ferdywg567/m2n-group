@@ -102,7 +102,7 @@
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Rp.</div>
                                                 </div>
-                                                <input type="number" class="form-control" required id="harga_seri"
+                                                <input type="number" class="form-control harga" required id="harga_seri"
                                                     value="{{$harga_seri}}" name="harga_seri">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">/seri</div>
@@ -121,7 +121,7 @@
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Rp.</div>
                                                 </div>
-                                                <input type="number" class="form-control" required id="harga_produk"
+                                                <input type="number" class="form-control harga" required id="harga_produk"
                                                     value="{{$item->harga}}" name="harga_produk[]">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">/seri</div>
@@ -179,3 +179,10 @@
 </div>
 
 @endsection
+@push('scripts')
+<script>
+    $('.harga').mask('000.000.000.000', {
+        reverse: true
+    });
+</script>
+@endpush

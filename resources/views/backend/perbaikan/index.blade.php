@@ -31,53 +31,67 @@
                 <div class="col-md-12">
                     <div class="card">
 
-                        <div class="card-body">
-                            <table class="table table-hover" id="tabelperbaikan">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">No</th>
-                                        <th scope="col">Kode Transaksi</th>
-                                        <th scope="col">Kode Bahan</th>
-                                        <th scope="col">SKU</th>
-                                        <th scope="col">Tgl Masuk</th>
-                                        <th scope="col">Jumlah Perbaikan</th>
-                                        <th scope="col">Surat Jalan</th>
-                                        <th scope="col">Status</th>
-                                        <th scope="col">Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="">
+                            <div class="card-body">
+                                <table class="table table-hover" id="tabelperbaikan">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">No</th>
+                                            <th scope="col">Kode Transaksi</th>
+                                            <th scope="col">Kode Bahan</th>
+                                            <th scope="col">SKU</th>
+                                            <th scope="col">Tgl Masuk</th>
+                                            <th scope="col">Jumlah Perbaikan</th>
+                                            <th scope="col">Surat Jalan</th>
+                                            <th scope="col">Jenis Perbaikan</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="">
 
-                                    @forelse ($repair as $item)
-                                    <tr>
-                                        <td>{{$loop->iteration}}</td>
-                                        <td>{{$item->bahan->kode_transaksi}}</td>
-                                        <td>{{$item->bahan->kode_bahan}}</td>
-                                        <td>{{$item->bahan->sku}}</td>
-                                        <td>{{$item->tanggal_masuk}}</td>
-                                        <td>{{$item->total}}</td>
-                                        <td>{{$item->bahan->no_surat}}</td>
-                                        <td>
+                                        @forelse ($repair as $r)
                                             @php
-                                                $status = strtoupper($item->status)
+                                                $item = $r->perbaikan;
                                             @endphp
-                                            @if ($item->status == 'butuh konfirmasi')
-                                            <a href="{{route('perbaikan.edit',[$item->id])}}"> <span class="badge badge-secondary text-dark"
-                                                    style="cursor: pointer">{{$status}}</span></a>
-
-                                            @elseif ($item->status == 'selesai')
-                                            <span class="badge badge-success text-dark">{{$status}}</span>
-                                            @else
-                                            <span class="badge badge-warning text-dark">{{$status}}</span>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            <a href="{{route('perbaikan.show',[$item->id])}}" class="btn btn-outline-primary">Detail</a>
-                                        </td>
-                                    </tr>
-                                    @empty
-
-                                    @endforelse
+                                            <tr>
+                                                {{-- <td>{{$loop->iteration}}</td> --}}
+                                                <td></td>
+                                                <td>{{ $item->bahan->kode_transaksi }}</td>
+                                                <td>{{ $item->bahan->kode_bahan }}</td>
+                                                <td>{{ $item->bahan->sku }}</td>
+                                                <td>{{ $item->tanggal_masuk }}</td>
+                                                <td>{{ $r->jumlah }}</td>
+                                                <td>{{ $item->bahan->no_surat }}</td>
+                                                <td>
+                                                    @if ($r->jahit_direpair_id == null)
+                                                        <span class="badge badge-success text-dark">PERBAIKAN CUCI</span>
+                                                    @else
+                                                        <span class="badge badge-primary text-dark">PERBAIKAN JAHIT</span>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @php
+                                                        $status = strtoupper($item->status);
+                                                    @endphp
+                                                    @if ($item->status == 'butuh konfirmasi')
+                                                        <a href="{{ route('perbaikan.edit', [$item->id]) }}"> <span
+                                                                class="badge badge-secondary text-dark"
+                                                                style="cursor: pointer">{{ $status }}</span></a>
+                                                    @elseif ($item->status == 'selesai')
+                                                        <span
+                                                            class="badge badge-success text-dark">{{ $status }}</span>
+                                                    @else
+                                                        <span
+                                                            class="badge badge-warning text-dark">{{ $status }}</span>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    <a href="{{ route('perbaikan.show', [$item->id]) }}"
+                                                        class="btn btn-outline-primary">Detail</a>
+                                                </td>
+                                            </tr>
+                                        @empty
+                                        @endforelse
 
                                 </tbody>
                             </table>

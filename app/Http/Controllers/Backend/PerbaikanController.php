@@ -10,7 +10,7 @@ use App\Bahan;
 use App\Perbaikan;
 use App\DetailPerbaikan;
 use Illuminate\Support\Facades\DB;
-use PDF;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class PerbaikanController extends Controller
 {
@@ -78,7 +78,7 @@ class PerbaikanController extends Controller
                     $detail = DetailPerbaikan::where('perbaikan_id', $repair->id)->where('jahit_direpair_id', $row->id)->first();
                     if ($detail) {
                         $detail->jumlah = $row->jumlah;
-                        $detail->keterangan = $value->keterangan_direpair;
+                        $detail->keterangan = $value->jahit->keterangan_direpair;
                     } else {
                         $detail = new DetailPerbaikan();
                         $detail->perbaikan_id = $repair->id;
@@ -91,12 +91,11 @@ class PerbaikanController extends Controller
                 }
             }
             DB::commit();
-            $repair = Perbaikan::all();
+            $repair = DetailPerbaikan::all();
             return view("backend.perbaikan.index", ['repair' => $repair]);
         } catch (\Exception $th) {
             //throw $th;
             DB::rollBack();
-            dd($th);
         }
     }
 

@@ -37,6 +37,9 @@
 
                                     <h3><a href="{{route('frontend.product.show',[$item->id])}}">Kaos Hitam Polos</a></h3>
                                     <div class="product-price-2">
+                                        @php
+                                            $item->harga = $item->detail_produk->max('harga');
+                                        @endphp
                                         @if ($item->promo_id == null)
                                         <span class="new-price">@rupiah($item->harga)</span>
                                         @else

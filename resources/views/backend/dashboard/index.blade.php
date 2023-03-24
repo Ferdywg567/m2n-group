@@ -415,7 +415,9 @@
                     datahtml = '<span class="badge badge-secondary text-dark">'+data.status_potong+'</span>';
                 }else if(data.status_potong == 'selesai'){
                     datahtml = '<span class="badge badge-success text-dark">'+data.status_potong+'</span>';
-                }else {
+                }else if(data.status == 'potong keluar') {
+                    datahtml = '<span class="badge badge-success text-dark">'+data.status+'</span>';
+                }else  {
                     datahtml = '<span class="badge badge-warning text-dark">'+data.status_potong+'</span>';
                 }
 

@@ -97,74 +97,89 @@
                                                 <td>{{$item->vendor}}</td>
                                                 <td>-</td>
 
-                                                <td>{{$item->no_surat}}</td>
-                                                <td>
-                                                    @php
-                                                    $status = strtoupper($item->status_jahit);
-                                                    @endphp
-                                                    @if ($item->status_jahit == 'belum jahit')
-                                                    <span class="badge badge-secondary text-dark">{{$status}}</span>
-                                                    @elseif ($item->status_jahit == 'selesai')
-                                                    <span class="badge badge-success text-dark">{{$status}}</span>
-                                                    @else
-                                                    <span class="badge badge-warning text-dark">{{$status}}</span>
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    @if ($item->vendor == 'eksternal')
-                                                    @if ($item->status_pembayaran == 'Lunas')
-                                                    <a href="{{route('pembayaran.index')}}">
-                                                        <span class="badge badge-success text-dark">{{
-                                                            $item->status_pembayaran}}</span>
-                                                    </a>
-                                                    @elseif($item->status_pembayaran == 'Belum Lunas' ||
-                                                    $item->status_pembayaran == 'Termin 1' || $item->status_pembayaran
-                                                    == 'Termin 2' || $item->status_pembayaran == 'Termin 3' )
-                                                    <a href="{{route('pembayaran.index')}}">
-                                                        <span
-                                                            class="badge badge-warning text-dark">{{$item->status_pembayaran}}</span>
-                                                    </a>
-                                                    @endif
-                                                    @else
-                                                    -
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    <div class="dropdown dropleft">
-                                                        <a class="" href="#" id="dropdownMenuButton"
-                                                            data-toggle="dropdown" aria-haspopup="true"
-                                                            aria-expanded="false">
-                                                            <i class="fa fa-ellipsis-h"></i>
-                                                        </a>
-                                                        <div class="dropdown-menu text-center"
-                                                            aria-labelledby="dropdownMenuButton">
-                                                            <a class="dropdown-item"
-                                                                href="{{route('jahit.show',[$item->id])}}"><i
-                                                                    class="ri-eye-fill"></i>
-                                                                Detail</a>
-                                                            <a class="dropdown-item btnprint" href="#"
-                                                                data-id="{{$item->id}}"><i class="ri-printer-fill"></i>
-                                                                Cetak</a>
+                                                        <td>{{ $item->no_surat }}</td>
+                                                        <td>
+                                                            @php
+                                                                $status = strtoupper($item->status_jahit);
+                                                            @endphp
+                                                            @if ($item->status_jahit == 'belum jahit')
+                                                                <span
+                                                                    class="badge badge-secondary text-dark">{{ $status }}</span>
+                                                            @elseif ($item->status_jahit == 'selesai')
+                                                                <span
+                                                                    class="badge badge-success text-dark">{{ $status }}</span>
+                                                            @else
+                                                                <span
+                                                                    class="badge badge-warning text-dark">{{ $status }}</span>
+                                                            @endif
+                                                        </td>
+                                                        <td>
+                                                            @if ($item->vendor == 'eksternal')
+                                                                @if ($item->status_pembayaran == 'Lunas')
+                                                                    <a href="{{ route('pembayaran.index') }}">
+                                                                        <span
+                                                                            class="badge badge-success text-dark">{{ $item->status_pembayaran }}</span>
+                                                                    </a>
+                                                                @elseif(
+                                                                    $item->status_pembayaran == 'Belum Lunas' ||
+                                                                        $item->status_pembayaran == 'Termin 1' ||
+                                                                        $item->status_pembayaran == 'Termin 2' ||
+                                                                        $item->status_pembayaran == 'Termin 3')
+                                                                    @if($item->status_pembayaran == 'Belum Lunas')
+                                                                    <a href="{{ route('pembayaran.create') }}?status=jahit&item={{$item->id}}">
+                                                                        <span
+                                                                            class="badge badge-warning text-dark">{{ $item->status_pembayaran }}</span>
+                                                                    </a>
+                                                                    @else
+                                                                    <a href="{{ route('pembayaran.edit', $item->pembayaran_jahit[0]) }}?status=jahit&item={{$item->id}}">
+                                                                        <span
+                                                                            class="badge badge-warning text-dark">{{ $item->status_pembayaran }}</span>
+                                                                    </a>
+                                                                    @endif
+                                                                @endif
+                                                            @else
+                                                                -
+                                                            @endif
+                                                        </td>
+                                                        <td>
+                                                            <div class="dropdown dropleft">
+                                                                <a class="" href="#" id="dropdownMenuButton"
+                                                                    data-toggle="dropdown" aria-haspopup="true"
+                                                                    aria-expanded="false">
+                                                                    <i class="fa fa-ellipsis-h"></i>
+                                                                </a>
+                                                                <div class="dropdown-menu text-center"
+                                                                    aria-labelledby="dropdownMenuButton">
+                                                                    <a class="dropdown-item"
+                                                                        href="{{ route('jahit.show', [$item->id]) }}"><i
+                                                                            class="ri-eye-fill"></i>
+                                                                        Detail</a>
+                                                                    <a class="dropdown-item btnprint" href="#"
+                                                                        data-id="{{ $item->id }}"><i
+                                                                            class="ri-printer-fill"></i>
+                                                                        Cetak</a>
 
                                                             <a class="dropdown-item"
                                                                 href="{{route('jahit.edit',[$item->id])}}"><i
                                                                     class="ri-edit-fill"></i>
                                                                 Edit</a>
 
-                                                            <a class="dropdown-item hapus" data-id="{{$item->id}}"
-                                                                href="#"><i class="ri-delete-bin-fill"></i>
-                                                                Hapus</a>
-                                                            @if ($item->status_jahit == 'selesai')
-                                                            <a class="dropdown-item" data-id="{{$item->id}}"
-                                                                href="{{route('jahit.getselesai',[$item->id])}}"><i
-                                                                    class="ri-arrow-right-circle-line"></i>
-                                                                Selesai</a>
-                                                            @endif
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            @empty
+                                                                    <a class="dropdown-item hapus"
+                                                                        data-id="{{ $item->id }}" href="#"><i
+                                                                            class="ri-delete-bin-fill"></i>
+                                                                        Hapus</a>
+                                                                    @if ($item->status_jahit == 'butuh konfirmasi')
+                                                                        <a class="dropdown-item"
+                                                                            data-id="{{ $item->id }}"
+                                                                            href="{{ route('jahit.getselesai', [$item->id]) }}"><i
+                                                                                class="ri-arrow-right-circle-line"></i>
+                                                                            Selesai</a>
+                                                                    @endif
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                @empty
 
                                             @endforelse
 

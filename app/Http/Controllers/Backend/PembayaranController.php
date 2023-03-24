@@ -22,7 +22,14 @@ class PembayaranController extends Controller
      */
     public function index()
     {
-        $jahit = Jahit::where('status_pembayaran', '!=', 'Belum Lunas')->where('vendor', 'eksternal')->orderBy('created_at', 'DESC')->get();
+        $jahit = Jahit::where('status_pembayaran', '!=', 'Belum Lunas')
+                    ->where('vendor', 'eksternal')
+                    ->orderBy(PembayaranJahit::select('pembayaran_jahits.status')
+                        ->whereColumn('pembayaran_jahits.jahit_id', 'jahits.id')
+                        ->latest()
+                        ->take(1)
+                    )
+                    ->get();
         $cuci = Cuci::where('status_pembayaran', '!=', 'Belum Lunas')->orderBy('created_at', 'DESC')->get();
         return view('backend.pembayaran.index', ['jahit' => $jahit, 'cuci' => $cuci]);
     }

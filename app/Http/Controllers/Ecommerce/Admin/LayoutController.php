@@ -14,6 +14,8 @@ class LayoutController extends Controller
      */
     public function index()
     {
+        abort(404);
+        return;
         return view('ecommerce.admin.layout.index');
     }
 

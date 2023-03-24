@@ -16,7 +16,7 @@ class KaryawanController extends Controller
      */
     public function index()
     {
-       $karyawan = User::role(['warehouse','production','admin-online','admin-offline'])->where('id','!=',auth()->user()->id)->get();
+       $karyawan = User::role(['warehouse','production','admin-online','admin-offline'])->get();
        return view('ecommerce.admin.karyawan.index',['karyawan' => $karyawan]);
     }
 

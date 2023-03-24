@@ -41,6 +41,9 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
+                                            @if($karyawan->id == auth()->id())
+                                                <input type="hidden" name="hak_akses" value="{{$karyawan->roles[0]->name}}">
+                                            @endif
                                             <div class="form-group">
                                                 <label for="hak_akses">Hak Akses</label>
                                                 <select class="form-control" id="hak_akses" required name="hak_akses">
@@ -101,6 +104,14 @@
                     }
                 });
             }
+            $("#hak_akses").select2()
+
+            @if($karyawan->id == auth()->id())
+                
+                $("#hak_akses").select2({
+                    disabled: true
+                });
+            @endif
 
 
         })

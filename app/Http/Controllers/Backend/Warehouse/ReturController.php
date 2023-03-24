@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\DetailRetur;
 use App\Finishing;
 use App\Retur;
-use PDF;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class ReturController extends Controller
 {
@@ -28,15 +28,20 @@ class ReturController extends Controller
                     $total = DetailRetur::where('retur_id', $retur->id)->sum('jumlah');
                     $retur->tanggal_masuk = $value->cuci->jahit->potong->bahan->tanggal_masuk;
                     $retur->total_barang = $total;
+                    $retur->save();
                 } else {
-                    $retur = new Retur();
-                    $retur->finishing_id = $value->id;
-                    $retur->total_barang = $value->barang_diretur;
-                    $retur->keterangan_diretur = $value->keterangan_diretur;
-                    $retur->tanggal_masuk = $value->cuci->jahit->potong->bahan->tanggal_masuk;
+
+                    if($value->barang_diretur > 0){
+                        $retur = new Retur();
+                        $retur->finishing_id = $value->id;
+                        $retur->total_barang = $value->barang_diretur;
+                        $retur->keterangan_diretur = $value->keterangan_diretur;
+                        $retur->tanggal_masuk = $value->cuci->jahit->potong->bahan->tanggal_masuk;
+                        $retur->save();
+                    }
                 }
 
-                $retur->save();
+                
 
                 foreach ($value->finish_retur as $key => $row) {
                     $detailretur = DetailRetur::where('retur_id', $retur->id)->where('ukuran', $row->ukuran)->first();

@@ -176,3 +176,10 @@
 </div>
 
 @endsection
+@push('scripts')
+<script>
+    $('#harga_vendor').mask('000.000.000.000', {
+        reverse: true
+    });
+</script>
+@endpush

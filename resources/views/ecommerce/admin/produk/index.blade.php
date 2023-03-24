@@ -22,41 +22,47 @@
                 <div class="card ">
                     <div class="card-body">
 
-                        <table class="table table-hover" id="tabelproduk">
-                            <thead>
-                                <tr>
-                                    <th scope="col">No</th>
-                                    <th scope="col">Kode</th>
-                                    <th scope="col">SKU</th>
-                                    <th scope="col">Nama Produk</th>
-                                    <th scope="col">Kategori</th>
-                                    <th scope="col">Stok</th>
-                                    <th scope="col">Harga</th>
-                                    <th scope="col">Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody id="">
-                                @forelse ($produk as $item)
-                                <tr>
-                                    <td>{{$loop->iteration}}</td>
-                                    <td>{{$item->kode_produk}}</td>
-                                    <td>{{$item->warehouse->finishing->cuci->jahit->potong->bahan->sku}}</td>
-                                    <td>{{ucwords($item->warehouse->finishing->cuci->jahit->potong->bahan->nama_bahan)}}</td>
-                                    <td>{{$item->warehouse->finishing->cuci->jahit->potong->bahan->detail_sub->sub_kategori->kategori->nama_kategori}}/{{$item->warehouse->finishing->cuci->jahit->potong->bahan->detail_sub->sub_kategori->nama_kategori}}/{{$item->warehouse->finishing->cuci->jahit->potong->bahan->detail_sub->nama_kategori}}
-                                    </td>
-                                    <td>{{$item->stok}}</td>
-                                    <td>@rupiah($item->harga)</td>
-                                    <td>
-                                        <div class="dropdown dropleft">
-                                            <a class="" href="#" id="dropdownMenuButton" data-toggle="dropdown"
-                                                aria-haspopup="true" aria-expanded="false">
-                                                <i class="fa fa-ellipsis-h"></i>
-                                            </a>
-                                            <div class="dropdown-menu text-center" aria-labelledby="dropdownMenuButton">
-                                                <a class="dropdown-item"
-                                                    href="{{route('ecommerce.produk.show',[$item->id])}}"><i
-                                                        class="ri-eye-fill"></i>
-                                                    Detail</a>
+                            <table class="table table-hover" id="tabelproduk">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">No</th>
+                                        <th scope="col">Kode</th>
+                                        <th scope="col">SKU</th>
+                                        <th scope="col">Nama Produk</th>
+                                        <th scope="col">Kategori</th>
+                                        <th scope="col">Stok</th>
+                                        <th scope="col">Harga</th>
+                                        <th scope="col">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="">
+                                    @forelse ($produk as $item)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $item->kode_produk }}</td>
+                                            <td>{{ $item->warehouse->finishing->cuci->jahit->potong->bahan->sku }}</td>
+                                            <td>{{ ucwords($item->warehouse->finishing->cuci->jahit->potong->bahan->nama_bahan) }}
+                                            </td>
+                                            <td>{{ $item->warehouse->finishing->cuci->jahit->potong->bahan->detail_sub->sub_kategori->kategori->nama_kategori }}/{{ $item->warehouse->finishing->cuci->jahit->potong->bahan->detail_sub->sub_kategori->nama_kategori }}/{{ $item->warehouse->finishing->cuci->jahit->potong->bahan->detail_sub->nama_kategori }}
+                                            </td>
+                                            <td>{{ $item->stok }}</td>
+                                            @if ($item->warehouse->detail_warehouse->min('harga') == $item->warehouse->detail_warehouse->max('harga'))
+                                                    <td>@rupiah($item->detail_produk->max('harga'))/pcs</td>
+                                                @else
+                                                    <td>@rupiah($item->detail_produk->min('harga')) - @rupiah($item->warehouse->detail_warehouse->max('harga'))/pcs</td>
+                                                @endif
+                                            <td>
+                                                <div class="dropdown dropleft">
+                                                    <a class="" href="#" id="dropdownMenuButton"
+                                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="fa fa-ellipsis-h"></i>
+                                                    </a>
+                                                    <div class="dropdown-menu text-center"
+                                                        aria-labelledby="dropdownMenuButton">
+                                                        <a class="dropdown-item"
+                                                            href="{{ route('ecommerce.produk.show', [$item->id]) }}"><i
+                                                                class="ri-eye-fill"></i>
+                                                            Detail</a>
 
                                                 {{-- <a class="dropdown-item"
                                                     href="{{route('ecommerce.produk.edit',[$item->id])}}"><i

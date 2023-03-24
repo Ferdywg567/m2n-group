@@ -1,6 +1,6 @@
-<footer class="footer-area bg-gray-4 pt-50">
-    <div class="footer-top border-bottom-4 pb-55">
-        <div class="container">
+<footer class="footer-area bg-gray-4 ">
+    {{-- <div class="footer-top border-bottom-4 pb-55"> --}}
+        {{-- <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-md-4 col-sm-6 col-12">
                     <div class="footer-widget mb-40">
@@ -78,17 +78,12 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </div> --}}
+    {{-- </div> --}}
     <div class="footer-bottom pt-30 pb-30 ">
         <div class="container">
             <div class="row flex-row-reverse">
-                <div class="col-lg-6 col-md-6">
-                    <div class="payment-img payment-img-right">
-                        <a href="#"><img src="{{asset('ecommerce/assets/images/icon-img/payment.png')}}" alt=""></a>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6">
+                <div class="col-md-12 text-center">
                     <div class="copyright copyright-center">
                         <p> © {{ date('Y') }} <b>M2N GROUP</b> All Right Reserved.</p>
                     </div>

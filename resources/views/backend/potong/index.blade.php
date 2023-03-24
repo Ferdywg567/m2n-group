@@ -132,15 +132,17 @@
                                                                     class="ri-edit-fill"></i>
                                                                 Edit</a>
 
-                                                            <a class="dropdown-item hapus" data-id="{{$item->id}}"
-                                                                href="#"><i class="ri-delete-bin-fill"></i>
-                                                                Hapus</a>
-                                                            @if ($item->status_potong == 'selesai')
-                                                            <a class="dropdown-item" data-id="{{$item->id}}"
-                                                                href="{{route('potong.getselesai',[$item->id])}}"><i
-                                                                    class="ri-arrow-right-circle-line"></i>
-                                                                Selesai</a>
-                                                            @endif
+                                                                    <a class="dropdown-item hapus"
+                                                                        data-id="{{ $item->id }}" href="#"><i
+                                                                            class="ri-delete-bin-fill"></i>
+                                                                        Hapus</a>
+                                                                    @if ($item->status_potong == 'butuh konfirmasi')
+                                                                        <a class="dropdown-item"
+                                                                            data-id="{{ $item->id }}"
+                                                                            href="{{ route('potong.getselesai', [$item->id]) }}"><i
+                                                                                class="ri-arrow-right-circle-line"></i>
+                                                                            Selesai</a>
+                                                                    @endif
 
                                                         </div>
                                                     </div>
@@ -182,26 +184,31 @@
                                                 <td>{{$item->tanggal_cutting}}</td>
                                                 <td>{{$item->tanggal_selesai}}</td>
 
-                                                <td>{{$item->no_surat}}</td>
-                                                <td>
-                                                    @php
-                                                    $status = strtoupper($item->status_potong)
-                                                    @endphp
-                                                    <span class="badge badge-success text-dark">{{$status}}</span>
-                                                </td>
-                                                <td>
-                                                    <div class="dropdown dropleft">
-                                                        <a class="" href="#" id="dropdownMenuButton"
-                                                            data-toggle="dropdown" aria-haspopup="true"
-                                                            aria-expanded="false">
-                                                            <i class="fa fa-ellipsis-h"></i>
-                                                        </a>
-                                                        <div class="dropdown-menu text-center"
-                                                            aria-labelledby="dropdownMenuButton">
-                                                            <a class="dropdown-item"
-                                                                href="{{route('potong.show',[$item->id])}}"><i
-                                                                    class="ri-eye-fill"></i>
-                                                                Detail</a>
+                                                        <td>{{ $item->no_surat }}</td>
+                                                        <td>
+                                                            @php
+                                                                $status = strtoupper($item->status_potong);
+                                                            @endphp
+                                                            
+                                                            @if ($status == 'SELESAI')
+                                                                <span class="badge badge-success text-dark">{{ $status }}</span>
+                                                            @else
+                                                                <span class="badge badge-secondary text-dark">{{ $status }}</span>
+                                                            @endif
+                                                        </td>
+                                                        <td>
+                                                            <div class="dropdown dropleft">
+                                                                <a class="" href="#" id="dropdownMenuButton"
+                                                                    data-toggle="dropdown" aria-haspopup="true"
+                                                                    aria-expanded="false">
+                                                                    <i class="fa fa-ellipsis-h"></i>
+                                                                </a>
+                                                                <div class="dropdown-menu text-center"
+                                                                    aria-labelledby="dropdownMenuButton">
+                                                                    <a class="dropdown-item"
+                                                                        href="{{ route('potong.show', [$item->id]) }}"><i
+                                                                            class="ri-eye-fill"></i>
+                                                                        Detail</a>
 
                                                             <a class="dropdown-item btnprint" href="#"
                                                                 data-id="{{$item->id}}"><i class="ri-printer-fill"></i>

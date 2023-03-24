@@ -43,6 +43,8 @@
                                                 @forelse ($cuci as $item)
                                                 <option value="{{$item->id}}" @if($item->id ==
                                                     old('kode_transaksi')) selected
+                                                    @elseif(app('request')->input('item') != null and app('request')->input('item') == $item->id)
+                                                    selected
                                                     @endif>{{$item->jahit->potong->bahan->kode_transaksi}} |
                                                     {{$item->jahit->potong->bahan->nama_bahan}}
                                                 </option>
@@ -272,262 +274,261 @@
 @push('scripts')
 <script>
     $(document).ready(function () {
-             function ajax() {
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-              }
-
-              var nominal1 = $('#nominal1').val();
-                var nominal2 = $('#nominal2').val();
-                var nominal3 = $('#nominal3').val();
-
-                  if(nominal1 == ''){
-                    $('#nominal1').mask('000.000.000.000', {
-                        reverse: true
-                    });
-                  }
-                  if(nominal2 == ''){
-                    $('#nominal2').mask('000.000.000.000', {
-                        reverse: true
-                    });
-                  }
-                  if(nominal3 == ''){
-                    $('#nominal3').mask('000.000.000.000', {
-                     reverse: true
-                    });
-                  }
-              $('#kdbahanreadonly').hide()
-              $('#ukuranm').hide()
-              $('#ukuranl').hide()
-              $('#ukuranxl').hide()
-              $('#ukuranxxl').hide()
-              $('#dataalert').hide()
-              $('#datapembayaran2').hide()
-              $('#datapembayaran3').hide()
-              $('#kdbahanselectmasuk').show()
-              $('#kdbahanmasuk').hide()
-              $('#kdbahanselectkeluar').show()
-              $('#kdbahankeluar').hide()
-              $('.btnkeluar').prop('id','btnsimpankeluar')
-              $('#tabelmasuk').DataTable()
-              $('#tabelbahankeluar').DataTable()
-              $('#kode_transaksiselect').select2()
-              $('#title-ukuran').hide()
-              $('#jumlah_bahan_yang_dijahit').on('keyup', function(){
-                  var data = $(this).val()
-                  var lusin = 12
-
-                  var sisa = data%lusin;
-                  var hasil = (data - sisa) / lusin;
-                  var res = hasil+' Lusin '+sisa+ ' pcs'
-                  $('#konversi').val(res)
-              })
-              $('#nominal1, #nominal2, #nominal3').on('keyup', function () {
-                  var nominal1 = $('#nominal1').val();
-                  var nominal2 = $('#nominal2').val();
-                  var nominal3 = $('#nominal3').val();
-                  nominal1 = convertToAngka(nominal1)
-                  nominal2 = convertToAngka(nominal2)
-                  nominal3 = convertToAngka(nominal3)
-                  var total_harga = $('#total_harga').val()
-                  total_harga = convertToAngka(total_harga)
-                  var sisa_bayar = 0;
-                  if(nominal2 > 0 && nominal1 > 0 && nominal3 > 0){
-                        var total = parseInt(nominal1) + parseInt(nominal2) + parseInt(nominal3)
-                        if(total <= total_harga){
-                            sisa_bayar = total_harga - total;
-                        }
-
-
-                    }else if(nominal2 > 0 && nominal1 > 0){
-                        var total = parseInt(nominal1) + parseInt(nominal2)
-                        if(total <= total_harga){
-                            sisa_bayar = total_harga - total;
-                        }
-
-
-                    }else if(nominal1 > 0){
-                        if(parseInt(nominal1) <  parseInt(total_harga)){
-                            sisa_bayar = total_harga - nominal1;
-                        }
-
-
-                    }else{
-                        sisa_bayar = total_harga
-                    }
-                    console.log(sisa_bayar);
-                    $('#sisa_bayar').val("Rp. "+convertToRupiah(sisa_bayar))
-               })
-               $('form[id=formPembayaran]').submit(function(){
-                var data = $('#pembayaran1').val();
-                var hasil = $('#total_harga').val()
-                var total_bayar = $('#total_bayar').val()
-                total_bayar = convertToAngka(total_bayar)
-                hasil = convertToAngka(hasil)
-                if(data == 'Lunas'){
-                    var nominal = $('#nominal1').val()
-                    nominal = convertToAngka(nominal)
-                    if(parseInt(hasil) != parseInt(nominal)){
-                        $('#dataalert').addClass('alert-danger')
-                    $('#dataalert').show()
-                    $('#dataalert').text('Nominal pembayaran harus sesuai dengan sisa bayar')
-                     return false;
-                    }else{
-
-                        return true;
-                    }
-                }else if(data == 'Termin 1'){
-                    var nominal = $('#nominal1').val()
-                    var nominal2 = $('#nominal2').val()
-                    var nominal3 = $('#nominal3').val()
-                    nominal = convertToAngka(nominal)
-                    nominal2 = convertToAngka(nominal2)
-                    nominal3 = convertToAngka(nominal3)
-                    if(nominal2 > 0 && nominal > 0 && nominal3 > 0){
-                        var total = parseInt(nominal) + parseInt(nominal2) + parseInt(nominal3)
-                        if(parseInt(hasil) != parseInt(total)){
-                            $('#dataalert').addClass('alert-danger')
-                            $('#dataalert').show()
-                            $('#dataalert').text('Nominal pembayaran harus sesuai dengan total pembayaran')
-                            return false;
-                        }else{
-                            return true;
-                        }
-                    }else if(nominal2 > 0 && nominal > 0){
-                        var total = parseInt(nominal) + parseInt(nominal2)
-                        if(parseInt(total) > parseInt(total_bayar) ){
-                            $('#dataalert').addClass('alert-danger')
-                            $('#dataalert').show()
-                            $('#dataalert').text('Nominal pembayaran harus kurang dari sama dengan total pembayaran')
-                            return false;
-                        }else{
-                            return true;
-                        }
-                    }else if(nominal > 0){
-                        if(parseInt(nominal) > parseInt(total_bayar) ){
-                            $('#dataalert').addClass('alert-danger')
-                            $('#dataalert').show()
-                            $('#dataalert').text('Nominal pembayaran tidak boleh melebihi total pembayaran')
-                            return false;
-                        }if(parseInt(nominal) <= 0){
-                            $('#dataalert').addClass('alert-danger')
-                            $('#dataalert').show()
-                            $('#dataalert').text('Nominal pembayaran harus lebih dari 0')
-                            return false;
-                        }else{
-                            return true;
-                        }
-                    }
+        $('#harga_vendor').mask('000.000.000.000', {
+            reverse: true
+        });
+        function ajax() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+        }
 
+        var nominal1 = $('#nominal1').val();
+        var nominal2 = $('#nominal2').val();
+        var nominal3 = $('#nominal3').val();
 
-              $('#hasil_cutting').on('keyup', function(){
-                  var data = $(this).val()
-                  var lusin = 12
+        if(nominal1 == ''){
+            $('#nominal1').mask('000.000.000.000', {
+                reverse: true
+            });
+        }
+        if(nominal2 == ''){
+            $('#nominal2').mask('000.000.000.000', {
+                reverse: true
+            });
+        }
+        if(nominal3 == ''){
+            $('#nominal3').mask('000.000.000.000', {
+                reverse: true
+            });
+        }
 
-                  var sisa = data%lusin;
-                  var hasil = (data - sisa) / lusin;
-                  var res = hasil+' Lusin '+sisa+ ' pcs'
-                  $('#konversi').val(res)
-              })
+        $('#kdbahanreadonly').hide()
+        $('#ukuranm').hide()
+        $('#ukuranl').hide()
+        $('#ukuranxl').hide()
+        $('#ukuranxxl').hide()
+        $('#dataalert').hide()
+        $('#datapembayaran2').hide()
+        $('#datapembayaran3').hide()
+        $('#kdbahanselectmasuk').show()
+        $('#kdbahanmasuk').hide()
+        $('#kdbahanselectkeluar').show()
+        $('#kdbahankeluar').hide()
+        $('.btnkeluar').prop('id','btnsimpankeluar')
+        $('#tabelmasuk').DataTable()
+        $('#tabelbahankeluar').DataTable()
+        $('#kode_transaksiselect').select2()
+        $('#title-ukuran').hide()
 
-              $('.btntambah').hide()
-              $('#pembayaran1').on('change', function () {
-                  var data = $(this).val();
+        $('#jumlah_bahan_yang_dijahit').on('keyup', function(){
+            var data = $(this).val()
+            var lusin = 12
 
-                  if(data == 'Lunas'){
-                    $('#datapembayaran2').hide()
-                     $('#datapembayaran3').hide()
-                     $('.btntambah').hide()
-                  }else{
-                    $('.btntambah').show()
-                  }
+            var sisa = data%lusin;
+            var hasil = (data - sisa) / lusin;
+            var res = hasil+' Lusin '+sisa+ ' pcs'
+            $('#konversi').val(res)
+        })
 
-              })
-
-              $('.btntambah').on('click', function () {
-                var data = $('#pembayaran1').val();
-                var datapembayaran2 = $('#datapembayaran2').is(':visible')
-                var datapembayaran3 = $('#datapembayaran3').is(':visible')
-                if(data != 'Lunas'){
-                    if(!datapembayaran2){
-                        $('#datapembayaran2').show()
-                    }else if(!datapembayaran3){
-                        $('#datapembayaran3').show()
-                        $('.btntambah').hide()
-                    }
+        $('#nominal1, #nominal2, #nominal3').on('keyup', function () {
+            var nominal1 = $('#nominal1').val();
+            var nominal2 = $('#nominal2').val();
+            var nominal3 = $('#nominal3').val();
+            nominal1 = convertToAngka(nominal1)
+            nominal2 = convertToAngka(nominal2)
+            nominal3 = convertToAngka(nominal3)
+            var total_harga = $('#total_harga').val()
+            total_harga = convertToAngka(total_harga)
+            var sisa_bayar = 0;
+            if(nominal2 > 0 && nominal1 > 0 && nominal3 > 0){
+                var total = parseInt(nominal1) + parseInt(nominal2) + parseInt(nominal3)
+                if(total <= total_harga){
+                    sisa_bayar = total_harga - total;
                 }
 
-            })
 
-            function convertToRupiah(angka) {
-                var rupiah = '';
-                var angkarev = angka.toString().split('').reverse().join('');
-                for (var i = 0; i < angkarev.length; i++) {
-                    if (i%3 == 0) {
-                    rupiah += angkarev.substr(i,3)+'.';
+            }else if(nominal2 > 0 && nominal1 > 0){
+                var total = parseInt(nominal1) + parseInt(nominal2)
+                if(total <= total_harga){
+                    sisa_bayar = total_harga - total;
+                }
+            }else if(nominal1 > 0){
+                if(parseInt(nominal1) <  parseInt(total_harga)){
+                    sisa_bayar = total_harga - nominal1;
+                }
+            }else{
+                sisa_bayar = total_harga
+            }
+            $('#sisa_bayar').val("Rp. "+convertToRupiah(sisa_bayar))
+        })
+        $('form[id=formPembayaran]').submit(function(){
+            var data = $('#pembayaran1').val();
+            var hasil = $('#total_harga').val()
+            var total_bayar = $('#total_bayar').val()
+            total_bayar = convertToAngka(total_bayar)
+            hasil = convertToAngka(hasil)
+            if(data == 'Lunas'){
+                var nominal = $('#nominal1').val()
+                nominal = convertToAngka(nominal)
+                if(parseInt(hasil) != parseInt(nominal)){
+                    $('#dataalert').addClass('alert-danger')
+                    $('#dataalert').show()
+                    $('#dataalert').text('Nominal pembayaran harus sesuai dengan sisa bayar')
+                    return false;
+                }else{
+                    return true;
+                }
+            }else if(data == 'Termin 1'){
+                var nominal = $('#nominal1').val()
+                var nominal2 = $('#nominal2').val()
+                var nominal3 = $('#nominal3').val()
+                nominal = convertToAngka(nominal)
+                nominal2 = convertToAngka(nominal2)
+                nominal3 = convertToAngka(nominal3)
+                if(nominal2 > 0 && nominal > 0 && nominal3 > 0){
+                    var total = parseInt(nominal) + parseInt(nominal2) + parseInt(nominal3)
+                    if(parseInt(hasil) != parseInt(total)){
+                        $('#dataalert').addClass('alert-danger')
+                        $('#dataalert').show()
+                        $('#dataalert').text('Nominal pembayaran harus sesuai dengan total pembayaran')
+                        return false;
+                    }else{
+                        return true;
+                    }
+                }else if(nominal2 > 0 && nominal > 0){
+                    var total = parseInt(nominal) + parseInt(nominal2)
+                    if(parseInt(total) > parseInt(total_bayar) ){
+                        $('#dataalert').addClass('alert-danger')
+                        $('#dataalert').show()
+                        $('#dataalert').text('Nominal pembayaran harus kurang dari sama dengan total pembayaran')
+                        return false;
+                    }else{
+                        return true;
+                    }
+                }else if(nominal > 0){
+                    if(parseInt(nominal) > parseInt(total_bayar) ){
+                        $('#dataalert').addClass('alert-danger')
+                        $('#dataalert').show()
+                        $('#dataalert').text('Nominal pembayaran tidak boleh melebihi total pembayaran')
+                        return false;
+                    }if(parseInt(nominal) <= 0){
+                        $('#dataalert').addClass('alert-danger')
+                        $('#dataalert').show()
+                        $('#dataalert').text('Nominal pembayaran harus lebih dari 0')
+                        return false;
+                    }else{
+                        return true;
                     }
                 }
+            }
+        });
 
-                    var res = rupiah.split('',rupiah.length-1).reverse().join('');
-                    return res;
-         }
 
-         function convertToAngka(rupiah)
-        {
+        $('#hasil_cutting').on('keyup', function(){
+            var data = $(this).val()
+            var lusin = 12
+
+            var sisa = data%lusin;
+            var hasil = (data - sisa) / lusin;
+            var res = hasil+' Lusin '+sisa+ ' pcs'
+            $('#konversi').val(res)
+        })
+
+        $('.btntambah').hide()
+        $('#pembayaran1').on('change', function () {
+            var data = $(this).val();
+
+            if(data == 'Lunas'){
+            $('#datapembayaran2').hide()
+                $('#datapembayaran3').hide()
+                $('.btntambah').hide()
+            }else{
+            $('.btntambah').show()
+            }
+
+        })
+
+        $('.btntambah').on('click', function () {
+            var data = $('#pembayaran1').val();
+            var datapembayaran2 = $('#datapembayaran2').is(':visible')
+            var datapembayaran3 = $('#datapembayaran3').is(':visible')
+            if(data != 'Lunas'){
+                if(!datapembayaran2){
+                    $('#datapembayaran2').show()
+                }else if(!datapembayaran3){
+                    $('#datapembayaran3').show()
+                    $('.btntambah').hide()
+                }
+            }
+
+        })
+
+        function convertToRupiah(angka) {
+            var rupiah = '';
+            var angkarev = angka.toString().split('').reverse().join('');
+            for (var i = 0; i < angkarev.length; i++) {
+                if (i%3 == 0) {
+                rupiah += angkarev.substr(i,3)+'.';
+                }
+            }
+
+            var res = rupiah.split('',rupiah.length-1).reverse().join('');
+            return res;
+        }
+
+        function convertToAngka(rupiah){
             return parseInt(rupiah.replace(/,.*|[^0-9]/g, ''), 10);
         }
 
 
-             $('#kode_transaksiselect').on('change', function () {
-                    var id = $(this).find(':selected').val()
+        $('#kode_transaksiselect').on('change', function () {
+            var id = $(this).find(':selected').val()
 
-                    if(id != ''){
-                        $.ajax({
-                            url:"{{route('cuci.getdata')}}",
-                            method:"GET",
-                            data:{
-                                'id':id
-                            }
-                        }).done(function (response) {
-
-                            if(response.status){
-                                console.log(response);
-                                var data = response.data;
-                                var jahit = data.jahit
-                                var bahan = data.jahit.potong.bahan
-                                var potong =data.jahit.potong
-                                var detail_cuci = data.detail_cuci
-                                var detail = bahan.detail_sub.nama_kategori;
-                                var subkategori = bahan.detail_sub.sub_kategori.nama_kategori;
-                                var kategori = bahan.detail_sub.sub_kategori.kategori.nama_kategori;
-                                var total_harga = data.harga_vendor * data.jumlah_bahan;
-                                $('#total_harga').val("Rp. "+ convertToRupiah(data.total_harga))
-                                $('#nama_produk').val(bahan.nama_bahan)
-                                $('#nama_vendor').val(data.nama_vendor)
-                                $('#harga_vendor').val(data.harga_vendor)
-                                $('#sisa_bayar').val("Rp. "+ convertToRupiah(data.sisa_bayar))
-                                $('#total_bayar').val(data.sisa_bayar)
-                                $('#no_surat').val(data.no_surat)
-                                $('#sku').val(bahan.sku)
-                                $('#kategori').val(kategori)
-                                $('#sub_kategori').val(subkategori)
-                                $('#detail_sub_kategori').val(detail)
-                                $('#jumlah_bahan_yang_dicuci').val(potong.hasil_cutting)
-                                $('#konversi').val(data.konversi)
-
-                            }
-
-                        })
+            if(id != ''){
+                $.ajax({
+                    url:"{{route('cuci.getdata')}}",
+                    method:"GET",
+                    data:{
+                        'id':id
                     }
-            })
+                }).done(function (response) {
+
+                    if(response.status){
+                        console.log(response);
+                        var data = response.data;
+                        var jahit = data.jahit
+                        var bahan = data.jahit.potong.bahan
+                        var potong =data.jahit.potong
+                        var detail_cuci = data.detail_cuci
+                        var detail = bahan.detail_sub.nama_kategori;
+                        var subkategori = bahan.detail_sub.sub_kategori.nama_kategori;
+                        var kategori = bahan.detail_sub.sub_kategori.kategori.nama_kategori;
+                        var total_harga = data.harga_vendor * Math.ceil(data.kain_siap_cuci / 12);
+                        $('#total_harga').val("Rp. "+ convertToRupiah(total_harga))
+                        $('#nama_produk').val(bahan.nama_bahan)
+                        $('#nama_vendor').val(data.nama_vendor)
+                        $('#harga_vendor').val(convertToRupiah(data.harga_vendor))
+                        $('#sisa_bayar').val("Rp. "+ convertToRupiah(data.sisa_bayar))
+                        $('#total_bayar').val(data.sisa_bayar)
+                        $('#no_surat').val(data.no_surat)
+                        $('#sku').val(bahan.sku)
+                        $('#kategori').val(kategori)
+                        $('#sub_kategori').val(subkategori)
+                        $('#detail_sub_kategori').val(detail)
+                        $('#jumlah_bahan_yang_dicuci').val(jahit.berhasil)
+                        $('#konversi').val(data.konversi)
+                    }
+                })
+            }
+        })
 
 
-
-     })
+        @if( app('request')->input('item'))
+            $('#kode_transaksiselect').trigger('change')
+        @endif
+    })
 </script>
 @endpush

@@ -12,7 +12,7 @@ use App\Notification;
 use App\Potong;
 use App\Jahit;
 use App\Bahan;
-use PDF;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class PotongController extends Controller
 {
@@ -24,10 +24,11 @@ class PotongController extends Controller
     public function index()
     {
         // $proses = Potong::whereDate('tanggal_cutting', date('Y-m-d'))->where('status', 'potong masuk')->update(['status_potong' => 'proses potong']);
-        // $selesai = Potong::whereDate('tanggal_selesai', date('Y-m-d'))->where('status', 'potong masuk')->update(['status_potong' => 'selesai']);
-        $selesai = Potong::whereNotNull('tanggal_cutting')->whereNotNull('tanggal_selesai')->update(['status_potong' => 'selesai']);
+        $selesai = Potong::whereDate('tanggal_selesai', date('Y-m-d'))->where('status', 'potong masuk')->update(['status_potong' => 'butuh konfirmasi']);
+        // $selesai = Potong::whereNotNull('tanggal_cutting')->whereNotNull('tanggal_selesai')->update(['status_potong' => 'butuh konfirmasi']);
         $bahan = Bahan::doesntHave('potong')->where('status', 'bahan keluar')->get();
         $masuk = Potong::where('status', 'potong masuk')->orderBy('created_at', 'DESC')->get();
+        
         $selesai = Potong::where('status', 'potong selesai')->orderBy('created_at', 'DESC')->get();
         $keluar = Potong::where('status', 'potong keluar')->where('status_potong', 'selesai')->orderBy('created_at', 'DESC')->get();;
         $datakeluar = Potong::where('status', 'potong keluar')->where('status_potong', 'selesai')->orderBy('created_at', 'DESC')->get();

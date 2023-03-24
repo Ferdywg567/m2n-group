@@ -60,11 +60,17 @@
                                     <td>{{$item->finishing->cuci->jahit->potong->bahan->nama_bahan}}</td>
                                     <td>{{$total}}</td>
 
-                                    @if ($item->detail_warehouse->min('harga') == $item->detail_warehouse->max('harga'))
-                                    <td>@rupiah($item->detail_warehouse->max('harga'))/pcs</td>
-                                    @else
-                                    <td>@rupiah($item->detail_warehouse->min('harga')) - @rupiah($item->detail_warehouse->max('harga'))/pcs</td>
-                                    @endif
+                                            @if(intval($item->detail_warehouse->min('harga')) == 0 and intval($item->detail_warehouse->max('harga')) == 0)
+                                                <td>
+                                                    <span class="badge badge-warning text-dark">Harga belum diatur</span>
+                                                </td>
+                                            @else
+                                                @if ($item->detail_warehouse->min('harga') == $item->detail_warehouse->max('harga'))
+                                                    <td>@rupiah($item->detail_warehouse->max('harga'))/pcs</td>
+                                                @else
+                                                    <td>@rupiah($item->detail_warehouse->min('harga')) - @rupiah($item->detail_warehouse->max('harga'))/pcs</td>
+                                                @endif
+                                            @endif
 
 
                                     <td>

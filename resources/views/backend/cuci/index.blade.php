@@ -52,90 +52,102 @@
                 <div class="col-md-12">
                     <div class="card">
 
-                        <div class="card-body">
-                            <div class="ml-2">
-                                <nav>
-                                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                        <a class="nav-item nav-link active" id="nav-masuk-tab" data-toggle="tab"
-                                            href="#nav-masuk" role="tab" aria-controls="nav-masuk"
-                                            aria-selected="true">Cucian Masuk</a>
-                                        <a class="nav-item nav-link" id="nav-selesai-tab" data-toggle="tab"
-                                            href="#nav-selesai" role="tab" aria-controls="nav-selesai"
-                                            aria-selected="false">Cucian Selesai</a>
-                                        <a class="nav-item nav-link" id="nav-keluar-tab" data-toggle="tab"
-                                            href="#nav-keluar" role="tab" aria-controls="nav-keluar"
-                                            aria-selected="false">Cucian Keluar</a>
-                                    </div>
-                                </nav>
-                            </div>
-                            <div class="tab-content ml-2 mr-2" id="nav-tabContent">
-                                <div class="tab-pane fade show active" id="nav-masuk" role="tabpanel"
-                                    aria-labelledby="nav-masuk-tab">
-                                    <table class="table table-hover" id="tabelmasuk">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">No</th>
-                                                <th scope="col">Kode Transaksi</th>
-                                                <th scope="col">SKU</th>
-                                                <th scope="col">Tgl Cuci</th>
-                                                <th scope="col">Vendor Cuci</th>
-                                                <th scope="col">Cuci Sukses</th>
-                                                <th scope="col">Surat Jalan</th>
-                                                <th scope="col">Status</th>
-                                                <th scope="col">Pembayaran</th>
-                                                <th scope="col">Aksi</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="">
-                                            @forelse ($cuci as $item)
-                                            <tr>
-                                                <td>{{$loop->iteration}}</td>
-                                                <td>{{$item->jahit->potong->bahan->kode_transaksi}}</td>
-                                                <td>{{$item->jahit->potong->bahan->sku}}</td>
-                                                <td>{{$item->tanggal_cuci}}</td>
-                                                <td>{{$item->vendor}}</td>
-                                                <td>{{$item->berhasil_cuci}}</td>
-                                                <td>{{$item->no_surat}}</td>
-                                                <td>
-                                                    @php
-                                                    $status = strtoupper($item->status_cuci)
-                                                    @endphp
-                                                    @if ($item->status_cuci == 'belum cuci')
-                                                    <span class="badge badge-secondary text-dark">{{$status}}</span>
-                                                    @elseif ($item->status_cuci == 'selesai')
-                                                    <span class="badge badge-success text-dark">{{$status}}</span>
-                                                    @else
-                                                    <span class="badge badge-warning text-dark">{{$status}}</span>
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    @if ($item->vendor == 'eksternal')
-                                                    @if ($item->status_pembayaran == 'Lunas')
-                                                    <a href="{{route('pembayaran.index')}}">
-                                                        <span class="badge badge-success text-dark">{{
-                                                            $item->status_pembayaran}}</span>
-                                                    </a>
-                                                    @elseif($item->status_pembayaran == 'Belum Lunas' ||
-                                                    $item->status_pembayaran == 'Termin 1' || $item->status_pembayaran
-                                                    == 'Termin 2' || $item->status_pembayaran == 'Termin 3' )
-                                                    <a href="{{route('pembayaran.index')}}">
-                                                        <span
-                                                            class="badge badge-warning text-dark">{{$item->status_pembayaran}}</span>
-                                                    </a>
-                                                    @endif
-                                                    @else
-                                                    -
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    <div class="dropdown dropleft">
-                                                        <a class="" href="#" id="dropdownMenuButton"
-                                                            data-toggle="dropdown" aria-haspopup="true"
-                                                            aria-expanded="false">
-                                                            <i class="fa fa-ellipsis-h"></i>
-                                                        </a>
-                                                        <div class="dropdown-menu text-center"
-                                                            aria-labelledby="dropdownMenuButton">
+                            <div class="card-body">
+                                <div class="ml-2">
+                                    <nav>
+                                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                            <a class="nav-item nav-link active" id="nav-masuk-tab" data-toggle="tab"
+                                                href="#nav-masuk" role="tab" aria-controls="nav-masuk"
+                                                aria-selected="true">Cucian Masuk</a>
+                                            <a class="nav-item nav-link" id="nav-selesai-tab" data-toggle="tab"
+                                                href="#nav-selesai" role="tab" aria-controls="nav-selesai"
+                                                aria-selected="false">Cucian Selesai</a>
+                                            <a class="nav-item nav-link" id="nav-keluar-tab" data-toggle="tab"
+                                                href="#nav-keluar" role="tab" aria-controls="nav-keluar"
+                                                aria-selected="false">Cucian Keluar</a>
+                                        </div>
+                                    </nav>
+                                </div>
+                                <div class="tab-content ml-2 mr-2" id="nav-tabContent">
+                                    <div class="tab-pane fade show active" id="nav-masuk" role="tabpanel"
+                                        aria-labelledby="nav-masuk-tab">
+                                        <table class="table table-hover" id="tabelmasuk">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">No</th>
+                                                    <th scope="col">Kode Transaksi</th>
+                                                    <th scope="col">SKU</th>
+                                                    <th scope="col">Tgl Cuci</th>
+                                                    <th scope="col">Vendor Cuci</th>
+                                                    <th scope="col">Cuci Sukses</th>
+                                                    <th scope="col">Surat Jalan</th>
+                                                    <th scope="col">Status</th>
+                                                    <th scope="col">Pembayaran</th>
+                                                    <th scope="col">Aksi</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="">
+                                                @forelse ($cuci as $item)
+                                                    <tr>
+                                                        <td>{{ $loop->iteration }}</td>
+                                                        <td>{{ $item->jahit->potong->bahan->kode_transaksi }}</td>
+                                                        <td>{{ $item->jahit->potong->bahan->sku }}</td>
+                                                        <td>{{ $item->tanggal_cuci }}</td>
+                                                        <td>{{ $item->vendor }}</td>
+                                                        <td>{{ $item->berhasil_cuci }}</td>
+                                                        <td>{{ $item->no_surat }}</td>
+                                                        <td>
+                                                            @php
+                                                                $status = strtoupper($item->status_cuci);
+                                                            @endphp
+                                                            @if ($item->status_cuci == 'belum cuci')
+                                                                <span
+                                                                    class="badge badge-secondary text-dark">{{ $status }}</span>
+                                                            @elseif ($item->status_cuci == 'selesai')
+                                                                <span
+                                                                    class="badge badge-success text-dark">{{ $status }}</span>
+                                                            @else
+                                                                <span
+                                                                    class="badge badge-warning text-dark">{{ $status }}</span>
+                                                            @endif
+                                                        </td>
+                                                        <td>
+                                                            @if ($item->vendor == 'eksternal')
+                                                                @if ($item->status_pembayaran == 'Lunas')
+                                                                    <a href="{{ route('pembayaran.index') }}">
+                                                                        <span
+                                                                            class="badge badge-success text-dark">{{ $item->status_pembayaran }}</span>
+                                                                    </a>
+                                                                @elseif(
+                                                                    $item->status_pembayaran == 'Belum Lunas' ||
+                                                                        $item->status_pembayaran == 'Termin 1' ||
+                                                                        $item->status_pembayaran == 'Termin 2' ||
+                                                                        $item->status_pembayaran == 'Termin 3')
+                                                                    @if($item->status_pembayaran == 'Belum Lunas')
+                                                                        <a href="{{ route('pembayaran.create') }}?status=cuci&item={{$item->id}}">
+                                                                            <span
+                                                                                class="badge badge-warning text-dark">{{ $item->status_pembayaran }}</span>
+                                                                        </a>
+                                                                    @else
+                                                                        <a href="{{ route('pembayaran.edit', $item->pembayaran_cuci[0]) }}?status=jahit&item={{$item->id}}">
+                                                                            <span
+                                                                                class="badge badge-warning text-dark">{{ $item->status_pembayaran }}</span>
+                                                                        </a>
+                                                                    @endif
+                                                                @endif
+                                                            @else
+                                                                -
+                                                            @endif
+                                                        </td>
+                                                        <td>
+                                                            <div class="dropdown dropleft">
+                                                                <a class="" href="#" id="dropdownMenuButton"
+                                                                    data-toggle="dropdown" aria-haspopup="true"
+                                                                    aria-expanded="false">
+                                                                    <i class="fa fa-ellipsis-h"></i>
+                                                                </a>
+                                                                <div class="dropdown-menu text-center"
+                                                                    aria-labelledby="dropdownMenuButton">
 
                                                             <a class="dropdown-item"
                                                                 href="{{route('cuci.show',[$item->id])}}"><i
@@ -151,20 +163,22 @@
                                                                     class="ri-edit-fill"></i>
                                                                 Edit</a>
 
-                                                            <a class="dropdown-item hapus" data-id="{{$item->id}}"
-                                                                href="#"><i class="ri-delete-bin-fill"></i>
-                                                                Hapus</a>
-                                                            @if ($item->status_cuci == 'selesai')
-                                                            <a class="dropdown-item" data-id="{{$item->id}}"
-                                                                href="{{route('cuci.getselesai',[$item->id])}}"><i
-                                                                    class="ri-arrow-right-circle-line"></i>
-                                                                Selesai</a>
-                                                            @endif
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            @empty
+                                                                    <a class="dropdown-item hapus"
+                                                                        data-id="{{ $item->id }}" href="#"><i
+                                                                            class="ri-delete-bin-fill"></i>
+                                                                        Hapus</a>
+                                                                    @if ($item->status_cuci == 'butuh konfirmasi')
+                                                                        <a class="dropdown-item"
+                                                                            data-id="{{ $item->id }}"
+                                                                            href="{{ route('cuci.getselesai', [$item->id]) }}"><i
+                                                                                class="ri-arrow-right-circle-line"></i>
+                                                                            Selesai</a>
+                                                                    @endif
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                @empty
 
                                             @endforelse
 

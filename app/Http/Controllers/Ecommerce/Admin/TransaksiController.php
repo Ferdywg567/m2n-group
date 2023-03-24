@@ -97,6 +97,16 @@ class TransaksiController extends Controller
                                 $detailProduk = DetailProduk::findOrFail($row->id);
                                 $detailProduk->jumlah = $detailProduk->jumlah - $value->jumlah;
                                 $detailProduk->save();
+
+                                //didan - deduct jumlah barang from warehouse detail
+                                $warehouse = $detailProduk->produk->warehouse;
+                                foreach($warehouse->detail_warehouse as $d){
+                                    if($d->ukuran == $value['ukuran']){
+                                        $d->jumlah = $d->jumlah - $value['qty'];
+                                        $d->save();
+                                    }
+                                }
+                                //end deduct jumlah barang from warehouse detail
                             }
                             $produk->save();
                         }
