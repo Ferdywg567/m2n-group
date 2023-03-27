@@ -16,6 +16,9 @@ class LandingPageController extends Controller
      */
     public function index()
     {
+        if(!auth()->user()->hasRole('ecommerce')){
+            return redirect()->to('/garment/login');
+        };
         $limit = Produk::limit(4)->get();
         $banner = Banner::where('status_banner', 'Slider Utama')->where('status', 'Aktif')->get();
         $promo = Banner::where('status_banner', 'Promo Tambahan')->where('status', 'Aktif')->get();

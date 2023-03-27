@@ -166,13 +166,14 @@ class WarehouseController extends Controller
 
 
                 if($request->has('harga_seri')){
+                    $harga_seri = str_replace(".", "", $request->get('harga_seri'));
                     DetailWarehouse::where('warehouse_id', $warehouse->id)->whereIn('ukuran',$target)->update([
-                        'harga' => $request->get('harga_seri')
+                        'harga' => $harga_seri
                     ]);
 
                     if($produk){
                         DetailProduk::where('produk_id', $produk->id)->whereIn('ukuran',$target)->update([
-                            'harga' => $request->get('harga_seri')
+                            'harga' => $harga_seri
                         ]);
                     }
                 }
