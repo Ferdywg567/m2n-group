@@ -1,28 +1,22 @@
--- MySQL dump 10.13  Distrib 8.0.29, for Linux (x86_64)
---
--- Host: localhost    Database: garmen
--- ------------------------------------------------------
--- Server version	8.0.29-0ubuntu0.20.04.3
+-- --------------------------------------------------------
+-- Host:                         127.0.0.1
+-- Server version:               8.0.30 - MySQL Community Server - GPL
+-- Server OS:                    Win64
+-- HeidiSQL Version:             12.1.0.6537
+-- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
 /*!50503 SET NAMES utf8mb4 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
---
--- Table structure for table `alamats`
---
-
+-- Dumping structure for table garmen.alamats
 DROP TABLE IF EXISTS `alamats`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `alamats` (
+CREATE TABLE IF NOT EXISTS `alamats` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `user_id` bigint unsigned DEFAULT NULL,
   `nama_penerima` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -42,27 +36,15 @@ CREATE TABLE `alamats` (
   PRIMARY KEY (`id`),
   KEY `alamats_user_id_index` (`user_id`),
   CONSTRAINT `alamats_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `alamats`
---
+-- Dumping data for table garmen.alamats: ~1 rows (approximately)
+REPLACE INTO `alamats` (`id`, `user_id`, `nama_penerima`, `no_telp`, `jenis_alamat`, `alamat_detail`, `provinsi`, `provinsi_id`, `kecamatan_id`, `kota_id`, `kota`, `kecamatan`, `kode_pos`, `status`, `created_at`, `updated_at`) VALUES
+	(1, 5, 'Ferdy', '087857600717', 'Kantor', 'Jalan Nginden Semolo no 69', 'Jawa Timur', '11', '6136', '444', 'Surabaya', 'Gayungan', '60118', 'Utama', '2023-03-13 08:05:31', '2023-03-13 08:05:31');
 
-LOCK TABLES `alamats` WRITE;
-/*!40000 ALTER TABLE `alamats` DISABLE KEYS */;
-INSERT INTO `alamats` VALUES (1,6,'tes','0812919283','Rumah','tes 123','Jawa Timur','11','6155','444','Surabaya','Tambaksari','60267','Utama','2022-09-05 12:40:39','2022-09-05 12:40:39'),(2,5,'Ryan Ardito','081282828828','Rumah','Jl. Ir. Soekarno 45','Bali','1','258','17','Badung','Abiansemal','61257','Utama','2022-09-05 13:11:35','2022-09-05 13:11:35'),(3,7,'Aziz Muslim','083894267082','Rumah','Jl. Asirot No. 26','DKI Jakarta','6','2090','151','Jakarta Barat','Kebon Jeruk','11560','Utama','2022-12-22 18:59:39','2022-12-22 18:59:39');
-/*!40000 ALTER TABLE `alamats` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `bahans`
---
-
+-- Dumping structure for table garmen.bahans
 DROP TABLE IF EXISTS `bahans`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `bahans` (
+CREATE TABLE IF NOT EXISTS `bahans` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `detail_sub_kategori_id` bigint unsigned DEFAULT NULL,
   `kode_transaksi` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -79,32 +61,35 @@ CREATE TABLE `bahans` (
   `tanggal_masuk` date DEFAULT NULL,
   `tanggal_keluar` date DEFAULT NULL,
   `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `bahans_detail_sub_kategori_id_index` (`detail_sub_kategori_id`),
   CONSTRAINT `bahans_detail_sub_kategori_id_foreign` FOREIGN KEY (`detail_sub_kategori_id`) REFERENCES `detail_sub_kategoris` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `bahans`
---
+-- Dumping data for table garmen.bahans: ~15 rows (approximately)
+REPLACE INTO `bahans` (`id`, `detail_sub_kategori_id`, `kode_transaksi`, `kode_bahan`, `no_surat`, `sku`, `nama_bahan`, `jenis_bahan`, `warna`, `panjang_bahan`, `panjang_bahan_diambil`, `sisa_bahan`, `vendor`, `tanggal_masuk`, `tanggal_keluar`, `status`, `deleted_at`, `created_at`, `updated_at`) VALUES
+	(1, NULL, NULL, 'BHN-0001', 'SJL-0001', NULL, 'kaos Polos', 'Cotton Combed 100s', 'Hitam', 100, NULL, NULL, 'PT Sumeh Jaya Corp', '2023-03-08', NULL, 'bahan keluar', NULL, '2023-03-08 08:35:38', '2023-03-08 08:39:39'),
+	(2, 1, 'TR-2023-03-08-0001', 'BHN-0001', 'SJL-0002', 'SKU001/1/1', 'kaos Polos', 'Cotton Combed 100s', 'Hitam', 100, 50, NULL, 'PT Sumeh Jaya Corp', '2023-03-08', '2023-03-08', 'bahan keluar', NULL, '2023-03-08 08:39:39', '2023-03-09 06:40:13'),
+	(3, NULL, NULL, 'BHN-0002', 'SJL-0003', NULL, 'Kemeja Flanel', 'Flanel', 'Hitam', 100, NULL, NULL, 'PT Sumeh Jaya Corp', '2023-03-09', NULL, 'bahan keluar', NULL, '2023-03-09 06:28:25', '2023-03-09 06:29:33'),
+	(4, 1, 'TR-2023-03-09-0001', 'BHN-0002', 'SJL-0004', 'SKU001/1/1', 'Kemeja Flanel', 'Flanel', 'Hitam', 100, 20, NULL, 'PT Sumeh Jaya Corp', '2023-03-09', '2023-03-09', 'bahan keluar', NULL, '2023-03-09 06:29:33', '2023-03-10 04:17:28'),
+	(5, 1, 'TR-2023-03-09-0002', 'BHN-0001', 'SJL-0005', 'SKU001/1/1', 'kaos Polos', 'Cotton Combed 100s', 'Hitam', 50, 40, NULL, 'PT Sumeh Jaya Corp', '2023-03-08', '2023-03-09', 'bahan keluar', NULL, '2023-03-09 06:40:13', '2023-03-10 08:07:44'),
+	(6, 2, 'TR-2023-03-10-0001', 'BHN-0002', 'SJL-0006', 'SKU002/2/2', 'Kemeja Flanel', 'Flanel', 'Hitam', 80, 20, NULL, 'PT Sumeh Jaya Corp', '2023-03-09', '2023-03-10', 'bahan keluar', NULL, '2023-03-10 04:17:28', '2023-03-10 04:24:35'),
+	(7, 2, 'TR-2023-03-10-0002', 'BHN-0002', 'SJL-0007', 'SKU002/2/2', 'Kemeja Flanel', 'Flanel', 'Hitam', 60, 30, NULL, 'PT Sumeh Jaya Corp', '2023-03-09', '2023-03-10', 'bahan keluar', NULL, '2023-03-10 04:24:35', '2023-03-10 06:30:10'),
+	(8, 1, 'TR-2023-03-10-0003', 'BHN-0002', 'SJL-0008', 'SKU001/1/1', 'Kemeja Flanel', 'Flanel', 'Hitam', 30, 30, 0, 'PT Sumeh Jaya Corp', '2023-03-09', '2023-03-10', 'bahan keluar', NULL, '2023-03-10 06:30:10', '2023-03-10 06:30:10'),
+	(9, 1, 'TR-2023-03-10-0004', 'BHN-0001', 'SJL-0009', 'SKU001/1/1', 'kaos Polos', 'Cotton Combed 100s', 'Hitam', 10, 10, 0, 'PT Sumeh Jaya Corp', '2023-03-08', '2023-03-10', 'bahan keluar', NULL, '2023-03-10 08:07:44', '2023-03-10 08:07:44'),
+	(10, NULL, NULL, 'BHN-0003', 'SJL-0010', NULL, 'Jeans', 'Denim', 'Navy', 10000, NULL, NULL, 'PT Sumeh Jaya Corp', '2023-03-09', NULL, 'bahan keluar', NULL, '2023-03-10 08:16:39', '2023-03-10 08:20:49'),
+	(11, 1, 'TR-2023-03-10-0005', 'BHN-0003', 'SJL-0011', 'SKU001/1/1', 'Jeans', 'Denim', 'Navy', 10000, 100, NULL, 'PT Sumeh Jaya Corp', '2023-03-09', '2023-03-10', 'bahan keluar', NULL, '2023-03-10 08:20:49', '2023-03-10 09:44:19'),
+	(12, 1, 'TR-2023-03-10-0006', 'BHN-0003', 'SJL-0012', 'SKU001/1/1', 'Jeans', 'Denim', 'Navy', 9900, 100, 9800, 'PT Sumeh Jaya Corp', '2023-03-09', '2023-03-10', 'bahan keluar', NULL, '2023-03-10 09:44:19', '2023-03-10 09:44:19'),
+	(13, NULL, NULL, 'BHN-0004', 'SJL-0015', NULL, 'Kemeja Batik', 'Batik', 'Brown', 1000, NULL, NULL, 'PT Sumeh Jaya Corp', '2023-03-13', NULL, 'bahan keluar', NULL, '2023-03-13 03:15:32', '2023-03-13 03:16:33'),
+	(14, 1, 'TR-2023-03-13-0001', 'BHN-0004', 'SJL-0016', 'SKU001/1/1', 'Kemeja Batik', 'Batik', 'Brown', 1000, 30, NULL, 'PT Sumeh Jaya Corp', '2023-03-13', '2023-03-13', 'bahan keluar', NULL, '2023-03-13 03:16:33', '2023-03-13 04:43:45'),
+	(15, 2, 'TR-2023-03-13-0002', 'BHN-0004', 'SJL-0017', 'SKU002/2/2', 'Kemeja Batik', 'Batik', 'Brown', 970, 30, 940, 'PT Sumeh Jaya Corp', '2023-03-13', '2023-03-13', 'bahan keluar', NULL, '2023-03-13 04:43:45', '2023-03-13 04:43:45');
 
-LOCK TABLES `bahans` WRITE;
-/*!40000 ALTER TABLE `bahans` DISABLE KEYS */;
-INSERT INTO `bahans` VALUES (1,NULL,NULL,'B01','SJ050920221057',NULL,'Kaos Polos','Cotton Combed 24s','Hitam',25,NULL,NULL,'Triple A','2022-09-05',NULL,'bahan keluar','2022-09-05 10:58:22','2022-09-05 10:58:58'),(3,NULL,NULL,'B02','SJ050920221105',NULL,'Kemeja lengan panjang','Satin','Putih',50,NULL,NULL,'Triple A','2022-09-05',NULL,'bahan keluar','2022-09-05 11:05:36','2022-09-05 11:06:44'),(8,NULL,NULL,'Test 1','M2N/SJ/2022/001',NULL,'Test 1','Cotton Combed 20s','Hitam',50,NULL,NULL,'Vendor A','2022-12-16',NULL,'bahan keluar','2022-12-18 18:59:16','2022-12-18 19:03:52'),(9,NULL,NULL,'Test 2','PUSH/SJ/XII/2022/001',NULL,'Test 2','Cotton Combed 28s','Merah',70,NULL,NULL,'Vendor A','2022-12-16',NULL,'bahan keluar','2022-12-18 19:01:02','2022-12-18 19:05:45'),(10,9,'TR-2022-12-18-0001','Test 1','M2N/BK/XII/2022/001','001/1/1','Test 1','Cotton Combed 20s','Hitam',50,25,25,'Vendor A','2022-12-16','2022-12-18','bahan keluar','2022-12-18 19:03:52','2022-12-18 19:03:52'),(11,10,'TR-2022-12-18-0002','Test 2','PUSH/BHK/XII/2022/001','001/1/2','Test 2','Cotton Combed 28s','Merah',70,50,20,'Vendor A','2022-12-16','2022-12-18','bahan keluar','2022-12-18 19:05:45','2022-12-18 19:05:45'),(12,NULL,NULL,'Test 3','M2N/SJ/2022/002',NULL,'Test 3','Cotton Combed 30s','Merah',100,NULL,NULL,'Vendor B','2022-12-22',NULL,'bahan keluar','2022-12-22 16:16:22','2022-12-22 16:19:30'),(13,NULL,NULL,'Test 4','PUSH/SJ/XII/2022/002',NULL,'Test 4','Cotton Combed 30s','Putih',100,NULL,NULL,'Vendor B','2022-12-22',NULL,'bahan keluar','2022-12-22 16:17:09','2022-12-22 16:19:56'),(14,11,'TR-2022-12-22-0001','Test 3','M2N/BK/XII/2022/002','001/2/1','Test 3','Cotton Combed 30s','Merah',100,90,10,'Vendor B','2022-12-22','2022-12-22','bahan keluar','2022-12-22 16:19:30','2022-12-22 16:19:30'),(15,12,'TR-2022-12-22-0002','Test 4','PUSH/BHK/XII/2022/002','001/2/2','Test 4','Cotton Combed 30s','Putih',100,90,10,'Vendor B','2022-12-22','2022-12-22','bahan keluar','2022-12-22 16:19:56','2022-12-22 16:19:56');
-/*!40000 ALTER TABLE `bahans` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `banks`
---
-
+-- Dumping structure for table garmen.banks
 DROP TABLE IF EXISTS `banks`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `banks` (
+CREATE TABLE IF NOT EXISTS `banks` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `nama_bank` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `nomor_rekening` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -114,26 +99,14 @@ CREATE TABLE `banks` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `banks`
---
+-- Dumping data for table garmen.banks: ~1 rows (approximately)
+REPLACE INTO `banks` (`id`, `nama_bank`, `nomor_rekening`, `nama_penerima`, `logo`, `created_at`, `updated_at`) VALUES
+	(1, 'BCA', '5156562627', 'M2N', '166235818520117.png', '2022-09-05 06:09:45', '2022-09-05 06:09:45');
 
-LOCK TABLES `banks` WRITE;
-/*!40000 ALTER TABLE `banks` DISABLE KEYS */;
-INSERT INTO `banks` VALUES (1,'BCA','5156562627','M2N','166235818520117.png','2022-09-05 13:09:45','2022-09-05 13:09:45');
-/*!40000 ALTER TABLE `banks` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `banners`
---
-
+-- Dumping structure for table garmen.banners
 DROP TABLE IF EXISTS `banners`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `banners` (
+CREATE TABLE IF NOT EXISTS `banners` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `nama` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -145,86 +118,13 @@ CREATE TABLE `banners` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `banners`
---
+-- Dumping data for table garmen.banners: ~0 rows (approximately)
 
-LOCK TABLES `banners` WRITE;
-/*!40000 ALTER TABLE `banners` DISABLE KEYS */;
-/*!40000 ALTER TABLE `banners` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `cuci_dibuangs`
---
-
-DROP TABLE IF EXISTS `cuci_dibuangs`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `cuci_dibuangs` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `cuci_id` bigint unsigned DEFAULT NULL,
-  `ukuran` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `jumlah` int NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `cuci_dibuangs_cuci_id_index` (`cuci_id`),
-  CONSTRAINT `cuci_dibuangs_cuci_id_foreign` FOREIGN KEY (`cuci_id`) REFERENCES `cucis` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `cuci_dibuangs`
---
-
-LOCK TABLES `cuci_dibuangs` WRITE;
-/*!40000 ALTER TABLE `cuci_dibuangs` DISABLE KEYS */;
-INSERT INTO `cuci_dibuangs` VALUES (1,9,'S',1,'2022-12-22 16:34:08','2022-12-22 16:34:08');
-/*!40000 ALTER TABLE `cuci_dibuangs` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `cuci_direpairs`
---
-
-DROP TABLE IF EXISTS `cuci_direpairs`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `cuci_direpairs` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `cuci_id` bigint unsigned DEFAULT NULL,
-  `ukuran` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `jumlah` int NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `cuci_direpairs_cuci_id_index` (`cuci_id`),
-  CONSTRAINT `cuci_direpairs_cuci_id_foreign` FOREIGN KEY (`cuci_id`) REFERENCES `cucis` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `cuci_direpairs`
---
-
-LOCK TABLES `cuci_direpairs` WRITE;
-/*!40000 ALTER TABLE `cuci_direpairs` DISABLE KEYS */;
-INSERT INTO `cuci_direpairs` VALUES (1,6,'S',1,'2022-12-18 19:19:23','2022-12-18 19:19:23'),(2,7,'L',1,'2022-12-18 19:20:36','2022-12-18 19:20:36'),(3,8,'S',1,'2022-12-22 16:34:46','2022-12-22 16:34:46');
-/*!40000 ALTER TABLE `cuci_direpairs` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `cucis`
---
-
+-- Dumping structure for table garmen.cucis
 DROP TABLE IF EXISTS `cucis`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `cucis` (
+CREATE TABLE IF NOT EXISTS `cucis` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `jahit_id` bigint unsigned DEFAULT NULL,
   `no_surat` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -251,122 +151,180 @@ CREATE TABLE `cucis` (
   `total_harga` int DEFAULT NULL,
   `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `status_cuci` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `cucis_jahit_id_index` (`jahit_id`),
   CONSTRAINT `cucis_jahit_id_foreign` FOREIGN KEY (`jahit_id`) REFERENCES `jahits` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `cucis`
---
+-- Dumping data for table garmen.cucis: ~8 rows (approximately)
+REPLACE INTO `cucis` (`id`, `jahit_id`, `no_surat`, `tanggal_masuk`, `tanggal_cuci`, `tanggal_selesai`, `tanggal_keluar`, `kain_siap_cuci`, `vendor`, `nama_vendor`, `status_pembayaran`, `harga_vendor`, `berhasil_cuci`, `konversi`, `gagal_cuci`, `barang_direpair`, `barang_dibuang`, `barang_akan_direpair`, `barang_akan_dibuang`, `keterangan_direpair`, `keterangan_dibuang`, `total_bayar`, `sisa_bayar`, `total_harga`, `status`, `status_cuci`, `deleted_at`, `created_at`, `updated_at`) VALUES
+	(2, 1, 'SJL-0002', NULL, '1970-01-01', '1970-01-01', '2023-03-09', 40, 'eksternal', 'Sumeh Laundry', 'Lunas', 5000.00, 30, NULL, 10, 5, 5, NULL, NULL, 'diperbaiki laundry', 'dibuang laundry', 25000, 0, 200000, 'cucian keluar', 'selesai', NULL, '2023-03-09 04:03:09', '2023-03-13 03:54:52'),
+	(3, 2, 'SJL-0004', NULL, '1970-01-01', '1970-01-01', '2023-03-09', 30, 'eksternal', 'Sumeh Laundry', 'Lunas', 5000.00, 30, NULL, 0, 0, 0, NULL, NULL, NULL, NULL, 20000, 0, 150000, 'cucian keluar', 'selesai', NULL, '2023-03-09 06:38:13', '2023-03-13 03:54:52'),
+	(4, 2, 'SJL-0004', NULL, '1970-01-01', '1970-01-01', '2023-03-10', 30, 'eksternal', 'Sumeh Laundry', 'Lunas', 5000.00, 30, NULL, 0, 0, 0, NULL, NULL, '-', '-', 20000, 0, 150000, 'cucian keluar', 'selesai', NULL, '2023-03-10 04:01:12', '2023-03-13 03:54:52'),
+	(5, 3, 'SJL-0005', NULL, '1970-01-01', '1970-01-01', NULL, 30, 'eksternal', 'Sumeh Laundry', 'Lunas', 10000.00, NULL, '2 Lusin 6 pcs', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 30000, 0, 30000, 'cucian masuk', 'butuh konfirmasi', NULL, '2023-03-10 04:09:28', '2023-03-13 07:05:00'),
+	(6, 5, 'SJL-0007', NULL, '1970-01-01', '1970-01-01', '2023-03-13', 60, 'eksternal', 'Sumeh Laundry', 'Lunas', 12000.00, 60, NULL, 0, 0, 0, NULL, NULL, '-', '-', 60000, 0, 60000, 'cucian keluar', 'selesai', NULL, '2023-03-10 04:36:44', '2023-03-13 03:54:52'),
+	(7, 10, 'SJL-0016', NULL, '1970-01-01', '1970-01-01', '2023-03-13', 55, 'eksternal', 'Sumeh Laundry', 'Lunas', 10000.00, 55, NULL, 0, 0, 0, NULL, NULL, '-', '-', 50000, 0, 50000, 'cucian keluar', 'butuh konfirmasi', NULL, '2023-03-13 03:41:46', '2023-03-13 03:54:52'),
+	(8, 9, 'SJL-0012', NULL, '2023-03-12', '2023-03-13', NULL, 96, 'eksternal', 'Rara Laundry', 'Belum Lunas', 9000.00, NULL, '8 Lusin 0 pcs', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 72000, 72000, 'cucian masuk', 'butuh konfirmasi', NULL, '2023-03-13 06:47:45', '2023-03-13 07:05:00'),
+	(9, 11, 'SJL-0017', NULL, '1970-01-01', '1970-01-01', NULL, 49, 'eksternal', 'rara laundry', 'Belum Lunas', 9000.00, NULL, '4 Lusin 1 pcs', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 45000, 45000, 'cucian masuk', 'butuh konfirmasi', NULL, '2023-03-13 06:53:33', '2023-03-13 07:05:00');
 
-LOCK TABLES `cucis` WRITE;
-/*!40000 ALTER TABLE `cucis` DISABLE KEYS */;
-INSERT INTO `cucis` VALUES (6,7,'PUSH/BHK/XII/2022/001',NULL,'1970-01-01','1970-01-01','2022-12-18',45,'eksternal','Vendor B','Belum Lunas',50000.00,44,'3 Lusin 8 pcs',1,1,0,NULL,NULL,'Dicuci ulang',NULL,0,2250000,2250000,'cucian keluar','selesai','2022-12-18 19:14:17','2022-12-23 09:11:52'),(7,6,'M2N/BK/XII/2022/001',NULL,'1970-01-01','1970-01-01','2022-12-18',24,'eksternal','Vendor A','Termin 1',50000.00,23,'1 Lusin 11 pcs',1,1,0,NULL,NULL,'- Pudar. Solusi:  Dicuci ulang',NULL,200000,-200000,1200000,'cucian keluar','selesai','2022-12-18 19:14:24','2022-12-23 09:11:52'),(8,9,'PUSH/BHK/XII/2022/002',NULL,'1970-01-01','1970-01-01','2022-12-22',76,'eksternal','Vendor B','Belum Lunas',20000.00,75,NULL,1,1,0,NULL,NULL,'Cuci Ulang',NULL,0,1520000,1520000,'cucian keluar','selesai','2022-12-22 16:31:59','2022-12-23 09:11:52'),(9,8,'M2N/BK/XII/2022/002',NULL,'1970-01-01','1970-01-01','2022-12-22',77,'eksternal','Vendor A','Belum Lunas',20000.00,76,NULL,1,0,1,NULL,NULL,NULL,'Cucian luntur',0,1540000,1540000,'cucian keluar','selesai','2022-12-22 16:32:09','2022-12-23 09:11:52');
-/*!40000 ALTER TABLE `cucis` ENABLE KEYS */;
-UNLOCK TABLES;
+-- Dumping structure for table garmen.cuci_dibuangs
+DROP TABLE IF EXISTS `cuci_dibuangs`;
+CREATE TABLE IF NOT EXISTS `cuci_dibuangs` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `cuci_id` bigint unsigned DEFAULT NULL,
+  `ukuran` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `jumlah` int NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `cuci_dibuangs_cuci_id_index` (`cuci_id`),
+  CONSTRAINT `cuci_dibuangs_cuci_id_foreign` FOREIGN KEY (`cuci_id`) REFERENCES `cucis` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Table structure for table `detail_cucis`
---
+-- Dumping data for table garmen.cuci_dibuangs: ~1 rows (approximately)
+REPLACE INTO `cuci_dibuangs` (`id`, `cuci_id`, `ukuran`, `jumlah`, `deleted_at`, `created_at`, `updated_at`) VALUES
+	(1, 2, 'M', 5, NULL, '2023-03-09 04:07:08', '2023-03-09 04:07:08');
 
+-- Dumping structure for table garmen.cuci_direpairs
+DROP TABLE IF EXISTS `cuci_direpairs`;
+CREATE TABLE IF NOT EXISTS `cuci_direpairs` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `cuci_id` bigint unsigned DEFAULT NULL,
+  `ukuran` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `jumlah` int NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `cuci_direpairs_cuci_id_index` (`cuci_id`),
+  CONSTRAINT `cuci_direpairs_cuci_id_foreign` FOREIGN KEY (`cuci_id`) REFERENCES `cucis` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table garmen.cuci_direpairs: ~1 rows (approximately)
+REPLACE INTO `cuci_direpairs` (`id`, `cuci_id`, `ukuran`, `jumlah`, `deleted_at`, `created_at`, `updated_at`) VALUES
+	(1, 2, 'M', 5, NULL, '2023-03-09 04:07:08', '2023-03-09 04:07:08');
+
+-- Dumping structure for table garmen.detail_cucis
 DROP TABLE IF EXISTS `detail_cucis`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `detail_cucis` (
+CREATE TABLE IF NOT EXISTS `detail_cucis` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `cuci_id` bigint unsigned DEFAULT NULL,
   `size` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `jumlah` int NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `detail_cucis_cuci_id_index` (`cuci_id`),
   CONSTRAINT `detail_cucis_cuci_id_foreign` FOREIGN KEY (`cuci_id`) REFERENCES `cucis` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `detail_cucis`
---
+-- Dumping data for table garmen.detail_cucis: ~19 rows (approximately)
+REPLACE INTO `detail_cucis` (`id`, `cuci_id`, `size`, `jumlah`, `deleted_at`, `created_at`, `updated_at`) VALUES
+	(2, 2, 'M', 30, NULL, '2023-03-09 04:03:09', '2023-03-09 04:07:08'),
+	(3, 3, 'S', 20, NULL, '2023-03-09 06:38:13', '2023-03-09 06:38:13'),
+	(4, 3, 'M', 5, NULL, '2023-03-09 06:38:13', '2023-03-09 06:38:13'),
+	(5, 3, 'L', 5, NULL, '2023-03-09 06:38:13', '2023-03-09 06:38:13'),
+	(6, 4, 'S', 20, NULL, '2023-03-10 04:01:12', '2023-03-10 04:01:12'),
+	(7, 4, 'M', 5, NULL, '2023-03-10 04:01:12', '2023-03-10 04:01:12'),
+	(8, 4, 'L', 5, NULL, '2023-03-10 04:01:12', '2023-03-10 04:01:12'),
+	(9, 5, 'S', 5, NULL, '2023-03-10 04:09:28', '2023-03-10 04:09:28'),
+	(10, 5, 'M', 15, NULL, '2023-03-10 04:09:28', '2023-03-10 04:09:28'),
+	(11, 5, 'L', 10, NULL, '2023-03-10 04:09:28', '2023-03-10 04:09:28'),
+	(12, 6, 'S', 20, NULL, '2023-03-10 04:36:44', '2023-03-10 04:36:44'),
+	(13, 6, 'M', 20, NULL, '2023-03-10 04:36:44', '2023-03-10 04:36:44'),
+	(14, 6, 'L', 20, NULL, '2023-03-10 04:36:44', '2023-03-10 04:36:44'),
+	(15, 7, 'S', 16, NULL, '2023-03-13 03:41:46', '2023-03-13 03:41:46'),
+	(16, 7, 'M', 19, NULL, '2023-03-13 03:41:46', '2023-03-13 03:41:46'),
+	(17, 7, 'L', 20, NULL, '2023-03-13 03:41:46', '2023-03-13 03:41:46'),
+	(18, 8, 'L', 46, NULL, '2023-03-13 06:47:45', '2023-03-13 06:47:45'),
+	(19, 8, 'M', 50, NULL, '2023-03-13 06:47:45', '2023-03-13 06:47:45'),
+	(20, 9, 'S', 49, NULL, '2023-03-13 06:53:33', '2023-03-13 06:53:33');
 
-LOCK TABLES `detail_cucis` WRITE;
-/*!40000 ALTER TABLE `detail_cucis` DISABLE KEYS */;
-INSERT INTO `detail_cucis` VALUES (16,6,'S',7,'2022-12-18 19:14:17','2022-12-18 19:19:23'),(17,6,'M',8,'2022-12-18 19:14:17','2022-12-18 19:14:17'),(18,6,'L',9,'2022-12-18 19:14:17','2022-12-18 19:14:17'),(19,6,'XL',10,'2022-12-18 19:14:17','2022-12-18 19:14:17'),(20,6,'XXL',10,'2022-12-18 19:14:17','2022-12-18 19:14:17'),(21,7,'S',4,'2022-12-18 19:14:24','2022-12-18 19:14:24'),(22,7,'M',5,'2022-12-18 19:14:24','2022-12-18 19:14:24'),(23,7,'L',4,'2022-12-18 19:14:24','2022-12-18 19:20:36'),(24,7,'XL',5,'2022-12-18 19:14:24','2022-12-18 19:14:24'),(25,7,'XXL',5,'2022-12-18 19:14:24','2022-12-18 19:14:24'),(26,8,'S',4,'2022-12-22 16:31:59','2022-12-22 16:34:46'),(27,8,'M',5,'2022-12-22 16:31:59','2022-12-22 16:31:59'),(28,8,'L',6,'2022-12-22 16:31:59','2022-12-22 16:31:59'),(29,8,'3',6,'2022-12-22 16:31:59','2022-12-22 16:31:59'),(30,8,'4',6,'2022-12-22 16:31:59','2022-12-22 16:31:59'),(31,8,'5',6,'2022-12-22 16:31:59','2022-12-22 16:31:59'),(32,8,'6',6,'2022-12-22 16:31:59','2022-12-22 16:31:59'),(33,8,'7',6,'2022-12-22 16:31:59','2022-12-22 16:31:59'),(34,8,'8',6,'2022-12-22 16:31:59','2022-12-22 16:31:59'),(35,8,'9',6,'2022-12-22 16:31:59','2022-12-22 16:31:59'),(36,8,'10',6,'2022-12-22 16:31:59','2022-12-22 16:31:59'),(37,8,'11',6,'2022-12-22 16:31:59','2022-12-22 16:31:59'),(38,8,'12',6,'2022-12-22 16:31:59','2022-12-22 16:31:59'),(39,9,'S',4,'2022-12-22 16:32:09','2022-12-22 16:34:08'),(40,9,'M',6,'2022-12-22 16:32:09','2022-12-22 16:32:09'),(41,9,'L',6,'2022-12-22 16:32:09','2022-12-22 16:32:09'),(42,9,'3',6,'2022-12-22 16:32:09','2022-12-22 16:32:09'),(43,9,'4',6,'2022-12-22 16:32:09','2022-12-22 16:32:09'),(44,9,'5',6,'2022-12-22 16:32:09','2022-12-22 16:32:09'),(45,9,'6',6,'2022-12-22 16:32:09','2022-12-22 16:32:09'),(46,9,'7',6,'2022-12-22 16:32:09','2022-12-22 16:32:09'),(47,9,'8',6,'2022-12-22 16:32:09','2022-12-22 16:32:09'),(48,9,'9',6,'2022-12-22 16:32:09','2022-12-22 16:32:09'),(49,9,'10',6,'2022-12-22 16:32:09','2022-12-22 16:32:09'),(50,9,'11',6,'2022-12-22 16:32:09','2022-12-22 16:32:09'),(51,9,'12',6,'2022-12-22 16:32:09','2022-12-22 16:32:09');
-/*!40000 ALTER TABLE `detail_cucis` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `detail_finishings`
---
-
+-- Dumping structure for table garmen.detail_finishings
 DROP TABLE IF EXISTS `detail_finishings`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `detail_finishings` (
+CREATE TABLE IF NOT EXISTS `detail_finishings` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `finishing_id` bigint unsigned DEFAULT NULL,
   `ukuran` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `jumlah` int NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `detail_finishings_finishing_id_index` (`finishing_id`),
   CONSTRAINT `detail_finishings_finishing_id_foreign` FOREIGN KEY (`finishing_id`) REFERENCES `finishings` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=103 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `detail_finishings`
---
+-- Dumping data for table garmen.detail_finishings: ~20 rows (approximately)
+REPLACE INTO `detail_finishings` (`id`, `finishing_id`, `ukuran`, `jumlah`, `deleted_at`, `created_at`, `updated_at`) VALUES
+	(1, 1, 'M', 30, '2023-03-09 04:34:47', '2023-03-09 04:30:02', '2023-03-09 04:34:47'),
+	(2, 1, 'M', 29, NULL, '2023-03-09 04:34:47', '2023-03-09 04:34:47'),
+	(3, 2, 'S', 20, '2023-03-09 08:43:52', '2023-03-09 08:42:45', '2023-03-09 08:43:52'),
+	(4, 2, 'M', 5, '2023-03-09 08:43:52', '2023-03-09 08:42:45', '2023-03-09 08:43:52'),
+	(5, 2, 'L', 5, '2023-03-09 08:43:52', '2023-03-09 08:42:45', '2023-03-09 08:43:52'),
+	(6, 2, 'S', 10, NULL, '2023-03-09 08:43:52', '2023-03-09 08:43:52'),
+	(7, 2, 'M', 10, NULL, '2023-03-09 08:43:52', '2023-03-09 08:43:52'),
+	(8, 2, 'L', 10, NULL, '2023-03-09 08:43:52', '2023-03-09 08:43:52'),
+	(9, 3, 'S', 20, '2023-03-10 07:29:16', '2023-03-10 06:22:24', '2023-03-10 07:29:16'),
+	(10, 3, 'M', 5, '2023-03-10 07:29:16', '2023-03-10 06:22:24', '2023-03-10 07:29:16'),
+	(11, 3, 'L', 5, '2023-03-10 07:29:16', '2023-03-10 06:22:24', '2023-03-10 07:29:16'),
+	(12, 3, 'S', 10, NULL, '2023-03-10 07:29:16', '2023-03-10 07:29:16'),
+	(13, 3, 'M', 5, NULL, '2023-03-10 07:29:16', '2023-03-10 07:29:16'),
+	(14, 3, 'L', 10, NULL, '2023-03-10 07:29:16', '2023-03-10 07:29:16'),
+	(18, 5, 'S', 20, NULL, '2023-03-13 03:54:51', '2023-03-13 03:54:51'),
+	(19, 5, 'M', 20, NULL, '2023-03-13 03:54:51', '2023-03-13 03:54:51'),
+	(20, 5, 'L', 20, NULL, '2023-03-13 03:54:51', '2023-03-13 03:54:51'),
+	(24, 6, 'S', 20, NULL, '2023-03-27 03:18:58', '2023-03-27 03:18:58'),
+	(25, 6, 'M', 20, NULL, '2023-03-27 03:18:58', '2023-03-27 03:18:58'),
+	(26, 6, 'L', 15, NULL, '2023-03-27 03:18:58', '2023-03-27 03:18:58');
 
-LOCK TABLES `detail_finishings` WRITE;
-/*!40000 ALTER TABLE `detail_finishings` DISABLE KEYS */;
-INSERT INTO `detail_finishings` VALUES (41,7,'S',4,'2022-12-18 19:34:38','2022-12-18 19:34:38'),(42,7,'M',5,'2022-12-18 19:34:38','2022-12-18 19:34:38'),(43,7,'L',4,'2022-12-18 19:34:38','2022-12-18 19:34:38'),(44,7,'XL',5,'2022-12-18 19:34:38','2022-12-18 19:34:38'),(45,7,'XXL',5,'2022-12-18 19:34:38','2022-12-18 19:34:38'),(46,6,'S',7,'2022-12-18 19:37:14','2022-12-18 19:37:14'),(47,6,'M',8,'2022-12-18 19:37:14','2022-12-18 19:37:14'),(48,6,'L',9,'2022-12-18 19:37:14','2022-12-18 19:37:14'),(49,6,'XL',10,'2022-12-18 19:37:14','2022-12-18 19:37:14'),(50,6,'XXL',10,'2022-12-18 19:37:14','2022-12-18 19:37:14'),(77,9,'S',4,'2022-12-22 17:59:15','2022-12-22 17:59:15'),(78,9,'M',4,'2022-12-22 17:59:15','2022-12-22 17:59:15'),(79,9,'L',6,'2022-12-22 17:59:15','2022-12-22 17:59:15'),(80,9,'3',6,'2022-12-22 17:59:15','2022-12-22 17:59:15'),(81,9,'4',6,'2022-12-22 17:59:15','2022-12-22 17:59:15'),(82,9,'5',6,'2022-12-22 17:59:15','2022-12-22 17:59:15'),(83,9,'6',6,'2022-12-22 17:59:15','2022-12-22 17:59:15'),(84,9,'7',6,'2022-12-22 17:59:15','2022-12-22 17:59:15'),(85,9,'8',6,'2022-12-22 17:59:15','2022-12-22 17:59:15'),(86,9,'9',6,'2022-12-22 17:59:15','2022-12-22 17:59:15'),(87,9,'10',6,'2022-12-22 17:59:15','2022-12-22 17:59:15'),(88,9,'11',6,'2022-12-22 17:59:15','2022-12-22 17:59:15'),(89,9,'12',6,'2022-12-22 17:59:15','2022-12-22 17:59:15'),(90,8,'S',4,'2022-12-22 18:01:05','2022-12-22 18:01:05'),(91,8,'M',4,'2022-12-22 18:01:05','2022-12-22 18:01:05'),(92,8,'L',6,'2022-12-22 18:01:05','2022-12-22 18:01:05'),(93,8,'3',6,'2022-12-22 18:01:05','2022-12-22 18:01:05'),(94,8,'4',6,'2022-12-22 18:01:05','2022-12-22 18:01:05'),(95,8,'5',6,'2022-12-22 18:01:05','2022-12-22 18:01:05'),(96,8,'6',6,'2022-12-22 18:01:05','2022-12-22 18:01:05'),(97,8,'7',6,'2022-12-22 18:01:05','2022-12-22 18:01:05'),(98,8,'8',6,'2022-12-22 18:01:05','2022-12-22 18:01:05'),(99,8,'9',6,'2022-12-22 18:01:05','2022-12-22 18:01:05'),(100,8,'10',6,'2022-12-22 18:01:05','2022-12-22 18:01:05'),(101,8,'11',6,'2022-12-22 18:01:05','2022-12-22 18:01:05'),(102,8,'12',6,'2022-12-22 18:01:05','2022-12-22 18:01:05');
-/*!40000 ALTER TABLE `detail_finishings` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `detail_jahits`
---
-
+-- Dumping structure for table garmen.detail_jahits
 DROP TABLE IF EXISTS `detail_jahits`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `detail_jahits` (
+CREATE TABLE IF NOT EXISTS `detail_jahits` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `jahit_id` bigint unsigned DEFAULT NULL,
   `size` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `jumlah` int NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `detail_jahits_jahit_id_index` (`jahit_id`),
   CONSTRAINT `detail_jahits_jahit_id_foreign` FOREIGN KEY (`jahit_id`) REFERENCES `jahits` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `detail_jahits`
---
+-- Dumping data for table garmen.detail_jahits: ~21 rows (approximately)
+REPLACE INTO `detail_jahits` (`id`, `jahit_id`, `size`, `jumlah`, `deleted_at`, `created_at`, `updated_at`) VALUES
+	(1, 1, 'M', 40, NULL, '2023-03-08 09:11:47', '2023-03-09 03:49:45'),
+	(2, 2, 'S', 20, NULL, '2023-03-09 06:30:38', '2023-03-09 06:30:38'),
+	(3, 2, 'M', 5, NULL, '2023-03-09 06:30:38', '2023-03-09 06:37:28'),
+	(4, 2, 'L', 5, NULL, '2023-03-09 06:30:38', '2023-03-09 06:37:28'),
+	(5, 3, 'S', 5, NULL, '2023-03-09 06:41:13', '2023-03-09 07:12:23'),
+	(6, 3, 'M', 15, NULL, '2023-03-09 06:41:13', '2023-03-09 06:41:13'),
+	(7, 3, 'L', 10, NULL, '2023-03-09 06:41:13', '2023-03-09 06:41:13'),
+	(11, 5, 'S', 20, NULL, '2023-03-10 04:31:16', '2023-03-10 04:31:16'),
+	(12, 5, 'M', 20, NULL, '2023-03-10 04:31:16', '2023-03-10 04:31:16'),
+	(13, 5, 'L', 20, NULL, '2023-03-10 04:31:16', '2023-03-10 04:31:16'),
+	(14, 6, 'XL', 28, NULL, '2023-03-10 06:31:34', '2023-03-10 06:31:34'),
+	(15, 6, 'XXL', 20, NULL, '2023-03-10 06:31:34', '2023-03-10 06:31:34'),
+	(16, 7, 'S', 20, NULL, '2023-03-10 08:08:52', '2023-03-10 08:08:52'),
+	(17, 8, 'S', 45, NULL, '2023-03-10 08:22:02', '2023-03-10 09:43:14'),
+	(18, 8, 'M', 50, NULL, '2023-03-10 08:22:02', '2023-03-10 08:22:02'),
+	(19, 9, 'L', 46, NULL, '2023-03-10 09:45:02', '2023-03-13 06:47:08'),
+	(20, 9, 'M', 50, NULL, '2023-03-10 09:45:02', '2023-03-10 09:45:02'),
+	(21, 10, 'S', 16, NULL, '2023-03-13 03:18:33', '2023-03-13 03:30:36'),
+	(22, 10, 'M', 19, NULL, '2023-03-13 03:18:33', '2023-03-13 03:30:36'),
+	(23, 10, 'L', 20, NULL, '2023-03-13 03:18:33', '2023-03-13 03:18:33'),
+	(24, 11, 'S', 49, NULL, '2023-03-13 04:54:55', '2023-03-13 06:53:18');
 
-LOCK TABLES `detail_jahits` WRITE;
-/*!40000 ALTER TABLE `detail_jahits` DISABLE KEYS */;
-INSERT INTO `detail_jahits` VALUES (16,6,'S',4,'2022-12-18 19:09:20','2022-12-18 19:12:34'),(17,6,'M',5,'2022-12-18 19:09:20','2022-12-18 19:09:20'),(18,6,'L',5,'2022-12-18 19:09:20','2022-12-18 19:09:20'),(19,6,'XL',5,'2022-12-18 19:09:20','2022-12-18 19:09:20'),(20,6,'XXL',5,'2022-12-18 19:09:20','2022-12-18 19:09:20'),(21,7,'S',8,'2022-12-18 19:09:36','2022-12-18 19:13:34'),(22,7,'M',8,'2022-12-18 19:09:36','2022-12-18 19:13:34'),(23,7,'L',9,'2022-12-18 19:09:36','2022-12-18 19:13:34'),(24,7,'XL',10,'2022-12-18 19:09:36','2022-12-18 19:09:36'),(25,7,'XXL',10,'2022-12-18 19:09:36','2022-12-18 19:09:36'),(26,8,'S',5,'2022-12-22 16:27:38','2022-12-22 16:30:24'),(27,8,'M',6,'2022-12-22 16:27:38','2022-12-22 16:27:38'),(28,8,'L',6,'2022-12-22 16:27:38','2022-12-22 16:27:38'),(29,8,'3',6,'2022-12-22 16:27:38','2022-12-22 16:27:38'),(30,8,'4',6,'2022-12-22 16:27:38','2022-12-22 16:27:38'),(31,8,'5',6,'2022-12-22 16:27:38','2022-12-22 16:27:38'),(32,8,'6',6,'2022-12-22 16:27:38','2022-12-22 16:27:38'),(33,8,'7',6,'2022-12-22 16:27:38','2022-12-22 16:27:38'),(34,8,'8',6,'2022-12-22 16:27:38','2022-12-22 16:27:38'),(35,8,'9',6,'2022-12-22 16:27:38','2022-12-22 16:27:38'),(36,8,'10',6,'2022-12-22 16:27:38','2022-12-22 16:27:38'),(37,8,'11',6,'2022-12-22 16:27:38','2022-12-22 16:27:38'),(38,8,'12',6,'2022-12-22 16:27:38','2022-12-22 16:27:38'),(39,9,'S',5,'2022-12-22 16:27:44','2022-12-22 16:31:36'),(40,9,'M',5,'2022-12-22 16:27:44','2022-12-22 16:31:36'),(41,9,'L',6,'2022-12-22 16:27:44','2022-12-22 16:27:44'),(42,9,'3',6,'2022-12-22 16:27:44','2022-12-22 16:27:44'),(43,9,'4',6,'2022-12-22 16:27:44','2022-12-22 16:27:44'),(44,9,'5',6,'2022-12-22 16:27:44','2022-12-22 16:27:44'),(45,9,'6',6,'2022-12-22 16:27:44','2022-12-22 16:27:44'),(46,9,'7',6,'2022-12-22 16:27:44','2022-12-22 16:27:44'),(47,9,'8',6,'2022-12-22 16:27:44','2022-12-22 16:27:44'),(48,9,'9',6,'2022-12-22 16:27:44','2022-12-22 16:27:44'),(49,9,'10',6,'2022-12-22 16:27:44','2022-12-22 16:27:44'),(50,9,'11',6,'2022-12-22 16:27:44','2022-12-22 16:27:44'),(51,9,'12',6,'2022-12-22 16:27:44','2022-12-22 16:27:44');
-/*!40000 ALTER TABLE `detail_jahits` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `detail_perbaikans`
---
-
+-- Dumping structure for table garmen.detail_perbaikans
 DROP TABLE IF EXISTS `detail_perbaikans`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `detail_perbaikans` (
+CREATE TABLE IF NOT EXISTS `detail_perbaikans` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `perbaikan_id` bigint unsigned DEFAULT NULL,
   `jahit_direpair_id` bigint unsigned DEFAULT NULL,
@@ -382,86 +340,61 @@ CREATE TABLE `detail_perbaikans` (
   CONSTRAINT `detail_perbaikans_cuci_direpair_id_foreign` FOREIGN KEY (`cuci_direpair_id`) REFERENCES `cuci_direpairs` (`id`) ON DELETE CASCADE,
   CONSTRAINT `detail_perbaikans_jahit_direpair_id_foreign` FOREIGN KEY (`jahit_direpair_id`) REFERENCES `jahit_direpairs` (`id`) ON DELETE CASCADE,
   CONSTRAINT `detail_perbaikans_perbaikan_id_foreign` FOREIGN KEY (`perbaikan_id`) REFERENCES `perbaikans` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `detail_perbaikans`
---
+-- Dumping data for table garmen.detail_perbaikans: ~5 rows (approximately)
+REPLACE INTO `detail_perbaikans` (`id`, `perbaikan_id`, `jahit_direpair_id`, `cuci_direpair_id`, `jumlah`, `keterangan`, `created_at`, `updated_at`) VALUES
+	(1, 1, 1, NULL, 10, 'diperbaiki', '2023-03-09 04:04:41', '2023-03-09 09:10:29'),
+	(2, 1, NULL, 1, 5, 'diperbaiki laundry', '2023-03-09 04:30:27', '2023-03-09 04:30:27'),
+	(3, 2, 2, NULL, 5, 'diperbaiki', '2023-03-09 06:38:24', '2023-03-09 09:10:29'),
+	(4, 3, 3, NULL, 5, 'diperbaiki coba lagi', '2023-03-10 06:32:37', '2023-03-10 06:32:37'),
+	(5, 4, 5, NULL, 1, 'diperbaiki', '2023-03-13 03:51:46', '2023-03-13 03:51:46');
 
-LOCK TABLES `detail_perbaikans` WRITE;
-/*!40000 ALTER TABLE `detail_perbaikans` DISABLE KEYS */;
-INSERT INTO `detail_perbaikans` VALUES (1,1,NULL,1,1,'Dicuci ulang','2022-12-22 16:39:56','2022-12-22 16:39:56'),(2,1,2,NULL,2,'Dicuci ulang','2022-12-22 16:39:56','2022-12-22 16:40:04'),(3,2,3,NULL,2,'Dicuci ulang','2022-12-22 16:39:56','2022-12-22 16:40:04'),(4,3,NULL,2,1,'- Pudar. Solusi:  Dicuci ulang','2022-12-22 16:39:56','2022-12-22 16:39:56'),(5,4,1,NULL,1,'- Pudar. Solusi:  Dicuci ulang','2022-12-22 16:39:56','2022-12-22 16:40:04'),(6,5,NULL,3,1,'Cuci Ulang','2022-12-22 16:39:56','2022-12-22 16:39:56'),(7,5,5,NULL,1,'Cuci Ulang','2022-12-22 16:39:56','2022-12-22 16:40:04'),(8,6,6,NULL,1,'Cuci Ulang','2022-12-22 16:39:56','2022-12-22 16:40:04'),(9,7,4,NULL,1,NULL,'2022-12-22 16:39:56','2022-12-22 16:40:04');
-/*!40000 ALTER TABLE `detail_perbaikans` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `detail_potongs`
---
-
+-- Dumping structure for table garmen.detail_potongs
 DROP TABLE IF EXISTS `detail_potongs`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `detail_potongs` (
+CREATE TABLE IF NOT EXISTS `detail_potongs` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `potong_id` bigint unsigned DEFAULT NULL,
   `size` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `jumlah` int NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `detail_potongs_potong_id_index` (`potong_id`),
   CONSTRAINT `detail_potongs_potong_id_foreign` FOREIGN KEY (`potong_id`) REFERENCES `potongs` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `detail_potongs`
---
+-- Dumping data for table garmen.detail_potongs: ~24 rows (approximately)
+REPLACE INTO `detail_potongs` (`id`, `potong_id`, `size`, `jumlah`, `deleted_at`, `created_at`, `updated_at`) VALUES
+	(1, 1, 'M', 50, NULL, '2023-03-08 09:11:23', '2023-03-08 09:11:23'),
+	(2, 2, 'S', 20, NULL, '2023-03-09 06:30:26', '2023-03-09 06:30:26'),
+	(3, 2, 'M', 10, NULL, '2023-03-09 06:30:26', '2023-03-09 06:30:26'),
+	(4, 2, 'L', 10, NULL, '2023-03-09 06:30:26', '2023-03-09 06:30:26'),
+	(5, 3, 'S', 15, NULL, '2023-03-09 06:41:05', '2023-03-09 06:41:05'),
+	(6, 3, 'M', 15, NULL, '2023-03-09 06:41:05', '2023-03-09 06:41:05'),
+	(7, 3, 'L', 10, NULL, '2023-03-09 06:41:05', '2023-03-09 06:41:05'),
+	(8, 4, 'S', 20, NULL, '2023-03-10 04:26:47', '2023-03-10 04:26:47'),
+	(9, 4, 'M', 20, NULL, '2023-03-10 04:26:47', '2023-03-10 04:26:47'),
+	(10, 4, 'L', 20, NULL, '2023-03-10 04:26:47', '2023-03-10 04:26:47'),
+	(11, 5, 'S', 20, NULL, '2023-03-10 04:31:07', '2023-03-10 04:31:07'),
+	(12, 5, 'M', 20, NULL, '2023-03-10 04:31:07', '2023-03-10 04:31:07'),
+	(13, 5, 'L', 20, NULL, '2023-03-10 04:31:07', '2023-03-10 04:31:07'),
+	(14, 6, 'XL', 28, NULL, '2023-03-10 06:31:24', '2023-03-10 06:31:24'),
+	(15, 6, 'XXL', 20, NULL, '2023-03-10 06:31:24', '2023-03-10 06:31:24'),
+	(16, 7, 'S', 20, NULL, '2023-03-10 08:08:36', '2023-03-10 08:08:36'),
+	(17, 8, 'S', 50, NULL, '2023-03-10 08:21:52', '2023-03-10 08:21:52'),
+	(18, 8, 'M', 50, NULL, '2023-03-10 08:21:52', '2023-03-10 08:21:52'),
+	(19, 9, 'L', 50, NULL, '2023-03-10 09:44:54', '2023-03-10 09:44:54'),
+	(20, 9, 'M', 50, NULL, '2023-03-10 09:44:54', '2023-03-10 09:44:54'),
+	(21, 10, 'S', 20, NULL, '2023-03-13 03:18:25', '2023-03-13 03:18:25'),
+	(22, 10, 'M', 20, NULL, '2023-03-13 03:18:25', '2023-03-13 03:18:25'),
+	(23, 10, 'L', 20, NULL, '2023-03-13 03:18:25', '2023-03-13 03:18:25'),
+	(24, 11, 'S', 50, NULL, '2023-03-13 04:54:46', '2023-03-13 04:54:46');
 
-LOCK TABLES `detail_potongs` WRITE;
-/*!40000 ALTER TABLE `detail_potongs` DISABLE KEYS */;
-INSERT INTO `detail_potongs` VALUES (16,6,'S',5,'2022-12-18 19:08:05','2022-12-18 19:08:05'),(17,6,'M',5,'2022-12-18 19:08:05','2022-12-18 19:08:05'),(18,6,'L',5,'2022-12-18 19:08:05','2022-12-18 19:08:05'),(19,6,'XL',5,'2022-12-18 19:08:05','2022-12-18 19:08:05'),(20,6,'XXL',5,'2022-12-18 19:08:05','2022-12-18 19:08:05'),(21,7,'S',10,'2022-12-18 19:09:00','2022-12-18 19:09:00'),(22,7,'M',10,'2022-12-18 19:09:00','2022-12-18 19:09:00'),(23,7,'L',10,'2022-12-18 19:09:00','2022-12-18 19:09:00'),(24,7,'XL',10,'2022-12-18 19:09:00','2022-12-18 19:09:00'),(25,7,'XXL',10,'2022-12-18 19:09:00','2022-12-18 19:09:00'),(26,8,'S',6,'2022-12-22 16:25:33','2022-12-22 16:25:33'),(27,8,'M',6,'2022-12-22 16:25:33','2022-12-22 16:25:33'),(28,8,'L',6,'2022-12-22 16:25:33','2022-12-22 16:25:33'),(29,8,'3',6,'2022-12-22 16:25:33','2022-12-22 16:25:33'),(30,8,'4',6,'2022-12-22 16:25:33','2022-12-22 16:25:33'),(31,8,'5',6,'2022-12-22 16:25:33','2022-12-22 16:25:33'),(32,8,'6',6,'2022-12-22 16:25:33','2022-12-22 16:25:33'),(33,8,'7',6,'2022-12-22 16:25:33','2022-12-22 16:25:33'),(34,8,'8',6,'2022-12-22 16:25:33','2022-12-22 16:25:33'),(35,8,'9',6,'2022-12-22 16:25:33','2022-12-22 16:25:33'),(36,8,'10',6,'2022-12-22 16:25:33','2022-12-22 16:25:33'),(37,8,'11',6,'2022-12-22 16:25:33','2022-12-22 16:25:33'),(38,8,'12',6,'2022-12-22 16:25:33','2022-12-22 16:25:33'),(39,9,'S',6,'2022-12-22 16:27:03','2022-12-22 16:27:03'),(40,9,'M',6,'2022-12-22 16:27:03','2022-12-22 16:27:03'),(41,9,'L',6,'2022-12-22 16:27:03','2022-12-22 16:27:03'),(42,9,'3',6,'2022-12-22 16:27:03','2022-12-22 16:27:03'),(43,9,'4',6,'2022-12-22 16:27:03','2022-12-22 16:27:03'),(44,9,'5',6,'2022-12-22 16:27:03','2022-12-22 16:27:03'),(45,9,'6',6,'2022-12-22 16:27:03','2022-12-22 16:27:03'),(46,9,'7',6,'2022-12-22 16:27:03','2022-12-22 16:27:03'),(47,9,'8',6,'2022-12-22 16:27:03','2022-12-22 16:27:03'),(48,9,'9',6,'2022-12-22 16:27:03','2022-12-22 16:27:03'),(49,9,'10',6,'2022-12-22 16:27:03','2022-12-22 16:27:03'),(50,9,'11',6,'2022-12-22 16:27:03','2022-12-22 16:27:03'),(51,9,'12',6,'2022-12-22 16:27:03','2022-12-22 16:27:03');
-/*!40000 ALTER TABLE `detail_potongs` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `detail_produk_images`
---
-
-DROP TABLE IF EXISTS `detail_produk_images`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `detail_produk_images` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `produk_id` bigint unsigned DEFAULT NULL,
-  `filename` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `detail_produk_images_produk_id_index` (`produk_id`),
-  CONSTRAINT `detail_produk_images_produk_id_foreign` FOREIGN KEY (`produk_id`) REFERENCES `produks` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `detail_produk_images`
---
-
-LOCK TABLES `detail_produk_images` WRITE;
-/*!40000 ALTER TABLE `detail_produk_images` DISABLE KEYS */;
-INSERT INTO `detail_produk_images` VALUES (6,6,'167136926479202.jpg','2022-12-18 20:14:24','2022-12-18 20:14:24'),(7,7,'167137276958772.jpg','2022-12-18 21:12:49','2022-12-18 21:12:49');
-/*!40000 ALTER TABLE `detail_produk_images` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `detail_produks`
---
-
+-- Dumping structure for table garmen.detail_produks
 DROP TABLE IF EXISTS `detail_produks`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `detail_produks` (
+CREATE TABLE IF NOT EXISTS `detail_produks` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `produk_id` bigint unsigned DEFAULT NULL,
   `ukuran` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -472,27 +405,76 @@ CREATE TABLE `detail_produks` (
   PRIMARY KEY (`id`),
   KEY `detail_produks_produk_id_index` (`produk_id`),
   CONSTRAINT `detail_produks_produk_id_foreign` FOREIGN KEY (`produk_id`) REFERENCES `produks` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `detail_produks`
---
+-- Dumping data for table garmen.detail_produks: ~4 rows (approximately)
+REPLACE INTO `detail_produks` (`id`, `produk_id`, `ukuran`, `jumlah`, `harga`, `created_at`, `updated_at`) VALUES
+	(1, 1, 'M', -5, 50000, '2023-03-09 04:51:44', '2023-03-15 04:28:26'),
+	(2, 2, 'S', 20, 150, '2023-03-27 03:39:16', '2023-03-27 03:39:16'),
+	(3, 2, 'M', 20, 150, '2023-03-27 03:39:16', '2023-03-27 03:39:16'),
+	(4, 2, 'L', 15, 150, '2023-03-27 03:39:16', '2023-03-27 03:39:16');
 
-LOCK TABLES `detail_produks` WRITE;
-/*!40000 ALTER TABLE `detail_produks` DISABLE KEYS */;
-INSERT INTO `detail_produks` VALUES (16,6,'S',-11,50000,'2022-12-18 20:14:24','2022-12-18 20:16:33'),(17,6,'M',-10,50000,'2022-12-18 20:14:24','2022-12-18 20:16:33'),(18,6,'L',-11,50000,'2022-12-18 20:14:24','2022-12-18 20:16:33'),(19,6,'XL',5,55000,'2022-12-18 20:14:24','2022-12-18 20:14:24'),(20,6,'XXL',5,57000,'2022-12-18 20:14:24','2022-12-18 20:14:24'),(21,7,'S',7,50000,'2022-12-18 21:12:49','2022-12-18 21:12:49'),(22,7,'M',8,50000,'2022-12-18 21:12:49','2022-12-18 21:12:49'),(23,7,'L',9,50000,'2022-12-18 21:12:49','2022-12-18 21:12:49'),(24,7,'XL',10,55000,'2022-12-18 21:12:49','2022-12-18 21:12:49'),(25,7,'XXL',10,57000,'2022-12-18 21:12:49','2022-12-18 21:12:49');
-/*!40000 ALTER TABLE `detail_produks` ENABLE KEYS */;
-UNLOCK TABLES;
+-- Dumping structure for table garmen.detail_produk_images
+DROP TABLE IF EXISTS `detail_produk_images`;
+CREATE TABLE IF NOT EXISTS `detail_produk_images` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `produk_id` bigint unsigned DEFAULT NULL,
+  `filename` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `detail_produk_images_produk_id_index` (`produk_id`),
+  CONSTRAINT `detail_produk_images_produk_id_foreign` FOREIGN KEY (`produk_id`) REFERENCES `produks` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Table structure for table `detail_rekapitulasi_warehouses`
---
+-- Dumping data for table garmen.detail_produk_images: ~2 rows (approximately)
+REPLACE INTO `detail_produk_images` (`id`, `produk_id`, `filename`, `created_at`, `updated_at`) VALUES
+	(1, 1, '167833750457405.jpg', '2023-03-09 04:51:44', '2023-03-09 04:51:44'),
+	(2, 2, '167988835613519.jpg', '2023-03-27 03:39:16', '2023-03-27 03:39:16');
 
+-- Dumping structure for table garmen.detail_rekapitulasis
+DROP TABLE IF EXISTS `detail_rekapitulasis`;
+CREATE TABLE IF NOT EXISTS `detail_rekapitulasis` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `rekapitulasi_id` bigint unsigned DEFAULT NULL,
+  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ukuran` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `jumlah` int NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `detail_rekapitulasis_rekapitulasi_id_index` (`rekapitulasi_id`),
+  CONSTRAINT `detail_rekapitulasis_rekapitulasi_id_foreign` FOREIGN KEY (`rekapitulasi_id`) REFERENCES `rekapitulasis` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table garmen.detail_rekapitulasis: ~21 rows (approximately)
+REPLACE INTO `detail_rekapitulasis` (`id`, `rekapitulasi_id`, `status`, `ukuran`, `jumlah`, `deleted_at`, `created_at`, `updated_at`) VALUES
+	(1, 1, 'dibuang', 'M', 5, '2023-03-13 03:51:04', '2023-03-09 04:30:12', '2023-03-13 03:51:04'),
+	(2, 1, 'direpair', 'M', 5, '2023-03-13 03:51:04', '2023-03-09 04:30:12', '2023-03-13 03:51:04'),
+	(3, 2, 'direpair', 'M', 10, '2023-03-13 03:51:04', '2023-03-09 04:30:12', '2023-03-13 03:51:04'),
+	(4, 1, 'dibuang', 'M', 5, '2023-03-13 04:56:38', '2023-03-13 03:51:04', '2023-03-13 04:56:38'),
+	(5, 1, 'direpair', 'M', 5, '2023-03-13 04:56:38', '2023-03-13 03:51:04', '2023-03-13 04:56:38'),
+	(6, 2, 'direpair', 'M', 10, '2023-03-13 04:56:38', '2023-03-13 03:51:04', '2023-03-13 04:56:38'),
+	(7, 6, 'dibuang', 'L', 5, '2023-03-13 04:56:38', '2023-03-13 03:51:04', '2023-03-13 04:56:38'),
+	(8, 6, 'direpair', 'M', 5, '2023-03-13 04:56:38', '2023-03-13 03:51:04', '2023-03-13 04:56:38'),
+	(9, 7, 'dibuang', 'S', 5, '2023-03-13 04:56:38', '2023-03-13 03:51:04', '2023-03-13 04:56:38'),
+	(10, 7, 'direpair', 'S', 5, '2023-03-13 04:56:38', '2023-03-13 03:51:04', '2023-03-13 04:56:38'),
+	(11, 9, 'dibuang', 'S', 4, '2023-03-13 04:56:39', '2023-03-13 03:51:04', '2023-03-13 04:56:39'),
+	(12, 9, 'direpair', 'M', 1, '2023-03-13 04:56:39', '2023-03-13 03:51:04', '2023-03-13 04:56:39'),
+	(13, 1, 'dibuang', 'M', 5, NULL, '2023-03-13 04:56:38', '2023-03-13 04:56:38'),
+	(14, 1, 'direpair', 'M', 5, NULL, '2023-03-13 04:56:38', '2023-03-13 04:56:38'),
+	(15, 2, 'direpair', 'M', 10, NULL, '2023-03-13 04:56:38', '2023-03-13 04:56:38'),
+	(16, 6, 'dibuang', 'L', 5, NULL, '2023-03-13 04:56:38', '2023-03-13 04:56:38'),
+	(17, 6, 'direpair', 'M', 5, NULL, '2023-03-13 04:56:38', '2023-03-13 04:56:38'),
+	(18, 7, 'dibuang', 'S', 5, NULL, '2023-03-13 04:56:38', '2023-03-13 04:56:38'),
+	(19, 7, 'direpair', 'S', 5, NULL, '2023-03-13 04:56:38', '2023-03-13 04:56:38'),
+	(20, 9, 'dibuang', 'S', 4, NULL, '2023-03-13 04:56:39', '2023-03-13 04:56:39'),
+	(21, 9, 'direpair', 'M', 1, NULL, '2023-03-13 04:56:39', '2023-03-13 04:56:39');
+
+-- Dumping structure for table garmen.detail_rekapitulasi_warehouses
 DROP TABLE IF EXISTS `detail_rekapitulasi_warehouses`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `detail_rekapitulasi_warehouses` (
+CREATE TABLE IF NOT EXISTS `detail_rekapitulasi_warehouses` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `rekapitulasi_warehouse_id` bigint unsigned DEFAULT NULL,
   `ukuran` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -503,148 +485,83 @@ CREATE TABLE `detail_rekapitulasi_warehouses` (
   PRIMARY KEY (`id`),
   KEY `detail_rekapitulasi_warehouses_rekapitulasi_warehouse_id_index` (`rekapitulasi_warehouse_id`),
   CONSTRAINT `detail_rekapitulasi_warehouses_rekapitulasi_warehouse_id_foreign` FOREIGN KEY (`rekapitulasi_warehouse_id`) REFERENCES `rekapitulasi_warehouses` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `detail_rekapitulasi_warehouses`
---
+-- Dumping data for table garmen.detail_rekapitulasi_warehouses: ~3 rows (approximately)
+REPLACE INTO `detail_rekapitulasi_warehouses` (`id`, `rekapitulasi_warehouse_id`, `ukuran`, `status`, `jumlah`, `created_at`, `updated_at`) VALUES
+	(1, 1, 'M', 'diretur', 1, '2023-03-13 04:19:43', '2023-03-13 04:19:43'),
+	(2, 3, 'M', 'diretur', 3, '2023-03-13 04:19:43', '2023-03-13 04:19:43'),
+	(3, 3, 'M', 'dibuang', 2, '2023-03-13 04:19:43', '2023-03-13 04:19:43');
 
-LOCK TABLES `detail_rekapitulasi_warehouses` WRITE;
-/*!40000 ALTER TABLE `detail_rekapitulasi_warehouses` DISABLE KEYS */;
-INSERT INTO `detail_rekapitulasi_warehouses` VALUES (28,3,'M','diretur',1,'2022-12-23 09:13:02','2022-12-23 09:13:02'),(29,4,'M','diretur',1,'2022-12-23 09:13:02','2022-12-23 09:13:02'),(30,4,'M','dibuang',1,'2022-12-23 09:13:02','2022-12-23 09:13:02');
-/*!40000 ALTER TABLE `detail_rekapitulasi_warehouses` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `detail_rekapitulasis`
---
-
-DROP TABLE IF EXISTS `detail_rekapitulasis`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `detail_rekapitulasis` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `rekapitulasi_id` bigint unsigned DEFAULT NULL,
-  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `ukuran` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `jumlah` int NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `detail_rekapitulasis_rekapitulasi_id_index` (`rekapitulasi_id`),
-  CONSTRAINT `detail_rekapitulasis_rekapitulasi_id_foreign` FOREIGN KEY (`rekapitulasi_id`) REFERENCES `rekapitulasis` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=134 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `detail_rekapitulasis`
---
-
-LOCK TABLES `detail_rekapitulasis` WRITE;
-/*!40000 ALTER TABLE `detail_rekapitulasis` DISABLE KEYS */;
-INSERT INTO `detail_rekapitulasis` VALUES (123,11,'direpair','S',1,'2022-12-23 09:11:53','2022-12-23 09:11:53'),(124,12,'direpair','L',1,'2022-12-23 09:11:53','2022-12-23 09:11:53'),(125,15,'direpair','S',1,'2022-12-23 09:11:53','2022-12-23 09:11:53'),(126,16,'dibuang','S',1,'2022-12-23 09:11:53','2022-12-23 09:11:53'),(127,13,'direpair','S',1,'2022-12-23 09:11:53','2022-12-23 09:11:53'),(128,14,'dibuang','L',1,'2022-12-23 09:11:53','2022-12-23 09:11:53'),(129,14,'direpair','S',2,'2022-12-23 09:11:53','2022-12-23 09:11:53'),(130,14,'direpair','M',2,'2022-12-23 09:11:53','2022-12-23 09:11:53'),(131,17,'direpair','S',1,'2022-12-23 09:11:53','2022-12-23 09:11:53'),(132,18,'direpair','S',1,'2022-12-23 09:11:53','2022-12-23 09:11:53'),(133,18,'direpair','M',1,'2022-12-23 09:11:53','2022-12-23 09:11:53');
-/*!40000 ALTER TABLE `detail_rekapitulasis` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `detail_returs`
---
-
+-- Dumping structure for table garmen.detail_returs
 DROP TABLE IF EXISTS `detail_returs`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `detail_returs` (
+CREATE TABLE IF NOT EXISTS `detail_returs` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `retur_id` bigint unsigned DEFAULT NULL,
   `ukuran` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `jumlah` int NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `detail_returs_retur_id_index` (`retur_id`),
   CONSTRAINT `detail_returs_retur_id_foreign` FOREIGN KEY (`retur_id`) REFERENCES `returs` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `detail_returs`
---
+-- Dumping data for table garmen.detail_returs: ~2 rows (approximately)
+REPLACE INTO `detail_returs` (`id`, `retur_id`, `ukuran`, `jumlah`, `deleted_at`, `created_at`, `updated_at`) VALUES
+	(1, 1, 'M', 1, NULL, '2023-03-09 04:58:51', '2023-03-09 04:58:51'),
+	(2, 4, 'M', 3, NULL, '2023-03-10 07:29:21', '2023-03-10 07:29:21');
 
-LOCK TABLES `detail_returs` WRITE;
-/*!40000 ALTER TABLE `detail_returs` DISABLE KEYS */;
-INSERT INTO `detail_returs` VALUES (1,8,'M',1,'2022-12-22 18:07:33','2022-12-22 18:07:33'),(2,9,'M',1,'2022-12-22 18:07:33','2022-12-22 18:07:33');
-/*!40000 ALTER TABLE `detail_returs` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `detail_sampahs`
---
-
+-- Dumping structure for table garmen.detail_sampahs
 DROP TABLE IF EXISTS `detail_sampahs`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `detail_sampahs` (
+CREATE TABLE IF NOT EXISTS `detail_sampahs` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `sampah_id` bigint unsigned DEFAULT NULL,
   `ukuran` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `jumlah` int NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `detail_sampahs_sampah_id_index` (`sampah_id`),
   CONSTRAINT `detail_sampahs_sampah_id_foreign` FOREIGN KEY (`sampah_id`) REFERENCES `sampahs` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `detail_sampahs`
---
+-- Dumping data for table garmen.detail_sampahs: ~8 rows (approximately)
+REPLACE INTO `detail_sampahs` (`id`, `sampah_id`, `ukuran`, `jumlah`, `deleted_at`, `created_at`, `updated_at`) VALUES
+	(1, 2, 'M', 5, '2023-03-09 06:38:32', '2023-03-09 04:30:20', '2023-03-09 06:38:32'),
+	(2, 2, 'M', 5, NULL, '2023-03-09 06:38:32', '2023-03-09 06:38:32'),
+	(3, 3, 'L', 5, '2023-03-10 06:32:41', '2023-03-09 06:38:32', '2023-03-10 06:32:41'),
+	(4, 3, 'L', 5, '2023-03-13 03:51:14', '2023-03-10 06:32:41', '2023-03-13 03:51:14'),
+	(5, 4, 'S', 5, '2023-03-13 03:51:14', '2023-03-10 06:32:41', '2023-03-13 03:51:14'),
+	(6, 3, 'L', 5, NULL, '2023-03-13 03:51:14', '2023-03-13 03:51:14'),
+	(7, 4, 'S', 5, NULL, '2023-03-13 03:51:14', '2023-03-13 03:51:14'),
+	(8, 5, 'S', 4, NULL, '2023-03-13 03:51:14', '2023-03-13 03:51:14');
 
-LOCK TABLES `detail_sampahs` WRITE;
-/*!40000 ALTER TABLE `detail_sampahs` DISABLE KEYS */;
-INSERT INTO `detail_sampahs` VALUES (42,16,'S',1,'2022-12-23 09:28:10','2022-12-23 09:28:10'),(43,14,'L',1,'2022-12-23 09:28:10','2022-12-23 09:28:10');
-/*!40000 ALTER TABLE `detail_sampahs` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `detail_sub_kategoris`
---
-
+-- Dumping structure for table garmen.detail_sub_kategoris
 DROP TABLE IF EXISTS `detail_sub_kategoris`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `detail_sub_kategoris` (
+CREATE TABLE IF NOT EXISTS `detail_sub_kategoris` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `sub_kategori_id` bigint unsigned DEFAULT NULL,
   `nama_kategori` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `sku` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `detail_sub_kategoris_sub_kategori_id_index` (`sub_kategori_id`),
   CONSTRAINT `detail_sub_kategoris_sub_kategori_id_foreign` FOREIGN KEY (`sub_kategori_id`) REFERENCES `sub_kategoris` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `detail_sub_kategoris`
---
+-- Dumping data for table garmen.detail_sub_kategoris: ~2 rows (approximately)
+REPLACE INTO `detail_sub_kategoris` (`id`, `sub_kategori_id`, `nama_kategori`, `sku`, `deleted_at`, `created_at`, `updated_at`) VALUES
+	(1, 1, 'Kemeja Lengan Panjang', 'SKU001/1/1', NULL, '2023-03-08 08:20:28', '2023-03-08 08:20:28'),
+	(2, 2, 'Kemeja Lengan Pendek', 'SKU002/2/2', NULL, '2023-03-08 08:20:28', '2023-03-08 08:20:28');
 
-LOCK TABLES `detail_sub_kategoris` WRITE;
-/*!40000 ALTER TABLE `detail_sub_kategoris` DISABLE KEYS */;
-INSERT INTO `detail_sub_kategoris` VALUES (9,8,'M2N Kids','001/1/1','2022-12-18 18:54:02','2022-12-18 18:54:02'),(10,8,'Push and Pull','001/1/2','2022-12-18 18:54:02','2022-12-18 18:54:02'),(11,9,'M2N Kids','001/2/1','2022-12-22 16:18:57','2022-12-22 16:18:57'),(12,9,'Push and Pull','001/2/2','2022-12-22 16:18:57','2022-12-22 16:18:57');
-/*!40000 ALTER TABLE `detail_sub_kategoris` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `detail_transaksis`
---
-
+-- Dumping structure for table garmen.detail_transaksis
 DROP TABLE IF EXISTS `detail_transaksis`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `detail_transaksis` (
+CREATE TABLE IF NOT EXISTS `detail_transaksis` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `transaksi_id` bigint unsigned DEFAULT NULL,
   `produk_id` bigint unsigned DEFAULT NULL,
@@ -662,58 +579,50 @@ CREATE TABLE `detail_transaksis` (
   CONSTRAINT `detail_transaksis_produk_id_foreign` FOREIGN KEY (`produk_id`) REFERENCES `produks` (`id`) ON DELETE CASCADE,
   CONSTRAINT `detail_transaksis_promo_id_foreign` FOREIGN KEY (`promo_id`) REFERENCES `promos` (`id`) ON DELETE CASCADE,
   CONSTRAINT `detail_transaksis_transaksi_id_foreign` FOREIGN KEY (`transaksi_id`) REFERENCES `transaksis` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `detail_transaksis`
---
+-- Dumping data for table garmen.detail_transaksis: ~7 rows (approximately)
+REPLACE INTO `detail_transaksis` (`id`, `transaksi_id`, `produk_id`, `promo_id`, `jumlah`, `ukuran`, `harga`, `total_harga`, `created_at`, `updated_at`) VALUES
+	(1, 1, 1, NULL, 1, 'M', 50000, 50000, '2023-03-09 08:12:34', '2023-03-09 08:12:34'),
+	(2, 2, 1, NULL, 2, 'M', 50000, 100000, '2023-03-09 08:30:58', '2023-03-09 08:30:58'),
+	(3, 3, 1, NULL, 1, 'M', 50000, 50000, '2023-03-09 08:32:03', '2023-03-09 08:32:03'),
+	(4, 4, 1, NULL, 1, 'M', 50000, 50000, '2023-03-09 08:34:58', '2023-03-09 08:34:58'),
+	(5, 5, 1, NULL, 1, 'M', 50000, 50000, '2023-03-13 08:05:52', '2023-03-13 08:05:52'),
+	(8, 6, 1, NULL, 32, 'M', 50000, 1600000, '2023-03-15 04:25:51', '2023-03-15 04:25:51'),
+	(9, 22, 2, NULL, 1, 'S,M,L', 150, 150, '2023-03-27 03:49:21', '2023-03-27 03:49:21');
 
-LOCK TABLES `detail_transaksis` WRITE;
-/*!40000 ALTER TABLE `detail_transaksis` DISABLE KEYS */;
-INSERT INTO `detail_transaksis` VALUES (2,2,6,NULL,15,'S,M,L',50000,750000,'2022-12-18 20:16:33','2022-12-18 20:16:33');
-/*!40000 ALTER TABLE `detail_transaksis` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `detail_warehouses`
---
-
+-- Dumping structure for table garmen.detail_warehouses
 DROP TABLE IF EXISTS `detail_warehouses`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `detail_warehouses` (
+CREATE TABLE IF NOT EXISTS `detail_warehouses` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `warehouse_id` bigint unsigned DEFAULT NULL,
   `ukuran` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `jumlah` int NOT NULL,
   `harga` double NOT NULL DEFAULT '0',
+  `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `detail_warehouses_warehouse_id_index` (`warehouse_id`),
   CONSTRAINT `detail_warehouses_warehouse_id_foreign` FOREIGN KEY (`warehouse_id`) REFERENCES `warehouses` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `detail_warehouses`
---
+-- Dumping data for table garmen.detail_warehouses: ~10 rows (approximately)
+REPLACE INTO `detail_warehouses` (`id`, `warehouse_id`, `ukuran`, `jumlah`, `harga`, `deleted_at`, `created_at`, `updated_at`) VALUES
+	(1, 1, 'M', 28, 50000, NULL, '2023-03-09 04:34:47', '2023-03-09 08:34:58'),
+	(2, 2, 'S', 10, 0, NULL, '2023-03-09 08:43:52', '2023-03-09 08:43:52'),
+	(3, 2, 'M', 10, 0, NULL, '2023-03-09 08:43:52', '2023-03-09 08:43:52'),
+	(4, 2, 'L', 10, 0, NULL, '2023-03-09 08:43:52', '2023-03-09 08:43:52'),
+	(5, 3, 'S', 10, 150, NULL, '2023-03-10 07:29:16', '2023-03-27 03:37:49'),
+	(6, 3, 'M', 5, 150, NULL, '2023-03-10 07:29:16', '2023-03-27 03:37:49'),
+	(7, 3, 'L', 10, 150, NULL, '2023-03-10 07:29:16', '2023-03-27 03:37:49'),
+	(8, 4, 'S', 20, 150, NULL, '2023-03-27 03:18:58', '2023-03-27 03:36:58'),
+	(9, 4, 'M', 20, 150, NULL, '2023-03-27 03:18:58', '2023-03-27 03:36:58'),
+	(10, 4, 'L', 15, 150, NULL, '2023-03-27 03:18:58', '2023-03-27 03:36:58');
 
-LOCK TABLES `detail_warehouses` WRITE;
-/*!40000 ALTER TABLE `detail_warehouses` DISABLE KEYS */;
-INSERT INTO `detail_warehouses` VALUES (16,6,'S',4,50000,'2022-12-18 19:34:38','2022-12-18 19:38:44'),(17,6,'M',5,50000,'2022-12-18 19:34:38','2022-12-18 19:38:44'),(18,6,'L',4,50000,'2022-12-18 19:34:38','2022-12-18 19:38:44'),(19,6,'XL',5,55000,'2022-12-18 19:34:38','2022-12-18 19:38:44'),(20,6,'XXL',5,57000,'2022-12-18 19:34:38','2022-12-18 19:38:44'),(21,7,'S',7,50000,'2022-12-18 19:37:14','2022-12-18 19:38:11'),(22,7,'M',8,50000,'2022-12-18 19:37:14','2022-12-18 19:38:11'),(23,7,'L',9,50000,'2022-12-18 19:37:14','2022-12-18 19:38:11'),(24,7,'XL',10,55000,'2022-12-18 19:37:14','2022-12-18 19:38:11'),(25,7,'XXL',10,57000,'2022-12-18 19:37:14','2022-12-18 19:38:11'),(26,8,'S',4,70000,'2022-12-22 17:59:15','2022-12-22 18:06:42'),(27,8,'M',4,70000,'2022-12-22 17:59:15','2022-12-22 18:06:42'),(28,8,'L',6,70000,'2022-12-22 17:59:15','2022-12-22 18:06:42'),(29,8,'3',6,75000,'2022-12-22 17:59:15','2022-12-22 18:06:42'),(30,8,'4',6,75000,'2022-12-22 17:59:15','2022-12-22 18:06:42'),(31,8,'5',6,75000,'2022-12-22 17:59:15','2022-12-22 18:06:42'),(32,8,'6',6,80000,'2022-12-22 17:59:15','2022-12-22 18:06:42'),(33,8,'7',6,80000,'2022-12-22 17:59:15','2022-12-22 18:06:42'),(34,8,'8',6,80000,'2022-12-22 17:59:15','2022-12-22 18:06:42'),(35,8,'9',6,85000,'2022-12-22 17:59:15','2022-12-22 18:06:42'),(36,8,'10',6,85000,'2022-12-22 17:59:15','2022-12-22 18:06:42'),(37,8,'11',6,85000,'2022-12-22 17:59:15','2022-12-22 18:06:42'),(38,8,'12',6,85000,'2022-12-22 17:59:15','2022-12-22 18:06:42'),(39,9,'S',4,70000,'2022-12-22 18:01:05','2022-12-22 18:03:09'),(40,9,'M',4,70000,'2022-12-22 18:01:05','2022-12-22 18:03:09'),(41,9,'L',6,70000,'2022-12-22 18:01:05','2022-12-22 18:03:09'),(42,9,'3',6,75000,'2022-12-22 18:01:05','2022-12-22 18:03:09'),(43,9,'4',6,75000,'2022-12-22 18:01:05','2022-12-22 18:03:09'),(44,9,'5',6,75000,'2022-12-22 18:01:05','2022-12-22 18:03:09'),(45,9,'6',6,80000,'2022-12-22 18:01:05','2022-12-22 18:03:09'),(46,9,'7',6,80000,'2022-12-22 18:01:05','2022-12-22 18:03:09'),(47,9,'8',6,80000,'2022-12-22 18:01:05','2022-12-22 18:03:09'),(48,9,'9',6,85000,'2022-12-22 18:01:05','2022-12-22 18:03:09'),(49,9,'10',6,85000,'2022-12-22 18:01:05','2022-12-22 18:03:09'),(50,9,'11',6,85000,'2022-12-22 18:01:05','2022-12-22 18:03:09'),(51,9,'12',6,85000,'2022-12-22 18:01:05','2022-12-22 18:03:09');
-/*!40000 ALTER TABLE `detail_warehouses` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `favorits`
---
-
+-- Dumping structure for table garmen.favorits
 DROP TABLE IF EXISTS `favorits`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `favorits` (
+CREATE TABLE IF NOT EXISTS `favorits` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `user_id` bigint unsigned DEFAULT NULL,
   `produk_id` bigint unsigned DEFAULT NULL,
@@ -725,85 +634,12 @@ CREATE TABLE `favorits` (
   CONSTRAINT `favorits_produk_id_foreign` FOREIGN KEY (`produk_id`) REFERENCES `produks` (`id`) ON DELETE CASCADE,
   CONSTRAINT `favorits_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `favorits`
---
+-- Dumping data for table garmen.favorits: ~0 rows (approximately)
 
-LOCK TABLES `favorits` WRITE;
-/*!40000 ALTER TABLE `favorits` DISABLE KEYS */;
-/*!40000 ALTER TABLE `favorits` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `finishing_dibuangs`
---
-
-DROP TABLE IF EXISTS `finishing_dibuangs`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `finishing_dibuangs` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `finishing_id` bigint unsigned DEFAULT NULL,
-  `ukuran` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `jumlah` int NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `finishing_dibuangs_finishing_id_index` (`finishing_id`),
-  CONSTRAINT `finishing_dibuangs_finishing_id_foreign` FOREIGN KEY (`finishing_id`) REFERENCES `finishings` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `finishing_dibuangs`
---
-
-LOCK TABLES `finishing_dibuangs` WRITE;
-/*!40000 ALTER TABLE `finishing_dibuangs` DISABLE KEYS */;
-INSERT INTO `finishing_dibuangs` VALUES (1,8,'M',1,'2022-12-22 18:01:05','2022-12-22 18:01:05');
-/*!40000 ALTER TABLE `finishing_dibuangs` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `finishing_returs`
---
-
-DROP TABLE IF EXISTS `finishing_returs`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `finishing_returs` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `finishing_id` bigint unsigned DEFAULT NULL,
-  `ukuran` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `jumlah` int NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `finishing_returs_finishing_id_index` (`finishing_id`),
-  CONSTRAINT `finishing_returs_finishing_id_foreign` FOREIGN KEY (`finishing_id`) REFERENCES `finishings` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `finishing_returs`
---
-
-LOCK TABLES `finishing_returs` WRITE;
-/*!40000 ALTER TABLE `finishing_returs` DISABLE KEYS */;
-INSERT INTO `finishing_returs` VALUES (1,9,'M',1,'2022-12-22 17:59:15','2022-12-22 17:59:15'),(2,8,'M',1,'2022-12-22 18:01:05','2022-12-22 18:01:05');
-/*!40000 ALTER TABLE `finishing_returs` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `finishings`
---
-
+-- Dumping structure for table garmen.finishings
 DROP TABLE IF EXISTS `finishings`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `finishings` (
+CREATE TABLE IF NOT EXISTS `finishings` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `cuci_id` bigint unsigned DEFAULT NULL,
   `no_surat` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -818,92 +654,64 @@ CREATE TABLE `finishings` (
   `keterangan_dibuang` longtext COLLATE utf8mb4_unicode_ci,
   `status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status_finishing` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `finishings_cuci_id_index` (`cuci_id`),
   CONSTRAINT `finishings_cuci_id_foreign` FOREIGN KEY (`cuci_id`) REFERENCES `cucis` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `finishings`
---
-
-LOCK TABLES `finishings` WRITE;
-/*!40000 ALTER TABLE `finishings` DISABLE KEYS */;
-INSERT INTO `finishings` VALUES (6,6,'PUSH/FNG/XII/2022/001','2022-12-18','2023-01-01','2023-01-03',44,0,0,0,NULL,NULL,'kirim warehouse',NULL,'2022-12-18 19:20:58','2022-12-18 19:37:14'),(7,7,'M2N/FNG/XII/2022/001','2022-12-18','2023-01-01','2022-12-03',23,0,0,0,NULL,'0','kirim warehouse',NULL,'2022-12-18 19:21:42','2022-12-18 19:34:38'),(8,9,'M2N/BK/XII/2022/002','2022-12-22','2023-01-01','2023-01-03',74,2,1,1,'Jahitan tidak rapi','Robek di Saku','kirim warehouse',NULL,'2022-12-22 16:34:52','2022-12-22 18:01:05'),(9,8,'PUSH/BHK/XII/2022/002','2022-12-22','2023-01-01','2023-01-03',74,1,1,0,'Jahitan tidak rapi',NULL,'kirim warehouse',NULL,'2022-12-22 16:34:57','2022-12-22 17:59:15');
-/*!40000 ALTER TABLE `finishings` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `jahit_dibuangs`
---
-
-DROP TABLE IF EXISTS `jahit_dibuangs`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `jahit_dibuangs` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `jahit_id` bigint unsigned DEFAULT NULL,
-  `ukuran` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `jumlah` int NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `jahit_dibuangs_jahit_id_index` (`jahit_id`),
-  CONSTRAINT `jahit_dibuangs_jahit_id_foreign` FOREIGN KEY (`jahit_id`) REFERENCES `jahits` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `jahit_dibuangs`
---
-
-LOCK TABLES `jahit_dibuangs` WRITE;
-/*!40000 ALTER TABLE `jahit_dibuangs` DISABLE KEYS */;
-INSERT INTO `jahit_dibuangs` VALUES (1,7,'L',1,'2022-12-18 19:13:34','2022-12-18 19:13:34');
-/*!40000 ALTER TABLE `jahit_dibuangs` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `jahit_direpairs`
---
-
-DROP TABLE IF EXISTS `jahit_direpairs`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `jahit_direpairs` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `jahit_id` bigint unsigned DEFAULT NULL,
-  `ukuran` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `jumlah` int NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `jahit_direpairs_jahit_id_index` (`jahit_id`),
-  CONSTRAINT `jahit_direpairs_jahit_id_foreign` FOREIGN KEY (`jahit_id`) REFERENCES `jahits` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `jahit_direpairs`
---
+-- Dumping data for table garmen.finishings: ~5 rows (approximately)
+REPLACE INTO `finishings` (`id`, `cuci_id`, `no_surat`, `tanggal_masuk`, `tanggal_qc`, `tanggal_selesai`, `barang_lolos_qc`, `barang_gagal_qc`, `barang_diretur`, `barang_dibuang`, `keterangan_diretur`, `keterangan_dibuang`, `status`, `status_finishing`, `deleted_at`, `created_at`, `updated_at`) VALUES
+	(1, 2, 'SJL-0002', '2023-03-09', '2023-03-08', '2023-03-09', 29, 1, 1, 0, 'retur dari gudang', NULL, 'kirim warehouse', NULL, NULL, '2023-03-09 04:30:02', '2023-03-09 04:34:47'),
+	(2, 3, 'SJL-0004', '2023-03-09', '2023-03-08', '2023-03-08', 30, 0, 0, 0, NULL, NULL, 'kirim warehouse', NULL, NULL, '2023-03-09 08:42:45', '2023-03-09 08:43:52'),
+	(3, 4, 'SJL-0004', '2023-03-10', '2023-03-10', '2023-03-10', 25, 5, 3, 2, 'retur', 'buang', 'kirim warehouse', NULL, NULL, '2023-03-10 06:22:24', '2023-03-10 07:29:16'),
+	(5, 6, 'SJL-0007', '2023-03-13', NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 'finishing masuk', NULL, NULL, '2023-03-13 03:54:51', '2023-03-13 03:54:51'),
+	(6, 7, 'SJL-0016', '2023-03-13', '2023-03-13', '2023-03-27', 55, 0, 0, 0, '-', '-', 'kirim warehouse', NULL, NULL, '2023-03-13 04:15:35', '2023-03-27 03:18:58');
 
-LOCK TABLES `jahit_direpairs` WRITE;
-/*!40000 ALTER TABLE `jahit_direpairs` DISABLE KEYS */;
-INSERT INTO `jahit_direpairs` VALUES (1,6,'S',1,'2022-12-18 19:12:34','2022-12-18 19:12:34'),(2,7,'S',2,'2022-12-18 19:13:34','2022-12-18 19:13:34'),(3,7,'M',2,'2022-12-18 19:13:34','2022-12-18 19:13:34'),(4,8,'S',1,'2022-12-22 16:30:24','2022-12-22 16:30:24'),(5,9,'S',1,'2022-12-22 16:31:36','2022-12-22 16:31:36'),(6,9,'M',1,'2022-12-22 16:31:36','2022-12-22 16:31:36');
-/*!40000 ALTER TABLE `jahit_direpairs` ENABLE KEYS */;
-UNLOCK TABLES;
+-- Dumping structure for table garmen.finishing_dibuangs
+DROP TABLE IF EXISTS `finishing_dibuangs`;
+CREATE TABLE IF NOT EXISTS `finishing_dibuangs` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `finishing_id` bigint unsigned DEFAULT NULL,
+  `ukuran` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `jumlah` int NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `finishing_dibuangs_finishing_id_index` (`finishing_id`),
+  CONSTRAINT `finishing_dibuangs_finishing_id_foreign` FOREIGN KEY (`finishing_id`) REFERENCES `finishings` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Table structure for table `jahits`
---
+-- Dumping data for table garmen.finishing_dibuangs: ~1 rows (approximately)
+REPLACE INTO `finishing_dibuangs` (`id`, `finishing_id`, `ukuran`, `jumlah`, `deleted_at`, `created_at`, `updated_at`) VALUES
+	(1, 3, 'M', 2, NULL, '2023-03-10 07:29:16', '2023-03-10 07:29:16');
 
+-- Dumping structure for table garmen.finishing_returs
+DROP TABLE IF EXISTS `finishing_returs`;
+CREATE TABLE IF NOT EXISTS `finishing_returs` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `finishing_id` bigint unsigned DEFAULT NULL,
+  `ukuran` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `jumlah` int NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `finishing_returs_finishing_id_index` (`finishing_id`),
+  CONSTRAINT `finishing_returs_finishing_id_foreign` FOREIGN KEY (`finishing_id`) REFERENCES `finishings` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table garmen.finishing_returs: ~2 rows (approximately)
+REPLACE INTO `finishing_returs` (`id`, `finishing_id`, `ukuran`, `jumlah`, `deleted_at`, `created_at`, `updated_at`) VALUES
+	(1, 1, 'M', 1, NULL, '2023-03-09 04:34:47', '2023-03-09 04:34:47'),
+	(2, 3, 'M', 3, NULL, '2023-03-10 07:29:16', '2023-03-10 07:29:16');
+
+-- Dumping structure for table garmen.jahits
 DROP TABLE IF EXISTS `jahits`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `jahits` (
+CREATE TABLE IF NOT EXISTS `jahits` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `potong_id` bigint unsigned DEFAULT NULL,
   `no_surat` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -927,60 +735,95 @@ CREATE TABLE `jahits` (
   `total_harga` int DEFAULT NULL,
   `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `status_jahit` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `jahits_potong_id_index` (`potong_id`),
   CONSTRAINT `jahits_potong_id_foreign` FOREIGN KEY (`potong_id`) REFERENCES `potongs` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `jahits`
---
+-- Dumping data for table garmen.jahits: ~10 rows (approximately)
+REPLACE INTO `jahits` (`id`, `potong_id`, `no_surat`, `tanggal_jahit`, `tanggal_selesai`, `tanggal_keluar`, `vendor`, `nama_vendor`, `harga_vendor`, `berhasil`, `jumlah_bahan`, `konversi`, `gagal_jahit`, `barang_direpair`, `barang_dibuang`, `keterangan_direpair`, `keterangan_dibuang`, `status_pembayaran`, `total_bayar`, `sisa_bayar`, `total_harga`, `status`, `status_jahit`, `deleted_at`, `created_at`, `updated_at`) VALUES
+	(1, 1, 'SJL-0002', '2023-03-08', '2023-03-08', '2023-03-09', 'eksternal', 'PT Sumeh Jaya Tailor', 50000.00, 40, 50, '4 Lusin 2 pcs', 10, 10, 0, 'diperbaiki', NULL, 'Lunas', 2500000, 0, 2500000, 'jahitan keluar', 'selesai', NULL, '2023-03-08 09:11:47', '2023-03-09 06:31:32'),
+	(2, 2, 'SJL-0004', '2023-03-09', '2023-03-09', '2023-03-10', 'internal', NULL, NULL, 30, 40, '3 Lusin 4 pcs', 10, 5, 5, 'diperbaiki', 'dibuang', NULL, 0, NULL, NULL, 'jahitan keluar', 'selesai', NULL, '2023-03-09 06:30:38', '2023-03-10 04:01:12'),
+	(3, 3, 'SJL-0005', '2023-03-08', '2023-03-08', '2023-03-10', 'eksternal', 'PT Sumeh Jaya Tailor', 100000.00, 30, 40, '3 Lusin 4 pcs', 10, 5, 5, 'diperbaiki coba lagi', 'dibuang coba lagi', 'Lunas', 400000, 0, 400000, 'jahitan keluar', 'selesai', NULL, '2023-03-09 06:41:13', '2023-03-10 04:34:52'),
+	(5, 5, 'SJL-0007', '2023-03-10', '2023-03-10', '2023-03-10', 'eksternal', 'Sumeh Laundry', 5000.00, 60, 60, '5 Lusin 0 pcs', 0, 0, 0, '-', '-', 'Lunas', 25000, 0, 25000, 'jahitan keluar', 'selesai', NULL, '2023-03-10 04:31:16', '2023-03-10 04:36:44'),
+	(6, 6, 'SJL-0008', '2023-03-10', '2023-03-10', NULL, 'internal', NULL, NULL, 48, 48, '4 Lusin 0 pcs', 0, 0, 0, '0', '0', NULL, 0, NULL, NULL, 'jahitan selesai', 'selesai', NULL, '2023-03-10 06:31:34', '2023-03-10 06:32:29'),
+	(7, 7, 'SJL-0009', '2023-03-10', '2023-03-10', NULL, 'eksternal', 'Indonesia Tailor', 100.00, NULL, 20, '1 Lusin 8 pcs', NULL, NULL, NULL, NULL, NULL, 'Belum Lunas', 0, 200, 200, 'jahitan masuk', 'butuh konfirmasi', '2023-03-13 03:19:58', '2023-03-10 08:08:52', '2023-03-13 03:19:58'),
+	(8, 8, 'SJL-0011', '2023-03-09', '2023-03-10', NULL, 'eksternal', 'PT Sumeh Jaya Tailor', 50000.00, 95, 100, '8 Lusin 4 pcs', 5, 3, 2, '3 diperbaiki', '2 dibuang', 'Lunas', 450000, 0, 450000, 'jahitan selesai', 'selesai', NULL, '2023-03-10 08:22:02', '2023-03-10 09:43:14'),
+	(9, 9, 'SJL-0012', '2023-03-10', '2023-03-10', '2023-03-13', 'eksternal', 'PT Sumeh Jaya Tailor', 100000.00, 96, 100, '8 Lusin 4 pcs', 4, 4, 0, '-', '-', 'Lunas', 900000, 0, 900000, 'jahitan keluar', 'selesai', NULL, '2023-03-10 09:45:02', '2023-03-13 06:47:45'),
+	(10, 10, 'SJL-0016', '2023-03-13', '2023-03-13', '2023-03-13', 'eksternal', 'PT Sumeh Jaya Tailor', 15000.00, 55, 60, '5 Lusin 0 pcs', 5, 1, 4, 'diperbaiki', 'dibuang', 'Termin 1', 45000, 30000, 75000, 'jahitan keluar', 'selesai', NULL, '2023-03-13 03:18:33', '2023-03-13 03:41:46'),
+	(11, 11, 'SJL-0017', '2023-03-10', '2023-03-12', '2023-03-13', 'internal', NULL, NULL, 49, 50, '4 Lusin 2 pcs', 1, 1, 0, '-', '-', NULL, 0, NULL, NULL, 'jahitan keluar', 'selesai', NULL, '2023-03-13 04:54:55', '2023-03-13 06:53:33');
 
-LOCK TABLES `jahits` WRITE;
-/*!40000 ALTER TABLE `jahits` DISABLE KEYS */;
-INSERT INTO `jahits` VALUES (6,6,'M2N/BK/XII/2022/001','2022-12-26','2022-12-27','2022-12-18','eksternal','Pak H. Leman',50000.00,24,25,'2 Lusin 1 pcs',1,1,0,'Lepas Jahitan',NULL,'Termin 2',750000,500000,1250000,'jahitan keluar','selesai','2022-12-18 19:09:20','2022-12-23 09:27:09'),(7,7,'PUSH/BHK/XII/2022/001','2022-12-26','2022-12-27','2022-12-18','internal',NULL,NULL,45,50,'4 Lusin 2 pcs',5,4,1,'1. Lepas jahitan\r\n2. Jahitan keluar','Tidak bisa diperbaiki',NULL,0,NULL,NULL,'jahitan keluar','selesai','2022-12-18 19:09:36','2022-12-23 09:27:09'),(8,8,'M2N/BK/XII/2022/002','2022-12-25','2022-12-26','2022-12-22','eksternal','Casnuri',20000.00,77,78,'6 Lusin 6 pcs',1,1,0,'Jahitan rusak',NULL,'Termin 1',560000,-560000,1560000,'jahitan keluar','selesai','2022-12-22 16:27:38','2022-12-23 09:27:09'),(9,9,'PUSH/BHK/XII/2022/002','2022-12-25','2022-12-26','2022-12-22','internal',NULL,NULL,76,78,'6 Lusin 6 pcs',2,2,0,'Rusak di leher',NULL,NULL,0,NULL,NULL,'jahitan keluar','selesai','2022-12-22 16:27:44','2022-12-23 09:27:09');
-/*!40000 ALTER TABLE `jahits` ENABLE KEYS */;
-UNLOCK TABLES;
+-- Dumping structure for table garmen.jahit_dibuangs
+DROP TABLE IF EXISTS `jahit_dibuangs`;
+CREATE TABLE IF NOT EXISTS `jahit_dibuangs` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `jahit_id` bigint unsigned DEFAULT NULL,
+  `ukuran` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `jumlah` int NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `jahit_dibuangs_jahit_id_index` (`jahit_id`),
+  CONSTRAINT `jahit_dibuangs_jahit_id_foreign` FOREIGN KEY (`jahit_id`) REFERENCES `jahits` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Table structure for table `kategoris`
---
+-- Dumping data for table garmen.jahit_dibuangs: ~4 rows (approximately)
+REPLACE INTO `jahit_dibuangs` (`id`, `jahit_id`, `ukuran`, `jumlah`, `deleted_at`, `created_at`, `updated_at`) VALUES
+	(1, 2, 'L', 5, NULL, '2023-03-09 06:37:28', '2023-03-09 06:37:28'),
+	(2, 3, 'S', 5, NULL, '2023-03-09 07:12:23', '2023-03-09 07:12:23'),
+	(3, 8, 'S', 2, NULL, '2023-03-10 09:43:14', '2023-03-10 09:43:14'),
+	(4, 10, 'S', 4, NULL, '2023-03-13 03:30:36', '2023-03-13 03:30:36');
 
+-- Dumping structure for table garmen.jahit_direpairs
+DROP TABLE IF EXISTS `jahit_direpairs`;
+CREATE TABLE IF NOT EXISTS `jahit_direpairs` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `jahit_id` bigint unsigned DEFAULT NULL,
+  `ukuran` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `jumlah` int NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `jahit_direpairs_jahit_id_index` (`jahit_id`),
+  CONSTRAINT `jahit_direpairs_jahit_id_foreign` FOREIGN KEY (`jahit_id`) REFERENCES `jahits` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table garmen.jahit_direpairs: ~7 rows (approximately)
+REPLACE INTO `jahit_direpairs` (`id`, `jahit_id`, `ukuran`, `jumlah`, `deleted_at`, `created_at`, `updated_at`) VALUES
+	(1, 1, 'M', 10, NULL, '2023-03-09 03:49:45', '2023-03-09 03:49:45'),
+	(2, 2, 'M', 5, NULL, '2023-03-09 06:37:28', '2023-03-09 06:37:28'),
+	(3, 3, 'S', 5, NULL, '2023-03-09 07:12:23', '2023-03-09 07:12:23'),
+	(4, 8, 'S', 3, NULL, '2023-03-10 09:43:14', '2023-03-10 09:43:14'),
+	(5, 10, 'M', 1, NULL, '2023-03-13 03:30:36', '2023-03-13 03:30:36'),
+	(6, 9, 'L', 4, NULL, '2023-03-13 06:47:08', '2023-03-13 06:47:08'),
+	(7, 11, 'S', 1, NULL, '2023-03-13 06:53:18', '2023-03-13 06:53:18');
+
+-- Dumping structure for table garmen.kategoris
 DROP TABLE IF EXISTS `kategoris`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `kategoris` (
+CREATE TABLE IF NOT EXISTS `kategoris` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `nama_kategori` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `sku` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `gambar` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `kategoris`
---
+-- Dumping data for table garmen.kategoris: ~2 rows (approximately)
+REPLACE INTO `kategoris` (`id`, `nama_kategori`, `sku`, `gambar`, `deleted_at`, `created_at`, `updated_at`) VALUES
+	(1, 'Pria', 'SKU001', NULL, NULL, '2023-03-08 08:20:28', '2023-03-08 08:20:28'),
+	(2, 'Wanita', 'SKU002', NULL, NULL, '2023-03-08 08:20:28', '2023-03-08 08:20:28');
 
-LOCK TABLES `kategoris` WRITE;
-/*!40000 ALTER TABLE `kategoris` DISABLE KEYS */;
-INSERT INTO `kategoris` VALUES (5,'Kemeja','001','167136432665391.jpg','2022-12-18 18:52:06','2022-12-18 18:52:06');
-/*!40000 ALTER TABLE `kategoris` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `keranjangs`
---
-
+-- Dumping structure for table garmen.keranjangs
 DROP TABLE IF EXISTS `keranjangs`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `keranjangs` (
+CREATE TABLE IF NOT EXISTS `keranjangs` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `user_id` bigint unsigned DEFAULT NULL,
   `produk_id` bigint unsigned DEFAULT NULL,
@@ -996,51 +839,74 @@ CREATE TABLE `keranjangs` (
   KEY `keranjangs_produk_id_index` (`produk_id`),
   CONSTRAINT `keranjangs_produk_id_foreign` FOREIGN KEY (`produk_id`) REFERENCES `produks` (`id`) ON DELETE CASCADE,
   CONSTRAINT `keranjangs_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `keranjangs`
---
+-- Dumping data for table garmen.keranjangs: ~0 rows (approximately)
 
-LOCK TABLES `keranjangs` WRITE;
-/*!40000 ALTER TABLE `keranjangs` DISABLE KEYS */;
-/*!40000 ALTER TABLE `keranjangs` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `migrations`
---
-
+-- Dumping structure for table garmen.migrations
 DROP TABLE IF EXISTS `migrations`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `migrations` (
+CREATE TABLE IF NOT EXISTS `migrations` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `migrations`
---
+-- Dumping data for table garmen.migrations: ~49 rows (approximately)
+REPLACE INTO `migrations` (`id`, `migration`, `batch`) VALUES
+	(1, '2014_10_12_000000_create_users_table', 1),
+	(2, '2014_10_12_100000_create_password_resets_table', 1),
+	(3, '2021_07_25_124001_create_kategoris_table', 1),
+	(4, '2021_07_25_124200_create_sub_kategoris_table', 1),
+	(5, '2021_07_25_124215_create_detail_sub_kategoris_table', 1),
+	(6, '2021_07_28_133143_create_bahans_table', 1),
+	(7, '2021_07_28_134326_create_potongs_table', 1),
+	(8, '2021_07_28_134354_create_detail_potongs_table', 1),
+	(9, '2021_07_28_134417_create_jahits_table', 1),
+	(10, '2021_07_28_134437_create_detail_jahits_table', 1),
+	(11, '2021_07_28_135416_create_cucis_table', 1),
+	(12, '2021_07_28_135600_create_detail_cucis_table', 1),
+	(13, '2021_07_30_153748_create_permission_tables', 1),
+	(14, '2021_07_31_074824_create_jahit_direpairs_table', 1),
+	(15, '2021_07_31_074838_create_jahit_dibuangs_table', 1),
+	(16, '2021_08_05_071341_create_cuci_direpairs_table', 1),
+	(17, '2021_08_05_071458_create_cuci_dibuangs_table', 1),
+	(18, '2021_08_06_033837_create_sampahs_table', 1),
+	(19, '2021_08_06_035424_create_detail_sampahs_table', 1),
+	(20, '2021_08_06_042903_create_perbaikans_table', 1),
+	(21, '2021_08_06_043332_create_detail_perbaikans_table', 1),
+	(22, '2021_08_06_080817_create_rekapitulasis_table', 1),
+	(23, '2021_08_10_073534_create_finishings_table', 1),
+	(24, '2021_08_10_123346_create_detail_finishings_table', 1),
+	(25, '2021_08_10_132605_create_finishing_returs_table', 1),
+	(26, '2021_08_10_132718_create_finishing_dibuangs_table', 1),
+	(27, '2021_08_10_135948_create_detail_rekapitulasis_table', 1),
+	(28, '2021_08_11_042832_create_warehouses_table', 1),
+	(29, '2021_08_11_042927_create_detail_warehouses_table', 1),
+	(30, '2021_08_14_054929_create_returs_table', 1),
+	(31, '2021_08_14_055110_create_detail_returs_table', 1),
+	(32, '2021_08_14_060055_create_rekapitulasi_warehouses_table', 1),
+	(33, '2021_08_14_060114_create_detail_rekapitulasi_warehouses_table', 1),
+	(34, '2021_08_22_131026_create_notifications_table', 1),
+	(35, '2021_10_04_210554_create_pembayaran_jahits_table', 1),
+	(36, '2021_10_04_210918_create_pembayaran_cucis_table', 1),
+	(37, '2021_10_17_194112_create_promos_table', 1),
+	(38, '2021_10_18_214949_create_produks_table', 1),
+	(39, '2021_10_18_215239_create_detail_produks_table', 1),
+	(40, '2021_10_18_215447_create_detail_produk_images_table', 1),
+	(41, '2021_10_20_125923_create_banners_table', 1),
+	(42, '2021_10_27_220932_create_alamats_table', 1),
+	(43, '2021_11_24_214632_create_banks_table', 1),
+	(44, '2021_11_25_194546_create_keranjangs_table', 1),
+	(45, '2021_12_02_225512_create_favorits_table', 1),
+	(46, '2021_12_22_213132_create_transaksis_table', 1),
+	(47, '2021_12_22_213608_create_detail_transaksis_table', 1),
+	(48, '2021_12_23_195752_create_notification_ecommerces_table', 1),
+	(49, '2021_12_23_224052_create_ulasans_table', 1);
 
-LOCK TABLES `migrations` WRITE;
-/*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES (1,'2014_10_12_000000_create_users_table',1),(2,'2014_10_12_100000_create_password_resets_table',1),(3,'2021_07_25_124001_create_kategoris_table',1),(4,'2021_07_25_124200_create_sub_kategoris_table',1),(5,'2021_07_25_124215_create_detail_sub_kategoris_table',1),(6,'2021_07_28_133143_create_bahans_table',1),(7,'2021_07_28_134326_create_potongs_table',1),(8,'2021_07_28_134354_create_detail_potongs_table',1),(9,'2021_07_28_134417_create_jahits_table',1),(10,'2021_07_28_134437_create_detail_jahits_table',1),(11,'2021_07_28_135416_create_cucis_table',1),(12,'2021_07_28_135600_create_detail_cucis_table',1),(13,'2021_07_30_153748_create_permission_tables',1),(14,'2021_07_31_074824_create_jahit_direpairs_table',1),(15,'2021_07_31_074838_create_jahit_dibuangs_table',1),(16,'2021_08_05_071341_create_cuci_direpairs_table',1),(17,'2021_08_05_071458_create_cuci_dibuangs_table',1),(18,'2021_08_06_033837_create_sampahs_table',1),(19,'2021_08_06_035424_create_detail_sampahs_table',1),(20,'2021_08_06_042903_create_perbaikans_table',1),(21,'2021_08_06_043332_create_detail_perbaikans_table',1),(22,'2021_08_06_080817_create_rekapitulasis_table',1),(23,'2021_08_10_073534_create_finishings_table',1),(24,'2021_08_10_123346_create_detail_finishings_table',1),(25,'2021_08_10_132605_create_finishing_returs_table',1),(26,'2021_08_10_132718_create_finishing_dibuangs_table',1),(27,'2021_08_10_135948_create_detail_rekapitulasis_table',1),(28,'2021_08_11_042832_create_warehouses_table',1),(29,'2021_08_11_042927_create_detail_warehouses_table',1),(30,'2021_08_14_054929_create_returs_table',1),(31,'2021_08_14_055110_create_detail_returs_table',1),(32,'2021_08_14_060055_create_rekapitulasi_warehouses_table',1),(33,'2021_08_14_060114_create_detail_rekapitulasi_warehouses_table',1),(34,'2021_08_22_131026_create_notifications_table',1),(35,'2021_10_04_210554_create_pembayaran_jahits_table',1),(36,'2021_10_04_210918_create_pembayaran_cucis_table',1),(37,'2021_10_17_194112_create_promos_table',1),(38,'2021_10_18_214949_create_produks_table',1),(39,'2021_10_18_215239_create_detail_produks_table',1),(40,'2021_10_18_215447_create_detail_produk_images_table',1),(41,'2021_10_20_125923_create_banners_table',1),(42,'2021_10_27_220932_create_alamats_table',1),(43,'2021_11_24_214632_create_banks_table',1),(44,'2021_11_25_194546_create_keranjangs_table',1),(45,'2021_12_02_225512_create_favorits_table',1),(46,'2021_12_22_213132_create_transaksis_table',1),(47,'2021_12_22_213608_create_detail_transaksis_table',1),(48,'2021_12_23_195752_create_notification_ecommerces_table',1),(49,'2021_12_23_224052_create_ulasans_table',1);
-/*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `model_has_permissions`
---
-
+-- Dumping structure for table garmen.model_has_permissions
 DROP TABLE IF EXISTS `model_has_permissions`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `model_has_permissions` (
+CREATE TABLE IF NOT EXISTS `model_has_permissions` (
   `permission_id` bigint unsigned NOT NULL,
   `model_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `model_id` bigint unsigned NOT NULL,
@@ -1048,25 +914,12 @@ CREATE TABLE `model_has_permissions` (
   KEY `model_has_permissions_model_id_model_type_index` (`model_id`,`model_type`),
   CONSTRAINT `model_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `model_has_permissions`
---
+-- Dumping data for table garmen.model_has_permissions: ~0 rows (approximately)
 
-LOCK TABLES `model_has_permissions` WRITE;
-/*!40000 ALTER TABLE `model_has_permissions` DISABLE KEYS */;
-/*!40000 ALTER TABLE `model_has_permissions` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `model_has_roles`
---
-
+-- Dumping structure for table garmen.model_has_roles
 DROP TABLE IF EXISTS `model_has_roles`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `model_has_roles` (
+CREATE TABLE IF NOT EXISTS `model_has_roles` (
   `role_id` bigint unsigned NOT NULL,
   `model_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `model_id` bigint unsigned NOT NULL,
@@ -1074,26 +927,92 @@ CREATE TABLE `model_has_roles` (
   KEY `model_has_roles_model_id_model_type_index` (`model_id`,`model_type`),
   CONSTRAINT `model_has_roles_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `model_has_roles`
---
+-- Dumping data for table garmen.model_has_roles: ~5 rows (approximately)
+REPLACE INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
+	(1, 'App\\User', 1),
+	(2, 'App\\User', 2),
+	(4, 'App\\User', 3),
+	(3, 'App\\User', 4),
+	(5, 'App\\User', 5);
 
-LOCK TABLES `model_has_roles` WRITE;
-/*!40000 ALTER TABLE `model_has_roles` DISABLE KEYS */;
-INSERT INTO `model_has_roles` VALUES (1,'App\\User',1),(2,'App\\User',2),(4,'App\\User',3),(3,'App\\User',4),(5,'App\\User',5),(5,'App\\User',6),(5,'App\\User',7);
-/*!40000 ALTER TABLE `model_has_roles` ENABLE KEYS */;
-UNLOCK TABLES;
+-- Dumping structure for table garmen.notifications
+DROP TABLE IF EXISTS `notifications`;
+CREATE TABLE IF NOT EXISTS `notifications` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `description` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `url` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `aktif` int NOT NULL DEFAULT '0',
+  `read` int NOT NULL DEFAULT '0',
+  `role` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Table structure for table `notification_ecommerces`
---
+-- Dumping data for table garmen.notifications: ~57 rows (approximately)
+REPLACE INTO `notifications` (`id`, `description`, `url`, `aktif`, `read`, `role`, `created_at`, `updated_at`) VALUES
+	(1, 'bahan keluar telah dikirim ke potong, silahkan di cek bahan', 'http://localhost:8000/production/potong', 0, 0, 'production', '2023-03-08 08:39:39', '2023-03-08 08:39:39'),
+	(2, 'potong keluar telah dikirim ke jahit, silahkan di cek', 'http://localhost:8000/production/jahit', 0, 0, 'production', '2023-03-08 09:11:47', '2023-03-08 09:11:47'),
+	(3, 'jahit keluar telah dikirim ke cuci, silahkan di cek', 'http://localhost:8000/production/cuci', 0, 0, 'production', '2023-03-09 03:50:03', '2023-03-09 03:50:03'),
+	(4, 'jahit keluar telah dikirim ke cuci, silahkan di cek', 'http://localhost:8000/production/cuci', 0, 0, 'production', '2023-03-09 04:03:09', '2023-03-09 04:03:09'),
+	(5, 'cuci keluar telah dikirim ke gudang, silahkan di cek', 'http://localhost:8000/production/cuci', 0, 0, 'production', '2023-03-09 04:30:02', '2023-03-09 04:30:02'),
+	(6, 'cuci keluar telah dikirim ke gudang, silahkan di cek', 'http://localhost:8000/warehouse/finishing', 1, 1, 'warehouse', '2023-03-09 04:30:02', '2023-03-13 08:44:33'),
+	(7, 'ada barang yang diretur, silahkan di cek', 'http://localhost:8000/production/retur', 0, 0, 'production', '2023-03-09 04:34:47', '2023-03-09 04:34:47'),
+	(8, 'sortir telah dikirim ke gudang, silahkan di cek', 'http://localhost:8000/warehouse/warehouse', 1, 1, 'warehouse', '2023-03-09 04:34:47', '2023-03-13 08:44:33'),
+	(9, 'gudang telah dikirim ke ecommerce, silahkan di cek', 'http://localhost:8000/warehouse/warehouse', 1, 1, 'warehouse', '2023-03-09 04:50:03', '2023-03-13 08:44:33'),
+	(10, 'bahan keluar telah dikirim ke potong, silahkan di cek bahan', 'http://localhost:8000/production/potong', 0, 0, 'production', '2023-03-09 06:29:33', '2023-03-09 06:29:33'),
+	(11, 'potong keluar telah dikirim ke jahit, silahkan di cek', 'http://localhost:8000/production/jahit', 0, 0, 'production', '2023-03-09 06:30:38', '2023-03-09 06:30:38'),
+	(12, 'jahit keluar telah dikirim ke cuci, silahkan di cek', 'http://localhost:8000/production/cuci', 0, 0, 'production', '2023-03-09 06:38:13', '2023-03-09 06:38:13'),
+	(13, 'bahan keluar telah dikirim ke potong, silahkan di cek bahan', 'http://localhost:8000/production/potong', 0, 0, 'production', '2023-03-09 06:40:13', '2023-03-09 06:40:13'),
+	(14, 'potong keluar telah dikirim ke jahit, silahkan di cek', 'http://localhost:8000/production/jahit', 0, 0, 'production', '2023-03-09 06:41:13', '2023-03-09 06:41:13'),
+	(15, 'cuci keluar telah dikirim ke gudang, silahkan di cek', 'http://localhost:8000/production/cuci', 0, 0, 'production', '2023-03-09 08:42:45', '2023-03-09 08:42:45'),
+	(16, 'cuci keluar telah dikirim ke gudang, silahkan di cek', 'http://localhost:8000/warehouse/finishing', 1, 1, 'warehouse', '2023-03-09 08:42:45', '2023-03-13 08:44:33'),
+	(17, 'ada barang yang diretur, silahkan di cek', 'http://localhost:8000/production/retur', 0, 0, 'production', '2023-03-09 08:43:52', '2023-03-09 08:43:52'),
+	(18, 'sortir telah dikirim ke gudang, silahkan di cek', 'http://localhost:8000/warehouse/warehouse', 1, 1, 'warehouse', '2023-03-09 08:43:52', '2023-03-13 08:44:33'),
+	(19, 'jahit keluar telah dikirim ke cuci, silahkan di cek', 'http://localhost:8000/production/cuci', 0, 0, 'production', '2023-03-10 04:01:12', '2023-03-10 04:01:12'),
+	(20, 'jahit keluar telah dikirim ke cuci, silahkan di cek', 'http://localhost:8000/production/cuci', 0, 0, 'production', '2023-03-10 04:09:28', '2023-03-10 04:09:28'),
+	(21, 'bahan keluar telah dikirim ke potong, silahkan di cek bahan', 'http://localhost:8000/production/potong', 0, 0, 'production', '2023-03-10 04:17:28', '2023-03-10 04:17:28'),
+	(22, 'bahan keluar telah dikirim ke potong, silahkan di cek bahan', 'http://localhost:8000/production/potong', 0, 0, 'production', '2023-03-10 04:24:35', '2023-03-10 04:24:35'),
+	(23, 'potong keluar telah dikirim ke jahit, silahkan di cek', 'http://localhost:8000/production/jahit', 0, 0, 'production', '2023-03-10 04:27:01', '2023-03-10 04:27:01'),
+	(24, 'potong keluar telah dikirim ke jahit, silahkan di cek', 'http://localhost:8000/production/jahit', 0, 0, 'production', '2023-03-10 04:31:16', '2023-03-10 04:31:16'),
+	(25, 'jahit keluar telah dikirim ke cuci, silahkan di cek', 'http://localhost:8000/production/cuci', 0, 0, 'production', '2023-03-10 04:36:44', '2023-03-10 04:36:44'),
+	(26, 'cuci keluar telah dikirim ke gudang, silahkan di cek', 'http://localhost:8000/production/cuci', 0, 0, 'production', '2023-03-10 06:22:24', '2023-03-10 06:22:24'),
+	(27, 'cuci keluar telah dikirim ke gudang, silahkan di cek', 'http://localhost:8000/warehouse/finishing', 1, 1, 'warehouse', '2023-03-10 06:22:24', '2023-03-13 08:44:33'),
+	(28, 'bahan keluar telah dikirim ke potong, silahkan di cek bahan', 'http://localhost:8000/production/potong', 0, 0, 'production', '2023-03-10 06:30:10', '2023-03-10 06:30:10'),
+	(29, 'potong keluar telah dikirim ke jahit, silahkan di cek', 'http://localhost:8000/production/jahit', 0, 0, 'production', '2023-03-10 06:31:34', '2023-03-10 06:31:34'),
+	(30, 'ada barang yang diretur, silahkan di cek', 'http://localhost:8000/production/retur', 0, 0, 'production', '2023-03-10 07:29:16', '2023-03-10 07:29:16'),
+	(31, 'sortir telah dikirim ke gudang, silahkan di cek', 'http://localhost:8000/warehouse/warehouse', 1, 1, 'warehouse', '2023-03-10 07:29:16', '2023-03-13 08:44:33'),
+	(32, 'bahan keluar telah dikirim ke potong, silahkan di cek bahan', 'http://localhost:8000/production/potong', 0, 0, 'production', '2023-03-10 08:07:44', '2023-03-10 08:07:44'),
+	(33, 'potong keluar telah dikirim ke jahit, silahkan di cek', 'http://localhost:8000/production/jahit', 0, 0, 'production', '2023-03-10 08:08:52', '2023-03-10 08:08:52'),
+	(34, 'bahan keluar telah dikirim ke potong, silahkan di cek bahan', 'http://localhost:8000/production/potong', 0, 0, 'production', '2023-03-10 08:20:49', '2023-03-10 08:20:49'),
+	(35, 'potong keluar telah dikirim ke jahit, silahkan di cek', 'http://localhost:8000/production/jahit', 0, 0, 'production', '2023-03-10 08:22:02', '2023-03-10 08:22:02'),
+	(36, 'bahan keluar telah dikirim ke potong, silahkan di cek bahan', 'http://localhost:8000/production/potong', 0, 0, 'production', '2023-03-10 09:44:19', '2023-03-10 09:44:19'),
+	(37, 'potong keluar telah dikirim ke jahit, silahkan di cek', 'http://localhost:8000/production/jahit', 0, 0, 'production', '2023-03-10 09:45:02', '2023-03-10 09:45:02'),
+	(38, 'bahan keluar telah dikirim ke potong, silahkan di cek bahan', 'http://localhost:8000/production/potong', 0, 0, 'production', '2023-03-13 03:16:33', '2023-03-13 03:16:33'),
+	(39, 'potong keluar telah dikirim ke jahit, silahkan di cek', 'http://localhost:8000/production/jahit', 0, 0, 'production', '2023-03-13 03:18:33', '2023-03-13 03:18:33'),
+	(40, 'jahit keluar telah dikirim ke cuci, silahkan di cek', 'http://localhost:8000/production/cuci', 0, 0, 'production', '2023-03-13 03:41:46', '2023-03-13 03:41:46'),
+	(41, 'cuci keluar telah dikirim ke gudang, silahkan di cek', 'http://localhost:8000/production/cuci', 0, 0, 'production', '2023-03-13 03:50:24', '2023-03-13 03:50:24'),
+	(42, 'cuci keluar telah dikirim ke gudang, silahkan di cek', 'http://localhost:8000/warehouse/finishing', 1, 1, 'warehouse', '2023-03-13 03:50:24', '2023-03-13 08:44:33'),
+	(43, 'cuci keluar telah dikirim ke gudang, silahkan di cek', 'http://localhost:8000/production/cuci', 0, 0, 'production', '2023-03-13 03:54:51', '2023-03-13 03:54:51'),
+	(44, 'cuci keluar telah dikirim ke gudang, silahkan di cek', 'http://localhost:8000/warehouse/finishing', 1, 1, 'warehouse', '2023-03-13 03:54:51', '2023-03-13 08:44:33'),
+	(45, 'bahan keluar telah dikirim ke potong, silahkan di cek bahan', 'http://localhost:8000/production/potong', 0, 0, 'production', '2023-03-13 04:43:45', '2023-03-13 04:43:45'),
+	(46, 'potong keluar telah dikirim ke jahit, silahkan di cek', 'http://localhost:8000/production/jahit', 0, 0, 'production', '2023-03-13 04:54:55', '2023-03-13 04:54:55'),
+	(47, 'jahit keluar telah dikirim ke cuci, silahkan di cek', 'http://localhost:8000/production/cuci', 0, 0, 'production', '2023-03-13 06:47:45', '2023-03-13 06:47:45'),
+	(48, 'jahit keluar telah dikirim ke cuci, silahkan di cek', 'http://localhost:8000/production/cuci', 0, 0, 'production', '2023-03-13 06:53:33', '2023-03-13 06:53:33'),
+	(49, 'Ada transaksi baru INV150320236', 'http://192.168.18.131:8000/admin/transaksi', 0, 0, 'online', '2023-03-15 04:25:51', '2023-03-15 04:25:51'),
+	(50, 'ada barang yang diretur, silahkan di cek', 'http://localhost:8000/production/retur', 0, 0, 'production', '2023-03-27 03:18:58', '2023-03-27 03:18:58'),
+	(51, 'sortir telah dikirim ke gudang, silahkan di cek', 'http://localhost:8000/warehouse/warehouse', 0, 0, 'warehouse', '2023-03-27 03:18:58', '2023-03-27 03:18:58'),
+	(52, 'gudang telah dikirim ke ecommerce, silahkan di cek', 'http://localhost:8000/warehouse/warehouse', 0, 0, 'warehouse', '2023-03-27 03:33:41', '2023-03-27 03:33:41'),
+	(53, 'gudang telah dikirim ke ecommerce, silahkan di cek', 'http://localhost:8000/warehouse/warehouse', 0, 0, 'warehouse', '2023-03-27 03:36:34', '2023-03-27 03:36:34'),
+	(54, 'gudang telah dikirim ke ecommerce, silahkan di cek', 'http://localhost:8000/warehouse/warehouse', 0, 0, 'warehouse', '2023-03-27 03:36:45', '2023-03-27 03:36:45'),
+	(55, 'gudang telah dikirim ke ecommerce, silahkan di cek', 'http://localhost:8000/warehouse/warehouse', 0, 0, 'warehouse', '2023-03-27 03:36:58', '2023-03-27 03:36:58'),
+	(56, 'gudang telah dikirim ke ecommerce, silahkan di cek', 'http://localhost:8000/warehouse/warehouse', 0, 0, 'warehouse', '2023-03-27 03:37:49', '2023-03-27 03:37:49'),
+	(57, 'Ada transaksi baru INV270320237', 'http://localhost:8000/admin/transaksi', 0, 0, 'online', '2023-03-27 03:49:21', '2023-03-27 03:49:21');
 
+-- Dumping structure for table garmen.notification_ecommerces
 DROP TABLE IF EXISTS `notification_ecommerces`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `notification_ecommerces` (
+CREATE TABLE IF NOT EXISTS `notification_ecommerces` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `user_id` bigint unsigned DEFAULT NULL,
   `transaksi_id` bigint unsigned DEFAULT NULL,
@@ -1105,141 +1024,84 @@ CREATE TABLE `notification_ecommerces` (
   KEY `notification_ecommerces_transaksi_id_index` (`transaksi_id`),
   CONSTRAINT `notification_ecommerces_transaksi_id_foreign` FOREIGN KEY (`transaksi_id`) REFERENCES `transaksis` (`id`) ON DELETE CASCADE,
   CONSTRAINT `notification_ecommerces_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `notification_ecommerces`
---
+-- Dumping data for table garmen.notification_ecommerces: ~2 rows (approximately)
+REPLACE INTO `notification_ecommerces` (`id`, `user_id`, `transaksi_id`, `pesan`, `created_at`, `updated_at`) VALUES
+	(1, 5, 5, 'Pesanan dengan nomor transaksi INV130320233 dalam proses pengiriman!', '2023-03-13 08:23:28', '2023-03-13 08:23:28'),
+	(2, 5, 6, 'Pesanan dengan nomor transaksi INV150320236 dalam proses pengiriman!', '2023-03-15 04:28:26', '2023-03-15 04:28:26');
 
-LOCK TABLES `notification_ecommerces` WRITE;
-/*!40000 ALTER TABLE `notification_ecommerces` DISABLE KEYS */;
-INSERT INTO `notification_ecommerces` VALUES (1,5,1,'Pesanan dengan nomor transaksi INV050920221 dalam proses pengiriman!','2022-09-07 13:59:10','2022-09-07 13:59:10');
-/*!40000 ALTER TABLE `notification_ecommerces` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `notifications`
---
-
-DROP TABLE IF EXISTS `notifications`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `notifications` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `description` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `url` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `aktif` int NOT NULL DEFAULT '0',
-  `read` int NOT NULL DEFAULT '0',
-  `role` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=75 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `notifications`
---
-
-LOCK TABLES `notifications` WRITE;
-/*!40000 ALTER TABLE `notifications` DISABLE KEYS */;
-INSERT INTO `notifications` VALUES (1,'bahan keluar telah dikirim ke potong, silahkan di cek bahan','http://m2nstore.com/production/potong',1,0,'production','2022-09-05 10:58:58','2023-01-12 21:23:27'),(2,'potong keluar telah dikirim ke jahit, silahkan di cek','http://m2nstore.com/production/jahit',1,0,'production','2022-09-05 11:00:08','2023-01-12 21:23:27'),(3,'jahit keluar telah dikirim ke cuci, silahkan di cek','http://m2nstore.com/production/cuci',1,0,'production','2022-09-05 11:00:48','2023-01-12 21:23:27'),(4,'cuci keluar telah dikirim ke gudang, silahkan di cek','http://m2nstore.com/production/cuci',1,0,'production','2022-09-05 11:01:26','2023-01-12 21:23:27'),(5,'cuci keluar telah dikirim ke gudang, silahkan di cek','http://m2nstore.com/warehouse/finishing',0,0,'warehouse','2022-09-05 11:01:26','2022-09-05 11:01:26'),(6,'bahan keluar telah dikirim ke potong, silahkan di cek bahan','http://m2nstore.com/production/potong',1,0,'production','2022-09-05 11:06:12','2023-01-12 21:23:27'),(7,'bahan keluar telah dikirim ke potong, silahkan di cek bahan','http://m2nstore.com/production/potong',1,0,'production','2022-09-05 11:06:44','2023-01-12 21:23:27'),(8,'bahan keluar telah dikirim ke potong, silahkan di cek bahan','http://m2nstore.com/production/potong',1,0,'production','2022-09-05 11:07:54','2023-01-12 21:23:27'),(9,'bahan keluar telah dikirim ke potong, silahkan di cek bahan','http://m2nstore.com/production/potong',1,0,'production','2022-09-05 11:08:43','2023-01-12 21:23:27'),(10,'potong keluar telah dikirim ke jahit, silahkan di cek','http://m2nstore.com/production/jahit',1,0,'production','2022-09-05 11:14:55','2023-01-12 21:23:27'),(11,'potong keluar telah dikirim ke jahit, silahkan di cek','http://m2nstore.com/production/jahit',1,0,'production','2022-09-05 11:15:02','2023-01-12 21:23:27'),(12,'potong keluar telah dikirim ke jahit, silahkan di cek','http://m2nstore.com/production/jahit',1,0,'production','2022-09-05 11:15:09','2023-01-12 21:23:27'),(13,'potong keluar telah dikirim ke jahit, silahkan di cek','http://m2nstore.com/production/jahit',1,0,'production','2022-09-05 11:15:14','2023-01-12 21:23:27'),(14,'jahit keluar telah dikirim ke cuci, silahkan di cek','http://m2nstore.com/production/cuci',1,0,'production','2022-09-05 11:21:39','2023-01-12 21:23:27'),(15,'jahit keluar telah dikirim ke cuci, silahkan di cek','http://m2nstore.com/production/cuci',1,0,'production','2022-09-05 11:21:46','2023-01-12 21:23:27'),(16,'jahit keluar telah dikirim ke cuci, silahkan di cek','http://m2nstore.com/production/cuci',1,0,'production','2022-09-05 11:21:52','2023-01-12 21:23:27'),(17,'jahit keluar telah dikirim ke cuci, silahkan di cek','http://m2nstore.com/production/cuci',1,0,'production','2022-09-05 11:21:57','2023-01-12 21:23:27'),(18,'cuci keluar telah dikirim ke gudang, silahkan di cek','http://m2nstore.com/production/cuci',1,0,'production','2022-09-05 11:24:00','2023-01-12 21:23:27'),(19,'cuci keluar telah dikirim ke gudang, silahkan di cek','http://m2nstore.com/warehouse/finishing',0,0,'warehouse','2022-09-05 11:24:00','2022-09-05 11:24:00'),(20,'cuci keluar telah dikirim ke gudang, silahkan di cek','http://m2nstore.com/production/cuci',1,0,'production','2022-09-05 11:24:06','2023-01-12 21:23:27'),(21,'cuci keluar telah dikirim ke gudang, silahkan di cek','http://m2nstore.com/warehouse/finishing',0,0,'warehouse','2022-09-05 11:24:06','2022-09-05 11:24:06'),(22,'cuci keluar telah dikirim ke gudang, silahkan di cek','http://m2nstore.com/production/cuci',1,0,'production','2022-09-05 11:24:10','2023-01-12 21:23:27'),(23,'cuci keluar telah dikirim ke gudang, silahkan di cek','http://m2nstore.com/warehouse/finishing',0,0,'warehouse','2022-09-05 11:24:10','2022-09-05 11:24:10'),(24,'cuci keluar telah dikirim ke gudang, silahkan di cek','http://m2nstore.com/production/cuci',1,0,'production','2022-09-05 11:24:14','2023-01-12 21:23:27'),(25,'cuci keluar telah dikirim ke gudang, silahkan di cek','http://m2nstore.com/warehouse/finishing',0,0,'warehouse','2022-09-05 11:24:14','2022-09-05 11:24:14'),(26,'ada barang yang diretur, silahkan di cek','http://m2nstore.com/production/retur',1,0,'production','2022-09-05 11:25:48','2023-01-12 21:23:27'),(27,'sortir telah dikirim ke gudang, silahkan di cek','http://m2nstore.com/warehouse/warehouse',0,0,'warehouse','2022-09-05 11:25:48','2022-09-05 11:25:48'),(28,'ada barang yang diretur, silahkan di cek','http://m2nstore.com/production/retur',1,0,'production','2022-09-05 11:26:28','2023-01-12 21:23:27'),(29,'sortir telah dikirim ke gudang, silahkan di cek','http://m2nstore.com/warehouse/warehouse',0,0,'warehouse','2022-09-05 11:26:28','2022-09-05 11:26:28'),(30,'ada barang yang diretur, silahkan di cek','http://m2nstore.com/production/retur',1,0,'production','2022-09-05 11:26:47','2023-01-12 21:23:27'),(31,'sortir telah dikirim ke gudang, silahkan di cek','http://m2nstore.com/warehouse/warehouse',0,0,'warehouse','2022-09-05 11:26:47','2022-09-05 11:26:47'),(32,'ada barang yang diretur, silahkan di cek','http://m2nstore.com/production/retur',1,0,'production','2022-09-05 11:27:03','2023-01-12 21:23:27'),(33,'sortir telah dikirim ke gudang, silahkan di cek','http://m2nstore.com/warehouse/warehouse',0,0,'warehouse','2022-09-05 11:27:03','2022-09-05 11:27:03'),(34,'ada barang yang diretur, silahkan di cek','http://m2nstore.com/production/retur',1,0,'production','2022-09-05 11:27:18','2023-01-12 21:23:27'),(35,'sortir telah dikirim ke gudang, silahkan di cek','http://m2nstore.com/warehouse/warehouse',0,0,'warehouse','2022-09-05 11:27:18','2022-09-05 11:27:18'),(36,'gudang telah dikirim ke ecommerce, silahkan di cek','http://m2nstore.com/warehouse/warehouse',0,0,'warehouse','2022-09-05 11:27:30','2022-09-05 11:27:30'),(37,'gudang telah dikirim ke ecommerce, silahkan di cek','http://m2nstore.com/warehouse/warehouse',0,0,'warehouse','2022-09-05 11:27:37','2022-09-05 11:27:37'),(38,'gudang telah dikirim ke ecommerce, silahkan di cek','http://m2nstore.com/warehouse/warehouse',0,0,'warehouse','2022-09-05 11:27:42','2022-09-05 11:27:42'),(39,'gudang telah dikirim ke ecommerce, silahkan di cek','http://m2nstore.com/warehouse/warehouse',0,0,'warehouse','2022-09-05 11:27:49','2022-09-05 11:27:49'),(40,'gudang telah dikirim ke ecommerce, silahkan di cek','http://m2nstore.com/warehouse/warehouse',0,0,'warehouse','2022-09-05 11:27:58','2022-09-05 11:27:58'),(41,'Ada transaksi baru INV050920221','http://m2nstore.com/admin/transaksi',0,0,'online','2022-09-05 13:12:08','2022-09-05 13:12:08'),(42,'bahan keluar telah dikirim ke potong, silahkan di cek bahan','http://m2nstore.com/production/potong',1,0,'production','2022-12-18 19:03:52','2023-01-12 21:23:27'),(43,'bahan keluar telah dikirim ke potong, silahkan di cek bahan','http://m2nstore.com/production/potong',1,0,'production','2022-12-18 19:05:45','2023-01-12 21:23:27'),(44,'potong keluar telah dikirim ke jahit, silahkan di cek','http://m2nstore.com/production/jahit',1,0,'production','2022-12-18 19:09:20','2023-01-12 21:23:27'),(45,'potong keluar telah dikirim ke jahit, silahkan di cek','http://m2nstore.com/production/jahit',1,0,'production','2022-12-18 19:09:36','2023-01-12 21:23:27'),(46,'jahit keluar telah dikirim ke cuci, silahkan di cek','http://m2nstore.com/production/cuci',1,0,'production','2022-12-18 19:14:17','2023-01-12 21:23:27'),(47,'jahit keluar telah dikirim ke cuci, silahkan di cek','http://m2nstore.com/production/cuci',1,0,'production','2022-12-18 19:14:24','2023-01-12 21:23:27'),(48,'cuci keluar telah dikirim ke gudang, silahkan di cek','http://m2nstore.com/production/cuci',1,0,'production','2022-12-18 19:20:58','2023-01-12 21:23:27'),(49,'cuci keluar telah dikirim ke gudang, silahkan di cek','http://m2nstore.com/warehouse/finishing',0,0,'warehouse','2022-12-18 19:20:58','2022-12-18 19:20:58'),(50,'cuci keluar telah dikirim ke gudang, silahkan di cek','http://m2nstore.com/production/cuci',1,0,'production','2022-12-18 19:21:42','2023-01-12 21:23:27'),(51,'cuci keluar telah dikirim ke gudang, silahkan di cek','http://m2nstore.com/warehouse/finishing',0,0,'warehouse','2022-12-18 19:21:42','2022-12-18 19:21:42'),(52,'ada barang yang diretur, silahkan di cek','http://m2nstore.com/production/retur',1,0,'production','2022-12-18 19:34:38','2023-01-12 21:23:27'),(53,'sortir telah dikirim ke gudang, silahkan di cek','http://m2nstore.com/warehouse/warehouse',0,0,'warehouse','2022-12-18 19:34:38','2022-12-18 19:34:38'),(54,'ada barang yang diretur, silahkan di cek','http://m2nstore.com/production/retur',1,0,'production','2022-12-18 19:37:14','2023-01-12 21:23:27'),(55,'sortir telah dikirim ke gudang, silahkan di cek','http://m2nstore.com/warehouse/warehouse',0,0,'warehouse','2022-12-18 19:37:14','2022-12-18 19:37:14'),(56,'gudang telah dikirim ke ecommerce, silahkan di cek','http://m2nstore.com/warehouse/warehouse',0,0,'warehouse','2022-12-18 19:38:11','2022-12-18 19:38:11'),(57,'gudang telah dikirim ke ecommerce, silahkan di cek','http://m2nstore.com/warehouse/warehouse',0,0,'warehouse','2022-12-18 19:38:44','2022-12-18 19:38:44'),(58,'bahan keluar telah dikirim ke potong, silahkan di cek bahan','http://m2nstore.com/production/potong',1,0,'production','2022-12-22 16:19:30','2023-01-12 21:23:27'),(59,'bahan keluar telah dikirim ke potong, silahkan di cek bahan','http://m2nstore.com/production/potong',1,0,'production','2022-12-22 16:19:56','2023-01-12 21:23:27'),(60,'potong keluar telah dikirim ke jahit, silahkan di cek','http://m2nstore.com/production/jahit',1,0,'production','2022-12-22 16:27:38','2023-01-12 21:23:27'),(61,'potong keluar telah dikirim ke jahit, silahkan di cek','http://m2nstore.com/production/jahit',1,0,'production','2022-12-22 16:27:44','2023-01-12 21:23:27'),(62,'jahit keluar telah dikirim ke cuci, silahkan di cek','http://m2nstore.com/production/cuci',1,0,'production','2022-12-22 16:31:59','2023-01-12 21:23:27'),(63,'jahit keluar telah dikirim ke cuci, silahkan di cek','http://m2nstore.com/production/cuci',1,0,'production','2022-12-22 16:32:09','2023-01-12 21:23:27'),(64,'cuci keluar telah dikirim ke gudang, silahkan di cek','http://m2nstore.com/production/cuci',1,0,'production','2022-12-22 16:34:52','2023-01-12 21:23:27'),(65,'cuci keluar telah dikirim ke gudang, silahkan di cek','http://m2nstore.com/warehouse/finishing',0,0,'warehouse','2022-12-22 16:34:52','2022-12-22 16:34:52'),(66,'cuci keluar telah dikirim ke gudang, silahkan di cek','http://m2nstore.com/production/cuci',1,0,'production','2022-12-22 16:34:57','2023-01-12 21:23:27'),(67,'cuci keluar telah dikirim ke gudang, silahkan di cek','http://m2nstore.com/warehouse/finishing',0,0,'warehouse','2022-12-22 16:34:57','2022-12-22 16:34:57'),(68,'ada barang yang diretur, silahkan di cek','http://m2nstore.com/production/retur',1,0,'production','2022-12-22 17:59:15','2023-01-12 21:23:27'),(69,'sortir telah dikirim ke gudang, silahkan di cek','http://m2nstore.com/warehouse/warehouse',0,0,'warehouse','2022-12-22 17:59:15','2022-12-22 17:59:15'),(70,'ada barang yang diretur, silahkan di cek','http://m2nstore.com/production/retur',1,0,'production','2022-12-22 18:01:05','2023-01-12 21:23:27'),(71,'sortir telah dikirim ke gudang, silahkan di cek','http://m2nstore.com/warehouse/warehouse',0,0,'warehouse','2022-12-22 18:01:05','2022-12-22 18:01:05'),(72,'gudang telah dikirim ke ecommerce, silahkan di cek','http://m2nstore.com/warehouse/warehouse',0,0,'warehouse','2022-12-22 18:02:03','2022-12-22 18:02:03'),(73,'gudang telah dikirim ke ecommerce, silahkan di cek','http://m2nstore.com/warehouse/warehouse',0,0,'warehouse','2022-12-22 18:03:09','2022-12-22 18:03:09'),(74,'gudang telah dikirim ke ecommerce, silahkan di cek','http://m2nstore.com/warehouse/warehouse',0,0,'warehouse','2022-12-22 18:06:42','2022-12-22 18:06:42');
-/*!40000 ALTER TABLE `notifications` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `password_resets`
---
-
+-- Dumping structure for table garmen.password_resets
 DROP TABLE IF EXISTS `password_resets`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `password_resets` (
+CREATE TABLE IF NOT EXISTS `password_resets` (
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   KEY `password_resets_email_index` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `password_resets`
---
+-- Dumping data for table garmen.password_resets: ~0 rows (approximately)
 
-LOCK TABLES `password_resets` WRITE;
-/*!40000 ALTER TABLE `password_resets` DISABLE KEYS */;
-/*!40000 ALTER TABLE `password_resets` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `pembayaran_cucis`
---
-
+-- Dumping structure for table garmen.pembayaran_cucis
 DROP TABLE IF EXISTS `pembayaran_cucis`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `pembayaran_cucis` (
+CREATE TABLE IF NOT EXISTS `pembayaran_cucis` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `cuci_id` bigint unsigned DEFAULT NULL,
   `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `nominal` int NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `pembayaran_cucis_cuci_id_index` (`cuci_id`),
   CONSTRAINT `pembayaran_cucis_cuci_id_foreign` FOREIGN KEY (`cuci_id`) REFERENCES `cucis` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `pembayaran_cucis`
---
+-- Dumping data for table garmen.pembayaran_cucis: ~8 rows (approximately)
+REPLACE INTO `pembayaran_cucis` (`id`, `cuci_id`, `status`, `nominal`, `deleted_at`, `created_at`, `updated_at`) VALUES
+	(1, 2, 'Lunas', 25000, NULL, '2023-03-09 04:29:49', '2023-03-09 04:29:49'),
+	(2, 4, 'Lunas', 20000, NULL, '2023-03-10 06:21:50', '2023-03-10 06:21:50'),
+	(3, 3, 'Lunas', 20000, NULL, '2023-03-10 06:23:05', '2023-03-10 06:23:05'),
+	(4, 5, 'Termin 1', 10000, NULL, '2023-03-10 09:07:22', '2023-03-10 09:07:22'),
+	(5, 5, 'Termin 2', 20000, NULL, '2023-03-10 09:07:41', '2023-03-10 09:07:41'),
+	(6, 6, 'Termin 1', 30000, NULL, '2023-03-10 09:59:09', '2023-03-10 09:59:09'),
+	(7, 6, 'Termin 2', 30000, NULL, '2023-03-10 09:59:09', '2023-03-10 09:59:09'),
+	(8, 7, 'Termin 1', 50000, NULL, '2023-03-13 03:49:13', '2023-03-13 03:49:13');
 
-LOCK TABLES `pembayaran_cucis` WRITE;
-/*!40000 ALTER TABLE `pembayaran_cucis` DISABLE KEYS */;
-INSERT INTO `pembayaran_cucis` VALUES (1,7,'Termin 1',200000,'2022-12-22 16:37:56','2022-12-22 16:37:56');
-/*!40000 ALTER TABLE `pembayaran_cucis` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `pembayaran_jahits`
---
-
+-- Dumping structure for table garmen.pembayaran_jahits
 DROP TABLE IF EXISTS `pembayaran_jahits`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `pembayaran_jahits` (
+CREATE TABLE IF NOT EXISTS `pembayaran_jahits` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `jahit_id` bigint unsigned DEFAULT NULL,
   `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `nominal` int NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `pembayaran_jahits_jahit_id_index` (`jahit_id`),
   CONSTRAINT `pembayaran_jahits_jahit_id_foreign` FOREIGN KEY (`jahit_id`) REFERENCES `jahits` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `pembayaran_jahits`
---
+-- Dumping data for table garmen.pembayaran_jahits: ~13 rows (approximately)
+REPLACE INTO `pembayaran_jahits` (`id`, `jahit_id`, `status`, `nominal`, `deleted_at`, `created_at`, `updated_at`) VALUES
+	(1, 1, 'Termin 1', 1000000, NULL, '2023-03-08 09:46:35', '2023-03-08 09:46:35'),
+	(2, 1, 'Termin 2', 1500000, NULL, '2023-03-09 03:46:01', '2023-03-09 03:46:01'),
+	(3, 3, 'Termin 1', 100000, NULL, '2023-03-09 06:44:18', '2023-03-09 06:44:18'),
+	(4, 3, 'Termin 2', 100000, NULL, '2023-03-09 06:51:07', '2023-03-09 06:51:07'),
+	(5, 3, 'Termin 3', 200000, NULL, '2023-03-10 04:00:38', '2023-03-10 04:00:38'),
+	(6, 5, 'Lunas', 25000, NULL, '2023-03-10 04:32:29', '2023-03-10 04:32:29'),
+	(7, 8, 'Termin 1', 100000, NULL, '2023-03-10 08:59:49', '2023-03-10 08:59:49'),
+	(8, 8, 'Termin 2', 100000, NULL, '2023-03-10 08:59:49', '2023-03-10 08:59:49'),
+	(9, 8, 'Termin 3', 250000, NULL, '2023-03-10 08:59:49', '2023-03-10 08:59:49'),
+	(10, 10, 'Termin 1', 45000, NULL, '2023-03-13 03:29:47', '2023-03-13 03:29:47'),
+	(11, 9, 'Termin 1', 300000, NULL, '2023-03-13 03:31:14', '2023-03-13 03:31:14'),
+	(12, 9, 'Termin 2', 300000, NULL, '2023-03-13 03:31:14', '2023-03-13 03:31:14'),
+	(13, 9, 'Termin 3', 300000, NULL, '2023-03-13 03:31:14', '2023-03-13 03:31:14');
 
-LOCK TABLES `pembayaran_jahits` WRITE;
-/*!40000 ALTER TABLE `pembayaran_jahits` DISABLE KEYS */;
-INSERT INTO `pembayaran_jahits` VALUES (1,6,'Termin 1',250000,'2022-12-22 16:36:24','2022-12-22 16:36:24'),(2,6,'Termin 2',500000,'2022-12-22 16:37:28','2022-12-22 16:37:28'),(3,8,'Termin 1',560000,'2022-12-22 16:39:01','2022-12-22 16:39:01');
-/*!40000 ALTER TABLE `pembayaran_jahits` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `perbaikans`
---
-
+-- Dumping structure for table garmen.perbaikans
 DROP TABLE IF EXISTS `perbaikans`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `perbaikans` (
+CREATE TABLE IF NOT EXISTS `perbaikans` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `bahan_id` bigint unsigned DEFAULT NULL,
   `tanggal_masuk` date DEFAULT NULL,
@@ -1253,27 +1115,18 @@ CREATE TABLE `perbaikans` (
   PRIMARY KEY (`id`),
   KEY `perbaikans_bahan_id_index` (`bahan_id`),
   CONSTRAINT `perbaikans_bahan_id_foreign` FOREIGN KEY (`bahan_id`) REFERENCES `bahans` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `perbaikans`
---
+-- Dumping data for table garmen.perbaikans: ~4 rows (approximately)
+REPLACE INTO `perbaikans` (`id`, `bahan_id`, `tanggal_masuk`, `tanggal_kirim`, `tanggal_selesai`, `total`, `ukuran`, `status`, `created_at`, `updated_at`) VALUES
+	(1, 2, '2023-03-09', NULL, NULL, 15, 'M', 'butuh konfirmasi', '2023-03-09 04:04:41', '2023-03-09 04:30:27'),
+	(2, 4, '2023-03-09', NULL, '2023-03-12', 5, 'M', 'proses repair', '2023-03-09 06:38:24', '2023-03-13 04:56:21'),
+	(3, 5, '2023-03-10', NULL, '2023-03-13', 5, 'S', 'proses repair', '2023-03-10 06:32:37', '2023-03-13 04:55:56'),
+	(4, 14, '2023-03-13', NULL, NULL, 1, 'M', 'butuh konfirmasi', '2023-03-13 03:51:46', '2023-03-13 03:51:46');
 
-LOCK TABLES `perbaikans` WRITE;
-/*!40000 ALTER TABLE `perbaikans` DISABLE KEYS */;
-INSERT INTO `perbaikans` VALUES (1,11,'2022-12-22',NULL,'2022-12-30',3,'S','proses repair','2022-12-22 16:39:56','2022-12-22 16:40:15'),(2,11,'2022-12-22',NULL,NULL,2,'M','butuh konfirmasi','2022-12-22 16:39:56','2022-12-22 16:39:56'),(3,10,'2022-12-22',NULL,NULL,1,'L','butuh konfirmasi','2022-12-22 16:39:56','2022-12-22 16:39:56'),(4,10,'2022-12-22',NULL,NULL,1,'S','butuh konfirmasi','2022-12-22 16:39:56','2022-12-22 16:39:56'),(5,15,'2022-12-22',NULL,NULL,2,'S','butuh konfirmasi','2022-12-22 16:39:56','2022-12-22 16:40:04'),(6,15,'2022-12-22',NULL,NULL,1,'M','butuh konfirmasi','2022-12-22 16:39:56','2022-12-22 16:39:56'),(7,14,'2022-12-22',NULL,NULL,1,'S','butuh konfirmasi','2022-12-22 16:39:56','2022-12-22 16:39:56');
-/*!40000 ALTER TABLE `perbaikans` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `permissions`
---
-
+-- Dumping structure for table garmen.permissions
 DROP TABLE IF EXISTS `permissions`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `permissions` (
+CREATE TABLE IF NOT EXISTS `permissions` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `guard_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -1282,25 +1135,12 @@ CREATE TABLE `permissions` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `permissions_name_guard_name_unique` (`name`,`guard_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `permissions`
---
+-- Dumping data for table garmen.permissions: ~0 rows (approximately)
 
-LOCK TABLES `permissions` WRITE;
-/*!40000 ALTER TABLE `permissions` DISABLE KEYS */;
-/*!40000 ALTER TABLE `permissions` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `potongs`
---
-
+-- Dumping structure for table garmen.potongs
 DROP TABLE IF EXISTS `potongs`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `potongs` (
+CREATE TABLE IF NOT EXISTS `potongs` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `bahan_id` bigint unsigned DEFAULT NULL,
   `no_surat` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -1311,32 +1151,31 @@ CREATE TABLE `potongs` (
   `konversi` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `status_potong` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `potongs_bahan_id_index` (`bahan_id`),
   CONSTRAINT `potongs_bahan_id_foreign` FOREIGN KEY (`bahan_id`) REFERENCES `bahans` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `potongs`
---
+-- Dumping data for table garmen.potongs: ~11 rows (approximately)
+REPLACE INTO `potongs` (`id`, `bahan_id`, `no_surat`, `tanggal_cutting`, `tanggal_selesai`, `tanggal_keluar`, `hasil_cutting`, `konversi`, `status`, `status_potong`, `deleted_at`, `created_at`, `updated_at`) VALUES
+	(1, 2, 'SJL-0002', '2023-03-08', '2023-03-08', NULL, 50.00, '4 Lusin 2 pcs', 'potong keluar', 'butuh konfirmasi', NULL, '2023-03-08 08:39:39', '2023-03-08 09:11:47'),
+	(2, 4, 'SJL-0004', '2023-03-09', '2023-03-09', NULL, 40.00, '3 Lusin 4 pcs', 'potong keluar', 'butuh konfirmasi', NULL, '2023-03-09 06:29:33', '2023-03-09 06:30:38'),
+	(3, 5, 'SJL-0005', '2023-03-09', '2023-03-09', NULL, 40.00, '3 Lusin 4 pcs', 'potong keluar', 'butuh konfirmasi', NULL, '2023-03-09 06:40:13', '2023-03-09 06:41:13'),
+	(4, 6, 'SJL-0006', '2023-03-10', '2023-03-10', NULL, 60.00, '5 Lusin 0 pcs', 'potong keluar', 'butuh konfirmasi', NULL, '2023-03-10 04:17:28', '2023-03-10 04:27:01'),
+	(5, 7, 'SJL-0007', '2023-03-10', '2023-03-10', NULL, 60.00, '5 Lusin 0 pcs', 'potong keluar', 'butuh konfirmasi', NULL, '2023-03-10 04:24:35', '2023-03-10 04:31:16'),
+	(6, 8, 'SJL-0008', '2023-03-10', '2023-03-10', NULL, 48.00, '4 Lusin 0 pcs', 'potong keluar', 'butuh konfirmasi', NULL, '2023-03-10 06:30:10', '2023-03-10 06:31:34'),
+	(7, 9, 'SJL-0009', '2023-03-10', '2023-03-10', NULL, 20.00, '1 Lusin 8 pcs', 'potong keluar', 'butuh konfirmasi', NULL, '2023-03-10 08:07:44', '2023-03-10 08:08:52'),
+	(8, 11, 'SJL-0011', '2023-03-10', '2023-03-10', NULL, 100.00, '8 Lusin 4 pcs', 'potong keluar', 'butuh konfirmasi', NULL, '2023-03-10 08:20:49', '2023-03-10 08:22:02'),
+	(9, 12, 'SJL-0012', '2023-03-10', '2023-03-10', NULL, 100.00, '8 Lusin 4 pcs', 'potong keluar', 'butuh konfirmasi', NULL, '2023-03-10 09:44:19', '2023-03-10 09:45:02'),
+	(10, 14, 'SJL-0016', '2023-03-13', '2023-03-13', NULL, 60.00, '5 Lusin 0 pcs', 'potong keluar', 'butuh konfirmasi', NULL, '2023-03-13 03:16:33', '2023-03-13 03:18:33'),
+	(11, 15, 'SJL-0017', '2023-03-13', '2023-03-13', NULL, 50.00, '4 Lusin 2 pcs', 'potong keluar', 'butuh konfirmasi', NULL, '2023-03-13 04:43:45', '2023-03-13 04:54:55');
 
-LOCK TABLES `potongs` WRITE;
-/*!40000 ALTER TABLE `potongs` DISABLE KEYS */;
-INSERT INTO `potongs` VALUES (6,10,'M2N/BK/XII/2022/001','2022-12-18','2022-12-25',NULL,25.00,'2 Lusin 1 pcs','potong keluar','selesai','2022-12-18 19:03:52','2022-12-23 09:27:10'),(7,11,'PUSH/BHK/XII/2022/001','2022-12-18','2022-12-25',NULL,50.00,'4 Lusin 2 pcs','potong keluar','selesai','2022-12-18 19:05:45','2022-12-23 09:27:10'),(8,14,'M2N/BK/XII/2022/002','2022-12-22','2022-12-23',NULL,78.00,'6 Lusin 6 pcs','potong keluar','selesai','2022-12-22 16:19:30','2022-12-23 09:27:10'),(9,15,'PUSH/BHK/XII/2022/002','2022-12-22','2022-12-23',NULL,78.00,'6 Lusin 6 pcs','potong keluar','selesai','2022-12-22 16:19:56','2022-12-23 09:27:10');
-/*!40000 ALTER TABLE `potongs` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `produks`
---
-
+-- Dumping structure for table garmen.produks
 DROP TABLE IF EXISTS `produks`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `produks` (
+CREATE TABLE IF NOT EXISTS `produks` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `kode_produk` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `promo_id` bigint unsigned DEFAULT NULL,
@@ -1360,27 +1199,16 @@ CREATE TABLE `produks` (
   KEY `produks_warehouse_id_index` (`warehouse_id`),
   CONSTRAINT `produks_promo_id_foreign` FOREIGN KEY (`promo_id`) REFERENCES `promos` (`id`) ON DELETE CASCADE,
   CONSTRAINT `produks_warehouse_id_foreign` FOREIGN KEY (`warehouse_id`) REFERENCES `warehouses` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `produks`
---
+-- Dumping data for table garmen.produks: ~2 rows (approximately)
+REPLACE INTO `produks` (`id`, `kode_produk`, `promo_id`, `warehouse_id`, `barcode`, `nama_produk`, `deskripsi_produk`, `stok`, `harga`, `harga_promo`, `status`, `kategori`, `sub_kategori`, `detail_sub_kategori`, `created_at`, `updated_at`) VALUES
+	(1, 'PRD-1', NULL, 1, NULL, 'kaos Polos', 'Kaos Polos', -5, 0, 0, NULL, 'Pria', 'Kemeja', 'Kemeja Lengan Panjang', '2023-03-09 04:51:44', '2023-03-15 04:28:26'),
+	(2, 'PRD-2', NULL, 4, NULL, 'Kemeja Batik', 'batik bos', 55, 0, 0, NULL, 'Pria', 'Kemeja', 'Kemeja Lengan Panjang', '2023-03-27 03:39:16', '2023-03-27 03:39:16');
 
-LOCK TABLES `produks` WRITE;
-/*!40000 ALTER TABLE `produks` DISABLE KEYS */;
-INSERT INTO `produks` VALUES (6,'PRD-1',NULL,6,NULL,'Test 1','Kemeja Lengan Pendek dengan Motif Salur',-22,0,0,NULL,'Kemeja','Kemeja Lengan Pendek','M2N Kids','2022-12-18 20:14:24','2022-12-18 20:16:33'),(7,'PRD-7',NULL,7,NULL,'Test 2','Kemeja Lengan Pendek dengan Motif Salur',44,0,0,NULL,'Kemeja','Kemeja Lengan Pendek','Push and Pull','2022-12-18 21:12:49','2022-12-18 21:12:49');
-/*!40000 ALTER TABLE `produks` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `promos`
---
-
+-- Dumping structure for table garmen.promos
 DROP TABLE IF EXISTS `promos`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `promos` (
+CREATE TABLE IF NOT EXISTS `promos` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `nama` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `kode` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -1392,25 +1220,43 @@ CREATE TABLE `promos` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `promos_kode_unique` (`kode`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `promos`
---
+-- Dumping data for table garmen.promos: ~0 rows (approximately)
 
-LOCK TABLES `promos` WRITE;
-/*!40000 ALTER TABLE `promos` DISABLE KEYS */;
-/*!40000 ALTER TABLE `promos` ENABLE KEYS */;
-UNLOCK TABLES;
+-- Dumping structure for table garmen.rekapitulasis
+DROP TABLE IF EXISTS `rekapitulasis`;
+CREATE TABLE IF NOT EXISTS `rekapitulasis` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `cuci_id` bigint unsigned DEFAULT NULL,
+  `jahit_id` bigint unsigned DEFAULT NULL,
+  `jumlah_diperbaiki` int DEFAULT NULL,
+  `jumlah_dibuang` int DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `rekapitulasis_cuci_id_index` (`cuci_id`),
+  KEY `rekapitulasis_jahit_id_index` (`jahit_id`),
+  CONSTRAINT `rekapitulasis_cuci_id_foreign` FOREIGN KEY (`cuci_id`) REFERENCES `cucis` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `rekapitulasis_jahit_id_foreign` FOREIGN KEY (`jahit_id`) REFERENCES `jahits` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Table structure for table `rekapitulasi_warehouses`
---
+-- Dumping data for table garmen.rekapitulasis: ~10 rows (approximately)
+REPLACE INTO `rekapitulasis` (`id`, `cuci_id`, `jahit_id`, `jumlah_diperbaiki`, `jumlah_dibuang`, `deleted_at`, `created_at`, `updated_at`) VALUES
+	(1, 2, NULL, 5, 5, NULL, '2023-03-09 04:30:12', '2023-03-09 04:30:12'),
+	(2, NULL, 1, 10, 0, NULL, '2023-03-09 04:30:12', '2023-03-09 04:30:12'),
+	(3, 3, NULL, 0, 0, NULL, '2023-03-13 03:51:04', '2023-03-13 03:51:04'),
+	(4, 4, NULL, 0, 0, NULL, '2023-03-13 03:51:04', '2023-03-13 03:51:04'),
+	(5, 7, NULL, 0, 0, NULL, '2023-03-13 03:51:04', '2023-03-13 03:51:04'),
+	(6, NULL, 2, 5, 5, NULL, '2023-03-13 03:51:04', '2023-03-13 03:51:04'),
+	(7, NULL, 3, 5, 5, NULL, '2023-03-13 03:51:04', '2023-03-13 03:51:04'),
+	(8, NULL, 5, 0, 0, NULL, '2023-03-13 03:51:04', '2023-03-13 03:51:04'),
+	(9, NULL, 10, 1, 4, NULL, '2023-03-13 03:51:04', '2023-03-13 03:51:04'),
+	(10, 6, NULL, 0, 0, NULL, '2023-03-13 04:56:38', '2023-03-13 04:56:38');
 
+-- Dumping structure for table garmen.rekapitulasi_warehouses
 DROP TABLE IF EXISTS `rekapitulasi_warehouses`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `rekapitulasi_warehouses` (
+CREATE TABLE IF NOT EXISTS `rekapitulasi_warehouses` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `warehouse_id` bigint unsigned DEFAULT NULL,
   `tanggal_kirim` date DEFAULT NULL,
@@ -1422,117 +1268,38 @@ CREATE TABLE `rekapitulasi_warehouses` (
   PRIMARY KEY (`id`),
   KEY `rekapitulasi_warehouses_warehouse_id_index` (`warehouse_id`),
   CONSTRAINT `rekapitulasi_warehouses_warehouse_id_foreign` FOREIGN KEY (`warehouse_id`) REFERENCES `warehouses` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `rekapitulasi_warehouses`
---
+-- Dumping data for table garmen.rekapitulasi_warehouses: ~3 rows (approximately)
+REPLACE INTO `rekapitulasi_warehouses` (`id`, `warehouse_id`, `tanggal_kirim`, `tanggal_masuk`, `jumlah_diretur`, `jumlah_dibuang`, `created_at`, `updated_at`) VALUES
+	(1, 1, NULL, NULL, 1, 0, '2023-03-13 04:19:43', '2023-03-13 04:19:43'),
+	(2, 2, NULL, NULL, 0, 0, '2023-03-13 04:19:43', '2023-03-13 04:19:43'),
+	(3, 3, NULL, NULL, 3, 2, '2023-03-13 04:19:43', '2023-03-13 04:19:43');
 
-LOCK TABLES `rekapitulasi_warehouses` WRITE;
-/*!40000 ALTER TABLE `rekapitulasi_warehouses` DISABLE KEYS */;
-INSERT INTO `rekapitulasi_warehouses` VALUES (1,6,NULL,NULL,0,0,'2022-12-18 19:38:47','2022-12-18 19:38:47'),(2,7,NULL,NULL,0,0,'2022-12-18 19:38:47','2022-12-18 19:38:47'),(3,8,NULL,NULL,1,0,'2022-12-22 18:06:57','2022-12-22 18:06:57'),(4,9,NULL,NULL,1,1,'2022-12-22 18:06:57','2022-12-22 18:06:57');
-/*!40000 ALTER TABLE `rekapitulasi_warehouses` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `rekapitulasis`
---
-
-DROP TABLE IF EXISTS `rekapitulasis`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `rekapitulasis` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `cuci_id` bigint unsigned DEFAULT NULL,
-  `jahit_id` bigint unsigned DEFAULT NULL,
-  `jumlah_diperbaiki` int DEFAULT NULL,
-  `jumlah_dibuang` int DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `rekapitulasis_cuci_id_index` (`cuci_id`),
-  KEY `rekapitulasis_jahit_id_index` (`jahit_id`),
-  CONSTRAINT `rekapitulasis_cuci_id_foreign` FOREIGN KEY (`cuci_id`) REFERENCES `cucis` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `rekapitulasis_jahit_id_foreign` FOREIGN KEY (`jahit_id`) REFERENCES `jahits` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `rekapitulasis`
---
-
-LOCK TABLES `rekapitulasis` WRITE;
-/*!40000 ALTER TABLE `rekapitulasis` DISABLE KEYS */;
-INSERT INTO `rekapitulasis` VALUES (11,6,NULL,1,0,'2022-12-18 19:22:01','2022-12-18 19:22:01'),(12,7,NULL,1,0,'2022-12-18 19:22:01','2022-12-18 19:22:01'),(13,NULL,6,1,0,'2022-12-18 19:22:01','2022-12-18 19:22:01'),(14,NULL,7,4,1,'2022-12-18 19:22:01','2022-12-18 19:22:01'),(15,8,NULL,1,0,'2022-12-22 16:35:22','2022-12-22 16:35:22'),(16,9,NULL,0,1,'2022-12-22 16:35:22','2022-12-22 16:35:22'),(17,NULL,8,1,0,'2022-12-22 16:35:22','2022-12-22 16:35:22'),(18,NULL,9,2,0,'2022-12-22 16:35:22','2022-12-22 16:35:22');
-/*!40000 ALTER TABLE `rekapitulasis` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `returs`
---
-
+-- Dumping structure for table garmen.returs
 DROP TABLE IF EXISTS `returs`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `returs` (
+CREATE TABLE IF NOT EXISTS `returs` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `finishing_id` bigint unsigned DEFAULT NULL,
   `total_barang` int NOT NULL,
   `tanggal_masuk` date DEFAULT NULL,
   `keterangan_diretur` longtext COLLATE utf8mb4_unicode_ci,
+  `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `returs_finishing_id_index` (`finishing_id`),
   CONSTRAINT `returs_finishing_id_foreign` FOREIGN KEY (`finishing_id`) REFERENCES `finishings` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `returs`
---
+-- Dumping data for table garmen.returs: ~2 rows (approximately)
+REPLACE INTO `returs` (`id`, `finishing_id`, `total_barang`, `tanggal_masuk`, `keterangan_diretur`, `deleted_at`, `created_at`, `updated_at`) VALUES
+	(1, 1, 1, '2023-03-08', 'retur dari gudang', NULL, '2023-03-09 04:58:51', '2023-03-09 04:58:51'),
+	(4, 3, 3, '2023-03-09', 'retur', NULL, '2023-03-10 07:29:21', '2023-03-10 07:29:21');
 
-LOCK TABLES `returs` WRITE;
-/*!40000 ALTER TABLE `returs` DISABLE KEYS */;
-INSERT INTO `returs` VALUES (6,6,0,'2022-12-16',NULL,'2022-12-22 16:43:42','2022-12-22 16:43:42'),(7,7,0,'2022-12-16',NULL,'2022-12-22 16:43:42','2022-12-22 16:43:42'),(8,8,1,'2022-12-22','Jahitan tidak rapi','2022-12-22 18:07:33','2022-12-22 18:07:33'),(9,9,1,'2022-12-22','Jahitan tidak rapi','2022-12-22 18:07:33','2022-12-22 18:07:33');
-/*!40000 ALTER TABLE `returs` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `role_has_permissions`
---
-
-DROP TABLE IF EXISTS `role_has_permissions`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `role_has_permissions` (
-  `permission_id` bigint unsigned NOT NULL,
-  `role_id` bigint unsigned NOT NULL,
-  PRIMARY KEY (`permission_id`,`role_id`),
-  KEY `role_has_permissions_role_id_foreign` (`role_id`),
-  CONSTRAINT `role_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `role_has_permissions_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `role_has_permissions`
---
-
-LOCK TABLES `role_has_permissions` WRITE;
-/*!40000 ALTER TABLE `role_has_permissions` DISABLE KEYS */;
-/*!40000 ALTER TABLE `role_has_permissions` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `roles`
---
-
+-- Dumping structure for table garmen.roles
 DROP TABLE IF EXISTS `roles`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `roles` (
+CREATE TABLE IF NOT EXISTS `roles` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `guard_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -1541,32 +1308,38 @@ CREATE TABLE `roles` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `roles_name_guard_name_unique` (`name`,`guard_name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `roles`
---
+-- Dumping data for table garmen.roles: ~5 rows (approximately)
+REPLACE INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
+	(1, 'production', 'web', '2023-03-08 08:20:17', '2023-03-08 08:20:17'),
+	(2, 'warehouse', 'web', '2023-03-08 08:20:17', '2023-03-08 08:20:17'),
+	(3, 'admin-online', 'web', '2023-03-08 08:20:17', '2023-03-08 08:20:17'),
+	(4, 'admin-offline', 'web', '2023-03-08 08:20:17', '2023-03-08 08:20:17'),
+	(5, 'ecommerce', 'web', '2023-03-08 08:20:17', '2023-03-08 08:20:17');
 
-LOCK TABLES `roles` WRITE;
-/*!40000 ALTER TABLE `roles` DISABLE KEYS */;
-INSERT INTO `roles` VALUES (1,'production','web','2022-08-30 14:18:34','2022-08-30 14:18:34'),(2,'warehouse','web','2022-08-30 14:18:34','2022-08-30 14:18:34'),(3,'admin-online','web','2022-08-30 14:18:34','2022-08-30 14:18:34'),(4,'admin-offline','web','2022-08-30 14:18:34','2022-08-30 14:18:34'),(5,'ecommerce','web','2022-08-30 14:18:34','2022-08-30 14:18:34');
-/*!40000 ALTER TABLE `roles` ENABLE KEYS */;
-UNLOCK TABLES;
+-- Dumping structure for table garmen.role_has_permissions
+DROP TABLE IF EXISTS `role_has_permissions`;
+CREATE TABLE IF NOT EXISTS `role_has_permissions` (
+  `permission_id` bigint unsigned NOT NULL,
+  `role_id` bigint unsigned NOT NULL,
+  PRIMARY KEY (`permission_id`,`role_id`),
+  KEY `role_has_permissions_role_id_foreign` (`role_id`),
+  CONSTRAINT `role_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `role_has_permissions_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Table structure for table `sampahs`
---
+-- Dumping data for table garmen.role_has_permissions: ~0 rows (approximately)
 
+-- Dumping structure for table garmen.sampahs
 DROP TABLE IF EXISTS `sampahs`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `sampahs` (
+CREATE TABLE IF NOT EXISTS `sampahs` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `cuci_id` bigint unsigned DEFAULT NULL,
   `jahit_id` bigint unsigned DEFAULT NULL,
   `total` int NOT NULL DEFAULT '0',
   `tanggal_masuk` date DEFAULT NULL,
   `asal` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -1574,57 +1347,39 @@ CREATE TABLE `sampahs` (
   KEY `sampahs_jahit_id_index` (`jahit_id`),
   CONSTRAINT `sampahs_cuci_id_foreign` FOREIGN KEY (`cuci_id`) REFERENCES `cucis` (`id`) ON DELETE CASCADE,
   CONSTRAINT `sampahs_jahit_id_foreign` FOREIGN KEY (`jahit_id`) REFERENCES `jahits` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `sampahs`
---
+-- Dumping data for table garmen.sampahs: ~4 rows (approximately)
+REPLACE INTO `sampahs` (`id`, `cuci_id`, `jahit_id`, `total`, `tanggal_masuk`, `asal`, `deleted_at`, `created_at`, `updated_at`) VALUES
+	(2, 2, NULL, 5, '2023-03-09', 'cuci', NULL, '2023-03-09 04:30:20', '2023-03-09 04:30:20'),
+	(3, NULL, 2, 5, '2023-03-09', 'jahit', NULL, '2023-03-09 06:38:32', '2023-03-09 06:38:32'),
+	(4, NULL, 3, 5, '2023-03-09', 'jahit', NULL, '2023-03-10 06:32:41', '2023-03-10 06:32:41'),
+	(5, NULL, 10, 4, '2023-03-13', 'jahit', NULL, '2023-03-13 03:51:14', '2023-03-13 03:51:14');
 
-LOCK TABLES `sampahs` WRITE;
-/*!40000 ALTER TABLE `sampahs` DISABLE KEYS */;
-INSERT INTO `sampahs` VALUES (11,6,NULL,0,'2022-12-18','cuci','2022-12-22 16:28:15','2022-12-22 16:28:15'),(12,7,NULL,0,'2022-12-18','cuci','2022-12-22 16:28:15','2022-12-22 16:28:15'),(13,NULL,6,0,'2022-12-18','jahit','2022-12-22 16:28:15','2022-12-22 16:28:15'),(14,NULL,7,1,'2022-12-18','jahit','2022-12-22 16:28:15','2022-12-22 16:28:15'),(15,8,NULL,0,'2022-12-22','cuci','2022-12-22 16:35:24','2022-12-22 16:35:24'),(16,9,NULL,1,'2022-12-22','cuci','2022-12-22 16:35:24','2022-12-22 16:35:24'),(17,NULL,8,0,'2022-12-22','jahit','2022-12-22 16:35:24','2022-12-22 16:35:24'),(18,NULL,9,0,'2022-12-22','jahit','2022-12-22 16:35:24','2022-12-22 16:35:24');
-/*!40000 ALTER TABLE `sampahs` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `sub_kategoris`
---
-
+-- Dumping structure for table garmen.sub_kategoris
 DROP TABLE IF EXISTS `sub_kategoris`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `sub_kategoris` (
+CREATE TABLE IF NOT EXISTS `sub_kategoris` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `kategori_id` bigint unsigned DEFAULT NULL,
   `nama_kategori` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `sku` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `sub_kategoris_kategori_id_index` (`kategori_id`),
   CONSTRAINT `sub_kategoris_kategori_id_foreign` FOREIGN KEY (`kategori_id`) REFERENCES `kategoris` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `sub_kategoris`
---
+-- Dumping data for table garmen.sub_kategoris: ~3 rows (approximately)
+REPLACE INTO `sub_kategoris` (`id`, `kategori_id`, `nama_kategori`, `sku`, `deleted_at`, `created_at`, `updated_at`) VALUES
+	(1, 1, 'Kemeja', 'SKU001/1', NULL, '2023-03-08 08:20:28', '2023-03-08 08:20:28'),
+	(2, 2, 'Kemeja', 'SKU002/2', NULL, '2023-03-08 08:20:28', '2023-03-08 08:20:28'),
+	(3, 1, 'Kemeja lengan panjaannnnnnngggggg', 'SKU001/2', NULL, '2023-03-09 07:55:37', '2023-03-09 07:55:37');
 
-LOCK TABLES `sub_kategoris` WRITE;
-/*!40000 ALTER TABLE `sub_kategoris` DISABLE KEYS */;
-INSERT INTO `sub_kategoris` VALUES (8,5,'Kemeja Lengan Pendek','001/1','2022-12-18 18:53:33','2022-12-18 18:53:33'),(9,5,'Kemeja Lengan Panjang','001/2','2022-12-18 18:53:33','2022-12-18 18:53:33');
-/*!40000 ALTER TABLE `sub_kategoris` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `transaksis`
---
-
+-- Dumping structure for table garmen.transaksis
 DROP TABLE IF EXISTS `transaksis`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `transaksis` (
+CREATE TABLE IF NOT EXISTS `transaksis` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `bank_id` bigint unsigned DEFAULT NULL,
   `user_id` bigint unsigned DEFAULT NULL,
@@ -1655,27 +1410,21 @@ CREATE TABLE `transaksis` (
   CONSTRAINT `transaksis_alamat_id_foreign` FOREIGN KEY (`alamat_id`) REFERENCES `alamats` (`id`) ON DELETE CASCADE,
   CONSTRAINT `transaksis_bank_id_foreign` FOREIGN KEY (`bank_id`) REFERENCES `banks` (`id`) ON DELETE CASCADE,
   CONSTRAINT `transaksis_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `transaksis`
---
+-- Dumping data for table garmen.transaksis: ~7 rows (approximately)
+REPLACE INTO `transaksis` (`id`, `bank_id`, `user_id`, `alamat_id`, `nama`, `no_hp`, `alamat`, `no_resi`, `ongkir`, `kode_transaksi`, `tgl_transaksi`, `qty`, `total_harga`, `status_transaksi`, `status`, `status_bayar`, `bukti_bayar`, `pembayaran`, `bayar`, `kembalian`, `created_at`, `updated_at`) VALUES
+	(1, NULL, NULL, NULL, 'Didan', '087857600717', 'Jalan Kehatimu', NULL, NULL, 'INV090320231', '2023-03-09 08:12:34', 1, 50000, 'offline', NULL, NULL, NULL, 'Tunai', 100000, 50000, '2023-03-09 08:12:34', '2023-03-09 08:12:34'),
+	(2, NULL, NULL, NULL, 'Didan', '087857600717', 'Jl Kehatimu', NULL, NULL, 'INV090320232', '2023-03-09 08:30:58', 2, 100000, 'offline', NULL, NULL, NULL, 'Tunai', 100000, 50000, '2023-03-09 08:30:58', '2023-03-09 08:30:58'),
+	(3, NULL, NULL, NULL, 'Didan', '087857600717', 'Jl Kehatimu', NULL, NULL, 'INV090320233', '2023-03-09 08:32:03', 1, 50000, 'offline', NULL, NULL, NULL, 'Tunai', 100000, 50000, '2023-03-09 08:32:03', '2023-03-09 08:32:03'),
+	(4, NULL, NULL, NULL, 'Didan', '087857600717', 'Jl Kehatimu', NULL, NULL, 'INV090320234', '2023-03-09 08:34:58', 1, 50000, 'offline', NULL, NULL, NULL, 'Tunai', 100000, 50000, '2023-03-09 08:34:58', '2023-03-09 08:34:58'),
+	(5, 1, 5, 1, NULL, NULL, NULL, '1239102312031', NULL, 'INV130320233', '2023-03-13 08:05:52', 1, 57500, 'online', 'dikirim', 'sudah dibayar', NULL, NULL, NULL, NULL, '2023-03-13 08:05:52', '2023-03-13 08:23:28'),
+	(6, 1, 5, 1, NULL, NULL, NULL, '123456789', NULL, 'INV150320236', '2023-03-15 04:25:51', 32, 1602500, 'online', 'telah tiba', 'sudah dibayar', '167885446747726.jpg', NULL, NULL, NULL, '2023-03-15 04:25:51', '2023-03-15 04:28:52'),
+	(22, 1, 5, 1, NULL, NULL, NULL, NULL, NULL, 'INV270320237', '2023-03-27 03:49:21', 1, 2650, 'online', 'butuh konfirmasi', 'sudah dibayar', '167988897497466.jpg', NULL, NULL, NULL, '2023-03-27 03:49:21', '2023-03-27 03:50:52');
 
-LOCK TABLES `transaksis` WRITE;
-/*!40000 ALTER TABLE `transaksis` DISABLE KEYS */;
-INSERT INTO `transaksis` VALUES (1,1,5,2,NULL,NULL,NULL,'12132asdjahd',NULL,'INV050920221','2022-09-05 13:12:08',1,112500,'online','telah tiba','sudah dibayar','166235841569558.jpg',NULL,NULL,NULL,'2022-09-05 13:12:08','2022-09-07 14:00:03'),(2,NULL,NULL,NULL,'Aziz Muslim','083894267082','Jalan Asirot Jakarta',NULL,NULL,'INV181220222','2022-12-18 20:16:33',15,750000,'offline',NULL,NULL,NULL,'Transfer',750000,0,'2022-12-18 20:16:33','2022-12-18 20:16:33');
-/*!40000 ALTER TABLE `transaksis` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `ulasans`
---
-
+-- Dumping structure for table garmen.ulasans
 DROP TABLE IF EXISTS `ulasans`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `ulasans` (
+CREATE TABLE IF NOT EXISTS `ulasans` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `user_id` bigint unsigned DEFAULT NULL,
   `transaksi_id` bigint unsigned DEFAULT NULL,
@@ -1691,26 +1440,13 @@ CREATE TABLE `ulasans` (
   CONSTRAINT `ulasans_produk_id_foreign` FOREIGN KEY (`produk_id`) REFERENCES `produks` (`id`) ON DELETE CASCADE,
   CONSTRAINT `ulasans_transaksi_id_foreign` FOREIGN KEY (`transaksi_id`) REFERENCES `transaksis` (`id`) ON DELETE CASCADE,
   CONSTRAINT `ulasans_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `ulasans`
---
+-- Dumping data for table garmen.ulasans: ~0 rows (approximately)
 
-LOCK TABLES `ulasans` WRITE;
-/*!40000 ALTER TABLE `ulasans` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ulasans` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `users`
---
-
+-- Dumping structure for table garmen.users
 DROP TABLE IF EXISTS `users`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `users` (
+CREATE TABLE IF NOT EXISTS `users` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -1725,56 +1461,40 @@ CREATE TABLE `users` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `users`
---
+-- Dumping data for table garmen.users: ~5 rows (approximately)
+REPLACE INTO `users` (`id`, `name`, `email`, `email_verified_at`, `tanggal_lahir`, `jenis_kelamin`, `no_hp`, `password`, `foto`, `remember_token`, `created_at`, `updated_at`) VALUES
+	(1, 'produksi', 'produksi@gmail.com', NULL, NULL, NULL, NULL, '$2y$10$g2RMxxO1CR5iytO74MkDw.X78FDmoUnGHFDedi1vpQR6hw7.5aQ9S', NULL, NULL, '2023-03-08 08:20:22', '2023-03-08 08:20:22'),
+	(2, 'gudang', 'gudang@gmail.com', NULL, NULL, NULL, NULL, '$2y$10$afzpOg9YOmqMBbqA1g3n2Oy7CYxIIQXi1TUYJQ8cbMuaH4.SBkWDe', NULL, NULL, '2023-03-08 08:20:22', '2023-03-08 08:20:22'),
+	(3, 'admin', 'admin_offline@gmail.com', NULL, NULL, NULL, NULL, '$2y$10$6EywlLEgK/AyJ24cWrVfxePD1i5pLvLl2YXoW1E/lo6QpIus9G0gq', NULL, NULL, '2023-03-08 08:20:22', '2023-03-08 08:20:22'),
+	(4, 'admin online', 'admin_online@gmail.com', NULL, NULL, NULL, NULL, '$2y$10$6EywlLEgK/AyJ24cWrVfxePD1i5pLvLl2YXoW1E/lo6QpIus9G0gq', NULL, NULL, '2023-03-08 08:20:22', '2023-03-09 07:53:43'),
+	(5, 'Didan Rizky Adha', 'didanadha99@gmail.com', NULL, NULL, NULL, NULL, '$2y$10$9QO.cmA/f8W9IfgkbqDDAe1bohF5T1Aq4vFTGjCZKDVdBJzRqduPi', NULL, NULL, '2023-03-10 03:45:31', '2023-03-10 03:45:31');
 
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'produksi','produksi@gmail.com',NULL,NULL,NULL,NULL,'$2y$10$8/ZDM2rBJSs1DM1VzzbwNeEvCOlClxgyOUcjR.yRoER1v45DNoEGG',NULL,NULL,'2022-08-30 14:18:34','2022-08-30 14:18:34'),(2,'gudang','gudang@gmail.com',NULL,NULL,NULL,NULL,'$2y$10$IK5eGiZJn1OIPAjBDjS0du0SyOc.O8xAkJy5O0xYaYcIapwJy4Zp.',NULL,NULL,'2022-08-30 14:18:34','2022-08-30 14:18:34'),(3,'admin','admin_offline@gmail.com',NULL,NULL,NULL,NULL,'$2y$10$X2FqOkqU2iePOb25OcStYOV69Tvqe33uYChBVpNP/OyCEQbrA28hK',NULL,NULL,'2022-08-30 14:18:34','2022-08-30 14:18:34'),(4,'admin','admin_online@gmail.com',NULL,NULL,NULL,NULL,'$2y$10$AWbNZOuLCAr2hKPqi.nXYOfMQ0CodF9dKNoERFur/Ux9ntnnBNym2',NULL,NULL,'2022-08-30 14:18:34','2022-08-30 14:18:34'),(5,'Ryan Ardito','ryan@tes.com',NULL,NULL,NULL,NULL,'$2y$10$moCsMxzlYwSx1e7dlsm1ju/ojCWTuIYNpBItXfazSuVBxdkk3pUgm',NULL,NULL,'2022-09-05 12:22:34','2022-09-05 12:22:34'),(6,'test','test123@gmail.com',NULL,NULL,NULL,NULL,'$2y$10$9YO4CiUA9GiA3gpetuN72ezgmwZj1M7fQfBjXr2R7ZeUo2A2Lz60C',NULL,NULL,'2022-09-05 12:37:54','2022-09-05 12:37:54'),(7,'Aziz Muslim','abdulaziz_muslim@ymail.com',NULL,NULL,NULL,NULL,'$2y$10$fPkX6Ax41lmYWYCHrvwsnueLuMv/l4owFycUllxMikBpoJrXbt156',NULL,NULL,'2022-12-22 18:58:22','2022-12-22 18:58:22');
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `warehouses`
---
-
+-- Dumping structure for table garmen.warehouses
 DROP TABLE IF EXISTS `warehouses`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `warehouses` (
+CREATE TABLE IF NOT EXISTS `warehouses` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `finishing_id` bigint unsigned DEFAULT NULL,
   `harga_produk` double(8,2) NOT NULL,
   `tanggal_masuk` date DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `warehouses_finishing_id_index` (`finishing_id`),
   CONSTRAINT `warehouses_finishing_id_foreign` FOREIGN KEY (`finishing_id`) REFERENCES `finishings` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `warehouses`
---
+-- Dumping data for table garmen.warehouses: ~4 rows (approximately)
+REPLACE INTO `warehouses` (`id`, `finishing_id`, `harga_produk`, `tanggal_masuk`, `deleted_at`, `created_at`, `updated_at`) VALUES
+	(1, 1, 0.00, NULL, NULL, '2023-03-09 04:34:47', '2023-03-09 04:34:47'),
+	(2, 2, 0.00, NULL, NULL, '2023-03-09 08:43:52', '2023-03-09 08:43:52'),
+	(3, 3, 0.00, NULL, NULL, '2023-03-10 07:29:16', '2023-03-10 07:29:16'),
+	(4, 6, 0.00, NULL, NULL, '2023-03-27 03:18:58', '2023-03-27 03:18:58');
 
-LOCK TABLES `warehouses` WRITE;
-/*!40000 ALTER TABLE `warehouses` DISABLE KEYS */;
-INSERT INTO `warehouses` VALUES (6,7,0.00,NULL,'2022-12-18 19:34:38','2022-12-18 19:34:38'),(7,6,0.00,NULL,'2022-12-18 19:37:14','2022-12-18 19:37:14'),(8,9,0.00,NULL,'2022-12-22 17:59:15','2022-12-22 17:59:15'),(9,8,0.00,NULL,'2022-12-22 18:01:05','2022-12-22 18:01:05');
-/*!40000 ALTER TABLE `warehouses` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2023-01-20  7:55:18
+/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;

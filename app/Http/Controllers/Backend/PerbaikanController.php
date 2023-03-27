@@ -96,7 +96,6 @@ class PerbaikanController extends Controller
         } catch (\Exception $th) {
             //throw $th;
             DB::rollBack();
-            dd($th);
         }
     }
 
