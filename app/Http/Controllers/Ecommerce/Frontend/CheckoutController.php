@@ -155,7 +155,7 @@ class CheckoutController extends Controller
                     //save detail transaksi
                     foreach ($data as $key => $value) {
                         $dp = DetailProduk::where('produk_id', $value->produk_id)
-                            ->where('ukuran', $value->ukuran);
+                            ->whereIn('ukuran', explode(',', $value->ukuran));
 
                         if($dp->exists() and $dp->first()->jumlah >= $value->jumlah){
                             $detail_trans = new DetailTransaksi();
