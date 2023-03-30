@@ -17,6 +17,7 @@ use App\Bahan;
 use App\Cuci;
 use App\DetailWarehouse;
 use App\Potong;
+use App\Produk;
 use App\Retur;
 use Illuminate\Support\Facades\Auth;
 
@@ -216,7 +217,6 @@ class DashboardController extends Controller
 
 
                 $warehouse = Warehouse::with(['finishing' => function ($q) {
-
                     $q->with(['cuci' => function ($q) {
                         $q->with(['jahit' => function ($q) {
                             $q->with(['potong' => function ($q) {
@@ -225,7 +225,16 @@ class DashboardController extends Controller
                         }]);
                     }]);
                 }])->whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->limit(5)->get();
-
+                foreach($warehouse as $wh){
+                    // dd(Produk::where('warehouse_id', $wh->id)->first()
+                    // ->detail_produk);
+                    if(Produk::where('warehouse_id', $wh->id)->exists()){
+                        $wh->harga_produk = Produk::where('warehouse_id', $wh->id)->first()
+                        ->detail_produk
+                        ->avg('harga');
+                    }
+                    
+                }
                 // dd($warehouse);
 
 
