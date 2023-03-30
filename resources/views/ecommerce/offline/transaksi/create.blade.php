@@ -350,6 +350,7 @@
                     url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'
                 },
                 fnRowCallback: function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+                    console.log(aData["harga"])
                     $('td:eq(5)', nRow).html("Rp. " + convertToRupiah(aData["harga"]));
                     $('td:eq(6)', nRow).html("Rp. " + convertToRupiah(aData["subtotal"]));
                 },
@@ -409,11 +410,18 @@
                                 if (response.seri) {
                                     $('#ukuran').append('<option value="seri">S,M,L</option>')
                                 }
+                                // for (let index = 0; index < data.length; index++) {
+                                //     const element = data[index];
+                                //     console.log(element);
+                                //     $('#ukuran').append('<option value="' + element.ukuran +
+                                //         '">' + element.ukuran + '</option>')
+                                // }
+
                                 for (let index = 0; index < data.length; index++) {
                                     const element = data[index];
                                     console.log(element);
-                                    $('#ukuran').append('<option value="' + element.ukuran +
-                                        '">' + element.ukuran + '</option>')
+                                    $('#ukuran').append('<option value="' + (index + 1) +
+                                        '">' + element.label + '</option>')
                                 }
 
 
@@ -507,7 +515,6 @@
                         rupiah += angkarev.substr(i, 3) + '.';
                     }
                 }
-
                 var res = rupiah.split('', rupiah.length - 1).reverse().join('');
                 return res;
             }
@@ -664,6 +671,7 @@
 
 
             })
+
             $(document).on('blur change', '.updateqty', function() {
                 var id_barang = $(this).data('idbarang');
                 var qty = $(this).text()

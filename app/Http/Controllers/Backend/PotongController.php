@@ -25,6 +25,7 @@ class PotongController extends Controller
     {
         // $proses = Potong::whereDate('tanggal_cutting', date('Y-m-d'))->where('status', 'potong masuk')->update(['status_potong' => 'proses potong']);
         $selesai = Potong::whereDate('tanggal_selesai', date('Y-m-d'))->where('status', 'potong masuk')->update(['status_potong' => 'butuh konfirmasi']);
+        $potong_keluar = Potong::where('status', 'potong keluar')->where('status_potong', 'butuh konfirmasi')->update(['status_potong' => 'selesai']);
         // $selesai = Potong::whereNotNull('tanggal_cutting')->whereNotNull('tanggal_selesai')->update(['status_potong' => 'butuh konfirmasi']);
         $bahan = Bahan::doesntHave('potong')->where('status', 'bahan keluar')->get();
         $masuk = Potong::where('status', 'potong masuk')->orderBy('created_at', 'DESC')->get();
@@ -272,6 +273,7 @@ class PotongController extends Controller
                     $potong = Potong::findOrFail($id);
                     $potong->hasil_cutting = $request->get('hasil_cutting');
                     $potong->konversi = $request->get('konversi');
+                    $potong->status_potong = 'selesai';
                     $potong->save();
                     DetailPotong::where('potong_id', $potong->id)->delete();
                     foreach ($arr as $key => $value) {

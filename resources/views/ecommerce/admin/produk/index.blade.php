@@ -47,9 +47,9 @@
                                             </td>
                                             <td>{{ $item->stok }}</td>
                                             @if ($item->warehouse->detail_warehouse->min('harga') == $item->warehouse->detail_warehouse->max('harga'))
-                                                    <td>@rupiah($item->detail_produk->max('harga'))/pcs</td>
+                                                    <td>@rupiah($item->detail_produk->max('harga'))/seri</td>
                                                 @else
-                                                    <td>@rupiah($item->detail_produk->min('harga')) - @rupiah($item->warehouse->detail_warehouse->max('harga'))/pcs</td>
+                                                    <td>@rupiah($item->detail_produk->min('harga')) - @rupiah($item->warehouse->detail_warehouse->max('harga'))/seri</td>
                                                 @endif
                                             <td>
                                                 <div class="dropdown dropleft">

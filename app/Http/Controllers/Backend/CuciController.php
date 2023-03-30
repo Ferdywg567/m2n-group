@@ -16,6 +16,7 @@ use App\CuciDirepair;
 use App\CuciDibuang;
 use App\DetailJahit;
 use Barryvdh\DomPDF\Facade as PDF;
+use Carbon\Carbon;
 
 class CuciController extends Controller
 {
@@ -26,7 +27,17 @@ class CuciController extends Controller
      */
     public function index()
     {
-        Cuci::whereNotNull('tanggal_cuci')->whereNotNull('tanggal_selesai')->where('status', '!=', 'cucian keluar')->update(['status_cuci' => 'butuh konfirmasi']);
+        Cuci::whereNotNull('tanggal_cuci')
+            ->whereNotNull('tanggal_selesai')
+            ->where('tanggal_selesai', '>=', Carbon::today())
+            ->where('status', '!=', 'cucian keluar')
+            ->where('status_cuci', '!=', 'selesai')
+            ->update(['status_cuci' => 'butuh konfirmasi']);
+        Cuci::where('status', 'cucian keluar')
+            ->where('status_cuci', 'butuh konfirmasi')
+            ->update([
+                'status_cuci' => 'selesai'
+            ]);
         $cuci = Cuci::where('status', 'cucian masuk')->orderBy('created_at', 'DESC')->get();
         $selesai = Cuci::where('status', 'cucian selesai')->orderBy('created_at', 'DESC')->get();
         $keluar = Cuci::where('status', 'cucian keluar')->orderBy('created_at', 'DESC')->get();

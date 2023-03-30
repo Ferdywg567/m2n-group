@@ -82,13 +82,15 @@ class TransaksiController extends Controller
                         $transaksi->save();
 
                         foreach ($transaksi->detail_transaksi as $key => $value) {
-
+                            $value->ukuran = str_replace(' ', '', $value->ukuran);
                             if($value->ukuran == 'S,M,L'){
                                 $ukuran = ['S','M','L'];
+                            }elseif(str_contains($value->ukuran, ',')){
+                                $ukuran = explode(',', $value->ukuran);
                             }else{
                                 $ukuran = [$value->ukuran];
                             }
-
+                            
                             $produk = Produk::findOrFail($value->produk_id);
                             $jumproduk = DetailProduk::where('produk_id', $produk->id)->whereIn('ukuran', $ukuran)->count();
                             $produk->stok = $produk->stok - ($jumproduk * $value->jumlah);
