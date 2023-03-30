@@ -75,7 +75,7 @@
                                             <th scope="col">Ukuran</th>
                                             <th scope="col">Tgl Masuk</th>
                                             <th scope="col">Tgl Mulai Sortir</th>
-                                            {{-- <th scope="col">Berhasil Finishing</th> --}}
+                                            <th scope="col">Status</th>
                                             <th scope="col">Aksi</th>
                                         </tr>
                                     </thead>
@@ -106,7 +106,14 @@
                                             </td>
                                             <td>{{$item->tanggal_masuk}}</td>
                                             <td>{{$item->tanggal_qc}}</td>
-                                            {{-- <td>{{$item->barang_lolos_qc}}/{{$item->total_barang}} --}}
+                                            <td>
+                                                @if(($item->status == 'finishing masuk' and $item->tanggal_qc > date('Y-m-d')) or $item->tanggal_qc == null)
+                                                    <span class="badge badge-secondary text-dark">BELUM SORTIR</span>
+                                                @elseif($item->tanggal_qc <= date('Y-m-d') and $item->tanggal_selesai > date('Y-m-d'))
+                                                    <span class="badge badge-primary text-dark">PROSES SORTIR</span>
+                                                @elseif($item->tanggal_selesai <= date('Y-m-d'))
+                                                    <span class="badge badge-warning text-dark">BUTUH KONFIRMASI</span>
+                                                @endif
                                             </td>
                                             <td>
                                                 <div class="dropdown dropleft">
@@ -164,6 +171,7 @@
                                             <th scope="col">Tgl Masuk</th>
                                             <th scope="col">Tgl Finishing</th>
                                             <th scope="col">Berhasil Finishing</th>
+                                            <th scope="col">Status</th>
                                             <th scope="col">Aksi</th>
                                         </tr>
                                     </thead>
@@ -195,6 +203,11 @@
                                             <td>{{$item->tanggal_masuk}}</td>
                                             <td>{{$item->tanggal_selesai}}</td>
                                             <td>{{$item->barang_lolos_qc}}/{{$item->cuci->berhasil_cuci}}</td>
+                                            <td>
+                                                @if($item->status == 'kirim warehouse')
+                                                <span class="badge badge-success">SELESAI</span>
+                                                @endif
+                                            </td>
                                             <td>
                                                 <div class="dropdown dropleft">
                                                     <a class="" href="#" id="dropdownMenuButton" data-toggle="dropdown"

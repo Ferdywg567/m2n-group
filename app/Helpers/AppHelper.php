@@ -134,28 +134,44 @@ class AppHelper
         $detail = $produk->detail_produk->pluck('ukuran')->toArray();
         $seri = false;
         $harga_seri = 0;
-        if (in_array('S', $detail) && in_array('M', $detail) && in_array('L', $detail)) {
-            $seri = true;
-            // $harga_seri = $produk->detail_produk->whereIn('ukuran', $target)->avg('harga');
-            $detail = $produk->detail_produk->whereNotIn('ukuran', $target)->pluck('ukuran');
-            $res = [];
-            $x[] = 'S,M,L';
-            if ($detail->isNotEmpty()) {
-                $res = $detail->toArray();
+        // if (in_array('S', $detail) && in_array('M', $detail) && in_array('L', $detail)) {
+        //     $seri = true;
+        //     // $harga_seri = $produk->detail_produk->whereIn('ukuran', $target)->avg('harga');
+        //     $detail = $produk->detail_produk->whereNotIn('ukuran', $target)->pluck('ukuran');
+        //     $res = [];
+        //     $x[] = 'S,M,L';
+        //     if ($detail->isNotEmpty()) {
+        //         $res = $detail->toArray();
 
-                $data = array_merge($x, $res);
-            } else {
-                $data =  $x;
-            }
+        //         $data = array_merge($x, $res);
+        //     } else {
+        //         $data =  $x;
+        //     }
 
-            $ukuran = $data;
-        } else {
-            $detail = $produk->detail_produk->pluck('ukuran');
-            if ($detail->isNotEmpty()) {
-                $ukuran = $detail->toArray();
+        //     $ukuran = $data;
+        // } else {
+        //     $detail = $produk->detail_produk->pluck('ukuran');
+        //     if ($detail->isNotEmpty()) {
+        //         $ukuran = $detail->toArray();
+        //     }
+        // }
+        $ukuran = $produk->detail_produk->chunk(3);
+        foreach($ukuran as $d){
+            $label = '';
+            $price = 0;
+            foreach($d as $data){
+                $label .= $data->ukuran;
+                $price = $data->harga;
+                if($data != $d->last()){
+                    $label .= ', ';
+                }
             }
+            $d->{'ukuran'} = $label;
+            $d->{'harga'} = $price;
         }
 
-        return $ukuran;
+        return $ukuran->map(function($d){
+            return $d->ukuran;
+        })->toArray();
     }
 }

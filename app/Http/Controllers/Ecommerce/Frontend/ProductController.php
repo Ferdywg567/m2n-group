@@ -55,14 +55,35 @@ class ProductController extends Controller
         $target = ["S","L","M"];
         $detail = $produk->detail_produk->pluck('ukuran')->toArray();
         $seri = false;
-        $harga_seri = 0;
-        if(in_array('S',$detail) && in_array('M',$detail) && in_array('L', $detail)){
-            $seri = true;
-            $harga_seri = $produk->detail_produk->whereIn('ukuran', $target)->avg('harga');
-            $detail = $produk->detail_produk->whereNotIn('ukuran', $target);
-        }else{
-            $detail = $produk->detail_produk;
+
+        // old logic
+        // $harga_seri = 0;
+        // if(in_array('S',$detail) && in_array('M',$detail) && in_array('L', $detail)){
+        //     $seri = true;
+        //     $harga_seri = $produk->detail_produk->whereIn('ukuran', $target)->avg('harga');
+        //     $detail = $produk->detail_produk->whereNotIn('ukuran', $target);
+        // }else{
+        //     $detail = $produk->detail_produk;
+        // }
+        // end old logic
+
+        // new logic
+        $detail = $produk->detail_produk->chunk(3);
+        foreach($detail as $d){
+            $label = '';
+            $price = 0;
+            foreach($d as $data){
+                $label .= $data->ukuran;
+                $price = $data->harga;
+                if($data != $d->last()){
+                    $label .= ', ';
+                }
+            }
+            $d->{'ukuran'} = $label;
+            $d->{'harga'} = $price;
         }
+        // end new logic
+
 
         return view('ecommerce.frontend.product.detail', ['produk' => $produk, 'seri' => $seri,'detail' => $detail, 'terkait' => $terkait]);
     }
@@ -167,10 +188,13 @@ class ProductController extends Controller
         if($request->ajax()){
             $id = $request->get('id');
             $ukuran = $request->get('ukuran');
+
             if(!empty($ukuran)){
 
                 if($ukuran=='S,M,L'){
                     $res = ['S','M','L'];
+                }elseif(str_contains($ukuran, ',')){
+                    $res = explode(',', $ukuran);
                 }else{
                     $res = [$ukuran];
                 }

@@ -66,9 +66,9 @@
                                                 </td>
                                             @else
                                                 @if ($item->detail_warehouse->min('harga') == $item->detail_warehouse->max('harga'))
-                                                    <td>@rupiah($item->detail_warehouse->max('harga'))/pcs</td>
+                                                    <td>@rupiah($item->detail_warehouse->max('harga'))/seri</td>
                                                 @else
-                                                    <td>@rupiah($item->detail_warehouse->min('harga')) - @rupiah($item->detail_warehouse->max('harga'))/pcs</td>
+                                                    <td>@rupiah($item->detail_warehouse->min('harga')) - @rupiah($item->detail_warehouse->max('harga'))/seri</td>
                                                 @endif
                                             @endif
 

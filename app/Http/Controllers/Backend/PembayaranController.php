@@ -11,7 +11,7 @@ use App\Cuci;
 use App\Jahit;
 use App\PembayaranCuci;
 use App\PembayaranJahit;
-use PDF;
+use Barryvdh\DomPDF\PDF;
 
 class PembayaranController extends Controller
 {
@@ -30,6 +30,7 @@ class PembayaranController extends Controller
                         ->take(1)
                     )
                     ->get();
+        // dd($jahit);
         $cuci = Cuci::where('status_pembayaran', '!=', 'Belum Lunas')->orderBy('created_at', 'DESC')->get();
         return view('backend.pembayaran.index', ['jahit' => $jahit, 'cuci' => $cuci]);
     }
@@ -79,7 +80,6 @@ class PembayaranController extends Controller
         } else {
             DB::beginTransaction();
             try {
-                // dd($request->all());
                 $total_harga = $request->get('total_harga');
                 $total_harga = $this->convertToAngkaRp($total_harga);
                 $nominal1 = $request->get('nominal1');
@@ -104,7 +104,7 @@ class PembayaranController extends Controller
                         $pembayaran->nominal = $nominal1;
                         $pembayaran->save();
                     } elseif ($pembayaran1 == 'Termin 1') {
-
+                        
 
                         if ($nominal1 > 0 && $nominal2 > 0 && $nominal3 > 0) {
                             $total = $nominal1 + $nominal2 + $nominal3;
@@ -195,7 +195,6 @@ class PembayaranController extends Controller
                         $pembayaran->nominal = $nominal1;
                         $pembayaran->save();
                     } elseif ($pembayaran1 == 'Termin 1') {
-
 
                         if ($nominal1 > 0 && $nominal2 > 0 && $nominal3 > 0) {
                             $total = $nominal1 + $nominal2 + $nominal3;
@@ -580,9 +579,10 @@ class PembayaranController extends Controller
 
     public function convertToAngkaRp($harga)
     {
-        $hasil = str_replace('.', '', $harga);
-        $hasil = str_replace('Rp. ', '', $hasil);
+        $hasil = str_replace('Rp', '', $harga);
         $hasil = str_replace(',00', '', $hasil);
+        $hasil = str_replace('.', '', $hasil);
+        $hasil = str_replace(' ', '', $hasil);
         return (float)$hasil;
     }
 

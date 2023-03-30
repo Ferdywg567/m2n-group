@@ -153,7 +153,7 @@ class JahitController extends Controller
                         $jahit->nama_vendor = $request->get('nama_vendor');
                         $jahit->harga_vendor = $request->get('harga_vendor');
                         $jahit->status_pembayaran = "Belum Lunas";
-                        $totalbayar = $jahit->harga_vendor * ceil($request->get('jumlah_bahan_yang_dijahit'));
+                        $totalbayar = $jahit->harga_vendor * ceil($request->get('jumlah_bahan_yang_dijahit') / 12);
                         $jahit->total_harga = $totalbayar;
                         $jahit->sisa_bayar = $totalbayar;
                     }

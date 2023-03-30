@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Ecommerce\Offline;
 use Illuminate\Support\Facades\Validator;
 use App\DetailProduk;
 use App\DetailTransaksi;
+use App\DetailWarehouse;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Transaksi;
 use App\Produk;
+use App\Warehouse;
 use Barryvdh\DomPDF\Facade as PDF;
 
 class TransaksiController extends Controller
@@ -33,6 +35,7 @@ class TransaksiController extends Controller
      */
     public function create()
     {
+        session()->forget('detail_transaksi');
         if (session()->has('transaksi')) {
             $transaksi = session('transaksi');
         } else {
@@ -67,22 +70,31 @@ class TransaksiController extends Controller
                 $totalproduk = 0;
                 foreach ($detail as $key => $value) {
                     $produk = Produk::where('kode_produk', $value['kode'])->first();
+                    $value['ukuran'] = str_replace(' ', '', $value['ukuran']);
                     // dd(DetailProduk::where('produk_id', $produk->id)->whereIn('ukuran', [$value['ukuran']])->sum('jumlah'));
                     if ($produk) {
                         $totalproduk += $value['qty'];
                         if($value['ukuran'] == 'seri'){
                             $ukuran = ['S','M','L'];
+                        }
+                        elseif(str_contains($value['ukuran'], ',')){
+                            $ukuran = explode(',', $value['ukuran']);
                         }else{
                             $ukuran = [$value['ukuran']];
                         }
                         $jumproduk = DetailProduk::where('produk_id', $produk->id)->whereIn('ukuran',$ukuran)->count();
                         $detailpro = DetailProduk::where('produk_id', $produk->id)->whereIn('ukuran',$ukuran)->get();
+
+                        // dd($produk->warehouse->detail_warehouse);
                         $produk->stok = $produk->stok - ($jumproduk * $value['qty']);
                         foreach ($detailpro as $key => $row) {
 
                             $detailProduk = DetailProduk::findOrFail($row->id);
+                            $detailWarehouse = DetailWarehouse::where('warehouse_id', $detailProduk->produk->warehouse->id)
+                                                ->where('ukuran', $detailProduk->ukuran)
+                                                ->first();
 
-                            if($detailProduk->jumlah < $value['qty']){
+                            if($detailProduk->jumlah < $value['qty'] or $detailWarehouse->jumlah < $value['qty']){
                                 DB::rollBack();
                                 // $request->session()->flash('error', 'insufficient stock');
                                 return response()->json([
@@ -93,14 +105,19 @@ class TransaksiController extends Controller
                                 $detailProduk->jumlah = $detailProduk->jumlah - $value['qty'];
                                 $detailProduk->save();
 
-                                //didan - deduct jumlah barang from warehouse detail
-                                $warehouse = $detailProduk->produk->warehouse;
-                                foreach($warehouse->detail_warehouse as $d){
-                                    if($d->ukuran == $value['ukuran']){
-                                        $d->jumlah = $d->jumlah - $value['qty'];
-                                        $d->save();
-                                    }
-                                }
+                                //didan - deduct jumlah barang from warehouse detail - old
+                                // $warehouse = $detailProduk->produk->warehouse;
+                                // foreach($warehouse->detail_warehouse as $d){
+                                //     if($d->ukuran == $value['ukuran']){
+                                //         $d->jumlah = $d->jumlah - $value['qty'];
+                                //         $d->save();
+                                //     }
+                                // }
+                                //end deduct jumlah barang from warehouse detail
+
+                                //didan - deduct jumlah barang from warehouse detail - new
+                                $detailWarehouse->jumlah = $detailWarehouse->jumlah - $value['qty'];
+                                $detailWarehouse->save();
                                 //end deduct jumlah barang from warehouse detail
                             }
                         }
@@ -152,7 +169,8 @@ class TransaksiController extends Controller
             } catch (\Exception $th) {
                 DB::rollBack();
                 return response()->json([
-                    'status' => false
+                    'status' => false,
+                    'msg' => $th->getMessage()
                 ]);
                 dd($th);
             }
@@ -223,34 +241,59 @@ class TransaksiController extends Controller
             $status = $request->get('status');
             $target = ["S","L","M"];
             if($status == 'produk'){
+                // old logic
+                // $produk = Produk::with('detail_produk')->where('id', $request->get('id'))->first();
+
+                // $detail = $produk->detail_produk->pluck('ukuran')->toArray();
+                // $seri = false;
+                // $harga_seri = 0;
+                // $arr = [];
+                // if(in_array('S',$detail) && in_array('M',$detail) && in_array('L', $detail)){
+                //     $seri = true;
+                //     $harga_seri = $produk->detail_produk->whereIn('ukuran', $target)->avg('harga');
+                //     $detail = $produk->detail_produk->whereNotIn('ukuran', $target);
+                //     if($detail->isNotEmpty()){
+                //         foreach ($detail as $key => $value) {
+                //            array_push($arr, $value);
+                //         }
+                //     }
+                // }else{
+                //     $detail = $produk->detail_produk;
+                //     if($detail->isNotEmpty()){
+                //         foreach ($detail as $key => $value) {
+                //            array_push($arr, $value);
+                //         }
+                //     }
+                // }
+                // end old logic
+
+
+                // new logic
                 $produk = Produk::with('detail_produk')->where('id', $request->get('id'))->first();
-
-                $detail = $produk->detail_produk->pluck('ukuran')->toArray();
-                $seri = false;
-                $harga_seri = 0;
-                $arr = [];
-                if(in_array('S',$detail) && in_array('M',$detail) && in_array('L', $detail)){
-                    $seri = true;
-                    $harga_seri = $produk->detail_produk->whereIn('ukuran', $target)->avg('harga');
-                    $detail = $produk->detail_produk->whereNotIn('ukuran', $target);
-                    if($detail->isNotEmpty()){
-                        foreach ($detail as $key => $value) {
-                           array_push($arr, $value);
+                $detail = $produk->detail_produk->chunk(3);
+                $returnData = [];
+                foreach($detail as $d){
+                    $label = '';
+                    $price = 0;
+                    foreach($d as $data){
+                        $label .= $data->ukuran;
+                        $price = $data->harga;
+                        if($data != $d->last()){
+                            $label .= ', ';
                         }
                     }
-                }else{
-                    $detail = $produk->detail_produk;
-                    if($detail->isNotEmpty()){
-                        foreach ($detail as $key => $value) {
-                           array_push($arr, $value);
-                        }
-                    }
+                    $returnData[] = [
+                        'label' => $label,
+                        'price' => $price,
+                        'data' => $d
+                    ];
                 }
-
+                // end new logic
+                // dd($detail);
                 return response()->json([
-                    'data' => $arr,
-                    'seri' => $seri,
-                    'harga_seri' => $harga_seri,
+                    'data' => $returnData,
+                    'seri' => false,
+                    'harga_seri' => 0,
                     'status' => true
                 ]);
             }else{
@@ -271,22 +314,40 @@ class TransaksiController extends Controller
                         }]);
                     }]);
                 }, 'detail_produk'])->where('id', $request->get('id'))->first();
+
+                
                 $ukuran = $request->get('ukuran');
-                if($ukuran == 'seri'){
-                    $harga = DetailProduk::whereIn('ukuran',$target)->where('produk_id',$produk->id)->avg('harga');
-                    $resukuran = 'S,M,L';
-                }else{
-                    $harga = DetailProduk::where('ukuran',$ukuran)->where('produk_id',$produk->id)->avg('harga');
-                    $resukuran = $ukuran;
+                // old logic
+                // if($ukuran == 'seri'){
+                //     $harga = DetailProduk::whereIn('ukuran',$target)->where('produk_id',$produk->id)->avg('harga');
+                //     $resukuran = 'S,M,L';
+                // }else{
+                //     $harga = DetailProduk::where('ukuran',$ukuran)->where('produk_id',$produk->id)->avg('harga');
+                //     $resukuran = $ukuran;
+                // }
+                //end old logic
+
+                //new logic
+                $detail = $produk->detail_produk->chunk(3)[$ukuran - 1];
+                $produk->stok = $detail->min('jumlah');
+                $harga = $detail->avg('harga');
+                $label = '';
+                foreach($detail as $data){
+                    $label .= $data->ukuran;
+                    $price = $data->harga;
+                    if($data != $detail->last()){
+                        $label .= ', ';
+                    }
                 }
+                //end new logic
                 $namaproduk = $produk->warehouse->finishing->cuci->jahit->potong->bahan->nama_bahan;
-                $res =  $this->store_detail($produk->kode_produk, $namaproduk, $harga, $ukuran);
+                $res =  $this->store_detail($produk->kode_produk, $namaproduk, $harga, $label);
                 return response()->json([
                     'data' => $produk,
                     'harga' => $harga,
                     'total_harga' => $res['total_harga'],
                     'status' => true,
-                    'ukuran' => $resukuran
+                    'ukuran' => $label
                 ]);
             }
 

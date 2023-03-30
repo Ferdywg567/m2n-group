@@ -74,6 +74,8 @@ class KeranjangController extends Controller
                 $ukuran = $request->get('ukuran');
                 if ($ukuran == 'S,M,L') {
                     $resukuran = ['S', 'M', 'L'];
+                }elseif(str_contains($ukuran, ',')){
+                    $resukuran = explode(',', $ukuran);
                 } else {
                     $resukuran = [$ukuran];
                 }
@@ -271,7 +273,9 @@ class KeranjangController extends Controller
             $cek = Keranjang::where('user_id', $iduser)->where('id', $id)->first();
             if ($ukuran == 'S,M,L') {
                 $resukuran = ['S', 'M', 'L'];
-            } else {
+            }elseif(str_contains($ukuran, ',')){
+                $resukuran = explode(',', $ukuran);
+            }else {
                 $resukuran = [$ukuran];
             }
             $harga = DetailProduk::where('produk_id', $cek->produk_id)->whereIn('ukuran', $resukuran)->avg('harga');
