@@ -70,7 +70,7 @@ class DashboardController extends Controller
                 $jumlah_kain_lalu = 0;
                 foreach($jumlah_kain_lalu_db as $kain) $jumlah_kain_lalu += $kain->jumlah_bahan;
 
-                $jenis_bahan = Bahan::whereMonth('tanggal_masuk', $bulan)->whereYear('tanggal_masuk', $tahun)->groupBy('kode_bahan')->count();
+                $jenis_bahan = count(Bahan::whereMonth('tanggal_masuk', $bulan)->whereYear('tanggal_masuk', $tahun)->groupBy('kode_bahan')->get());
                 $berhasil_cuci = Cuci::whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->sum('berhasil_cuci');
                 $hasil_cutting = Potong::whereMonth('tanggal_cutting', $bulan)->whereYear('tanggal_cutting', $tahun)->sum('hasil_cutting');
                 $berhasil_jahit = Jahit::whereMonth('tanggal_jahit', $bulan)->whereYear('tanggal_jahit', $tahun)->sum('berhasil');

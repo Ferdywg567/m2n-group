@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Backend\PerbaikanController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -129,6 +130,8 @@ Route::group(['prefix' => 'production', 'namespace' => 'Backend', 'middleware' =
     });
 
     Route::group(['prefix' => 'perbaikan', 'as' => 'perbaikan.'], function () {
+        Route::get('/selesai/{id}/{is_jahit}', [PerbaikanController::class, 'selesai'])->name('selesai');
+        Route::post('/selesai/{id}', [PerbaikanController::class, 'storeSelesai'])->name('store_selesai');
         Route::post('/cetak', 'PerbaikanController@cetakPdf')->name('cetak');
     });
 

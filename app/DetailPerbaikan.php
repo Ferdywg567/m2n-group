@@ -13,4 +13,12 @@ class DetailPerbaikan extends Model
     {
         return $this->belongsTo('App\Perbaikan');
     }
+
+    public function jahit_repair(){
+        return $this->belongsTo(JahitDirepair::class, 'jahit_direpair_id');
+    }
+
+    public function cuci_repair(){
+        return $this->belongsTo(CuciDirepair::class, 'cuci_direpair_id');
+    }
 }

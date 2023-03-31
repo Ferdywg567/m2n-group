@@ -10,4 +10,8 @@ class CuciDirepair extends Model
     {
         return $this->belongsTo('App\Cuci');
     }
+
+    public function detail_perbaikan(){
+        return $this->hasMany(DetailPerbaikan::class);
+    }
 }
