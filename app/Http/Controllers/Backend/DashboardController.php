@@ -17,6 +17,7 @@ use App\Bahan;
 use App\Cuci;
 use App\DetailWarehouse;
 use App\Potong;
+use App\Produk;
 use App\Retur;
 use Illuminate\Support\Facades\Auth;
 
@@ -69,7 +70,7 @@ class DashboardController extends Controller
                 $jumlah_kain_lalu = 0;
                 foreach($jumlah_kain_lalu_db as $kain) $jumlah_kain_lalu += $kain->jumlah_bahan;
 
-                $jenis_bahan = Bahan::whereMonth('tanggal_masuk', $bulan)->whereYear('tanggal_masuk', $tahun)->groupBy('kode_bahan')->count();
+                $jenis_bahan = count(Bahan::whereMonth('tanggal_masuk', $bulan)->whereYear('tanggal_masuk', $tahun)->groupBy('kode_bahan')->get());
                 $berhasil_cuci = Cuci::whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->sum('berhasil_cuci');
                 $hasil_cutting = Potong::whereMonth('tanggal_cutting', $bulan)->whereYear('tanggal_cutting', $tahun)->sum('hasil_cutting');
                 $berhasil_jahit = Jahit::whereMonth('tanggal_jahit', $bulan)->whereYear('tanggal_jahit', $tahun)->sum('berhasil');
@@ -216,7 +217,6 @@ class DashboardController extends Controller
 
 
                 $warehouse = Warehouse::with(['finishing' => function ($q) {
-
                     $q->with(['cuci' => function ($q) {
                         $q->with(['jahit' => function ($q) {
                             $q->with(['potong' => function ($q) {
@@ -225,7 +225,16 @@ class DashboardController extends Controller
                         }]);
                     }]);
                 }])->whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->limit(5)->get();
-
+                foreach($warehouse as $wh){
+                    // dd(Produk::where('warehouse_id', $wh->id)->first()
+                    // ->detail_produk);
+                    if(Produk::where('warehouse_id', $wh->id)->exists()){
+                        $wh->harga_produk = Produk::where('warehouse_id', $wh->id)->first()
+                        ->detail_produk
+                        ->avg('harga');
+                    }
+                    
+                }
                 // dd($warehouse);
 
 

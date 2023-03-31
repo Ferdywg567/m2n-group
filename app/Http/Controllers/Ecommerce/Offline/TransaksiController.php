@@ -143,7 +143,9 @@ class TransaksiController extends Controller
                 foreach ($detail as $key => $value) {
                     if($value['ukuran'] == 'seri'){
                         $ukuran = "S,M,L";
-                    }else{
+                    }elseif(str_contains($value['ukuran'], ',')){
+                        $ukuran = explode(',', $value['ukuran']);
+                    } else{
                         $ukuran = $value['ukuran'];
                     }
                     $detail_trans = new DetailTransaksi();

@@ -141,6 +141,8 @@ class KeranjangController extends Controller
 
                     if ($ukuran == 'S,M,L') {
                         $resukuran = ['S', 'M', 'L'];
+                    } elseif(str_contains($ukuran, ',')){
+                        $resukuran = explode(',', $ukuran);
                     } else {
                         $resukuran = [$ukuran];
                     }

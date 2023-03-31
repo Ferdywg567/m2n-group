@@ -10,4 +10,8 @@ class JahitDirepair extends Model
     {
         return $this->belongsTo('App\Jahit');
     }
+
+    public function detail_perbaikan(){
+        return $this->hasMany(DetailPerbaikan::class);
+    }
 }
