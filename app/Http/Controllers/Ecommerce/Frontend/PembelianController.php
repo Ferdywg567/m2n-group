@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Ecommerce\Frontend;
 
+use App\Alamat;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Transaksi;
@@ -91,7 +92,7 @@ class PembelianController extends Controller
         $userid = auth()->user()->id;
         $menunggu = Transaksi::where('user_id', $userid)->where('status_bayar', 'belum dibayar')->orderBy('created_at','DESC')->get();
         $transaksi = Transaksi::where('user_id', $userid)->where('id',$id)->firstOrFail();
-        // dd($transaksi);
+        $transaksi->{'alamat'} = Alamat::find($transaksi->alamat_id);
         return view('ecommerce.frontend.pembelian.show', [ 'transaksi' => $transaksi]);
     }
 

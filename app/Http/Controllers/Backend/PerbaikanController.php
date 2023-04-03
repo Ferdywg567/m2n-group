@@ -410,6 +410,19 @@ class PerbaikanController extends Controller
     }
 
     public function storeSelesai($id, Request $request){
+        $validator = Validator::make($request->all(), [
+            'tipeperbaikan' => 'required',
+            'kode_transaksi' => 'required',
+            'berhasil_jahit' => 'required',
+            'gagal_jahit' => 'required',
+            'barang_dibuang' => 'required',
+            'jumlahdibuang' => 'required',
+            'dataukurandibuang' => 'required',
+        ]);
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator->errors());
+        }
+
         DB::beginTransaction();
 
         try {
@@ -448,7 +461,7 @@ class PerbaikanController extends Controller
             $data->total_harga = 0;
             $data->status = $request->tipeperbaikan == 'jahit' ? 'jahitan selesai' : 'cucian_selesai';
             $data->{$request->tipeperbaikan == 'jahit' ? 'status_jahit' : 'status_cuci'} = 'selesai';
-
+            $data->status_perbaikan = 'selesai';
             $data->save();
 
             foreach($repair->detail_perbaikan as $r){
