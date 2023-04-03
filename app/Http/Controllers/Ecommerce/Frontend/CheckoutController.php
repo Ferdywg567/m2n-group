@@ -200,7 +200,7 @@ class CheckoutController extends Controller
                 if(str_starts_with($th->getMessage(), "Stok tidak mencukupi")){
                     return redirect()->back()->withErrors(['error' => $th->getMessage()]);
                 }
-                dd($th);
+                dd($th->getLine());
             }
         }
     }
