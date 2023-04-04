@@ -686,11 +686,10 @@ class FinishingController extends Controller
 
                 //warehouse
                 $dbFinish = Finishing::where('no_surat', $finish->no_surat);
-                $isDbFinishExists = $dbFinish->exists();
+                $isDbFinishExists = Warehouse::where('finishing_id', $dbFinish->first()->id)->exists();
                 $warehouse = $isDbFinishExists ? 
                     Warehouse::where('finishing_id', $dbFinish->first()->id)->first() : 
                     new Warehouse();
-                
                 if(!$isDbFinishExists){
                     $warehouse->finishing_id = $finish->id;
                     $warehouse->harga_produk = 0;
@@ -706,6 +705,7 @@ class FinishingController extends Controller
                         $detail->jumlah =  $value['jumlah'];
                         $detail->save();
                     }else{
+                        
                         $detail = DetailWarehouse::where('warehouse_id', $warehouse->id)
                                     ->where('ukuran', $value['ukuran'])
                                     ->first();
