@@ -14,7 +14,6 @@
         .left {
             text-align: left;
         }
-
     </style>
     <div id="non-printable">
         <section class="section mt-4">
@@ -71,7 +70,6 @@
                                                                 @forelse ($item->detail_transaksi as $row)
                                                                     <li>{{ $row->produk->kode_produk }}</li>
                                                                 @empty
-
                                                                 @endforelse
                                                             </ul>
                                                         </td>
@@ -80,7 +78,6 @@
                                                                 @forelse ($item->detail_transaksi as $row)
                                                                     <li>{{ $row->produk->nama_produk }}</li>
                                                                 @empty
-
                                                                 @endforelse
                                                             </ul>
                                                         </td>
@@ -89,7 +86,6 @@
                                                                 @forelse ($item->detail_transaksi as $row)
                                                                     <li>{{ $row->jumlah }} seri</li>
                                                                 @empty
-
                                                                 @endforelse
                                                             </ul>
                                                         </td>
@@ -99,7 +95,6 @@
                                                                     <li>{{ $row->produk->warehouse->finishing->cuci->jahit->potong->bahan->sku }}
                                                                     </li>
                                                                 @empty
-
                                                                 @endforelse
                                                             </ul>
                                                         </td>
@@ -172,7 +167,6 @@
                                                                 @forelse ($item->detail_transaksi as $row)
                                                                     <li>{{ $row->produk->kode_produk }}</li>
                                                                 @empty
-
                                                                 @endforelse
                                                             </ul>
                                                         </td>
@@ -181,7 +175,6 @@
                                                                 @forelse ($item->detail_transaksi as $row)
                                                                     <li>{{ $row->produk->nama_produk }}</li>
                                                                 @empty
-
                                                                 @endforelse
                                                             </ul>
                                                         </td>
@@ -190,7 +183,6 @@
                                                                 @forelse ($item->detail_transaksi as $row)
                                                                     <li>{{ $row->jumlah }} seri</li>
                                                                 @empty
-
                                                                 @endforelse
                                                             </ul>
                                                         </td>
@@ -200,7 +192,6 @@
                                                                     <li>{{ $row->produk->warehouse->finishing->cuci->jahit->potong->bahan->sku }}
                                                                     </li>
                                                                 @empty
-
                                                                 @endforelse
                                                             </ul>
                                                         </td>
@@ -268,7 +259,6 @@
                                                                 @forelse ($item->detail_transaksi as $row)
                                                                     <li>{{ $row->produk->kode_produk }}</li>
                                                                 @empty
-
                                                                 @endforelse
                                                             </ul>
                                                         </td>
@@ -277,7 +267,6 @@
                                                                 @forelse ($item->detail_transaksi as $row)
                                                                     <li>{{ $row->produk->nama_produk }}</li>
                                                                 @empty
-
                                                                 @endforelse
                                                             </ul>
                                                         </td>
@@ -286,7 +275,6 @@
                                                                 @forelse ($item->detail_transaksi as $row)
                                                                     <li>{{ $row->jumlah }} seri</li>
                                                                 @empty
-
                                                                 @endforelse
                                                             </ul>
                                                         </td>
@@ -296,7 +284,6 @@
                                                                     <li>{{ $row->produk->warehouse->finishing->cuci->jahit->potong->bahan->sku }}
                                                                     </li>
                                                                 @empty
-
                                                                 @endforelse
                                                             </ul>
                                                         </td>
@@ -317,7 +304,26 @@
                                                         class="ri-check-double-line"></i>
                                                     Konfirmasi Kirim</a>
                                 </div>
-                            </div> --}}
+                            </div> --}} <div class="dropdown dropleft">
+                                                                <a class="" href="#" id="dropdownMenuButton"
+                                                                    data-toggle="dropdown" aria-haspopup="true"
+                                                                    aria-expanded="false">
+                                                                    <i class="fa fa-ellipsis-h"></i>
+                                                                </a>
+                                                                <div class="dropdown-menu text-center"
+                                                                    aria-labelledby="dropdownMenuButton">
+                                                                    <a class="dropdown-item btn-retur"
+                                                                        style="cursor: pointer"
+                                                                        data-id="{{ $item->id }}"><i
+                                                                            class="ri-eye-line"></i>
+                                                                        Retur</a>
+                                                                    <a class="dropdown-item btn-refund"
+                                                                        style="cursor: pointer"
+                                                                        data-id="{{ $item->id }}">
+                                                                        <i class="fas fa-cash"></i>
+                                                                        Refund</a>
+                                                                </div>
+                                                            </div>
                                                         </td>
                                                     </tr>
                                                 @empty
@@ -354,7 +360,6 @@
                                                                 @forelse ($item->detail_transaksi as $row)
                                                                     <li>{{ $row->produk->kode_produk }}</li>
                                                                 @empty
-
                                                                 @endforelse
                                                             </ul>
                                                         </td>
@@ -363,7 +368,6 @@
                                                                 @forelse ($item->detail_transaksi as $row)
                                                                     <li>{{ $row->produk->nama_produk }}</li>
                                                                 @empty
-
                                                                 @endforelse
                                                             </ul>
                                                         </td>
@@ -372,7 +376,6 @@
                                                                 @forelse ($item->detail_transaksi as $row)
                                                                     <li>{{ $row->jumlah }} seri</li>
                                                                 @empty
-
                                                                 @endforelse
                                                             </ul>
                                                         </td>
@@ -382,7 +385,6 @@
                                                                     <li>{{ $row->produk->warehouse->finishing->cuci->jahit->potong->bahan->sku }}
                                                                     </li>
                                                                 @empty
-
                                                                 @endforelse
                                                             </ul>
                                                         </td>
@@ -392,9 +394,15 @@
                                                             <td><span class="badge badge-success text-dark">TELAH
                                                                     TIBA</span></td>
                                                         @else
-                                                            <td><span
-                                                                    class="badge badge-warning text-dark">DIBATALKAN</span>
-                                                            </td>
+                                                            @if ($item->status == ' refund' or $item->status == 'retur')
+                                                                <td><span
+                                                                        class="badge badge-warning text-dark">{{ strtoupper($item->status) }}</span>
+                                                                </td>
+                                                            @else
+                                                                <td><span
+                                                                        class="badge badge-error text-dark">{{ strtoupper($item->status) }}</span>
+                                                                </td>
+                                                            @endif
                                                         @endif
 
                                                         <td>
@@ -513,7 +521,8 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="nama_penerima">Nama Penerima</label>
-                                <input type="text" readonly class="form-control" id="nama_penerima" name="nama_penerima">
+                                <input type="text" readonly class="form-control" id="nama_penerima"
+                                    name="nama_penerima">
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -527,7 +536,8 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="jenis_alamat">Jenis Alamat</label>
-                                <input type="text" readonly class="form-control" id="jenis_alamat" name="jenis_alamat">
+                                <input type="text" readonly class="form-control" id="jenis_alamat"
+                                    name="jenis_alamat">
                             </div>
                         </div>
 
@@ -537,8 +547,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="alamat_detail">Alamat Detail</label>
-                                <textarea readonly class="form-control" id="alamat_detail" name="alamat_detail"
-                                    rows="3"></textarea>
+                                <textarea readonly class="form-control" id="alamat_detail" name="alamat_detail" rows="3"></textarea>
                             </div>
                         </div>
                     </div>
@@ -713,8 +722,114 @@
                         }
                     }
                 })
+            })
 
+            $(document).on('click', '.btn-retur', function() {
+                var id = $(this).data('id')
+                swal({
+                        title: "Apakah anda yakin ingin meretur barang ini?",
+                        text: "Anda akan mengirim barang baru sebagai ganti barang yang diretur",
+                        icon: "warning",
+                        buttons: {
+                            cancel: {
+                                text: "Batal",
+                                className: "btn btn-danger",
+                                visible: true,
+                                value: false
+                            },
+                            confirm: {
+                                text: "Ya, saya ingin melakukan retur",
+                                className: "btn btn-primary",
+                                value: true
+                            }
+                        },
+                    })
+                    .then((value) => {
+                        if (value) {
+                            $.ajax({
+                                url: "{{ route('ecommerce.transaksi.retur') }}",
+                                method: "POST",
+                                headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                },
+                                data: {
+                                    id: id
+                                },
+                                success: function(response) {
+                                    if (response.status) {
+                                        iziToast.success({
+                                            title: 'Yeay!',
+                                            message: response.data,
+                                            position: 'topRight'
+                                        });
+                                        setTimeout(function() {
+                                            location.reload(true)
+                                        }, 1500)
+                                    } else {
+                                        iziToast.error({
+                                            title: 'Gagal!',
+                                            message: response.data,
+                                            position: 'topRight'
+                                        });
+                                    }
+                                }
+                            })
+                        }
+                    });
+            })
 
+            $(document).on('click', '.btn-refund', function() {
+                var id = $(this).data('id')
+                swal({
+                        title: "Apakah anda yakin ingin merefund barang ini?",
+                        text: "",
+                        icon: "warning",
+                        buttons: {
+                            cancel: {
+                                text: "Batal",
+                                className: "btn btn-danger",
+                                visible: true,
+                                value: false
+                            },
+                            confirm: {
+                                text: "Ya, saya ingin melakukan refund",
+                                className: "btn btn-primary",
+                                value: true
+                            }
+                        },
+                    })
+                    .then((value) => {
+                        if (value) {
+                            $.ajax({
+                                url: "{{ route('ecommerce.transaksi.refund') }}",
+                                method: "POST",
+                                headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                },
+                                data: {
+                                    id: id
+                                },
+                                success: function(response) {
+                                    if (response.status) {
+                                        iziToast.success({
+                                            title: 'Yeay!',
+                                            message: response.data,
+                                            position: 'topRight'
+                                        });
+                                        setTimeout(function() {
+                                            location.reload(true)
+                                        }, 1500)
+                                    } else {
+                                        iziToast.error({
+                                            title: 'Gagal!',
+                                            message: response.data,
+                                            position: 'topRight'
+                                        });
+                                    }
+                                }
+                            })
+                        }
+                    });
             })
 
             $(document).on('click', '.konfirmasi-kirim', function() {
@@ -743,8 +858,6 @@
                 })
 
             })
-
-
         })
     </script>
 @endpush

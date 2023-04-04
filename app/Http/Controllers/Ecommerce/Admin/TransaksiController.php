@@ -10,8 +10,12 @@ use App\NotificationEcommerce;
 use App\DetailProduk;
 use App\Produk;
 use App\Alamat;
+use App\DetailRetur;
+use App\DetailWarehouse;
+use App\Retur;
 use Illuminate\Http\Request;
 use App\Transaksi;
+use Exception;
 
 class TransaksiController extends Controller
 {
@@ -25,7 +29,7 @@ class TransaksiController extends Controller
         $belumbayar = Transaksi::where('status_bayar', 'belum dibayar')->orwhere('status_bayar', 'sudah di upload')->orderBy('created_at', 'DESC')->get();
         $sudahbayar = Transaksi::where('status_bayar', 'sudah dibayar')->where('status', '!=', 'dikirim')->where('status', '!=', 'telah tiba')->orderBy('created_at', 'DESC')->get();
         $dikirim = Transaksi::where('status', 'dikirim')->orderBy('created_at', 'DESC')->get();
-        $selesai = Transaksi::where('status', 'telah tiba')->orWhere('status_bayar','dibatalkan')->orderBy('created_at', 'DESC')->get();
+        $selesai = Transaksi::whereIn('status', ['telah tiba', 'retur', 'refund'])->orWhere('status_bayar','dibatalkan')->orderBy('created_at', 'DESC')->get();
         return view('ecommerce.admin.transaksi.index', [
             'belumbayar' => $belumbayar, 'sudahbayar' => $sudahbayar, 'dikirim' => $dikirim, 'selesai' => $selesai
         ]);
@@ -131,7 +135,9 @@ class TransaksiController extends Controller
                 ]);
             } catch (\Exception $th) {
                 //throw $th;
+                
                 DB::rollBack();
+                dd($th->getMessage());
             }
         }
     }
@@ -216,6 +222,106 @@ class TransaksiController extends Controller
 
                 ]);
             }
+        }
+    }
+
+    public function retur(Request $request){
+
+        $trx = Transaksi::find($request->id);
+        DB::beginTransaction();
+        try{
+            $trx->status = "retur";
+            $trx->save();
+
+            foreach($trx->detail_transaksi as $detail){
+            
+                $finishing = $detail->produk->warehouse->finishing;
+                $produk = $detail->produk;
+                $warehouse = $produk->warehouse;
+                
+                $retur = new Retur;
+                $retur->finishing_id = $finishing->id;
+                $retur->tanggal_masuk = date('Y-m-d');
+                $retur->keterangan_diretur = "retur dari customer";
+                $retur->total_barang = $detail->jumlah;
+                $retur->save();
+
+                foreach(explode(",", str_replace(" ", "", $detail->ukuran)) as $d){
+                    $dRetur = new DetailRetur;
+                    $dRetur->retur_id = $retur->id;
+                    $dRetur->ukuran = $d;
+                    $dRetur->jumlah = $detail->jumlah;
+                    $dRetur->save();
+
+                    $dProduk = DetailProduk::where('produk_id', $produk->id)
+                        ->where('ukuran', $d)->first();
+                    $dWarehouse = DetailWarehouse::where('warehouse_id', $warehouse->id)
+                        ->where('ukuran', $d)->first();
+
+                    if($dProduk->jumlah >= $detail->jumlah and $dWarehouse->jumlah >= $detail->jumlah){
+                        $dProduk->jumlah = $dProduk->jumlah - $detail->jumlah;
+                        $dProduk->save();
+
+                        $dWarehouse->jumlah = $dWarehouse->jumlah - $detail->jumlah;
+                        $dWarehouse->save();
+                    }else{
+                        DB::rollBack();
+                        return response()->json([
+                            'status' => false,
+                            'data' => "stok tidak mencukupi"
+                        ]);
+                    }
+                }
+            }
+            DB::commit();
+            return response()->json([
+                'status' => true,
+                'data' => "Berhasil melakukan retur"
+            ]);
+
+        }catch(Exception $e){
+            DB::rollBack();
+            dd($e->getMessage());
+        }
+
+    }
+
+    public function refund(Request $request){
+        $trx = Transaksi::find($request->id);
+        DB::beginTransaction();
+        try{
+            $trx->status = "refund";
+            $trx->save();
+            
+            foreach($trx->detail_transaksi as $detail){
+            
+                $finishing = $detail->produk->warehouse->finishing;
+                
+                $retur = new Retur;
+                $retur->finishing_id = $finishing->id;
+                $retur->tanggal_masuk = date('Y-m-d');
+                $retur->keterangan_diretur = "retur dari customer";
+                $retur->total_barang = $detail->jumlah;
+                $retur->save();
+
+                foreach(explode(",", str_replace(" ", "", $detail->ukuran)) as $d){
+                    $dRetur = new DetailRetur;
+                    $dRetur->retur_id = $retur->id;
+                    $dRetur->ukuran = $d;
+                    $dRetur->jumlah = $detail->jumlah;
+                    $dRetur->save();
+                }
+            }
+
+            DB::commit();
+            return response()->json([
+                'status' => true,
+                'data' => "Berhasil melakukan refund"
+            ]);
+
+        }catch(Exception $e){
+            DB::rollBack();
+            dd($e->getMessage());
         }
     }
 }

@@ -141,6 +141,7 @@ class TransaksiController extends Controller
 
 
                 foreach ($detail as $key => $value) {
+                    // dd($value);
                     if($value['ukuran'] == 'seri'){
                         $ukuran = "S,M,L";
                     }elseif(str_contains($value['ukuran'], ',')){
@@ -148,15 +149,18 @@ class TransaksiController extends Controller
                     } else{
                         $ukuran = $value['ukuran'];
                     }
-                    $detail_trans = new DetailTransaksi();
+                    
                     $produk = Produk::where('kode_produk', $value['kode'])->first();
-                    $detail_trans->produk_id = $produk->id;
-                    $detail_trans->transaksi_id = $transaksi->id;
-                    $detail_trans->ukuran = $ukuran;
-                    $detail_trans->jumlah = $value['qty'];
-                    $detail_trans->harga = $value['harga'];
-                    $detail_trans->total_harga = $value['subtotal'];
-                    $detail_trans->save();
+                    foreach(is_array($ukuran) ? $ukuran : [$ukuran] as $k){
+                        $detail_trans = new DetailTransaksi;
+                        $detail_trans->produk_id = $produk->id;
+                        $detail_trans->transaksi_id = $transaksi->id;
+                        $detail_trans->ukuran = $k;
+                        $detail_trans->jumlah = $value['qty'];
+                        $detail_trans->harga = $value['harga'];
+                        $detail_trans->total_harga = $value['subtotal'];
+                        $detail_trans->save();
+                    }
                 }
 
                 session()->forget('transaksi');
@@ -170,10 +174,11 @@ class TransaksiController extends Controller
                 ]);
             } catch (\Exception $th) {
                 DB::rollBack();
-                return response()->json([
-                    'status' => false,
-                    'msg' => $th->getMessage()
-                ]);
+                // return response()->json([
+                //     'status' => false,
+                //     'msg' => $th->getMessage(),
+                //     'line' => $th->getLine()
+                // ]);
                 dd($th);
             }
         }

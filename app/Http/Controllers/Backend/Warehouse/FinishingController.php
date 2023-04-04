@@ -28,7 +28,6 @@ class FinishingController extends Controller
      */
     public function index()
     {
-
         $finish = Finishing::where('status', 'finishing masuk')->orderBy('created_at', 'DESC')->get();
         $kirim = Finishing::where('status', 'kirim warehouse')->orderBy('created_at', 'DESC')->get();
 
@@ -100,6 +99,7 @@ class FinishingController extends Controller
                     $finish->barang_lolos_qc = 0;
                     $finish->no_surat = $request->get('no_surat');
                     $finish->status = "finishing masuk";
+                    $finish->barang_siap_qc = Cuci::find($request->get('kode_transaksi'))->berhasil_cuci;
                     $finish->save();
 
                     $jumlah = $request->get('jumlah');
@@ -283,6 +283,11 @@ class FinishingController extends Controller
     public function edit($id)
     {
         $finish = Finishing::findOrFail($id);
+        if($finish->barang_siap_qc == null){
+            $finish->barang_siao_qc == $finish->cuci->berhasil_cuci;
+            $finish->save();
+        }
+
         if ($finish->status == 'finishing masuk') {
             return view("backend.warehouse.finishing.masuk.edit", ['finish' => $finish]);
         } else {
@@ -680,17 +685,34 @@ class FinishingController extends Controller
                 }
 
                 //warehouse
-                $warehouse = new Warehouse();
-                $warehouse->finishing_id = $finish->id;
-                $warehouse->harga_produk = 0;
-                $warehouse->save();
+                $dbFinish = Finishing::where('no_surat', $finish->no_surat);
+                $isDbFinishExists = $dbFinish->exists();
+                $warehouse = $isDbFinishExists ? 
+                    Warehouse::where('finishing_id', $dbFinish->first()->id)->first() : 
+                    new Warehouse();
+                
+                if(!$isDbFinishExists){
+                    $warehouse->finishing_id = $finish->id;
+                    $warehouse->harga_produk = 0;
+                    $warehouse->save();
+                }
+                
 
                 foreach ($arr as $key => $value) {
-                    $detail = new DetailWarehouse();
-                    $detail->warehouse_id = $warehouse->id;
-                    $detail->ukuran = $value['ukuran'];
-                    $detail->jumlah =  $value['jumlah'];
-                    $detail->save();
+                    if(!$isDbFinishExists){
+                        $detail = new DetailWarehouse();
+                        $detail->warehouse_id = $warehouse->id;
+                        $detail->ukuran = $value['ukuran'];
+                        $detail->jumlah =  $value['jumlah'];
+                        $detail->save();
+                    }else{
+                        $detail = DetailWarehouse::where('warehouse_id', $warehouse->id)
+                                    ->where('ukuran', $value['ukuran'])
+                                    ->first();
+                        $detail->jumlah += $value['jumlah'];
+                        $detail->save();
+                    }
+                    
                 }
 
 
@@ -698,6 +720,7 @@ class FinishingController extends Controller
                 $dataukuran = $request->get('dataukurandiretur');
                 $sum = array_sum($jumlah);
 
+                //end warehouse
                 if ($jumlah > 0) {
                     $notif = new Notification();
                     $notif->description = "ada barang yang diretur, silahkan di cek";
@@ -768,6 +791,7 @@ class FinishingController extends Controller
             } catch (\Throwable $th) {
                 //throw $th;
                 DB::rollBack();
+                dd($th);
             }
         }
     }

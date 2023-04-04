@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Ecommerce\Admin\TransaksiController;
 use Illuminate\Support\Facades\Route;
 
 //online
@@ -23,6 +24,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Ecommerce\Admin', 'middleware
     Route::group(['prefix' => 'transaksi', 'as' => 'transaksi.'], function () {
         Route::get('/download/{id}','TransaksiController@download')->name('download');
         Route::get('/get_alamat','TransaksiController@getAlamat')->name('get_alamat');
+        Route::post('/retur', [TransaksiController::class, 'retur'])->name('retur');
+        Route::post('/refund', [TransaksiController::class, 'refund'])->name('refund');
     });
 
     Route::group(['prefix' => 'notifikasi', 'as' => 'notifikasi.'], function () {

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Backend\PerbaikanController;
+use App\Http\Controllers\Backend\ReturController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -127,6 +128,7 @@ Route::group(['prefix' => 'production', 'namespace' => 'Backend', 'middleware' =
     Route::group(['prefix' => 'retur', 'as' => 'retur.'], function () {
         Route::post('/cetak', 'ReturController@cetakPdf')->name('cetak');
         Route::get('/getdataprint', 'ReturController@getDataPrint')->name('getdataprint');
+        Route::get('/retur/{id}', [ReturController::class, 'moveToSortir'])->name('sortir');
     });
 
     Route::group(['prefix' => 'perbaikan', 'as' => 'perbaikan.'], function () {
@@ -158,4 +160,6 @@ Route::group(['prefix' => 'production', 'namespace' => 'Backend', 'middleware' =
     Route::resource('sampah', 'SampahController');
     Route::resource('perbaikan', 'PerbaikanController');
     Route::resource('print', 'PrintController');
+
+    
 });

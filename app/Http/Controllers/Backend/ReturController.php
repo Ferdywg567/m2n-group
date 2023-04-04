@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\DetailFinishing;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -9,6 +10,7 @@ use App\Finishing;
 use App\DetailRetur;
 use App\Retur;
 use Barryvdh\DomPDF\Facade as PDF;
+use Exception;
 
 class ReturController extends Controller
 {
@@ -61,7 +63,7 @@ class ReturController extends Controller
             }
             DB::commit();
 
-            $retur = Retur::all();
+            $retur = Retur::orderBy('tanggal_masuk', 'desc')->get();
             return view("backend.retur.index", ['retur' => $retur]);
         } catch (\Exception $th) {
             //throw $th;
@@ -229,5 +231,41 @@ class ReturController extends Controller
     public function rupiah($expression)
     {
         return "Rp " . number_format($expression, 2, ',', '.');
+    }
+
+    public function moveToSortir($id){
+        DB::beginTransaction();
+        try{
+            $retur = Retur::find($id);
+            $retur->status = 'dikirim ke gudang';
+            $retur->save();
+            
+            $oldFinish = Finishing::find($retur->finishing_id);
+            $finish = new Finishing;
+            $finish->cuci_id = $oldFinish->cuci_id;
+            $finish->barang_lolos_qc = 0;
+            $finish->no_surat = $oldFinish->no_surat;
+            $finish->status = "finishing masuk";
+            $finish->save();
+
+            foreach ($retur->detail_retur as $key => $value) {
+                $detail = new DetailFinishing();
+                $detail->finishing_id = $finish->id;
+                $detail->ukuran = $value->ukuran;
+                $detail->jumlah = $value->jumlah;
+                $detail->save();
+            }
+
+            $finish->barang_siap_qc = $finish->detail_finishing->sum('jumlah');
+            $finish->save();
+
+            DB::commit();
+            return redirect()->back()->with('success', 'Barang berhasil dikeluarkan ke gudang');
+        }catch(Exception $e){
+            DB::rollBack();
+            dd($e->getMessage());
+        }
+
+        
     }
 }
