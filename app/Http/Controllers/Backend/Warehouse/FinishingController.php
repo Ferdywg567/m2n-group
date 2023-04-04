@@ -15,6 +15,8 @@ use App\FinishingRetur;
 use App\Rekapitulasi;
 use App\Notification;
 use App\Cuci;
+use App\DetailProduk;
+use App\Produk;
 use Barryvdh\DomPDF\Facade as PDF;
 
 use function GuzzleHttp\Promise\all;
@@ -709,8 +711,15 @@ class FinishingController extends Controller
                         $detail = DetailWarehouse::where('warehouse_id', $warehouse->id)
                                     ->where('ukuran', $value['ukuran'])
                                     ->first();
+                        $detailProduk = DetailProduk::where('produk_id', Produk::where('warehouse_id', $warehouse->id)->first()->id)
+                            ->where('ukuran', $value['ukuran'])
+                            ->first();
+                        
                         $detail->jumlah += $value['jumlah'];
                         $detail->save();
+
+                        $detailProduk->jumlah += $value['jumlah'];
+                        $detailProduk->save();
                     }
                     
                 }
