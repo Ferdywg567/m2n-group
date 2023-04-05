@@ -43,8 +43,6 @@ class ReturController extends Controller
                     }
                 }
 
-                
-
                 if($value->barang_diretur > 0){
                     foreach ($value->finish_retur as $key => $row) {
                         $detailretur = DetailRetur::where('retur_id', $retur->id)->where('ukuran', $row->ukuran)->first();

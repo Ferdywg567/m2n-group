@@ -24,13 +24,12 @@ class ReturController extends Controller
         try {
             foreach ($finish as $key => $value) {
                 $retur = Retur::where('finishing_id', $value->id)->first();
-                if ($retur) {
+                if ($retur and $retur != null) {
                     $total = DetailRetur::where('retur_id', $retur->id)->sum('jumlah');
                     $retur->tanggal_masuk = $value->cuci->jahit->potong->bahan->tanggal_masuk;
                     $retur->total_barang = $total;
                     $retur->save();
                 } else {
-
                     if($value->barang_diretur > 0){
                         $retur = new Retur();
                         $retur->finishing_id = $value->id;
@@ -40,21 +39,24 @@ class ReturController extends Controller
                         $retur->save();
                     }
                 }
-
                 
-
-                foreach ($value->finish_retur as $key => $row) {
-                    $detailretur = DetailRetur::where('retur_id', $retur->id)->where('ukuran', $row->ukuran)->first();
-                    if ($detailretur) {
-                        $detailretur->jumlah = $row->jumlah;
-                    } else {
-                        $detailretur = new DetailRetur();
-                        $detailretur->retur_id = $retur->id;
-                        $detailretur->jumlah = $row->jumlah;
-                        $detailretur->ukuran = $row->ukuran;
+                if($value->barang_diretur > 0){
+                    foreach ($value->finish_retur as $key => $row) {
+                        $detailretur = DetailRetur::where('retur_id', $retur->id)
+                            ->where('ukuran', $row->ukuran)
+                            ->first();
+    
+                        if ($detailretur) {
+                            $detailretur->jumlah = $row->jumlah;
+                        } else {
+                            $detailretur = new DetailRetur();
+                            $detailretur->retur_id = $retur->id;
+                            $detailretur->jumlah = $row->jumlah;
+                            $detailretur->ukuran = $row->ukuran;
+                        }
+    
+                        $detailretur->save();
                     }
-
-                    $detailretur->save();
                 }
             }
             DB::commit();
