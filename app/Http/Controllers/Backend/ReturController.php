@@ -246,6 +246,7 @@ class ReturController extends Controller
             $finish->barang_lolos_qc = 0;
             $finish->no_surat = $oldFinish->no_surat;
             $finish->status = "finishing masuk";
+            $finish->tanggal_masuk = date('Y-m-d');
             $finish->save();
 
             foreach ($retur->detail_retur as $key => $value) {
@@ -255,8 +256,7 @@ class ReturController extends Controller
                 $detail->jumlah = $value->jumlah;
                 $detail->save();
             }
-
-            $finish->barang_siap_qc = $finish->detail_finishing->sum('jumlah');
+            $finish->barang_siap_qc = $finish->detail_finish->sum('jumlah');
             $finish->save();
 
             DB::commit();

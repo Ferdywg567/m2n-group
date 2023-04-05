@@ -552,7 +552,7 @@ class FinishingController extends Controller
                 $finish->cuci->jahit->potong->bahan->warna,
                 $ukuran,
                 $finish->tanggal_qc,
-                $finish->cuci->berhasil_cuci,
+                $finish->barang_siap_qc,
                 $finish->barang_lolos_qc,
                 $retur,
                 $finish->keterangan_diretur,
