@@ -166,10 +166,10 @@
                                                                             class="ri-edit-fill"></i>
                                                                         Edit</a>
 
-                                                                    <a class="dropdown-item hapus"
+                                                                    {{-- <a class="dropdown-item hapus"
                                                                         data-id="{{ $item->id }}" href="#"><i
                                                                             class="ri-delete-bin-fill"></i>
-                                                                        Hapus</a>
+                                                                        Hapus</a> --}}
                                                                     @if ($item->status_cuci == 'butuh konfirmasi')
                                                                         <a class="dropdown-item"
                                                                             data-id="{{ $item->id }}"
@@ -276,10 +276,10 @@
                                                                             class="ri-edit-fill"></i>
                                                                         Edit</a>
 
-                                                                    <a class="dropdown-item hapus"
+                                                                    {{-- <a class="dropdown-item hapus"
                                                                         data-id="{{ $item->id }}" href="#"><i
                                                                             class="ri-delete-bin-fill"></i>
-                                                                        Hapus</a>
+                                                                        Hapus</a> --}}
                                                                     <a class="dropdown-item update_status"
                                                                         data-id="{{ $item->id }}" href="#"><i
                                                                             class="ri-arrow-right-circle-line"></i>
@@ -378,10 +378,10 @@
                                                                             class="ri-printer-fill"></i>
                                                                         Cetak</a>
 
-                                                                    <a class="dropdown-item hapus"
+                                                                    {{-- <a class="dropdown-item hapus"
                                                                         data-id="{{ $item->id }}" href="#"><i
                                                                             class="ri-delete-bin-fill"></i>
-                                                                        Hapus</a>
+                                                                        Hapus</a> --}}
 
                                                                 </div>
                                                             </div>

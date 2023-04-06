@@ -8,7 +8,7 @@ class Potong extends Model
 {
     public function bahan()
     {
-        return $this->belongsTo('App\Bahan');
+        return $this->belongsTo('App\Bahan')->withTrashed();
     }
 
     public function detail_potong()

@@ -13,7 +13,7 @@ use App\DetailSubKategori;
 use App\Sku;
 use App\SubKategori;
 use App\Potong;
-use PDF;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class BahanController extends Controller
 {
@@ -274,11 +274,11 @@ class BahanController extends Controller
         if ($request->ajax()) {
             $bahan = Bahan::findOrFail($id);
             $status = false;
-            if ($bahan->potong()->exists()) {
-                $status = true;
-            } else {
+            // if ($bahan->potong()->exists()) {
+            //     $status = true;
+            // } else {
                 $bahan->delete();
-            }
+            // }
             return response()->json([
                 'status' => $status
             ]);
