@@ -690,8 +690,15 @@
                             table_cuci.rows.add(data.cuci).draw();
 
                             $('#jumlah_kain').text(data.jumlah_kain)
-                            $('#labelarrow').html('<i class="ri-arrow-right-up-line"></i> Lebih banyak ' +
-                                data.jumlah_kain_lalu + ' yard dari bulan lalu')
+                            if (data.jumlah_kain_lalu < 0) {
+                                $('#labelarrow').html(
+                                    '<i class="ri-arrow-right-up-line"></i> Lebih sedikit ' +
+                                    Math.abs(data.jumlah_kain_lalu) + ' yard dari bulan lalu')
+                            } else {
+                                $('#labelarrow').html(
+                                    '<i class="ri-arrow-right-up-line"></i> Lebih banyak ' +
+                                    data.jumlah_kain_lalu + ' yard dari bulan lalu')
+                            }
                             $('#jenis_bahan').html(data.jenis_bahan)
                             $('#berhasil_cuci').text(data.berhasil_cuci)
                             $('#berhasil_dari_cuci').text(data.berhasil_jahit + ' pcs')
