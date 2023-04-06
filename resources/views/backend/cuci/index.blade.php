@@ -414,7 +414,7 @@
                             <span class="float left text-primary" id="title_kode"></span>
                             <span id="test" class=" float-right text-dark"> <img
                                     src="{{ asset('assets/img/logo.png') }}" alt="" class="mr-1"
-                                    srcset="" width="30">GARMENT</span>
+                                    srcset="" width="30">M2N Group System</span>
                         </h5>
                     </div>
                     <form action="{{ route('cuci.cetak') }}" target="_blank" method="post">

@@ -172,39 +172,40 @@
 
 @forelse ($print as $key => $item)
 
-<body>
-    <table>
-        <tr>
-            <td style="text-align: left; vertical-align:middle; color:#007AFF">
-                <h2>{{$item['kode_bahan']}}</h2>
-            </td>
-            <td>
-                <div id="photo" class="customization_text" style="text-align: right">
-                    <img style="vertical-align:middle" src="{{public_path('assets/icon/t-shirt-fill.png')}}" alt="">
-                    <span style="vertical-align:middle; font-size:25px; font-weight:bold">GARMENT</span>
-
-                </div>
-            </td>
-        </tr>
-    </table>
-    <hr>
-    <main>
+    <body>
         <table>
-            <tbody>
-                @forelse ($item['data'] as $k => $row)
-                <tr>
-                    <td style="text-align: left">{{$item['title'][$k]}}</td>
-                    <td style="text-align: right">
-                        {{$row}}
-                    </td>
-                </tr>
-                @empty
-                @endforelse
-            </tbody>
+            <tr>
+                <td style="text-align: left; vertical-align:middle; color:#007AFF">
+                    <h2>{{ $item['kode_bahan'] }}</h2>
+                </td>
+                <td>
+                    <div id="photo" class="customization_text" style="text-align: right">
+                        <img style="vertical-align:middle" src="{{ public_path('assets/icon/t-shirt-fill.png') }}"
+                            alt="">
+                        <span style="vertical-align:middle; font-size:25px; font-weight:bold">M2N Group System</span>
+
+                    </div>
+                </td>
+            </tr>
         </table>
-    </main>
-    {{-- <h3 style="text-align: right; position: fixed;left: 0;bottom: 0;" class="pagenum"></h3> --}}
-</body>
+        <hr>
+        <main>
+            <table>
+                <tbody>
+                    @forelse ($item['data'] as $k => $row)
+                        <tr>
+                            <td style="text-align: left">{{ $item['title'][$k] }}</td>
+                            <td style="text-align: right">
+                                {{ $row }}
+                            </td>
+                        </tr>
+                    @empty
+                    @endforelse
+                </tbody>
+            </table>
+        </main>
+        {{-- <h3 style="text-align: right; position: fixed;left: 0;bottom: 0;" class="pagenum"></h3> --}}
+    </body>
 
 @empty
 

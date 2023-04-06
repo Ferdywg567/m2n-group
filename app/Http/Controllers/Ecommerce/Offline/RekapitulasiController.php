@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Ecommerce\Offline;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Transaksi;
-use PDF;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class RekapitulasiController extends Controller
 {

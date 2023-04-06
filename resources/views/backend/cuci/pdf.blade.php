@@ -175,30 +175,30 @@
     <table>
         <tr>
             <td style="text-align: left; vertical-align:middle; color:#007AFF">
-                <h2>{{$data['kode_bahan']}}</h2>
+                <h2>{{ $data['kode_bahan'] }}</h2>
             </td>
             <td>
                 <div id="photo" class="customization_text" style="text-align: right">
-                    <img style="vertical-align:middle" src="{{public_path('assets/icon/t-shirt-fill.png')}}" alt="">
-                    <span style="vertical-align:middle; font-size:25px; font-weight:bold">GARMENT</span>
+                    <img style="vertical-align:middle" src="{{ public_path('assets/icon/t-shirt-fill.png') }}"
+                        alt="">
+                    <span style="vertical-align:middle; font-size:25px; font-weight:bold">M2N Group System</span>
 
                 </div>
             </td>
         </tr>
     </table>
     <hr style="margin-top: -20px">
-    <button class="btn"><i class="fa fa-home"> <img src="{{public_path('assets/icon/hand-coin-fill.png')}}"
+    <button class="btn"><i class="fa fa-home"> <img src="{{ public_path('assets/icon/hand-coin-fill.png') }}"
                 style="margin-top: 2px" alt=""></i> Cuci</button>
     <main>
         <table>
             <tbody>
                 @forelse ($data['title'] as $key => $item)
-                <tr>
-                    <td>{{$item}}</td>
-                    <td style="text-align: right">{{$data['data'][$key]}}</td>
-                </tr>
+                    <tr>
+                        <td>{{ $item }}</td>
+                        <td style="text-align: right">{{ $data['data'][$key] }}</td>
+                    </tr>
                 @empty
-
                 @endforelse
             </tbody>
         </table>

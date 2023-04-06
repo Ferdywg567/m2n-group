@@ -277,7 +277,7 @@
 
                             <span id="test" class=" float-right text-dark"> <img
                                     src="{{ asset('assets/img/logo.png') }}" alt="" class="mr-1"
-                                    srcset="" width="30">GARMENT</span>
+                                    srcset="" width="30">M2N Group</span>
                         </h5>
                     </div>
                     <form action="{{ route('bahan.cetak') }}" target="_blank" method="post">

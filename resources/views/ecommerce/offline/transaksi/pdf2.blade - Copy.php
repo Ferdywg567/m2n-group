@@ -222,7 +222,7 @@
 
             {{-- <div>
                 <div style="padding-top: 10px; text-align:left">Hormat Kami,</div>
-                <div style="padding-top: 35px; text-align:left"><b>PT. Garment</b></div>
+                <div style="padding-top: 35px; text-align:left"><b>PT. M2N Group</b></div>
             </div> --}}
         </table>
         <table style="border: none; margin-top:5px">
@@ -247,7 +247,7 @@
         {{-- <footer>
 
             <div style="padding-top: 10px; text-align:right">Hormat Kami, </div>
-            <div style="padding-top: 35px; text-align:right">PT. Garment </div>
+            <div style="padding-top: 35px; text-align:right">PT. M2N Group </div>
 
         </footer> --}}
     </main>
