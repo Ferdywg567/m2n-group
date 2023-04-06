@@ -9,7 +9,7 @@ use App\RekapitulasiWarehouse;
 use Illuminate\Http\Request;
 use App\Warehouse;
 use Illuminate\Support\Facades\DB;
-use PDF;
+use Barryvdh\DomPDF\Facade as PDF;
 class RekapitulasiController extends Controller
 {
     /**

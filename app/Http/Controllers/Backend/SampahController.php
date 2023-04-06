@@ -9,7 +9,7 @@ use App\DetailSampah;
 use App\Jahit;
 use App\Cuci;
 use App\Sampah;
-use PDF;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class SampahController extends Controller
 {

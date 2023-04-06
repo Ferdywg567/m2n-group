@@ -131,12 +131,27 @@
             $('#kdbahanselectkeluar').show()
             $('#kdbahankeluar').hide()
             $('.btnkeluar').prop('id', 'btnsimpankeluar')
-            $('#tabelperbaikan').DataTable({
+
+            let t = []
+            t.push($('#tabelperbaikan').DataTable({
                 language: {
                     url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'
                 },
+            }))
+            t.push($('#tabelbahankeluar').DataTable())
+
+            $.each(t, function(index, value) {
+                value.on('order.dt search.dt', function() {
+                    let i = 1;
+
+                    value.cells(null, 0, {
+                        search: 'applied',
+                        order: 'applied'
+                    }).every(function(cell) {
+                        this.data(i++);
+                    });
+                }).draw();
             })
-            $('#tabelbahankeluar').DataTable()
             $('#kode_bahanselect').select2()
             $('#kode_bahanselectkeluar').select2()
             $('.btnmasuk').prop('id', 'btnsimpanmasuk')

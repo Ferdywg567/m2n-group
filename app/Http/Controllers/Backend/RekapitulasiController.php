@@ -9,7 +9,7 @@ use App\Rekapitulasi;
 use App\DetailRekapitulasi;
 use App\Jahit;
 use App\Cuci;
-use PDF;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\DB;
 
 class RekapitulasiController extends Controller

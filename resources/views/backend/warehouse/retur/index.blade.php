@@ -140,11 +140,21 @@
                 });
             }
 
-            $('#tableretur').DataTable({
+            let value = $('#tableretur').DataTable({
                 language: {
                     url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'
                 },
             })
+            value.on('order.dt search.dt', function() {
+                let i = 1;
+
+                value.cells(null, 0, {
+                    search: 'applied',
+                    order: 'applied'
+                }).every(function(cell) {
+                    this.data(i++);
+                });
+            }).draw();
 
             $(document).on('click', '.btnprint', function() {
                 var id = $(this).data('id')

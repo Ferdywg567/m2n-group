@@ -11,7 +11,7 @@ use App\Cuci;
 use App\Jahit;
 use App\PembayaranCuci;
 use App\PembayaranJahit;
-use Barryvdh\DomPDF\PDF;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class PembayaranController extends Controller
 {
