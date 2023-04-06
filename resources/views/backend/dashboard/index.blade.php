@@ -690,7 +690,10 @@
                             table_cuci.rows.add(data.cuci).draw();
 
                             $('#jumlah_kain').text(data.jumlah_kain)
-                            if (data.jumlah_kain_lalu < 0) {
+                            if (data.jumlah_kain_lalu == 0 && data.jumlah_kain != 0) {
+                                $('#labelarrow').html(
+                                    '<i class="ri-arrow-right-up-line"></i> Sama dengan bulan lalu')
+                            } else if (data.jumlah_kain_lalu < 0) {
                                 $('#labelarrow').html(
                                     '<i class="ri-arrow-right-up-line"></i> Lebih sedikit ' +
                                     Math.abs(data.jumlah_kain_lalu) + ' yard dari bulan lalu')
