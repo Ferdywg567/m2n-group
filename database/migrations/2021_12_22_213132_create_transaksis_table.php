@@ -38,6 +38,7 @@ class CreateTransaksisTable extends Migration
             $table->double('bayar')->nullable();
             $table->double('kembalian')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

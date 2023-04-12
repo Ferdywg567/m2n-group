@@ -3,9 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Jahit extends Model
 {
+    use SoftDeletes;
     public function potong()
     {
         return $this->belongsTo('App\Potong');

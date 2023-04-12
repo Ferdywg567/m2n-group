@@ -30,6 +30,7 @@ class CreateFinishingsTable extends Migration
             $table->string('status')->nullable();
             $table->string('status_finishing')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

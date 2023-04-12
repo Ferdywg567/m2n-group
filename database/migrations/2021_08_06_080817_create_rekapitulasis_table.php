@@ -22,6 +22,7 @@ class CreateRekapitulasisTable extends Migration
             $table->integer('jumlah_diperbaiki')->nullable();
             $table->integer('jumlah_dibuang')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

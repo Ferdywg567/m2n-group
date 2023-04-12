@@ -20,6 +20,7 @@ class CreatePembayaranJahitsTable extends Migration
             $table->string('status');
             $table->integer('nominal');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

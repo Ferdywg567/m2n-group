@@ -23,6 +23,7 @@ class CreateSampahsTable extends Migration
             $table->date('tanggal_masuk')->nullable();
             $table->string('asal');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

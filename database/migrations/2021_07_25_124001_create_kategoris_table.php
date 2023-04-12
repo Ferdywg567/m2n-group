@@ -19,6 +19,7 @@ class CreateKategorisTable extends Migration
             $table->string('sku');
             $table->string('gambar')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

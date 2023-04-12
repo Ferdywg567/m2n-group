@@ -157,42 +157,55 @@ class KategoriController extends Controller
         if ($request->ajax()) {
             $status = $request->get('status');
             if ($status == 'kategori') {
-                $kategori = Kategori::where('id', $id)->doesntHave('sub_kategori')->first();
-                if ($kategori) {
-                    Kategori::where('id', $id)->doesntHave('sub_kategori')->delete();
-                    return response()->json([
-                        'status' => true,
-                        'data' => $kategori
-                    ]);
-                } else {
-                    return response()->json([
-                        'status' => false
-                    ]);
-                }
+                $kategori = Kategori::find($id)->delete();
+                return response()->json([
+                    'status' => true,
+                    'data'   => $kategori
+                ]);
+                // $kategori = Kategori::where('id', $id)->doesntHave('sub_kategori')->first();
+                // if ($kategori) {
+                //     Kategori::where('id', $id)->doesntHave('sub_kategori')->delete();
+                //     return response()->json([
+                //         'status' => true,
+                //         'data' => $kategori
+                //     ]);
+                // } else {
+                //     return response()->json([
+                //         'status' => false
+                //     ]);
+                // }
             } elseif ($status == 'sub kategori') {
-                $kategori = SubKategori::where('id', $id)->doesntHave('detail_sub')->first();
-                if ($kategori) {
-                    SubKategori::where('id', $id)->doesntHave('detail_sub')->delete();
-                    return response()->json([
-                        'status' => true
-                    ]);
-                } else {
-                    return response()->json([
-                        'status' => false
-                    ]);
-                }
+                SubKategori::find($id)->delete();
+                return response()->json([
+                    'status' => true,
+                ]);
+                // $kategori = SubKategori::where('id', $id)->doesntHave('detail_sub')->first();
+                // if ($kategori) {
+                //     SubKategori::where('id', $id)->doesntHave('detail_sub')->delete();
+                //     return response()->json([
+                //         'status' => true
+                //     ]);
+                // } else {
+                //     return response()->json([
+                //         'status' => false
+                //     ]);
+                // }
             } else {
-                $kategori = DetailSubKategori::where('id', $id)->doesntHave('bahan')->first();
-                if ($kategori) {
-                    DetailSubKategori::where('id', $id)->doesntHave('bahan')->delete();
-                    return response()->json([
-                        'status' => true
-                    ]);
-                } else {
-                    return response()->json([
-                        'status' => false
-                    ]);
-                }
+                DetailSubKategori::find($id)->delete();
+                return response()->json([
+                    'status' => true,
+                ]);
+                // $kategori = DetailSubKategori::where('id', $id)->doesntHave('bahan')->first();
+                // if ($kategori) {
+                //     DetailSubKategori::where('id', $id)->doesntHave('bahan')->delete();
+                //     return response()->json([
+                //         'status' => true
+                //     ]);
+                // } else {
+                //     return response()->json([
+                //         'status' => false
+                //     ]);
+                // }
             }
         }
     }

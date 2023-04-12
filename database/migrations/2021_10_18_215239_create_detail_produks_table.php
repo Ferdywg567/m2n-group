@@ -21,6 +21,7 @@ class CreateDetailProduksTable extends Migration
             $table->integer('jumlah');
             $table->double('harga')->default(0)->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

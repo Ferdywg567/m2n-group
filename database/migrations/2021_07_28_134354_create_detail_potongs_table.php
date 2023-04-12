@@ -20,6 +20,7 @@ class CreateDetailPotongsTable extends Migration
             $table->string('size');
             $table->integer('jumlah');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

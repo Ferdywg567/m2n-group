@@ -20,6 +20,7 @@ class CreateCuciDirepairsTable extends Migration
             $table->string('ukuran');
             $table->integer('jumlah');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

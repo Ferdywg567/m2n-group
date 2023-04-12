@@ -21,6 +21,7 @@ class CreateDetailRekapitulasiWarehousesTable extends Migration
             $table->string('status');
             $table->integer('jumlah');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

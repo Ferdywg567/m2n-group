@@ -42,6 +42,7 @@ class CreateCucisTable extends Migration
             $table->string('status');
             $table->string('status_cuci');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

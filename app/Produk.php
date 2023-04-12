@@ -3,9 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Produk extends Model
 {
+    use SoftDeletes;
     public function warehouse()
     {
         return $this->belongsTo('App\Warehouse');
@@ -33,7 +35,7 @@ class Produk extends Model
 
     public function keranjang()
     {
-        return $this->hasMany('App\Keranjang', 'produk_id','id');
+        return $this->hasMany('App\Keranjang', 'produk_id', 'id');
     }
 
     public function favorit()

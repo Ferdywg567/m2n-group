@@ -30,6 +30,7 @@ class CreateAlamatsTable extends Migration
             $table->string('kode_pos');
             $table->string('status');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

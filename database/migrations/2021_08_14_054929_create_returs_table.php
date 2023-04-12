@@ -21,6 +21,7 @@ class CreateRetursTable extends Migration
             $table->date('tanggal_masuk')->nullable();
             $table->longText('keterangan_diretur')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

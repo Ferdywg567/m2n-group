@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Warehouse extends Model
 {
+use SoftDeletes;
     public function finishing()
     {
         return $this->belongsTo('App\Finishing');

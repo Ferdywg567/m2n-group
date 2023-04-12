@@ -20,6 +20,7 @@ class CreateDetailSubKategorisTable extends Migration
             $table->string('nama_kategori');
             $table->string('sku');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

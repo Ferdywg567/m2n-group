@@ -32,6 +32,7 @@ class CreateBahansTable extends Migration
             $table->date('tanggal_keluar')->nullable();
             $table->string('status');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
