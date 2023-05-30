@@ -50,10 +50,10 @@
                                     </thead>
                                     <tbody id="">
 
-                                        @forelse ($repair as $r)
-                                            @php
+                                        @forelse ($repair as $item)
+                                            {{-- @php
                                                 $item = $r->perbaikan;
-                                            @endphp
+                                            @endphp --}}
                                             <tr>
                                                 {{-- <td>{{$loop->iteration}}</td> --}}
                                                 <td></td>
@@ -61,10 +61,10 @@
                                                 <td>{{ $item->bahan->kode_bahan }}</td>
                                                 <td>{{ $item->bahan->sku }}</td>
                                                 <td>{{ $item->tanggal_masuk }}</td>
-                                                <td>{{ $r->jumlah }}</td>
+                                                <td>{{ $item->total }}</td>
                                                 <td>{{ $item->bahan->no_surat }}</td>
                                                 <td>
-                                                    @if ($r->jahit_direpair_id == null)
+                                                    @if ($item->is_cuci)
                                                         <span class="badge badge-success text-dark">PERBAIKAN CUCI</span>
                                                     @else
                                                         <span class="badge badge-primary text-dark">PERBAIKAN JAHIT</span>
@@ -72,18 +72,18 @@
                                                 </td>
                                                 <td>
                                                     @php
-                                                        $status = strtoupper($item->status);
+                                                        $status = strtoupper($item->status_repair);
                                                     @endphp
-                                                    @if ($item->status == 'butuh konfirmasi')
+                                                    @if ($item->status_repair == 'butuh konfirmasi')
                                                         <a href="{{ route('perbaikan.edit', [$item->id]) }}"> <span
                                                                 class="badge badge-secondary text-dark"
                                                                 style="cursor: pointer">{{ $status }}</span></a>
-                                                    @elseif ($item->status == 'selesai')
+                                                    @elseif ($item->status_repair == 'selesai')
                                                         <span
                                                             class="badge badge-success text-dark">{{ $status }}</span>
                                                     @else
                                                         <a
-                                                            href="{{ route('perbaikan.selesai', [$item->id, $r->jahit_direpair_id == null ? 0 : 1]) }}">
+                                                            href="{{ route('perbaikan.selesai', [$item->id, $item->is_jahit ? 0 : 1]) }}">
                                                             <span class="badge badge-warning text-dark">{{ $status }}
                                                             </span>
                                                         </a>

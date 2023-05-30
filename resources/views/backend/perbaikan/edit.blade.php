@@ -156,32 +156,100 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="tanggal_selesai">Tanggal Selesai Perbaikan </label>
-                                                <input type="date" class="form-control" required id="tanggal_selesai"
-                                                    name="tanggal_selesai">
+                                    @if (!$repair->detail_jahit_repair->isEmpty())
+                                        <div class="form-group">
+                                            <label for="ukurandirepair" class="text-dark">Ukuran Jahitan yang
+                                                Diperbaiki</label>
+                                            <div class="row">
+                                                @php
+                                                    $i = 1;
+                                                @endphp
+                                                @forelse ($repair->detail_jahit_repair as $item)
+                                                    <div class="col-md-2">
+                                                        <input type="hidden" name="dataukurandirepair[]"
+                                                            value="{{ $item->ukuran }}">
+                                                        <div class="input-group mb-2">
+                                                            <div class="input-group-prepend">
+                                                                <div class="input-group-text">{{ $item->ukuran }}</div>
+                                                            </div>
+                                                            <input type="number" class="form-control" required
+                                                                id="jumlahdirepair" name="jumlahdirepair[]"
+                                                                value="{{ $item->jumlah }}" readonly>
+                                                        </div>
+                                                    </div>
+                                                    @if ($loop->iteration % 6 == 0)
+                                            </div>
+                                            <div class="row">
+                                    @endif
+                                    @php
+                                        $i++;
+                                    @endphp
+                                @empty
+                                    @endforelse
+
+                                </div>
+                        </div>
+                        @endif
+                        @if (!$repair->detail_cuci_repair->isEmpty())
+                            <div class="form-group">
+                                <label for="ukurandirepair" class="text-dark">Ukuran Cuci yang
+                                    Diperbaiki</label>
+                                <div class="row">
+                                    @php
+                                        $i = 1;
+                                    @endphp
+                                    @forelse ($repair->detail_cuci_repair as $item)
+                                        <div class="col-md-2">
+                                            <input type="hidden" name="dataukurandirepair[]"
+                                                value="{{ $item->ukuran }}">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">{{ $item->ukuran }}</div>
+                                                </div>
+                                                <input type="number" class="form-control" required id="jumlahdirepair"
+                                                    name="jumlahdirepair[]" value="{{ $item->jumlah }}" readonly>
                                             </div>
                                         </div>
-
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12 text-center">
-                                            <a type="button" class="btn btn-secondary"
-                                                href="{{ route('perbaikan.index') }}">Batal</a>
-
-                                            <button type="submit" class="btn btn-primary">Konfirmasi</button>
-
-                                        </div>
-                                    </div>
+                                        @if ($loop->iteration % 6 == 0)
                                 </div>
-                            </form>
+                                <div class="row">
+                        @endif
+                        @php
+                            $i++;
+                        @endphp
+                    @empty
+                        @endforelse
+
+                    </div>
+                </div>
+
+                @endif
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="tanggal_selesai">Tanggal Selesai Perbaikan </label>
+                            <input type="date" class="form-control" required id="tanggal_selesai"
+                                name="tanggal_selesai">
                         </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <a type="button" class="btn btn-secondary" href="{{ route('perbaikan.index') }}">Batal</a>
+
+                        <button type="submit" class="btn btn-primary">Konfirmasi</button>
+
                     </div>
                 </div>
             </div>
-        </section>
+            </form>
+    </div>
+    </div>
+    </div>
+    </div>
+    </section>
     </div>
 
 @endsection

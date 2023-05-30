@@ -103,11 +103,11 @@ class PerbaikanController extends Controller
 
             //insert jahit
             $jahit = Jahit::whereHas('jahit_direpair')->get();
-            foreach($jahit as $j){
+            foreach ($jahit as $j) {
                 $dbPerbaikan = Perbaikan::where('bahan_id', $j->potong->bahan_id);
                 $perbaikan = $dbPerbaikan->exists() ? $dbPerbaikan->first() : new Perbaikan;
-                
-                if(!$dbPerbaikan->exists()){
+
+                if (!$dbPerbaikan->exists()) {
                     $perbaikan->bahan_id = $j->potong->bahan_id;
                     $perbaikan->ukuran = '';
                     $perbaikan->status = 'butuh konfirmasi';
@@ -116,14 +116,15 @@ class PerbaikanController extends Controller
                     $perbaikan->save();
                 }
 
-                foreach($j->jahit_direpair as $jdr){
+                foreach ($j->jahit_direpair as $jdr) {
                     $dbDetail = DetailPerbaikan::where('jahit_direpair_id', $jdr->id);
                     $detail = $dbDetail->exists() ? $dbDetail->first() : new DetailPerbaikan;
 
-                    if(!$dbDetail->exists()){
+                    if (!$dbDetail->exists()) {
                         $detail->perbaikan_id = $perbaikan->id;
                         $detail->jahit_direpair_id = $jdr->id;
-                        $detail->jumlah = $j->jahit_direpair->sum('jumlah');
+                        $detail->jumlah = $jdr->jumlah;
+                        $detail->status = 'butuh konfirmasi';
                         $detail->keterangan = $j->keterangan_direpair;
                         $detail->save();
                     }
@@ -132,11 +133,11 @@ class PerbaikanController extends Controller
 
             //insert cuci
             $cuci = Cuci::whereHas('cuci_direpair')->get();
-            foreach($cuci as $j){
+            foreach ($cuci as $j) {
                 $dbPerbaikan = Perbaikan::where('bahan_id', $j->jahit->potong->bahan_id);
                 $perbaikan = $dbPerbaikan->exists() ? $dbPerbaikan->first() : new Perbaikan;
-                
-                if(! $dbPerbaikan->exists()){
+
+                if (!$dbPerbaikan->exists()) {
                     $perbaikan->bahan_id = $j->jahit->potong->bahan_id;
                     $perbaikan->ukuran = '';
                     $perbaikan->status = 'butuh konfirmasi';
@@ -145,14 +146,14 @@ class PerbaikanController extends Controller
                     $perbaikan->save();
                 }
 
-                foreach($j->cuci_direpair as $jdr){
+                foreach ($j->cuci_direpair as $jdr) {
                     $dbDetail = DetailPerbaikan::where('cuci_direpair_id', $jdr->id);
                     $detail = $dbDetail->exists() ? $dbDetail->first() : new DetailPerbaikan;
 
-                    if(!$dbDetail->exists()){
+                    if (!$dbDetail->exists()) {
                         $detail->perbaikan_id = $perbaikan->id;
                         $detail->cuci_direpair_id = $jdr->id;
-                        $detail->jumlah = $j->cuci_direpair->sum('jumlah');
+                        $detail->jumlah = $jdr->jumlah;
                         $detail->keterangan = $j->keterangan_direpair;
                         $detail->save();
                     }
@@ -161,7 +162,23 @@ class PerbaikanController extends Controller
 
             // end ini logika aku sendiri
             DB::commit();
-            $repair = DetailPerbaikan::all();
+            $dbrepair = DetailPerbaikan::latest()->get();
+            $repair = [];
+            foreach ($dbrepair as $r) {
+                $perbaikan = $r->perbaikan;
+                $perbaikan->{'status_repair'} = $r->status;
+
+                //sort by jenis perbaikan and insert total jumlah perbaikan
+                if ($r->jahit_direpair_id) {
+                    $perbaikan->{'is_jahit'} = true;
+                } elseif ($r->cuci_direpair_id) {
+                    $perbaikan->{'is_cuci'} = true;
+                }
+
+                if (!in_array($perbaikan, $repair)) {
+                    $repair[] = $perbaikan;
+                }
+            }
             return view("backend.perbaikan.index", ['repair' => $repair]);
         } catch (\Exception $th) {
             //throw $th;
@@ -211,22 +228,36 @@ class PerbaikanController extends Controller
             'jumlah' => '',
             'keterangan' => ''
         ];
+        $repairJahit = collect();
+        $repairCuci = collect();
         foreach ($repair->detail_perbaikan as $key => $value) {
+            // dd($value);
             if (!empty($value->jahit_direpair_id)) {
                 $jahit = [
                     'jahit_direpair_id' => $value->id,
                     'jumlah' => $value->jumlah,
-                    'keterangan' => $value->keterangan
+                    'keterangan' => $value->keterangan,
+                    'ukuran' => $value->jahit_repair->ukuran
                 ];
             }
             if (!empty($value->cuci_direpair_id)) {
                 $cuci = [
                     'cuci_direpair_id' => $value->id,
                     'jumlah' => $value->jumlah,
-                    'keterangan' => $value->keterangan
+                    'keterangan' => $value->keterangan,
+                    'ukuran' => $value->cuci_repair->ukuran
                 ];
             }
+            if ($value->jahit_repair) {
+                $repairJahit->add($value->jahit_repair);
+            }
+            if ($value->cuci_repair) {
+                $repairCuci->add($value->jahit_repair);
+            }
         }
+
+        $repair->{'detail_jahit_repair'} = $repairJahit;
+        $repair->{'detail_cuci_repair'} = $repairCuci;
 
         return view("backend.perbaikan.show", ['repair' => $repair, 'cuci' => $cuci, 'jahit' => $jahit]);
     }
@@ -251,23 +282,34 @@ class PerbaikanController extends Controller
             'jumlah' => '',
             'keterangan' => ''
         ];
+        $repairJahit = collect();
+        $repairCuci = collect();
         foreach ($repair->detail_perbaikan as $key => $value) {
             if (!empty($value->jahit_direpair_id)) {
                 $jahit = [
                     'jahit_direpair_id' => $value->id,
                     'jumlah' => $value->jumlah,
-                    'keterangan' => $value->keterangan
+                    'keterangan' => $value->keterangan,
                 ];
             }
             if (!empty($value->cuci_direpair_id)) {
                 $cuci = [
                     'cuci_direpair_id' => $value->id,
                     'jumlah' => $value->jumlah,
-                    'keterangan' => $value->keterangan
+                    'keterangan' => $value->keterangan,
                 ];
+            }
+
+            if ($value->jahit_repair) {
+                $repairJahit->add($value->jahit_repair);
+            }
+            if ($value->cuci_repair) {
+                $repairCuci->add($value->jahit_repair);
             }
         }
 
+        $repair->{'detail_jahit_repair'} = $repairJahit;
+        $repair->{'detail_cuci_repair'} = $repairCuci;
 
 
         return view("backend.perbaikan.edit", ['repair' => $repair, 'cuci' => $cuci, 'jahit' => $jahit]);
@@ -389,12 +431,13 @@ class PerbaikanController extends Controller
         return $pdf->stream('perbaikan.pdf');
     }
 
-    public function selesai($id, $is_jahit, Request $request){
+    public function selesai($id, $is_jahit, Request $request)
+    {
         $perbaikan = Perbaikan::find($id);
         $detail = DetailPerbaikan::where('perbaikan_id', $perbaikan->id)
             ->whereNull($is_jahit ? 'cuci_direpair_id' : 'jahit_direpair_id')
             ->first();
-        $parent = $is_jahit ? 
+        $parent = $is_jahit ?
             JahitDirepair::find($detail->jahit_direpair_id) :
             CuciDirepair::find($detail->cuci_direpair_id);
 
@@ -409,7 +452,8 @@ class PerbaikanController extends Controller
         return view("backend.perbaikan.selesai", compact('perbaikan', 'detail', 'data'));
     }
 
-    public function storeSelesai($id, Request $request){
+    public function storeSelesai($id, Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'tipeperbaikan' => 'required',
             'kode_transaksi' => 'required',
@@ -419,7 +463,7 @@ class PerbaikanController extends Controller
             'jumlahdibuang' => 'required',
             'dataukurandibuang' => 'required',
         ]);
-        if($validator->fails()){
+        if ($validator->fails()) {
             return redirect()->back()->withErrors($validator->errors());
         }
 
@@ -430,28 +474,28 @@ class PerbaikanController extends Controller
             $repair->status = "selesai";
             $repair->save();
 
-            if($request->tipeperbaikan == 'jahit'){
-                $oldData = Jahit::whereHas('potong', function($q) use ($request){
-                    $q->whereHas('bahan', function($qu) use ($request){
+            if ($request->tipeperbaikan == 'jahit') {
+                $oldData = Jahit::whereHas('potong', function ($q) use ($request) {
+                    $q->whereHas('bahan', function ($qu) use ($request) {
                         $qu->where('kode_transaksi', $request->kode_transaksi);
                     });
                 })->first();
-            }else{
-                $oldData = Cuci::whereHas('jahit', function($q) use ($request){
-                    $q->whereHas('potong', function($q) use ($request){
-                        $q->whereHas('bahan', function($qu) use ($request){
+            } else {
+                $oldData = Cuci::whereHas('jahit', function ($q) use ($request) {
+                    $q->whereHas('potong', function ($q) use ($request) {
+                        $q->whereHas('bahan', function ($qu) use ($request) {
                             $qu->where('kode_transaksi', $request->kode_transaksi);
                         });
                     });
                 })->first();
             }
             $data = $oldData->replicate();
-    
+
             $data->tanggal_keluar = null;
             $data->tanggal_selesai = date('Y-m-d');
             $data->{$request->tipeperbaikan == 'jahit' ? 'berhasil' : 'berhasil_cuci'} = $request->berhasil_jahit;
             $data->{$request->tipeperbaikan == 'jahit' ? 'jumlah_bahan' : 'kain_siap_cuci'} = $request->berhasil_jahit + $request->gagal_jahit;
-            $data->konversi = intval($data->berhasil / 12)." Lusin ".($data->berhasil % 12)." pcs";
+            $data->konversi = ceil($data->berhasil / 12) . " Lusin " . ($data->berhasil % 12) . " pcs";
             $data->{$request->tipeperbaikan == 'jahit' ? 'gagal_jahit' : 'gagal_cuci'} = $request->gagal_jahit;
             $data->barang_direpair = 0;
             $data->barang_dibuang = $request->barang_dibuang;
@@ -464,13 +508,13 @@ class PerbaikanController extends Controller
             $data->status_perbaikan = 'selesai';
             $data->save();
 
-            foreach($repair->detail_perbaikan as $r){
+            foreach ($repair->detail_perbaikan as $r) {
                 $detail = $request->tipeperbaikan == 'jahit' ? new DetailJahit() : new DetailCuci();
                 $detail->{$request->tipeperbaikan == 'jahit' ? 'jahit_id' : 'cuci_id'} = $data->id;
-                if($request->tipeperbaikan == 'jahit' and $r->jahit_direpair_id != null){
+                if ($request->tipeperbaikan == 'jahit' and $r->jahit_direpair_id != null) {
                     $detail->size = $r->jahit_repair->ukuran;
                     $detail->jumlah = $r->jahit_repair->jumlah - $request->jumlahdibuang[array_search($r->jahit_repair->ukuran, $request->dataukurandibuang)];
-                }elseif($request->tipeperbaikan == 'cuci' and $r->cuci_direpair_id != null){
+                } elseif ($request->tipeperbaikan == 'cuci' and $r->cuci_direpair_id != null) {
                     $detail->size = $r->cuci_repair->ukuran;
                     $detail->jumlah = $r->cuci_repair->jumlah - $request->jumlahdibuang[array_search($r->cuci_repair->ukuran, $request->dataukurandibuang)];
                 }
@@ -478,7 +522,6 @@ class PerbaikanController extends Controller
             }
 
             DB::commit();
-
         } catch (Exception $e) {
             DB::rollBack();
             dd($e->getMessage());

@@ -62,9 +62,9 @@ Route::group(['prefix' => 'warehouse', 'namespace' => 'Backend', 'middleware' =>
 });
 
 Route::group(['namespace' => 'Backend', 'middleware' => ['role:production|warehouse', 'auth']], function () {
-    Route::get('notification-read','DashboardController@read')->name('notification');
-    Route::get('notification-read-klik','DashboardController@readklik')->name('notification.readklik');
-    Route::resource('notifikasi','NotifikasiController');
+    Route::get('notification-read', 'DashboardController@read')->name('notification');
+    Route::get('notification-read-klik', 'DashboardController@readklik')->name('notification.readklik');
+    Route::resource('notifikasi', 'NotifikasiController');
 });
 
 
@@ -95,11 +95,11 @@ Route::group(['prefix' => 'production', 'namespace' => 'Backend', 'middleware' =
         Route::post('/cetak', 'JahitController@cetakPdf')->name('cetak');
         Route::get('/getdataprint', 'JahitController@getDataPrint')->name('getdataprint');
         Route::get('/getdatajahit', 'JahitController@getDataJahit')->name('getdata');
-        Route::get('/pembayaran/{id}','JahitController@pembayaranVendor')->name('pembayaran');
+        Route::get('/pembayaran/{id}', 'JahitController@pembayaranVendor')->name('pembayaran');
         Route::get('/update_status', 'JahitController@update_status')->name('update_status');
         Route::get('/selesai/{id}', 'JahitController@getselesai')->name('getselesai');
         Route::post('/selesai/{id}', 'JahitController@storeselesai')->name('storeselesai');
-        Route::put('/pembayaran/update/{id}','JahitController@pembayaranVendorUpdate')->name('pembayaran.update');
+        Route::put('/pembayaran/update/{id}', 'JahitController@pembayaranVendorUpdate')->name('pembayaran.update');
     });
     Route::resource('jahit', 'JahitController');
 
@@ -110,8 +110,8 @@ Route::group(['prefix' => 'production', 'namespace' => 'Backend', 'middleware' =
         Route::get('/update_status', 'CuciController@update_status')->name('update_status');
         Route::get('/selesai/{id}', 'CuciController@getselesai')->name('getselesai');
         Route::post('/selesai/{id}', 'CuciController@storeselesai')->name('storeselesai');
-        Route::get('/pembayaran/{id}','CuciController@pembayaranVendor')->name('pembayaran');
-        Route::put('/pembayaran/update/{id}','CuciController@pembayaranVendorUpdate')->name('pembayaran.update');
+        Route::get('/pembayaran/{id}', 'CuciController@pembayaranVendor')->name('pembayaran');
+        Route::put('/pembayaran/update/{id}', 'CuciController@pembayaranVendorUpdate')->name('pembayaran.update');
     });
 
 
@@ -160,6 +160,4 @@ Route::group(['prefix' => 'production', 'namespace' => 'Backend', 'middleware' =
     Route::resource('sampah', 'SampahController');
     Route::resource('perbaikan', 'PerbaikanController');
     Route::resource('print', 'PrintController');
-
-    
 });
