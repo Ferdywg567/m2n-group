@@ -39,6 +39,7 @@ class CreateJahitsTable extends Migration
             $table->string('status');
             $table->string('status_jahit');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

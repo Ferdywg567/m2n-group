@@ -22,6 +22,7 @@ class CreateRekapitulasiWarehousesTable extends Migration
             $table->integer('jumlah_diretur')->nullable();
             $table->integer('jumlah_dibuang')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -157,6 +157,11 @@ class KategoriController extends Controller
         if ($request->ajax()) {
             $status = $request->get('status');
             if ($status == 'kategori') {
+                $kategori = Kategori::find($id)->delete();
+                return response()->json([
+                    'status' => true,
+                    'data'   => $kategori
+                ]);
                 // $kategori = Kategori::where('id', $id)->doesntHave('sub_kategori')->first();
                 // if ($kategori) {
                 //     Kategori::where('id', $id)->doesntHave('sub_kategori')->delete();
@@ -169,15 +174,11 @@ class KategoriController extends Controller
                 //         'status' => false
                 //     ]);
                 // }
-
-                $data = Kategori::find($id);
-                $data->delete();
-
-                return response()->json([
-                    'status' => true
-                ]);
-
             } elseif ($status == 'sub kategori') {
+                SubKategori::find($id)->delete();
+                return response()->json([
+                    'status' => true,
+                ]);
                 // $kategori = SubKategori::where('id', $id)->doesntHave('detail_sub')->first();
                 // if ($kategori) {
                 //     SubKategori::where('id', $id)->doesntHave('detail_sub')->delete();
@@ -189,14 +190,11 @@ class KategoriController extends Controller
                 //         'status' => false
                 //     ]);
                 // }
-
-                $data = SubKategori::find($id);
-                $data->delete();
-
-                return response()->json([
-                    'status' => true
-                ]);
             } else {
+                DetailSubKategori::find($id)->delete();
+                return response()->json([
+                    'status' => true,
+                ]);
                 // $kategori = DetailSubKategori::where('id', $id)->doesntHave('bahan')->first();
                 // if ($kategori) {
                 //     DetailSubKategori::where('id', $id)->doesntHave('bahan')->delete();
@@ -208,13 +206,6 @@ class KategoriController extends Controller
                 //         'status' => false
                 //     ]);
                 // }
-
-                $data = DetailSubKategori::find($id);
-                $data->delete();
-
-                return response()->json([
-                    'status' => true
-                ]);
             }
         }
     }

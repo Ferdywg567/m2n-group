@@ -19,6 +19,7 @@ class CreateDetailProdukImagesTable extends Migration
             $table->foreign('produk_id')->references('id')->on('produks')->onDelete('cascade');
             $table->string('filename');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

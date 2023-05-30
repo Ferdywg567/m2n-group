@@ -7,9 +7,11 @@ use Illuminate\Support\Facades\DB;
 use App\DetailRekapitulasi;
 use App\Cuci;
 use App\Jahit;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Rekapitulasi extends Model
 {
+    use SoftDeletes;
 
     public function detail_rekap()
     {
@@ -27,11 +29,11 @@ class Rekapitulasi extends Model
 
     public static function generateRekap()
     {
-        $cuci = Cuci::all()->where('status','cucian keluar');
-        $jahit = Jahit::all()->where('status','jahitan keluar');
+        $cuci = Cuci::all()->where('status', 'cucian keluar');
+        $jahit = Jahit::all()->where('status', 'jahitan keluar');
         DB::beginTransaction();
         try {
-            if($cuci->isNotEmpty()){
+            if ($cuci->isNotEmpty()) {
                 foreach ($cuci as $key => $value) {
 
                     $rekapdata = Rekapitulasi::where('cuci_id', $value->id)->first();
@@ -45,7 +47,7 @@ class Rekapitulasi extends Model
                         $rekapdata->jumlah_diperbaiki = $value->barang_direpair;
                     }
                     $rekapdata->save();
-                    $detail = DetailRekapitulasi::where('rekapitulasi_id', $rekapdata->id)->where('status','dibuang')->delete();
+                    $detail = DetailRekapitulasi::where('rekapitulasi_id', $rekapdata->id)->where('status', 'dibuang')->delete();
                     foreach ($value->cuci_dibuang as $key => $row) {
 
                         $detail = new DetailRekapitulasi();
@@ -55,7 +57,7 @@ class Rekapitulasi extends Model
                         $detail->status = "dibuang";
                         $detail->save();
                     }
-                    $detail = DetailRekapitulasi::where('rekapitulasi_id', $rekapdata->id)->where('status','direpair')->delete();
+                    $detail = DetailRekapitulasi::where('rekapitulasi_id', $rekapdata->id)->where('status', 'direpair')->delete();
                     foreach ($value->cuci_direpair as $key => $row) {
 
                         $detail = new DetailRekapitulasi();
@@ -65,12 +67,11 @@ class Rekapitulasi extends Model
                         $detail->status = "direpair";
                         $detail->save();
                     }
-
                 }
             }
 
 
-            if($jahit->isNotEmpty()){
+            if ($jahit->isNotEmpty()) {
                 foreach ($jahit as $key => $value) {
 
                     $rekapdata = Rekapitulasi::where('jahit_id', $value->id)->first();
@@ -84,7 +85,7 @@ class Rekapitulasi extends Model
                         $rekapdata->jumlah_diperbaiki = $value->barang_direpair;
                     }
                     $rekapdata->save();
-                    $detail = DetailRekapitulasi::where('rekapitulasi_id', $rekapdata->id)->where('status','dibuang')->delete();
+                    $detail = DetailRekapitulasi::where('rekapitulasi_id', $rekapdata->id)->where('status', 'dibuang')->delete();
                     foreach ($value->jahit_dibuang as $key => $row) {
 
                         $detail = new DetailRekapitulasi();
@@ -94,7 +95,7 @@ class Rekapitulasi extends Model
                         $detail->status = "dibuang";
                         $detail->save();
                     }
-                    $detail = DetailRekapitulasi::where('rekapitulasi_id', $rekapdata->id)->where('status','direpair')->delete();
+                    $detail = DetailRekapitulasi::where('rekapitulasi_id', $rekapdata->id)->where('status', 'direpair')->delete();
                     foreach ($value->jahit_direpair as $key => $row) {
 
                         $detail = new DetailRekapitulasi();
@@ -107,7 +108,6 @@ class Rekapitulasi extends Model
                 }
             }
             DB::commit();
-
         } catch (\Exception $th) {
             //throw $th;
             DB::rollBack();

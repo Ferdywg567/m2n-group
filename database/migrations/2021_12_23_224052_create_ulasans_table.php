@@ -14,7 +14,8 @@ class CreateUlasansTable extends Migration
     public function up()
     {
         Schema::create('ulasans', function (Blueprint $table) {
-            $table->id();$table->bigInteger('user_id')->unsigned()->index()->nullable();
+            $table->id();
+            $table->bigInteger('user_id')->unsigned()->index()->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->bigInteger('transaksi_id')->unsigned()->index()->nullable();
             $table->foreign('transaksi_id')->references('id')->on('transaksis')->onDelete('cascade');
@@ -23,6 +24,7 @@ class CreateUlasansTable extends Migration
             $table->integer('rating');
             $table->longText('ulasan')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

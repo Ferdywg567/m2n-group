@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -107,13 +108,13 @@
     <script src="{{ asset('assets/modules/jquery.mask.js')}}"></script>
     <script src="{{ asset('assets/modules/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
     <script src="{{ asset('assets/modules/sweetalert/sweetalert.min.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('assets/modules/select2/dist/js/select2.min.js')}}"></script>
     <script src="{{ asset('js/jquery.mask.min.js')}}"></script>
     <script src="{{asset('js/dropzone.min.js')}}"></script>
     @include('backend.include.toastr')
 
     @stack('scripts')
-
     <script>
         $(document).ready(function () {
             $('.nicescroll-rails.nicescroll-rails-vr').remove();

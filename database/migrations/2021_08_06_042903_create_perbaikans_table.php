@@ -24,6 +24,7 @@ class CreatePerbaikansTable extends Migration
             $table->string('ukuran');
             $table->string('status');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

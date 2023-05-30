@@ -24,6 +24,7 @@ class CreateDetailPerbaikansTable extends Migration
             $table->integer('jumlah');
             $table->longText('keterangan')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

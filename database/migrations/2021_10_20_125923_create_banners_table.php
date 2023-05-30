@@ -23,6 +23,7 @@ class CreateBannersTable extends Migration
             $table->longText('syarat');
             $table->string('gambar')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

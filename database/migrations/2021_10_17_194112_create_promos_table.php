@@ -21,6 +21,7 @@ class CreatePromosTable extends Migration
             $table->date('promo_berakhir');
             $table->double('potongan');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

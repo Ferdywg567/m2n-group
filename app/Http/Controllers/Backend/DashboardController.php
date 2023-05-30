@@ -70,17 +70,19 @@ class DashboardController extends Controller
                 $jumlah_kain_lalu = 0;
                 foreach($jumlah_kain_lalu_db as $kain) $jumlah_kain_lalu += $kain->jumlah_bahan;
 
-                $jenis_bahan = count(Bahan::whereMonth('tanggal_masuk', $bulan)->whereYear('tanggal_masuk', $tahun)->groupBy('kode_bahan')->get());
-                $berhasil_cuci = Cuci::whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->sum('berhasil_cuci');
-                $hasil_cutting = Potong::whereMonth('tanggal_cutting', $bulan)->whereYear('tanggal_cutting', $tahun)->sum('hasil_cutting');
+                  // $cucidibuang = Cuci::whereMonth('tanggal_selesai', $bulan)->whereYear('tanggal_selesai', $tahun)->sum('barang_dibuang');
+                  // $jahitdibuang = Jahit::whereMonth('tanggal_selesai', $bulan)->whereYear('tanggal_selesai', $tahun)->sum('barang_dibuang');
+                $jenis_bahan    = Bahan::whereMonth('tanggal_masuk', $bulan)->whereYear('tanggal_masuk', $tahun)->groupBy('kode_bahan')->count();
+                $berhasil_cuci  = Cuci::whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->sum('berhasil_cuci');
+                $hasil_cutting  = Potong::whereMonth('tanggal_cutting', $bulan)->whereYear('tanggal_cutting', $tahun)->sum('hasil_cutting');
                 $berhasil_jahit = Jahit::whereMonth('tanggal_jahit', $bulan)->whereYear('tanggal_jahit', $tahun)->sum('berhasil');
-                $cucidibuang = Cuci::whereMonth('tanggal_selesai', $bulan)->whereYear('tanggal_selesai', $tahun)->sum('barang_dibuang');
-                $jahitdibuang = Jahit::whereMonth('tanggal_selesai', $bulan)->whereYear('tanggal_selesai', $tahun)->sum('barang_dibuang');
-                $gagal_jahit = Jahit::whereMonth('tanggal_selesai', $bulan)->whereYear('tanggal_selesai', $tahun)->sum('gagal_jahit');
-                $baju_rusak = $cucidibuang + $jahitdibuang;
-                $reslalu = $jumlah_kain - $jumlah_kain_lalu;
-                $potong = Potong::with(['bahan'])->whereMonth('tanggal_selesai', $bulan)->whereYear('tanggal_selesai', $tahun)->limit(5)->get();
-                $jahit = Jahit::with(['potong' => function ($q) {
+                $cucidibuang    = CuciDibuang::whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->count();
+                $jahitdibuang   = JahitDibuang::whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->count();
+                $gagal_jahit    = Jahit::whereMonth('tanggal_selesai', $bulan)->whereYear('tanggal_selesai', $tahun)->sum('gagal_jahit');
+                $baju_rusak     = $cucidibuang + $jahitdibuang;
+                $reslalu        = $jumlah_kain - $jumlah_kain_lalu;
+                $potong         = Potong::with(['bahan'])->whereMonth('tanggal_selesai', $bulan)->whereYear('tanggal_selesai', $tahun)->limit(5)->get();
+                $jahit          = Jahit::with(['potong' => function ($q) {
                     $q->with('bahan');
                 }])->whereMonth('tanggal_selesai', $bulan)->whereYear('tanggal_selesai', $tahun)->limit(5)->get();
                 $cuci = Cuci::with(['jahit' => function ($q) {
@@ -88,7 +90,7 @@ class DashboardController extends Controller
                         $q->with('bahan');
                     }]);
                 }])->whereMonth('tanggal_selesai', $bulan)->whereYear('tanggal_selesai', $tahun)->limit(5)->get();
-                // dd(Cuci::whereMonth('tanggal_selesai', $bulan)->whereYear('tanggal_selesai', $tahun)->limit(5)->get());
+                  // dd(Cuci::whereMonth('tanggal_selesai', $bulan)->whereYear('tanggal_selesai', $tahun)->limit(5)->get());
                 $group_kain = Bahan::select(
                     DB::raw('sum(panjang_bahan) as jumlah'),
                     DB::raw("DATE_FORMAT(tanggal_masuk,'%M %Y') as months")
@@ -175,31 +177,31 @@ class DashboardController extends Controller
                 }
 
                 return response()->json([
-                    'status' => true,
-                    'jumlah_kain' => $jumlah_kain,
+                    'status'           => true,
+                    'jumlah_kain'      => $jumlah_kain,
                     'jumlah_kain_lalu' => $reslalu,
-                    'jenis_bahan' => $jenis_bahan,
-                    'berhasil_cuci' => $berhasil_cuci,
-                    'hasil_cutting' => $hasil_cutting,
-                    'berhasil_jahit' => $berhasil_jahit,
-                    'baju_rusak' => $baju_rusak,
-                    'potong' => $potong,
-                    'jahit' => $jahit,
-                    'cuci' => $cuci,
-                    'group_kain' => $group_kain,
-                    'pie' => $pie,
-                    'line' => $res,
-                    'bulan' => $bulan,
-                    'tahun' => $tahun,
-                    'gagal_jahit' => $gagal_jahit,
+                    'jenis_bahan'      => $jenis_bahan,
+                    'berhasil_cuci'    => $berhasil_cuci,
+                    'hasil_cutting'    => $hasil_cutting,
+                    'berhasil_jahit'   => $berhasil_jahit,
+                    'baju_rusak'       => $baju_rusak,
+                    'potong'           => $potong,
+                    'jahit'            => $jahit,
+                    'cuci'             => $cuci,
+                    'group_kain'       => $group_kain,
+                    'pie'              => $pie,
+                    'line'             => $res,
+                    'bulan'            => $bulan,
+                    'tahun'            => $tahun,
+                    'gagal_jahit'      => $gagal_jahit,
                 ]);
             } elseif ($user->hasRole('warehouse')) {
 
                 $rekap = DetailWarehouse::whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->sum('jumlah');
 
-                $retur = Finishing::whereMonth('tanggal_masuk', $bulan)->whereYear('tanggal_masuk', $tahun)->sum('barang_diretur');
-                $buang = Finishing::whereMonth('tanggal_masuk', $bulan)->whereYear('tanggal_masuk', $tahun)->sum('barang_dibuang');
-                $warehouse = Warehouse::whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->get();
+                $retur      = Finishing::whereMonth('tanggal_masuk', $bulan)->whereYear('tanggal_masuk', $tahun)->sum('barang_diretur');
+                $buang      = Finishing::whereMonth('tanggal_masuk', $bulan)->whereYear('tanggal_masuk', $tahun)->sum('barang_dibuang');
+                $warehouse  = Warehouse::whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->get();
                 $dWarehouse = [];
                 foreach($warehouse as $w){
                     $dWarehouse[] = $w->detail_warehouse->avg('harga');
@@ -250,31 +252,34 @@ class DashboardController extends Controller
                 }])->whereMonth('tanggal_masuk', $bulan)->whereYear('tanggal_masuk', $tahun)->limit(5)->get();
 
 
+                // $cucidibuang    = Cuci::whereMonth('tanggal_selesai', $bulan)->whereYear('tanggal_selesai', $tahun)->sum('barang_dibuang');
+                // $jahitdibuang   = Jahit::whereMonth('tanggal_selesai', $bulan)->whereYear('tanggal_selesai', $tahun)->sum('barang_dibuang');
                 $line = RekapitulasiWarehouse::select(
                     DB::raw('count(*) as jumlah'),
                     DB::raw("DATE_FORMAT(tanggal_masuk,'%M %Y') as months")
                 )->whereYear('tanggal_masuk', $tahun)->orderBy('months', 'DESC')
                     ->groupBy('months')
                     ->get();
-                $berhasil_cuci = Cuci::whereMonth('tanggal_masuk', $bulan)->whereYear('tanggal_masuk', $tahun)->sum('berhasil_cuci');
-                $hasil_cutting = Potong::whereMonth('tanggal_cutting', $bulan)->whereYear('tanggal_cutting', $tahun)->sum('hasil_cutting');
+                $berhasil_cuci  = Cuci::whereMonth('tanggal_masuk', $bulan)->whereYear('tanggal_masuk', $tahun)->sum('berhasil_cuci');
+                $hasil_cutting  = Potong::whereMonth('tanggal_cutting', $bulan)->whereYear('tanggal_cutting', $tahun)->sum('hasil_cutting');
                 $berhasil_jahit = Jahit::whereMonth('tanggal_jahit', $bulan)->whereYear('tanggal_jahit', $tahun)->sum('berhasil');
-                $cucidibuang = Cuci::whereMonth('tanggal_selesai', $bulan)->whereYear('tanggal_selesai', $tahun)->sum('barang_dibuang');
-                $jahitdibuang = Jahit::whereMonth('tanggal_selesai', $bulan)->whereYear('tanggal_selesai', $tahun)->sum('barang_dibuang');
-                $gagal_jahit = Jahit::whereMonth('tanggal_selesai', $bulan)->whereYear('tanggal_selesai', $tahun)->sum('gagal_jahit');
-                $baju_rusak = $cucidibuang + $jahitdibuang;
+                $gagal_jahit    = Jahit::whereMonth('tanggal_selesai', $bulan)->whereYear('tanggal_selesai', $tahun)->sum('gagal_jahit');
+                $baju_rusak     = $buang;
+                // $cucidibuang    = CuciDibuang::whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->count();
+                // $jahitdibuang   = JahitDibuang::whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->count();
+                // $baju_rusak     = $cucidibuang + $jahitdibuang;
 
-                $cucidirepair = Cuci::whereMonth('tanggal_masuk', $bulan)->whereYear('tanggal_masuk', $tahun)->sum('barang_direpair');
-                $jahitdirepair =  Jahit::whereMonth('tanggal_jahit', $bulan)->whereYear('tanggal_jahit', $tahun)->sum('barang_direpair');
-                $berhasil = $berhasil_cuci + $berhasil_jahit + $hasil_cutting;
-                $gagal = $baju_rusak;
-                $repair = $cucidirepair + $jahitdirepair;
-                $retur = Finishing::whereMonth('tanggal_masuk', $bulan)->whereYear('tanggal_masuk', $tahun)->sum('barang_diretur');
-                $label = ['Berhasil', 'Repair', 'Retur', 'Gagal'];
-                $datapie = [$berhasil, $repair, $retur, $gagal];
-                $pie = [
+                $cucidirepair  = Cuci::whereMonth('tanggal_masuk', $bulan)->whereYear('tanggal_masuk', $tahun)->sum('barang_direpair');
+                $jahitdirepair = Jahit::whereMonth('tanggal_jahit', $bulan)->whereYear('tanggal_jahit', $tahun)->sum('barang_direpair');
+                $berhasil      = $berhasil_cuci + $berhasil_jahit + $hasil_cutting;
+                $gagal         = $baju_rusak;
+                $repair        = $cucidirepair + $jahitdirepair;
+                $retur         = Finishing::whereMonth('tanggal_masuk', $bulan)->whereYear('tanggal_masuk', $tahun)->sum('barang_diretur');
+                $label         = ['Berhasil', 'Repair', 'Retur', 'Gagal'];
+                $datapie       = [$berhasil, $repair, $retur, $gagal];
+                $pie           = [
                     'label' => $label,
-                    'data' => $datapie
+                    'data'  => $datapie
                 ];
 
             
@@ -298,19 +303,19 @@ class DashboardController extends Controller
                     $tahun = date('Y');
                 }
                 return response()->json([
-                    'status' => true,
-                    'rekap' => $rekap,
-                    'retur' => $retur,
-                    'buang' => $buang,
-                    'avg' => $avg,
-                    'finish' => $finish,
+                    'status'    => true,
+                    'rekap'     => $rekap,
+                    'retur'     => $retur,
+                    'buang'     => $buang,
+                    'avg'       => $avg,
+                    'finish'    => $finish,
                     'warehouse' => $warehouse,
                     'dataretur' => $dataretur,
-                    'line' => $line,
-                    'pie' => $pie,
-                    'bar' => $bar,
-                    'bulan' => $bulan,
-                    'tahun' => $tahun,
+                    'line'      => $line,
+                    'pie'       => $pie,
+                    'bar'       => $bar,
+                    'bulan'     => $bulan,
+                    'tahun'     => $tahun,
                 ]);
             }
         }
@@ -408,7 +413,7 @@ class DashboardController extends Controller
     public function readklik(Request $request)
     {
         if ($request->ajax()) {
-            $id = $request->get('id');
+            $id    = $request->get('id');
             $notif = Notification::where('id', $id)->update(['read' => '1']);
             return response()->json(['status' => true]);
         }

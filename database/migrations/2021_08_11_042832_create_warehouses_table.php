@@ -20,6 +20,7 @@ class CreateWarehousesTable extends Migration
             $table->float('harga_produk');
             $table->date('tanggal_masuk')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

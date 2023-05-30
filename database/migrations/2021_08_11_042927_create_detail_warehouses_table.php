@@ -21,6 +21,7 @@ class CreateDetailWarehousesTable extends Migration
             $table->integer('jumlah');
             $table->double('harga')->default(0);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

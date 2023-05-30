@@ -26,6 +26,7 @@ class CreateDetailTransaksisTable extends Migration
             $table->double('harga');
             $table->double('total_harga');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

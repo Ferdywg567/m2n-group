@@ -44,11 +44,11 @@ class Bahan extends Model
 
     public function skus()
     {
-        return $this->belongsTo('App\Sku','sku_id','id');
+        return $this->belongsTo('App\Sku', 'sku_id', 'id');
     }
 
     public function detail_sub()
     {
-        return $this->belongsTo('App\DetailSubKategori','detail_sub_kategori_id','id')->withTrashed();
+        return $this->belongsTo('App\DetailSubKategori', 'detail_sub_kategori_id', 'id');
     }
 }

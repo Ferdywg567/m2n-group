@@ -325,6 +325,10 @@ class PerbaikanController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
+            'tailoring' => 'nullable|integer',
+            'washing' => 'nullable|integer',
+            'keterangan_tailoring' => 'nullable',
+            'keterangan_washing' => 'nullable',
             'tanggal_selesai' => 'required|date_format:"Y-m-d"',
         ]);
 

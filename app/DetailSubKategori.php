@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class DetailSubKategori extends Model
 {
     use SoftDeletes;
-
     public function sub_kategori()
     {
         return $this->belongsTo('App\SubKategori')->withTrashed();
