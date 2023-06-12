@@ -657,7 +657,9 @@
                                                         }, 500)
                                                     } else {
                                                         new swal(response
-                                                            .message);
+                                                            .message.title,
+                                                            response.message
+                                                            .body, 'error');
                                                     }
                                                 }
                                             })
@@ -671,7 +673,7 @@
                         } else {
                             new swal(
                                 "Belum ada transaksi, silahkan pilih produk terlebih dahulu!"
-                                );
+                            );
                         }
                     }
                 })
@@ -685,7 +687,7 @@
                 var ukuran = $(this).data('ukuran');
                 ajax();
                 new swal({
-                        text: "Apa anda yakin mengubah qty produk ?",
+                        text: "Apa anda yakin mengubah jumlah produk ?",
                         icon: "warning",
                         buttons: true,
                         dangerMode: true,
