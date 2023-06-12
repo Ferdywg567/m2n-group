@@ -285,8 +285,9 @@ class FinishingController extends Controller
     public function edit($id)
     {
         $finish = Finishing::findOrFail($id);
-        if($finish->barang_siap_qc == null){
-            $finish->barang_siao_qc == $finish->cuci->berhasil_cuci;
+
+        if ($finish->barang_siap_qc == null) {
+            $finish->barang_siap_qc = $finish->cuci->berhasil_cuci;
             $finish->save();
         }
 
@@ -689,39 +690,38 @@ class FinishingController extends Controller
                 //warehouse
                 $dbFinish = Finishing::where('no_surat', $finish->no_surat);
                 $isDbFinishExists = Warehouse::where('finishing_id', $dbFinish->first()->id)->exists();
-                $warehouse = $isDbFinishExists ? 
-                    Warehouse::where('finishing_id', $dbFinish->first()->id)->first() : 
+                $warehouse = $isDbFinishExists ?
+                    Warehouse::where('finishing_id', $dbFinish->first()->id)->first() :
                     new Warehouse();
-                if(!$isDbFinishExists){
+                if (!$isDbFinishExists) {
                     $warehouse->finishing_id = $finish->id;
                     $warehouse->harga_produk = 0;
                     $warehouse->save();
                 }
-                
+
 
                 foreach ($arr as $key => $value) {
-                    if(!$isDbFinishExists){
+                    if (!$isDbFinishExists) {
                         $detail = new DetailWarehouse();
                         $detail->warehouse_id = $warehouse->id;
                         $detail->ukuran = $value['ukuran'];
                         $detail->jumlah =  $value['jumlah'];
                         $detail->save();
-                    }else{
-                        
+                    } else {
+
                         $detail = DetailWarehouse::where('warehouse_id', $warehouse->id)
-                                    ->where('ukuran', $value['ukuran'])
-                                    ->first();
+                            ->where('ukuran', $value['ukuran'])
+                            ->first();
                         $detailProduk = DetailProduk::where('produk_id', Produk::where('warehouse_id', $warehouse->id)->first()->id)
                             ->where('ukuran', $value['ukuran'])
                             ->first();
-                        
+
                         $detail->jumlah += $value['jumlah'];
                         $detail->save();
 
                         $detailProduk->jumlah += $value['jumlah'];
                         $detailProduk->save();
                     }
-                    
                 }
 
 

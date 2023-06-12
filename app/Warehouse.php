@@ -3,10 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Warehouse extends Model
 {
-use SoftDeletes;
+    use SoftDeletes;
+
     public function finishing()
     {
         return $this->belongsTo('App\Finishing');
@@ -22,7 +24,8 @@ use SoftDeletes;
         return $this->hasOne('App\RekapitulasiWarehouse');
     }
 
-    public function getJumlahUkuranAttribute(){
+    public function getJumlahUkuranAttribute()
+    {
         return $this->detail_warehouse()->sum('jumlah');
     }
 

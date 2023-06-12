@@ -10,6 +10,10 @@
             width: 300px;
             height: 170px !important;
         }
+
+        .form-control::placeholder {
+            color: #959aa0;
+        }
     </style>
     <div id="non-printable">
         <section class="section">
@@ -129,7 +133,8 @@
                                                         <div class="input-group-text">{{ $item->ukuran }}</div>
                                                     </div>
                                                     <input type="number" class="form-control" required id="jumlahutama"
-                                                        name="jumlahutama[]">
+                                                        name="jumlahutama[]" placeholder="{{ $item->jumlah }}"
+                                                        max="{{ $item->jumlah }}" min="0">
                                                 </div>
                                             </div>
                                             @if ($loop->iteration % 6 == 0)

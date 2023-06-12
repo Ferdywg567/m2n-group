@@ -63,7 +63,7 @@ class TransaksiController extends Controller
             $bayar = str_replace('.', '', $request->get('bayar'));
             $kembalian = str_replace('.', '', $request->get('kembalian'));
             $detail = session('detail_transaksi');
-            
+
             DB::beginTransaction();
             try {
 
@@ -74,16 +74,15 @@ class TransaksiController extends Controller
                     // dd(DetailProduk::where('produk_id', $produk->id)->whereIn('ukuran', [$value['ukuran']])->sum('jumlah'));
                     if ($produk) {
                         $totalproduk += $value['qty'];
-                        if($value['ukuran'] == 'seri'){
-                            $ukuran = ['S','M','L'];
-                        }
-                        elseif(str_contains($value['ukuran'], ',')){
+                        if ($value['ukuran'] == 'seri') {
+                            $ukuran = ['S', 'M', 'L'];
+                        } elseif (str_contains($value['ukuran'], ',')) {
                             $ukuran = explode(',', $value['ukuran']);
-                        }else{
+                        } else {
                             $ukuran = [$value['ukuran']];
                         }
-                        $jumproduk = DetailProduk::where('produk_id', $produk->id)->whereIn('ukuran',$ukuran)->count();
-                        $detailpro = DetailProduk::where('produk_id', $produk->id)->whereIn('ukuran',$ukuran)->get();
+                        $jumproduk = DetailProduk::where('produk_id', $produk->id)->whereIn('ukuran', $ukuran)->count();
+                        $detailpro = DetailProduk::where('produk_id', $produk->id)->whereIn('ukuran', $ukuran)->get();
 
                         // dd($produk->warehouse->detail_warehouse);
                         $produk->stok = $produk->stok - ($jumproduk * $value['qty']);
@@ -91,17 +90,20 @@ class TransaksiController extends Controller
 
                             $detailProduk = DetailProduk::findOrFail($row->id);
                             $detailWarehouse = DetailWarehouse::where('warehouse_id', $detailProduk->produk->warehouse->id)
-                                                ->where('ukuran', $detailProduk->ukuran)
-                                                ->first();
+                                ->where('ukuran', $detailProduk->ukuran)
+                                ->first();
 
-                            if($detailProduk->jumlah < $value['qty'] or $detailWarehouse->jumlah < $value['qty']){
+                            if ($detailProduk->jumlah < $value['qty'] or $detailWarehouse->jumlah < $value['qty']) {
                                 DB::rollBack();
                                 // $request->session()->flash('error', 'insufficient stock');
                                 return response()->json([
                                     'status' => false,
-                                    'message' => 'Stok tidak mencukupi, sisa stok '.$detailProduk->jumlah
+                                    'message' => [
+                                        'title' => 'Stok Tidak mencukupi',
+                                        'body' => 'Stok tidak mencukupi, sisa stok ' . $detailProduk->jumlah
+                                    ],
                                 ]);
-                            }else{
+                            } else {
                                 $detailProduk->jumlah = $detailProduk->jumlah - $value['qty'];
                                 $detailProduk->save();
 
@@ -142,16 +144,16 @@ class TransaksiController extends Controller
 
                 foreach ($detail as $key => $value) {
                     // dd($value);
-                    if($value['ukuran'] == 'seri'){
+                    if ($value['ukuran'] == 'seri') {
                         $ukuran = "S,M,L";
-                    }elseif(str_contains($value['ukuran'], ',')){
+                    } elseif (str_contains($value['ukuran'], ',')) {
                         $ukuran = explode(',', $value['ukuran']);
-                    } else{
+                    } else {
                         $ukuran = $value['ukuran'];
                     }
-                    
+
                     $produk = Produk::where('kode_produk', $value['kode'])->first();
-                    foreach(is_array($ukuran) ? $ukuran : [$ukuran] as $k){
+                    foreach (is_array($ukuran) ? $ukuran : [$ukuran] as $k) {
                         $detail_trans = new DetailTransaksi;
                         $detail_trans->produk_id = $produk->id;
                         $detail_trans->transaksi_id = $transaksi->id;
@@ -174,12 +176,12 @@ class TransaksiController extends Controller
                 ]);
             } catch (\Exception $th) {
                 DB::rollBack();
-                // return response()->json([
-                //     'status' => false,
-                //     'msg' => $th->getMessage(),
-                //     'line' => $th->getLine()
-                // ]);
-                dd($th);
+                return response()->json([
+                    'status' => false,
+                    'msg' => $th->getMessage(),
+                    'line' => $th->getLine()
+                ]);
+                // dd($th);
             }
         }
     }
@@ -246,8 +248,8 @@ class TransaksiController extends Controller
     {
         if ($request->ajax()) {
             $status = $request->get('status');
-            $target = ["S","L","M"];
-            if($status == 'produk'){
+            $target = ["S", "L", "M"];
+            if ($status == 'produk') {
                 // old logic
                 // $produk = Produk::with('detail_produk')->where('id', $request->get('id'))->first();
 
@@ -279,13 +281,13 @@ class TransaksiController extends Controller
                 $produk = Produk::with('detail_produk')->where('id', $request->get('id'))->first();
                 $detail = $produk->detail_produk->chunk(3);
                 $returnData = [];
-                foreach($detail as $d){
+                foreach ($detail as $d) {
                     $label = '';
                     $price = 0;
-                    foreach($d as $data){
+                    foreach ($d as $data) {
                         $label .= $data->ukuran;
                         $price = $data->harga;
-                        if($data != $d->last()){
+                        if ($data != $d->last()) {
                             $label .= ', ';
                         }
                     }
@@ -303,7 +305,7 @@ class TransaksiController extends Controller
                     'harga_seri' => 0,
                     'status' => true
                 ]);
-            }else{
+            } else {
                 $produk = Produk::with(['warehouse' => function ($q) {
                     $q->with(['finishing' => function ($q) {
                         $q->with(['cuci' => function ($q) {
@@ -322,7 +324,7 @@ class TransaksiController extends Controller
                     }]);
                 }, 'detail_produk'])->where('id', $request->get('id'))->first();
 
-                
+
                 $ukuran = $request->get('ukuran');
                 // old logic
                 // if($ukuran == 'seri'){
@@ -339,10 +341,10 @@ class TransaksiController extends Controller
                 $produk->stok = $detail->min('jumlah');
                 $harga = $detail->avg('harga');
                 $label = '';
-                foreach($detail as $data){
+                foreach ($detail as $data) {
                     $label .= $data->ukuran;
                     $price = $data->harga;
-                    if($data != $detail->last()){
+                    if ($data != $detail->last()) {
                         $label .= ', ';
                     }
                 }
@@ -357,8 +359,6 @@ class TransaksiController extends Controller
                     'ukuran' => $label
                 ]);
             }
-
-
         }
     }
 
@@ -450,17 +450,16 @@ class TransaksiController extends Controller
                 foreach ($datadetail as $row) {
                     $sub = array();
 
-                    if($row['ukuran'] == 'seri'){
+                    if ($row['ukuran'] == 'seri') {
                         $ukuran = 'S,M,L';
-
-                    }else{
+                    } else {
                         $ukuran = $row['ukuran'];
                     }
 
                     $sub["urut"] = $row['urut'];
                     $sub["kode"] = $row['kode'];
                     $sub["nama"] = $row['nama'];
-                    $sub["ukuran"] =$ukuran;
+                    $sub["ukuran"] = $ukuran;
                     $sub["harga"] = $row['harga'];
                     $sub["qty"] = $row['qty'];
                     $sub["subtotal"] = $row['subtotal'];
@@ -531,9 +530,9 @@ class TransaksiController extends Controller
         $transaksi = Transaksi::findOrFail($id);
         $customPaper = array(0, 0, 269, 311);
         $cetak = $request->get('cetak');
-        if($cetak == 'Push'){
+        if ($cetak == 'Push') {
             $pdf = PDF::loadView('ecommerce.offline.transaksi.pdf', ['transaksi' => $transaksi]);
-        }else{
+        } else {
             $pdf = PDF::loadView('ecommerce.offline.transaksi.pdf2', ['transaksi' => $transaksi]);
         }
 
@@ -541,7 +540,6 @@ class TransaksiController extends Controller
         // $pdf->setPaper($customPaper);
         // return view('ecommerce.offline.transaksi.pdf2', compact('transaksi'));
         return $pdf->stream('transaksi-offline.pdf', array("Attachment" => 0));
-
     }
 
     public function update_detail_barang(Request $request)

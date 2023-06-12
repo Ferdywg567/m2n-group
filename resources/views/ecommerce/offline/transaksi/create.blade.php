@@ -25,7 +25,6 @@
         .cssnav {
             margin-left: 10px;
         }
-
     </style>
 
     <div id="non-printable">
@@ -131,8 +130,8 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="ukuran_read">Ukuran</label>
-                                                <input type="text" class="form-control" readonly required id="ukuran_read"
-                                                    name="ukuran_read" value="{{ old('ukuran_read') }}">
+                                                <input type="text" class="form-control" readonly required
+                                                    id="ukuran_read" name="ukuran_read" value="{{ old('ukuran_read') }}">
                                             </div>
                                         </div>
                                     </div>
@@ -163,13 +162,15 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="nama">Nama Pelanggan</label>
-                                                <input type="text" class="form-control" required id="nama" name="nama">
+                                                <input type="text" class="form-control" required id="nama"
+                                                    name="nama">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="no_hp">No. HP</label>
-                                                <input type="text" class="form-control" required id="no_hp" name="no_hp">
+                                                <input type="text" class="form-control" required id="no_hp"
+                                                    name="no_hp">
                                             </div>
                                         </div>
                                     </div>
@@ -213,7 +214,8 @@
                                             <div class="form-group">
                                                 <label for="kode_transaksi">Kode Transaksi</label>
                                                 <input type="text" class="form-control" readonly required
-                                                    id="kode_transaksi" name="kode_transaksi" value="{{ $kode }}">
+                                                    id="kode_transaksi" name="kode_transaksi"
+                                                    value="{{ $kode }}">
                                             </div>
                                         </div>
                                     </div>
@@ -256,8 +258,8 @@
                                             </div>
                                         </div>
                                         <div class="col-md-4">
-                                            <input type="text" class="form-control" required id="bayar" name="bayar"
-                                                value="{{ old('bayar') }}">
+                                            <input type="text" class="form-control" required id="bayar"
+                                                name="bayar" value="{{ old('bayar') }}">
                                         </div>
                                     </div>
                                     <div class="row">
@@ -590,7 +592,9 @@
                             }
 
                         } else {
-                            swal("Belum ada transaksi, silahkan pilih produk terlebih dahulu!");
+                            new swal(
+                                "Belum ada transaksi, silahkan pilih produk terlebih dahulu!"
+                            );
                         }
                     }
                 })
@@ -651,8 +655,9 @@
                                                                     position: 'topRight'
                                                                 });
                                                         }, 500)
-                                                    }else{
-                                                        swal(response.message);
+                                                    } else {
+                                                        new swal(response
+                                                            .message);
                                                     }
                                                 }
                                             })
@@ -664,7 +669,9 @@
                             }
 
                         } else {
-                            swal("Belum ada transaksi, silahkan pilih produk terlebih dahulu!");
+                            new swal(
+                                "Belum ada transaksi, silahkan pilih produk terlebih dahulu!"
+                                );
                         }
                     }
                 })
@@ -677,7 +684,7 @@
                 var qty = $(this).text()
                 var ukuran = $(this).data('ukuran');
                 ajax();
-                swal({
+                new swal({
                         text: "Apa anda yakin mengubah qty produk ?",
                         icon: "warning",
                         buttons: true,

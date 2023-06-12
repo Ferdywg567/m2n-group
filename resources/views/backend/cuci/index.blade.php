@@ -572,10 +572,10 @@
                                 success: function(data) {
 
                                     if (data.status) {
-                                        swal("Maaf, data tidak bisa dihapus!");
+                                        new swal("Maaf, data tidak bisa dihapus!");
 
                                     } else {
-                                        swal("Success! data berhasil dihapus!", {
+                                        new swal("Success! data berhasil dihapus!", {
                                             icon: "success",
                                         });
 
@@ -593,7 +593,7 @@
 
             $(document).on('click', '.update_status', function() {
                 var id = $(this).data('id')
-                swal({
+                new swal({
                         text: "Apa anda yakin ingin memindahkan data ini keluar ?",
                         icon: "warning",
                         buttons: true,
