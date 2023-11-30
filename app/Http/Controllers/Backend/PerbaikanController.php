@@ -162,9 +162,11 @@ class PerbaikanController extends Controller
 
             // end ini logika aku sendiri
             DB::commit();
-            $dbrepair = DetailPerbaikan::latest()->get();
+            $dbrepair = DetailPerbaikan::with('perbaikan')->latest()->get();
+            // dd($dbrepair);
             $repair = [];
             foreach ($dbrepair as $r) {
+
                 $perbaikan = $r->perbaikan;
                 $perbaikan->{'status_repair'} = $r->status;
 

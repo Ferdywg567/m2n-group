@@ -19,7 +19,7 @@ class PembelianController extends Controller
     {
         $userid = auth()->user()->id;
         $menunggu = Transaksi::where('user_id', $userid)->where('status_bayar', 'belum dibayar')->orderBy('created_at','DESC')->get();
-        $transaksi = Transaksi::where('user_id', $userid)->where(function ($q) {
+        $transaksi = Transaksi::with('ulasan')->where('user_id', $userid)->where(function ($q) {
             $q->orwhere('status_bayar', 'sudah di upload')->orWhere('status_bayar', 'sudah dibayar')->orWhere('status', 'dikirim')->orWhere('status', 'telah tiba');
         })->orderBy('created_at','DESC')->get();
         // dd($transaksi);

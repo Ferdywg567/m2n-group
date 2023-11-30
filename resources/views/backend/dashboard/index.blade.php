@@ -877,10 +877,10 @@
 
                 <div class="col-md-3">
                     <div class="card card-statistic-1">
-                        <div class="card-icon "
+                        <div class="card-icon d-flex justify-content-center align-items-center"
                             style="background-color: rgba(26, 205, 255, 0.30);
                 border-radius: 8px;">
-                            <img src="{{ asset('assets/icon/t-shirt-fill-biru.png') }}" alt="" srcset="">
+                            <img style="" src="{{ asset('assets/icon/t-shirt-fill-biru.png') }}" alt="" srcset="">
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">
@@ -900,10 +900,10 @@
                 </div>
                 <div class="col-md-3">
                     <div class="card card-statistic-1">
-                        <div class="card-icon"
+                        <div class="card-icon d-flex justify-content-center align-items-center"
                             style="background-color: rgba(255, 149, 0, 0.3);
                 border-radius: 8px;">
-                            <img src="{{ asset('assets/icon/logout-box-fill-orange.png') }}" alt=""
+                            <img style="" src="{{ asset('assets/icon/logout-box-fill-orange.png') }}" alt=""
                                 srcset="">
                         </div>
                         <div class="card-wrap">
@@ -924,10 +924,10 @@
                 </div>
                 <div class="col-md-3">
                     <div class="card card-statistic-1">
-                        <div class="card-icon"
+                        <div class="card-icon d-flex justify-content-center align-items-center"
                             style="background-color: rgba(255, 56, 46, 0.3);
                 border-radius: 8px;">
-                            <img src="{{ asset('assets/icon/t-shirt-air-fill-merah.png') }}" alt=""
+                            <img style="" src="{{ asset('assets/icon/t-shirt-air-fill-merah.png') }}" alt=""
                                 srcset="">
                         </div>
                         <div class="card-wrap">
@@ -948,10 +948,10 @@
                 </div>
                 <div class="col-md-3">
                     <div class="card card-statistic-1">
-                        <div class="card-icon"
+                        <div class="card-icon d-flex justify-content-center align-items-center"
                             style="background-color: rgba(51, 199, 88, 0.3);
                 border-radius: 8px;">
-                            <img src="{{ asset('assets/icon/money-dollar-circle-fill-hijau.png') }}" alt=""
+                            <img style="" src="{{ asset('assets/icon/money-dollar-circle-fill-hijau.png') }}" alt=""
                                 srcset="">
                         </div>
                         <div class="card-wrap">

@@ -11,28 +11,28 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{asset('/assets/img/M2N 1.png')}}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('/assets/img/M2N 1.png') }}">
 
     <!-- All CSS is here
-	============================================ -->
+ ============================================ -->
     <link href="https://fonts.googleapis.com/css2?family=Heebo&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{asset('ecommerce/assets/css/vendor/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{asset('ecommerce/assets/css/vendor/signericafat.css')}}">
-    <link rel="stylesheet" href="{{asset('ecommerce/assets/css/vendor/cerebrisans.css')}}">
-    <link rel="stylesheet" href="{{asset('ecommerce/assets/css/vendor/simple-line-icons.css')}}">
-    <link rel="stylesheet" href="{{asset('ecommerce/assets/css/vendor/elegant.css')}}">
-    <link rel="stylesheet" href="{{asset('ecommerce/assets/css/vendor/linear-icon.css')}}">
-    <link rel="stylesheet" href="{{asset('ecommerce/assets/css/plugins/nice-select.css')}}">
-    <link rel="stylesheet" href="{{asset('ecommerce/assets/css/plugins/easyzoom.css')}}">
+    <link rel="stylesheet" href="{{ asset('ecommerce/assets/css/vendor/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('ecommerce/assets/css/vendor/signericafat.css') }}">
+    <link rel="stylesheet" href="{{ asset('ecommerce/assets/css/vendor/cerebrisans.css') }}">
+    <link rel="stylesheet" href="{{ asset('ecommerce/assets/css/vendor/simple-line-icons.css') }}">
+    <link rel="stylesheet" href="{{ asset('ecommerce/assets/css/vendor/elegant.css') }}">
+    <link rel="stylesheet" href="{{ asset('ecommerce/assets/css/vendor/linear-icon.css') }}">
+    <link rel="stylesheet" href="{{ asset('ecommerce/assets/css/plugins/nice-select.css') }}">
+    <link rel="stylesheet" href="{{ asset('ecommerce/assets/css/plugins/easyzoom.css') }}">
 
-    <link rel="stylesheet" href="{{asset('ecommerce/assets/css/plugins/slick.css')}}">
-    <link rel="stylesheet" href="{{asset('ecommerce/assets/css/plugins/animate.css')}}">
-    <link rel="stylesheet" href="{{asset('ecommerce/assets/css/plugins/magnific-popup.css')}}">
-    <link rel="stylesheet" href="{{asset('ecommerce/assets/css/plugins/jquery-ui.css')}}">
-    <link rel="stylesheet" href="{{asset('ecommerce/assets/css/style.css')}}">
-    <link rel="stylesheet" href="{{asset('css/dropzone.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('ecommerce/assets/css/plugins/slick.css') }}">
+    <link rel="stylesheet" href="{{ asset('ecommerce/assets/css/plugins/animate.css') }}">
+    <link rel="stylesheet" href="{{ asset('ecommerce/assets/css/plugins/magnific-popup.css') }}">
+    <link rel="stylesheet" href="{{ asset('ecommerce/assets/css/plugins/jquery-ui.css') }}">
+    <link rel="stylesheet" href="{{ asset('ecommerce/assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/dropzone.min.css') }}">
     {{-- <link rel="stylesheet" href="{{ asset('assets/modules/select2/dist/css/select2.min.css') }}"> --}}
-    <link rel="stylesheet" href="{{asset('css/dd.css?v=4.0')}}">
+    <link rel="stylesheet" href="{{ asset('css/dd.css?v=4.0') }}">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -41,9 +41,12 @@
     <link rel="stylesheet" href="assets/css/vendor/vendor.min.css">
     <link rel="stylesheet" href="assets/css/plugins/plugins.min.css">
     <link rel="stylesheet" href="assets/css/style.min.css"> -->
+
+    <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
+
     <style>
         body {
-            font-family: 'Heebo' ,  sans-serif;
+            font-family: 'Heebo', sans-serif;
         }
 
 
@@ -139,12 +142,21 @@
         }
 
         h5,
-    h6,
-    h4 {
-        font-family: 'Heebo', sans-serif;
-    }
+        h6,
+        h4 {
+            font-family: 'Heebo', sans-serif;
+        }
 
+        .header-icon {
+            font-size: 25px;
+        }
+
+        .col-lg-4 .header-action .header-item {
+            margin-right: 1rem;
+        }
     </style>
+
+    @stack('post-styles')
 </head>
 
 <body>
@@ -222,31 +234,35 @@
                             <div class="col-lg-5 col-md-6 col-12 col-sm-12">
                                 <div class="tab-content quickview-big-img">
                                     <div id="pro-1" class="tab-pane fade show active">
-                                        <img src="{{asset('ecommerce/assets/images/product/product-1.jpg')}}" alt="">
+                                        <img src="{{ asset('ecommerce/assets/images/product/product-1.jpg') }}"
+                                            alt="">
                                     </div>
                                     <div id="pro-2" class="tab-pane fade">
-                                        <img src="{{asset('ecommerce/assets/images/product/product-3.jpg')}}" alt="">
+                                        <img src="{{ asset('ecommerce/assets/images/product/product-3.jpg') }}"
+                                            alt="">
                                     </div>
                                     <div id="pro-3" class="tab-pane fade">
-                                        <img src="{{asset('ecommerce/assets/images/product/product-6.jpg')}}" alt="">
+                                        <img src="{{ asset('ecommerce/assets/images/product/product-6.jpg') }}"
+                                            alt="">
                                     </div>
                                     <div id="pro-4" class="tab-pane fade">
-                                        <img src="{{asset('ecommerce/assets/images/product/product-3.jpg')}}" alt="">
+                                        <img src="{{ asset('ecommerce/assets/images/product/product-3.jpg') }}"
+                                            alt="">
                                     </div>
                                 </div>
                                 <div class="quickview-wrap mt-15">
                                     <div class="quickview-slide-active nav-style-6">
                                         <a class="active" data-toggle="tab" href="#pro-1"><img
-                                                src="{{asset('ecommerce/assets/images/product/quickview-s1.jpg')}}"
+                                                src="{{ asset('ecommerce/assets/images/product/quickview-s1.jpg') }}"
                                                 alt=""></a>
                                         <a data-toggle="tab" href="#pro-2"><img
-                                                src="{{asset('ecommerce/assets/images/product/quickview-s2.jpg')}}"
+                                                src="{{ asset('ecommerce/assets/images/product/quickview-s2.jpg') }}"
                                                 alt=""></a>
                                         <a data-toggle="tab" href="#pro-3"><img
-                                                src="{{asset('ecommerce/assets/images/product/quickview-s3.jpg')}}"
+                                                src="{{ asset('ecommerce/assets/images/product/quickview-s3.jpg') }}"
                                                 alt=""></a>
                                         <a data-toggle="tab" href="#pro-4"><img
-                                                src="{{asset('ecommerce/assets/images/product/quickview-s2.jpg')}}"
+                                                src="{{ asset('ecommerce/assets/images/product/quickview-s2.jpg') }}"
                                                 alt=""></a>
                                     </div>
                                 </div>
@@ -306,16 +322,18 @@
                                     <div class="pro-details-quality">
                                         <span>Quantity:</span>
                                         <div class="cart-plus-minus">
-                                            <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1">
+                                            <input class="cart-plus-minus-box" type="text" name="qtybutton"
+                                                value="1">
                                         </div>
                                     </div>
                                     <div class="product-details-meta">
                                         <ul>
-                                            <li><span>Categories:</span> <a href="#">Woman,</a> <a href="#">Dress,</a>
+                                            <li><span>Categories:</span> <a href="#">Woman,</a> <a
+                                                    href="#">Dress,</a>
                                                 <a href="#">T-Shirt</a>
                                             </li>
-                                            <li><span>Tag: </span> <a href="#">Fashion,</a> <a href="#">Mentone</a> , <a
-                                                    href="#">Texas</a></li>
+                                            <li><span>Tag: </span> <a href="#">Fashion,</a> <a
+                                                    href="#">Mentone</a> , <a href="#">Texas</a></li>
                                         </ul>
                                     </div>
                                     <div class="pro-details-action-wrap">
@@ -325,7 +343,8 @@
                                         <div class="pro-details-action">
                                             <a title="Add to Wishlist" href="#"><i class="icon-heart"></i></a>
                                             <a title="Add to Compare" href="#"><i class="icon-refresh"></i></a>
-                                            <a class="social" title="Social" href="#"><i class="icon-share"></i></a>
+                                            <a class="social" title="Social" href="#"><i
+                                                    class="icon-share"></i></a>
                                             <div class="product-dec-social">
                                                 <a class="facebook" title="Facebook" href="#"><i
                                                         class="icon-social-facebook"></i></a>
@@ -371,34 +390,42 @@
     <!-- All JS is here
 ============================================ -->
 
-    <script src="{{asset('ecommerce/assets/js/vendor/modernizr-3.11.7.min.js')}}"></script>
-    <script src="{{asset('ecommerce/assets/js/vendor/jquery-v3.6.0.min.js')}}"></script>
-    <script src="{{asset('ecommerce/assets/js/vendor/jquery-migrate-v3.3.2.min.js')}}"></script>
-    <script src="{{asset('ecommerce/assets/js/vendor/bootstrap.bundle.min.js')}}"></script>
-    <script src="{{asset('ecommerce/assets/js/plugins/slick.js')}}"></script>
-    <script src="{{asset('ecommerce/assets/js/plugins/jquery.syotimer.min.js')}}"></script>
-    <script src="{{asset('ecommerce/assets/js/plugins/jquery.instagramfeed.min.js')}}"></script>
-    <script src="{{asset('ecommerce/assets/js/plugins/jquery.nice-select.min.js')}}"></script>
-    <script src="{{asset('ecommerce/assets/js/plugins/wow.js')}}"></script>
-    <script src="{{asset('ecommerce/assets/js/plugins/jquery-ui-touch-punch.js')}}"></script>
-    <script src="{{asset('ecommerce/assets/js/plugins/jquery-ui.js')}}"></script>
-    <script src="{{asset('ecommerce/assets/js/plugins/magnific-popup.js')}}"></script>
-    <script src="{{asset('ecommerce/assets/js/plugins/sticky-sidebar.js')}}"></script>
-    <script src="{{asset('ecommerce/assets/js/plugins/easyzoom.js')}}"></script>
-    <script src="{{asset('ecommerce/assets/js/plugins/scrollup.js')}}"></script>
-    <script src="{{asset('ecommerce/assets/js/plugins/ajax-mail.js')}}"></script>
-    <script src="{{asset('assets/modules/sweetalert/sweetalert.min.js')}}"></script>
+    <script src="{{ asset('ecommerce/assets/js/vendor/modernizr-3.11.7.min.js') }}"></script>
+    <script src="{{ asset('ecommerce/assets/js/vendor/jquery-v3.6.0.min.js') }}"></script>
+    <script src="{{ asset('ecommerce/assets/js/vendor/jquery-migrate-v3.3.2.min.js') }}"></script>
+    <script src="{{ asset('ecommerce/assets/js/vendor/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('ecommerce/assets/js/plugins/slick.js') }}"></script>
+    <script src="{{ asset('ecommerce/assets/js/plugins/jquery.syotimer.min.js') }}"></script>
+    <script src="{{ asset('ecommerce/assets/js/plugins/jquery.instagramfeed.min.js') }}"></script>
+    <script src="{{ asset('ecommerce/assets/js/plugins/jquery.nice-select.min.js') }}"></script>
+    <script src="{{ asset('ecommerce/assets/js/plugins/wow.js') }}"></script>
+    <script src="{{ asset('ecommerce/assets/js/plugins/jquery-ui-touch-punch.js') }}"></script>
+    <script src="{{ asset('ecommerce/assets/js/plugins/jquery-ui.js') }}"></script>
+    <script src="{{ asset('ecommerce/assets/js/plugins/magnific-popup.js') }}"></script>
+    <script src="{{ asset('ecommerce/assets/js/plugins/sticky-sidebar.js') }}"></script>
+    <script src="{{ asset('ecommerce/assets/js/plugins/easyzoom.js') }}"></script>
+    <script src="{{ asset('ecommerce/assets/js/plugins/scrollup.js') }}"></script>
+    <script src="{{ asset('ecommerce/assets/js/plugins/ajax-mail.js') }}"></script>
+    <script src="{{ asset('assets/modules/sweetalert/sweetalert.min.js') }}"></script>
     {{-- <script src="{{ asset('assets/modules/select2/dist/js/select2.min.js') }}"></script> --}}
-    <script src="{{asset('js/dropzone.min.js')}}"></script>
-    <script src="{{asset('js/dd.min.js?ver=4.0')}}"></script>
+    <script src="{{ asset('js/dropzone.min.js') }}"></script>
+    <script src="{{ asset('js/dd.min.js?ver=4.0') }}"></script>
     <!-- Use the minified version files listed below for better performance and remove the files listed above
     <script src="assets/js/vendor/vendor.min.js"></script>
     <script src="assets/js/plugins/plugins.min.js"></script>  -->
     <!-- Main JS -->
-    <script src="{{asset('ecommerce/assets/js/main.js')}}"></script>
+    <script src="{{ asset('ecommerce/assets/js/main.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var splide = new Splide('.splide');
+            splide.mount();
+        });
+
+
         function GoBackWithRefresh(event) {
-                window.history.back();
+            window.history.back();
         }
         window.onpageshow = function(evt) {
             // If persisted then it is in the page cache, force a reload of the page.
@@ -408,18 +435,18 @@
             }
         };
         @if (auth()->check())
-        function getDataSidebar(){
-                  $.ajax({
-                          url:"{{route('frontend.keranjang.showdatasidebar')}}",
-                          method:"GET",
-                          success:function(response){
-                              if(response.status){
-                                  var data = response.data
-                                  console.log(response);
-                                  var datahtml = '<ul>';
-                                  for (let index = 0; index < data.length; index++) {
-                                      const element = data[index];
-                                      datahtml += `<li class="single-product-cart">
+            function getDataSidebar() {
+                $.ajax({
+                    url: "{{ route('frontend.keranjang.showdatasidebar') }}",
+                    method: "GET",
+                    success: function(response) {
+                        if (response.status) {
+                            var data = response.data
+                            console.log(response);
+                            var datahtml = '<ul>';
+                            for (let index = 0; index < data.length; index++) {
+                                const element = data[index];
+                                datahtml += `<li class="single-product-cart">
                                                     <div class="cart-img">
                                                         <a href="#"><img
                                                                 src="${element.gambar}"
@@ -432,30 +459,30 @@
                                                         <span>ukuran : ${element.ukuran}</span>
                                                     </div>
                                                     </li>`
-                                  }
+                            }
 
-                                  datahtml += "</ul>"
+                            datahtml += "</ul>"
 
-                                  datahtml += `<div class="cart-total">
+                            datahtml += `<div class="cart-total">
                                                 <h4>Subtotal: <span>${response.totalharga}</span></h4>
                                                 </div>
                                                 <div class="cart-checkout-btn">
-                                                    <a class="btn-hover cart-btn-style" href="{{route('frontend.keranjang.index')}}">Lihat Keranjang</a>
+                                                    <a class="btn-hover cart-btn-style" href="{{ route('frontend.keranjang.index') }}">Lihat Keranjang</a>
 
                                                 </div>`
 
-                                  $('#data-keranjang-sidebar').html(datahtml)
-                                //   $('.cart-total').html(`<h4>Subtotal: <span>${element.totalharga}</span></h4>`)
-                              }
-                          }
-                      })
-                  }
-
+                            $('#data-keranjang-sidebar').html(datahtml)
+                            //   $('.cart-total').html(`<h4>Subtotal: <span>${element.totalharga}</span></h4>`)
+                        }
+                    }
+                })
+            }
         @endif
 
-        $(document).ready(function () {
+        $(document).ready(function() {
 
             var modal = document.getElementById("modalSearch");
+
             function ajax() {
                 $.ajaxSetup({
                     headers: {
@@ -463,72 +490,75 @@
                     }
                 });
             }
-            $('#search').on('keyup', function () {
+            $('#search').on('keyup', function() {
                 var cari = $(this).val()
                 cari = cari.toLowerCase()
                 $.ajax({
-                    url:"{{route('frontend.product.get_cari')}}",
-                    method:"GET",
-                    data:{
-                        cari:cari
-                    }, success:function(response){
-                        if(response.status){
+                    url: "{{ route('frontend.product.get_cari') }}",
+                    method: "GET",
+                    data: {
+                        cari: cari
+                    },
+                    success: function(response) {
+                        if (response.status) {
                             console.log(response);
                             var produk = response.data;
                             var datahtml = ""
                             for (let index = 0; index < produk.length; index++) {
                                 const element = produk[index];
                                 datahtml += `<tr>
-                                                <td><a href="{{route('frontend.product.show_cari')}}?cari=${element}">${element}</a></td>
+                                                <td><a href="{{ route('frontend.product.show_cari') }}?cari=${element}">${element}</a></td>
                                             </tr>`
 
                             }
 
 
-                            if(cari.length == 0){
+                            if (cari.length == 0) {
                                 $('#modalSearch').hide()
-                            }else if(produk.length == 0){
+                            } else if (produk.length == 0) {
                                 datahtml += `<tr>
                                                 <td style="text-align:center">Pencarian tidak ditemukan</td>
                                             </tr>`
                                 $('#modalSearch').show()
-                            }else{
+                            } else {
                                 $('#modalSearch').show()
                             }
                             $('#data_cari').html(datahtml)
                         }
                     }
                 })
-             })
+            })
 
-             window.onclick = function(event) {
-                    if (event.target == modal) {
-                        $('#modalSearch').hide()
-                    }
-             }
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    $('#modalSearch').hide()
+                }
+            }
 
-             $('#cari_kategori').on('change', function () {
-                 var kategori = $(this).find(':selected').val()
-                 window.location.href = "{{route('frontend.product.kategori')}}"+"?kategori="+kategori
-             })
+            $('#cari_kategori').on('change', function() {
+                var kategori = $(this).find(':selected').val()
+                window.location.href = "{{ route('frontend.product.kategori') }}" + "?kategori=" + kategori
+            })
 
-              @if (auth()->check())
-                setTimeout(function () {   getDataSidebar() },1500)
+            @if (auth()->check())
+                setTimeout(function() {
+                    getDataSidebar()
+                }, 1500)
                 ajax()
-                $('.wishlist, .wishlist-bottom').on('click', function(){
+                $('.wishlist, .wishlist-bottom').on('click', function() {
                     var id = $(this).data('id')
-                    $(this).css('background-color','black')
-                    $(this).css('color','white')
+                    $(this).css('background-color', 'black')
+                    $(this).css('color', 'white')
                     $.ajax({
-                        url:"{{route('frontend.favorit.store')}}",
-                        method:"POST",
-                        data:{
-                            id:id
+                        url: "{{ route('frontend.favorit.store') }}",
+                        method: "POST",
+                        data: {
+                            id: id
                         }
                     })
                 });
-              @endif
-            })
+            @endif
+        })
     </script>
 
     @stack('scripts')

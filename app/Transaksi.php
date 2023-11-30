@@ -25,4 +25,14 @@ class Transaksi extends Model
     {
         return $this->belongsTo('App\Alamat');
     }
+
+    /**
+     * Get the ulasan associated with the Transaksi
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function ulasan()
+    {
+        return $this->hasOne(Ulasan::class, 'transaksi_id', 'id');
+    }
 }

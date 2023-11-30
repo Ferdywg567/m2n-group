@@ -3,7 +3,9 @@
 @section('title', 'Perbaikan')
 @section('title-nav', 'Perbaikan')
 @section('perbaikan', 'class=active-sidebar')
-
+{{-- @php
+    dd($repair)
+@endphp --}}
 @section('content')
     <style>
         .modal-body {
@@ -50,6 +52,9 @@
                                     </thead>
                                     <tbody id="">
 
+                                        {{-- @php
+                                            dd($repair);
+                                        @endphp --}}
                                         @forelse ($repair as $item)
                                             {{-- @php
                                                 $item = $r->perbaikan;

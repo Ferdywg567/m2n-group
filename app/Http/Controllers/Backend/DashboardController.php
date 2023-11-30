@@ -61,7 +61,7 @@ class DashboardController extends Controller
                                     ->get();
                 $jumlah_kain = 0;
                 foreach($jumlah_kain_db as $kain) $jumlah_kain += $kain->jumlah_bahan;
-                
+
                 $jumlah_kain_lalu_db = Bahan::selectRaw('MAX(panjang_bahan) as jumlah_bahan')
                                     ->whereMonth('tanggal_masuk', $bulanlalu)
                                     ->whereYear('tanggal_masuk', $tahun)
@@ -76,8 +76,8 @@ class DashboardController extends Controller
                 $berhasil_cuci  = Cuci::whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->sum('berhasil_cuci');
                 $hasil_cutting  = Potong::whereMonth('tanggal_cutting', $bulan)->whereYear('tanggal_cutting', $tahun)->sum('hasil_cutting');
                 $berhasil_jahit = Jahit::whereMonth('tanggal_jahit', $bulan)->whereYear('tanggal_jahit', $tahun)->sum('berhasil');
-                $cucidibuang    = CuciDibuang::whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->count();
-                $jahitdibuang   = JahitDibuang::whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->count();
+                $cucidibuang    = CuciDibuang::whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->sum('jumlah');
+                $jahitdibuang   = JahitDibuang::whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->sum('jumlah');
                 $gagal_jahit    = Jahit::whereMonth('tanggal_selesai', $bulan)->whereYear('tanggal_selesai', $tahun)->sum('gagal_jahit');
                 $baju_rusak     = $cucidibuang + $jahitdibuang;
                 $reslalu        = $jumlah_kain - $jumlah_kain_lalu;
@@ -235,7 +235,7 @@ class DashboardController extends Controller
                         ->detail_produk
                         ->avg('harga');
                     }
-                    
+
                 }
                 // dd($warehouse);
 
@@ -282,7 +282,7 @@ class DashboardController extends Controller
                     'data'  => $datapie
                 ];
 
-            
+
                 $bar = DetailWarehouse::select(
                     DB::raw('sum(jumlah) as jumlah'),
                     DB::raw("DATE_FORMAT(created_at,'%M %Y') as months")

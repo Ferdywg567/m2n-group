@@ -76,7 +76,7 @@
                                                         <td>
                                                             <ul class="list-unstyled">
                                                                 @forelse ($item->detail_transaksi as $row)
-                                                                    <li>{{ $row->produk->nama_produk }}</li>
+                                                                    <li>{{ $row->produk->nama_produk . " - $row->ukuran"}} </li>
                                                                 @empty
                                                                 @endforelse
                                                             </ul>
@@ -173,7 +173,7 @@
                                                         <td>
                                                             <ul class="list-unstyled">
                                                                 @forelse ($item->detail_transaksi as $row)
-                                                                    <li>{{ $row->produk->nama_produk }}</li>
+                                                                    <li>{{ $row->produk->nama_produk . " - $row->ukuran"}}</li>
                                                                 @empty
                                                                 @endforelse
                                                             </ul>
@@ -265,7 +265,7 @@
                                                         <td>
                                                             <ul class="list-unstyled">
                                                                 @forelse ($item->detail_transaksi as $row)
-                                                                    <li>{{ $row->produk->nama_produk }}</li>
+                                                                    <li>{{ $row->produk->nama_produk . " - $row->ukuran" }}</li>
                                                                 @empty
                                                                 @endforelse
                                                             </ul>
@@ -366,7 +366,7 @@
                                                         <td>
                                                             <ul class="list-unstyled">
                                                                 @forelse ($item->detail_transaksi as $row)
-                                                                    <li>{{ $row->produk->nama_produk }}</li>
+                                                                    <li>{{ $row->produk->nama_produk . " - $row->ukuran" }}</li>
                                                                 @empty
                                                                 @endforelse
                                                             </ul>

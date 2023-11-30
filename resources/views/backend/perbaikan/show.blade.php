@@ -5,6 +5,9 @@
 @section('perbaikan', 'class=active-sidebar')
 
 @section('content')
+{{-- @php
+    dd($repair)
+@endphp --}}
     <style>
         textarea {
             width: 300px;
@@ -152,7 +155,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    @if (!$repair->detail_jahit_repair->isEmpty())
+                                    @if (!count($repair->detail_jahit_repair))
                                         <div class="form-group">
                                             <label for="ukurandirepair" class="text-dark">Ukuran Jahitan yang
                                                 Diperbaiki</label>
@@ -186,7 +189,7 @@
                                 </div>
                         </div>
                         @endif
-                        @if (!$repair->detail_cuci_repair->isEmpty())
+                        @if (!count($repair->detail_cuci_repair))
                             <div class="form-group">
                                 <label for="ukurandirepair" class="text-dark">Ukuran Cuci yang
                                     Diperbaiki</label>

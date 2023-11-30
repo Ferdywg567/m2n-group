@@ -27,7 +27,7 @@ class TransaksiController extends Controller
     public function index()
     {
         $belumbayar = Transaksi::where('status_bayar', 'belum dibayar')->orwhere('status_bayar', 'sudah di upload')->orderBy('created_at', 'DESC')->get();
-        $sudahbayar = Transaksi::where('status_bayar', 'sudah dibayar')->where('status', '!=', 'dikirim')->where('status', '!=', 'telah tiba')->orderBy('created_at', 'DESC')->get();
+        $sudahbayar = Transaksi::where('status_bayar', 'sudah dibayar')->whereNotIn('status', ['dikirim','refund','retur', 'telah tiba'])->orderBy('created_at', 'DESC')->get();
         $dikirim = Transaksi::where('status', 'dikirim')->orderBy('created_at', 'DESC')->get();
         $selesai = Transaksi::whereIn('status', ['telah tiba', 'retur', 'refund'])->orWhere('status_bayar','dibatalkan')->orderBy('created_at', 'DESC')->get();
         return view('ecommerce.admin.transaksi.index', [
@@ -94,7 +94,7 @@ class TransaksiController extends Controller
                             }else{
                                 $ukuran = [$value->ukuran];
                             }
-                            
+
                             $produk = Produk::findOrFail($value->produk_id);
                             $jumproduk = DetailProduk::where('produk_id', $produk->id)->whereIn('ukuran', $ukuran)->count();
                             $produk->stok = $produk->stok - ($jumproduk * $value->jumlah);
@@ -135,7 +135,7 @@ class TransaksiController extends Controller
                 ]);
             } catch (\Exception $th) {
                 //throw $th;
-                
+
                 DB::rollBack();
                 dd($th->getMessage());
             }
@@ -234,11 +234,11 @@ class TransaksiController extends Controller
             $trx->save();
 
             foreach($trx->detail_transaksi as $detail){
-            
+
                 $finishing = $detail->produk->warehouse->finishing;
                 $produk = $detail->produk;
                 $warehouse = $produk->warehouse;
-                
+
                 $retur = new Retur;
                 $retur->finishing_id = $finishing->id;
                 $retur->tanggal_masuk = date('Y-m-d');
@@ -258,11 +258,11 @@ class TransaksiController extends Controller
                     $dWarehouse = DetailWarehouse::where('warehouse_id', $warehouse->id)
                         ->where('ukuran', $d)->first();
 
-                    if($dProduk->jumlah >= $detail->jumlah and $dWarehouse->jumlah >= $detail->jumlah){
-                        $dProduk->jumlah = $dProduk->jumlah - $detail->jumlah;
+                    if($dProduk->jumlah >= $detail->jumlah && $dWarehouse->jumlah >= $detail->jumlah){
+                        $dProduk->jumlah = $dProduk->jumlah + $detail->jumlah;
                         $dProduk->save();
 
-                        $dWarehouse->jumlah = $dWarehouse->jumlah - $detail->jumlah;
+                        $dWarehouse->jumlah = $dWarehouse->jumlah + $detail->jumlah;
                         $dWarehouse->save();
                     }else{
                         DB::rollBack();
@@ -292,11 +292,11 @@ class TransaksiController extends Controller
         try{
             $trx->status = "refund";
             $trx->save();
-            
+
             foreach($trx->detail_transaksi as $detail){
-            
+
                 $finishing = $detail->produk->warehouse->finishing;
-                
+
                 $retur = new Retur;
                 $retur->finishing_id = $finishing->id;
                 $retur->tanggal_masuk = date('Y-m-d');
