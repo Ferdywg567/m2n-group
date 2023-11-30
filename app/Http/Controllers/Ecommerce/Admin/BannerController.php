@@ -51,6 +51,7 @@ class BannerController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
         $validator = Validator::make($request->all(), [
             'nama_promo' => 'required',
             'promo_mulai' => 'required|date_format:"Y-m-d"',
