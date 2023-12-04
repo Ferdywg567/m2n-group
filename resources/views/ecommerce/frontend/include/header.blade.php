@@ -40,7 +40,7 @@
                                 <div class="search-wrap-3">
                                     <form action="{{ route('frontend.product.show_cari') }}">
                                         <input placeholder="Cari Produk...." type="text" id="search" name="cari">
-                                        <button type="submit"><i class="lnr lnr-magnifier"></i></button>
+                                        <button type="submit" class="d-flex justify-content-center align-items-center"><i class="lnr lnr-magnifier"></i></button>
                                     </form>
                                 </div>
                             </div>
@@ -48,7 +48,7 @@
                         {{-- same-style-2-font-inc --}}
                         <div class="col-xl-4 col-lg-4">
                             <div class="header-action header-action-flex float-left">
-                                <div class="same-style-2 header-item header-cart mt-1">
+                                <div class="same-style-2 d-flex justify-content-center align-items-center header-item header-cart">
 
 
                                     @if (auth()->check())
@@ -70,7 +70,7 @@
 
 
                                 </div>
-                                <div class="same-style-2 header-item mt-1">
+                                <div class="same-style-2 d-flex justify-content-center align-items-center header-item mt-1">
                                     @if (auth()->check())
                                         @if (auth()->user()->hasRole('ecommerce'))
                                             <a class="header-icon" href="{{ route('frontend.notifikasi.index') }}">
@@ -85,7 +85,7 @@
 
                                     @endif
                                 </div>
-                                <div class="same-style-2 header-item mt-1">
+                                <div class="same-style-2 d-flex justify-content-center align-items-center header-item">
                                     <a href="#">|</a>
                                 </div>
                                 <div class="same-style-2 header-item same-style-2-font-inc">

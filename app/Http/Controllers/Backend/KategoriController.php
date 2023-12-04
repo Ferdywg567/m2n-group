@@ -19,8 +19,8 @@ class KategoriController extends Controller
     public function index()
     {
         $kategori = Kategori::orderBy('created_at', 'DESC')->get();
-        $sub = SubKategori::orderBy('created_at', 'DESC')->get();
-        $detail = DetailSubKategori::orderBy('created_at', 'DESC')->get();
+        $sub      = SubKategori::orderBy('created_at', 'DESC')->get();
+        $detail   = DetailSubKategori::orderBy('created_at', 'DESC')->get();
         return view("backend.kategori.index", ['kategori' => $kategori, 'sub' => $sub, 'detail' => $detail]);
     }
 
@@ -62,13 +62,13 @@ class KategoriController extends Controller
             $validator = Validator::make($request->all(), [
                 'kategori_utama' => 'required',
                 'sub_kategori.*' => 'required',
-                'sku.*' => 'required',
+                'sku.*'          => 'required',
             ]);
         } else if ($status == 'detail sub kategori') {
             $validator = Validator::make($request->all(), [
-                'sub_kategori' => 'required',
+                'sub_kategori'          => 'required',
                 'detail_sub_kategori.*' => 'required',
-                'sku.*' => 'required',
+                'sku.*'                 => 'required',
             ]);
         }
 
@@ -77,45 +77,34 @@ class KategoriController extends Controller
             return redirect()->back()->withErrors($validator->errors());
         } else {
             if ($status == 'kategori') {
-                $kategori = new Kategori();
+                $kategori                = new Kategori();
                 $kategori->nama_kategori = $request->get('nama_kategori');
-                $kategori->sku = $request->get('sku');
+                $kategori->sku           = $request->get('sku');
                 $kategori->save();
             } elseif ($status == 'sub kategori') {
                 $sku = $request->get('sku');
                 $kategori = $request->get('sub_kategori');
                 foreach ($sku as $key => $value) {
-                    $sub = new SubKategori();
-                    $sub->kategori_id = $request->get('kategori_utama');
+                    $sub                = new SubKategori();
+                    $sub->kategori_id   = $request->get('kategori_utama');
                     $sub->nama_kategori = $kategori[$key];
-                    $sub->sku = $value;
+                    $sub->sku           = $value;
                     $sub->save();
                 }
             } elseif ($status == 'detail sub kategori') {
                 $sku = $request->get('sku');
                 $kategori = $request->get('detail_sub_kategori');
                 foreach ($sku as $key => $value) {
-                    $sub = new DetailSubKategori();
+                    $sub                  = new DetailSubKategori();
                     $sub->sub_kategori_id = $request->get('sub_kategori');
-                    $sub->nama_kategori = $kategori[$key];
-                    $sub->sku = $value;
+                    $sub->nama_kategori   = $kategori[$key];
+                    $sub->sku             = $value;
                     $sub->save();
                 }
             }
 
             return redirect()->route('kategori.index')->with('success', 'kategori berhasil disimpan');
         }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**
@@ -132,18 +121,6 @@ class KategoriController extends Controller
             return response()->json(['data' => $kategori, 'status' => true]);
         }
         return view('backend.kategori.kategori.edit', ['kategori' => $kategori]);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
     }
 
     /**
@@ -262,17 +239,24 @@ class KategoriController extends Controller
                     'data' => $html
                 ]);
             } else {
-                $file = $request->file('file');
-                $kategori = new Kategori();
+                $file                    = $request->file('file');
+                $kategori                = new Kategori();
                 $kategori->nama_kategori = $request->get('nama_kategori');
-                $kategori->sku = $request->get('sku');
-                $imageName = strtotime(now()) . rand(11111, 99999) . '.' . $file->getClientOriginalExtension();
-                $file->move(public_path() . '/uploads/images/kategori/', $imageName);
-                $kategori->gambar = $imageName;
+                $kategori->sku           = $request->get('sku');
+
+                if ($file) {
+                    $imageName               = strtotime(now()) . rand(11111, 99999) . '.' . $file->getClientOriginalExtension();
+                    $file->move(public_path() . '/uploads/images/kategori/', $imageName);
+
+                    $kategori->gambar = $imageName;
+                } else {
+                    $kategori->gambar = 'https://ui-avatars.com/api?name=' . urlencode($kategori->nama_kategori) . '&background=random';
+                }
+
                 $kategori->save();
                 $request->session()->flash('success', 'Kategori berhasil disimpan!');
                 return response()->json([
-                    'status' => true,
+                    'status'  => true,
                     'message' => 'saved',
 
                 ]);
@@ -287,20 +271,20 @@ class KategoriController extends Controller
         if ($status == 'kategori') {
             $validator = Validator::make($request->all(), [
                 'file' => 'nullable|file',
-                'id' => 'required',
+                'id'   => 'required',
             ]);
 
             if ($validator->fails()) {
                 $html = '<div class="alert alert-danger" role="alert">' . $validator->errors()->first() . '</div>';
                 return response()->json([
                     'status' => false,
-                    'data' => $html
+                    'data'   => $html
                 ]);
             } else {
 
                 $kategori = Kategori::findOrFail($id);
                 if ($request->hasFile('file')) {
-                    if(!empty($kategori->gambar)){
+                    if (!empty($kategori->gambar)) {
                         unlink(public_path('uploads/images/kategori/' . $kategori->gambar));
                     }
                     $file = $request->file('file');
@@ -311,7 +295,7 @@ class KategoriController extends Controller
                 $kategori->save();
                 $request->session()->flash('success', 'Kategori berhasil diupdate!');
                 return response()->json([
-                    'status' => true,
+                    'status'  => true,
                     'message' => 'saved',
 
                 ]);

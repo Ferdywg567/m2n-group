@@ -111,9 +111,9 @@
             <div class="breadcrumb-content text-left">
                 <ul>
                     <li>
-                        <a href="{{ route('landingpage.index') }}">Beranda</a>
+                        <a href="javascript:void(0);">{{ $produk->kategori }}</a>
                     </li>
-                    <li class="active">Detail Produk</li>
+                    <li class="active">{{ $produk->sub_kategori }}</li>
                 </ul>
             </div>
         </div>
@@ -338,7 +338,7 @@
                                                     <h5><span>{{ $row->user->name }}</span> -
                                                         {{ date('d F, Y', strtotime($row->created_at)) }}</h5>
                                                 </div>
-                                                <div class="review-rating text-right">
+                                                <div class="review-rating text-right ml-2">
                                                     @for ($i = 1; $i <= 5; $i++)
                                                         @if (round($row->rating) >= $i)
                                                             <i class="yellow icon_star"></i>
@@ -517,7 +517,7 @@
                                             <span>({{ \AppHelper::instance()->avg_ulasan($item->id) }})</span>
                                         </div>
                                         <div class="pro-add-to-cart pb-10">
-                                            <a href="{{route('frontend.product.show',[$item->id])}}"
+                                            <a href="{{ route('frontend.product.show', [$item->id]) }}"
                                                 class="btn btn-primary btn-block">Lihat Produk</a>
                                         </div>
                                     </div>

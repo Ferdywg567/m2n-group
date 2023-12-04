@@ -43,10 +43,10 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <a href="{{ route('ecommerce.dashboard.transaksi') }}">
                     <div class="card card-statistic-1">
-                        <div class="card-icon" style="background-color: rgba(26, 152, 255, 0.3);
+                        <div class="card-icon d-flex justify-content-center align-items-center" style="background-color: rgba(26, 152, 255, 0.3);
                                                     border-radius: 8px;">
                             <img src="{{ asset('assets/icon/pendapatan.png') }}" alt="" srcset="">
                         </div>
@@ -64,27 +64,9 @@
                 </a>
 
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="card card-statistic-1">
-                    <div class="card-icon" style="background-color: rgba(51, 199, 88, 0.3);
-                                                    border-radius: 8px;">
-                        <img src="{{ asset('assets/icon/transaksi.png') }}" alt="" srcset="">
-                    </div>
-                    <div class="card-wrap">
-                        <div class="card-header">
-                            <h4 class="size10" style="margin-top: -6px !important">Transaksi Online</h4>
-                        </div>
-                        <div class="card-body">
-                            <h4 id="transaksiOnlineCard" class="label-data" style="margin-top: 6px !important">
-                                {{ $transaksi }}
-                            </h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card card-statistic-1">
-                    <div class="card-icon " style="background-color: rgba(26, 205, 255, 0.30);
+                    <div class="card-icon d-flex justify-content-center align-items-center " style="background-color: rgba(26, 205, 255, 0.30);
                                             border-radius: 8px;">
                         <img src="{{ asset('assets/icon/t-shirt-fill-biru.png') }}" alt="" srcset="">
                     </div>
@@ -95,6 +77,78 @@
                         <div class="card-body">
                             <h4 id="totalProdukOnlineCard" class="label-data" style="margin-top: 6px !important">
                                 {{ $produk }}
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card card-statistic-1">
+                    <div class="card-icon d-flex justify-content-center align-items-center" style="background-color: rgba(51, 199, 88, 0.3);
+                                                    border-radius: 8px;">
+                        <img src="{{ asset('assets/icon/transaksi.png') }}" alt="" srcset="">
+                    </div>
+                    <div class="card-wrap">
+                        <div class="card-header">
+                            <h4 class="size10" style="margin-top: -6px !important">Transaksi Belum Bayar</h4>
+                        </div>
+                        <div class="card-body">
+                            <h4 id="belum-dibayar-card" class="label-data" style="margin-top: 6px !important">
+                                {{ $transaksi['belum_dibayar'] }}
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card card-statistic-1">
+                    <div class="card-icon d-flex justify-content-center align-items-center" style="background-color: rgba(51, 199, 88, 0.3);
+                                                    border-radius: 8px;">
+                        <img src="{{ asset('assets/icon/transaksi.png') }}" alt="" srcset="">
+                    </div>
+                    <div class="card-wrap">
+                        <div class="card-header">
+                            <h4 class="size10" style="margin-top: -6px !important">Transaksi Belum Dikirim</h4>
+                        </div>
+                        <div class="card-body">
+                            <h4 id="belum-dikirim-card" class="label-data" style="margin-top: 6px !important">
+                                {{ $transaksi['belum_dikirim'] }}
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card card-statistic-1">
+                    <div class="card-icon d-flex justify-content-center align-items-center" style="background-color: rgba(51, 199, 88, 0.3);
+                                                    border-radius: 8px;">
+                        <img src="{{ asset('assets/icon/transaksi.png') }}" alt="" srcset="">
+                    </div>
+                    <div class="card-wrap">
+                        <div class="card-header">
+                            <h4 class="size10" style="margin-top: -6px !important">Transaksi Dikirim</h4>
+                        </div>
+                        <div class="card-body">
+                            <h4 id="dikirim-card" class="label-data" style="margin-top: 6px !important">
+                                {{ $transaksi['dikirim'] }}
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card card-statistic-1">
+                    <div class="card-icon d-flex justify-content-center align-items-center" style="background-color: rgba(51, 199, 88, 0.3);
+                                                    border-radius: 8px;">
+                        <img src="{{ asset('assets/icon/transaksi.png') }}" alt="" srcset="">
+                    </div>
+                    <div class="card-wrap">
+                        <div class="card-header">
+                            <h4 class="size10" style="margin-top: -6px !important">Transaksi Selesai</h4>
+                        </div>
+                        <div class="card-body">
+                            <h4 id="selesai-card" class="label-data" style="margin-top: 6px !important">
+                                {{ $transaksi['selesai'] }}
                             </h4>
                         </div>
                     </div>
@@ -293,8 +347,12 @@
                             var pendapatan = data.pendapatan;
                             var produk = data.produk;
                             $('#pendapatanOnlineCard').text("Rp. "+convertToRupiah(pendapatan))
-                            $('#transaksiOnlineCard').text(transaksi)
                             $('#totalProdukOnlineCard').text(produk)
+
+                            $('#belum-dibayar-card').text(transaksi['belum_dibayar'])
+                            $('#belum-dikirim-card').text(transaksi['belum_dikirim'])
+                            $('#dikirim-card').text(transaksi['dikirim'])
+                            $('#selesai-card').text(transaksi['selesai'])
                         }
                     }
                 })

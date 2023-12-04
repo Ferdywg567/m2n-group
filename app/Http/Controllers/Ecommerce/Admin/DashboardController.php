@@ -58,20 +58,28 @@ class DashboardController extends Controller
                 ->groupBy(DB::raw("DATE_FORMAT(created_at, '%m-%Y')"))->limit(10)
                 ->get();
             $pendapatan = Transaksi::where('status_bayar', 'sudah dibayar')->whereMonth('created_at', $bulan)
-            ->whereYear('created_at', $tahun)
-            ->sum('total_harga');
-            $transaksi = Transaksi::whereMonth('created_at', $bulan)->where('status_transaksi', 'online')
-            ->whereYear('created_at', $tahun)
-            ->count();
+                ->whereYear('created_at', $tahun)
+                ->sum('total_harga');
+            // $transaksi = Transaksi::whereMonth('created_at', $bulan)->where('status_transaksi', 'online')
+            //     ->whereYear('created_at', $tahun)
+            //     ->count();
+            $transaksi['belum_dibayar'] = Transaksi::whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->where('status_transaksi', 'online')->whereNull('bukti_bayar')->count();
+
+            $transaksi['belum_dikirim'] = Transaksi::whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->where('status_transaksi', 'online')->where('status_bayar', 'sudah dibayar')->where('status', 'butuh konfirmasi')->count();
+
+            $transaksi['dikirim'] = Transaksi::whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->where('status_transaksi', 'online')->whereIn('status', ['dikirim', 'retur'])->count();
+
+            $transaksi['selesai'] = Transaksi::whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->where('status_transaksi', 'online')->where('status', 'telah tiba')->count();
+
             $produk = Produk::whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->count();
             return response()->json([
-                'offline' => $offline,
-                'online' => $online,
-                'semua' => $semua,
+                'offline'    => $offline,
+                'online'     => $online,
+                'semua'      => $semua,
                 'pendapatan' => $pendapatan,
-                'transaksi' => $transaksi,
-                'produk' => $produk,
-                'status' => true
+                'transaksi'  => $transaksi,
+                'produk'     => $produk,
+                'status'     => true
             ]);
         }
 
@@ -81,20 +89,31 @@ class DashboardController extends Controller
         $pendapatan = Transaksi::where('status_bayar', 'sudah dibayar')->whereMonth('created_at', $bulan)
             ->whereYear('created_at', $tahun)
             ->sum('total_harga');
-        $transaksi = Transaksi::whereMonth('created_at', $bulan)->where('status_transaksi', 'online')
-            ->whereYear('created_at', $tahun)
-            ->count();
         $produk = Produk::whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->count();
         $tahun = [];
+
+        $transaksi['belum_dibayar'] = Transaksi::whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->where('status_transaksi', 'online')->whereNull('bukti_bayar')->count();
+
+        $transaksi['belum_dikirim'] = Transaksi::whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->where('status_transaksi', 'online')->where('status_bayar', 'sudah dibayar')->where('status', 'butuh konfirmasi')->count();
+
+        $transaksi['dikirim'] = Transaksi::whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->where('status_transaksi', 'online')->whereIn('status', ['dikirim', 'retur'])->count();
+
+        $transaksi['selesai'] = Transaksi::whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->where('status_transaksi', 'online')->where('status', 'telah tiba')->count();
 
         for ($i = 2018; $i <= date('Y'); $i++) {
             array_push($tahun, $i);
         }
 
+        // dd($transaksi);
+
         $month = array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
-        return view("ecommerce.admin.dashboard.index", ['pendapatan' => $pendapatan,
-        'transaksi' => $transaksi, 'produk' => $produk,
-        'month' => $month, 'tahun' => $tahun]);
+        return view("ecommerce.admin.dashboard.index", [
+            'pendapatan' => $pendapatan,
+            'transaksi'  => $transaksi,
+            'produk'     => $produk,
+            'month'      => $month,
+            'tahun'      => $tahun
+        ]);
     }
 
     /**

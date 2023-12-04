@@ -65,14 +65,14 @@
                                                                             style="font-size: 12px">Pembelian
                                                                             {{ date(
                                                                                 'j F
-                                                                                                                                                                                                                                                                                                                                                                                Y',
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        Y',
                                                                                 strtotime($item->created_at),
                                                                             ) }}
                                                                         </h6>
                                                                     </div>
                                                                     <div class="col-md-3 text-left">
                                                                         <h6 class="card-title font-weight-bold"
-                                                                            style="font-size: 12px; color:#FF3B30">
+                                                                            style="font-size: 12px;">
                                                                             {{ $item->kode_transaksi }}</h6>
                                                                     </div>
                                                                     <div class="col-md-4 text-right">
@@ -177,14 +177,13 @@
                                                                 <div class="row">
                                                                     <div class="col-md-12">
                                                                         <h5 class="card-title font-weight-bold ">
-                                                                            <span class="mr-4"> Pembelian
-                                                                                {{ date(
-                                                                                    'j F
-                                                                                                                                                                                                                                                                                                                                                                                                            Y',
-                                                                                    strtotime($item->created_at),
-                                                                                ) }}</span>
-                                                                            <span class="mr-4"
-                                                                                style="color:#FF3B30">{{ $item->kode_transaksi }}</span>
+                                                                            <span class="mr-4">
+                                                                                Pembelian
+                                                                                {{ date('j F Y', strtotime($item->created_at)) }}
+                                                                            </span>
+                                                                            <span class="mr-4" style="">
+                                                                                {{ $item->kode_transaksi }}
+                                                                            </span>
                                                                             @if ($item->status_bayar == 'sudah di upload')
                                                                                 <span
                                                                                     class="badge badge-warning p-2">MENUNGGU
@@ -221,10 +220,13 @@
                                                                         @forelse ($item->detail_transaksi as $row)
                                                                             <div class="row mt-1">
                                                                                 <div class="col-md-4">
-                                                                                    <img src="{{ asset('uploads/images/produk/' . $row->produk->detail_gambar[0]->filename) }}"
-                                                                                        class="rounded" alt=""
-                                                                                        style="width: 100%"
-                                                                                        srcset="">
+                                                                                    <a
+                                                                                        href="{{ route('frontend.product.show', [$row->produk->id]) }}">
+                                                                                        <img src="{{ asset('uploads/images/produk/' . $row->produk->detail_gambar[0]->filename) }}"
+                                                                                            class="rounded" alt=""
+                                                                                            style="width: 100%"
+                                                                                            srcset="">
+                                                                                    </a>
                                                                                 </div>
                                                                                 <div class="col-md-8">
                                                                                     <h5 class="font-weight-bold mt-2">
@@ -378,10 +380,14 @@
                         <input type="hidden" name="rating" id="rating">
                         <h3 class="text-center mt-2 mb-4">
 
-                            <i class="icon_star submit_star" style="margin-right:.1rem" id="submit_star_1" data-rating="1"></i>
-                            <i class="icon_star submit_star" style="margin-right:.1rem" id="submit_star_2" data-rating="2"></i>
-                            <i class="icon_star submit_star" style="margin-right:.1rem" id="submit_star_3" data-rating="3"></i>
-                            <i class="icon_star submit_star" style="margin-right:.1rem" id="submit_star_4" data-rating="4"></i>
+                            <i class="icon_star submit_star" style="margin-right:.1rem" id="submit_star_1"
+                                data-rating="1"></i>
+                            <i class="icon_star submit_star" style="margin-right:.1rem" id="submit_star_2"
+                                data-rating="2"></i>
+                            <i class="icon_star submit_star" style="margin-right:.1rem" id="submit_star_3"
+                                data-rating="3"></i>
+                            <i class="icon_star submit_star" style="margin-right:.1rem" id="submit_star_4"
+                                data-rating="4"></i>
                             <i class="icon_star submit_star" id="submit_star_5" data-rating="5"></i>
                         </h3>
 
